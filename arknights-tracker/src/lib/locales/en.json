@@ -76,7 +76,11 @@
     "successAlert": "Successfully imported {count} records!",
     "newFound": "New records found",
     "dataAnalysys": "Data analysis...",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "fetchBtn": "Import",
+    "urlLabel": "Paste URL",
+    "enableGlobalStats": "Send history to global statistics",
+    "scriptInstruction": "Copy the script below, open PowerShell, paste, and press Enter. The URL will be copied automatically:"
   },
   "characters": {
     "endministrator1": "Endministrator",
@@ -292,5 +296,9 @@
     "bloodcap": "Bloodcap",
     "metadiastimaPhotoemissionTube": "Metadiastima Photoemission Tube",
     "blightedJadeleaf": "Blighted Jadeleaf"
+  },
+  "common": {
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }
