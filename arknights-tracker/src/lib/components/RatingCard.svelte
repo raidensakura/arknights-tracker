@@ -50,16 +50,19 @@
   }
 
   async function loadRankings(poolId) {
-    // Clear previous stats while loading
-    rankTotal = null;
-    rankLuck6 = null;
-    rank5050 = null;
+    rankTotal = null; rankLuck6 = null; rank5050 = null;
 
-    // TODO: Replace with real UID from your store/auth
-    const uid = "u_12345_placeholder";
+    // Читаем UID из localStorage
+    const uid = localStorage.getItem("user_uid");
 
-    // Safety check to prevent fetch if variables aren't ready
-    if (!uid || !poolId) return;
+    // Если пользователь еще ни разу не импортировал, uid не будет
+    if (!uid) {
+        // Можно тут ничего не делать, тогда будет "---"
+        // Или console.log("Сначала сделайте импорт");
+        return; 
+    }
+    
+    if (!poolId) return;
 
     const data = await fetchGlobalStats(uid, poolId);
 

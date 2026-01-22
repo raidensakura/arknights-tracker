@@ -4,8 +4,12 @@
     import { pullData } from "$lib/stores/pulls";
     import { parseGachaLog } from "$lib/utils/importUtils";
     import { proxyImport } from "$lib/api";
+    
+    // COMPONENTS
     import Button from "$lib/components/Button.svelte";
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
+    import Tooltip from "$lib/components/Tooltip.svelte"; 
+    import Icon from "$lib/components/Icons.svelte";
 
     let urlInput = "";
     let isLoading = false;
@@ -13,31 +17,45 @@
     let pendingData = null; 
     let errorMsg = "";
     let isGlobalStatsEnabled = true;
+    
+    // Состояние ошибки валидации (пустое поле)
+    let isInputError = false;
 
-    // Скрипт
-    const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
+    const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/main/endfield-url.ps1')}"`;
 
-    // Ваши функции (handleUrlImport, confirmSave, clearData) оставляем как есть
+    // --- ЛОГИКА ---
     async function handleUrlImport() {
-        if (!urlInput) return;
+        // Сброс
+        errorMsg = "";
+        isInputError = false;
+
+        // ВАЛИДАЦИЯ
+        if (!urlInput || !urlInput.trim()) {
+            isInputError = true;
+            errorMsg = $t("import.emptyError") || "Link is required";
+            return;
+        }
+
         isLoading = true;
         previewReport = null;
         pendingData = null;
-        errorMsg = "";
+        
         try {
             const response = await proxyImport(urlInput, isGlobalStatsEnabled);
             if (response.code === 0 && response.data?.list) {
+                if (response.data.uid) localStorage.setItem("user_uid", response.data.uid);
+                
                 const rawData = response.data.list;
                 const cleanPulls = parseGachaLog(rawData);
                 pendingData = cleanPulls;
                 const report = await pullData.smartImport(cleanPulls, true);
                 previewReport = report;
             } else {
-                errorMsg = $t("import.noData") || "No pulls found or invalid token.";
+                errorMsg = $t("import.noData") || "No pulls found.";
             }
         } catch (err) {
             console.error(err);
-            errorMsg = "Import error: " + err.message;
+            errorMsg = "Error: " + err.message;
         } finally {
             isLoading = false;
         }
@@ -50,20 +68,29 @@
             await pullData.smartImport(pendingData, false);
             goto("/records");
         } catch (err) {
-            errorMsg = "Save error: " + err.message;
+            errorMsg = err.message;
             isLoading = false;
         }
     }
 
     function clearData() {
-        if (confirm($t("page.clearConfirm"))) {
+        if (confirm($t("page.clearConfirm") || "Clear all data?")) {
             pullData.clear();
             window.location.reload();
+        }
+    }
+
+    // [FIX] Исправлено: очищаем и текст ошибки тоже
+    function handleInput() {
+        if (isInputError) {
+            isInputError = false;
+            errorMsg = ""; 
         }
     }
 </script>
 
 <div class="max-w-[1600px] justify-start">
+    
     <div class="flex items-center gap-4 mb-8">
         <Button variant="roundSmall" color="white" onClick={() => goto("/records")}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -75,118 +102,180 @@
         </h2>
     </div>
 
-    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 relative overflow-hidden min-h-[400px]">
+    <div class="bg-white p-8 md:p-12 rounded-xl shadow-sm border border-gray-100 relative min-h-[400px]">
         
-        {#if isLoading}
-            <div class="absolute inset-0 bg-white/90 z-50 flex flex-col items-center justify-center transition-opacity duration-300">
-                <div class="w-12 h-12 border-4 border-gray-200 border-t-[#FFE145] rounded-full animate-spin mb-4"></div>
-                <div class="text-gray-600 font-bold animate-pulse">
-                    {pendingData && !previewReport ? $t("import.dataAnalysys") : $t("import.fetching")}
+        <div class="ml-2">
+            
+            <div class="relative border-l-2 border-gray-200 pb-10 pl-10">
+                <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">
+                    1
+                </div>
+                
+                <p class="text-lg text-[#21272C] font-medium pt-1">
+                    {$t("import.step1")}
+                </p>
+            </div>
+
+            <div class="relative border-l-2 border-gray-200 pb-8 pl-10">
+                <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">
+                    2
+                </div>
+
+                <div class="text-lg text-[#21272C] mb-4 pt-1 font-medium leading-relaxed">
+                    {$t("import.step2_pre")}
+                    
+                    <span class="inline-block">
+                        <Tooltip text={$t("import.ps_tooltip")} class="justify-center">
+                            <span 
+                                class="font-bold text-black border-b-2 border-[#FFE145] hover:bg-[#FFE145] transition-colors px-1"
+                            >
+                                {$t("import.step2_ps")}
+                            </span>
+                        </Tooltip>
+                    </span>
+
+                    {$t("import.step2_post")}
+                </div>
+
+                <div class="mb-3 max-w-4xl">
+                    <PowershellBlock script={powerShellScript} />
+                </div>
+
+                <div class="text-right max-w-4xl mt-2">
+                    <a 
+                        href="https://github.com/ivaqis/arknights-pull-url" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-black transition-colors group"
+                    >
+                        <span class="underline decoration-gray-300 group-hover:decoration-black transition-all">
+                            {$t("import.script_details")}
+                        </span>
+                        <div class="text-gray-400 group-hover:text-black transition-colors">
+                            <Icon name="sendToLink" style="width: 14px; height: 14px;" />
+                        </div>
+                    </a>
                 </div>
             </div>
-        {/if}
 
-        <div class="mb-8">
-            <label class="block text-sm font-bold text-gray-700 mb-2">
-                {$t("import.scriptInstruction")}
-            </label>
+            <div class="relative border-l-2 border-transparent pl-10">
+                <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">
+                    3
+                </div>
 
-            <div class="mb-6 max-w-[700px]">
-                <PowershellBlock script={powerShellScript} />
-            </div>
+                <p class="text-lg text-[#21272C] font-medium mb-4 pt-1">
+                    {$t("import.step3")}
+                </p>
 
-            <label for="url-input" class="block text-sm font-bold text-gray-700 mb-2">
-                {$t("import.urlLabel")}
-            </label>
-            <input
-                id="url-input"
-                type="text"
-                bind:value={urlInput}
-                placeholder="https://ef-webview.gryphline.com/..."
-                class="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-lg focus:border-[#FFE145] outline-none transition-all font-mono text-xs mb-4"
-            />
-
-            <div class="flex items-center gap-2">
-                <input type="checkbox" id="global-stats" bind:checked={isGlobalStatsEnabled} class="w-4 h-4 text-[#FFE145] rounded border-gray-300 focus:ring-[#FFE145]">
-                <label for="global-stats" class="text-sm text-gray-600 cursor-pointer select-none">
-                    {$t("import.enableGlobalStats") || "Отправить данные для глобальной статистики"}
-                </label>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-4 mb-6">
-            <div class="w-64">
-                <Button variant="yellow" onClick={handleUrlImport} disabled={!urlInput || isLoading}>
-                    <div slot="icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                    </div>
-                    {$t("import.fetchBtn")}
-                </Button>
-            </div>
-
-            <div class="w-16">
-                <Button variant="black" onClick={clearData}>
-                    <div slot="icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        </svg>
-                    </div>
-                </Button>
-            </div>
-        </div>
-
-        <div class="mt-8 transition-all duration-500">
-            {#if previewReport}
-                <div class="animate-in fade-in slide-in-from-top-4 duration-500">
-                    {#if previewReport.status === "up_to_date"}
-                        <div class="p-4 rounded-lg bg-green-50 border border-green-200">
-                            <div class="flex items-center gap-3 text-green-700 font-bold text-lg">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                {$t("import.statusUpToDate")}
-                            </div>
+                <div class="max-w-4xl mb-6 relative group">
+                    <input
+                        type="text"
+                        bind:value={urlInput}
+                        on:input={handleInput}
+                        placeholder={$t("import.placeholder")}
+                        class="w-full p-4 bg-gray-50 border-2 rounded-md outline-none transition-all font-mono text-sm text-gray-700 placeholder-gray-400
+                        {isInputError 
+                            ? 'border-red-500 focus:border-red-600 bg-red-50' 
+                            : 'border-gray-200 focus:bg-white focus:border-[#FFE145]'}"
+                    />
+                    {#if isInputError}
+                        <div class="absolute -bottom-6 left-0 text-red-500 text-xs font-bold animate-in fade-in slide-in-from-top-1">
+                            {$t("import.emptyError")}
                         </div>
-                    {:else if previewReport.status === "updated"}
-                        <div class="p-5 rounded-lg bg-gray-50 border border-gray-200">
-                            <h3 class="font-bold text-lg text-[#21272C] mb-4 flex items-center gap-2">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
-                                {$t("import.newFound")}
-                                <span class="text-[#D0926E] ml-1">+{previewReport.totalAdded}</span>
-                            </h3>
-                            <div class="space-y-2 mb-6 ml-1">
-                                {#each Object.entries(previewReport.addedCount) as [bannerId, count]}
-                                    <div class="flex justify-between items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md">
-                                        <span class="text-gray-700 font-medium">{$t(`banners.${bannerId}`) || bannerId}</span>
-                                        <span class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md">+{count}</span>
-                                    </div>
-                                {/each}
+                    {/if}
+                </div>
+
+                <label class="flex items-center gap-3 mb-8 select-none group cursor-pointer w-fit">
+                    <div class="relative flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="global-stats" 
+                            bind:checked={isGlobalStatsEnabled} 
+                            class="peer w-5 h-5 cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white checked:border-[#FFE145] checked:bg-[#FFE145] transition-all"
+                        >
+                        <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#21272C] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <span class="text-gray-600 group-hover:text-black transition-colors cursor-pointer font-medium">
+                        {$t("import.enableGlobalStats")}
+                    </span>
+                </label>
+
+                <div class="flex items-center gap-3">
+                    <div class="w-auto">
+                        <Button variant="yellow" onClick={handleUrlImport} disabled={isLoading}>
+                            <div slot="icon">
+                                {#if isLoading}
+                                    <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                                {:else}
+                                    <Icon name="import" style="width: 30px; height: 30px;" />
+                                {/if}
                             </div>
-                            <div class="w-48 animate-bounce-subtle">
+                            
+                            {#if isLoading}
+                                <span>...</span>
+                            {:else}
+                                <span>{$t("page.importBtn")}</span>
+                            {/if}
+                        </Button>
+                    </div>
+
+                    <div class="w-14">
+                        <Button variant="black" onClick={clearData}>
+                            <div slot="icon" class="flex justify-center items-center w-full h-full">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </div>
+                        </Button>
+                    </div>
+                </div>
+
+                <div class="mt-8 max-w-4xl transition-all duration-300">
+                     {#if errorMsg && !isInputError}
+                        <div class="p-4 bg-red-50 text-red-600 rounded-lg border border-red-100 flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            {errorMsg}
+                        </div>
+                    {/if}
+
+                    {#if previewReport}
+                         <div class="p-5 rounded-lg bg-gray-50 border border-gray-200 animate-in fade-in slide-in-from-bottom-2">
+                            {#if previewReport.status === "up_to_date"}
+                                <div class="flex items-center gap-3 text-green-700 font-bold text-lg mb-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                    {$t("import.statusUpToDate")}
+                                </div>
+                            {:else if previewReport.status === "updated"}
+                                <h3 class="font-bold text-lg text-[#21272C] mb-4 flex items-center gap-2">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                                    {$t("import.newFound")}
+                                    <span class="text-[#D0926E] ml-1">+{previewReport.totalAdded}</span>
+                                </h3>
+                                <div class="space-y-2 mb-6 ml-1">
+                                    {#each Object.entries(previewReport.addedCount) as [bannerId, count]}
+                                        <div class="flex justify-between items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md">
+                                            <span class="text-gray-700 font-medium">{$t(`banners.${bannerId}`) || bannerId}</span>
+                                            <span class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md">+{count}</span>
+                                        </div>
+                                    {/each}
+                                </div>
+                            {/if}
+
+                            <div class="w-48">
                                 <Button variant="black2" onClick={confirmSave}>
                                     <div slot="icon">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                                     </div>
-                                    {$t("buttons.saveBtn")}
+                                    {$t("buttons.saveBtn") || "Save"}
                                 </Button>
                             </div>
                         </div>
                     {/if}
                 </div>
-            {/if}
-
-            {#if errorMsg}
-                <div class="mt-4 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 animate-in shake">
-                    <div class="font-bold flex items-center gap-2">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        Ошибка
-                    </div>
-                    <div class="text-sm mt-1">{errorMsg}</div>
-                </div>
-            {/if}
+            </div>
         </div>
     </div>
 </div>

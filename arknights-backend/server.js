@@ -40,15 +40,15 @@ app.post('/api/import', async (req, res) => {
         if (!token) return res.status(400).json({ error: "No token found" });
 
         console.log(`\n--- New Import Request ---`);
-        
+
         let allPulls = [];
-        const visitedIds = new Set(); 
+        const visitedIds = new Set();
 
         for (const poolType of POOL_TYPES) {
             let hasMore = true;
-            let lastId = ""; 
+            let lastId = "";
             let pageCount = 1;
-            
+
             console.log(`\n[Pool] Scanning: ${mapPoolTypeToShort(poolType)}`);
 
             while (hasMore) {
@@ -63,7 +63,7 @@ app.post('/api/import', async (req, res) => {
 
                 try {
                     const response = await axios.get(`${GAME_API_URL}?${params.toString()}`, {
-                        timeout: 5000, 
+                        timeout: 5000,
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                             'Accept': 'application/json'
@@ -74,10 +74,10 @@ app.post('/api/import', async (req, res) => {
                     if (result.code !== 0) break;
 
                     const list = result.data?.list || [];
-                    
+
                     // Фильтруем дубликаты (защита на случай странностей API)
                     const newItems = list.filter(item => !visitedIds.has(item.seqId));
-                    
+
                     if (list.length > 0 && newItems.length === 0) {
                         console.warn(`  -> Page ${pageCount}: All items are duplicates. Stopping.`);
                         hasMore = false;
@@ -89,8 +89,8 @@ app.post('/api/import', async (req, res) => {
                     newItems.forEach(item => visitedIds.add(item.seqId));
 
                     const listWithMeta = newItems.map(item => ({
-                       ...item,
-                       poolId: mapPoolTypeToShort(poolType)
+                        ...item,
+                        poolId: mapPoolTypeToShort(poolType)
                     }));
 
                     allPulls = [...allPulls, ...listWithMeta];
@@ -98,7 +98,7 @@ app.post('/api/import', async (req, res) => {
 
                     if (newItems.length === 0) {
                         hasMore = false;
-                    } 
+                    }
                     else if (list.length > 0) {
                         // Берем seqId последнего элемента, чтобы запросить следующую страницу
                         lastId = list[list.length - 1].seqId;
@@ -107,7 +107,7 @@ app.post('/api/import', async (req, res) => {
                     }
 
                     pageCount++;
-                    if (pageCount > 50) hasMore = false; 
+                    if (pageCount > 50) hasMore = false;
                     await sleep(100);
 
                 } catch (err) {
@@ -116,6 +116,8 @@ app.post('/api/import', async (req, res) => {
                 }
             }
         }
+
+        const pseudoUid = "u_" + token.substring(0, 15);
 
         console.log(`\n--- Import Finished ---`);
         console.log(`Total unique pulls: ${allPulls.length}`);
@@ -127,7 +129,13 @@ app.post('/api/import', async (req, res) => {
                 .catch(e => console.error("Stats update failed:", e.message));
         }
 
-        res.json({ code: 0, data: { list: allPulls } });
+        res.json({
+            code: 0,
+            data: {
+                list: allPulls,
+                uid: pseudoUid
+            }
+        });
 
     } catch (error) {
         console.error("Critical Server Error:", error);
@@ -153,12 +161,12 @@ async function updateGlobalStatsBatch(uid, allPulls) {
 
             const sixStars = pullsOfType.filter(p => p.rarity === 6).length;
             const total = pullsOfType.length;
-            const avgPity = sixStars > 0 ? (total / sixStars) : 0; 
+            const avgPity = sixStars > 0 ? (total / sixStars) : 0;
 
             // Считаем 50/50 (очень упрощенно, для примера)
             // В реальности нужно чекать total5050Count и won5050Count через логику isWin
             // Но пока просто обновим общие цифры
-            
+
             await prisma.userStat.upsert({
                 where: { uid_poolType: { uid, poolType: type } },
                 update: {

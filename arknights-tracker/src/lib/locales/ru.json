@@ -70,6 +70,14 @@
   "import": {
     "title": "Импорт записей о найме",
     "instruction": "Вставьте URL из истории поиска (webview), полученный в игре:",
+    "step1": "Запустите Arknights Endfield и откройте историю круток (Gacha Records).",
+    "step2_pre": "Скопируйте скрипт ниже, запустите ",
+    "step2_ps": "PowerShell",
+    "step2_post": ", вставьте и нажмите Enter. Ссылка скопируется автоматически.",
+    "ps_tooltip": "Нажмите Win + R, введите powershell и нажмите Enter",
+    "script_details": "Подробнее о скрипте",
+    "step3": "Вставьте полученную ссылку ниже",
+    "placeholder": "https://ef-webview.gryphline.com/...",
     "startBtn": "Начать импорт",
     "processing": "Загрузка...",
     "status": {
@@ -89,7 +97,8 @@
     "fetchBtn": "Импортировать",
     "urlLabel": "Вставьте ссылку",
     "enableGlobalStats": "Включить историю в глобальную статистику",
-    "scriptInstruction": "Скопируйте скрипт ниже, запустите PowerShell, вставьте и нажмите Enter. Ссылка скопируется автоматически:"
+    "emptyError": "Введите ссылку",
+    "scriptInstruction": "Скопируйте скрипт ниже, запустите PowerShell, вставьте и нажмите Enter. Ссылка скопируется автоматически"
   },
   "characters": {
     "endministrator1": "Эндминистратор",
