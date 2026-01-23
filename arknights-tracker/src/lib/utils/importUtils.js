@@ -2,7 +2,7 @@
 import { characters } from "$lib/data/characters";
 import { banners } from "$lib/data/banners";
 
-// Нормализация имени
+// Безопасная нормализация
 const normalize = (str) => {
     if (!str || typeof str !== 'string') return "";
     return str.toLowerCase().replace(/\s+/g, "");
@@ -10,49 +10,56 @@ const normalize = (str) => {
 
 /**
  * ОПРЕДЕЛЕНИЕ ТИПА БАННЕРА
- * Эта функция решает, куда положить крутку: в Special, Standard или New Player.
- * Зависит от того, какие ID приходят от сервера игры.
+ * Приводит сырой ID из логов к нашим ключам: 'standard', 'special', 'new-player'
  */
 export function getInternalBannerType(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase();
 
-    // 1. Баннер новичка (обычно имеет ID '2' или слова 'beginner', 'new')
+    // 1. Баннер новичка (apiType: beginner)
     if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) {
-        return 'new_player';
+        return 'new-player'; // Ключ как в bannerTypes.js
     }
 
-    // 2. Стандартный баннер (обычно ID '1' или 'standard')
+    // 2. Стандартный баннер
     if (id === '1' || id.includes('standard') || id.includes('permanent')) {
         return 'standard';
     }
 
-    // 3. Все остальное считаем Специальным (ивентовым)
-    // ID '3', '4', названия ивентов и т.д.
+    // 3. Спешл (все остальные)
     return 'special';
 }
 
 /**
- * Парсинг логов
+ * ПАРСИНГ ЛОГОВ (Исправлен баг с типами и именами)
  */
 export function parseGachaLog(list) {
     if (!Array.isArray(list)) return [];
     
-    // Сортировка по времени
+    // Сортируем по времени
     const sortedList = [...list].sort((a, b) => (a.ts || 0) - (b.ts || 0));
 
     return sortedList.map((item, i) => {
-        // Определяем внутренний ID баннера (standard / special / new_player)
-        // item.pool, item.gacha_type - поля, которые обычно приходят от API
+        // 1. Извлекаем имя (пробуем разные поля, которые бывают в API)
+        const rawName = item.name || item.character || item.chars || "Unknown";
+        
+        // 2. Извлекаем редкость и ПРИВОДИМ К ЧИСЛУ (Фикс бага "12/10")
+        // Иногда приходит rank, иногда rarity
+        const rarity = Number(item.rarity || item.rank || 3);
+
+        // 3. Определяем ID баннера
         const rawBannerId = item.bannerId || item.pool || item.gacha_type;
         const internalId = getInternalBannerType(rawBannerId);
 
+        // 4. Генерируем уникальный ID для крутки
+        const uniqueId = item.id || `${item.ts}_${rawName}_${i}`;
+        
         return {
-            id: item.id || `${item.ts}_${item.name}_${i}`,
+            id: uniqueId,
             time: item.time ? new Date(item.time) : new Date((item.ts || 0) * 1000),
-            name: item.name || "Unknown",
-            rarity: Number(item.rarity) || 3,
-            bannerId: internalId // <-- Теперь здесь будет правильный тип
+            name: rawName,
+            rarity: isNaN(rarity) ? 3 : rarity,
+            bannerId: internalId
         };
     }).sort((a, b) => a.time - b.time);
 }
@@ -68,7 +75,7 @@ export function mergePulls(oldList, newList) {
 }
 
 /**
- * Расчет Pity для визуализации в списке
+ * Расчет Pity (для отображения в списке истории)
  */
 export function calculatePity(pulls, bannerId) {
     const isSpecial = bannerId === 'special';
@@ -82,7 +89,7 @@ export function calculatePity(pulls, bannerId) {
             pityCounter++;
         }
         
-        // Любая 6* сбрасывает визуальный счетчик гаранта (80)
+        // 6* сбрасывает счетчик всегда
         if (pull.rarity === 6) {
             const resultPity = pityCounter;
             pityCounter = 0; 
@@ -94,16 +101,13 @@ export function calculatePity(pulls, bannerId) {
 }
 
 /**
- * ГЛАВНАЯ МАТЕМАТИКА (ПО ТВОИМ НОВЫМ ПРАВИЛАМ)
+ * РАСЧЕТ СТАТИСТИКИ (Гаранты, WinRate)
  */
 export function calculateBannerStats(pulls, bannerId) {
-    // 1. Конфиг (пытаемся найти featured персонажей для этого типа баннера)
-    // Т.к. мы сваливаем все ивентовые баннеры в одну кучу 'special', 
-    // нам нужно брать актуальный список featured из banners.js, 
-    // но для истории это сложно. Пока берем дефолтный конфиг 'special'.
-    let bannerConfig = banners.find(b => b.type === bannerId) || banners.find(b => b.id === bannerId);
+    // 1. Ищем конфиг
+    let bannerConfig = banners.find(b => b.id === bannerId);
     
-    // Если это generic тип, ищем любой подходящий конфиг
+    // Если по ID не нашли, ищем по типу
     if (!bannerConfig) {
          bannerConfig = banners.find(b => b.type === bannerId);
     }
@@ -111,7 +115,7 @@ export function calculateBannerStats(pulls, bannerId) {
     const featured6 = bannerConfig?.featured6 || [];
     const isSpecial = bannerId === 'special';
 
-    // 2. Счетчики
+    // 2. Инициализация
     let total = pulls.length;
     let count6 = 0;
     let count5 = 0;
@@ -120,74 +124,65 @@ export function calculateBannerStats(pulls, bannerId) {
 
     let won5050 = 0;
     let total5050 = 0;
-    
-    // Счетчики гарантов
-    let currentPity6 = 0; // До 80 (сбрасывается на любой леге)
+    let last6WasFeatured = true; 
+    let hasReceivedRateUp = false;
+
+    let currentPity6 = 0;
     let currentPity5 = 0;
-    let guarantee120 = 0; // До 120 (сбрасывается ТОЛЬКО на Featured)
-    
-    // Флаг, получили ли мы featured (для UI, чтобы скрыть счетчик 120, если уже выпал)
-    // Но т.к. ты сказал, что гарант сбрасывается, мы просто будем показывать текущий счетчик.
-    
+    let guarantee120 = 0; 
+
+    // 3. Проход
     pulls.forEach((pull, index) => {
         const charName = normalize(pull.name);
         
-        // --- 1. ПРОВЕРКА НА БЕСПЛАТНЫЕ (Только Special, 31-40) ---
+        // Бесплатные (31-40) только на Special
         const isFreePull = isSpecial && (index >= 30 && index < 40);
 
-        // --- 2. ОБРАБОТКА 6 ЗВЕЗД ---
+        // --- 6 ЗВЕЗД ---
         if (pull.rarity === 6) {
             count6++;
-            
-            // Статистика (средний пити)
-            sumPity6 += currentPity6 + (isFreePull ? 0 : 1);
+            sumPity6 += currentPity6 + (isFreePull ? 0 : 1); 
 
-            // Проверка: это Featured персонаж?
-            // (В идеале нужно знать, какой был баннер в момент крутки, но пока берем текущий конфиг)
+            // Featured?
             const isFeatured = featured6.some(fid => {
                 const c = characters[fid];
                 return c && normalize(c.name) === charName;
             });
 
-            // Статистика 50/50
-            total5050++;
-            if (isFeatured) won5050++;
-            
-            // СБРОС СЧЕТЧИКОВ
-            
-            // Гарант 80: Сбрасывается при ЛЮБОЙ 6*
+            // 50/50
+            if (last6WasFeatured) {
+                total5050++;
+                if (isFeatured) won5050++;
+            }
+            last6WasFeatured = isFeatured;
+
+            // Сброс обычного пити
             currentPity6 = 0;
 
-            // Гарант 120: Сбрасывается ТОЛЬКО при Featured
+            // Гарант 120
             if (isSpecial) {
                 if (isFeatured) {
                     guarantee120 = 0;
+                    hasReceivedRateUp = true;
                 } else {
-                    // Если выпал стандартный -> гарант 120 НЕ сбрасывается.
-                    // Вопрос: эта крутка идет в зачет 120? 
-                    // Обычно да, если она не бесплатная.
-                    if (!isFreePull) guarantee120++;
+                    if (!isFreePull && !hasReceivedRateUp) {
+                        guarantee120++;
+                    }
                 }
             }
         } 
-        // --- 3. ОБРАБОТКА НЕ 6 ЗВЕЗД ---
         else {
             if (!isFreePull) {
-                // Обычный пити растет
                 currentPity6++;
-                
-                // Гарант 120 растет (только на special)
-                if (isSpecial) {
-                    guarantee120++;
-                }
+                if (isSpecial && !hasReceivedRateUp) guarantee120++;
             }
         }
 
-        // --- 4. 5 ЗВЕЗД ---
+        // --- 5 ЗВЕЗД ---
         if (pull.rarity === 5) {
             count5++;
             sumPity5 += currentPity5 + (isFreePull ? 0 : 1);
-            currentPity5 = 0;
+            currentPity5 = 0; // СБРОС (здесь была ошибка из-за типов данных)
         } else {
             if (!isFreePull) currentPity5++;
         }
@@ -195,21 +190,20 @@ export function calculateBannerStats(pulls, bannerId) {
 
     return {
         total,
-        pity6: currentPity6,   // До 80
+        pity6: currentPity6,
         pity5: currentPity5,
-        guarantee120: isSpecial ? guarantee120 : 0, // До 120
+        guarantee120: isSpecial && !hasReceivedRateUp ? guarantee120 : 0,
+        hasReceivedRateUp,
         
         count6,
         count5,
         
-        // В Endfield 50/50 это просто шанс, без гаранта на след. крутку
         winRate: {
             won: won5050,
             total: total5050,
             percent: total5050 ? ((won5050 / total5050) * 100).toFixed(0) : 0
         },
 
-        // Доп. статистика
         avg6: count6 ? (sumPity6 / count6).toFixed(1) : "0.0",
         avg5: count5 ? (sumPity5 / count5).toFixed(1) : "0.0",
         percent6: total ? ((count6 / total) * 100).toFixed(2) : "0.00",

@@ -3,11 +3,11 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 import { mergePulls, calculatePity, calculateBannerStats } from '$lib/utils/importUtils';
 
-// Три основных "корзины"
+// ВАЖНО: Ключи совпадают с id в bannerTypes.js
 const defaultData = {
-    standard: { pulls: [], stats: {} },
-    special: { pulls: [], stats: {} },
-    new_player: { pulls: [], stats: {} }
+    "standard": { pulls: [], stats: {} },
+    "special": { pulls: [], stats: {} },
+    "new-player": { pulls: [], stats: {} } // Ключ с дефисом!
 };
 
 function createPullData() {
@@ -23,11 +23,17 @@ function createPullData() {
                 if (stored) {
                     try {
                         const parsed = JSON.parse(stored);
-                        // Восстанавливаем даты
+                        
+                        // Миграция старых ключей (если был new_player, переносим в new-player)
+                        if (parsed['new_player'] && !parsed['new-player']) {
+                            parsed['new-player'] = parsed['new_player'];
+                            delete parsed['new_player'];
+                        }
+
+                        // Восстанавливаем даты и пересчитываем статы
                         Object.keys(parsed).forEach(key => {
                             if (parsed[key].pulls) {
                                 parsed[key].pulls.forEach(p => p.time = new Date(p.time));
-                                // Пересчитываем статы (на случай обновления логики)
                                 parsed[key].stats = calculateBannerStats(parsed[key].pulls, key);
                             }
                         });
@@ -45,19 +51,25 @@ function createPullData() {
             return new Promise((resolve) => {
                 update(currentData => {
                     const newData = JSON.parse(JSON.stringify(currentData));
-                    // Восстанавливаем даты после копирования
+                    
+                    // Восстанавливаем даты
                     Object.keys(newData).forEach(k => {
-                        if(newData[k].pulls) newData[k].pulls.forEach(p => p.time = new Date(p.time));
+                        if(newData[k] && newData[k].pulls) {
+                            newData[k].pulls.forEach(p => p.time = new Date(p.time));
+                        }
                     });
+
+                    // Создаем ключи, если их нет (защита)
+                    if (!newData["new-player"]) newData["new-player"] = { pulls: [], stats: {} };
+                    if (!newData["standard"]) newData["standard"] = { pulls: [], stats: {} };
+                    if (!newData["special"]) newData["special"] = { pulls: [], stats: {} };
 
                     const report = { status: 'up_to_date', addedCount: {}, totalAdded: 0 };
                     
-                    // Группировка по баннерам (теперь используем bannerId из parseGachaLog)
+                    // Группировка
                     const incomingByBanner = {};
-                    
                     newPulls.forEach(p => {
-                        // bannerId здесь уже равен 'special', 'standard' или 'new_player' 
-                        // благодаря функции parseGachaLog
+                        // bannerId здесь уже определен в parseGachaLog как standard/special/new-player
                         const bid = p.bannerId; 
 
                         if (!incomingByBanner[bid]) incomingByBanner[bid] = [];
@@ -67,16 +79,13 @@ function createPullData() {
                     let hasUpdates = false;
 
                     Object.keys(incomingByBanner).forEach(bid => {
-                        // Если пришел неизвестный ID, игнорируем или кидаем в standard
+                        // Если ключ валидный, используем его, иначе кидаем в standard
                         const targetKey = newData[bid] ? bid : 'standard';
                         
-                        // Если даже standard нет (странно), создаем
-                        if (!newData[targetKey]) newData[targetKey] = { pulls: [], stats: {} };
-
                         const oldList = newData[targetKey].pulls;
                         const incomeList = incomingByBanner[bid];
                         
-                        // Фильтр дубликатов
+                        // Фильтр дублей
                         const existingIds = new Set(oldList.map(p => p.id));
                         const reallyNew = incomeList.filter(p => !existingIds.has(p.id));
 
@@ -84,11 +93,11 @@ function createPullData() {
                             // 1. Мержим
                             const mergedList = mergePulls(oldList, reallyNew);
                             
-                            // 2. Считаем Pity (визуальное)
+                            // 2. Считаем Pity
                             const pullsWithPity = calculatePity(mergedList, targetKey);
                             newData[targetKey].pulls = pullsWithPity;
 
-                            // 3. Считаем Статистику (Гаранты 80/120)
+                            // 3. Считаем Статистику
                             newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey);
 
                             report.addedCount[targetKey] = (report.addedCount[targetKey] || 0) + reallyNew.length;
