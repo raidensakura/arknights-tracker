@@ -657,6 +657,7 @@
                             row.time,
                             bannerType,
                         )}
+                        {@const charData = charMap[normalize(row.name)]}
 
                         <!-- СТРОКА -->
                         <div
