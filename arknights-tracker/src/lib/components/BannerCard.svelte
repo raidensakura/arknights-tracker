@@ -49,6 +49,11 @@
   // Проверяем, содержит ли ID слово 'special' или равен ему
   $: isSpecial = bannerId.includes("special");
 
+  // Check if it is a New Player banner
+  $: isNewPlayer = bannerId.includes("new-player");
+
+  $: maxPity6 = isNewPlayer ? 40 : 80;
+
   // --- ЛОГИКА ОТОБРАЖЕНИЯ ИКОНОК ПЕРСОНАЖЕЙ ---
 
   const normalize = (str) => str?.toLowerCase().replace(/\s+/g, "") || "";
@@ -62,16 +67,17 @@
   // Берем только леги (6*) для отображения внизу
   $: icons = pulls
     .filter((p) => p.rarity === 6)
-    // .slice(0, 12) // Можно раскомментировать, если нужно ограничить кол-во иконок
+    // .slice(0, 12)
     .map((p) => {
       const lookupKey = normalize(p.name);
       const charData = charMap[lookupKey];
-      const iconSrc = charData?.icon || "/images/avatars/default_6star.png";
-      // ID нужен для перевода
+
+      // Вычисляем ID
       const charId = charData?.id || normalize(p.name);
 
       return {
-        src: iconSrc,
+        id: charId, // <--- ДОБАВИЛ ЭТО (Самое важное!)
+        // src нам больше не нужен, Images сам построит путь
         pity: p.pity || "?",
         name: p.name,
         translationKey: `characters.${charId}`,
@@ -110,17 +116,17 @@
       <span class="text-gray-600">{$t("page.banner.total")}</span>
       <span class="font-bold text-xl font-nums text-[#21272C]">{total}</span>
     </div>
-
-    <div class="flex justify-between items-center">
-      <span class="text-gray-600">{$t("page.banner.spent")}</span>
-      <span
-        class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
-      >
-        <Images id="oroberyl" variant="currency" size={25} />
-        {spent}
-      </span>
-    </div>
-
+    {#if !isNewPlayer}
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600">{$t("page.banner.spent")}</span>
+        <span
+          class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
+        >
+          <Images id="oroberyl" variant="currency" size={25} />
+          {spent}
+        </span>
+      </div>
+    {/if}
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-1 text-gray-600">
         <span class="font-bold">6</span>
@@ -128,7 +134,7 @@
         <span>{$t("page.banner.pity6")}</span>
       </div>
       <span class="font-bold text-xl font-nums text-[#21272C]">
-        {pity6}<span class="text-sm text-gray-400">/80</span>
+        {pity6}<span class="text-sm text-gray-400">/{maxPity6}</span>
       </span>
     </div>
 
@@ -224,10 +230,11 @@
                 class="relative w-12 h-12 rounded-full bg-gray-100 border-2 border-[#D0926E] hover:scale-110 transition-transform cursor-pointer shadow-sm"
               >
                 <div class="w-full h-full overflow-hidden rounded-full">
-                  <img
-                    src={icon.src}
+                  <Images
+                    id={icon.id}
+                    variant="operator-icon"
+                    size="100%"
                     alt={icon.name}
-                    class="w-full h-full object-cover transform scale-110"
                   />
                 </div>
 
@@ -246,7 +253,7 @@
           </div>
         {/each}
       </div>
-      {:else}
+    {:else}
       <div class="text-sm text-gray-400 italic">
         {$t("page.banner.fallBackCharacters")}
       </div>

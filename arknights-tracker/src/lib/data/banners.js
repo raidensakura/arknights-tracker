@@ -11,7 +11,7 @@ export const banners = [
     endTime: null,
     gameVersion: "0.1.0",
     featured6: ["ardelia", "pogranichnik", "lastRite", "ember", "lifeng"],
-    featured5: ["wulfgard", "snowshine", "fluorite"],
+    featured5: [],
     isServerTime: false,
     timezone: "UTC+0",
     // Changed: Use filename (utility handles .png default)
@@ -30,7 +30,7 @@ export const banners = [
     endTime: null,
     gameVersion: "0.1.0",
     featured6: ["ardelia", "pogranichnik", "lastRite", "ember", "lifeng"],
-    featured5: ["wulfgard", "snowshine", "fluorite"],
+    featured5: [],
     isServerTime: false,
     timezone: "UTC+0",
     icon: "new-horizons-headhunting.png",

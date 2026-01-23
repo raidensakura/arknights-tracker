@@ -19,7 +19,10 @@
 
     const oroberyl = currencies.find((c) => c.id === "oroberyl");
 
-    let selectedBanner = null; // переменная, которая открывает модалку
+    let selectedBanner = null;
+
+    $: isNewPlayer = bannerType === "new-player";
+    $: maxPity6 = isNewPlayer ? 40 : 80;
 
     // Функция для проверки хеша в URL
     $: {
@@ -31,7 +34,6 @@
                 selectedBanner = found;
             }
         } else {
-            // Это важно: если нажали "назад" и хеш исчез — закрываем модалку
             selectedBanner = null;
         }
     }
@@ -123,8 +125,9 @@
                 } else {
                     // [НОВАЯ ЛОГИКА]
                     // Проверяем, есть ли вообще 5* в списке рейт-апа этого баннера
-                    const hasFeatured5 = banner.featured5 && banner.featured5.length > 0;
-                    
+                    const hasFeatured5 =
+                        banner.featured5 && banner.featured5.length > 0;
+
                     // Если это 5*, но у баннера нет списка 5* (пустой массив), то статус normal
                     if (p.rarity === 5 && !hasFeatured5) {
                         p.status = "normal";
@@ -323,7 +326,8 @@
     // 50/50 win rate for 5*
     $: winRate5 = (() => {
         // [ИЗМЕНЕНИЕ] Если список featured5 пуст, не считаем статистику
-        if (count5 === 0 || featured5List.length === 0) return { won: 0, total: 0, percent: 0 };
+        if (count5 === 0 || featured5List.length === 0)
+            return { won: 0, total: 0, percent: 0 };
 
         let won = 0;
         let total = 0;
@@ -339,7 +343,7 @@
                 // но для общей статистики обычно берется текущий контекст.
                 // Если хочешь супер-точность по истории, нужно проверять баннер каждой крутки,
                 // но пока оставим как есть, опираясь на featured5List текущего баннера.
-                
+
                 const normName = normalize(pull.name);
                 const isFeatured = featured5List.some((featuredId) => {
                     const featuredChar = characters[featuredId];
@@ -466,23 +470,23 @@
                                 >{totalCount}</span
                             >
                         </div>
-
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-600"
-                                >{$t("page.banner.spent")}</span
-                            >
-                            <span
-                                class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
-                            >
-                                <Images
-                                    id="oroberyl"
-                                    variant="currency"
-                                    size={25}
-                                />
-                                {spent}
-                            </span>
-                        </div>
-
+                        {#if !isNewPlayer}
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600"
+                                    >{$t("page.banner.spent")}</span
+                                >
+                                <span
+                                    class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
+                                >
+                                    <Images
+                                        id="oroberyl"
+                                        variant="currency"
+                                        size={25}
+                                    />
+                                    {spent}
+                                </span>
+                            </div>
+                        {/if}
                         <!-- 6★ Pity -->
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-1 text-gray-600">
@@ -493,8 +497,8 @@
                             <span
                                 class="font-bold text-xl font-nums text-[#21272C]"
                             >
-                                {currentPity6}<span
-                                    class="text-sm text-gray-400">/80</span
+                                {currentPity6}<span class="text-sm text-gray-400"
+                                    >/{maxPity6}</span
                                 >
                             </span>
                         </div>
@@ -656,7 +660,9 @@
             <!-- Тело таблицы -->
             <div>
                 {#if totalCount === 0}
-                    <div class="h-64 flex flex-col items-center justify-center text-gray-400">
+                    <div
+                        class="h-64 flex flex-col items-center justify-center text-gray-400"
+                    >
                         <Icon name="noData" class="w-4 h-4" />
                         <p class="text-sm">
                             {$t("emptyState.noData") || "Нет данных"}
@@ -676,7 +682,9 @@
                                 row.rarity,
                             )}"
                         >
-                            <div class="font-nums text-gray-400 text-xs text-center justify-center flex items-center">
+                            <div
+                                class="font-nums text-gray-400 text-xs text-center justify-center flex items-center"
+                            >
                                 {totalCount - index}
                             </div>
 
@@ -688,23 +696,29 @@
                             </div>
 
                             <div class="flex items-center min-w-0 pr-2">
-                                <div class="relative inline-flex items-center max-w-full">
-                                    
+                                <div
+                                    class="relative inline-flex items-center max-w-full"
+                                >
                                     <div class="relative z-10 flex-shrink-0">
                                         <div
-                                                class="w-10 h-10 rounded-full overflow-hidden border-2 bg-white shadow-sm relative group"
-                                                style="border-color: {getRarityColor(row.rarity)}"
-                                            >
-                                                <Images 
-                                                    id={charData?.id || normalize(row.name)} 
-                                                    variant="operator-icon"
-                                                    alt={row.name}
-                                                    className="w-full h-full object-cover transform scale-110"
-                                                />
-                                            </div>
+                                            class="w-10 h-10 rounded-full overflow-hidden border-2 bg-white shadow-sm relative group"
+                                            style="border-color: {getRarityColor(
+                                                row.rarity,
+                                            )}"
+                                        >
+                                            <Images
+                                                id={charData?.id ||
+                                                    normalize(row.name)}
+                                                variant="operator-icon"
+                                                alt={row.name}
+                                                className="w-full h-full object-cover transform scale-110"
+                                            />
+                                        </div>
 
                                         {#if row.isNew}
-                                            <div class="absolute -top-1 -right-1 bg-[#D84C38]/85 text-white text-[8px] leading-none font-bold px-1.5 py-0.5 rounded-md z-20 pointer-events-none backdrop-blur-[1px]">
+                                            <div
+                                                class="absolute -top-1 -right-1 bg-[#D84C38]/85 text-white text-[8px] leading-none font-bold px-1.5 py-0.5 rounded-md z-20 pointer-events-none backdrop-blur-[1px]"
+                                            >
                                                 NEW
                                             </div>
                                         {/if}
@@ -712,13 +726,17 @@
 
                                     <div
                                         class="relative bg-transparent -ml-5 pl-7 pr-3 rounded-r-full border-y-2 border-r-2 border-l-0 min-w-0 max-w-[150px] bg-white/50"
-                                        style="border-color: {getRarityColor(row.rarity)}; height: 40px; display: flex; align-items: center;"
+                                        style="border-color: {getRarityColor(
+                                            row.rarity,
+                                        )}; height: 40px; display: flex; align-items: center;"
                                     >
                                         <span
                                             class="text-gray-800 text-sm font-medium leading-none block w-full pt-[1px] z-10 truncate"
                                             title={row.name}
                                         >
-                                            {$t(`characters.${charData?.id || normalize(row.name)}`) || row.name}
+                                            {$t(
+                                                `characters.${charData?.id || normalize(row.name)}`,
+                                            ) || row.name}
                                         </span>
                                     </div>
                                 </div>
@@ -734,28 +752,45 @@
                                     {#if row.status === "won"}
                                         {#if bannerType !== "standard" && bannerType !== "new-player"}
                                             <Tooltip textKey="status.won">
-                                                <span class="ml-1 flex-shrink-0 inline-flex">
-                                                    <Icon name="star" class="w-4 h-4" />
+                                                <span
+                                                    class="ml-1 flex-shrink-0 inline-flex"
+                                                >
+                                                    <Icon
+                                                        name="star"
+                                                        class="w-4 h-4"
+                                                    />
                                                 </span>
                                             </Tooltip>
                                         {/if}
                                     {:else if row.status === "lost"}
                                         <Tooltip textKey="status.lost">
-                                            <span class="ml-1 flex-shrink-0 inline-flex">
-                                                <Icon name="lost" class="w-4 h-4" />
+                                            <span
+                                                class="ml-1 flex-shrink-0 inline-flex"
+                                            >
+                                                <Icon
+                                                    name="lost"
+                                                    class="w-4 h-4"
+                                                />
                                             </span>
                                         </Tooltip>
                                     {:else if row.status === "guaranteed"}
                                         <Tooltip textKey="status.guaranteed">
-                                            <span class="ml-1 flex-shrink-0 inline-flex">
-                                                <Icon name="guaranteed" class="w-4 h-4" />
+                                            <span
+                                                class="ml-1 flex-shrink-0 inline-flex"
+                                            >
+                                                <Icon
+                                                    name="guaranteed"
+                                                    class="w-4 h-4"
+                                                />
                                             </span>
                                         </Tooltip>
                                     {/if}
                                 {/if}
                             </div>
 
-                            <div class="text-gray-500 font-nums text-xs whitespace-nowrap">
+                            <div
+                                class="text-gray-500 font-nums text-xs whitespace-nowrap"
+                            >
                                 {new Date(row.time).toLocaleString("ru-RU")}
                             </div>
 
@@ -763,8 +798,11 @@
                                 {#if currentBanner}
                                     <button
                                         class="group relative h-10 w-20 rounded shadow-sm border border-gray-200 overflow-hidden hover:ring-2 hover:ring-[#D0926E] transition-all focus:outline-none"
-                                        on:click={() => (selectedBanner = currentBanner)}
-                                        title={$t(`banners.${currentBanner.id}`) || currentBanner.name}
+                                        on:click={() =>
+                                            (selectedBanner = currentBanner)}
+                                        title={$t(
+                                            `banners.${currentBanner.id}`,
+                                        ) || currentBanner.name}
                                     >
                                         <Images
                                             item={currentBanner}
@@ -772,12 +810,18 @@
                                             alt={currentBanner.name}
                                             className="h-full w-full object-cover transition-transform group-hover:scale-110"
                                         />
-                                        
-                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+
+                                        <div
+                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"
+                                        ></div>
                                     </button>
                                 {:else}
-                                    <div class="h-6 w-12 bg-gray-50 rounded border border-gray-100 flex items-center justify-center">
-                                        <span class="text-[10px] text-gray-300">-</span>
+                                    <div
+                                        class="h-6 w-12 bg-gray-50 rounded border border-gray-100 flex items-center justify-center"
+                                    >
+                                        <span class="text-[10px] text-gray-300"
+                                            >-</span
+                                        >
                                     </div>
                                 {/if}
                             </div>

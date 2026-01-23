@@ -293,7 +293,7 @@
         <Images 
             item={banner} 
             variant={imageVariant} 
-            className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full"
             alt={banner.name}
             style="object-fit: cover;"
         />

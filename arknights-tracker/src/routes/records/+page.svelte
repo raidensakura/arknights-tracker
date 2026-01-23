@@ -11,22 +11,37 @@
   import Icon from "$lib/components/Icons.svelte";
   import Images from "$lib/components/Images.svelte";
 
-  // [FIX] Обновленная логика подсчета.
-  // Теперь берем total из banner.stats.total или длины массива pulls
-  $: totalPulls = Object.values($pullData).reduce((sum, banner) => {
-    if (!banner || typeof banner !== "object") return sum;
-    
-    // Пробуем взять из посчитанной статистики, если нет - считаем длину массива
-    const count = banner.stats?.total || banner.pulls?.length || 0;
-    return sum + count;
-  }, 0);
+  // [FIX] Updated calculation logic
+  // We use reduce on entries to check the banner ID (key)
+  $: pullsStats = Object.entries($pullData).reduce(
+    (acc, [key, banner]) => {
+      if (!banner || typeof banner !== "object") return acc;
+
+      const count = banner.stats?.total || banner.pulls?.length || 0;
+
+      // 1. Absolute total (for RatingCard / User Stats)
+      acc.total += count;
+
+      // 2. Billable total (Excluding 'new_player' for cost calculation)
+      if (!key.includes("new-player")) {
+        acc.billable += count;
+      }
+
+      return acc;
+    },
+    { total: 0, billable: 0 }
+  );
+
+  // Extract values for cleaner usage in HTML
+  $: totalPulls = pullsStats.total;
+  $: billablePulls = pullsStats.billable;
 
   $: homeBanners = [...bannerTypes]
     .filter((b) => b.showOnHome)
     .sort((a, b) => a.order - b.order);
 
-  let userLuck6 = 15; // Заглушка
-  let userLuck5 = 50; // Заглушка
+  let userLuck6 = 15; // Placeholder
+  let userLuck5 = 50; // Placeholder
 
   let isSettingsOpen = false;
 
@@ -96,11 +111,11 @@
 
       <div class="text-3xl font-black text-gray-900 flex items-center gap-2 font-nums">
         <Images id="oroberyl" variant="currency" size={32} />
-        {(totalPulls * 500).toLocaleString("ru-RU")}
+        {(billablePulls * 500).toLocaleString("ru-RU")}
       </div>
 
       <div class="text-xs text-gray-400 mt-2 font-medium">
-        ≈ {((totalPulls * 500) / 75).toFixed(0)} {$t("page.banner.origeometry")}
+        ≈ {((billablePulls * 500) / 75).toFixed(0)} {$t("page.banner.origeometry")}
       </div>
     </div>
   </div>
