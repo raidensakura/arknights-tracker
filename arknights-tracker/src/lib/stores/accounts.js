@@ -8,6 +8,15 @@ const defaultAccounts = [
     { id: 'main', name: 'Main Account' }
 ];
 
+// Функция генерации ID, которая работает везде (даже на HTTP)
+function generateId() {
+    if (browser && self.crypto && self.crypto.randomUUID) {
+        return self.crypto.randomUUID();
+    }
+    // Fallback для старых браузеров или HTTP контекста
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
 function createAccountStore() {
     let initialAccounts = defaultAccounts;
     let initialSelected = 'main';
@@ -41,10 +50,9 @@ function createAccountStore() {
         accounts,
         selectedId,
 
-        // УМНОЕ ДОБАВЛЕНИЕ (фикс дублей "Account 2")
+        // УМНОЕ ДОБАВЛЕНИЕ (фикс crypto.randomUUID)
         addAccount: () => {
             accounts.update(list => {
-                // 1. Ищем все аккаунты, которые называются "Account N"
                 const regex = /^Account (\d+)$/;
                 let maxNum = 0;
 
@@ -56,17 +64,15 @@ function createAccountStore() {
                     }
                 });
 
-                // 2. Следующий номер всегда Max + 1
                 const nextNum = maxNum + 1;
-                const newId = crypto.randomUUID();
+                const newId = generateId(); // Используем нашу безопасную функцию
                 
-                // (Здесь можно будет использовать i18n функцию для слова "Account", если нужно, но пока хардкод для логики)
                 const newAccount = { 
                     id: newId, 
                     name: `Account ${nextNum}` 
                 };
                 
-                // 3. Сразу переключаем на новый
+                // Сразу переключаем на новый
                 selectedId.set(newId);
                 
                 return [...list, newAccount];
@@ -76,21 +82,17 @@ function createAccountStore() {
         // БЕЗОПАСНОЕ УДАЛЕНИЕ
         deleteAccount: (idToDelete) => {
             const currentList = get(accounts);
-            if (currentList.length <= 1) return; // Не удаляем последний
+            if (currentList.length <= 1) return; 
 
-            // Чистим данные
             if (browser) {
                 localStorage.removeItem(`ark_tracker_data_${idToDelete}`);
             }
 
-            // Обновляем список
             const newList = currentList.filter(a => a.id !== idToDelete);
             accounts.set(newList);
 
-            // Если мы удалили тот аккаунт, который был выбран -> переключаем на Main (или первый в списке)
             const currentSelected = get(selectedId);
             if (currentSelected === idToDelete) {
-                // Пытаемся найти Main, если нет - берем первый попавшийся
                 const mainExists = newList.find(a => a.id === 'main');
                 selectedId.set(mainExists ? 'main' : newList[0].id);
             }
@@ -100,10 +102,12 @@ function createAccountStore() {
             selectedId.set(id);
         },
         
+        // Очистка данных (проверьте, что вызываете именно этот метод в settings/+page.svelte)
         clearCurrentData: () => {
              const current = get(selectedId);
              if (browser && current) {
                  localStorage.removeItem(`ark_tracker_data_${current}`);
+                 // Диспатчим событие для обновления pulls.js
                  window.dispatchEvent(new CustomEvent('ark_tracker_clear_data', { detail: { id: current } }));
              }
         }

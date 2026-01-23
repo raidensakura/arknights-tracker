@@ -197,9 +197,10 @@
         showDeleteModal = true;
     }
     function confirmClear() {
-        accountStore.clearCurrentData();
-        showClearModal = false;
-    }
+      // Здесь вызывается метод из store, который мы определили выше
+      accountStore.clearCurrentData(); 
+      showClearModal = false;
+  }
     function confirmDelete() {
         accountStore.deleteAccount($selectedId);
         showDeleteModal = false;
