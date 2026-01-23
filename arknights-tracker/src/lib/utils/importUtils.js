@@ -7,6 +7,13 @@ const normalize = (str) => {
     return str.toLowerCase().replace(/\s+/g, "");
 };
 
+// Хелпер для сортировки: Сначала по времени, потом по seqId
+const sortPulls = (a, b) => {
+    const timeDiff = a.time.getTime() - b.time.getTime();
+    if (timeDiff !== 0) return timeDiff; // Если время разное, берем старое -> новое
+    return (a.seqId || 0) - (b.seqId || 0); // Если время одно, сортируем по id внутри пачки
+};
+
 /**
  * ОПРЕДЕЛЕНИЕ ТИПА БАННЕРА
  */
@@ -24,72 +31,64 @@ export function getInternalBannerType(rawId) {
 }
 
 /**
- * ПАРСИНГ ЛОГОВ (ИСПРАВЛЕНА СОРТИРОВКА)
+ * ПАРСИНГ ЛОГОВ (С учетом seqId)
  */
 export function parseGachaLog(list) {
     if (!Array.isArray(list)) throw new Error("Invalid data: expected an array");
-    if (list.length === 0) throw new Error("No data found in the list");
+    if (list.length === 0) throw new Error("No data found");
 
-    // 1. Сначала преобразуем в нормальный вид, чтобы достать дату
     const parsedList = list.map((item, i) => {
-        // Поиск имени
         const rawName = item.name || item.charName || item.character || item.item_name;
-        
-        // Поиск редкости
         const rarity = Number(item.rarity || item.rank || item.rank_type);
+        const seqId = Number(item.seqId || item.sequence || 0); // <-- ВАЖНО!
 
-        // Поиск времени (gachaTs - это миллисекунды, ts - секунды)
+        // Время
         let dateObj;
         if (item.gachaTs) dateObj = new Date(Number(item.gachaTs)); 
         else if (item.ts) dateObj = new Date(Number(item.ts) * 1000);
         else if (item.time) dateObj = new Date(item.time);
-        else dateObj = new Date(0); // Fallback
+        else dateObj = new Date(0);
         
         const rawBannerId = item.bannerId || item.poolId || item.pool || item.gacha_type;
 
-        // Валидация
         if (!rawName) throw new Error(`Item #${i} has no name.`);
         if (!rarity || isNaN(rarity)) throw new Error(`Item #${i} has invalid rarity.`);
 
         const internalId = getInternalBannerType(rawBannerId);
 
+        // Формируем ID, включая seqId, чтобы порядок сохранялся
+        const uniqueId = item.id || `${dateObj.getTime()}_${rawName}_${seqId}_${i}`;
+
         return {
-            // Временно без ID, сгенерируем после сортировки
-            tempId: item.id,
+            id: uniqueId,
             time: dateObj,
             name: rawName,
             rarity: rarity,
-            bannerId: internalId
+            bannerId: internalId,
+            seqId: seqId // Сохраняем для сортировки
         };
     });
 
-    // 2. СОРТИРУЕМ: От старых к новым (ОБЯЗАТЕЛЬНО для правильного расчета гаранта)
-    parsedList.sort((a, b) => a.time - b.time);
-
-    // 3. Теперь, когда порядок правильный, генерируем стабильные ID
-    // Это решит проблему, когда "первая" крутка считалась "последней"
-    return parsedList.map((item, index) => {
-        const uniqueId = item.tempId || `${item.time.getTime()}_${item.name}_${index}`;
-        
-        return {
-            id: uniqueId,
-            time: item.time,
-            name: item.name,
-            rarity: item.rarity,
-            bannerId: item.bannerId
-        };
-    });
+    // Сортируем строго: Время -> Порядковый номер
+    return parsedList.sort(sortPulls);
 }
 
-// ... ОСТАЛЬНЫЕ ФУНКЦИИ БЕЗ ИЗМЕНЕНИЙ ...
-
+/**
+ * СЛИЯНИЕ СПИСКОВ
+ */
 export function mergePulls(oldList, newList) {
     const map = new Map();
+    // Сохраняем всё в Map по ID
     oldList.forEach(p => map.set(p.id, p));
     newList.forEach(p => map.set(p.id, p));
-    return Array.from(map.values()).sort((a, b) => new Date(a.time) - new Date(b.time));
+    
+    // Превращаем в массив и СНОВА СОРТИРУЕМ (на всякий случай)
+    return Array.from(map.values()).sort(sortPulls);
 }
 
+/**
+ * РАСЧЕТ PITY (Визуальный)
+ */
 export function calculatePity(pulls, bannerId) {
     const isSpecial = bannerId?.includes('special');
     let pityCounter = 0;
@@ -99,7 +98,6 @@ export function calculatePity(pulls, bannerId) {
 
         if (!isFreePull) pityCounter++;
         
-        // Сброс только на 6*
         if (pull.rarity === 6) {
             const resultPity = pityCounter;
             pityCounter = 0; 
@@ -110,6 +108,9 @@ export function calculatePity(pulls, bannerId) {
     });
 }
 
+/**
+ * РАСЧЕТ СТАТИСТИКИ
+ */
 export function calculateBannerStats(pulls, bannerId) {
     let bannerConfig = banners.find(b => b.id === bannerId);
     if (!bannerConfig) {
