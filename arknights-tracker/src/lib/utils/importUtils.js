@@ -7,16 +7,13 @@ const normalize = (str) => {
     return str.toLowerCase().replace(/\s+/g, "");
 };
 
-// Хелпер для сортировки: Сначала по времени, потом по seqId
+// Сортировка: Время -> seqId
 const sortPulls = (a, b) => {
     const timeDiff = a.time.getTime() - b.time.getTime();
-    if (timeDiff !== 0) return timeDiff; // Если время разное, берем старое -> новое
-    return (a.seqId || 0) - (b.seqId || 0); // Если время одно, сортируем по id внутри пачки
+    if (timeDiff !== 0) return timeDiff; 
+    return (a.seqId || 0) - (b.seqId || 0);
 };
 
-/**
- * ОПРЕДЕЛЕНИЕ ТИПА БАННЕРА
- */
 export function getInternalBannerType(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
@@ -31,7 +28,7 @@ export function getInternalBannerType(rawId) {
 }
 
 /**
- * ПАРСИНГ ЛОГОВ (С учетом seqId)
+ * ПАРСИНГ ЛОГОВ
  */
 export function parseGachaLog(list) {
     if (!Array.isArray(list)) throw new Error("Invalid data: expected an array");
@@ -40,7 +37,10 @@ export function parseGachaLog(list) {
     const parsedList = list.map((item, i) => {
         const rawName = item.name || item.charName || item.character || item.item_name;
         const rarity = Number(item.rarity || item.rank || item.rank_type);
-        const seqId = Number(item.seqId || item.sequence || 0); // <-- ВАЖНО!
+        const seqId = Number(item.seqId || item.sequence || 0);
+        
+        // [NEW] Читаем поле isNew (может быть true/false или строкой "true")
+        const isNew = item.isNew === true || item.isNew === "true" || item.is_new === true;
 
         // Время
         let dateObj;
@@ -56,8 +56,21 @@ export function parseGachaLog(list) {
 
         const internalId = getInternalBannerType(rawBannerId);
 
-        // Формируем ID, включая seqId, чтобы порядок сохранялся
-        const uniqueId = item.id || `${dateObj.getTime()}_${rawName}_${seqId}_${i}`;
+        // [FIX DUPLICATES] 
+        // Генерируем ID строго на основе данных. 
+        // Используем seqId. Если его нет (0), используем i как fallback, но это опасно.
+        // Надеемся, что seqId есть всегда в твоих логах.
+        // Формат: TIMESTAMP_NAME_SEQID
+        let uniqueId = item.id;
+        if (!uniqueId) {
+            // Если seqId есть, индекс i не нужен (это решит проблему дублей при повторном импорте)
+            if (seqId !== 0) {
+                uniqueId = `${dateObj.getTime()}_${rawName}_${seqId}`;
+            } else {
+                // Если seqId нет, приходится использовать индекс, но это крайний случай
+                uniqueId = `${dateObj.getTime()}_${rawName}_idx${i}`;
+            }
+        }
 
         return {
             id: uniqueId,
@@ -65,30 +78,22 @@ export function parseGachaLog(list) {
             name: rawName,
             rarity: rarity,
             bannerId: internalId,
-            seqId: seqId // Сохраняем для сортировки
+            seqId: seqId,
+            isNew: isNew // Сохраняем флаг новизны
         };
     });
 
-    // Сортируем строго: Время -> Порядковый номер
     return parsedList.sort(sortPulls);
 }
 
-/**
- * СЛИЯНИЕ СПИСКОВ
- */
 export function mergePulls(oldList, newList) {
     const map = new Map();
-    // Сохраняем всё в Map по ID
+    // Сеттим по ID. Если ID теперь стабильный, дубликаты перезапишутся
     oldList.forEach(p => map.set(p.id, p));
     newList.forEach(p => map.set(p.id, p));
-    
-    // Превращаем в массив и СНОВА СОРТИРУЕМ (на всякий случай)
     return Array.from(map.values()).sort(sortPulls);
 }
 
-/**
- * РАСЧЕТ PITY (Визуальный)
- */
 export function calculatePity(pulls, bannerId) {
     const isSpecial = bannerId?.includes('special');
     let pityCounter = 0;
@@ -108,9 +113,6 @@ export function calculatePity(pulls, bannerId) {
     });
 }
 
-/**
- * РАСЧЕТ СТАТИСТИКИ
- */
 export function calculateBannerStats(pulls, bannerId) {
     let bannerConfig = banners.find(b => b.id === bannerId);
     if (!bannerConfig) {

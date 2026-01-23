@@ -143,7 +143,8 @@
     "daysActive": "days active",
     "daysAgo": "days ago",
     "noMaterialsNeeded": "No materials Needed",
-    "featuredCharacters": "Featured operators"
+    "featuredCharacters": "Featured operators",
+    "new": "New"
   },
   "status": {
     "won": "Won 50/50",

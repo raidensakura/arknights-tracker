@@ -460,7 +460,11 @@
                             <span
                                 class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
                             >
-                                <Images item={oroberyl} category="currencies" size={25} />
+                                <Images
+                                    item={oroberyl}
+                                    category="currencies"
+                                    size={25}
+                                />
                                 {spent}
                             </span>
                         </div>
@@ -681,33 +685,42 @@
                                 <div
                                     class="relative inline-flex items-center max-w-full"
                                 >
-                                    <!-- Иконка -->
                                     <div class="relative z-10 flex-shrink-0">
                                         <div
-                                            class="w-10 h-10 rounded-full overflow-hidden border-2 bg-white shadow-sm"
+                                            class="w-10 h-10 rounded-full overflow-hidden border-2 bg-white shadow-sm relative group"
                                             style="border-color: {getRarityColor(
                                                 row.rarity,
                                             )}"
                                         >
-                                            {#if charMap[normalize(row.name)]?.icon}
+                                            {#if charData?.icon}
                                                 <img
-                                                    src={charMap[
-                                                        normalize(row.name)
-                                                    ].icon}
+                                                    src={charData.icon}
                                                     alt={row.name}
                                                     class="w-full h-full object-cover transform scale-110"
+                                                    loading="lazy"
                                                 />
                                             {:else}
                                                 <div
-                                                    class="w-full h-full flex items-center justify-center text-xs text-gray-400 font-bold"
+                                                    class="w-full h-full flex items-center justify-center text-xs text-gray-400 font-bold bg-gray-50"
                                                 >
-                                                    {row.name.charAt(0)}
+                                                    {row.name
+                                                        ? row.name
+                                                              .charAt(0)
+                                                              .toUpperCase()
+                                                        : "?"}
                                                 </div>
                                             {/if}
                                         </div>
+
+                                        {#if row.isNew}
+                                            <div
+                                                class="absolute -top-1 -right-1 bg-[#D84C38] text-white text-[9px] font-bold px-1 rounded-sm shadow-md border border-white z-20 pointer-events-none"
+                                            >
+                                                {$t("systemNames.new")}
+                                            </div>
+                                        {/if}
                                     </div>
 
-                                    <!-- Текст и обводка тега -->
                                     <div
                                         class="relative bg-transparent -ml-5 pl-7 pr-3 rounded-r-full border-y-2 border-r-2 border-l-0 min-w-0 max-w-[150px] bg-white/50"
                                         style="border-color: {getRarityColor(
@@ -715,11 +728,11 @@
                                         )}; height: 40px; display: flex; align-items: center;"
                                     >
                                         <span
-                                            class="text-gray-800 text-sm font-medium leading-none block w-full pt-[1px] z-10"
+                                            class="text-gray-800 text-sm font-medium leading-none block w-full pt-[1px] z-10 truncate"
                                             title={row.name}
                                         >
                                             {$t(
-                                                `characters.${charMap[normalize(row.name)]?.id || normalize(row.name)}`,
+                                                `characters.${charData?.id || normalize(row.name)}`,
                                             ) || row.name}
                                         </span>
                                     </div>
