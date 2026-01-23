@@ -197,7 +197,6 @@
         showDeleteModal = true;
     }
     function confirmClear() {
-      // Здесь вызывается метод из store, который мы определили выше
       accountStore.clearCurrentData(); 
       showClearModal = false;
   }
@@ -314,7 +313,7 @@
         />
 
         <div class="flex flex-wrap gap-4">
-            <div class="w-64">
+
                 <Button
                     variant="round"
                     color="white"
@@ -322,8 +321,7 @@
                 >
                     {$t("settings.backup.export")}
                 </Button>
-            </div>
-            <div class="w-64">
+
                 <Button
                     variant="round"
                     color="white"
@@ -331,7 +329,7 @@
                 >
                     {$t("settings.backup.import")}
                 </Button>
-            </div>
+
         </div>
     </section>
 

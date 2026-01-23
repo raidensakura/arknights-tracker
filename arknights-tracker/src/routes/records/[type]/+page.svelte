@@ -84,7 +84,6 @@
     };
 
     // --- Logic: Pity & Status Calculation ---
-    // --- Logic: Pity & Status Calculation ---
     $: tableData = (() => {
         const sorted = [...rawPulls].sort(
             (a, b) => new Date(a.time) - new Date(b.time),
@@ -97,6 +96,7 @@
 
         const processed = sorted.map((pull, index) => {
             const p = { ...pull };
+            // Получаем баннер, которому принадлежит эта крутка
             const banner = getBannerForPull(p.time, bannerType);
 
             // 1. Расчет Pity
@@ -117,27 +117,35 @@
             // 2. Логика статуса для 5* и 6*
             if (p.rarity >= 5) {
                 if (bannerType === "standard" || bannerType === "new-player") {
-                    p.status = "won"; // В стандарте всегда "победа"
+                    p.status = "won";
                 } else if (!banner) {
-                    // Если баннер не найден в базе данных
                     p.status = "won";
                 } else {
-                    const featured = isFeatured(p.name, banner, p.rarity);
-                    const isG = p.rarity === 6 ? guaranteed6 : guaranteed5;
-
-                    if (featured) {
-                        p.status = isG ? "guaranteed" : "won";
-                        if (p.rarity === 6) guaranteed6 = false;
-                        else guaranteed5 = false;
+                    // [НОВАЯ ЛОГИКА]
+                    // Проверяем, есть ли вообще 5* в списке рейт-апа этого баннера
+                    const hasFeatured5 = banner.featured5 && banner.featured5.length > 0;
+                    
+                    // Если это 5*, но у баннера нет списка 5* (пустой массив), то статус normal
+                    if (p.rarity === 5 && !hasFeatured5) {
+                        p.status = "normal";
                     } else {
-                        // Если персонаж не ивентовый (как Gilberta в баннере Scars)
-                        p.status = "lost";
-                        if (p.rarity === 6) guaranteed6 = true;
-                        else guaranteed5 = true;
+                        // Иначе считаем как обычно (для 6* всегда, для 5* только если есть список)
+                        const featured = isFeatured(p.name, banner, p.rarity);
+                        const isG = p.rarity === 6 ? guaranteed6 : guaranteed5;
+
+                        if (featured) {
+                            p.status = isG ? "guaranteed" : "won";
+                            if (p.rarity === 6) guaranteed6 = false;
+                            else guaranteed5 = false;
+                        } else {
+                            p.status = "lost";
+                            if (p.rarity === 6) guaranteed6 = true;
+                            else guaranteed5 = true;
+                        }
                     }
                 }
             } else {
-                p.status = "normal"; // Для 4* и ниже
+                p.status = "normal";
             }
             return p;
         });
@@ -314,7 +322,8 @@
 
     // 50/50 win rate for 5*
     $: winRate5 = (() => {
-        if (count5 === 0) return { won: 0, total: 0, percent: 0 };
+        // [ИЗМЕНЕНИЕ] Если список featured5 пуст, не считаем статистику
+        if (count5 === 0 || featured5List.length === 0) return { won: 0, total: 0, percent: 0 };
 
         let won = 0;
         let total = 0;
@@ -326,6 +335,11 @@
 
         for (const pull of sorted) {
             if (pull.rarity === 5) {
+                // Здесь можно добавить доп. проверку на конкретный баннер крутки,
+                // но для общей статистики обычно берется текущий контекст.
+                // Если хочешь супер-точность по истории, нужно проверять баннер каждой крутки,
+                // но пока оставим как есть, опираясь на featured5List текущего баннера.
+                
                 const normName = normalize(pull.name);
                 const isFeatured = featured5List.some((featuredId) => {
                     const featuredChar = characters[featuredId];
