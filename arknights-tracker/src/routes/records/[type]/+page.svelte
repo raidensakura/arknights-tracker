@@ -696,7 +696,7 @@
                                         </div>
 
                                         {#if row.isNew}
-                                            <div class="absolute -top-1 -right-1 bg-[#D84C38] text-white text-[9px] font-bold px-1 rounded-sm shadow-md border border-white z-20 pointer-events-none">
+                                            <div class="absolute -top-1 -right-1 bg-[#D84C38]/85 text-white text-[8px] leading-none font-bold px-1.5 py-0.5 rounded-md z-20 pointer-events-none backdrop-blur-[1px]">
                                                 NEW
                                             </div>
                                         {/if}
