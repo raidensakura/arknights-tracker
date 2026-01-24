@@ -32,14 +32,15 @@ const POOL_TYPES = [
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 app.post('/api/import', async (req, res) => {
+    const { rawUrl, saveStats } = req.body;
+    const startTime = Date.now();
     const parsedUrl = new URL(rawUrl);
     // Проверка домена
     if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
          return res.status(400).json({ error: "Invalid domain" });
     }
 
-    const { rawUrl, saveStats } = req.body;
-    const startTime = Date.now();
+    
 
     try {
         const parsedUrl = new URL(rawUrl);
