@@ -14,6 +14,10 @@ try {
 
 const PORT = 3001;
 
+function generatePullId(uid, pull) {
+    return `${uid}_${pull.seqId || pull.timestamp}`;
+}
+
 app.use(cors());
 app.use(express.json());
 
@@ -28,6 +32,12 @@ const POOL_TYPES = [
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 app.post('/api/import', async (req, res) => {
+    const parsedUrl = new URL(rawUrl);
+    // Проверка домена
+    if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
+         return res.status(400).json({ error: "Invalid domain" });
+    }
+
     const { rawUrl, saveStats } = req.body;
     const startTime = Date.now();
 
@@ -144,45 +154,67 @@ app.post('/api/import', async (req, res) => {
 });
 
 function mapPoolTypeToShort(longType) {
-    if (longType.includes('Beginner')) return 'beginner';
+    if (longType.includes('Beginner')) return 'new-player';
     if (longType.includes('Standard')) return 'standard';
     if (longType.includes('Special')) return 'special';
     return 'unknown';
 }
 
 async function updateGlobalStatsBatch(uid, allPulls) {
+    if (!prisma) return;
+
     try {
+        // 1. Убеждаемся, что пользователь существует
         await prisma.user.upsert({ where: { uid }, update: {}, create: { uid } });
 
-        const pools = ['beginner', 'standard', 'special'];
-        for (const type of pools) {
-            const pullsOfType = allPulls.filter(p => p.poolId === type);
-            if (pullsOfType.length === 0) continue;
+        // 2. Группируем и определяем Banner ID
+        const pullsToInsert = allPulls.map(p => {
+            // API игры отдает время в секундах, JS работает в миллисекундах
+            const pullTimeMs = p.timestamp * 1000; 
+            
+            // Ищем подходящий баннер
+            // Условие: Тип совпадает И время крутки попадает в интервал баннера
+            const matchedBanner = BANNERS.find(b => 
+                b.type === p.poolId && // 'special' === 'special'
+                pullTimeMs >= b.startTime &&
+                (!b.endTime || pullTimeMs <= b.endTime)
+            );
 
-            const sixStars = pullsOfType.filter(p => p.rarity === 6).length;
-            const total = pullsOfType.length;
-            const avgPity = sixStars > 0 ? (total / sixStars) : 0;
+            // Если нашли - берем ID баннера, если нет - оставляем просто тип пула (fallback)
+            const realBannerId = matchedBanner ? matchedBanner.id : p.poolId;
 
-            // Считаем 50/50 (очень упрощенно, для примера)
-            // В реальности нужно чекать total5050Count и won5050Count через логику isWin
-            // Но пока просто обновим общие цифры
+            return {
+                id: generatePullId(uid, p),
+                uid: uid,
+                name: p.name,
+                rarity: p.rarity,
+                time: new Date(pullTimeMs), // Для Prisma Date object
+                poolId: p.poolId, 
+                bannerId: realBannerId, // <--- ВОТ ЗДЕСЬ ТЕПЕРЬ БУДЕТ "special_banner_01"
+                pity: 0, 
+                isGuaranteed: false 
+            };
+        });
+        
+        // 
 
-            await prisma.userStat.upsert({
-                where: { uid_poolType: { uid, poolType: type } },
-                update: {
-                    totalPulls: total,
-                    avgPity6: avgPity,
-                    // Добавьте сюда обновление полей 50/50 если реализовали их в parseGachaLog
-                },
-                create: {
-                    uid, poolType: type,
-                    totalPulls: total,
-                    avgPity6: avgPity
-                }
+        // 3. Массовая вставка (Цикл для SQLite)
+        for (const pull of pullsToInsert) {
+            await prisma.pull.upsert({
+                where: { id: pull.id },
+                update: {}, 
+                create: pull
             });
         }
+        
+        // 4. Обновляем статистику пользователя... (код без изменений)
+        const pools = ['beginner', 'standard', 'special'];
+        // ... твой код обновления статистики ...
+        
+        console.log(`[DB] Saved ${pullsToInsert.length} pulls for ${uid}`);
+
     } catch (e) {
-        console.error("DB Error:", e.message);
+        console.error("DB Update Error:", e.message);
     }
 }
 

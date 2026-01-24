@@ -82,17 +82,27 @@
         const file = event.target.files[0];
         if (!file) return;
 
+        // 1. ЗАЩИТА: Проверка размера файла (например, макс 10MB)
+        const MAX_SIZE = 10 * 1024 * 1024; // 10MB
+        if (file.size > MAX_SIZE) {
+            alert("File is too large! Maximum allowed size is 10MB.");
+            event.target.value = ""; // Сброс инпута
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = async (e) => {
             try {
                 const json = JSON.parse(e.target.result);
 
+                // Базовая валидация: это должен быть не null и объект
                 if (!json || typeof json !== "object") {
-                    alert("Invalid JSON format");
-                    return;
+                    throw new Error("Invalid JSON structure: not an object");
                 }
 
-                // СЦЕНАРИЙ 1: Полный бэкап (наш новый формат)
+                // ==================================================
+                // СЦЕНАРИЙ 1: Полный бэкап (ark_tracker_full_backup)
+                // ==================================================
                 if (
                     json.type === "ark_tracker_full_backup" &&
                     json.data &&
@@ -100,70 +110,97 @@
                 ) {
                     if (
                         !confirm(
-                            "This is a Full System Backup. Restoring it will OVERWRITE all current accounts and pull history. Continue?",
+                            "This is a Full System Backup.\n\nWARNING: Restoring it will COMPLETELY OVERWRITE all current accounts and pull history on this device.\n\nAre you sure you want to continue?",
                         )
                     ) {
                         return;
                     }
 
-                    // 1. Восстанавливаем данные круток в LocalStorage
-                    Object.entries(json.data).forEach(([accId, accData]) => {
-                        if (accData) {
-                            localStorage.setItem(
-                                `ark_tracker_data_${accId}`,
-                                JSON.stringify(accData),
-                            );
+                    try {
+                        // 1. Очищаем текущие данные (опционально, но надежнее) для избежания конфликтов
+                        // (localStorage.clear() тут опасно, лучше перезаписывать точечно)
+
+                        // 2. Восстанавливаем данные круток в LocalStorage
+                        Object.entries(json.data).forEach(
+                            ([accId, accData]) => {
+                                if (accData) {
+                                    localStorage.setItem(
+                                        `ark_tracker_data_${accId}`,
+                                        JSON.stringify(accData),
+                                    );
+                                }
+                            },
+                        );
+
+                        // 3. Восстанавливаем мета-данные аккаунтов (store + LS)
+                        accountStore.accounts.set(json.meta.accounts);
+
+                        // 4. Восстанавливаем выбранный ID
+                        if (json.meta.selectedId) {
+                            accountStore.selectAccount(json.meta.selectedId);
                         }
-                    });
 
-                    // 2. Восстанавливаем список аккаунтов (через стор, чтобы обновился UI и LS)
-                    accountStore.accounts.set(json.meta.accounts);
-
-                    // 3. Восстанавливаем выбранный ID
-                    if (json.meta.selectedId) {
-                        accountStore.selectAccount(json.meta.selectedId);
+                        alert(
+                            "✓ Full system backup restored successfully! The page will now reload.",
+                        );
+                        // Перезагрузка обязательна, чтобы stores перечитали чистый LS
+                        window.location.reload();
+                    } catch (err) {
+                        console.error("Full Backup Restore Error:", err);
+                        alert(
+                            "Critical error while restoring backup: " +
+                                err.message,
+                        );
                     }
-
-                    alert("Full system backup restored successfully!");
-                    // Желательно перезагрузить страницу, чтобы все сторы перечитали LS начисто
-                    window.location.reload();
                 }
-                // СЦЕНАРИЙ 2: Обычный импорт данных (UGE/старый формат) в ТЕКУЩИЙ аккаунт
+
+                // ==================================================
+                // СЦЕНАРИЙ 2: Обычный импорт данных (UGE/старый формат)
+                // ==================================================
                 else {
-                    // Пытаемся понять, это данные круток или мусор
-                    // Обычно данные круток содержат ключи типа 'standard', 'special' или массив
+                    // Эвристика: ищем признаки данных круток
+                    // Обычно это объект с ключами баннеров или массив (если старый формат UGE)
                     const isPullData =
-                        json.standard || json.special || Array.isArray(json);
+                        json.standard ||
+                        json.special ||
+                        json["wish-counter-standard-pool"] || // Поддержка старых ключей
+                        Array.isArray(json);
 
                     if (isPullData) {
                         if (
                             confirm(
-                                "This file looks like pull data (not a full backup). Import it into the CURRENTLY selected account?",
+                                "This looks like pull data (not a full backup).\nImport and MERGE it into the CURRENTLY selected account?",
                             )
                         ) {
                             try {
-                                // Используем smartImport из pulls.js для мержа
+                                // Используем smartImport из стора (он должен уметь мержить)
                                 await pullData.smartImport(json);
                                 alert(
-                                    "Pulls imported into current account successfully!",
+                                    "✓ Pulls imported into current account successfully!",
                                 );
                             } catch (err) {
-                                alert("Import Error: " + err.message);
+                                console.error("Smart Import Error:", err);
+                                alert("✗ Import Error: " + err.message);
                             }
                         }
                     } else {
                         alert(
-                            "Unknown file format. Neither a full backup nor valid pull data.",
+                            "✗ Unknown file format.\nThe file is neither a Full Backup nor recognizable Pull Data.",
                         );
                     }
                 }
             } catch (error) {
                 console.error(error);
-                alert("Error reading JSON file");
+                alert("✗ Error parsing JSON file: " + error.message);
             }
         };
+
+        reader.onerror = () => {
+            alert("✗ Error reading file");
+        };
+
         reader.readAsText(file);
-        event.target.value = "";
+        event.target.value = ""; // Сброс инпута, чтобы можно было загрузить тот же файл
     }
 
     // ... (Остальной код страницы без изменений) ...
@@ -197,9 +234,9 @@
         showDeleteModal = true;
     }
     function confirmClear() {
-      accountStore.clearCurrentData(); 
-      showClearModal = false;
-  }
+        accountStore.clearCurrentData();
+        showClearModal = false;
+    }
     function confirmDelete() {
         accountStore.deleteAccount($selectedId);
         showDeleteModal = false;
@@ -313,23 +350,13 @@
         />
 
         <div class="flex flex-wrap gap-4">
+            <Button variant="round" color="white" onClick={handleExportBackup}>
+                {$t("settings.backup.export")}
+            </Button>
 
-                <Button
-                    variant="round"
-                    color="white"
-                    onClick={handleExportBackup}
-                >
-                    {$t("settings.backup.export")}
-                </Button>
-
-                <Button
-                    variant="round"
-                    color="white"
-                    onClick={handleImportBackup}
-                >
-                    {$t("settings.backup.import")}
-                </Button>
-
+            <Button variant="round" color="white" onClick={handleImportBackup}>
+                {$t("settings.backup.import")}
+            </Button>
         </div>
     </section>
 

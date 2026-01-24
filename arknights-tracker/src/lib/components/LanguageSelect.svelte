@@ -5,6 +5,7 @@
     import Icons from "$lib/components/Icons.svelte";
 
     let isOpen = false;
+    let selectContainer;
 
     // Топографический паттерн
     const topoPattern = `
@@ -35,12 +36,22 @@
         }
     }
 
+    // Обработчик клика по window
+    function handleWindowClick(event) {
+        if (isOpen && selectContainer && !selectContainer.contains(event.target)) {
+            isOpen = false;
+        }
+    }
+
     // Получаем лейбл текущего языка
     $: currentLabel =
         languages.find((l) => l.code === $currentLocale)?.label || "Language";
 </script>
 
-<div class="relative w-full text-white font-sans select-none">
+<svelte:window on:click={handleWindowClick} />
+
+<div class="relative w-full text-white font-sans select-none"
+bind:this={selectContainer}>
     <!-- === ВЫПАДАЮЩИЙ СПИСОК === -->
 {#if isOpen}
     <div

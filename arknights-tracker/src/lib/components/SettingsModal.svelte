@@ -74,6 +74,11 @@
     const file = event.target.files[0];
     if (!file) return;
 
+    if (file.size > 5 * 1024 * 1024) {
+        alert("File is too large! Max 5MB.");
+        return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -138,10 +143,17 @@
   <div
     class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm transition-opacity"
     on:click={onClose}
+    on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && onClose()}
+    role="button"
+    tabindex="0"
   >
     <div
       class="bg-white rounded-2xl p-8 w-[500px] shadow-2xl transform transition-all scale-100 cursor-default"
       on:click|stopPropagation
+      on:keydown|stopPropagation
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
     >
       <h2 class="text-2xl font-bold mb-6 text-[#21272C] font-sdk">
         {$t("page.recordsSettings.settings")}
@@ -167,9 +179,10 @@
                 {$t("page.recordsSettings.exportXLSX")}
               </div>
             </button>
-
+<!--
             <button
               on:click={triggerImportExcel}
+              
               class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-xl hover:border-[#1D6F42] hover:bg-green-50 transition group bg-white h-24"
             >
               <div class="mb-2 text-gray-400 group-hover:text-[#1D6F42] transition-colors">
@@ -181,7 +194,7 @@
               <div class="font-bold text-[#21272C] text-sm">
                 {$t("page.recordsSettings.importXLSX")}
               </div>
-            </button>
+            </button>-->
           </div>
         </div>
       </div>

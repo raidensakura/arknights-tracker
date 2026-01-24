@@ -18,6 +18,13 @@
     let errorMsg = "";
     let isGlobalStatsEnabled = true;
 
+    const ALLOWED_DOMAINS = [
+        "ak.hypergryph.com",
+        "endfield.gryphline.com",
+        "web-api.hg-game.com",
+        "gs.hg-game.com"
+    ];
+
     // Состояние ошибки валидации (пустое поле)
     let isInputError = false;
 
@@ -25,14 +32,40 @@
 
     // --- ЛОГИКА ---
     async function handleUrlImport() {
-        // Сброс
         errorMsg = "";
         isInputError = false;
 
-        // ВАЛИДАЦИЯ
+        // 1. ПРОВЕРКА НА ПУСТОТУ
         if (!urlInput || !urlInput.trim()) {
             isInputError = true;
             errorMsg = $t("import.emptyError") || "Link is required";
+            return;
+        }
+
+        // 2. [НОВОЕ] ПРОВЕРКА ФОРМАТА URL И ДОМЕНА
+        try {
+            const parsedUrl = new URL(urlInput);
+            
+            // Проверяем протокол (только https)
+            if (parsedUrl.protocol !== "https:") {
+                errorMsg = "Only HTTPS links are allowed.";
+                return;
+            }
+
+            // Проверяем домен (есть ли он в белом списке)
+            // .some проверяет, содержится ли hostname в списке разрешенных
+            const isAllowed = ALLOWED_DOMAINS.some(domain => 
+                parsedUrl.hostname === domain || parsedUrl.hostname.endsWith("." + domain)
+            );
+
+            if (!isAllowed) {
+                errorMsg = "Invalid game link. Domain not supported.";
+                return;
+            }
+
+        } catch (e) {
+            isInputError = true;
+            errorMsg = "Invalid URL format.";
             return;
         }
 
