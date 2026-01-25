@@ -3,7 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 const { PrismaClient } = require('@prisma/client');
 const { URL, URLSearchParams } = require('url');
-const BANNERS = require('./banners.js');
+const { BANNERS } = require('./banners');
 
 const app = express();
 let prisma;
@@ -203,41 +203,24 @@ async function updateGlobalStatsBatch(uid, allPulls) {
 app.get('/api/rankings/data', async (req, res) => {
     try {
         const { bannerId } = req.query;
+        if (!bannerId) return res.status(400).json({ code: 1, message: "Banner ID required" });
 
-        if (!bannerId) {
-            return res.status(400).json({ code: 1, message: "Banner ID is required" });
-        }
+        const totalPulls = await prisma.pull.count({ where: { bannerId } });
 
-        // 1. Считаем всего круток
-        const totalPulls = await prisma.pull.count({
-            where: { bannerId: bannerId }
-        });
-
-        // Если круток 0, сразу отдаем пустой ответ, чтобы не нагружать базу и не ловить ошибки
         if (totalPulls === 0) {
-            return res.json({
-                code: 0,
-                data: {
-                    totalUsers: 0, totalPulls: 0, median6: 0, count6: 0, count5: 0, sixStarNames: {}
-                }
-            });
+            return res.json({ code: 0, data: { totalUsers: 0, totalPulls: 0, median6: 0, count6: 0, count5: 0, sixStarNames: {} } });
         }
 
-        // 2. Уникальные пользователи
         const uniqueUsersGroup = await prisma.pull.groupBy({
-            by: ['uid'],
-            where: { bannerId: bannerId },
+            by: ['uid'], where: { bannerId },
         });
         const totalUsers = uniqueUsersGroup.length;
 
-        // 3. Статистика по редкости
         const rarityStats = await prisma.pull.groupBy({
-            by: ['rarity'],
-            where: { bannerId: bannerId },
+            by: ['rarity'], where: { bannerId },
             _count: { rarity: true }
         });
 
-        // БЕЗОПАСНАЯ ФУНКЦИЯ (Раньше тут падало)
         const getCount = (r) => {
             if (!rarityStats) return 0;
             const found = rarityStats.find(item => item.rarity === r);
@@ -247,44 +230,31 @@ app.get('/api/rankings/data', async (req, res) => {
         const count6 = getCount(6);
         const count5 = getCount(5);
 
-        // 4. Медиана (только если есть 6*)
         let median6 = 0;
         let sixStarNames = {};
 
         if (count6 > 0) {
             const pulls6 = await prisma.pull.findMany({
-                where: { bannerId: bannerId, rarity: 6 },
+                where: { bannerId, rarity: 6 },
                 select: { pity: true, name: true }
             });
 
-            // Медиана
             const pities = pulls6.map(p => p.pity).sort((a, b) => a - b);
             if (pities.length > 0) {
                 const mid = Math.floor(pities.length / 2);
                 median6 = pities.length % 2 !== 0 ? pities[mid] : (pities[mid - 1] + pities[mid]) / 2;
             }
 
-            // Имена
-            pulls6.forEach(p => {
-                sixStarNames[p.name] = (sixStarNames[p.name] || 0) + 1;
-            });
+            pulls6.forEach(p => sixStarNames[p.name] = (sixStarNames[p.name] || 0) + 1);
         }
 
         res.json({
             code: 0,
-            data: {
-                totalUsers,
-                totalPulls,
-                median6,
-                count6,
-                count5,
-                sixStarNames
-            }
+            data: { totalUsers, totalPulls, median6, count6, count5, sixStarNames }
         });
 
     } catch (e) {
-        console.error("Global stats error:", e);
-        // Возвращаем JSON с ошибкой, а не просто падаем
+        console.error("Stats Error:", e);
         res.status(500).json({ code: 500, message: e.message });
     }
 });
