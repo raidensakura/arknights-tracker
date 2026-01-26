@@ -93,7 +93,7 @@
         return new Date(ts * 1000).toLocaleDateString();
     }
 
-    async function handleUrlImport() {
+async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
 
@@ -104,12 +104,8 @@
             return;
         }
 
-        // Проверка имени только для НОВОГО токена
-        // Если токен уже есть в базе (мы его не перезапишем), имя не обязательно проверять,
-        // но для UX оставим проверку, чтобы пользователь понимал намерение.
+        // Проверка имени (если включено сохранение)
         if (isSaveTokenEnabled && !tokenName.trim()) {
-            // Но если токен уже существует, имя нам не нужно.
-            // Добавим тонкую проверку: ругаемся только если такого URL еще нет
             const alreadyExists = savedTokens.some(t => t.url === urlInput);
             if (!alreadyExists) {
                 isInputError = true;
@@ -145,65 +141,74 @@
         try {
             const response = await proxyImport(urlInput, isGlobalStatsEnabled);
             
+            // Если код 0 и есть список — ВСЁ ОТЛИЧНО
             if (response.code === 0 && response.data?.list) {
                 
-                // [НОВОЕ] ПРОВЕРКА НА НЕСОВПАДЕНИЕ АККАУНТА
+                // ПРОВЕРКА НА НЕСОВПАДЕНИЕ АККАУНТА (UID Check)
                 const importedUid = response.data.uid;
                 const currentUid = localStorage.getItem("user_uid");
 
-                // Если у нас уже есть UID, есть данные в сторе, и пришел ДРУГОЙ UID
                 if (currentUid && importedUid && currentUid !== importedUid) {
-                    
-                    // 1. Собираем все даты из текущего стора $pullData
                     let allTimestamps = [];
-                    // Проходимся по всем пулам (standard, limited и т.д.)
                     Object.values($pullData).forEach(pool => {
                         if (pool.pulls && Array.isArray(pool.pulls)) {
                             pool.pulls.forEach(p => allTimestamps.push(p.ts));
                         }
                     });
 
-                    // Если история не пустая, формируем ошибку с датами
                     if (allTimestamps.length > 0) {
                         const minTs = Math.min(...allTimestamps);
                         const maxTs = Math.max(...allTimestamps);
-                        
                         const msg = $t("error_account_mismatch", {
                             startDate: formatDate(minTs),
                             endDate: formatDate(maxTs)
                         });
-
                         throw new Error(msg);
                     }
                 }
 
-                // --- ЕСЛИ ВСЕ ОК ---
-
-                // 1. Сохраняем токен (функция сама решит, дубликат это или нет)
+                // СОХРАНЕНИЕ ТОКЕНА
                 if (isSaveTokenEnabled && tokenName.trim()) {
                     saveTokenToStorage(tokenName.trim(), urlInput);
                 }
 
-                // 2. Обновляем UID
+                // ОБНОВЛЕНИЕ UID
                 if (importedUid) {
                     localStorage.setItem("user_uid", importedUid);
                 }
 
+                // ПАРСИНГ И ИМПОРТ
                 const rawData = response.data.list;
                 const cleanPulls = parseGachaLog(rawData);
                 pendingData = cleanPulls;
                 
-                // 3. Смарт-импорт
                 const report = await pullData.smartImport(cleanPulls, true);
                 previewReport = report;
 
             } else {
-                errorMsg = $t("import.noData") || "No pulls found.";
+                // [FIX] ВОТ ТУТ БЫЛА ПРОБЛЕМА
+                // Раньше тут всегда писалось "No pulls found".
+                // Теперь мы смотрим, вернул ли сервер текст ошибки.
+                
+                if (response.error || response.message || response.msg) {
+                    // Если сервер сказал "Token expired" или еще что-то
+                    errorMsg = response.error || response.message || response.msg;
+                } else {
+                    // Если сервер молчит, но список пуст
+                    errorMsg = $t("import.noData") || "No pulls found or Link Expired.";
+                }
             }
+
         } catch (err) {
-            console.error(err);
-            // Если это наша кастомная ошибка - показываем её как есть
-            errorMsg = err.message; 
+            console.error("Import Error:", err);
+            
+            // [FIX] Улучшенная обработка ошибок в catch
+            // Если ошибка содержит текст про "No pulls found" (от бэкенда)
+            if (err.message && (err.message.includes("No pulls found") || err.message.includes("generate UID"))) {
+                 errorMsg = "История пуста или ссылка устарела. UID не найден.";
+            } else {
+                 errorMsg = err.message || "Unknown Error";
+            }
         } finally {
             isLoading = false;
         }
