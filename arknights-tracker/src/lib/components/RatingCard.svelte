@@ -7,49 +7,65 @@
   import Button from "./Button.svelte";
   import Icon from "./Icons.svelte";
 
+  // --- НАСТРОЙКА ТАБОВ ---
   $: ratingTabs = [...bannerTypes]
     .filter((b) => b.showInRating)
     .sort((a, b) => a.order - b.order);
 
   let activeTab = ratingTabs?.[0]?.id ?? "special";
 
-  $: currentStats = $pullData[activeTab] || {
-    pulls: [],
-    total: 0,
-    pity6: 0,
-    pity5: 0,
-  };
-  $: totalPulls = currentStats.total;
+  // --- ЛОКАЛЬНЫЕ ДАННЫЕ (Считаем прямо в браузере) ---
+  $: localStore = $pullData[activeTab] || { pulls: [], stats: {} };
 
-  $: avgPity6 = (() => {
-    const sixStars = currentStats.pulls.filter((p) => p.rarity === 6);
-    if (sixStars.length === 0) return null;
-    return (totalPulls / sixStars.length).toFixed(1);
-  })();
+  // Берем готовые статы из стора (они там уже посчитаны)
+  $: localStats = localStore.stats || {};
 
-  $: winRate5050 = null;
-  $: total5050 = null;
+  $: localTotal = localStats.total || 0;
+  $: localAvg6 = localStats.avg6 || "0.0";
+  $: localAvg5 = localStats.avg5 || "0.0";
 
-  $: avgPity5 = (() => {
-    const fiveStars = currentStats.pulls.filter((p) => p.rarity === 5);
-    if (fiveStars.length === 0) return null;
-    return (totalPulls / fiveStars.length).toFixed(1);
-  })();
+  // Для 50/50 берем из локальной статистики
+  $: localWinRate = localStats.winRate?.percent || "0";
+  $: localTotal5050 = localStats.winRate?.total || 0;
+  $: localWon5050 = localStats.winRate?.won || 0;
 
-  let rankTotal = null;
-  let rankLuck6 = null;
-  let rank5050 = null;
-  let rankLuck5 = null;
+  // --- СЕРВЕРНЫЕ ДАННЫЕ (Приходят асинхронно) ---
+  let serverData = null; // Здесь будет лежать ответ API
 
+  // --- ИТОГОВЫЕ ПЕРЕМЕННЫЕ ДЛЯ ОТОБРАЖЕНИЯ ---
+  // Логика: Если сервер ответил данными, берем их. Если нет — показываем локальные.
+
+  $: displayTotal = serverData?.myStats?.total ?? localTotal;
+  $: displayAvg6 = serverData?.myStats?.avg6 ?? localAvg6;
+  $: displayAvg5 = "---"; // API обычно не возвращает avg5 для рейтинга, но если вернет - добавь сюда
+
+  // 50/50: Сервер может вернуть winRate просто числом/строкой
+  $: displayWinRate = serverData?.myStats?.winRate ?? localWinRate;
+
+  // Рейтинги (Top X%) - они есть только на сервере
+  $: rankTotal = serverData?.rankTotal ?? null;
+  $: rankLuck6 = serverData?.rankLuck6 ?? null;
+  $: rank5050 = serverData?.rank5050 ?? null;
+  $: rankLuck5 = serverData?.rankLuck5 ?? null;
+
+  // --- ЗАГРУЗКА ---
   $: if (browser && activeTab) {
     loadRankings(activeTab);
   }
 
   async function loadRankings(poolId) {
-    rankTotal = null;
+    serverData = null; // Сброс перед загрузкой
     const uid = localStorage.getItem("user_uid");
     if (!uid) return;
-    const data = await fetchGlobalStats(uid, poolId);
+
+    try {
+      const response = await fetchGlobalStats(uid, poolId);
+      if (response && response.code === 0 && response.data) {
+        serverData = response.data;
+      }
+    } catch (e) {
+      console.error("Failed to load rankings:", e);
+    }
   }
 
   function formatVal(val) {
@@ -79,7 +95,7 @@
           {rankTotal !== null ? `Top ${100 - rankTotal}%` : "..."}
         </div>
         <div class="text-sm font-bold text-gray-900 font-nums">
-          {totalPulls > 0 ? totalPulls.toLocaleString("ru-RU") : "---"}
+          {displayTotal > 0 ? displayTotal.toLocaleString("ru-RU") : "---"}
         </div>
       </div>
     </div>
@@ -100,7 +116,7 @@
           {rank5050 !== null ? `Top ${100 - rank5050}%` : "..."}
         </div>
         <div class="text-sm font-bold text-gray-900 font-nums">
-          {formatVal(winRate5050)} / {formatVal(total5050)}
+          {formatVal(displayWinRate)}%
         </div>
       </div>
     </div>
@@ -122,7 +138,7 @@
           {rankLuck6 !== null ? `Top ${100 - rankLuck6}%` : "..."}
         </div>
         <div class="text-sm font-bold text-gray-900 font-nums">
-          {formatVal(avgPity6)}
+          {formatVal(displayAvg6)}
           {$t("page.rating.avg")}
         </div>
       </div>
@@ -143,7 +159,7 @@
           {$t("page.rating.luckyTopPercent", { n: rankLuck5 || "..." })}
         </div>
         <div class="text-sm font-bold text-gray-900 font-nums">
-          {formatVal(avgPity5)}
+          {formatVal(localAvg5)}
           {$t("page.rating.avg")}
         </div>
       </div>

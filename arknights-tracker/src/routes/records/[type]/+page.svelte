@@ -43,6 +43,8 @@
     $: currentPity6 = stats.pity6 || 0;
     $: currentPity5 = stats.pity5 || 0;
     $: guarantee6 = stats.guarantee120 || 0;
+    $: progress120 = stats.guarantee120 || 0;
+    $: left120 = Math.max(0, 120 - progress120);
 
     $: statsRows = [
         {
@@ -298,7 +300,7 @@
                                     <span>{$t("page.banner.guarantee")}</span>
                                 </div>
                                 <span class="font-bold text-xl font-nums text-[#21272C]">
-                                    {guarantee6}<span class="text-sm text-gray-400">/120</span>
+                                    {progress120}<span class="text-sm text-gray-400">/120</span>
                                 </span>
                             </div>
                         {/if}

@@ -543,13 +543,22 @@
         <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.sources.title")}
         </h2>
-        <div class="text-gray-400 italic">Work in progress...</div>
+        <div class="text-gray-400 italic">wip</div>
     </section>
 
     <section class="mb-10">
         <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.feedback.title")}
         </h2>
+        <div
+            class="bg-gray-100 rounded-xl p-5 mb-5 flex items-start gap-4 text-gray-600 text-sm leading-relaxed"
+        >
+            <div class="mt-0.5 flex-shrink-0">
+                <Icon name="info" class="w-5 h-5 text-gray-400" />
+            </div>
+            <p>{$t("settings.feedback.text")}</p>
+        </div>
+
         <div class="w-48">
             <a
                 href="https://t.me/ivawa73"

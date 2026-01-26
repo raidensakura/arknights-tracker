@@ -438,7 +438,8 @@
     },
     "feedback": {
       "title": "Feedback",
-      "telegram": "Telegram"
+      "telegram": "Telegram",
+      "text": "The site is still under construction, so there may be bugs, incorrect display of twists, and other issues. If you find a bug, please report it on Telegram."
     }
   },
   "home": {

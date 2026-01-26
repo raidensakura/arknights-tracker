@@ -24,8 +24,8 @@
 
 <svelte:head>
   <title>Arknights Tracker & Statistics | Goyfield</title>
-  <meta name="description" content="Track your Arknights pulls, analyze drop rates, calculate 6-star luck, and view global pull statistics. Import your gacha history easily.">
-  <meta name="keywords" content="Arknights, Gacha Tracker, Pull History, Statistics, Arknights Global">
+  <meta name="description" content="Track your Arknights pulls, analyze drop rates, calculate 6-star luck, and view global pull statistics. Import your gacha history easily. Отслеживайте свои крутки в Arknights Endfield, просматривайте шансы выпадения. Импортируйте свою историю гача.">
+  <meta name="keywords" content="Arknights, Gacha Tracker, Pull History, Statistics, Аркнайтс, История круток, История гачи, Статистика">
 </svelte:head>
 
 <div class="flex min-h-screen bg-[#F9F9F9]">

@@ -31,6 +31,9 @@
   $: pity6 = stats.pity6 || 0;
   $: pity5 = stats.pity5 || 0;
   $: guarantee120 = stats.guarantee120 || 0;
+  $: guaranteeProgress = stats.guarantee120 || 0;
+  $: progress120 = stats.guarantee120 || 0;
+  $: left120 = Math.max(0, 120 - progress120);
   $: hasReceivedRateUp = stats.hasReceivedRateUp || false;
 
   // 4. Форматируем "Потрачено"
@@ -146,7 +149,7 @@
           <span>{$t("page.banner.guarantee")}</span>
         </div>
         <span class="font-bold text-xl font-nums text-[#21272C]">
-          {guarantee120}<span class="text-sm text-gray-400">/120</span>
+          {progress120}<span class="text-sm text-gray-400">/120</span>
         </span>
       </div>
     {/if}
