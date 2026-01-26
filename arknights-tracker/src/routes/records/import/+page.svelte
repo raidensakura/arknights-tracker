@@ -51,14 +51,18 @@
 
     function saveTokenToStorage(name, url) {
         try {
-            // Удаляем дубликаты по URL, если есть
-            const cleanList = savedTokens.filter(t => t.url !== url);
+            // [ИЗМЕНЕНО] Проверка на дубликаты
+            // Если такой URL уже есть в списке, просто ничего не делаем (не перезаписываем)
+            if (savedTokens.some(t => t.url === url)) {
+                return;
+            }
+
             const newToken = {
                 name: name,
                 url: url,
                 date: Date.now()
             };
-            const newList = [newToken, ...cleanList];
+            const newList = [newToken, ...savedTokens];
             localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
             savedTokens = newList;
         } catch (e) {
@@ -84,26 +88,37 @@
         errorMsg = "";
     }
 
-    // --- ЛОГИКА ИМПОРТА ---
+    // Хелпер для форматирования даты (можно вынести, но для удобства оставим тут)
+    function formatDate(ts) {
+        return new Date(ts * 1000).toLocaleDateString();
+    }
+
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
 
-        // 1. ВАЛИДАЦИЯ
+        // 1. ВАЛИДАЦИЯ ПУСТОТЫ
         if (!urlInput || !urlInput.trim()) {
             isInputError = true;
             errorMsg = $t("import.emptyError") || "Link is required";
             return;
         }
 
-        // Проверка имени, если стоит галочка
+        // Проверка имени только для НОВОГО токена
+        // Если токен уже есть в базе (мы его не перезапишем), имя не обязательно проверять,
+        // но для UX оставим проверку, чтобы пользователь понимал намерение.
         if (isSaveTokenEnabled && !tokenName.trim()) {
-            isInputError = true;
-            errorMsg = "Token name is required for saving.";
-            return;
+            // Но если токен уже существует, имя нам не нужно.
+            // Добавим тонкую проверку: ругаемся только если такого URL еще нет
+            const alreadyExists = savedTokens.some(t => t.url === urlInput);
+            if (!alreadyExists) {
+                isInputError = true;
+                errorMsg = "Token name is required for saving.";
+                return;
+            }
         }
 
-        // 2. ПРОВЕРКА ДОМЕНА
+        // 2. ВАЛИДАЦИЯ ДОМЕНА
         try {
             const parsedUrl = new URL(urlInput);
             if (parsedUrl.protocol !== "https:") {
@@ -131,27 +146,64 @@
             const response = await proxyImport(urlInput, isGlobalStatsEnabled);
             
             if (response.code === 0 && response.data?.list) {
-                // УСПЕШНЫЙ ИМПОРТ
+                
+                // [НОВОЕ] ПРОВЕРКА НА НЕСОВПАДЕНИЕ АККАУНТА
+                const importedUid = response.data.uid;
+                const currentUid = localStorage.getItem("user_uid");
 
-                // Если галочка стоит - сохраняем
+                // Если у нас уже есть UID, есть данные в сторе, и пришел ДРУГОЙ UID
+                if (currentUid && importedUid && currentUid !== importedUid) {
+                    
+                    // 1. Собираем все даты из текущего стора $pullData
+                    let allTimestamps = [];
+                    // Проходимся по всем пулам (standard, limited и т.д.)
+                    Object.values($pullData).forEach(pool => {
+                        if (pool.pulls && Array.isArray(pool.pulls)) {
+                            pool.pulls.forEach(p => allTimestamps.push(p.ts));
+                        }
+                    });
+
+                    // Если история не пустая, формируем ошибку с датами
+                    if (allTimestamps.length > 0) {
+                        const minTs = Math.min(...allTimestamps);
+                        const maxTs = Math.max(...allTimestamps);
+                        
+                        const msg = $t("error_account_mismatch", {
+                            startDate: formatDate(minTs),
+                            endDate: formatDate(maxTs)
+                        });
+
+                        throw new Error(msg);
+                    }
+                }
+
+                // --- ЕСЛИ ВСЕ ОК ---
+
+                // 1. Сохраняем токен (функция сама решит, дубликат это или нет)
                 if (isSaveTokenEnabled && tokenName.trim()) {
                     saveTokenToStorage(tokenName.trim(), urlInput);
                 }
 
-                if (response.data.uid)
-                    localStorage.setItem("user_uid", response.data.uid);
+                // 2. Обновляем UID
+                if (importedUid) {
+                    localStorage.setItem("user_uid", importedUid);
+                }
 
                 const rawData = response.data.list;
                 const cleanPulls = parseGachaLog(rawData);
                 pendingData = cleanPulls;
+                
+                // 3. Смарт-импорт
                 const report = await pullData.smartImport(cleanPulls, true);
                 previewReport = report;
+
             } else {
                 errorMsg = $t("import.noData") || "No pulls found.";
             }
         } catch (err) {
             console.error(err);
-            errorMsg = "Error: " + err.message;
+            // Если это наша кастомная ошибка - показываем её как есть
+            errorMsg = err.message; 
         } finally {
             isLoading = false;
         }

@@ -1,4 +1,5 @@
 {
+  "error_account_mismatch": "Error: Account Mismatch! You already have history between {startDate} and {endDate}. Please check if you selected the correct account.",
   "seo": {
     "title": "Goyfield: Arknights Endfield Pull Tracker",
     "description": "Отслеживайте свои крутки в Arknights Endfield",

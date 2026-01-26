@@ -1,4 +1,5 @@
 {
+  "error_account_mismatch": "Ошибка: Несовпадение аккаунта! У вас уже есть история с {startDate} по {endDate}. Пожалуйста, убедитесь, что выбран правильный аккаунт.",
   "seo": {
     "title": "Goyfield: Трекер круток для Arknights Endfield",
     "description": "Track your Arknights Endfield pulls",
