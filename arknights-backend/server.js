@@ -131,7 +131,10 @@ app.post('/api/import', async (req, res) => {
                     }
 
                     const list = result.data?.list || [];
-                    const newItems = list.filter(item => !visitedIds.has(item.seqId));
+                    const newItems = list.filter(item => {
+                        const uniqueKey = (isWeapon ? 'w_' : 'c_') + item.seqId;
+                        return !visitedIds.has(uniqueKey);
+                    });
 
                     if (list.length > 0 && newItems.length === 0) {
                         // Если все дубликаты - останавливаем страницу
@@ -141,7 +144,10 @@ app.post('/api/import', async (req, res) => {
 
                     console.log(`  -> Page ${pageCount}: Received ${list.length} items. New: ${newItems.length}`);
 
-                    newItems.forEach(item => visitedIds.add(item.seqId));
+                    newItems.forEach(item => {
+                        const uniqueKey = (isWeapon ? 'w_' : 'c_') + item.seqId;
+                        visitedIds.add(uniqueKey);
+                    });
 
                     // [NEW] Обработка и Нормализация
                     const listWithMeta = newItems.map(item => {
