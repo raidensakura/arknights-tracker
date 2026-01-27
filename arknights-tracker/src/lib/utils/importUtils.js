@@ -15,36 +15,62 @@ const sortPulls = (a, b) => {
 };
 
 export function getInternalBannerType(rawId) {
+    // Если ID нет — по дефолту стандарт (персонажей)
     if (!rawId) return 'standard';
+    
     const id = String(rawId).toLowerCase().trim();
 
-    // 1. ОРУЖИЕ
-    // Добавили проверку на 'weap' и 'constant'
-    if (id.includes('weapon') || id.includes('wepon') || id.includes('weap') || id.includes('constant')) {
-        // Возвращаем как есть, чтобы работали раздельные гаранты
-        return rawId; 
+    // ============================================================
+    // 1. САМЫЙ ГЛАВНЫЙ ПРИОРИТЕТ: ОРУЖИЕ
+    // ============================================================
+    // Любой намек на оружие должен возвращать "сырой" ID, 
+    // чтобы не смешивать гаранты.
+    // Проверяем: 'weapon', 'wepon' (опечатка разрабов), 'constant' (стандарт оружка)
+    if (
+        id.includes('weapon') || 
+        id.includes('wepon') || 
+        id.includes('constant') || 
+        id.includes('scathe') // На всякий случай, имя пушки в ID
+    ) {
+        return rawId; // Возвращаем: weaponbox_constant_2
     }
 
-    // 2. ПЕРСОНАЖИ
+    // ============================================================
+    // 2. ПЕРСОНАЖИ (Только если это НЕ оружие)
+    // ============================================================
+    
+    // Новичок
     if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) {
         return 'new-player';
     }
     
-    // ВАЖНО: Эта проверка срабатывала раньше для 'weap-standard', теперь не будет
+    // Стандарт Персонажей
+    // ВАЖНО: Сюда мы доходим, только если проверка на оружие выше НЕ сработала.
+    // Поэтому слово 'standard' тут безопасно.
     if (id === '1' || id.includes('standard') || id.includes('permanent')) {
         return 'standard';
     }
 
+    // Все остальное — Ивент Персонажей
     return 'special';
 }
 
-// Хелпер для UI (чтобы понять, в какую вкладку сунуть этот странный ID)
+// Хелпер для интерфейса (RatingCard): 
+// Помогает понять, в какую вкладку ("Standard Weapon" или "Event Weapon") засунуть этот ID
 export function getWeaponCategory(bannerId) {
+    if (!bannerId) return 'other';
     const id = String(bannerId).toLowerCase();
-    // Сюда попадут weaponbox_constant_1, weaponbox_constant_2...
-    if (id.includes('constant') || id.includes('standard')) return 'weap-standard';
-    // Сюда попадут ивентовые пушки
-    if (id.includes('weapon') || id.includes('wepon') || id.includes('weap')) return 'weap-special';
+
+    // Если ID содержит 'constant' или ('standard' И 'weapon') -> Вкладка Standard Weapon
+    if (id.includes('constant') || (id.includes('standard') && id.includes('weapon'))) {
+        return 'weap-standard';
+    }
+
+    // Если ID содержит 'wepon' или ('special' И 'weapon') -> Вкладка Event Weapon
+    if (id.includes('wepon') || (id.includes('special') && id.includes('weapon'))) {
+        return 'weap-special';
+    }
+
     return 'other';
 }
 
