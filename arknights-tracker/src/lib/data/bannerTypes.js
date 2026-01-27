@@ -33,5 +33,17 @@ export const bannerTypes = [
     showOnHome: true,
     showInRating: true,
     color: "green"
+  },
+  { 
+    id: "weap-special", 
+    i18nKey: "bannerTypes.weapSpecial", // Не забудь добавить в en.json/ru.json
+    order: 4, 
+    showInRating: true 
+  },
+  { 
+    id: "weap-standard", 
+    i18nKey: "bannerTypes.weapStandard", // Не забудь добавить в en.json/ru.json
+    order: 5, 
+    showInRating: true 
   }
 ];
