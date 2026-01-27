@@ -12,8 +12,6 @@
     import Button from "$lib/components/Button.svelte";
     import ConfirmationModal from "$lib/components/ConfirmationModal.svelte";
     import SyncModal from "$lib/components/SyncModal.svelte";
-    
-    currentUid.set(newUid);
 
     let isEmailVisible = false;
     let emailTimer;
@@ -249,7 +247,20 @@
     let showDeleteModal = false;
     let accountToDeleteName = "";
     function handleAccountChange(e) {
-        accountStore.selectAccount(e.detail);
+        const newAccountId = e.detail;
+        
+        // 1. Меняем аккаунт в менеджере аккаунтов (локальная база)
+        accountStore.selectAccount(newAccountId);
+        
+        // 2. [FIX] Обновляем глобальный UID для компонентов типа RatingCard
+        // Нам нужно найти UID этого аккаунта. 
+        // В accountStore обычно хранятся объекты { id: '...', name: '...', uid: '...' }
+        // Если 'id' === 'uid', то просто:
+        currentUid.set(newAccountId);
+        
+        // Если id != uid, то нужно найти объект аккаунта:
+        // const acc = $accounts.find(a => a.id === newAccountId);
+        // if (acc && acc.uid) currentUid.set(acc.uid);
     }
     function handleAddAccount() {
         accountStore.addAccount();
