@@ -95,13 +95,13 @@ export const banners = [
     iconPosition: 25
   },
   {
-    id: "weapon_banner_01",
+    id: "weapon_special_banner_01",
     name: "Smelting Forge Issue",
     type: "weapon",
     startTime: "2026-01-22 03:00:00",
     endTime: "2026-03-16 11:59:59",
     gameVersion: "0.2.0",
-    featured6: [],
+    featured6: ["forgebornScathe"],
     featured5: [],
     isServerTime: true, 
     timezone: "UTC+0",

@@ -3,10 +3,10 @@
 // Хелпер: Превращает строку в UTC Timestamp (миллисекунды)
 // Мы заменяем пробел на 'T' и добавляем 'Z' в конец, чтобы сервер понял, что это UTC+0
 const toTimestamp = (dateStr) => {
-    if (!dateStr) return null;
-    // Если формат "2026-01-22 03:00:00", делаем "2026-01-22T03:00:00Z"
-    const isoStr = dateStr.replace(' ', 'T') + 'Z'; 
-    return new Date(isoStr).getTime();
+  if (!dateStr) return null;
+  // Если формат "2026-01-22 03:00:00", делаем "2026-01-22T03:00:00Z"
+  const isoStr = dateStr.replace(' ', 'T') + 'Z';
+  return new Date(isoStr).getTime();
 };
 
 const RAW_BANNERS = [
@@ -17,7 +17,7 @@ const RAW_BANNERS = [
     startTime: "2026-01-22 03:00:00",
     endTime: null,
     gameVersion: "0.1.0",
-    featured6: ["ardelia", "pogranichnik", "lastRite", "ember", "lifeng"],
+    featured6: ["Ardelia", "Pogranichnik", "Last Rite", "Ember", "Lifeng"],
     featured5: [],
     isServerTime: false,
     timezone: "UTC+0",
@@ -36,7 +36,7 @@ const RAW_BANNERS = [
     startTime: "2026-01-22 03:00:00",
     endTime: null,
     gameVersion: "0.1.0",
-    featured6: ["ardelia", "pogranichnik", "lastRite", "ember", "lifeng"],
+    featured6: ["Ardelia", "Pogranichnik", "Last Rite", "Ember", "Lifeng"],
     featured5: [],
     isServerTime: false,
     timezone: "UTC+0",
@@ -48,15 +48,15 @@ const RAW_BANNERS = [
     iconPosition: 50
   },
   {
-    id: "special_banner_01", 
+    id: "special_banner_01",
     name: "Scars Of The Forge",
     type: "special",
     startTime: "2026-01-22 03:00:00",
     endTime: "2026-02-07 11:59:59",
     gameVersion: "0.1.0",
-    featured6: ["laevatain"], 
+    featured6: ["Laevatain"],
     featured5: [],
-    isServerTime: true, 
+    isServerTime: true,
     timezone: "UTC+0",
     icon: "laevatain-banner.jpg",
     miniIcon: "laevatain-banner.png",
@@ -72,9 +72,9 @@ const RAW_BANNERS = [
     startTime: "2026-02-07 12:00:00",
     endTime: "2026-02-24 11:59:59",
     gameVersion: "0.2.0",
-    featured6: ["gilberta"],
+    featured6: ["Gilberta"],
     featured5: [],
-    isServerTime: true, 
+    isServerTime: true,
     timezone: "UTC+0",
     icon: "gilberta-banner.png",
     miniIcon: "gilberta-banner.png",
@@ -90,9 +90,9 @@ const RAW_BANNERS = [
     startTime: "2026-02-24 12:00:00",
     endTime: "2026-03-16 11:59:59",
     gameVersion: "0.2.0",
-    featured6: ["yvonne"],
+    featured6: ["Yvonne"],
     featured5: [],
-    isServerTime: true, 
+    isServerTime: true,
     timezone: "UTC+0",
     icon: "yvonne-banner.png",
     miniIcon: "yvonne-banner.png",
@@ -110,7 +110,7 @@ const RAW_BANNERS = [
     gameVersion: "0.2.0",
     featured6: [],
     featured5: [],
-    isServerTime: true, 
+    isServerTime: true,
     timezone: "UTC+0",
     icon: "weapon_banner_01.jpg",
     miniIcon: "weapon_banner_01.jpg",
@@ -118,15 +118,28 @@ const RAW_BANNERS = [
     layer: 5,
     color: "#e44e25",
     iconPosition: 50
+  },
+  {
+    id: "weapon_special_banner_01",
+    // Важно: тип должен совпадать с тем, что мы маппим в importUtils (weap-special)
+    type: "weap-special",
+    // Время начала (Timestamp в мс). Примерно:
+    startTime: 1769000000000, // <-- ПОСТАВЬ ПРАВИЛЬНЫЙ TIMESTAMP
+    endTime: 1775000000000,   // <-- ПОСТАВЬ ПРАВИЛЬНЫЙ TIMESTAMP
+
+    // ВАЖНО: Имя должно совпадать с тем, что приходит в логах (weaponName).
+    // Если ты играешь на РУ, то сюда пиши русские имена. Если на EN - английские.
+    // Бэкенд нормализует (убирает пробелы, lowercase), так что регистр не важен.
+    featured6: ["Forgeborn Scathe", "Морской вал"]
   }
 ];
 
 // Экспортируем уже обработанные данные с числами вместо строк
 const BANNERS = RAW_BANNERS.map(b => ({
-    id: b.id,
-    type: b.type,
-    startTime: toTimestamp(b.startTime),
-    endTime: b.endTime ? toTimestamp(b.endTime) : 4102444800000, // Если null, ставим далекое будущее
+  id: b.id,
+  type: b.type,
+  startTime: toTimestamp(b.startTime),
+  endTime: b.endTime ? toTimestamp(b.endTime) : 4102444800000, // Если null, ставим далекое будущее
 }));
 
 module.exports = { BANNERS };

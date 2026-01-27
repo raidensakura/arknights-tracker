@@ -18,12 +18,23 @@ export function getInternalBannerType(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
 
+    // --- ПЕРСОНАЖИ ---
     if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) {
         return 'new-player';
     }
     if (id === '1' || id.includes('standard') || id.includes('permanent')) {
         return 'standard';
     }
+
+    // --- ОРУЖИЕ ---
+    if (id.includes('constant')) { // Например: weaponbox_constant_2
+        return 'weap-standard';
+    }
+    if (id.includes('weponbox') || id.includes('weapon')) { // Например: weponbox_1_0_1
+        return 'weap-special';
+    }
+
+    // Все остальное считаем ивентовым персонажем
     return 'special';
 }
 
@@ -35,11 +46,13 @@ export function parseGachaLog(list) {
     if (list.length === 0) throw new Error("No data found");
 
     const parsedList = list.map((item, i) => {
-        const rawName = item.name || item.charName || item.character || item.item_name;
+        // [ИЗМЕНЕНО] Добавлена поддержка weaponName
+        const rawName = item.name || item.charName || item.weaponName || item.character || item.item_name;
+        
         const rarity = Number(item.rarity || item.rank || item.rank_type);
         const seqId = Number(item.seqId || item.sequence || 0);
         
-        // [NEW] Читаем поле isNew (может быть true/false или строкой "true")
+        // Читаем поле isNew
         const isNew = item.isNew === true || item.isNew === "true" || item.is_new === true;
 
         // Время
@@ -55,19 +68,14 @@ export function parseGachaLog(list) {
         if (!rarity || isNaN(rarity)) throw new Error(`Item #${i} has invalid rarity.`);
 
         const internalId = getInternalBannerType(rawBannerId);
-
-        // [FIX DUPLICATES] 
-        // Генерируем ID строго на основе данных. 
-        // Используем seqId. Если его нет (0), используем i как fallback, но это опасно.
-        // Надеемся, что seqId есть всегда в твоих логах.
-        // Формат: TIMESTAMP_NAME_SEQID
+        
+        // Определяем тип предмета (Weapon или Character) для фильтрации в будущем
+        const itemType = item.weaponName ? 'weapon' : 'character';
         let uniqueId = item.id;
         if (!uniqueId) {
-            // Если seqId есть, индекс i не нужен (это решит проблему дублей при повторном импорте)
             if (seqId !== 0) {
                 uniqueId = `${dateObj.getTime()}_${rawName}_${seqId}`;
             } else {
-                // Если seqId нет, приходится использовать индекс, но это крайний случай
                 uniqueId = `${dateObj.getTime()}_${rawName}_idx${i}`;
             }
         }
@@ -79,7 +87,9 @@ export function parseGachaLog(list) {
             rarity: rarity,
             bannerId: internalId,
             seqId: seqId,
-            isNew: isNew // Сохраняем флаг новизны
+            isNew: isNew,
+            type: itemType,
+            rawPoolId: rawBannerId
         };
     });
 

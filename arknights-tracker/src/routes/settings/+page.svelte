@@ -6,11 +6,14 @@
     import { pullData } from "$lib/stores/pulls";
     import { analytics } from "$lib/firebase";
     import { logEvent } from "firebase/analytics";
+    import { currentUid } from "$lib/stores/auth";
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Button from "$lib/components/Button.svelte";
     import ConfirmationModal from "$lib/components/ConfirmationModal.svelte";
     import SyncModal from "$lib/components/SyncModal.svelte";
+    
+    currentUid.set(newUid);
 
     let isEmailVisible = false;
     let emailTimer;

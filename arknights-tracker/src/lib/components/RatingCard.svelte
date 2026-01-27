@@ -4,6 +4,7 @@
   import { bannerTypes } from "$lib/data/bannerTypes";
   import { fetchGlobalStats } from "$lib/api";
   import { browser } from "$app/environment";
+  import { currentUid } from "$lib/stores/auth";
   import Button from "./Button.svelte";
   import Icon from "./Icons.svelte";
 
@@ -51,8 +52,8 @@
   $: rankLuck5 = safeParse(serverData?.rankLuck5);
 
   // --- ЗАГРУЗКА ---
-  $: if (browser && activeTab) {
-    loadRankings(activeTab);
+  $: if (browser && activeTab && $currentUid) {
+    loadRankings(activeTab, $currentUid);
   }
 
   async function loadRankings(poolId) {

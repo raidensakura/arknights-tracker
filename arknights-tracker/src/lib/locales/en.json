@@ -71,7 +71,9 @@
   "bannerTypes": {
     "standard": "Standard Headhunting",
     "special": "Special Headhunting",
-    "new-player": "New Horizons Headhunting"
+    "new-player": "New Horizons Headhunting",
+    "weap-standard": "Standard Weapon",
+    "weap-special": "Event Weapon"
   },
   "import": {
     "title": "Import Headhunting Records",
@@ -188,7 +190,7 @@
     "special_banner_03": "Hues Of Passion",
     "standard_01": "Basic Headhunting",
     "new_player_01": "New Horizons Headhunting",
-    "weapon_banner_01": "Smelting Forge Issue"
+    "weapon_special_banner_01": "Smelting Forge Issue"
   },
   "pages": {
     "home": "Home",

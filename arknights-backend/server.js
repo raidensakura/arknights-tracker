@@ -54,9 +54,13 @@ app.use(express.json({ limit: '10mb' }));
 const GAME_API_URL = 'https://ef-webview.gryphline.com/api/record/char';
 
 const POOL_TYPES = [
+    // Персонажи
     "E_CharacterGachaPoolType_Beginner",
     "E_CharacterGachaPoolType_Standard",
-    "E_CharacterGachaPoolType_Special"
+    "E_CharacterGachaPoolType_Special",
+    // Оружие
+    "E_WeaponGachaPoolType_Standard",
+    "E_WeaponGachaPoolType_Special"
 ];
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
@@ -87,6 +91,12 @@ app.post('/api/import', async (req, res) => {
             let lastId = "";
             let pageCount = 1;
 
+            // [NEW] Выбираем правильный эндпоинт API
+            const isWeapon = poolType.includes('Weapon');
+            const currentApiUrl = isWeapon 
+                ? 'https://ef-webview.gryphline.com/api/record/weapon'
+                : 'https://ef-webview.gryphline.com/api/record/char';
+
             console.log(`\n[Pool] Scanning: ${mapPoolTypeToShort(poolType)}`);
 
             while (hasMore) {
@@ -94,12 +104,11 @@ app.post('/api/import', async (req, res) => {
                     token, lang, server_id: serverId, pool_type: poolType
                 });
 
-                if (lastId) {
-                    params.append('seq_id', lastId);
-                }
+                if (lastId) params.append('seq_id', lastId);
 
                 try {
-                    const response = await axios.get(`${GAME_API_URL}?${params.toString()}`, {
+                    // [NEW] Используем динамический URL
+                    const response = await axios.get(`${currentApiUrl}?${params.toString()}`, {
                         timeout: 5000,
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -108,14 +117,18 @@ app.post('/api/import', async (req, res) => {
                     });
 
                     const result = response.data;
-                    if (result.code !== 0) break;
+                    
+                    // [FIX] Логируем ошибку, если токен протух, и выходим корректно
+                    if (result.code !== 0) {
+                        console.warn(`⚠️ Game API Error: ${result.code} - ${result.msg}`);
+                        hasMore = false; 
+                        break; 
+                    }
 
                     const list = result.data?.list || [];
-
                     const newItems = list.filter(item => !visitedIds.has(item.seqId));
 
                     if (list.length > 0 && newItems.length === 0) {
-                        console.warn(`  -> Page ${pageCount}: All items are duplicates. Stopping.`);
                         hasMore = false;
                         break;
                     }
@@ -124,29 +137,30 @@ app.post('/api/import', async (req, res) => {
 
                     newItems.forEach(item => visitedIds.add(item.seqId));
 
+                    // [NEW] Нормализуем данные (создаем единое поле name)
                     const listWithMeta = newItems.map(item => ({
                         ...item,
-                        poolId: mapPoolTypeToShort(poolType)
+                        // У оружия поле weaponName, у персов charName или name. Приводим к name.
+                        name: item.name || item.charName || item.weaponName, 
+                        poolId: mapPoolTypeToShort(poolType),
+                        // Сохраняем тип сущности для будущего разделения
+                        itemType: isWeapon ? 'weapon' : 'character'
                     }));
 
                     allPulls = [...allPulls, ...listWithMeta];
+                    
+                    // ... (дальше логика пагинации осталась прежней) ...
                     hasMore = result.data?.hasMore;
-
-                    if (newItems.length === 0) {
-                        hasMore = false;
-                    }
-                    else if (list.length > 0) {
-                        lastId = list[list.length - 1].seqId;
-                    } else {
-                        hasMore = false;
-                    }
+                    if (newItems.length === 0) hasMore = false;
+                    else if (list.length > 0) lastId = list[list.length - 1].seqId;
+                    else hasMore = false;
 
                     pageCount++;
                     if (pageCount > 50) hasMore = false;
                     await sleep(100);
 
                 } catch (err) {
-                    console.error(`  -> Network/API Error on page ${pageCount}: ${err.message}`);
+                    console.error(`  -> Network/API Error: ${err.message}`);
                     hasMore = false;
                 }
             }
@@ -186,9 +200,21 @@ app.post('/api/import', async (req, res) => {
 });
 
 function mapPoolTypeToShort(longType) {
-    if (longType.includes('Beginner')) return 'new-player';
-    if (longType.includes('Standard')) return 'standard';
-    if (longType.includes('Special')) return 'special';
+    if (longType.includes('Character')) {
+        if (longType.includes('Beginner')) return 'new-player';
+        if (longType.includes('Standard')) return 'standard';
+        if (longType.includes('Special')) return 'special';
+    }
+    // [NEW] Логика для оружия
+    if (longType.includes('Weapon')) {
+        // Если API отдает типы E_Weapon...
+        if (longType.includes('Standard')) return 'weap-standard';
+        if (longType.includes('Special')) return 'weap-special';
+        
+        // Если парсим уже "сырой" ID из логов (на будущее)
+        if (longType.includes('constant')) return 'weap-standard';
+        if (longType.includes('weponbox')) return 'weap-special';
+    }
     return 'unknown';
 }
 
@@ -253,76 +279,56 @@ async function updateAggregatedStats(uid, allPulls) {
 
 // Математика подсчета (аналог того, что у тебя на фронте, но упрощено для БД)
 function calculateMath(pulls, bannerId) {
-    // 1. Сортируем: сначала старые, потом новые
     pulls.sort((a, b) => a.time - b.time || a.seqId.localeCompare(b.seqId));
 
-    // 2. Ищем конфиг баннера (для 50/50)
     let bannerConfig = BANNERS.find(b => b.id === bannerId);
     if (!bannerConfig) {
-        // Fallback маппинг
         if (bannerId.includes('new')) bannerConfig = BANNERS.find(b => b.type === 'beginner');
         else if (bannerId.includes('special')) bannerConfig = BANNERS.find(b => b.type === 'special');
         else bannerConfig = BANNERS.find(b => b.type === 'standard');
     }
 
-    // Подготовка списка Featured (для 50/50)
     const featured6 = (bannerConfig && bannerConfig.featured6) ? bannerConfig.featured6 : [];
-    const normalize = s => s ? s.toLowerCase().replace(/[^a-z0-9]/g, "") : ""; // Жесткая нормализация
+    const normalize = s => s ? s.toLowerCase().replace(/[^a-z0-9]/g, "") : "";
     const normFeatured = featured6.map(normalize);
 
     let stats = {
         totalPulls: pulls.length,
-        total6: 0, 
-        sumPity6: 0,
-        total5: 0, 
-        sumPity5: 0, // Если нужно
-        won5050: 0, 
-        total5050: 0
+        total6: 0, sumPity6: 0,
+        total5: 0, sumPity5: 0,
+        won5050: 0, total5050: 0
     };
 
     let pityCounter = 0;
-    // Важно: Предполагаем, что прошлый гарант был "выигран", чтобы первая лега считалась как 50/50
-    // Или наоборот, ставим true, чтобы считать, что гаранта нет. Обычно ставят true.
     let last6WasFeatured = true; 
 
     pulls.forEach((p) => {
-        const isFree = p.isFree || false; // Проверяем флаг
-        
-        // Увеличиваем пити ТОЛЬКО если крутка ПЛАТНАЯ
+        // [NEW] Проверка бесплатной крутки
+        const isFree = p.isFree === true || String(p.isFree) === "true";
+
         if (!isFree) {
             pityCounter++;
         }
 
-        // --- ОБРАБОТКА 6* (ЛЕГА) ---
-        if (p.rarity === 6) { // Внимание: В Endfield (как в AK) 6* имеет rarity=5 в коде? Проверь это! Обычно 0-5 (где 5 это топ).
+        // [FIX] Rarity 6 для 6-звездочных
+        if (p.rarity === 6) { 
             stats.total6++;
-            
-            // Если лега выпала на бесплатной крутке, какой у нее пити?
-            // Обычно считают текущий накопившийся.
-            stats.sumPity6 += pityCounter;
+            stats.sumPity6 += pityCounter; // Записываем, на каком пити выпало
 
-            // Логика 50/50
             if (normFeatured.length > 0) {
                 const charName = normalize(p.name);
                 const isFeatured = normFeatured.includes(charName);
-
-                // Если предыдущая лега была ивентовой (или это самая первая), 
-                // значит сейчас у нас ситуация 50/50
                 if (last6WasFeatured) {
                     stats.total5050++;
                     if (isFeatured) stats.won5050++;
                 }
-                
-                // Запоминаем статус текущей леги для следующего раза
                 last6WasFeatured = isFeatured;
             }
-
-            // Сброс гаранта после выпадения
-            pityCounter = 0;
+            pityCounter = 0; // Сброс
         }
         
-        // --- ОБРАБОТКА 5* (Эпик) ---
-        else if (p.rarity === 5) { // Rarity 4 = 5 звезд
+        // [FIX] Rarity 5 для 5-звездочных
+        else if (p.rarity === 5) { 
             stats.total5++;
         }
     });
@@ -386,6 +392,14 @@ app.get('/api/rankings/data', async (req, res) => {
             rankLuck6 = (worseThanMe / validLuckUsers.length * 100).toFixed(0);
         }
 
+        const validLuck5 = usersWithAvg.filter(u => u.total5 > 0).sort((a, b) => a.avg5 - b.avg5); // Сортировка по возрастанию (меньше - лучше)
+        const myLuck5Index = validLuck5.findIndex(u => u.uid === uid);
+        let rankLuck5 = null;
+        if (myLuck5Index !== -1) {
+            const worseThanMe = validLuck5.length - 1 - myLuck5Index;
+            rankLuck5 = (worseThanMe / validLuck5.length * 100).toFixed(0);
+        }
+
         // -- Total Pulls Rank (Больше = выше) --
         const sortedTotal = [...usersWithAvg].sort((a, b) => b.totalPulls - a.totalPulls);
         const myTotalIndex = sortedTotal.findIndex(u => u.uid === uid);
@@ -405,13 +419,15 @@ app.get('/api/rankings/data', async (req, res) => {
                 found: true,
                 totalUsers: allStats.length,
                 rankTotal,  // "Вы крутили больше, чем X% игроков"
-                rankLuck6,  // "Вы удачливее, чем X% игроков"
+                rankLuck6,
+                rankLuck5,  // "Вы удачливее, чем X% игроков"
                 rank5050,   // "Вы выигрываете 50/50 чаще, чем X% игроков"
 
                 // Сырые данные тоже можно вернуть
                 myStats: {
                     total: myStat.totalPulls,
                     avg6: myStat.avg6.toFixed(1),
+                    avg5: myStat.avg5 ? myStat.avg5.toFixed(1) : "0.0",
                     winRate: myStat.winRate.toFixed(1)
                 }
             }
