@@ -59,8 +59,7 @@ const POOL_TYPES = [
     "E_CharacterGachaPoolType_Standard",
     "E_CharacterGachaPoolType_Special",
     // Оружие
-    "E_WeaponGachaPoolType_Standard",
-    "E_WeaponGachaPoolType_Special"
+    "WEAPON_FETCH_ALL"
 ];
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
@@ -68,13 +67,14 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 app.post('/api/import', async (req, res) => {
     const { rawUrl, saveStats } = req.body;
     const startTime = Date.now();
-    const parsedUrl = new URL(rawUrl);
-    if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
-        return res.status(400).json({ error: "Invalid domain" });
-    }
-
+    
+    // Валидация домена
     try {
         const parsedUrl = new URL(rawUrl);
+        if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
+            return res.status(400).json({ error: "Invalid domain" });
+        }
+        
         const token = parsedUrl.searchParams.get('token');
         const lang = parsedUrl.searchParams.get('lang') || 'en-us';
         const serverId = parsedUrl.searchParams.get('server_id') || '3';
@@ -91,23 +91,29 @@ app.post('/api/import', async (req, res) => {
             let lastId = "";
             let pageCount = 1;
 
-            // [NEW] Выбираем правильный эндпоинт API
-            const isWeapon = poolType.includes('Weapon');
-            const currentApiUrl = isWeapon 
+            // [NEW] Логика для оружия
+            const isWeaponScan = poolType === 'WEAPON_FETCH_ALL';
+            
+            // Выбираем URL
+            const currentApiUrl = isWeaponScan 
                 ? 'https://ef-webview.gryphline.com/api/record/weapon'
                 : 'https://ef-webview.gryphline.com/api/record/char';
 
-            console.log(`\n[Pool] Scanning: ${mapPoolTypeToShort(poolType)}`);
+            console.log(`\n[Pool] Scanning: ${isWeaponScan ? 'WEAPONS (All)' : mapPoolTypeToShort(poolType)}`);
 
             while (hasMore) {
                 const params = new URLSearchParams({
-                    token, lang, server_id: serverId, pool_type: poolType
+                    token, lang, server_id: serverId
                 });
+
+                // [ВАЖНО] pool_type добавляем только для персонажей. Оружие качаем всё скопом.
+                if (!isWeaponScan) {
+                    params.append('pool_type', poolType);
+                }
 
                 if (lastId) params.append('seq_id', lastId);
 
                 try {
-                    // [NEW] Используем динамический URL
                     const response = await axios.get(`${currentApiUrl}?${params.toString()}`, {
                         timeout: 5000,
                         headers: {
@@ -118,7 +124,6 @@ app.post('/api/import', async (req, res) => {
 
                     const result = response.data;
                     
-                    // [FIX] Логируем ошибку, если токен протух, и выходим корректно
                     if (result.code !== 0) {
                         console.warn(`⚠️ Game API Error: ${result.code} - ${result.msg}`);
                         hasMore = false; 
@@ -129,6 +134,7 @@ app.post('/api/import', async (req, res) => {
                     const newItems = list.filter(item => !visitedIds.has(item.seqId));
 
                     if (list.length > 0 && newItems.length === 0) {
+                        // Если все дубликаты - останавливаем страницу
                         hasMore = false;
                         break;
                     }
@@ -137,19 +143,32 @@ app.post('/api/import', async (req, res) => {
 
                     newItems.forEach(item => visitedIds.add(item.seqId));
 
-                    // [NEW] Нормализуем данные (создаем единое поле name)
-                    const listWithMeta = newItems.map(item => ({
-                        ...item,
-                        // У оружия поле weaponName, у персов charName или name. Приводим к name.
-                        name: item.name || item.charName || item.weaponName, 
-                        poolId: mapPoolTypeToShort(poolType),
-                        // Сохраняем тип сущности для будущего разделения
-                        itemType: isWeapon ? 'weapon' : 'character'
-                    }));
+                    // [NEW] Обработка и Нормализация
+                    const listWithMeta = newItems.map(item => {
+                        let finalPoolId;
+
+                        if (isWeaponScan) {
+                            // Для оружия берем категорию из самого предмета (poolId/bannerId)
+                            // Пример: item.poolId = "weaponbox_constant_2"
+                            const rawId = item.poolId || item.bannerId;
+                            finalPoolId = mapPoolTypeToShort(rawId); 
+                        } else {
+                            // Для персонажей берем из типа запроса
+                            finalPoolId = mapPoolTypeToShort(poolType);
+                        }
+
+                        return {
+                            ...item,
+                            // Единое поле name
+                            name: item.name || item.charName || item.weaponName, 
+                            poolId: finalPoolId,
+                            // Сохраняем тип сущности
+                            itemType: isWeaponScan ? 'weapon' : 'character'
+                        };
+                    });
 
                     allPulls = [...allPulls, ...listWithMeta];
                     
-                    // ... (дальше логика пагинации осталась прежней) ...
                     hasMore = result.data?.hasMore;
                     if (newItems.length === 0) hasMore = false;
                     else if (list.length > 0) lastId = list[list.length - 1].seqId;
@@ -166,11 +185,9 @@ app.post('/api/import', async (req, res) => {
             }
         }
 
-        const pseudoUid = "u_" + token.substring(0, 15);
-
         console.log(`--- Import Finished. Total: ${allPulls.length} ---`);
 
-        // [FIX] Генерируем стабильный UID на основе истории круток
+        // Генерация UID
         const stableUid = generateStableUid(allPulls);
 
         if (!stableUid) {
@@ -179,9 +196,8 @@ app.post('/api/import', async (req, res) => {
 
         console.log(`User Stable UID: ${stableUid}`);
 
-        // Сохраняем статистику (используем stableUid вместо токена)
+        // Сохранение статистики
         if (prisma && allPulls.length > 0) {
-            // Ждем выполнения, чтобы убедиться, что всё ок
             await updateAggregatedStats(stableUid, allPulls);
         }
 
@@ -189,7 +205,7 @@ app.post('/api/import', async (req, res) => {
             code: 0,
             data: {
                 list: allPulls,
-                uid: stableUid // Отправляем стабильный ID на фронт
+                uid: stableUid
             }
         });
 
@@ -200,21 +216,29 @@ app.post('/api/import', async (req, res) => {
 });
 
 function mapPoolTypeToShort(longType) {
+    if (!longType) return 'unknown';
+
+    // 1. ПЕРСОНАЖИ
     if (longType.includes('Character')) {
         if (longType.includes('Beginner')) return 'new-player';
         if (longType.includes('Standard')) return 'standard';
         if (longType.includes('Special')) return 'special';
     }
-    // [NEW] Логика для оружия
-    if (longType.includes('Weapon')) {
-        // Если API отдает типы E_Weapon...
-        if (longType.includes('Standard')) return 'weap-standard';
-        if (longType.includes('Special')) return 'weap-special';
-        
-        // Если парсим уже "сырой" ID из логов (на будущее)
-        if (longType.includes('constant')) return 'weap-standard';
-        if (longType.includes('weponbox')) return 'weap-special';
-    }
+    // Если просто стандартные названия без префикса Character
+    if (longType.includes('Beginner')) return 'new-player';
+    if (longType.includes('Standard') && !longType.includes('Weapon')) return 'standard';
+    if (longType.includes('Special') && !longType.includes('Weapon') && !longType.includes('weponbox')) return 'special';
+
+    // 2. ОРУЖИЕ
+    // Типы из конфига или API
+    if (longType === 'WEAPON_FETCH_ALL') return 'weapon-all'; // Временный тип
+    if (longType.includes('Weapon') && longType.includes('Standard')) return 'weap-standard';
+    if (longType.includes('Weapon') && longType.includes('Special')) return 'weap-special';
+
+    // "Сырые" ID из логов оружия
+    if (longType.includes('constant')) return 'weap-standard'; // weaponbox_constant_2
+    if (longType.includes('weponbox')) return 'weap-special';  // weponbox_1_0_1
+
     return 'unknown';
 }
 
