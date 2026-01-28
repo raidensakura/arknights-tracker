@@ -228,7 +228,7 @@ export const banners = [
     miniIcon: "weapon_banner_02.jpg",
     url: "https://x.com/AKEndfield/status/2013838974239023147",
     layer: 7,
-    color: "#e44e25",
+    color: "#858585",
     iconPosition: 50,
     showOnMain: false
   },
@@ -247,7 +247,7 @@ export const banners = [
     miniIcon: "weapon_banner_03.jpg",
     url: "https://x.com/AKEndfield/status/2013838974239023147",
     layer: 8,
-    color: "#e44e25",
+    color: "#b336a2",
     iconPosition: 50,
     showOnMain: false
   }
