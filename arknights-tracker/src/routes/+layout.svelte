@@ -28,8 +28,13 @@
   <meta name="description" content={$t("seo.description")}>
   <meta name="keywords" content={$t("seo.keywords")}>
   
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="any" />
+  
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  
   <meta property="og:title" content={$t("seo.title")} />
   <meta property="og:description" content={$t("seo.description")} />
+  <meta property="og:image" content="/images/og-image.jpg" /> 
 </svelte:head>
 
 <div class="flex min-h-screen bg-[#F9F9F9]">
