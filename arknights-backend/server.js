@@ -179,11 +179,13 @@ app.post('/api/import', async (req, res) => {
             return res.status(400).json({ error: "Invalid domain" });
         }
         
-        // [FIX 1] Читаем и token, и u8_token (для оружия)
         const token = parsedUrl.searchParams.get('token') || parsedUrl.searchParams.get('u8_token');
-        const lang = parsedUrl.searchParams.get('lang') || 'en-us';
         
-        // Берем сервер из ссылки или по умолчанию 3
+        // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+        // Игнорируем язык из ссылки, всегда берем английский
+        const lang = 'en-us'; 
+        // -------------------------
+        
         let targetServerId = parsedUrl.searchParams.get('server_id') || '3';
 
         if (!token) return res.status(400).json({ error: "No token found in URL" });
