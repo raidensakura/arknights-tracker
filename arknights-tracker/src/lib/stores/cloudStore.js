@@ -4,13 +4,12 @@ import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
 import { accountStore } from "$lib/stores/accounts"; 
-// [ВАЖНО] УБРАЛИ import pullData, чтобы не ломать сборку
 
 export const user = writable(null);
 export const syncStatus = writable("idle"); 
 export const cloudDataBuffer = writable(null);
 
-// Простой подсчет с диска (фоллбэк)
+// Простой подсчет с диска (для инициализации)
 function countAllLocalPulls() {
     if (typeof window === 'undefined') return 0;
     let accounts = [];
@@ -48,16 +47,49 @@ export async function logout() {
     if (typeof window !== 'undefined') localStorage.removeItem("ark_last_sync");
 }
 
-// checkSync с ручным переопределением количества (overrideLocalTotal)
-export async function checkSync(currentUser, overrideLocalTotal = null) {
+// [FIX] checkSync теперь принимает freshSnapshot (объект данных), чтобы считать точно
+export async function checkSync(currentUser, freshSnapshot = null) {
     if (!currentUser) return;
     syncStatus.set("checking");
 
     try {
         const localLastUpdated = parseInt(localStorage.getItem("ark_last_sync") || "0");
         
-        // Если передали число вручную (из +page.svelte), верим ему, а не диску
-        let localTotal = overrideLocalTotal !== null ? overrideLocalTotal : countAllLocalPulls();
+        // --- УМНЫЙ ПОДСЧЕТ ЛОКАЛЬНЫХ ДАННЫХ ---
+        let localTotal = 0;
+        
+        // 1. Получаем аккаунты
+        let accounts = [];
+        let selectedId = 'main';
+        try {
+            if (accountStore.accounts) accounts = get(accountStore.accounts);
+            if (accountStore.selectedId) selectedId = get(accountStore.selectedId);
+        } catch (e) {}
+        
+        if (!accounts || !accounts.length) {
+             try { const raw = localStorage.getItem("ark_tracker_accounts"); if (raw) { const p = JSON.parse(raw); accounts = p.accounts; selectedId = p.selectedId; } } catch(e) {}
+        }
+        if (!accounts || !accounts.length) accounts = [{id: 'main'}];
+
+        // 2. Считаем
+        accounts.forEach(acc => {
+            // Если передан свежий снимок и это текущий аккаунт - берем из него!
+            if (acc.id === selectedId && freshSnapshot) {
+                ['standard', 'special', 'new-player'].forEach(cat => {
+                    if (freshSnapshot[cat]?.pulls) localTotal += freshSnapshot[cat].pulls.length;
+                });
+            } else {
+                // Иначе читаем старое с диска
+                const raw = localStorage.getItem(`ark_tracker_data_${acc.id}`);
+                if (raw) {
+                    try {
+                        const data = JSON.parse(raw);
+                        ['standard', 'special', 'new-player'].forEach(cat => { if (data[cat]?.pulls) localTotal += data[cat].pulls.length; });
+                    } catch (e) {}
+                }
+            }
+        });
+        // ---------------------------------------
 
         const userRef = doc(db, "users", currentUser.uid);
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000));
@@ -78,7 +110,6 @@ export async function checkSync(currentUser, overrideLocalTotal = null) {
                 return;
             }
 
-            // Логика конфликтов
             if (localTotal > cloudTotal) {
                 setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "local_newer");
                 return;
@@ -87,7 +118,6 @@ export async function checkSync(currentUser, overrideLocalTotal = null) {
                  setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "conflict_cloud_newer");
                  return;
             }
-            // Разница во времени
             const diff = cloudLastUpdated - localLastUpdated;
             if (Math.abs(diff) > 10000) {
                  if (diff > 0) setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "conflict_cloud_newer");
@@ -133,7 +163,6 @@ export function applyCloudData() {
     } catch (e) { console.error("Restore failed", e); }
 }
 
-// [FIX] uploadLocalData теперь принимает freshSnapshot
 export async function uploadLocalData(freshSnapshot = null) {
     const currentUser = get(user);
     if (!currentUser || typeof window === 'undefined') return;
@@ -148,7 +177,7 @@ export async function uploadLocalData(freshSnapshot = null) {
             if (accountStore.selectedId) selectedId = get(accountStore.selectedId);
         } catch (e) {}
 
-        if (!accounts || accounts.length === 0) {
+        if (!accounts || !accounts.length) {
             const raw = localStorage.getItem("ark_tracker_accounts");
             if (raw) { const p = JSON.parse(raw); accounts = p.accounts; selectedId = p.selectedId; }
             else { accounts = [{id: 'main', name: 'Main'}]; }
@@ -159,8 +188,7 @@ export async function uploadLocalData(freshSnapshot = null) {
         let sixStars = 0;
 
         accounts.forEach(acc => {
-            // [ВАЖНО] Если передали свежие данные (из Модалки) и это текущий аккаунт - берем их!
-            // Иначе читаем с диска
+            // [ВАЖНО] Используем freshSnapshot для текущего аккаунта
             if (acc.id === selectedId && freshSnapshot) {
                 fullBackup.data[acc.id] = freshSnapshot;
                 console.log(`✅ Packed (Memory): ${acc.name}`);

@@ -221,59 +221,25 @@
                             )
                         ) {
                             try {
+                                // 1. Импорт
                                 await pullData.smartImport(json);
-                                let globalTotal = 0;
-                        
-                        // 1. Получаем список всех аккаунтов
-                        let accounts = [];
-                        let selectedId = 'main';
-                        try {
-                            if ($accountStore && $accountStore.accounts) {
-                                accounts = $accountStore.accounts;
-                                selectedId = $accountStore.selectedId;
-                            }
-                        } catch(e) {}
-                        
-                        if (!accounts.length) {
-                             // Фолбэк на LS, если стор пуст
-                             try { const raw = localStorage.getItem("ark_tracker_accounts"); if (raw) accounts = JSON.parse(raw).accounts; } catch(e) {}
-                        }
-                        if (!accounts.length) accounts = [{id: 'main'}];
-
-                        // 2. Считаем сумму (Память + Диск)
-                        const currentMemData = get(pullData); // Свежайшие данные текущего акка
-
-                        accounts.forEach(acc => {
-                            // Если это тот аккаунт, в который мы только что импортировали
-                            if (acc.id === selectedId && currentMemData) {
-                                ['standard', 'special', 'new-player'].forEach(cat => {
-                                    if (currentMemData[cat]?.pulls) globalTotal += currentMemData[cat].pulls.length;
-                                });
-                            } 
-                            // Если это другой аккаунт (читаем с диска)
-                            else {
-                                const raw = localStorage.getItem(`ark_tracker_data_${acc.id}`);
-                                if (raw) {
-                                    try {
-                                        const data = JSON.parse(raw);
-                                        ['standard', 'special', 'new-player'].forEach(cat => {
-                                            if (data[cat]?.pulls) globalTotal += data[cat].pulls.length;
-                                        });
-                                    } catch(e) {}
-                                }
-                            }
-                        });
-
-                        console.log("🧮 Calculated Global Total (Mem + Disk):", globalTotal);
-
-                        // 3. Запускаем проверку с ПРАВИЛЬНОЙ суммой
-                        if ($user) {
-                            if (typeof window !== 'undefined') localStorage.removeItem("ark_ignore_cloud_ts");
-                            checkSync($user, globalTotal);
-                        }
                                 alert(
                                     "✓ Pulls imported into current account successfully!",
                                 );
+
+                                // 2. Получаем свежие данные из памяти
+                                const currentMemData = get(pullData);
+
+                                // 3. Запускаем проверку, передавая ЭТИ ДАННЫЕ
+                                if ($user) {
+                                    if (typeof window !== "undefined")
+                                        localStorage.removeItem(
+                                            "ark_ignore_cloud_ts",
+                                        );
+
+                                    // [FIX] Передаем весь объект, а не число!
+                                    checkSync($user, currentMemData);
+                                }
                             } catch (err) {
                                 console.error("Smart Import Error:", err);
                                 alert("✗ Import Error: " + err.message);
