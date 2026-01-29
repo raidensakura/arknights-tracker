@@ -222,30 +222,55 @@
                         ) {
                             try {
                                 await pullData.smartImport(json);
-                                const currentPulls = get(pullData); // Берем свежие данные
-                                let totalNew = 0;
-                                if (currentPulls) {
-                                    [
-                                        "standard",
-                                        "special",
-                                        "new-player",
-                                    ].forEach((cat) => {
-                                        if (currentPulls[cat]?.pulls)
-                                            totalNew +=
-                                                currentPulls[cat].pulls.length;
-                                    });
-                                }
+                                let globalTotal = 0;
+                        
+                        // 1. Получаем список всех аккаунтов
+                        let accounts = [];
+                        let selectedId = 'main';
+                        try {
+                            if ($accountStore && $accountStore.accounts) {
+                                accounts = $accountStore.accounts;
+                                selectedId = $accountStore.selectedId;
+                            }
+                        } catch(e) {}
+                        
+                        if (!accounts.length) {
+                             // Фолбэк на LS, если стор пуст
+                             try { const raw = localStorage.getItem("ark_tracker_accounts"); if (raw) accounts = JSON.parse(raw).accounts; } catch(e) {}
+                        }
+                        if (!accounts.length) accounts = [{id: 'main'}];
 
-                                if ($user) {
-                                    // Удаляем игнор
-                                    if (typeof window !== "undefined")
-                                        localStorage.removeItem(
-                                            "ark_ignore_cloud_ts",
-                                        );
+                        // 2. Считаем сумму (Память + Диск)
+                        const currentMemData = get(pullData); // Свежайшие данные текущего акка
 
-                                    // Передаем новое количество, чтобы чекер не смотрел на старый диск
-                                    checkSync($user, totalNew);
+                        accounts.forEach(acc => {
+                            // Если это тот аккаунт, в который мы только что импортировали
+                            if (acc.id === selectedId && currentMemData) {
+                                ['standard', 'special', 'new-player'].forEach(cat => {
+                                    if (currentMemData[cat]?.pulls) globalTotal += currentMemData[cat].pulls.length;
+                                });
+                            } 
+                            // Если это другой аккаунт (читаем с диска)
+                            else {
+                                const raw = localStorage.getItem(`ark_tracker_data_${acc.id}`);
+                                if (raw) {
+                                    try {
+                                        const data = JSON.parse(raw);
+                                        ['standard', 'special', 'new-player'].forEach(cat => {
+                                            if (data[cat]?.pulls) globalTotal += data[cat].pulls.length;
+                                        });
+                                    } catch(e) {}
                                 }
+                            }
+                        });
+
+                        console.log("🧮 Calculated Global Total (Mem + Disk):", globalTotal);
+
+                        // 3. Запускаем проверку с ПРАВИЛЬНОЙ суммой
+                        if ($user) {
+                            if (typeof window !== 'undefined') localStorage.removeItem("ark_ignore_cloud_ts");
+                            checkSync($user, globalTotal);
+                        }
                                 alert(
                                     "✓ Pulls imported into current account successfully!",
                                 );
