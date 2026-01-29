@@ -10,6 +10,7 @@
   import OperatorCard from "$lib/components/OperatorCard.svelte";
   import Images from "$lib/components/Images.svelte";
   import BannerStats from "$lib/components/BannerStats.svelte";
+  import Tooltip from "$lib/components/Tooltip.svelte";
 
   export let banner = null;
   export let pageContext = null; 
@@ -261,49 +262,48 @@
         {/if}
 
         {#if featuredItems.length > 0}
-            <div class="space-y-3">
-                <div class="flex items-center gap-2">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
-                        {#if isWeaponBanner}
-                             {$t("page.banner.featuredWeapons") || "Featured Weapons"}
-                        {:else}
-                             {$t("systemNames.featuredCharacters")}
-                        {/if}
-                    </span>
-                    <div class="h-px flex-1 bg-gray-100"></div>
-                </div>
-                
-                <div class="flex flex-wrap gap-2 justify-center">
-                    {#each featuredItems as item}
-                        {#if item.isWeapon}
-                            <div class="w-[90px] h-[90px] flex items-center justify-center relative group cursor-pointer" title={item.name}>
-                                <div 
-                                    class="w-[70px] h-[70px] rounded-full overflow-hidden border-2 shadow-sm relative 
-                                    {getWeaponBg(item.rarity)}" 
-                                    style="border-color: {getRarityColor(item.rarity)}"
-                                >
-                                    <Images 
-                                        id={item.id} 
-                                        variant="weapon-icon" 
-                                        alt={item.name} 
-                                        className="w-full h-full object-cover transform scale-[1.3]" 
-                                    />
-                                </div>
-                                <div class="absolute -bottom-2 text-[10px] font-bold bg-white/90 px-2 py-0.5 rounded shadow-sm text-gray-600 border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                                    {item.name}
-                                </div>
+    <div class="space-y-3">
+        <div class="flex items-center gap-2">
+            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
+                {#if isWeaponBanner}
+                        {$t("page.banner.featuredWeapons") || "Featured Weapons"}
+                {:else}
+                        {$t("systemNames.featuredCharacters")}
+                {/if}
+            </span>
+            <div class="h-px flex-1 bg-gray-100"></div>
+        </div>
+        
+        <div class="flex flex-wrap gap-2 justify-center">
+            {#each featuredItems as item}
+                <Tooltip text={$t(item.isWeapon ? `weaponsList.${item.id}` : `characters.${item.id}`) || item.name}>
+                    {#if item.isWeapon}
+                        <div class="w-[90px] h-[90px] flex items-center justify-center relative group cursor-pointer">
+                            <div 
+                                class="w-[70px] h-[70px] rounded-full overflow-hidden border-2 shadow-sm relative 
+                                {getWeaponBg(item.rarity)}" 
+                                style="border-color: {getRarityColor(item.rarity)}"
+                            >
+                                <Images 
+                                    id={item.id} 
+                                    variant="weapon-icon" 
+                                    alt={item.name} 
+                                    className="w-full h-full object-cover transform scale-[1.3]" 
+                                />
                             </div>
-                        {:else}
-                            <div class="w-[90px] h-[90px] rounded-lg border border-gray-100 shadow-sm relative overflow-hidden group cursor-pointer">
-                                <div class="scale-[0.6] w-[80px] origin-top-left">
-                                    <OperatorCard operator={item} />
-                                </div>
+                        </div>
+                    {:else}
+                        <div class="w-[90px] h-[90px] rounded-lg border border-gray-100 shadow-sm relative overflow-hidden group cursor-pointer">
+                            <div class="scale-[0.6] w-[80px] origin-top-left">
+                                <OperatorCard operator={item} />
                             </div>
-                        {/if}
-                    {/each}
-                </div>
-            </div>
-        {/if}
+                        </div>
+                    {/if}
+                </Tooltip>
+            {/each}
+        </div>
+    </div>
+{/if}
 
         {#if bannerPulls.length > 0}
             <BannerStats pulls={bannerPulls} {banner} />

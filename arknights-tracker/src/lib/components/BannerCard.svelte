@@ -305,8 +305,8 @@
     </div>
   </div>
 
-  <div class="mb-4">
-    <h4 class="font-bold text-sm mb-2 text-[#21272C]">
+  <div class="mb-3 mt-1">
+    <h4 class="font-bold text-sm mb-3 text-[#21272C]">
       {$t("page.banner.stats")}
     </h4>
 
