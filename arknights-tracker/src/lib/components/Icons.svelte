@@ -2105,8 +2105,22 @@
 
 {:else if name == "chevronLeft"}
 <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.33594 18.6641L1.33594 9.66406L9.33594 0.664063" stroke="black" stroke-width="2"/>
+<path d="M9.33594 18.6641L1.33594 9.66406L9.33594 0.664063" stroke="currentColor" stroke-width="2"/>
 </svg>
 
+{:else if name == "cloud"}
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 14C1 16.7614 3.23858 19 6 19H19C21.2091 19 23 17.2091 23 15C23 12.7909 21.2091 11 19 11C18.6542 11 18.3187 11.0439 17.9987 11.1264C17.9996 11.0843 18 11.0422 18 11C18 7.68629 15.3137 5 12 5C9.38338 5 7.15796 6.67497 6.33746 9.01121C6.22594 9.00378 6.11341 9 6 9C3.23858 9 1 11.2386 1 14Z" stroke="currentColor" stroke-width="2"/>
+</svg>
+{:else if name == "local"}
+<svg width="22" height="22" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.15 4.15H4.1585M4.15 14.35H4.1585M2.45 0.75H16.05C16.9889 0.75 17.75 1.51112 17.75 2.45V5.85C17.75 6.78888 16.9889 7.55 16.05 7.55H2.45C1.51112 7.55 0.75 6.78888 0.75 5.85V2.45C0.75 1.51112 1.51112 0.75 2.45 0.75ZM2.45 10.95H16.05C16.9889 10.95 17.75 11.7111 17.75 12.65V16.05C17.75 16.9889 16.9889 17.75 16.05 17.75H2.45C1.51112 17.75 0.75 16.9889 0.75 16.05V12.65C0.75 11.7111 1.51112 10.95 2.45 10.95Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+{:else if name == "export"}
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 15L21 21L12 21L3 21L3 15" stroke="currentColor" stroke-width="2"/>
+<path d="M12 15L12 3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2"/>
+</svg>
 
 {/if}

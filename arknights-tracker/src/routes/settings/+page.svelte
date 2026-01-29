@@ -7,6 +7,8 @@
     import { analytics } from "$lib/firebase";
     import { logEvent } from "firebase/analytics";
     import { currentUid } from "$lib/stores/auth";
+    import { fade } from "svelte/transition";
+    import { onDestroy } from "svelte";
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Button from "$lib/components/Button.svelte";
@@ -52,6 +54,13 @@
     } from "$lib/stores/cloudStore";
 
     const { accounts, selectedId } = accountStore;
+
+    function handleVisibilityChange() {
+        if (document.visibilityState === 'visible' && $user && $syncStatus !== 'checking') {
+            console.log("Tab active, checking cloud...");
+            checkSync($user);
+        }
+    }
 
     onMount(() => {
         initAuth();
@@ -248,19 +257,8 @@
     let accountToDeleteName = "";
     function handleAccountChange(e) {
         const newAccountId = e.detail;
-        
-        // 1. Меняем аккаунт в менеджере аккаунтов (локальная база)
         accountStore.selectAccount(newAccountId);
-        
-        // 2. [FIX] Обновляем глобальный UID для компонентов типа RatingCard
-        // Нам нужно найти UID этого аккаунта. 
-        // В accountStore обычно хранятся объекты { id: '...', name: '...', uid: '...' }
-        // Если 'id' === 'uid', то просто:
         currentUid.set(newAccountId);
-        
-        // Если id != uid, то нужно найти объект аккаунта:
-        // const acc = $accounts.find(a => a.id === newAccountId);
-        // if (acc && acc.uid) currentUid.set(acc.uid);
     }
     function handleAddAccount() {
         accountStore.addAccount();
@@ -278,7 +276,6 @@
         accountStore.clearCurrentData();
         showClearModal = false;
 
-        // АВТО-СИНХРОНИЗАЦИЯ: Сразу чистим и в облаке
         if ($user) {
             await uploadLocalData();
         }
@@ -287,10 +284,25 @@
         accountStore.deleteAccount($selectedId);
         showDeleteModal = false;
 
-        // АВТО-СИНХРОНИЗАЦИЯ: Сразу удаляем из облака
         if ($user) {
             await uploadLocalData();
         }
+    }
+
+    async function handleForceSync() {
+        // 1. Очищаем "память" (игнор). Теперь SyncModal будет считать, что он видит эти данные впервые.
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("ark_ignore_cloud_ts");
+        }
+        
+        // 2. Ставим статус "проверка", чтобы визуально интерфейс отреагировал
+        syncStatus.set("checking");
+        
+        // 3. Небольшая задержка (50мс), чтобы Svelte успел удалить запись из localStorage 
+        // перед тем, как checkSync вернет результат.
+        setTimeout(() => {
+            checkSync($user);
+        }, 50);
     }
 
     const noop = () => {};
@@ -303,17 +315,16 @@
         {$t("settings.title")}
     </h1>
 
-    <h1 class="font-sdk text-5xl font-black text-[#21272C] mb-8">
-        {$t("settings.title")}
-    </h1>
-
     <section class="mb-10">
-        <div class="flex flex-col items-start gap-4 mb-4 md:flex-row md:items-center">
-            
-            <h2 class="font-sdk text-2xl font-bold text-[#21272C] whitespace-nowrap">
+        <div
+            class="flex flex-col items-start gap-4 mb-4 md:flex-row md:items-center"
+        >
+            <h2
+                class="font-sdk text-2xl font-bold text-[#21272C] whitespace-nowrap"
+            >
                 {$t("settings.account.title")}
             </h2>
-            
+
             <div class="flex gap-2 items-center flex-wrap">
                 <Button
                     variant="roundSmall"
@@ -367,158 +378,189 @@
         </h2>
 
         <div
-            class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-4 max-w-[500pt]"
+            class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-4 max-w-[500pt] min-h-[180px] relative justify-center"
         >
-            <div class="flex items-center justify-between flex-wrap gap-2">
-                <div class="flex items-center gap-2 font-bold text-[#21272C]">
-                    <Icon name="google" class="w-10 h-10 text-white" />
-
-                    {$t("settings.cloud.integration")}
-                </div>
-
-                <div class="flex items-center gap-2">
-                    {#if $user}
-                        <div
-                            class="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[10px] font-bold border border-green-200 uppercase tracking-wider"
-                        >
-                            <div
-                                class="w-1.5 h-1.5 rounded-full bg-green-500"
-                            ></div>
-                            {$t("settings.cloud.connected")}
+            {#if $user === undefined}
+                <div class="animate-pulse flex flex-col gap-4 w-full" in:fade>
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-2 items-center">
+                            <div class="w-10 h-10 rounded bg-gray-200"></div>
+                            <div class="w-32 h-6 bg-gray-200 rounded"></div>
                         </div>
+                        <div class="w-24 h-6 bg-gray-200 rounded-full"></div>
+                    </div>
+                    <div class="h-px bg-gray-100 w-full my-2"></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gray-200"></div>
+                        <div class="flex flex-col gap-2">
+                            <div class="w-24 h-4 bg-gray-200 rounded"></div>
+                            <div class="w-32 h-3 bg-gray-200 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            {:else}
+                <div in:fade>
+                    <div
+                        class="flex items-center justify-between flex-wrap gap-2"
+                    >
+                        <div
+                            class="flex items-center gap-2 font-bold text-[#21272C]"
+                        >
+                            <Icon name="google" class="w-10 h-10 text-white" />
+                            {$t("settings.cloud.integration")}
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            {#if $user}
+                                <div
+                                    class="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[10px] font-bold border border-green-200 uppercase tracking-wider"
+                                >
+                                    <div
+                                        class="w-1.5 h-1.5 rounded-full bg-green-500"
+                                    ></div>
+                                    {$t("settings.cloud.connected")}
+                                </div>
+                            {:else}
+                                <div
+                                    class="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                                >
+                                    {$t("settings.cloud.disconnected")}
+                                </div>
+                            {/if}
+
+                            {#if $user}
+                                {#if $syncStatus === "synced"}
+                                    <div
+                                        class="flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold border border-blue-200 uppercase tracking-wider"
+                                    >
+                                        <Icon name="check" class="w-3 h-3" />
+                                        {$t("settings.cloud.synced")}
+                                    </div>
+                                {:else}
+                                    <div
+                                        class="flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold border border-orange-200 uppercase tracking-wider"
+                                    >
+                                        <Icon
+                                            name="refresh"
+                                            class="w-3 h-3 animate-spin"
+                                        />
+                                        {$t("settings.cloud.notSynced")}
+                                    </div>
+                                {/if}
+                            {/if}
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-gray-100 w-full my-4"></div>
+
+                    {#if !$user}
+                        <div
+                            class="flex items-start gap-4 text-gray-600 text-sm leading-relaxed mb-2"
+                        >
+                            <div class="mt-0.5 flex-shrink-0">
+                                <Icon
+                                    name="info"
+                                    class="w-5 h-5 text-gray-400"
+                                />
+                            </div>
+                            <p>{$t("settings.cloud.description")}</p>
+                        </div>
+
+                        <button
+                            on:click={login}
+                            class="flex items-center justify-center gap-3 w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all font-bold text-gray-700 bg-white"
+                        >
+                            <Icon name="google" class="w-5 h-5" />
+                            {$t("settings.cloud.signIn")}
+                        </button>
                     {:else}
                         <div
-                            class="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                            class="flex items-center justify-between gap-4 bg-[#F8F9FA] p-3 rounded-lg border border-gray-200 mb-4"
                         >
-                            {$t("settings.cloud.disconnected")}
+                            <div
+                                class="flex items-center gap-4 overflow-hidden"
+                            >
+                                {#if $user.photoURL}
+                                    <img
+                                        src={$user.photoURL}
+                                        alt="Avatar"
+                                        class="w-10 h-10 rounded-full border border-white shadow-sm shrink-0"
+                                    />
+                                {:else}
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg shrink-0"
+                                    >
+                                        {$user.displayName
+                                            ? $user.displayName[0]
+                                            : "U"}
+                                    </div>
+                                {/if}
+
+                                <div class="flex flex-col min-w-0">
+                                    <span
+                                        class="font-bold text-[#21272C] text-sm truncate"
+                                        title={$user.displayName}
+                                    >
+                                        {maskedName}
+                                    </span>
+                                    <button
+                                        on:click={handleEmailClick}
+                                        on:mouseleave={handleEmailLeave}
+                                        on:mouseenter={handleEmailEnter}
+                                        class="text-xs text-gray-400 text-left transition-all duration-300 select-none {isEmailVisible
+                                            ? 'blur-none cursor-text'
+                                            : 'blur-[4px] cursor-pointer hover:bg-gray-200 rounded px-1 -ml-1'}"
+                                        title={isEmailVisible
+                                            ? "Click to hide"
+                                            : "Click to show email"}
+                                    >
+                                        {$user.email}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="text-right shrink-0">
+                                <div
+                                    class="text-[10px] font-bold text-gray-400 uppercase tracking-wider"
+                                >
+                                    {$t("settings.cloud.lastSync")}
+                                </div>
+                                <div class="text-xs font-mono text-[#21272C]">
+                                    {lastSyncDate}
+                                </div>
+                            </div>
                         </div>
-                    {/if}
 
-                    {#if $user}
-                        {#if $syncStatus === "synced"}
-                            <div
-                                class="flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold border border-blue-200 uppercase tracking-wider"
-                            >
-                                <Icon name="check" class="w-3 h-3" />
-                                {$t("settings.cloud.synced")}
-                            </div>
-                        {:else}
-                            <div
-                                class="flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold border border-orange-200 uppercase tracking-wider"
-                            >
-                                <Icon
-                                    name="refresh"
-                                    class="w-3 h-3 animate-spin"
-                                />
-                                {$t("settings.cloud.notSynced")}
-                            </div>
-                        {/if}
-                    {/if}
-                </div>
-            </div>
+                        <div class="flex gap-3">
+                            {#if $syncStatus !== "synced"}
+                                <button
+                                    on:click={handleForceSync}
+                                    disabled={$syncStatus === "checking"}
+                                    class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#21272C] text-white rounded hover:bg-[#333] transition-all font-bold text-sm relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {#if $syncStatus === "checking"}
+                                        <Icon
+                                            name="loading"
+                                            class="w-4 h-4 animate-spin"
+                                        />
+                                        <span>Checking...</span>
+                                    {:else}
+                                        <Icon name="refresh" class="w-4 h-4" />
+                                        {$t("settings.cloud.syncBtn") ||
+                                            "Синхронизировать"}
+                                    {/if}
+                                </button>
+                            {/if}
 
-            <div class="h-px bg-gray-100 w-full"></div>
-
-            {#if !$user}
-                <div
-                    class="flex items-start gap-4 text-gray-600 text-sm leading-relaxed mb-2"
-                >
-                    <div class="mt-0.5 flex-shrink-0">
-                        <Icon name="info" class="w-5 h-5 text-gray-400" />
-                    </div>
-                    <p>{$t("settings.cloud.description")}</p>
-                </div>
-
-                <button
-                    on:click={login}
-                    class="flex items-center justify-center gap-3 w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all font-bold text-gray-700 bg-white"
-                >
-                    <Icon name="google" class="w-5 h-5" />
-                    {$t("settings.cloud.signIn")}
-                </button>
-            {:else}
-                <div
-                    class="flex items-center justify-between gap-4 bg-[#F8F9FA] p-3 rounded-lg border border-gray-200"
-                >
-                    <div class="flex items-center gap-4 overflow-hidden">
-                        {#if $user.photoURL}
-                            <img
-                                src={$user.photoURL}
-                                alt="Avatar"
-                                class="w-10 h-10 rounded-full border border-white shadow-sm shrink-0"
-                            />
-                        {:else}
-                            <div
-                                class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg shrink-0"
-                            >
-                                {$user.displayName ? $user.displayName[0] : "U"}
-                            </div>
-                        {/if}
-
-                        <div class="flex flex-col min-w-0">
-                            <span
-                                class="font-bold text-[#21272C] text-sm truncate"
-                                title={$user.displayName}
-                            >
-                                {maskedName}
-                            </span>
                             <button
-                                on:click={handleEmailClick}
-                                on:mouseleave={handleEmailLeave}
-                                on:mouseenter={handleEmailEnter}
-                                class="text-xs text-gray-400 text-left transition-all duration-300 select-none
-                                {isEmailVisible
-                                    ? 'blur-none cursor-text'
-                                    : 'blur-[4px] cursor-pointer hover:bg-gray-200 rounded px-1 -ml-1'}"
-                                title={isEmailVisible
-                                    ? "Click to hide"
-                                    : "Click to show email"}
+                                on:click={logout}
+                                class="px-4 py-2 border border-red-200 text-red-600 rounded hover:bg-red-50 font-bold text-sm transition-colors
+        {$syncStatus === 'synced' ? 'w-full' : ''}"
                             >
-                                {$user.email}
+                                {$t("settings.cloud.logout")}
                             </button>
                         </div>
-                    </div>
-
-                    <div class="text-right shrink-0">
-                        <div
-                            class="text-[10px] font-bold text-gray-400 uppercase tracking-wider"
-                        >
-                            {$t("settings.cloud.lastSync")}
-                        </div>
-                        <div class="text-xs font-mono text-[#21272C]">
-                            {lastSyncDate}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex gap-3 mt-2">
-                    {#if $syncStatus !== "synced"}
-                        <button
-                            on:click={handleSync}
-                            disabled={$syncStatus === "checking"}
-                            class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#21272C] text-white rounded hover:bg-[#333] transition-all font-bold text-sm relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
-                        >
-                            {#if $syncStatus === "checking"}
-                                <Icon
-                                    name="loading"
-                                    class="w-4 h-4 animate-spin"
-                                />
-                            {:else}
-                                <Icon name="upload" class="w-4 h-4" />
-                                {$t("settings.cloud.uploadBtn")}
-                            {/if}
-                        </button>
                     {/if}
-
-                    <button
-                        on:click={logout}
-                        class="px-4 py-2 border border-red-200 text-red-600 rounded hover:bg-red-50 font-bold text-sm transition-colors {$syncStatus ===
-                        'synced'
-                            ? 'w-full'
-                            : ''}"
-                    >
-                        {$t("settings.cloud.logout")}
-                    </button>
                 </div>
             {/if}
         </div>

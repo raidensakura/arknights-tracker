@@ -10,20 +10,15 @@ export const user = writable(null);
 export const syncStatus = writable("idle"); 
 export const cloudDataBuffer = writable(null);
 
-// === ХЕЛПЕР: Надежный подсчет локальных данных (без импортов сторов) ===
+// === ХЕЛПЕР: Подсчет локальных данных ===
 function countAllLocalPulls() {
     if (typeof window === 'undefined') return 0;
-    
     let accounts = [];
     try {
-        // Читаем только из LS, чтобы не зависеть от инициализации Svelte
         const raw = localStorage.getItem("ark_tracker_accounts");
-        if (raw) {
-            accounts = JSON.parse(raw).accounts;
-        }
+        if (raw) accounts = JSON.parse(raw).accounts;
     } catch (e) { console.warn("LS read error", e); }
     
-    // Если список пуст, проверяем дефолтный 'main'
     if (!accounts || accounts.length === 0) accounts = [{id: 'main'}];
 
     let total = 0;
@@ -65,7 +60,7 @@ export async function logout() {
     if (typeof window !== 'undefined') localStorage.removeItem("ark_last_sync");
 }
 
-// 3. ПРОВЕРКА СИНХРОНИЗАЦИИ (LOGIC V3)
+// 3. ПРОВЕРКА СИНХРОНИЗАЦИИ
 export async function checkSync(currentUser) {
     if (!currentUser) return;
     syncStatus.set("checking");
@@ -88,9 +83,8 @@ export async function checkSync(currentUser) {
 
             console.log(`📊 Check: Local(${localTotal}) vs Cloud(${cloudTotal}).`);
 
-            // 1. РАВЕНСТВО: Если круток поровну - считаем, что все ок.
+            // 1. РАВЕНСТВО
             if (localTotal === cloudTotal) {
-                // Тихий фикс времени, если оно сбито
                 if (localLastUpdated === 0 && cloudLastUpdated > 0) {
                      localStorage.setItem("ark_last_sync", cloudLastUpdated.toString());
                 }
@@ -98,47 +92,42 @@ export async function checkSync(currentUser) {
                 return;
             }
 
-            // 2. БОЛЬШЕ = НОВЕЕ (Исправляет проблему после импорта)
-            // Если локально данных БОЛЬШЕ, чем в облаке - значит мы их добавили.
-            // Принудительно отправляем в облако.
+            // 2. РАЗЛИЧИЯ
+
+            // ЛОКАЛЬНО БОЛЬШЕ -> Ставим local_newer
             if (localTotal > cloudTotal) {
-                console.log("📈 Local has MORE data. Auto-upload needed.");
-                syncStatus.set("local_newer");
+                console.log("📈 Local is NEWER (more pulls). Asking user...");
+                setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "local_newer");
                 return;
             }
 
-            // 3. ЕСЛИ ЛОКАЛЬНО МЕНЬШЕ (или 0)
-            // Тут уже смотрим на время, вдруг мы удалили лишнее, или это новый девайс.
-            
-            // Если локально 0, а в облаке есть -> Скачать
-            if (localTotal === 0 && cloudTotal > 0) {
-                setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "conflict_cloud_newer");
-                return;
-            }
-
-            const diff = cloudLastUpdated - localLastUpdated;
-
-            // Если Облако новее по времени (и данных там больше)
-            if (diff > 10000) {
+            // В ОБЛАКЕ БОЛЬШЕ -> Ставим conflict_cloud_newer
+            if (cloudTotal > localTotal) {
+                 console.log("☁️ Cloud is NEWER (more pulls). Asking user...");
                  setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "conflict_cloud_newer");
                  return;
             }
-            
-            // Если локально новее по времени (но данных меньше - например удалили)
-            if (diff < -10000) {
-                syncStatus.set("local_newer");
-                return;
-            }
 
+            // ПОРОВНУ, НО ВРЕМЯ РАЗНОЕ
+            const diff = cloudLastUpdated - localLastUpdated;
+            if (Math.abs(diff) > 10000) {
+                 if (diff > 0) {
+                     setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "conflict_cloud_newer");
+                 } else {
+                     setConflict(cloudFullBackup, cloudLastUpdated, cloudTotal, "local_newer");
+                 }
+                 return;
+            }
+            
             syncStatus.set("synced");
 
         } else {
-            // Новый юзер
+            // В облаке пусто (новый юзер) -> Предлагаем загрузить локальные
             syncStatus.set("local_newer");
         }
     } catch (e) {
         console.warn("Sync warn:", e);
-        syncStatus.set("local_newer"); // При ошибке сети даем возможность загрузить
+        syncStatus.set("local_newer");
     }
 }
 
@@ -165,7 +154,6 @@ export function applyCloudData() {
                 accounts: meta.accounts,
                 selectedId: meta.selectedId || 'main'
             }));
-            // Пытаемся обновить стор, если он доступен
             try {
                 if (accountStore.accounts) accountStore.accounts.set(meta.accounts);
                 if (accountStore.selectAccount && meta.selectedId) accountStore.selectAccount(meta.selectedId);
@@ -197,7 +185,6 @@ export async function uploadLocalData() {
     console.log("🚀 Starting Upload...");
 
     try {
-        // 1. Собираем данные. Пытаемся через стор, если нет - через LS
         let accounts = [];
         let selectedId = 'main';
 
@@ -232,8 +219,6 @@ export async function uploadLocalData() {
             if (rawData) {
                 const parsed = JSON.parse(rawData);
                 fullBackup.data[acc.id] = parsed;
-                console.log(`✅ Packed: ${acc.name}`);
-
                 ['standard', 'special', 'new-player'].forEach(cat => {
                     const list = parsed[cat]?.pulls || [];
                     totalPulls += list.length;

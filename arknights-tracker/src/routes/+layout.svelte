@@ -29,6 +29,7 @@
   <meta name="keywords" content={$t("seo.keywords")}>
   
   <link rel="icon" type="image/png" href="/favicon.png" sizes="any" />
+  <link rel="icon" href="https://goyfield.moe/favicon.ico" type="image/x-icon">
   
   <link rel="apple-touch-icon" href="/favicon.png" />
   

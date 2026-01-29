@@ -188,9 +188,9 @@
 
     function getRowBackground(rarity) {
         if (rarity === 6)
-            return "linear-gradient(to left, rgba(240, 130, 100, 0.2) 0%, rgba(208, 146, 110, 0.0) 100%)";
+            return "linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(217, 98, 0, 0.27) 100%)";
         if (rarity === 5)
-            return "linear-gradient(to left, rgba(227, 188, 85, 0.2) 0%, rgba(227, 188, 85, 0.0) 100%)";
+            return "linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(255, 211, 89, 0.27) 100%)";
         return "transparent";
     }
 
@@ -736,7 +736,7 @@
                                                 >
                                                     <div
                                                         class="w-10 h-10 rounded-full overflow-hidden border-2 shadow-sm relative group
-                {isWeapon ? getWeaponBg(row.rarity) : 'bg-white'}"
+                {isWeapon ? getWeaponBg(row.rarity) : 'bg-transparent'}"
                                                         style="border-color: {getRarityColor(
                                                             row.rarity,
                                                         )}"

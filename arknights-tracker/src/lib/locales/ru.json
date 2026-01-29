@@ -456,7 +456,8 @@
       "lastSync": "Посл. синхр.:",
       "newerData": "Данные новее",
       "uploadBtn": "Загрузить в облако",
-      "downloadBtn": "Скачать из облака",
+      "downloadBtn": "Из облака",
+      "localBtn": "Локально",
       "checkBtn": "Проверить обновления",
       "signIn": "Войти через Google",
       "logout": "Выйти",
@@ -465,10 +466,15 @@
       "thisDevice": "Это устройство",
       "googleCloud": "Google Cloud",
       "totalPulls": "Всего круток",
-      "cloudNewerAlert": "Данные в облаке новее. Вы хотите <b>скачать</b> их и перезаписать локальные данные?",
+      "cloudNewerAlert": "Данные в облаке новее. Вы хотите скачать их и перезаписать локальные данные?",
       "cancel": "Отмена",
       "never": "Не производилась",
-      "integration": "Интеграция с Google"
+      "integration": "Интеграция с Google",
+      "syncBtn": "Синхронизировать",
+      "localNewerTitle": "Локальные данные новее",
+      "badgeNewer": "Новее",
+      "badgeNewerMore": "Новее / Больше",
+      "localNewerMsg": "Локальные данные новее или содержат больше круток ({localCount} против {cloudCount}). <br>Загрузите их в облако или скачайте старую версию из облака."
     },
     "backup": {
       "title": "Резервная копия",

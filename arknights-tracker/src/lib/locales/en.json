@@ -454,7 +454,8 @@
       "lastSync": "Last Sync:",
       "newerData": "Newer Data",
       "uploadBtn": "Upload to Cloud",
-      "downloadBtn": "Download from Cloud",
+      "downloadBtn": "From Cloud",
+      "localBtn": "Local",
       "checkBtn": "Check Updates",
       "signIn": "Sign in with Google",
       "logout": "Logout",
@@ -463,10 +464,15 @@
       "thisDevice": "This Device",
       "googleCloud": "Google Cloud",
       "totalPulls": "Total Pulls",
-      "cloudNewerAlert": "Cloud data is newer. Do you want to <b>download</b> it and overwrite your local data?",
+      "cloudNewerAlert": "Cloud data is newer. Do you want to download it and overwrite your local data?",
       "cancel": "Cancel",
       "never": "Never",
-      "integration": "Google Integration"
+      "integration": "Google Integration",
+      "syncBtn": "Sync",
+      "localNewerTitle": "Local Data is Newer",
+      "badgeNewer": "Newer",
+      "badgeNewerMore": "Newer / More",
+      "localNewerMsg": "Your local data seems newer or has more pulls ({localCount} vs {cloudCount}). <br>Upload local to overwrite cloud, or download to revert to cloud version."
     },
     "backup": {
       "title": "Backup",
