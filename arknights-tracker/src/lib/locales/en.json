@@ -446,7 +446,7 @@
     "cloud": {
       "title": "Cloud Synchronization",
       "description": "Goyfield syncs data with Google to save your pull history. If sync is disabled, clearing cache or reinstalling the browser will delete all pull data. Goyfield can only access its own files.",
-      "btn": "Sign in with Google Drive",
+      "btn": "Sign in with Google",
       "connected": "Connected",
       "disconnected": "Disconnected",
       "synced": "Synced",
@@ -469,10 +469,11 @@
       "never": "Never",
       "integration": "Google Integration",
       "syncBtn": "Sync",
-      "localNewerTitle": "Local Data is Newer",
       "badgeNewer": "Newer",
       "badgeNewerMore": "Newer / More",
-      "localNewerMsg": "Your local data seems newer or has more pulls ({localCount} vs {cloudCount}). <br>Upload local to overwrite cloud, or download to revert to cloud version."
+      "localNewerTitle": "Local Data Changed",
+      "badgeMore": "More",
+      "localNewerMsg": "Your local data has changes.<br>Use upload to overwrite cloud, or download to replace local data."
     },
     "backup": {
       "title": "Backup",

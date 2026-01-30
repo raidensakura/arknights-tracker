@@ -62,6 +62,17 @@
   function openGlobal() {
     goto("/records/global");
   }
+
+  function getBanner(partialId) {
+    return homeBanners.find(b => b.id.includes(partialId));
+  }
+  
+  $: bSpecialChar = getBanner('special');
+  $: bStandardChar = getBanner('standard');
+  $: bNewPlayer = getBanner('new-player');
+  
+  $: bSpecialWeap = getBanner('weap-special');
+  $: bStandardWeap = getBanner('weap-standard');
 </script>
 
 <SettingsModal
@@ -105,28 +116,48 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8 items-start">
-    {#each homeBanners as b}
-      <BannerCard bannerId={b.id} titleKey={b.i18nKey} />
-    {/each}
-<!--
-    <div class="xl:col-span-1">
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+    
+    <div class="flex flex-col gap-6">
+      {#if bSpecialChar}
+        <BannerCard bannerId={bSpecialChar.id} titleKey={bSpecialChar.i18nKey} />
+      {/if}
+      
+      {#if bSpecialWeap}
+        <BannerCard bannerId={bSpecialWeap.id} titleKey={bSpecialWeap.i18nKey} />
+      {/if}
+    </div>
+
+    <div class="flex flex-col gap-6">
+      {#if bStandardChar}
+        <BannerCard bannerId={bStandardChar.id} titleKey={bStandardChar.i18nKey} />
+      {/if}
+      
+      {#if bStandardWeap}
+        <BannerCard bannerId={bStandardWeap.id} titleKey={bStandardWeap.i18nKey} />
+      {/if}
+    </div>
+
+    <div class="flex flex-col gap-6">
+      {#if bNewPlayer}
+        <BannerCard bannerId={bNewPlayer.id} titleKey={bNewPlayer.i18nKey} />
+      {/if}
+
       <RatingCard {userLuck6} {userLuck5} {totalPulls} />
-    </div>-->
 
-    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 min-w-[320px]">
-      <h3 class="text-xl font-bold mb-4 font-sdk text-[#21272C]">
-        {$t("page.totalCost")}
-      </h3>
-
-      <div class="text-3xl font-black text-[#21272C] flex items-center gap-2 font-nums">
-        <Images id="oroberyl" variant="currency" size={32} />
-        {(billablePulls * 500).toLocaleString("ru-RU")}
-      </div>
-
-      <div class="text-xs text-gray-400 mt-2 font-medium flex items-center">
-        ≈ <Images id="origeometry" variant="currency" size={20} /> {((charPullsOnly * 500) / 75).toFixed(0)}  {$t("page.banner.origeometry")}
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 min-w-[320px]">
+        <h3 class="text-xl font-bold mb-4 font-sdk text-[#21272C]">
+          {$t("page.totalCost")}
+        </h3>
+        <div class="text-3xl font-black text-[#21272C] flex items-center gap-2 font-nums">
+          <Images id="oroberyl" variant="currency" size={32} />
+          {(billablePulls * 500).toLocaleString("ru-RU")}
+        </div>
+        <div class="text-xs text-gray-400 mt-2 font-medium flex items-center">
+          ≈ <Images id="origeometry" variant="currency" size={20} /> {((charPullsOnly * 500) / 75).toFixed(0)}  {$t("page.banner.origeometry")}
+        </div>
       </div>
     </div>
+
   </div>
 </div>

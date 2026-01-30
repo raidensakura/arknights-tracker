@@ -1,14 +1,13 @@
 <script>
     import { syncStatus, cloudDataBuffer, applyCloudData, uploadLocalData } from "$lib/stores/cloudStore";
     import { accountStore } from "$lib/stores/accounts";
-    import { pullData } from "$lib/stores/pulls"; // ИМПОРТИРУЕМ ЗДЕСЬ
+    import { pullData } from "$lib/stores/pulls"; 
     import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import { t } from "$lib/i18n";
 
     const formatDate = (ts) => ts === 0 ? "Never" : new Date(ts).toLocaleString();
 
-    // Функция подсчета для интерфейса (Она может использовать $pullData, чтобы красиво рисовать цифры)
     function getAllLocalPullsCount() {
         if (typeof window === 'undefined') return 0;
         let total = 0;
@@ -20,7 +19,6 @@
         if (!accounts || !accounts.length) accounts = [{id: 'main'}];
 
         accounts.forEach(acc => {
-            // Если текущий аккаунт — берем данные из памяти ($pullData)
             if (acc.id === currentId && $pullData) {
                 ['standard', 'special', 'new-player'].forEach(cat => { if ($pullData[cat]?.pulls) total += $pullData[cat].pulls.length; });
             } else {
@@ -43,8 +41,21 @@
     $: cloudCount = cloudData?.total ?? 0;
     $: cloudTime = cloudData?.timestamp || 0;
 
-    $: isLocalWinner = $syncStatus === "local_newer";
-    $: isCloudWinner = $syncStatus === "conflict_cloud_newer";
+    // --- ЧЕСТНАЯ ЛОГИКА БЕЙДЖЕЙ ---
+    // Сравниваем числа "в лоб"
+    $: isLocalMore = localCount > cloudCount;
+    $: isCloudMore = cloudCount > localCount;
+
+    // Сравниваем время
+    // Локально считаем "Новее", только если разница существенная или мы явно знаем, что работали локально
+    $: isLocalNewerTime = localTime > cloudTime;
+    $: isCloudNewerTime = cloudTime > localTime;
+
+    // Кто "победитель" для зеленой рамки?
+    // Если статус "local_newer", мы верим системе, что локальные важнее (например, только что импортировали)
+    // НО если время в облаке явно свежее, мы не будем красить локальное в зеленый, оставим нейтральным.
+    $: highlightLocal = $syncStatus === "local_newer" && !isCloudNewerTime;
+    $: highlightCloud = $syncStatus === "conflict_cloud_newer" || (isCloudNewerTime && !highlightLocal);
 
     let showModal = false;
 
@@ -53,10 +64,10 @@
         const storedIgnore = typeof window !== 'undefined' ? localStorage.getItem("ark_ignore_cloud_ts") : null;
         
         if (isConflict) {
-            // Показываем, если есть конфликт и (снят игнор ИЛИ данные поменялись ИЛИ локально побеждает)
-            if (!storedIgnore || parseInt(storedIgnore) !== cloudTime || isLocalWinner) {
+            // Условие показа: Игнор снят ИЛИ время изменилось ИЛИ локально явно больше/новее
+            if (!storedIgnore || parseInt(storedIgnore) !== cloudTime || $syncStatus === "local_newer") {
                 showModal = true;
-                localCount = getAllLocalPullsCount(); // Пересчитываем цифры
+                localCount = getAllLocalPullsCount(); 
                 updateLocalStats();
             } else {
                 showModal = false;
@@ -70,14 +81,16 @@
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem("ark_last_sync");
             localTime = stored ? parseInt(stored) : 0;
-            if (isLocalWinner) localTime = Date.now(); // Визуальный фикс времени
+            // Если мы только что импортировали или статус говорит что локально новее, 
+            // но время "Never", подставляем текущее для красоты, НО ТОЛЬКО ЕСЛИ РЕАЛЬНО ИЗМЕНИЛИ
+            if ($syncStatus === "local_newer" && localTime === 0) {
+                 localTime = Date.now();
+            }
         }
     }
     
     function handleLeftButton() {
         if ($syncStatus === "local_newer") {
-            // [FIX] Передаем $pullData прямо в функцию загрузки!
-            // Это решает проблему пустого файла на диске.
             uploadLocalData($pullData);
             showModal = false;
         } else {
@@ -93,45 +106,99 @@
 {#if showModal}
     <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
         <div class="bg-white rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
+            
             <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                 <h2 class="text-xl font-bold text-[#21272C] flex items-center gap-3">
                     <Icon name="cloud" class="w-6 h-6 text-[#21272C]" />
-                    {#if isLocalWinner} {$t("settings.cloud.localNewerTitle")} {:else} {$t("settings.cloud.syncConflict")} {/if}
+                    {#if highlightLocal}
+                        {$t("settings.cloud.localNewerTitle")}
+                    {:else}
+                        {$t("settings.cloud.syncConflict")}
+                    {/if}
                 </h2>
             </div>
+
             <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="relative p-5 rounded-lg border-2 transition-all {isLocalWinner ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs font-bold text-gray-500 tracking-wider">{$t("settings.cloud.thisDevice")}</span>
-                        {#if isLocalWinner} <span class="px-1.5 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded uppercase">{$t("settings.cloud.badgeNewerMore")}</span> {/if}
+                
+                <div class="relative p-5 rounded-lg border-2 transition-all {highlightLocal ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
+                    <div class="flex flex-col gap-2 items-start mb-2">
+                        <span class="text-xs font-bold text-gray-500 tracking-wider">
+                            {$t("settings.cloud.thisDevice")}
+                        </span>
+                        
+                        <div class="flex gap-1 flex-wrap">
+                            {#if isLocalMore}
+                                <span class="px-1.5 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded uppercase">
+                                    {$t("settings.cloud.badgeMore")}
+                                </span>
+                            {/if}
+                            {#if isLocalNewerTime}
+                                <span class="px-1.5 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded uppercase">
+                                    {$t("settings.cloud.badgeNewer")}
+                                </span>
+                            {/if}
+                        </div>
                     </div>
+
                     <div class="text-3xl font-bold text-[#21272C] font-nums mb-1">{localCount}</div>
                     <div class="text-sm text-gray-500">{$t("settings.cloud.totalPulls")}</div>
                     <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-400 font-mono">
                         {formatDate(localTime)}
-                        {#if isLocalWinner && localTime === Date.now()} <span class="text-[10px] opacity-60">(Unsynced)</span>{/if}
                     </div>
                 </div>
-                <div class="relative p-5 rounded-lg border-2 transition-all {isCloudWinner ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs font-bold text-gray-500 tracking-wider">{$t("settings.cloud.googleCloud")}</span>
-                         {#if isCloudWinner} <span class="px-1.5 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded uppercase">{$t("settings.cloud.badgeNewer")}</span> {/if}
+
+                <div class="relative p-5 rounded-lg border-2 transition-all {highlightCloud ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
+                    <div class="flex flex-col gap-2 items-start mb-2">
+                        <span class="text-xs font-bold text-gray-500 tracking-wider">
+                            {$t("settings.cloud.googleCloud")}
+                        </span>
+
+                        <div class="flex gap-1 flex-wrap">
+                            {#if isCloudMore}
+                                <span class="px-1.5 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded uppercase">
+                                    {$t("settings.cloud.badgeMore")}
+                                </span>
+                            {/if}
+                            {#if isCloudNewerTime}
+                                <span class="px-1.5 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded uppercase">
+                                    {$t("settings.cloud.badgeNewer")}
+                                </span>
+                            {/if}
+                        </div>
                     </div>
+
                     <div class="text-3xl font-bold text-[#21272C] font-nums mb-1">{cloudCount}</div>
                     <div class="text-sm text-gray-500">{$t("settings.cloud.totalPulls")}</div>
-                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-400 font-mono">{formatDate(cloudTime)}</div>
+                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-400 font-mono">
+                        {formatDate(cloudTime)}
+                    </div>
                 </div>
             </div>
+
             <div class="px-6 pb-6 text-sm text-gray-500 leading-relaxed">
-                 {#if isLocalWinner} {@html $t("settings.cloud.localNewerMsg", { localCount, cloudCount })} {:else} {@html $t("settings.cloud.cloudNewerAlert")} {/if}
+                 {#if $syncStatus === "local_newer"}
+                    {@html $t("settings.cloud.localNewerMsg")}
+                 {:else}
+                    {@html $t("settings.cloud.cloudNewerAlert")}
+                 {/if}
             </div>
+
             <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
                 <Button variant="black2" onClick={handleLeftButton}>
                     <div slot="icon">
-                        {#if isLocalWinner} <Icon name="export" style="width: 20px; height: 20px;" /> {:else} <Icon name="local" style="width: 30px; height: 30px;" /> {/if}
+                        {#if $syncStatus === "local_newer"}
+                            <Icon name="export" style="width: 20px; height: 20px;" />
+                        {:else}
+                            <Icon name="local" style="width: 30px; height: 30px;" />
+                        {/if}
                     </div>
-                    {#if isLocalWinner} {$t("settings.cloud.uploadBtn")} {:else} {$t("settings.cloud.localBtn")} {/if}
+                    {#if $syncStatus === "local_newer"}
+                        {$t("settings.cloud.uploadBtn")}
+                    {:else}
+                        {$t("settings.cloud.localBtn")}
+                    {/if}
                 </Button>
+
                 <Button variant="yellow" onClick={applyCloudData}>
                     <div slot="icon"><Icon name="cloud" style="width: 35px; height: 30px;" /></div>
                     {$t("settings.cloud.downloadBtn")}
