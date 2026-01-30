@@ -406,7 +406,7 @@ function normalizeBannerId(rawId) {
     return 'special';
 }
 
-pp.get('/api/rankings/data', async (req, res) => {
+app.get('/api/rankings/data', async (req, res) => {
     try {
         const { bannerId, uid } = req.query;
         if (!bannerId) return res.status(400).json({ code: 1, message: "Banner ID required" });
