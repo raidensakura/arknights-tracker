@@ -4,7 +4,6 @@ const axios = require('axios');
 const { PrismaClient } = require('@prisma/client');
 const { URL, URLSearchParams } = require('url');
 const { BANNERS } = require('./banners');
-
 const crypto = require('crypto');
 
 function generateStableUid(pulls) {
@@ -272,38 +271,30 @@ function mapPoolTypeToShort(longType) {
     return 'unknown';
 }
 
+// [ЗАМЕНИТЬ ЦЕЛИКОМ]
 async function updateAggregatedStats(uid, allPulls) {
     if (!allPulls.length) return;
 
-    // 1. Создаем юзера
     await prisma.user.upsert({ where: { uid }, update: {}, create: { uid } });
 
-    // 2. Группируем крутки по баннерам, чтобы посчитать статы для каждого
-    const pullsByBanner = {};
+    // Группируем крутки по "ЧИСТЫМ" категориям (standard, special, weap-standard...)
+    const pullsByCategory = {};
 
     allPulls.forEach(p => {
         const pullTimeMs = p.timestamp * 1000;
+        // ВОТ ЗДЕСЬ МАГИЯ: превращаем weaponbox_constant_1 -> weap-standard
+        const category = normalizeBannerId(p.poolId); 
 
-        // Определяем Banner ID
-        const matchedBanner = BANNERS.find(b =>
-            b.type === p.poolId &&
-            pullTimeMs >= b.startTime &&
-            (!b.endTime || pullTimeMs <= b.endTime)
-        );
-        const bannerId = matchedBanner ? matchedBanner.id : p.poolId;
-
-        if (!pullsByBanner[bannerId]) pullsByBanner[bannerId] = [];
-        pullsByBanner[bannerId].push({ ...p, time: pullTimeMs });
+        if (!pullsByCategory[category]) pullsByCategory[category] = [];
+        pullsByCategory[category].push({ ...p, time: pullTimeMs });
     });
 
-    // 3. Считаем статистику для каждого баннера и сохраняем
-    for (const [bannerId, pulls] of Object.entries(pullsByBanner)) {
-        const stats = calculateMath(pulls, bannerId);
+    // Считаем стату и пишем в БД
+    for (const [category, pulls] of Object.entries(pullsByCategory)) {
+        const stats = calculateMath(pulls, category);
 
         await prisma.userBannerStat.upsert({
-            where: {
-                uid_bannerId: { uid, bannerId } // Используем составной ключ
-            },
+            where: { uid_bannerId: { uid, bannerId: category } },
             update: {
                 totalPulls: stats.totalPulls,
                 total6: stats.total6,
@@ -316,7 +307,7 @@ async function updateAggregatedStats(uid, allPulls) {
             },
             create: {
                 uid,
-                bannerId,
+                bannerId: category,
                 totalPulls: stats.totalPulls,
                 total6: stats.total6,
                 sumPity6: stats.sumPity6,
@@ -327,25 +318,16 @@ async function updateAggregatedStats(uid, allPulls) {
             }
         });
     }
-
-    console.log(`[Stats] Updated stats for user ${uid} across ${Object.keys(pullsByBanner).length} banners.`);
+    console.log(`[Stats] Updated for ${uid}: ${Object.keys(pullsByCategory).join(', ')}`);
 }
 
 // Математика подсчета (аналог того, что у тебя на фронте, но упрощено для БД)
-function calculateMath(pulls, bannerId) {
-    pulls.sort((a, b) => a.time - b.time || a.seqId.localeCompare(b.seqId));
+function calculateMath(pulls, categoryId) {
+    // Сортировка: Время -> seqId
+    pulls.sort((a, b) => a.time - b.time || (a.seqId || "").localeCompare(b.seqId || ""));
 
-    let bannerConfig = BANNERS.find(b => b.id === bannerId);
-    if (!bannerConfig) {
-        if (bannerId.includes('new')) bannerConfig = BANNERS.find(b => b.type === 'beginner');
-        else if (bannerId.includes('special')) bannerConfig = BANNERS.find(b => b.type === 'special');
-        else bannerConfig = BANNERS.find(b => b.type === 'standard');
-    }
-
-    const featured6 = (bannerConfig && bannerConfig.featured6) ? bannerConfig.featured6 : [];
-    const normalize = s => s ? s.toLowerCase().replace(/[^a-z0-9]/g, "") : "";
-    const normFeatured = featured6.map(normalize);
-
+    const isWeapon = categoryId.includes('weap');
+    
     let stats = {
         totalPulls: pulls.length,
         total6: 0, sumPity6: 0,
@@ -353,61 +335,89 @@ function calculateMath(pulls, bannerId) {
         won5050: 0, total5050: 0
     };
 
-    let pityCounter = 0;
+    let currentPity6 = 0;
+    let currentPity5 = 0;
     let last6WasFeatured = true; 
 
-    pulls.forEach((p) => {
-        // [NEW] Проверка бесплатной крутки
-        const isFree = p.isFree === true || String(p.isFree) === "true";
+    pulls.forEach((pull) => {
+        // Проверяем флаг бесплатной крутки (если есть в базе)
+        const isFree = pull.isFree === true || String(pull.isFree) === "true";
+        const itemName = normalize(pull.name);
 
-        if (!isFree) {
-            pityCounter++;
-        }
-
-        // [FIX] Rarity 6 для 6-звездочных
-        if (p.rarity === 6) { 
+        // --- ЛЕГИ (6*) ---
+        if (pull.rarity === 6) {
             stats.total6++;
-            stats.sumPity6 += pityCounter; // Записываем, на каком пити выпало
+            stats.sumPity6 += currentPity6 + 1;
 
-            if (normFeatured.length > 0) {
-                const charName = normalize(p.name);
-                const isFeatured = normFeatured.includes(charName);
+            // Логика 50/50: Ищем конфиг баннера по времени крутки
+            const matchedBanner = BANNERS.find(b => 
+                // Либо ID совпадает, либо это баннер той же категории во время крутки
+                (b.type === pull.poolId || normalizeBannerId(b.type) === categoryId) &&
+                pull.time >= b.startTime && 
+                (!b.endTime || pull.time <= b.endTime)
+            );
+
+            // Если нашли конфиг и список rate-up персонажей
+            if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
+                const normFeatured = matchedBanner.featured6.map(normalize);
+                const isFeatured = normFeatured.includes(itemName);
+
+                // Если прошлый был гарантом (или это первая лега), значит был шанс 50/50
                 if (last6WasFeatured) {
                     stats.total5050++;
                     if (isFeatured) stats.won5050++;
                 }
                 last6WasFeatured = isFeatured;
+            } else {
+                // Если конфига нет (например, Стандарт), не считаем 50/50, но сбрасываем флаг
+                last6WasFeatured = true; 
             }
-            pityCounter = 0; // Сброс
+
+            currentPity6 = 0;
+        } else {
+            // Если не лега, увеличиваем пити (если не бесплатно)
+            if (!isFree) currentPity6++;
         }
-        
-        // [FIX] Rarity 5 для 5-звездочных
-        else if (p.rarity === 5) { 
+
+        // --- ЭПИКИ (5*) ---
+        if (pull.rarity === 5) {
             stats.total5++;
+            stats.sumPity5 += currentPity5 + 1;
+            currentPity5 = 0;
+        } else {
+            if (!isFree) currentPity5++;
         }
     });
 
     return stats;
 }
 
+const normalize = (str) => {
+    if (!str || typeof str !== 'string') return "";
+    return str.toLowerCase().replace(/[^a-z0-9]/g, "");
+};
+
+// [ИЗМЕНЕНО] Главный фикс категорий. Превращает "мусорные" ID в чистые категории.
 function normalizeBannerId(rawId) {
+    if (!rawId) return 'special';
     const lower = rawId.toLowerCase();
 
-    // 1. ОРУЖИЕ
-    if (lower.includes('weap') || lower.includes('weapon')) {
-        if (lower.includes('special') || lower.includes('event') || lower.includes('limited')) return 'weap-special';
-        return 'weap-standard'; // Всё остальное оружие — стандарт
+    // Если уже чисто - возвращаем как есть
+    if (['weap-standard', 'weap-special', 'standard', 'special', 'new-player'].includes(lower)) {
+        return lower;
     }
 
-    // 2. НОВИЧОК
+    // ОРУЖИЕ (ловим weapon, wepon, constant)
+    if (lower.includes('weapon') || lower.includes('wepon') || lower.includes('weap')) {
+        if (lower.includes('constant') || lower.includes('standard')) return 'weap-standard';
+        return 'weap-special';
+    }
+
+    // ПЕРСОНАЖИ
     if (lower.includes('new') || lower.includes('beginner')) return 'new-player';
-
-    // 3. СТАНДАРТ (Персонажи)
-    // Если явно стандарт или не содержит спец-слов
     if (lower.includes('standard')) return 'standard';
-
-    // 4. СПЕЦИАЛЬНЫЙ (Ивент)
-    // По умолчанию всё остальное кидаем в спешл (обычно это ивенты с уникальными ID)
+    
+    // Всё остальное (ивенты с ID типа pool_1024) -> special
     return 'special';
 }
 
@@ -416,76 +426,62 @@ app.get('/api/rankings/data', async (req, res) => {
         const { bannerId, uid } = req.query;
         if (!bannerId) return res.status(400).json({ code: 1, message: "Banner ID required" });
 
-        // 1. Получаем статистику этого баннера для ВСЕХ
-        // Для оптимизации можно не тащить все поля, а только нужные для сортировки
+        // Нормализуем запрос (на случай, если фронт пришлет что-то странное)
+        const targetCategory = normalizeBannerId(bannerId);
+
+        // 1. Загружаем статистику ТОЛЬКО по нужной категории
         const allStats = await prisma.userBannerStat.findMany({
-            where: { bannerId },
+            where: { bannerId: targetCategory },
             select: {
                 uid: true,
                 totalPulls: true,
-                sumPity6: true,
                 total6: true,
+                sumPity6: true,
                 won5050: true,
                 total5050: true
             }
         });
 
         if (allStats.length === 0) {
-            return res.json({ code: 0, data: { rankTotal: null, rankLuck6: null } });
+            return res.json({ code: 0, data: { found: false, totalUsers: 0 } });
         }
 
-        // 2. Считаем среднюю удачу для каждого
+        // 2. Считаем средние значения
         const usersWithAvg = allStats.map(s => ({
             ...s,
-            avg6: s.total6 > 0 ? s.sumPity6 / s.total6 : 0, // 0 значит "нет лег", ставим в конец
+            avg6: s.total6 > 0 ? s.sumPity6 / s.total6 : 0,
             winRate: s.total5050 > 0 ? (s.won5050 / s.total5050) * 100 : 0
         }));
 
-        // 3. Ищем текущего юзера
+        // 3. Ищем себя
         const myStat = usersWithAvg.find(u => u.uid === uid);
 
         if (!myStat) {
-            // Данных по этому юзеру нет, отдаем общую стату
             return res.json({ code: 0, data: { found: false, totalUsers: allStats.length } });
         }
 
-        // 4. Считаем Ранги (Percentile)
-        // Функция расчета: Сколько людей ХУЖЕ меня?
-        // Rank 99% = я лучше 99% людей (топ 1). Rank 1% = я лох.
-
-        // -- Luck Rank (Меньше пити = лучше) --
-        // Сортируем: от маленького пити к большому. Исключаем тех, у кого 0 лег.
+        // 4. Считаем Перцентили (Ранги)
+        // Логика: (Сколько людей хуже меня / Всего людей) * 100
+        
+        // Luck 6
         const validLuckUsers = usersWithAvg.filter(u => u.total6 > 0).sort((a, b) => a.avg6 - b.avg6);
         const myLuckIndex = validLuckUsers.findIndex(u => u.uid === uid);
         let rankLuck6 = null;
         if (myLuckIndex !== -1) {
-            // Если я на 0 месте (самый везучий), то я лучше 100%
-            // Percentile = (Кол-во людей ХУЖЕ меня / Всего) * 100
-            // В отсортированном массиве [Лучший, ..., Худший]
-            // Люди "хуже меня" - это те, кто после меня (индекс больше)
-            const worseThanMe = validLuckUsers.length - 1 - myLuckIndex;
-            rankLuck6 = (worseThanMe / validLuckUsers.length * 100).toFixed(0);
+            rankLuck6 = ((validLuckUsers.length - 1 - myLuckIndex) / validLuckUsers.length * 100);
         }
 
-        const validLuck5 = usersWithAvg.filter(u => u.total5 > 0).sort((a, b) => a.avg5 - b.avg5); // Сортировка по возрастанию (меньше - лучше)
-        const myLuck5Index = validLuck5.findIndex(u => u.uid === uid);
-        let rankLuck5 = null;
-        if (myLuck5Index !== -1) {
-            const worseThanMe = validLuck5.length - 1 - myLuck5Index;
-            rankLuck5 = (worseThanMe / validLuck5.length * 100).toFixed(0);
-        }
-
-        // -- Total Pulls Rank (Больше = выше) --
+        // Total Pulls
         const sortedTotal = [...usersWithAvg].sort((a, b) => b.totalPulls - a.totalPulls);
         const myTotalIndex = sortedTotal.findIndex(u => u.uid === uid);
-        const rankTotal = ((sortedTotal.length - 1 - myTotalIndex) / sortedTotal.length * 100).toFixed(0);
+        const rankTotal = ((sortedTotal.length - 1 - myTotalIndex) / sortedTotal.length * 100);
 
-        // -- 50/50 Rank (Больше = выше) --
+        // 50/50 Wins
         const valid5050 = usersWithAvg.filter(u => u.total5050 > 0).sort((a, b) => b.winRate - a.winRate);
         const my5050Index = valid5050.findIndex(u => u.uid === uid);
         let rank5050 = null;
         if (my5050Index !== -1) {
-            rank5050 = ((valid5050.length - 1 - my5050Index) / valid5050.length * 100).toFixed(0);
+            rank5050 = ((valid5050.length - 1 - my5050Index) / valid5050.length * 100);
         }
 
         res.json({
@@ -493,24 +489,21 @@ app.get('/api/rankings/data', async (req, res) => {
             data: {
                 found: true,
                 totalUsers: allStats.length,
-                rankTotal,  // "Вы крутили больше, чем X% игроков"
+                rankTotal,
                 rankLuck6,
-                rankLuck5,  // "Вы удачливее, чем X% игроков"
-                rank5050,   // "Вы выигрываете 50/50 чаще, чем X% игроков"
-
-                // Сырые данные тоже можно вернуть
+                rankLuck5: null, 
+                rank5050,
                 myStats: {
                     total: myStat.totalPulls,
                     avg6: myStat.avg6.toFixed(1),
-                    avg5: myStat.avg5 ? myStat.avg5.toFixed(1) : "0.0",
                     winRate: myStat.winRate.toFixed(1)
                 }
             }
         });
 
     } catch (e) {
-        console.error("Rankings Error:", e);
-        res.status(500).json({ code: 500, message: "Server Error" });
+        console.error(e);
+        res.status(500).json({ code: 500, message: "Error" });
     }
 });
 
