@@ -34,7 +34,8 @@
       "luckyTopPercent": "Top {n}%",
       "luckyLowPercent": "Bottom {n}%",
       "avg": "avg",
-      "top": "Top"
+      "top": "Top",
+      "bottom": "Bottom"
     },
     "banner": {
       "total": "Total Pulls",

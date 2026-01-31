@@ -108,10 +108,8 @@ const rawBanners = [
   }
 ];
 
-// --- ПРЕВРАЩАЕМ ДАТЫ В ЧИСЛА ДЛЯ NODE.JS ---
 const BANNERS = rawBanners.map(b => ({
     ...b,
-    // Добавляем UTC, чтобы серверное время не сдвигало даты
     startTime: new Date(b.startTime.endsWith("Z") ? b.startTime : b.startTime + " UTC").getTime(),
     endTime: b.endTime ? new Date(b.endTime.endsWith("Z") ? b.endTime : b.endTime + " UTC").getTime() : null
 }));
