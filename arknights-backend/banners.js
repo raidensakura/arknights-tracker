@@ -1,15 +1,5 @@
-// backend/banners.js
-
-// Хелпер: Превращает строку в UTC Timestamp (миллисекунды)
-// Мы заменяем пробел на 'T' и добавляем 'Z' в конец, чтобы сервер понял, что это UTC+0
-const toTimestamp = (dateStr) => {
-  if (!dateStr) return null;
-  // Если формат "2026-01-22 03:00:00", делаем "2026-01-22T03:00:00Z"
-  const isoStr = dateStr.replace(' ', 'T') + 'Z';
-  return new Date(isoStr).getTime();
-};
-
-const RAW_BANNERS = [
+// --- КОПИЯ ДАННЫХ С ФРОНТА (без изменений внутри массива) ---
+const rawBanners = [
   {
     id: "standard_01",
     name: "Basic Headhunting",
@@ -21,7 +11,6 @@ const RAW_BANNERS = [
     featured5: [],
     isServerTime: false,
     timezone: "UTC+0",
-    // Changed: Use filename (utility handles .png default)
     icon: "basic-headhunting.png",
     miniIcon: "basic-headhunting.png",
     url: "https://x.com/AKEndfield/status/2012150342780121133?s=20",
@@ -260,12 +249,14 @@ const RAW_BANNERS = [
   }
 ];
 
-// Экспортируем уже обработанные данные с числами вместо строк
-const BANNERS = RAW_BANNERS.map(b => ({
-  id: b.id,
-  type: b.type,
-  startTime: toTimestamp(b.startTime),
-  endTime: b.endTime ? toTimestamp(b.endTime) : 4102444800000, // Если null, ставим далекое будущее
+// --- АДАПТАЦИЯ ДЛЯ БЭКЕНДА ---
+// Превращаем строковые даты в Timestamp (числа), чтобы server.js мог их сравнивать
+const BANNERS = rawBanners.map(b => ({
+    ...b,
+    // Добавляем " UTC", чтобы Node.js точно понял, что это UTC время
+    startTime: new Date(b.startTime + " UTC").getTime(),
+    endTime: b.endTime ? new Date(b.endTime + " UTC").getTime() : null
 }));
 
+// Экспортируем в формате Node.js
 module.exports = { BANNERS };
