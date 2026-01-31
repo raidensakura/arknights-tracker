@@ -44,27 +44,20 @@
   $: rankLuck5 = safeParse(serverData?.rankLuck5);
 
   // --- ХЕЛПЕРЫ ---
-
-  // 1. Для "Топ X%" (значение справа)
-  // Если ранг 90 -> Топ 10%. Если ранг 10 -> Ниже 10%.
+  const getPercentile = (rank) => rank !== null ? rank.toFixed(0) : "---";
+  
   const getRankValue = (rank) => {
       if (rank === null) return "---";
       return (rank > 50 ? (100 - rank) : rank).toFixed(0);
   };
 
-  // 2. Для выбора слова "Топ" или "Ниже"
   const getRankLabel = (rank) => {
       if (rank === null) return "page.rating.top";
       return rank > 50 ? "page.rating.top" : "page.rating.bottom";
   };
 
-  // 3. [FIX] Для текста "Больше/Меньше чем..." (значение слева)
-  // Если ты крут (ранг 90), ты лучше 90%.
-  // Если ты слаб (ранг 10), ты хуже (100-10) = 90%.
   const getComparisonValue = (rank) => {
       if (rank === null) return "---";
-      // Если ранг > 50 (верхняя половина), возвращаем как есть (Лучше чем 90%).
-      // Если ранг <= 50 (нижняя половина), возвращаем инверсию (Хуже чем 90%).
       return (rank > 50 ? rank : (100 - rank)).toFixed(0);
   };
 
@@ -132,30 +125,32 @@
       </div>
     </div>
 
-    <div class="flex justify-between items-center border-b border-gray-100 pb-4">
-      <div>
-        <div class="font-medium text-gray-700">{$t("page.rating.lucky5050")}</div>
-        <div class="text-xs text-gray-400 mt-1">
-           {#if rank5050 !== null}
-              {#if rank5050 < 50}
-                 {$t("page.rating.luckyLessLuckierThan", { n: getComparisonValue(rank5050) })}
-              {:else}
-                 {$t("page.rating.luckyLuckierThan", { n: getComparisonValue(rank5050) })}
-              {/if}
-           {:else}
-              ---
-           {/if}
+    {#if activeTab !== 'standard' && activeTab !== 'new-player'}
+      <div class="flex justify-between items-center border-b border-gray-100 pb-4">
+        <div>
+          <div class="font-medium text-gray-700">{$t("page.rating.lucky5050")}</div>
+          <div class="text-xs text-gray-400 mt-1">
+             {#if rank5050 !== null}
+                {#if rank5050 < 50}
+                   {$t("page.rating.luckyLessLuckierThan", { n: getComparisonValue(rank5050) })}
+                {:else}
+                   {$t("page.rating.luckyLuckierThan", { n: getComparisonValue(rank5050) })}
+                {/if}
+             {:else}
+                ---
+             {/if}
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-2xl font-black text-[#21272C] font-nums whitespace-nowrap">
+             {$t(getRankLabel(rank5050))} {getRankValue(rank5050)}%
+          </div>
+          <div class="text-sm font-bold text-gray-900 font-nums">
+            {formatVal(displayWinRate)}%
+          </div>
         </div>
       </div>
-      <div class="text-right">
-        <div class="text-2xl font-black text-[#21272C] font-nums whitespace-nowrap">
-           {$t(getRankLabel(rank5050))} {getRankValue(rank5050)}%
-        </div>
-        <div class="text-sm font-bold text-gray-900 font-nums">
-          {formatVal(displayWinRate)}%
-        </div>
-      </div>
-    </div>
+    {/if}
 
     <div class="flex justify-between items-center border-b border-gray-100 pb-4">
       <div>
