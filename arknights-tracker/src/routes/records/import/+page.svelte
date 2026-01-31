@@ -146,17 +146,17 @@
 
             if (response.code === 0 && response.data?.list) {
                 const importedUid = response.data.uid;
-            
-            if (importedUid) {
-                console.log("Saving Stable UID to Account:", importedUid);
-                
-                // 1. Обновляем глобальный стор (чтобы UI обновился прямо сейчас)
-                currentUid.set(importedUid);
-                
-                // 2. [НОВОЕ] Сохраняем UID внутрь текущего аккаунта
-                // Это запишет его в localStorage['ark_tracker_accounts_meta']
-                accountStore.setServerUid(importedUid);
-            }
+
+                if (importedUid) {
+                    console.log("Saving Stable UID to Account:", importedUid);
+
+                    // 1. Обновляем глобальный стор (чтобы UI обновился прямо сейчас)
+                    currentUid.set(importedUid);
+
+                    // 2. [НОВОЕ] Сохраняем UID внутрь текущего аккаунта
+                    // Это запишет его в localStorage['ark_tracker_accounts_meta']
+                    accountStore.setServerUid(importedUid);
+                }
 
                 if (isSaveTokenEnabled && tokenName.trim()) {
                     saveTokenToStorage(tokenName.trim(), urlInput);
