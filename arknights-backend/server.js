@@ -296,14 +296,30 @@ async function updateAggregatedStats(uid, allPulls) {
 }
 
 // Математика подсчета (аналог того, что у тебя на фронте, но упрощено для БД)
+// --- ЗАМЕНИТЬ ЭТУ ФУНКЦИЮ ЦЕЛИКОМ ---
 function calculateMath(pulls, categoryId) {
-    // [FIX] Сортируем seqId как числа. Это чинит "Avg 6: 25.5" -> "Avg 6: 60"
+    // Логируем начало расчета для категории
+    console.log(`\n--- CALC MATH: ${categoryId} (${pulls.length} pulls) ---`);
+
+    // 1. Сортировка: Старые -> Новые. 
+    // Критично важно проверить, что timestamp и seqId парсятся в числа корректно.
     pulls.sort((a, b) => {
-        const timeDiff = a.time - b.time;
-        if (timeDiff !== 0) return timeDiff;
+        const tA = Number(a.timestamp); 
+        const tB = Number(b.timestamp);
+        if (tA !== tB) return tA - tB;
+        // Если время одинаковое, решаем по seqId
         return Number(a.seqId || 0) - Number(b.seqId || 0);
     });
 
+    // Логируем первую и последнюю крутку, чтобы проверить порядок
+    if (pulls.length > 0) {
+        const first = pulls[0];
+        const last = pulls[pulls.length - 1];
+        console.log(`Sort Check: First: ${new Date(first.time).toISOString()} (${first.name}) | Last: ${new Date(last.time).toISOString()} (${last.name})`);
+    }
+
+    const isWeapon = categoryId.includes('weap');
+    
     let stats = {
         totalPulls: pulls.length,
         total6: 0, sumPity6: 0,
@@ -315,43 +331,71 @@ function calculateMath(pulls, categoryId) {
     let currentPity5 = 0;
     let last6WasFeatured = true; 
 
-    pulls.forEach((pull) => {
-        const isFree = pull.isFree === true || String(pull.isFree) === "true";
+    pulls.forEach((pull, index) => {
         const itemName = normalize(pull.name);
+        
+        // ВНИМАНИЕ: На бэке мы пока считаем все крутки платными (увеличивают пити), 
+        // если явно не пришел флаг isFree.
+        const isFree = pull.isFree === true || String(pull.isFree) === "true";
 
+        // --- 6 ЗВЕЗД ---
         if (pull.rarity === 6) {
             stats.total6++;
-            stats.sumPity6 += currentPity6 + 1;
+            const pityVal = currentPity6 + 1;
+            stats.sumPity6 += pityVal;
 
-            // [FIX] Улучшенный поиск баннера для 50/50
+            console.log(`[6* DROP] ${pull.name} (Norm: ${itemName}) at Pity: ${pityVal}. Time: ${new Date(pull.time).toISOString()}`);
+
+            // Поиск баннера для 50/50
             const matchedBanner = BANNERS.find(b => {
-                // 1. Совпадает ID (самое точное, например weponbox_1_0_1)
-                const idMatch = b.id === pull.poolId;
-                // 2. Совпадает категория
-                const typeMatch = normalizeBannerId(b.type) === categoryId;
-                // 3. Совпадает время
+                // 1. Проверяем время
                 const timeMatch = pull.time >= b.startTime && (!b.endTime || pull.time <= b.endTime);
                 
-                return (idMatch || typeMatch) && timeMatch;
+                // 2. Проверяем тип. 
+                // b.type === pull.poolId: Идеальное совпадение ID (напр. weaponbox_1_0_1)
+                // normalizeBannerId(b.type) === categoryId: Совпадение категории (напр. оба weapon)
+                const idMatch = b.id === pull.poolId;
+                const catMatch = normalizeBannerId(b.type) === categoryId;
+                
+                return timeMatch && (idMatch || catMatch);
             });
 
-            if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
-                const normFeatured = matchedBanner.featured6.map(normalize);
-                const isFeatured = normFeatured.includes(itemName);
+            if (matchedBanner) {
+                // Баннер найден, проверяем списки
+                if (matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
+                    const normFeatured = matchedBanner.featured6.map(normalize);
+                    const isFeatured = normFeatured.includes(itemName);
 
-                if (last6WasFeatured) {
-                    stats.total5050++;
-                    if (isFeatured) stats.won5050++;
+                    console.log(`   -> Banner Matched: "${matchedBanner.name}". Is Featured? ${isFeatured} (List: ${normFeatured.join(', ')})`);
+
+                    if (last6WasFeatured) {
+                        stats.total5050++;
+                        if (isFeatured) {
+                            stats.won5050++;
+                            console.log(`   -> 50/50 WON`);
+                        } else {
+                            console.log(`   -> 50/50 LOST`);
+                        }
+                    } else {
+                         console.log(`   -> Guaranteed (Previous lost)`);
+                    }
+                    last6WasFeatured = isFeatured;
+                } else {
+                    console.log(`   -> Banner found ("${matchedBanner.name}"), but NO featured6 list. Resetting guarantee.`);
+                    last6WasFeatured = true; 
                 }
-                last6WasFeatured = isFeatured;
             } else {
+                console.warn(`   -> ⚠️ NO BANNER CONFIG FOUND for Date: ${new Date(pull.time).toISOString()} and ID: ${pull.poolId}`);
                 last6WasFeatured = true; 
             }
+
             currentPity6 = 0;
         } else {
+            // Не лега
             if (!isFree) currentPity6++;
         }
 
+        // --- 5 ЗВЕЗД ---
         if (pull.rarity === 5) {
             stats.total5++;
             stats.sumPity5 += currentPity5 + 1;
@@ -361,6 +405,8 @@ function calculateMath(pulls, categoryId) {
         }
     });
 
+    console.log(`--- RESULT: Avg6: ${(stats.sumPity6 / stats.total6).toFixed(2)} | Won5050: ${stats.won5050}/${stats.total5050} ---\n`);
+    
     return stats;
 }
 
