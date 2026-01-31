@@ -262,10 +262,26 @@ async function updateAggregatedStats(uid, allPulls) {
     await prisma.user.upsert({ where: { uid }, update: {}, create: { uid } });
 
     const pullsByCategory = {};
+
     allPulls.forEach(p => {
-        const pullTimeMs = p.timestamp * 1000;
+        let pullTimeMs = 0;
+        if (p.gachaTs) {
+            pullTimeMs = Number(p.gachaTs);
+        } else if (p.timestamp) {
+            pullTimeMs = Number(p.timestamp) * 1000;
+        } else if (p.ts) {
+            pullTimeMs = Number(p.ts) * 1000;
+        }
+
+        if (isNaN(pullTimeMs) || pullTimeMs === 0) {
+            console.warn(`⚠️ Invalid timestamp for item ${p.name || 'unknown'}. Using Date.now()`);
+            pullTimeMs = Date.now();
+        }
+
         const category = normalizeBannerId(p.poolId);
+        
         if (!pullsByCategory[category]) pullsByCategory[category] = [];
+        // Важно: передаем исправленное time
         pullsByCategory[category].push({ ...p, time: pullTimeMs });
     });
 
@@ -298,24 +314,28 @@ async function updateAggregatedStats(uid, allPulls) {
 // Математика подсчета (аналог того, что у тебя на фронте, но упрощено для БД)
 // --- ЗАМЕНИТЬ ЭТУ ФУНКЦИЮ ЦЕЛИКОМ ---
 function calculateMath(pulls, categoryId) {
-    // Логируем начало расчета для категории
     console.log(`\n--- CALC MATH: ${categoryId} (${pulls.length} pulls) ---`);
 
-    // 1. Сортировка: Старые -> Новые. 
-    // Критично важно проверить, что timestamp и seqId парсятся в числа корректно.
+    // [FIX] Фильтруем совсем битые данные
+    pulls = pulls.filter(p => p.time && !isNaN(p.time));
+
+    // 1. Сортировка
     pulls.sort((a, b) => {
-        const tA = Number(a.timestamp); 
-        const tB = Number(b.timestamp);
+        const tA = Number(a.time); 
+        const tB = Number(b.time);
         if (tA !== tB) return tA - tB;
-        // Если время одинаковое, решаем по seqId
         return Number(a.seqId || 0) - Number(b.seqId || 0);
     });
 
-    // Логируем первую и последнюю крутку, чтобы проверить порядок
+    // [FIX] Безопасный лог (чтобы не было 502 ошибки)
     if (pulls.length > 0) {
-        const first = pulls[0];
-        const last = pulls[pulls.length - 1];
-        console.log(`Sort Check: First: ${new Date(first.time).toISOString()} (${first.name}) | Last: ${new Date(last.time).toISOString()} (${last.name})`);
+        try {
+            const first = pulls[0];
+            const last = pulls[pulls.length - 1];
+            console.log(`Sort Check: First: ${new Date(first.time).toISOString()} | Last: ${new Date(last.time).toISOString()}`);
+        } catch (e) {
+            console.error("⚠️ Date Log Error (skipped):", e.message);
+        }
     }
 
     const isWeapon = categoryId.includes('weap');
