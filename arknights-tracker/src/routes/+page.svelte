@@ -25,22 +25,24 @@
 
     switch (rarity) {
       case 5:
-      case 6: // На всякий случай, если будут 6★ предметы
-        return "bg-amber-50 border-amber-300 text-amber-800 hover:border-amber-500";
+      case 6:
+        // Светлая: Янтарный фон / Темная: Прозрачный темно-янтарный фон + Светлый текст
+        return "bg-amber-50 border-amber-300 text-amber-800 hover:border-amber-500 dark:bg-amber-900/40 dark:border-amber-700 dark:text-amber-200 dark:hover:border-amber-400";
 
       case 4:
-        return "bg-purple-50 border-purple-300 text-purple-800 hover:border-purple-500";
+        // Светлая: Фиолетовый / Темная: Глубокий фиолетовый
+        return "bg-purple-50 border-purple-300 text-purple-800 hover:border-purple-500 dark:bg-purple-900/40 dark:border-purple-700 dark:text-purple-200 dark:hover:border-purple-400";
 
       case 3:
-        return "bg-blue-50 border-blue-300 text-blue-800 hover:border-blue-500";
+        // Светлая: Синий / Темная: Глубокий синий
+        return "bg-blue-50 border-blue-300 text-blue-800 hover:border-blue-500 dark:bg-blue-900/40 dark:border-blue-700 dark:text-blue-200 dark:hover:border-blue-400";
 
       default:
-        // Серый для 1-2 рарити
-        return "bg-gray-100 border-gray-300 text-gray-700 hover:border-gray-400";
+        // Светлая: Серый / Темная: Темно-серый (почти черный)
+        return "bg-gray-100 border-gray-300 text-gray-700 hover:border-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-400";
     }
   }
 
-  // Фильтруем и сортируем активные баннеры
   $: activeBanners = banners
     .filter((b) => {
       const start = new Date(b.startTime);
@@ -74,8 +76,6 @@
   }
 
   let selectedBanner = null;
-
-  // --- ЛОГИКА ПРОМОКОДОВ ---
 
   $: activePromocodes = promocodes.filter((p) => {
     const end = p.endTime ? new Date(p.endTime) : new Date(9999, 11, 31);
@@ -142,24 +142,24 @@
 </script>
 
 <div
-  class="min-h-screen w-full relative flex flex-col items-center py-10 px-4 sm:px-8 font-sans text-[#21272C]"
+  class="min-h-screen w-full relative flex flex-col items-center py-10 px-4 sm:px-8 font-sans text-[#21272C] dark:text-[#FDFDFD]"
 >
-  <div class="fixed inset-0 -z-10 bg-[#F5F5F7]">
+  <div class="fixed inset-0 -z-10 bg-[#F5F5F7] dark:bg-[#2C2C2C]">
     <div
       class="absolute inset-0 bg-[url('/images/ui/grid_pattern.png')] opacity-[0.03]"
     ></div>
   </div>
 
   <div class="mb-12 transition-opacity hover:opacity-80">
-    <Icon name="siteLogo2" className="h-16 w-auto text-[#21272C]" />
+    <Icon name="siteLogo2" className="h-16 w-auto" />
   </div>
 
   <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
     <div
-      class="lg:col-span-5 bg-white/80 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full max-h-[500px]"
+      class="lg:col-span-5 bg-white/80 dark:bg-[#383838]/80 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-[#444444] overflow-hidden flex flex-col h-full max-h-[500px]"
     >
       <div
-        class="grid grid-cols-12 bg-white border-b border-gray-200 py-3 px-4 text-xs font-bold text-gray-700"
+        class="grid grid-cols-12 bg-white border-b border-gray-200 dark:border-[#444444] dark:bg-[#424242] py-3 px-4 text-xs font-bold text-gray-700 dark:text-[#FDFDFD]"
       >
         <div class="col-span-5">{$t("home.promocodes")}</div>
         <div class="col-span-4">{$t("home.rewards")}</div>
@@ -168,13 +168,13 @@
 
       <div class="overflow-y-auto custom-scrollbar flex-1 p-2">
         {#if activePromocodes.length === 0}
-          <div class="text-center py-10 text-gray-400 text-sm">
+          <div class="text-center py-10 text-gray-400 dark:text-[#FDFDFD] text-sm">
             {$t("home.noActiveCodes")}
           </div>
         {:else}
           {#each activePromocodes as promo}
             <div
-              class="grid grid-cols-12 items-center py-3 px-2 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded-lg group"
+              class="grid grid-cols-12 items-center py-3 px-2 border-gray-100 dark:border-[#444444] last:border-0 hover:bg-gray-50 hover:dark:bg-[#343434] transition-colors rounded-lg group"
             >
               <div class="col-span-5 pr-2">
                 <div class="flex items-center gap-2">
@@ -190,7 +190,7 @@
                       </a>
                     {:else}
                       <span
-                        class="block font-mono font-bold text-[#21272C] truncate select-all"
+                        class="block font-mono font-bold text-[#21272C] dark:text-[#FDFDFD] truncate select-all"
                       >
                         {promo.code}
                       </span>
@@ -199,8 +199,7 @@
 
                   <button
                     on:click={() => copyCode(promo.code)}
-                    class="flex items-center justify-center p-1.5 rounded-md hover:bg-gray-200 text-gray-400 hover:text-[#21272C] transition-colors shrink-0"
-                    title="Copy Code"
+                    class="flex items-center justify-center p-1.5 rounded-md hover:bg-gray-200 hover:dark:bg-[#373737] text-gray-400 hover:text-[#21272C] hover:dark:text-[#B7B6B3] transition-colors shrink-0"
                   >
                     {#if copiedCode === promo.code}
                       <svg
@@ -257,7 +256,7 @@
               </div>
 
               <div class="col-span-3 text-right">
-                <span class="text-xs font-medium text-gray-500 block">
+                <span class="text-xs font-medium text-gray-500 dark:text-[#B7B6B3] block">
                   {formatDuration(promo.endTime)}
                 </span>
               </div>
@@ -269,7 +268,7 @@
 
     <div class="lg:col-span-7 flex flex-col gap-4">
       <div class="flex items-center justify-between px-1">
-        <h2 class="text-lg font-bold text-[#21272C] flex items-center gap-2">
+        <h2 class="text-lg font-bold text-[#21272C] dark:text-[#FDFDFD] flex items-center gap-2">
           <span class="w-2 h-2 bg-[#FACC15] rounded-full"></span>
           {$t("home.current_banners")}
         </h2>
@@ -281,8 +280,8 @@
               on:click={() => setBanner(i)}
               class="w-8 h-1 rounded-full transition-all duration-300 {currentBannerIndex ===
               i
-                ? 'bg-[#21272C]'
-                : 'bg-gray-300 hover:bg-gray-400'}"
+                ? 'bg-[#21272C] dark:bg-[#FDFDFD]'
+                : 'bg-gray-300 hover:bg-gray-400 dark:bg-[#1E1E1E] '}"
             ></button>
           {/each}
         </div>
@@ -291,7 +290,7 @@
       <div
         role="button"
         tabindex="0"
-        class="relative w-full aspect-[21/9] bg-gray-200 rounded-xl overflow-hidden shadow-2xl group cursor-pointer border border-white/50 outline-none focus:ring-4 focus:ring-[#FACC15] select-none"
+        class="relative w-full aspect-[21/9] bg-gray-200 rounded-xl overflow-hidden shadow-2xl group cursor-pointer border border-white/50 dark:border-[#444444] outline-none focus:ring-4 focus:ring-[#FACC15] select-none"
         on:click={() => (selectedBanner = activeBanners[currentBannerIndex])}
         on:keydown={(e) =>
           (e.key === "Enter" || e.key === " ") &&
@@ -335,15 +334,15 @@
           </button>
         {:else}
           <div
-            class="absolute inset-0 flex items-center justify-center text-gray-400 font-bold tracking-widest"
+            class="absolute inset-0 flex items-center justify-center dark:text-[#FDFDFD] text-gray-400 font-bold tracking-widest"
           >
-            NO ACTIVE BANNERS
+            {$t("home.noActiveBanners")}
           </div>
         {/if}
       </div>
 
       <div
-        class="mt-2 text-xs text-gray-400 text-justify leading-relaxed px-2 border-l-2 border-gray-200"
+        class="mt-2 text-xs text-gray-400 dark:text-[#B7B6B3] text-justify leading-relaxed px-2 border-l-2 border-gray-200 dark:border-[#B7B6B3]"
       >
         {$t("home.disclaimer")}
       </div>

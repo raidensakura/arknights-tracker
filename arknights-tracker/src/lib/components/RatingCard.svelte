@@ -93,7 +93,7 @@
   }
 </script>
 
-<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-full min-w-[320px]">
+<div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-6 shadow-sm border border-gray-100 h-full min-w-[320px]">
   <h3 class="text-xl font-bold mb-6 font-sdk text-[#21272C]">
     {$t("page.rating.ratingTitle")}
   </h3>

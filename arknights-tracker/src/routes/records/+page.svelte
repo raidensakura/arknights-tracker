@@ -83,7 +83,7 @@
 <div class="max-w-[1400px]">
   <div class="flex flex-col md:flex-row mb-8 gap-4 md:items-center">
     
-    <h2 class="font-sdk text-5xl tracking-wide text-[#21272C] mb-2 md:mb-0">
+    <h2 class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] mb-2 md:mb-0">
       {$t("page.title")}
     </h2>
 
@@ -145,15 +145,15 @@
 
       <RatingCard {userLuck6} {userLuck5} {totalPulls} />
 
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 min-w-[320px]">
-        <h3 class="text-xl font-bold mb-4 font-sdk text-[#21272C]">
+      <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-6 shadow-sm border border-gray-100 min-w-[320px]">
+        <h3 class="text-xl font-bold mb-4 font-sdk text-[#21272C] dark:text-[#FDFDFD]">
           {$t("page.totalCost")}
         </h3>
-        <div class="text-3xl font-black text-[#21272C] flex items-center gap-2 font-nums">
+        <div class="text-3xl font-black text-[#21272C] dark:text-[#FDFDFD] flex items-center gap-2 font-nums">
           <Images id="oroberyl" variant="currency" size={32} />
           {(billablePulls * 500).toLocaleString("ru-RU")}
         </div>
-        <div class="text-xs text-gray-400 mt-2 font-medium flex items-center">
+        <div class="text-xs text-gray-400 dark:text-[#B7B6B3] mt-2 font-medium flex items-center">
           ≈ <Images id="origeometry" variant="currency" size={20} /> {((charPullsOnly * 500) / 75).toFixed(0)}  {$t("page.banner.origeometry")}
         </div>
       </div>

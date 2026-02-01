@@ -325,8 +325,6 @@ function calculateMath(pulls, categoryId) {
         return Number(a.seqId || 0) - Number(b.seqId || 0);
     });
 
-    const isWeapon = categoryId.includes('weap');
-    
     let stats = {
         totalPulls: pulls.length,
         total6: 0, sumPity6: 0,
@@ -336,9 +334,8 @@ function calculateMath(pulls, categoryId) {
 
     let currentPity6 = 0;
     let currentPity5 = 0;
-    let last6WasFeatured = true; 
 
-    pulls.forEach((pull, index) => {
+    pulls.forEach((pull) => {
         const isFree = pull.isFree === true || String(pull.isFree) === "true";
         const itemName = normalize(pull.name);
 
@@ -355,15 +352,11 @@ function calculateMath(pulls, categoryId) {
             if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
                 const normFeatured = matchedBanner.featured6.map(normalize);
                 const isFeatured = normFeatured.includes(itemName);
+                stats.total5050++;
+                if (isFeatured) stats.won5050++;
+                
+            } 
 
-                if (last6WasFeatured) {
-                    stats.total5050++;
-                    if (isFeatured) stats.won5050++;
-                }
-                last6WasFeatured = isFeatured;
-            } else {
-                last6WasFeatured = true; 
-            }
             currentPity6 = 0;
         } else {
             if (!isFree) currentPity6++;
@@ -386,7 +379,6 @@ const normalize = (str) => {
     return str.toLowerCase().replace(/[^a-z0-9]/g, "");
 };
 
-// [ИЗМЕНЕНО] Главный фикс категорий. Превращает "мусорные" ID в чистые категории.
 function normalizeBannerId(rawId) {
     if (!rawId) return 'special';
     const lower = rawId.toLowerCase();

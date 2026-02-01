@@ -13,13 +13,11 @@
   import Icon from "$lib/components/Icons.svelte";
   import Tooltip from "$lib/components/Tooltip.svelte";
 
-  // PROPS
   export let bannerId;
   export let titleKey;
 
   const oroberyl = currencies.find((c) => c.id === "oroberyl");
 
-  // --- 1. ЛОГИКА ВЫБОРА ПОД-БАННЕРА ---
   let selectedSubBannerId = "";
   $: isWeaponCard = bannerId.includes("weap");
 
@@ -31,7 +29,6 @@
     .sort();
 
   $: if (availableSubBanners.length > 0) {
-    // 1. Пробуем загрузить сохраненный выбор
     const storageKey = `ark_selected_sub_${bannerId}`;
     const savedId = browser ? localStorage.getItem(storageKey) : null;
 
@@ -42,7 +39,6 @@
     ) {
       selectedSubBannerId = savedId;
     }
-    // 2. Если ничего не выбрано или сохраненный недоступен — берем первый
     else if (
       !selectedSubBannerId ||
       !availableSubBanners.includes(selectedSubBannerId)
@@ -63,7 +59,6 @@
 
   $: displayId = isWeaponCard ? selectedSubBannerId : bannerId;
 
-  // Динамический заголовок
   $: displayTitle =
     isWeaponCard && selectedSubBannerId
       ? $t(`banners.${selectedSubBannerId}`) !==
@@ -72,19 +67,15 @@
         : $t(titleKey)
       : $t(titleKey);
 
-  // --- 2. ПОЛУЧЕНИЕ ДАННЫХ ---
   $: bannerStore = $pullData[displayId] || { pulls: [], stats: {} };
   $: stats = bannerStore.stats || {};
   $: pulls = bannerStore.pulls || [];
-
-  // --- 3. СТАТИСТИКА ---
   $: total = stats.total || 0;
   $: pity6 = stats.pity6 || 0;
   $: pity5 = stats.pity5 || 0;
   $: guaranteeProgress = stats.guarantee120 || 0;
   $: hasReceivedRateUp = stats.hasReceivedRateUp || false;
   $: spent = (total * 500).toLocaleString("ru-RU");
-
   $: count6 = stats.count6 || 0;
   $: count5 = stats.count5 || 0;
   $: percent6 = stats.percent6 || "0.00";
@@ -92,16 +83,12 @@
   $: avg6 = stats.avg6 || "0.0";
   $: avg5 = stats.avg5 || "0.0";
   $: winRate = stats.winRate || { won: 0, total: 0, percent: 0 };
-
-  // --- 4. НАСТРОЙКИ ---
   $: isNewPlayer = bannerId.includes("new-player");
   $: maxPity6 = isWeaponCard ? 40 : isNewPlayer ? 40 : 80;
   $: maxGuaranteed = isWeaponCard ? 80 : 120;
   $: showWinRate = winRate.total > 0 && !isNewPlayer && bannerId !== "standard";
-  // --- 5. ОТОБРАЖЕНИЕ ИКОНОК ---
   const normalize = (str) => str?.toLowerCase().replace(/[^a-z0-9]/g, "") || "";
 
-  // Объединяем базы для поиска ID по имени (fallback)
   const itemMap = { ...characters, ...weapons };
   const charIds = new Set(Object.values(characters).map((c) => c.id));
   const weaponIds = new Set(Object.values(weapons).map((w) => w.id));
@@ -117,22 +104,17 @@
     .map((p) => {
       const normName = normalize(p.name);
 
-      // 1. Поиск ID
       let itemId = normName;
       const itemData = lookupMap[normName];
       if (itemData?.id) itemId = itemData.id;
 
-      // 2. Определение типа (Character vs Weapon)
       let isWeapon = false;
 
-      // А. Если в логах есть явный тип - верим ему
       if (p.type === "weapon") {
         isWeapon = true;
       } else if (p.type === "character") {
         isWeapon = false;
       } else {
-        // Б. Если типа нет (старые логи), проверяем по базам
-        // Если ID есть в базе персонажей - это точно перс
         if (charIds.has(itemId) || (itemData && !itemData.weapon)) {
           isWeapon = false;
         }
@@ -157,23 +139,11 @@
 
   $: currentMaxPity = isWeaponCard ? 40 : bannerId.includes("new") ? 40 : 80;
   function getPityColor(pity) {
-    // Считаем процент от текущего максимума (40 или 80)
     const p = (pity / currentMaxPity) * 100;
-
-    // Те же пороги в процентах, что и были:
-    // 0-25% (0-10 оруж / 0-20 перс) -> Зеленый (Супер лаки)
     if (p <= 25) return "#5DBE5A";
-
-    // 26-40% (11-16 оруж / 21-32 перс) -> Темно-зеленый (Лаки)
     if (p <= 40) return "#3CAF38";
-
-    // 41-60% (17-24 оруж / 33-48 перс) -> Желтый (Норма)
     if (p <= 60) return "#D4AD3D";
-
-    // 61-85% (25-34 оруж / 49-68 перс) -> Оранжевый (Не повезло)
     if (p <= 85) return "#C55E2F";
-
-    // 86-100% -> Красный (Скам)
     return "#9A3404";
   }
 
@@ -183,13 +153,11 @@
 
   function getBannerImage(id) {
     const b = banners.find((x) => x.id === id);
-    // [FIX] Добавил /miniIcon/ в путь, так как файлы лежат в подпапке
     return b ? `/images/banners/miniIcon/${b.miniIcon}` : null;
   }
 
   $: mileage = stats.mileage || { show: false, current: 0, max: 0, label: "" };
 
-  // Хелпер для названия строки
   function getMileageLabel(label) {
      if (label === 'selector_6') return $t('stats.selector') || "Selector";
      if (label === 'guaranteed_6') return $t('stats.guaranteed') || "Guaranteed";
@@ -199,7 +167,7 @@
 </script>
 
 <div
-  class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 min-w-[320px] flex flex-col"
+  class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 min-w-[320px] flex flex-col"
 >
   {#if availableSubBanners.length > 1}
     <div
@@ -210,8 +178,8 @@
           <button
             class="group relative h-12 w-18 flex-shrink-0 rounded shadow-sm border overflow-hidden transition-all focus:outline-none
                     {selectedSubBannerId === bId
-              ? 'ring-2 ring-[#e44e25] border-[#e44e25]'
-              : 'border-gray-200 hover:ring-2 hover:ring-[#e44e25] opacity-70 hover:opacity-100'}"
+              ? 'ring-2 ring-[#e44e25] border-[#e44e25] dark:border-[#7A7A7A]'
+              : 'border-gray-200 hover:ring-2 hover:ring-[#e44e25] dark:border-[#7A7A7A] opacity-70 hover:opacity-100'}"
             on:click={() => (selectedSubBannerId = bId)}
           >
             <Images
@@ -230,7 +198,7 @@
   {/if}
 
   <div class="flex justify-between items-start mb-4">
-    <h3 class="text-xl font-bold font-sdk text-[#21272C] w-2/3 leading-tight">
+    <h3 class="text-xl font-bold font-sdk text-[#21272C] dark:text-[#FDFDFD] w-2/3 leading-tight">
       {displayTitle}
     </h3>
     <Button variant="roundSmall" color="gray" onClick={goToDetails}>
@@ -240,15 +208,15 @@
 
   <div class="space-y-3 mb-2">
     <div class="flex justify-between items-center">
-      <span class="text-gray-600">{$t("page.banner.total")}</span>
-      <span class="font-bold text-xl font-nums text-[#21272C]">{total}</span>
+      <span class="text-gray-600 dark:text-[#E4E4E4]">{$t("page.banner.total")}</span>
+      <span class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]">{total}</span>
     </div>
 
     {#if !isNewPlayer && !isWeaponCard}
       <div class="flex justify-between items-center">
-        <span class="text-gray-600">{$t("page.banner.spent")}</span>
+        <span class="text-gray-600 dark:text-[#E4E4E4]">{$t("page.banner.spent")}</span>
         <span
-          class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
+          class="font-bold text-gray-900 dark:text-[#E4E4E4] flex items-center gap-2 font-nums text-xl"
         >
           <Images id="oroberyl" variant="currency" size={25} />
           {spent}
@@ -257,85 +225,85 @@
     {/if}
 
     <div class="flex justify-between items-center">
-      <div class="flex items-center gap-1 text-gray-600">
+      <div class="flex items-center gap-1 text-gray-600 dark:text-[#E4E4E4]">
         <span class="font-bold">6</span>
         <Icon name="star" class="w-4 h-4" />
         <span>{$t("page.banner.pity6")}</span>
       </div>
-      <span class="font-bold text-xl font-nums text-[#21272C]">
-        {pity6}<span class="text-sm text-gray-400">/{maxPity6}</span>
+      <span class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]">
+        {pity6}<span class="text-sm text-gray-400 dark:text-[#B7B6B3]">/{maxPity6}</span>
       </span>
     </div>
 
     {#if mileage.show}
        <div class="flex justify-between items-center">
-          <div class="flex items-center gap-1 text-gray-600">
+          <div class="flex items-center gap-1 text-gray-600 dark:text-[#E4E4E4]">
             <span class="font-bold">6</span>
             <Icon name="star" class="w-4 h-4" />
             <span>{getMileageLabel(mileage.label)}</span>
           </div>
-          <span class="font-bold text-xl font-nums text-[#21272C]">
-            {mileage.current}<span class="text-sm text-gray-400">/{mileage.max}</span>
+          <span class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]">
+            {mileage.current}<span class="text-sm text-gray-400 dark:text-[#B7B6B3]">/{mileage.max}</span>
           </span>
        </div>
     {/if}
 
     {#if isWeaponCard && !bannerId.includes("constant") && !hasReceivedRateUp}
       <div class="flex justify-between items-center">
-        <div class="flex items-center gap-1 text-gray-600">
+        <div class="flex items-center gap-1 text-gray-600 dark:text-[#E4E4E4]">
           <span class="font-bold">6</span>
           <Icon name="star" class="w-4 h-4" />
           <span>{$t("page.banner.guarantee_rateup")}</span>
         </div>
-        <span class="font-bold text-xl font-nums text-[#21272C]">
-          {guaranteeProgress}<span class="text-sm text-gray-400">/{maxGuaranteed}</span>
+        <span class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]">
+          {guaranteeProgress}<span class="text-sm text-gray-400 dark:text-[#B7B6B3]">/{maxGuaranteed}</span>
         </span>
       </div>
     {/if}
 
     <div class="flex justify-between items-center">
-      <div class="flex items-center gap-1 text-gray-600">
+      <div class="flex items-center gap-1 text-gray-600 dark:text-[#E4E4E4]">
         <span class="font-bold">5</span>
         <Icon name="star" class="w-4 h-4" />
         <span>{$t("page.banner.pity5")}</span>
       </div>
-      <span class="font-bold text-xl font-nums text-[#21272C]">
-        {pity5}<span class="text-sm text-gray-400">/10</span>
+      <span class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]">
+        {pity5}<span class="text-sm text-gray-400 dark:text-[#B7B6B3]">/10</span>
       </span>
     </div>
   </div>
 
   <div class="mb-3 mt-1">
-    <h4 class="font-bold text-sm mb-3 text-[#21272C]">
+    <h4 class="font-bold text-sm mb-3 text-[#21272C] dark:text-[#FDFDFD]">
       {$t("page.banner.stats")}
     </h4>
 
-    <div class="grid grid-cols-4 text-xs text-gray-500 mb-1 font-medium">
+    <div class="grid grid-cols-4 text-xs text-gray-500 dark:text-[#E2E2E2] mb-1 font-medium">
       <div>{$t("page.banner.rarity")}</div>
       <div class="text-right">{$t("page.banner.count")}</div>
       <div class="text-right">{$t("page.banner.percent")}</div>
       <div class="text-right">{$t("page.banner.avg")}</div>
     </div>
 
-    <div class="border-b border-gray-50">
+    <div class="border-b border-gray-50 dark:border-[#444444]">
       <div class="grid grid-cols-4 text-sm items-center py-2">
-        <div class="font-bold text-gray-700 flex items-center gap-1 font-nums">
+        <div class="font-bold text-gray-700 dark:text-[#FDFDFD] flex items-center gap-1 font-nums">
           6 <Icon name="star" class="w-4 h-4" />
         </div>
-        <div class="text-right font-bold font-nums text-[#21272C]">
+        <div class="text-right font-bold font-nums text-[#21272C] dark:text-[#E4E4E4]">
           {count6}
         </div>
-        <div class="text-right text-gray-600 font-nums">{percent6}%</div>
-        <div class="text-right font-bold font-nums text-[#1D6F42]">{avg6}</div>
+        <div class="text-right text-gray-600 dark:text-[#E4E4E4] font-nums">{percent6}%</div>
+        <div class="text-right font-bold font-nums text-[#1D6F42] dark:text-[#E4E4E4]">{avg6}</div>
       </div>
 
       {#if showWinRate}
         <div class="grid grid-cols-4 text-sm items-center py-1 pb-2">
-          <div class="text-gray-600 text-xs pl-6 col-span-1">50/50</div>
-          <div class="text-right font-nums text-[#21272C] col-span-1">
+          <div class="text-gray-600 dark:text-[#E4E4E4] text-xs pl-6 col-span-1">50/50</div>
+          <div class="text-right font-nums text-[#21272C] dark:text-[#E4E4E4] col-span-1">
             {winRate.won}/{winRate.total}
           </div>
-          <div class="text-right text-gray-600 font-nums col-span-1">
+          <div class="text-right text-gray-600 dark:text-[#E4E4E4] font-nums col-span-1">
             {winRate.percent}%
           </div>
           <div class="col-span-1"></div>
@@ -344,17 +312,17 @@
     </div>
 
     <div class="grid grid-cols-4 text-sm items-center py-2">
-      <div class="font-bold text-gray-700 flex items-center gap-1 font-nums">
+      <div class="font-bold text-gray-700 dark:text-[#FDFDFD] flex items-center gap-1 font-nums">
         5 <Icon name="star" class="w-4 h-4" />
       </div>
-      <div class="text-right font-bold font-nums text-[#21272C]">{count5}</div>
-      <div class="text-right text-gray-600 font-nums">{percent5}%</div>
-      <div class="text-right font-bold font-nums text-[#1D6F42]">{avg5}</div>
+      <div class="text-right font-bold font-nums text-[#21272C] dark:text-[#E4E4E4]">{count5}</div>
+      <div class="text-right text-gray-600 dark:text-[#E4E4E4] font-nums">{percent5}%</div>
+      <div class="text-right font-bold font-nums text-[#1D6F42] dark:text-[#E4E4E4]">{avg5}</div>
     </div>
   </div>
 
   <div>
-    <h4 class="font-bold text-sm mb-3 text-[#21272C] flex items-center gap-1">
+    <h4 class="font-bold text-sm mb-3 text-[#21272C] dark:text-[#FDFDFD] flex items-center gap-1">
       <span>
         {$t(isWeaponCard ? "page.banner.recentWeap" : "page.banner.recent")}
       </span>
@@ -376,12 +344,12 @@
                 class="relative w-12 h-12 transition-transform cursor-pointer hover:scale-110
     {icon.isWeapon
                   ? ''
-                  : 'rounded-full border-2 border-[#D0926E] bg-gray-100 shadow-sm'}"
+                  : 'rounded-full border-2 border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#CA774C] shadow-sm'}"
               >
                 <div
                   class="w-full h-full rounded-full overflow-hidden flex items-center justify-center
         {icon.isWeapon
-                    ? 'border-[2px] border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#BD896E] shadow-sm'
+                    ? 'border-[2px] border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#CA774C] shadow-sm'
                     : ''}"
                 >
                   <div
@@ -420,7 +388,7 @@
         {/each}
       </div>
     {:else}
-      <div class="text-sm text-gray-400 italic">
+      <div class="text-sm text-gray-400 dark:text-[#787878] italic">
         {$t(isWeaponCard ? "page.banner.fallBackWeapons" : "page.banner.fallBackCharacters")}
       </div>
     {/if}

@@ -5,9 +5,12 @@
     import { accountStore } from "$lib/stores/accounts";
     import { t } from "$lib/i18n";
     import { page } from "$app/stores";
+    import { fade } from "svelte/transition";
+    import { isDarkMode } from "$lib/stores/theme";
+    import { browser } from "$app/environment";
     import LanguageSelect from "$lib/components/LanguageSelect.svelte";
     import Icons from "$lib/components/Icons.svelte";
-    import { fade } from "svelte/transition";
+    import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
 
     let isMobileMenuOpen = false;
 
@@ -20,6 +23,17 @@
     function handleKeydown(e) {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
             isMobileMenuOpen = false;
+        }
+    }
+
+    $: if (browser) {
+        // Проверяем, что значение загрузилось
+        if ($isDarkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
         }
     }
 </script>
@@ -39,7 +53,7 @@
   <meta property="og:image" content="https://goyfield.moe/images/og-image.jpg" /> 
 </svelte:head>
 
-<div class="flex min-h-screen bg-[#F9F9F9]">
+<div class="flex min-h-screen bg-[#F9F9F9] dark:bg-[#2C2C2C]">
     
     {#if isMobileMenuOpen}
         <button
@@ -54,7 +68,7 @@
     <div class="md:hidden fixed top-4 right-4 z-[10001]">
         <button
             on:click|stopPropagation={() => (isMobileMenuOpen = !isMobileMenuOpen)}
-            class="p-2 bg-white rounded-lg shadow-md border border-gray-100 text-gray-600 hover:text-gray-900 transition-colors"
+            class="p-2 bg-white dark:bg-[#2C2C2C] dark:border-[#7A7A7A] dark:text-[#FDFDFD] rounded-lg shadow-md border border-gray-100 text-gray-600 hover:text-gray-900 transition-colors"
             aria-label="Toggle Menu"
         >
             {#if isMobileMenuOpen}
@@ -69,23 +83,18 @@
         </button>
     </div>
 
-    <aside
-        class="
+    <aside class="
             fixed top-0 bottom-0 left-0
-            w-64 bg-white h-full border-r border-gray-100 flex flex-col justify-between py-6 px-4
+            w-64 bg-white dark:bg-[#343434] dark:border-gray-800 h-full border-r border-gray-100 flex flex-col justify-between py-6 px-4
             z-[10000] transition-transform duration-300 ease-in-out shadow-2xl
             {isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
             md:translate-x-0 md:shadow-none md:z-30
-        "
-    >
+        ">
+        
         <div>
             <div class="mb-10 pl-2">
-                <h1 class="font-black text-2xl tracking-tighter text-gray-900">
-                    <a
-                        href="/"
-                        class="block hover:opacity-80 transition-opacity"
-                        aria-label="На главную"
-                    >
+                <h1 class="font-black text-2xl tracking-tighter text-gray-900 dark:text-white">
+                    <a href="/" class="block hover:opacity-80 transition-opacity" aria-label="На главную">
                         <Icons name="siteLogo" class="w-full h-full" />
                     </a>
                 </h1>
@@ -94,108 +103,57 @@
             <nav class="flex flex-col gap-4 mt-8">
                 <a
                     href="/"
-                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group relative {isCurrent(
-                        '/',
-                    ) && $page.url.pathname === '/'
-                        ? 'bg-gray-100 text-gray-900 font-bold'
-                        : 'text-gray-500 hover:bg-gray-50 font-medium'}"
+                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group relative {isCurrent('/') && $page.url.pathname === '/' ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD] font-bold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737] font-medium'}"
                 >
-                    <div
-                        class="w-6 h-6 flex justify-center items-center pointer-events-none {isCurrent(
-                            '/',
-                        ) && $page.url.pathname === '/'
-                            ? 'text-gray-900'
-                            : 'text-gray-400 group-hover:text-gray-600'}"
-                    >
+                    <div class="w-6 h-6 flex justify-center items-center pointer-events-none {isCurrent('/') && $page.url.pathname === '/' ? 'text-gray-900 dark:text-white' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}">
                         <Icons name="main" class="w-full h-full" />
                     </div>
                     <span class="text-lg">{$t("sidebar.home")}</span>
                 </a>
-
+                
                 <a
                     href="/records"
-                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent(
-                        '/records',
-                    )
-                        ? 'bg-gray-100 text-gray-900 font-bold'
-                        : 'text-gray-500 hover:bg-gray-50 font-medium'}"
+                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent('/records') ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD] font-bold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737] font-medium'}"
                 >
-                    <div
-                        class="w-6 h-6 flex justify-center items-center {isCurrent(
-                            '/records',
-                        )
-                            ? 'text-gray-900'
-                            : 'text-gray-400 group-hover:text-gray-600'}"
-                    >
+                    <div class="w-6 h-6 flex justify-center items-center {isCurrent('/records') ? 'text-gray-900 dark:text-white' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}">
                         <Icons name="records" class="w-full h-full" />
                     </div>
                     <span class="text-lg">{$t("sidebar.records")}</span>
                 </a>
-
-                <a
+                 <a
                     href="/operators"
-                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent(
-                        '/operators',
-                    )
-                        ? 'bg-gray-100 text-gray-900 font-bold'
-                        : 'text-gray-500 hover:bg-gray-50 font-medium'}"
+                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent('/operators') ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD] font-bold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737] font-medium'}"
                 >
-                    <div
-                        class="w-6 h-6 flex justify-center items-center {isCurrent(
-                            '/operators',
-                        )
-                            ? 'text-gray-900'
-                            : 'text-gray-400 group-hover:text-gray-600'}"
-                    >
+                    <div class="w-6 h-6 flex justify-center items-center {isCurrent('/operators') ? 'text-gray-900 dark:text-white' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}">
                         <Icons name="operators" class="w-full h-full" />
                     </div>
                     <span class="text-lg">{$t("sidebar.operators")}</span>
                 </a>
-
-                <a
+                 <a
                     href="/events"
-                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent(
-                        '/events',
-                    )
-                        ? 'bg-gray-100 text-gray-900 font-bold'
-                        : 'text-gray-500 hover:bg-gray-50 font-medium'}"
+                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group {isCurrent('/events') ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD] font-bold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737] font-medium'}"
                 >
-                    <div
-                        class="w-6 h-6 flex justify-center items-center {isCurrent(
-                            '/events',
-                        )
-                            ? 'text-gray-900'
-                            : 'text-gray-400 group-hover:text-gray-600'}"
-                    >
+                    <div class="w-6 h-6 flex justify-center items-center {isCurrent('/events') ? 'text-gray-900 dark:text-white' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}">
                         <Icons name="timeline" class="w-full h-full" />
                     </div>
                     <span class="text-lg">{$t("sidebar.events")}</span>
                 </a>
-
-                <a
+                 <a
                     href="/settings"
-                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group text-left
-    {isCurrent('/settings') && $page.url.pathname === '/settings'
-                        ? 'bg-gray-100 text-gray-900 font-bold'
-                        : 'text-gray-500 hover:bg-gray-50 font-medium'}"
+                    class="flex items-center gap-3 w-full px-3 py-3 rounded-lg transition group text-left {isCurrent('/settings') && $page.url.pathname === '/settings' ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-white font-bold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737] font-medium'}"
                 >
-                    <div
-                        class="w-6 h-6 flex justify-center items-center
-        {isCurrent('/settings') && $page.url.pathname === '/settings'
-                            ? 'text-gray-900'
-                            : 'text-gray-400 group-hover:text-gray-600'}"
-                    >
+                    <div class="w-6 h-6 flex justify-center items-center {isCurrent('/settings') && $page.url.pathname === '/settings' ? 'text-gray-900 dark:text-[#FDFDFD]' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}">
                         <Icons name="settingsMenu" class="w-full h-full" />
                     </div>
                     <span class="text-lg">{$t("sidebar.settings")}</span>
                 </a>
+
             </nav>
         </div>
 
-        <div class="w-full">
-            <div class="mt-auto">
-                <LanguageSelect />
-            </div>
+        <div class="w-full mt-auto mb-4 flex flex-col items-center gap-6">
+            <!--<ThemeSwitch />-->
+            <LanguageSelect />
         </div>
     </aside>
 

@@ -10,7 +10,9 @@
     "records": "Headhunting Records",
     "events": "Timeline",
     "settings": "Settings",
-    "operators": "Operators"
+    "operators": "Operators",
+    "theme_dark": "Dark",
+    "theme_light": "Light"
   },
   "page": {
     "title": "Headhunting Records",
@@ -542,7 +544,8 @@
     "conditions": {
       "onlyPc": "Only available on PC"
     },
-    "noActiveCodes": "No active codes"
+    "noActiveCodes": "No active codes",
+    "noActiveBanners": "No Active Banners"
   },
   "weaponsList": {
     "forgebornScathe": "Forgeborn Scathe",

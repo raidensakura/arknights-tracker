@@ -9,6 +9,7 @@
     import { banners } from "$lib/data/banners";
     import { goto } from "$app/navigation";
     import { currencies } from "$lib/data/items/currencies";
+    import { isDarkMode } from "$lib/stores/theme";
     import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -180,19 +181,31 @@
     }
     // Helpers для стилей
     function getRarityColor(rarity) {
-        if (rarity === 6) return "#D0926E";
+        if (rarity === 6) return "#D97D48";
         if (rarity === 5) return "#E3BC55";
         if (rarity === 4) return "#9C62F6";
         return "#888";
     }
 
-    function getRowBackground(rarity) {
-        if (rarity === 6)
-            return "linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(217, 98, 0, 0.27) 100%)";
-        if (rarity === 5)
-            return "linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(255, 211, 89, 0.27) 100%)";
+    $: getRowBackground = (rarity) => {
+        if ($isDarkMode) {
+            
+            if (rarity === 6) 
+                return "linear-gradient(90deg, transparent 0%, rgba(255, 100, 0, 0.5) 100%)";
+            
+            if (rarity === 5) 
+                return "linear-gradient(90deg, transparent 0%, rgba(143, 114, 0, 1) 100%)";
+        
+        } else {
+            if (rarity === 6)
+                return "linear-gradient(90deg, transparent 0%, rgba(217, 98, 0, 0.27) 100%)";
+            
+            if (rarity === 5)
+                return "linear-gradient(90deg, transparent 0%, rgba(255, 211, 89, 0.27) 100%)";
+        }
+
         return "transparent";
-    }
+    };
 
     const isFeatured = (itemName, banner, rarity) => {
         if (!banner) return false;
@@ -215,9 +228,10 @@
 
         let p6 = 0,
             p5 = 0;
-        let g6 = false,
-            g5 = false;
         let bannerCounts = {};
+
+        // Определяем тип (на всякий случай, но логика теперь едина)
+        const isWeapon = bannerType.includes('weap') || bannerType.includes('wepon');
 
         let processed = sorted.map((pull) => {
             const p = { ...pull };
@@ -225,10 +239,12 @@
             const bid = banner ? banner.id : "other";
 
             if (!bannerCounts[bid]) bannerCounts[bid] = 0;
+            
             let isFree = false;
             if (
                 banner &&
                 banner.type === "special" &&
+                !isWeapon && // На всякий случай исключаем оружие из фри-круток
                 bannerCounts[bid] >= 30 &&
                 bannerCounts[bid] < 40
             ) {
@@ -237,6 +253,7 @@
             p.isFree = isFree;
             bannerCounts[bid]++;
 
+            // Считаем Pity
             if (!isFree) {
                 if (p.rarity === 6) {
                     p.pity = p6 + 1;
@@ -255,7 +272,7 @@
                 p.pity = 1;
             }
 
-            // -- STATUS --
+            // Статус (Won / Lost / Normal)
             if (p.rarity >= 5) {
                 if (bannerType === "standard" || bannerType === "new-player") {
                     p.status = "normal";
@@ -264,23 +281,17 @@
                 } else {
                     const hasFeatured5 =
                         banner.featured5 && banner.featured5.length > 0;
+                    
                     if (p.rarity === 5 && !hasFeatured5) {
                         p.status = "normal";
                     } else {
                         const featured = isFeatured(p.name, banner, p.rarity);
-                        const isG = p.rarity === 6 ? g6 : g5;
+                        
                         if (featured) {
-                            p.status = isG ? "guaranteed" : "won";
-                            if (!isFree) {
-                                if (p.rarity === 6) g6 = false;
-                                else g5 = false;
-                            }
+                            // Всегда Won, так как понятия "гарант от прошлого проигрыша" нет
+                            p.status = "won"; 
                         } else {
                             p.status = "lost";
-                            if (!isFree) {
-                                if (p.rarity === 6) g6 = true;
-                                else g5 = true;
-                            }
                         }
                     }
                 }
@@ -291,13 +302,12 @@
             return p;
         });
 
-        // Этап 2: Группировка 10-пуллов (Batch)
+        // Группировка (батчи) без изменений
         let batches = [];
         let currentBatch = [];
 
         processed.forEach((p, i) => {
             const prev = processed[i - 1];
-            // Сравниваем время (строгое равенство)
             if (
                 prev &&
                 new Date(prev.time).getTime() !== new Date(p.time).getTime()
@@ -309,17 +319,11 @@
         });
         if (currentBatch.length) batches.push(currentBatch);
 
-        // Проставляем флаги
         batches.forEach((batch) => {
-            // Считаем пачкой, если 10 элементов (или больше/меньше, если логика игры позволяет)
-            // Обычно x10 это ровно 10, но поставим >= 2 для надежности группировки по времени
             if (batch.length >= 2) {
                 const midIndex = Math.floor((batch.length - 1) / 2);
                 batch.forEach((p, i) => {
                     p.isBatch = true;
-                    // В хронологическом порядке:
-                    // i=0 (Start) -> Это будет НИЗ в таблице (т.к. таблица reversed)
-                    // i=max (End) -> Это будет ВЕРХ в таблице
                     p.batchStart = i === 0;
                     p.batchEnd = i === batch.length - 1;
                     p.showBatchLabel = i === midIndex;
@@ -385,7 +389,7 @@
         </svg>
     </Button>
     
-    <h2 class="font-sdk text-[#21272C] flex flex-col items-start gap-0 md:flex-row md:items-center md:gap-3">
+    <h2 class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex flex-col items-start gap-0 md:flex-row md:items-center md:gap-3">
         <span class="text-2xl md:text-5xl tracking-wide">
             {$t("page.title")}
         </span>
@@ -400,19 +404,19 @@
     <div
         class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_480px] 2xl:grid-cols-[minmax(0,1fr)_680px] gap-6 items-start"
     >
-        <!-- ПРАВАЯ КОЛОНКА: СТАТИСТИКА -->
+        <!-- СТАТИСТИКА -->
         <div class="flex flex-col gap-6 w-full order-1 xl:order-2 min-w-0">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-5"
+                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5"
                 >
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
-                            <span class="text-gray-600"
+                            <span class="text-gray-600 dark:text-[#E0E0E0]"
                                 >{$t("page.banner.total")}</span
                             >
                             <span
-                                class="font-bold text-xl font-nums text-[#21272C]"
+                                class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]"
                             >
                                 {totalCount}
                             </span>
@@ -420,11 +424,11 @@
 
                         {#if !isNewPlayer && !isWeaponType}
                             <div class="flex justify-between items-center">
-                                <span class="text-gray-600"
+                                <span class="text-gray-600 dark:text-[#E0E0E0]"
                                     >{$t("page.banner.spent")}</span
                                 >
                                 <span
-                                    class="font-bold text-gray-900 flex items-center gap-2 font-nums text-xl"
+                                    class="font-bold text-gray-900 dark:text-[#FDFDFD] flex items-center gap-2 font-nums text-xl"
                                 >
                                     <Images
                                         id="oroberyl"
@@ -437,16 +441,16 @@
                         {/if}
 
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-1 text-gray-600">
+                            <div class="flex items-center gap-1 text-gray-600 dark:text-[#E0E0E0]">
                                 <span class="font-bold">6</span>
                                 <Icon name="star" class="w-4 h-4" />
                                 <span>{$t("page.banner.pity6")}</span>
                             </div>
                             <span
-                                class="font-bold text-xl font-nums text-[#21272C]"
+                                class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]"
                             >
                                 {currentPity6}<span
-                                    class="text-sm text-gray-400"
+                                    class="text-sm text-gray-400 dark:text-[#787878]"
                                     >/{maxPity6}</span
                                 >
                             </span>
@@ -455,7 +459,7 @@
                         {#if mileage.show}
                             <div class="flex justify-between items-center">
                                 <div
-                                    class="flex items-center gap-1 text-gray-600"
+                                    class="flex items-center gap-1 text-gray-600 dark:text-[#E0E0E0]"
                                 >
                                     <span class="font-bold">6</span>
                                     <Icon name="star" class="w-4 h-4" />
@@ -463,10 +467,10 @@
                                     >
                                 </div>
                                 <span
-                                    class="font-bold text-xl font-nums text-[#21272C]"
+                                    class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]"
                                 >
                                     {mileage.current}<span
-                                        class="text-sm text-gray-400"
+                                        class="text-sm text-gray-400 dark:text-[#787878]"
                                         >/{mileage.max}</span
                                     >
                                 </span>
@@ -476,7 +480,7 @@
                         {#if isWeaponType && !hasReceivedRateUp}
                             <div class="flex justify-between items-center">
                                 <div
-                                    class="flex items-center gap-1 text-gray-600"
+                                    class="flex items-center gap-1 text-gray-600 dark:text-[#E0E0E0]"
                                 >
                                     <span class="font-bold">6</span>
                                     <Icon name="star" class="w-4 h-4" />
@@ -487,26 +491,26 @@
                                     >
                                 </div>
                                 <span
-                                    class="font-bold text-xl font-nums text-[#21272C]"
+                                    class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]"
                                 >
                                     {weaponGuaranteeProgress}<span
-                                        class="text-sm text-gray-400">/80</span
+                                        class="text-sm text-gray-400 dark:text-[#787878]">/80</span
                                     >
                                 </span>
                             </div>
                         {/if}
 
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-1 text-gray-600">
+                            <div class="flex items-center gap-1 text-gray-600 dark:text-[#E0E0E0]">
                                 <span class="font-bold">5</span>
                                 <Icon name="star" class="w-4 h-4" />
                                 <span>{$t("page.banner.pity5")}</span>
                             </div>
                             <span
-                                class="font-bold text-xl font-nums text-[#21272C]"
+                                class="font-bold text-xl font-nums text-[#21272C] dark:text-[#FDFDFD]"
                             >
                                 {currentPity5}<span
-                                    class="text-sm text-gray-400">/10</span
+                                    class="text-sm text-gray-400 dark:text-[#787878]">/10</span
                                 >
                             </span>
                         </div>
@@ -514,14 +518,14 @@
                 </div>
 
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-5"
+                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5"
                 >
-                    <h4 class="font-bold text-sm mb-2 text-[#21272C]">
+                    <h4 class="font-bold text-sm mb-2 dark:text-[#FDFDFD] text-[#21272C]">
                         {$t("page.banner.stats")}
                     </h4>
 
                     <div
-                        class="grid grid-cols-4 text-xs text-gray-500 mb-1 font-medium"
+                        class="grid grid-cols-4 text-xs dark:text-[#B7B6B3] text-gray-500 mb-1 font-medium"
                     >
                         <div>{$t("page.banner.rarity")}</div>
                         <div class="text-right">{$t("page.banner.count")}</div>
@@ -532,22 +536,22 @@
                     </div>
 
                     {#each statsRows as row}
-                        <div class="border-b border-gray-50 last:border-0">
+                        <div class="border-b dark:border-[#444444] border-gray-50 last:border-0">
                             <div
                                 class="grid grid-cols-4 text-sm items-center py-1"
                             >
                                 <div
-                                    class="font-bold text-gray-700 flex items-center gap-1 font-nums"
+                                    class="font-bold text-gray-700 dark:text-[#E0E0E0] flex items-center gap-1 font-nums"
                                 >
                                     {row.label}
                                     <Icon name="star" class="w-4 h-4" />
                                 </div>
                                 <div
-                                    class="text-right font-bold font-nums text-[#21272C]"
+                                    class="text-right font-bold dark:text-[#E0E0E0] font-nums text-[#21272C]"
                                 >
                                     {row.count}
                                 </div>
-                                <div class="text-right text-gray-600 font-nums">
+                                <div class="text-right dark:text-[#B7B6B3] text-gray-600 font-nums">
                                     {row.percent}%
                                 </div>
                                 <div
@@ -561,18 +565,18 @@
                                 <div
                                     class="grid grid-cols-4 text-sm items-center py-1"
                                 >
-                                    <div class="text-gray-600 text-xs pl-2">
+                                    <div class="text-gray-600 dark:text-[#E0E0E0] text-xs pl-2">
                                         {$t("page.banner.won5050")}
                                     </div>
 
                                     <div
-                                        class="text-right font-nums text-[#21272C]"
+                                        class="text-right dark:text-[#E0E0E0] font-nums text-[#21272C]"
                                     >
                                         {row.winRate.won}/{row.winRate.total}
                                     </div>
 
                                     <div
-                                        class="text-right text-gray-600 font-nums"
+                                        class="text-right dark:text-[#B7B6B3] text-gray-600 font-nums"
                                     >
                                         {row.winRate.percent}%
                                     </div>
@@ -584,19 +588,19 @@
                 </div>
             </div>
 
-            <div class="min-w-0">
+            <div class="min-w-0 ">
                 <AnalyticsCharts {rawPulls} {bannerType} />
             </div>
         </div>
 
-        <!-- ЛЕВАЯ КОЛОНКА: ТАБЛИЦА -->
+        <!-- ТАБЛИЦА -->
         <div
-            class="w-full bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden order-2 xl:order-1"
+            class="w-full bg-white rounded-xl dark:border-[#444444] dark:bg-[#383838] shadow-sm border border-gray-100 overflow-hidden order-2 xl:order-1"
         >
             <div class="overflow-x-auto w-full">
                 <div class="min-w-[600px]">
                     <div
-                        class="grid gap-2 px-4 py-3 border-b border-gray-100 bg-white text-sm font-bold text-gray-700 pl-6"
+                        class="grid gap-2 px-4 py-3 border-b border-gray-100 bg-white dark:border-[#444444] dark:bg-[#424242] dark:text-[#FDFDFD] text-sm font-bold text-gray-700 pl-6"
                         style="grid-template-columns: 40px 40px minmax(140px, 1fr) 60px 130px 80px;"
                     >
                         <div class="whitespace-nowrap text-center">
@@ -686,7 +690,7 @@
 
                                         {#if row.showBatchLabel}
                                             <div
-                                                class="absolute z-30 font-bold text-[10px] tracking-wider select-none pointer-events-none flex items-center justify-center whitespace-nowrap bg-white/90 backdrop-blur-[1px] py-1"
+                                                class="absolute z-30 font-bold text-[10px] tracking-wider select-none pointer-events-none flex items-center justify-center whitespace-nowrap bg-transparent backdrop-blur-[1px] py-1"
                                                 style="
                                             left: 2px;
                                             top: 50%; 
@@ -711,7 +715,7 @@
                                         )}"
                                     >
                                         <div
-                                            class="font-nums text-gray-400 text-xs text-center justify-center flex items-center"
+                                            class="font-nums text-gray-400 dark:text-[#B7B6B3] text-xs text-center justify-center flex items-center"
                                         >
                                             {totalCount - index}
                                         </div>
@@ -762,13 +766,13 @@
                                                 </div>
 
                                                 <div
-                                                    class="relative bg-white/50 -ml-5 pl-7 pr-3 rounded-r-full border-y-2 border-r-2 border-l-0 min-w-0 w-full max-w-[280px] flex items-center h-10"
+                                                    class="relative bg-transparent  -ml-5 pl-7 pr-3 rounded-r-full border-y-2 border-r-2 border-l-0 min-w-0 w-full max-w-[280px] flex items-center h-10"
                                                     style="border-color: {getRarityColor(
                                                         row.rarity,
                                                     )}"
                                                 >
                                                     <span
-                                                        class="text-gray-800 text-sm font-medium leading-tight block w-full truncate cursor-default"
+                                                        class="text-gray-800 dark:text-[#E0E0E0] text-sm font-medium leading-tight block w-full truncate cursor-default"
                                                         title={translatedName}
                                                     >
                                                         {translatedName}
@@ -822,7 +826,7 @@
                                         </div>
 
                                         <div
-                                            class="text-gray-500 font-nums text-xs whitespace-nowrap"
+                                            class="text-gray-500 dark:text-[#B7B6B3] font-nums text-xs whitespace-nowrap"
                                         >
                                             {new Date(row.time).toLocaleString(
                                                 "ru-RU",
@@ -832,7 +836,7 @@
                                         <div class="flex justify-end">
                                             {#if currentBanner}
                                                 <button
-                                                    class="group relative h-10 w-20 rounded shadow-sm border border-gray-200 overflow-hidden hover:ring-2 hover:ring-[#D0926E] transition-all focus:outline-none bg-gray-100"
+                                                    class="group relative h-10 w-20 rounded shadow-sm border border-gray-200 dark:border-[#7A7A7A] overflow-hidden hover:ring-2 hover:ring-[#e44e25] transition-all focus:outline-none bg-gray-100"
                                                     on:click={() =>
                                                         (selectedBanner =
                                                             currentBanner)}

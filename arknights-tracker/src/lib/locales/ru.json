@@ -10,7 +10,9 @@
     "records": "Записи о найме",
     "events": "Лента событий",
     "settings": "Настройки",
-    "operators": "Оперативники"
+    "operators": "Оперативники",
+    "theme_dark": "Темная",
+    "theme_light": "Светлая"
   },
   "page": {
     "title": "Записи о найме",
@@ -546,7 +548,8 @@
     "conditions": {
       "onlyPc": "Доступно только на ПК"
     },
-    "noActiveCodes": "Нет активных кодов"
+    "noActiveCodes": "Нет активных кодов",
+    "noActiveBanners": "Нет активных баннеров"
   },
   "weaponsList": {
     "forgebornScathe": "Гнев кузни",
