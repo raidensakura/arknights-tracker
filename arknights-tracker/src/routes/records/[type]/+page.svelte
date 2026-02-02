@@ -133,7 +133,6 @@
             return pTime >= start && pTime <= end;
         });
 
-        // --- ЛОГИКА ВЫБОРА ---
         if (matches.length > 1) {
             if (itemName) {
                 const normName = normalize(itemName);
@@ -179,7 +178,6 @@
 
         return pastBanners[0];
     }
-    // Helpers для стилей
     function getRarityColor(rarity) {
         if (rarity === 6) return "#D97D48";
         if (rarity === 5) return "#E3BC55";
@@ -230,7 +228,6 @@
             p5 = 0;
         let bannerCounts = {};
 
-        // Определяем тип (на всякий случай, но логика теперь едина)
         const isWeapon = bannerType.includes('weap') || bannerType.includes('wepon');
 
         let processed = sorted.map((pull) => {
@@ -244,7 +241,7 @@
             if (
                 banner &&
                 banner.type === "special" &&
-                !isWeapon && // На всякий случай исключаем оружие из фри-круток
+                !isWeapon &&
                 bannerCounts[bid] >= 30 &&
                 bannerCounts[bid] < 40
             ) {
@@ -272,7 +269,6 @@
                 p.pity = 1;
             }
 
-            // Статус (Won / Lost / Normal)
             if (p.rarity >= 5) {
                 if (bannerType === "standard" || bannerType === "new-player") {
                     p.status = "normal";
@@ -288,7 +284,6 @@
                         const featured = isFeatured(p.name, banner, p.rarity);
                         
                         if (featured) {
-                            // Всегда Won, так как понятия "гарант от прошлого проигрыша" нет
                             p.status = "won"; 
                         } else {
                             p.status = "lost";
@@ -302,7 +297,6 @@
             return p;
         });
 
-        // Группировка (батчи) без изменений
         let batches = [];
         let currentBatch = [];
 

@@ -311,7 +311,7 @@
 <SyncModal />
 
 <div class="max-w-[1000px] w-full pb-20">
-    <h1 class="font-sdk text-5xl font-black text-[#21272C] mb-8">
+    <h1 class="font-sdk dark:text-[#FDFDFD] text-5xl font-black text-[#21272C] mb-8">
         {$t("settings.title")}
     </h1>
 
@@ -320,7 +320,7 @@
             class="flex flex-col items-start gap-4 mb-4 md:flex-row md:items-center"
         >
             <h2
-                class="font-sdk text-2xl font-bold text-[#21272C] whitespace-nowrap"
+                class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] whitespace-nowrap"
             >
                 {$t("settings.account.title")}
             </h2>
@@ -373,12 +373,12 @@
     </section>
 
     <section class="mb-10">
-        <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
+        <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.cloud.title")}
         </h2>
 
         <div
-            class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-4 max-w-[500pt] min-h-[180px] relative justify-center"
+            class="bg-white p-6 rounded-xl dark:bg-[#383838] dark:border-[#444444] border border-gray-200 shadow-sm flex flex-col gap-4 max-w-[500pt] min-h-[180px] relative justify-center"
         >
             {#if $user === undefined}
                 <div class="animate-pulse flex flex-col gap-4 w-full" in:fade>
@@ -404,7 +404,7 @@
                         class="flex items-center justify-between flex-wrap gap-2"
                     >
                         <div
-                            class="flex items-center gap-2 font-bold text-[#21272C]"
+                            class="flex items-center dark:text-[#FDFDFD] gap-2 font-bold text-[#21272C]"
                         >
                             <Icon name="google" class="w-10 h-10 text-white" />
                             {$t("settings.cloud.integration")}
@@ -413,7 +413,7 @@
                         <div class="flex items-center gap-2">
                             {#if $user}
                                 <div
-                                    class="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[10px] font-bold border border-green-200 uppercase tracking-wider"
+                                    class="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 dark:bg-[#474C48] dark:border-[#444444] dark:text-green-500 rounded-full text-[10px] font-bold border border-green-200 uppercase tracking-wider"
                                 >
                                     <div
                                         class="w-1.5 h-1.5 rounded-full bg-green-500"
@@ -422,7 +422,7 @@
                                 </div>
                             {:else}
                                 <div
-                                    class="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                                    class="flex items-center gap-2 dark:bg-[#424242] dark:text-[#B7B6B3] px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[10px] font-bold uppercase tracking-wider"
                                 >
                                     {$t("settings.cloud.disconnected")}
                                 </div>
@@ -431,14 +431,14 @@
                             {#if $user}
                                 {#if $syncStatus === "synced"}
                                     <div
-                                        class="flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold border border-blue-200 uppercase tracking-wider"
+                                        class="flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 dark:bg-[#434548] dark:border-[#444444] dark:text-blue-500 rounded-full text-[10px] font-bold border border-blue-200  uppercase tracking-wider"
                                     >
                                         <Icon name="check" class="w-3 h-3" />
                                         {$t("settings.cloud.synced")}
                                     </div>
                                 {:else}
                                     <div
-                                        class="flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold border border-orange-200 uppercase tracking-wider"
+                                        class="flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold border border-orange-200  uppercase tracking-wider"
                                     >
                                         <Icon
                                             name="refresh"
@@ -451,11 +451,11 @@
                         </div>
                     </div>
 
-                    <div class="h-px bg-gray-100 w-full my-4"></div>
+                    <div class="h-px bg-gray-100 w-full dark:bg-[#444444] my-4"></div>
 
                     {#if !$user}
                         <div
-                            class="flex items-start gap-4 text-gray-600 text-sm leading-relaxed mb-2"
+                            class="flex items-start dark:text-[#B7B6B3] gap-4 text-gray-600 text-sm leading-relaxed mb-3"
                         >
                             <div class="mt-0.5 flex-shrink-0">
                                 <Icon
@@ -468,14 +468,14 @@
 
                         <button
                             on:click={login}
-                            class="flex items-center justify-center gap-3 w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all font-bold text-gray-700 bg-white"
+                            class="flex items-center justify-center gap-3 w-full py-3 border border-gray-300 dark:border-[#444444] dark:bg-[#424242] dark:text-[#E4E4E4] rounded-lg hover:bg-gray-50 transition-all font-bold text-gray-700 bg-white"
                         >
                             <Icon name="google" class="w-5 h-5" />
                             {$t("settings.cloud.signIn")}
                         </button>
                     {:else}
                         <div
-                            class="flex items-center justify-between gap-4 bg-[#F8F9FA] p-3 rounded-lg border border-gray-200 mb-4"
+                            class="flex items-center justify-between dark:bg-[#373737] dark:border-[#444444] gap-4 bg-[#F8F9FA] p-3 rounded-lg border border-gray-200 mb-4"
                         >
                             <div
                                 class="flex items-center gap-4 overflow-hidden"
@@ -484,11 +484,11 @@
                                     <img
                                         src={$user.photoURL}
                                         alt="Avatar"
-                                        class="w-10 h-10 rounded-full border border-white shadow-sm shrink-0"
+                                        class="w-10 h-10 rounded-full dark:border-[#7A7A7A] border border-white shadow-sm shrink-0"
                                     />
                                 {:else}
                                     <div
-                                        class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg shrink-0"
+                                        class="w-10 h-10 rounded-full bg-gray-300  flex items-center justify-center text-white font-bold text-lg shrink-0"
                                     >
                                         {$user.displayName
                                             ? $user.displayName[0]
@@ -498,7 +498,7 @@
 
                                 <div class="flex flex-col min-w-0">
                                     <span
-                                        class="font-bold text-[#21272C] text-sm truncate"
+                                        class="font-bold text-[#21272C] dark:text-[#E0E0E0] text-sm truncate"
                                         title={$user.displayName}
                                     >
                                         {maskedName}
@@ -525,7 +525,7 @@
                                 >
                                     {$t("settings.cloud.lastSync")}
                                 </div>
-                                <div class="text-xs font-mono text-[#21272C]">
+                                <div class="text-xs dark:text-[#E0E0E0] font-mono text-[#21272C]">
                                     {lastSyncDate}
                                 </div>
                             </div>
@@ -554,7 +554,7 @@
 
                             <button
                                 on:click={logout}
-                                class="px-4 py-2 border border-red-200 text-red-600 rounded hover:bg-red-50 font-bold text-sm transition-colors
+                                class="px-4 py-2 border dark:border-[#444444] border-red-200 dark:text-red-500 text-red-600 rounded hover:dark:bg-[#424242] hover:bg-red-50 font-bold text-sm transition-colors
         {$syncStatus === 'synced' ? 'w-full' : ''}"
                             >
                                 {$t("settings.cloud.logout")}
@@ -567,11 +567,11 @@
     </section>
 
     <section class="mb-10">
-        <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
+        <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.backup.title")}
         </h2>
         <div
-            class="bg-gray-100 rounded-xl p-5 mb-5 flex items-start gap-4 text-gray-600 text-sm leading-relaxed"
+            class="bg-gray-100 rounded-xl p-5 dark:bg-[#383838] dark:border-[#444444] dark:text-[#B7B6B3] mb-5 flex items-start gap-4 text-gray-600 text-sm leading-relaxed"
         >
             <div class="mt-0.5 flex-shrink-0">
                 <Icon name="info" class="w-5 h-5 text-gray-400" />
@@ -597,19 +597,19 @@
         </div>
     </section>
 
-    <section class="mb-10">
-        <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
+    <!--<section class="mb-10">
+        <h2 class="font-sdk text-2xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4">
             {$t("settings.sources.title")}
         </h2>
         <div class="text-gray-400 italic">wip</div>
-    </section>
+    </section>-->
 
     <section class="mb-10">
-        <h2 class="font-sdk text-2xl font-bold text-[#21272C] mb-4">
+        <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.feedback.title")}
         </h2>
         <div
-            class="bg-gray-100 rounded-xl p-5 mb-5 flex items-start gap-4 text-gray-600 text-sm leading-relaxed"
+            class="bg-gray-100 rounded-xl p-5 mb-5 dark:bg-[#383838] dark:border-[#444444] dark:text-[#B7B6B3] flex items-start gap-4 text-gray-600 text-sm leading-relaxed"
         >
             <div class="mt-0.5 flex-shrink-0">
                 <Icon name="info" class="w-5 h-5 text-gray-400" />

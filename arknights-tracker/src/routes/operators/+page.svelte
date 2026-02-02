@@ -90,7 +90,7 @@
 
 <div class="max-w-[100%] max-h-[100%] justify-start min-h-screen">
     <div class="flex items-center gap-4 mb-8">
-    <h2 class="font-sdk text-[#21272C] flex items-start gap-0 md:flex-row md:items-center md:gap-3">
+    <h2 class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex items-start gap-0 md:flex-row md:items-center md:gap-3">
         <span class="text-3xl md:text-5xl tracking-wide">
             {$t("pages.operators") || "Operators"}
         </span>

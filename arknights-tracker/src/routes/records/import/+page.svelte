@@ -14,7 +14,12 @@
     import Icon from "$lib/components/Icons.svelte";
 
     let platformTab = "pc";
-    let urlInput = "";
+
+    // --- ВАЖНЫЕ ПЕРЕМЕННЫЕ ---
+    let urlInput = ""; // То, что видит пользователь (Текст в поле)
+    let realImportUrl = ""; // То, что полетит на сервер (Реальная ссылка)
+    // -------------------------
+
     let isLoading = false;
     let previewReport = null;
     let pendingData = null;
@@ -30,8 +35,22 @@
 
     let isInputError = false;
 
+    // Скрипты (оставляем как были)
     const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
     const powerShellScript2 = `[regex]::Matches((Get-Content "$env:USERPROFILE\\AppData\\LocalLow\\Gryphline\\Endfield\\sdklogs\\HGWebview.log" -Raw), "https://ef-webview\\.gryphline\\.com[^\\s]+u8_token=[^\\s]+").Value[-1] | Set-Clipboard`;
+
+    // Статистика для превью (добавлено, чтобы не было ошибок в шаблоне)
+    $: importSummary = pendingData
+        ? pendingData.reduce((acc, pull) => {
+              const id = pull.bannerId || "other";
+              acc[id] = (acc[id] || 0) + 1;
+              return acc;
+          }, {})
+        : {};
+
+    // Вычисляем импортированные пулы для отображения (если есть)
+    $: importedPulls = pendingData || [];
+
     onMount(() => {
         loadSavedTokens();
     });
@@ -49,9 +68,7 @@
 
     function saveTokenToStorage(name, url) {
         try {
-            if (savedTokens.some((t) => t.url === url)) {
-                return;
-            }
+            if (savedTokens.some((t) => t.url === url)) return;
 
             const newToken = {
                 name: name,
@@ -69,7 +86,6 @@
     function deleteToken(index) {
         if (!confirm($t("import.delete_confirm") || "Delete this saved token?"))
             return;
-
         const newList = [...savedTokens];
         newList.splice(index, 1);
         savedTokens = newList;
@@ -77,28 +93,113 @@
     }
 
     function selectToken(token) {
+        // При выборе сохраненного: показываем URL и используем его
         urlInput = token.url;
+        realImportUrl = token.url;
         activeTab = "new";
         isSaveTokenEnabled = false;
         errorMsg = "";
     }
 
-    function formatDate(ts) {
-        return new Date(ts * 1000).toLocaleDateString();
+    // === ГЛАВНАЯ ЛОГИКА ОБРАБОТКИ ВВОДА ===
+    function handleInputProcessing(e) {
+        // Получаем сырой текст из инпута
+        const rawValue = e.target.value;
+
+        // Сбрасываем ошибки
+        errorMsg = "";
+        isInputError = false;
+
+        // Если пусто - очищаем всё
+        if (!rawValue) {
+            urlInput = "";
+            realImportUrl = "";
+            return;
+        }
+
+        // 1. Если это уже полная ссылка (начинается на http)
+        if (rawValue.trim().startsWith("http")) {
+            urlInput = rawValue;
+            realImportUrl = rawValue;
+            return;
+        }
+
+        // 2. Если это токен (JSON или просто длинная строка)
+        // Только если мы на вкладке Android (или если это явно JSON)
+        let cleanToken = rawValue.trim();
+
+        // Попытка достать токен из JSON {"token": "..."}
+        if (cleanToken.includes("token")) {
+            try {
+                // Ищем паттерн "token":"ЗНАЧЕНИЕ"
+                const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
+                if (jsonMatch && jsonMatch[1]) {
+                    cleanToken = jsonMatch[1];
+                } else {
+                    // Если регулярка не справилась, пробуем JSON.parse
+                    // Убираем лишние кавычки по краям если есть
+                    if (
+                        cleanToken.startsWith("'") ||
+                        cleanToken.startsWith('"')
+                    ) {
+                        cleanToken = cleanToken.slice(1, -1);
+                    }
+                    const obj = JSON.parse(cleanToken);
+                    if (obj.token) cleanToken = obj.token;
+                }
+            } catch (err) {
+                // Если парсинг упал, пробуем просто очистить от скобок
+                console.log("JSON parse failed, trying raw cleanup");
+                cleanToken = cleanToken
+                    .replace(/^{"token":"/, "")
+                    .replace(/"}$/, "");
+            }
+        }
+
+        // Если токен пустой после очистки, выходим
+        if (!cleanToken) return;
+
+        // 3. Формируем "виртуальную" ссылку
+        // Кодируем спецсимволы (+, /, =), чтобы они корректно передались в URL
+        const encodedToken = encodeURIComponent(cleanToken);
+
+        const baseUrl =
+            "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+        // Параметры для Android
+        const tail =
+            "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
+
+        // Сохраняем РЕАЛЬНУЮ ссылку в переменную (ее отправим на бэк)
+        realImportUrl = baseUrl + encodedToken + tail;
+
+        // 4. В поле ввода показываем красивую заглушку
+        // Генерируем рандомный ID для красоты
+        const randomId = Math.random()
+            .toString(36)
+            .substring(2, 10)
+            .toUpperCase();
+        urlInput = `Token_Android#${randomId}`; // Это увидит юзер
+
+        // ВАЖНО: Принудительно обновляем value в DOM, если Svelte затупил
+        e.target.value = urlInput;
     }
 
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
 
-        if (!urlInput || !urlInput.trim()) {
+        // Используем realImportUrl, если он есть (для Android), иначе то, что в поле
+        const urlToSend = realImportUrl || urlInput;
+
+        if (!urlToSend || !urlToSend.trim()) {
             isInputError = true;
-            errorMsg = $t("import.emptyError") || "Link is required";
+            errorMsg = $t("import.emptyError") || "Link or Token is required";
             return;
         }
 
         if (isSaveTokenEnabled && !tokenName.trim()) {
-            const alreadyExists = savedTokens.some((t) => t.url === urlInput);
+            // Проверяем, сохраняем ли мы дубликат
+            const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
             if (!alreadyExists) {
                 isInputError = true;
                 errorMsg = "Token name is required for saving.";
@@ -106,8 +207,9 @@
             }
         }
 
+        // Валидация домена
         try {
-            const parsedUrl = new URL(urlInput);
+            const parsedUrl = new URL(urlToSend);
             if (parsedUrl.protocol !== "https:") {
                 errorMsg = "Only HTTPS links are allowed.";
                 return;
@@ -123,7 +225,7 @@
             }
         } catch (e) {
             isInputError = true;
-            errorMsg = "Invalid URL format.";
+            errorMsg = "Invalid URL/Token format.";
             return;
         }
 
@@ -132,7 +234,7 @@
         pendingData = null;
 
         try {
-            const response = await proxyImport(urlInput, isGlobalStatsEnabled);
+            const response = await proxyImport(urlToSend, isGlobalStatsEnabled);
 
             if (response.code === 0 && response.data?.list) {
                 const importedUid = response.data.uid;
@@ -142,7 +244,7 @@
                 }
 
                 if (isSaveTokenEnabled && tokenName.trim()) {
-                    saveTokenToStorage(tokenName.trim(), urlInput);
+                    saveTokenToStorage(tokenName.trim(), urlToSend);
                 }
 
                 const rawData = response.data.list;
@@ -191,12 +293,15 @@
         }
     }
 
-    function handleInput() {
-        if (isInputError) {
-            isInputError = false;
-            errorMsg = "";
-        }
+    function cancelImport() {
+        pendingData = null;
+        previewReport = null;
+        urlInput = "";
+        realImportUrl = "";
     }
+
+    // Пустая функция-заглушка, так как мы используем on:input
+    function handleInput() {}
 </script>
 
 <div class="max-w-[1600px] justify-start">
@@ -225,12 +330,12 @@
     </div>
 
     <div
-        class="bg-white p-8 md:p-12 rounded-xl shadow-sm border border-gray-100 relative min-h-[400px]"
+        class="bg-white p-8 md:p-12 rounded-xl dark:bg-[#383838] dark:border-[#444444] shadow-sm border border-gray-100 relative min-h-[400px]"
     >
         <div
             class="flex items-end gap-0 border-b border-gray-200 w-full mb-8 overflow-x-auto"
         >
-            {#each [{ id: "pc", label: $t("import.tab_pc") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, /*{ id: "android", label: $t("import.tab_android") },*/ { id: "ios", label: $t("import.tab_ios") }] as tab}
+            {#each [{ id: "pc", label: $t("import.tab_pc") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
                 <button
                     class="px-6 py-3 text-sm font-bold transition-all relative border-b-2 whitespace-nowrap
                     {platformTab === tab.id
@@ -319,9 +424,13 @@
                                 <div class="relative">
                                     <input
                                         type="text"
-                                        bind:value={urlInput}
-                                        on:input={handleInput}
-                                        placeholder={$t("import.placeholder")}
+                                        value={urlInput}
+                                        on:input={handleInputProcessing}
+                                        placeholder={platformTab === "android"
+                                            ? $t("import.placeholder_token") ||
+                                              "Paste Token here"
+                                            : $t("import.placeholder_url") ||
+                                              "Paste Link here"}
                                         class="w-full p-4 bg-gray-50 border-2 border-gray-100 focus:bg-white focus:border-[#FFE145] rounded-md outline-none transition-all font-mono text-xs md:text-sm text-gray-700 placeholder-gray-400 {isInputError
                                             ? '!border-red-500 bg-red-50'
                                             : ''}"
@@ -329,10 +438,17 @@
                                     <div
                                         class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
                                     >
-                                        <Icon
-                                            name="link"
-                                            style="width: 16px; height: 16px;"
-                                        />
+                                        {#if platformTab === "android" && urlInput.startsWith("Token_")}
+                                            <Icon
+                                                name="check"
+                                                style="width: 16px; height: 16px; color: green;"
+                                            />
+                                        {:else}
+                                            <Icon
+                                                name="link"
+                                                style="width: 16px; height: 16px;"
+                                            />
+                                        {/if}
                                     </div>
                                 </div>
                                 {#if isInputError}<div
@@ -430,7 +546,8 @@
                                                     isSaveTokenEnabled
                                                 }
                                                 class="peer w-5 h-5 cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white checked:border-[#FFE145] checked:bg-[#FFE145] transition-all"
-                                            /><svg
+                                            />
+                                            <svg
                                                 class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#21272C] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
@@ -438,24 +555,36 @@
                                                 stroke-width="4"
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                ><polyline
-                                                    points="20 6 9 17 4 12"
-                                                ></polyline></svg
                                             >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
                                         </div>
+
                                         <div>
                                             <span
                                                 class="text-gray-700 group-hover:text-black transition-colors cursor-pointer font-medium text-sm"
-                                                >{$t(
-                                                    "import.save_token_label",
-                                                )}</span
-                                            >{#if isSaveTokenEnabled}<div
-                                                    class="text-gray-400 text-xs mt-0.5"
+                                            >
+                                                {$t(
+                                                    platformTab === "android"
+                                                        ? "import.save_label_token"
+                                                        : "import.save_label_url",
+                                                )}
+                                            </span>
+
+                                            {#if isSaveTokenEnabled}
+                                                <div
+                                                    class="text-gray-400 text-xs mt-0.5 max-w-md"
                                                 >
                                                     {$t(
-                                                        "import.save_token_desc",
+                                                        platformTab ===
+                                                            "android"
+                                                            ? "import.save_desc_token"
+                                                            : "import.save_desc_url",
                                                     )}
-                                                </div>{/if}
+                                                </div>
+                                            {/if}
                                         </div>
                                     </label>
                                     {#if isSaveTokenEnabled}<div
@@ -524,9 +653,23 @@
             </div>
         {:else if platformTab === "android"}
             <div class="ml-2 pt-2">
-                {#each [{ text: $t("import.android_step1") }, { text: $t("import.android_step2") }, { text: $t("import.android_step3") }, { text: $t("import.android_step4"), subList: [$t("import.android_step4_1"), $t("import.android_step4_2"), $t("import.android_step4_3")] }, { text: $t("import.android_step5") }, { text: $t("import.android_step6") }, { text: $t("import.android_step7") }, { text: $t("import.android_step8") }, { text: $t("import.android_step9") }] as step, i}
+                <div
+                    class="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3"
+                >
+                    <div class="text-amber-500 mt-0.5">
+                        <Icon
+                            name="alert-circle"
+                            style="width: 20px; height: 20px;"
+                        />
+                    </div>
+                    <div class="text-sm text-amber-900 leading-relaxed">
+                        {@html $t("import.android_note")}
+                    </div>
+                </div>
+
+                {#each [{ text: $t("import.android_s1") }, { text: $t("import.android_s2") }, { text: $t("import.android_s3"), subList: [$t("import.android_s3_sub1"), $t("import.android_s3_sub2"), $t("import.android_s3_sub3")] }, { text: $t("import.android_s4") }, { text: $t("import.android_s5") }, { text: $t("import.android_s6") }, { text: $t("import.android_s7") }, { text: $t("import.android_s8") }, { text: $t("import.android_s9") }, { text: $t("import.android_s10") }] as step, i}
                     <div
-                        class="relative border-l-2 border-gray-200 pb-10 pl-10 last:border-gray-200"
+                        class="relative border-l-2 border-gray-200 pb-10 pl-10 last:border-transparent"
                     >
                         <div
                             class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -556,11 +699,11 @@
                     <div
                         class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
                     >
-                        10
+                        11
                     </div>
 
                     <p class="text-lg text-[#21272C] font-medium mb-4 pt-1">
-                        {$t("import.step3")}
+                        {$t("import.android_s11")}
                     </p>
 
                     <div class="mb-6">
@@ -598,9 +741,13 @@
                                 <div class="relative">
                                     <input
                                         type="text"
-                                        bind:value={urlInput}
-                                        on:input={handleInput}
-                                        placeholder={$t("import.placeholder")}
+                                        value={urlInput}
+                                        on:input={handleInputProcessing}
+                                        placeholder={platformTab === "android"
+                                            ? $t("import.placeholder_token") ||
+                                              "Paste Token here"
+                                            : $t("import.placeholder_url") ||
+                                              "Paste Link here"}
                                         class="w-full p-4 bg-gray-50 border-2 border-gray-100 focus:bg-white focus:border-[#FFE145] rounded-md outline-none transition-all font-mono text-xs md:text-sm text-gray-700 placeholder-gray-400 {isInputError
                                             ? '!border-red-500 bg-red-50'
                                             : ''}"
@@ -608,10 +755,17 @@
                                     <div
                                         class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
                                     >
-                                        <Icon
-                                            name="link"
-                                            style="width: 16px; height: 16px;"
-                                        />
+                                        {#if platformTab === "android" && urlInput.startsWith("Token_")}
+                                            <Icon
+                                                name="check"
+                                                style="width: 16px; height: 16px; color: green;"
+                                            />
+                                        {:else}
+                                            <Icon
+                                                name="link"
+                                                style="width: 16px; height: 16px;"
+                                            />
+                                        {/if}
                                     </div>
                                 </div>
                                 {#if isInputError}<div
@@ -709,7 +863,8 @@
                                                     isSaveTokenEnabled
                                                 }
                                                 class="peer w-5 h-5 cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white checked:border-[#FFE145] checked:bg-[#FFE145] transition-all"
-                                            /><svg
+                                            />
+                                            <svg
                                                 class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#21272C] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
@@ -717,24 +872,36 @@
                                                 stroke-width="4"
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                ><polyline
-                                                    points="20 6 9 17 4 12"
-                                                ></polyline></svg
                                             >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
                                         </div>
+
                                         <div>
                                             <span
                                                 class="text-gray-700 group-hover:text-black transition-colors cursor-pointer font-medium text-sm"
-                                                >{$t(
-                                                    "import.save_token_label",
-                                                )}</span
-                                            >{#if isSaveTokenEnabled}<div
-                                                    class="text-gray-400 text-xs mt-0.5"
+                                            >
+                                                {$t(
+                                                    platformTab === "android"
+                                                        ? "import.save_label_token"
+                                                        : "import.save_label_url",
+                                                )}
+                                            </span>
+
+                                            {#if isSaveTokenEnabled}
+                                                <div
+                                                    class="text-gray-400 text-xs mt-0.5 max-w-md"
                                                 >
                                                     {$t(
-                                                        "import.save_token_desc",
+                                                        platformTab ===
+                                                            "android"
+                                                            ? "import.save_desc_token"
+                                                            : "import.save_desc_url",
                                                     )}
-                                                </div>{/if}
+                                                </div>
+                                            {/if}
                                         </div>
                                     </label>
                                     {#if isSaveTokenEnabled}<div
@@ -950,9 +1117,13 @@
                             <div class="relative">
                                 <input
                                     type="text"
-                                    bind:value={urlInput}
-                                    on:input={handleInput}
-                                    placeholder={$t("import.placeholder")}
+                                    value={urlInput}
+                                    on:input={handleInputProcessing}
+                                    placeholder={platformTab === "android"
+                                        ? $t("import.placeholder_token") ||
+                                          "Paste Token here"
+                                        : $t("import.placeholder_url") ||
+                                          "Paste Link here"}
                                     class="w-full p-4 bg-gray-50 border-2 border-gray-100 focus:bg-white focus:border-[#FFE145] rounded-md outline-none transition-all font-mono text-xs md:text-sm text-gray-700 placeholder-gray-400 {isInputError
                                         ? '!border-red-500 bg-red-50'
                                         : ''}"
@@ -960,10 +1131,17 @@
                                 <div
                                     class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
                                 >
-                                    <Icon
-                                        name="link"
-                                        style="width: 16px; height: 16px;"
-                                    />
+                                    {#if platformTab === "android" && urlInput.startsWith("Token_")}
+                                        <Icon
+                                            name="check"
+                                            style="width: 16px; height: 16px; color: green;"
+                                        />
+                                    {:else}
+                                        <Icon
+                                            name="link"
+                                            style="width: 16px; height: 16px;"
+                                        />
+                                    {/if}
                                 </div>
                             </div>
                             {#if isInputError}<div
@@ -1055,7 +1233,8 @@
                                             type="checkbox"
                                             bind:checked={isSaveTokenEnabled}
                                             class="peer w-5 h-5 cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white checked:border-[#FFE145] checked:bg-[#FFE145] transition-all"
-                                        /><svg
+                                        />
+                                        <svg
                                             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#21272C] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
                                             viewBox="0 0 24 24"
                                             fill="none"
@@ -1063,21 +1242,34 @@
                                             stroke-width="4"
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
-                                            ><polyline points="20 6 9 17 4 12"
-                                            ></polyline></svg
                                         >
+                                            <polyline points="20 6 9 17 4 12"
+                                            ></polyline>
+                                        </svg>
                                     </div>
+
                                     <div>
                                         <span
                                             class="text-gray-700 group-hover:text-black transition-colors cursor-pointer font-medium text-sm"
-                                            >{$t(
-                                                "import.save_token_label",
-                                            )}</span
-                                        >{#if isSaveTokenEnabled}<div
-                                                class="text-gray-400 text-xs mt-0.5"
+                                        >
+                                            {$t(
+                                                platformTab === "android"
+                                                    ? "import.save_label_token"
+                                                    : "import.save_label_url",
+                                            )}
+                                        </span>
+
+                                        {#if isSaveTokenEnabled}
+                                            <div
+                                                class="text-gray-400 text-xs mt-0.5 max-w-md"
                                             >
-                                                {$t("import.save_token_desc")}
-                                            </div>{/if}
+                                                {$t(
+                                                    platformTab === "android"
+                                                        ? "import.save_desc_token"
+                                                        : "import.save_desc_url",
+                                                )}
+                                            </div>
+                                        {/if}
                                     </div>
                                 </label>
                                 {#if isSaveTokenEnabled}<div class="pl-8 mb-2">

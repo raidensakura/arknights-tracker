@@ -36,15 +36,15 @@
 ></div>
 
     <div
-      class="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100"
+      class="relative bg-white rounded-2xl dark:bg-[#383838] dark:border-[#444444]  p-6 w-full max-w-md shadow-2xl border border-gray-100"
       transition:scale={{ duration: 200, start: 0.95 }}
     >
-      <h3 class="text-xl font-bold font-sdk text-[#21272C] mb-2">
+      <h3 class="text-xl font-bold font-sdk dark:text-[#FDFDFD] text-[#21272C] mb-2">
         {title}
       </h3>
 
       {#if description}
-        <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+        <p class="text-gray-500 dark:text-[#B7B6B3] text-sm mb-6 leading-relaxed">
           {description}
         </p>
       {/if}

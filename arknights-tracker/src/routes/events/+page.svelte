@@ -8,7 +8,7 @@
     <!-- Header -->
     <div class="flex items-center gap-4 mb-8">
         <h2
-            class="font-sdk text-5xl tracking-wide text-[#21272C] flex items-center gap-3"
+            class="font-sdk dark:text-[#FDFDFD] text-5xl tracking-wide text-[#21272C] flex items-center gap-3"
         >
             {$t("pages.events")}
         </h2>
