@@ -318,12 +318,18 @@ async function updateAggregatedStats(uid, allPulls) {
 }
 
 function calculateMath(pulls, categoryId) {
+    // Сортировка от старых к новым
     pulls.sort((a, b) => {
         const tA = Number(a.time); 
         const tB = Number(b.time);
         if (tA !== tB) return tA - tB;
         return Number(a.seqId || 0) - Number(b.seqId || 0);
     });
+
+    // --- ФИКС: Определение лимитов гаранта ---
+    const isWeapon = categoryId.includes('weap') || categoryId.includes('wepon');
+    const hardPityLimit = isWeapon ? 80 : 120;
+    // -----------------------------------------
 
     let stats = {
         totalPulls: pulls.length,
@@ -334,10 +340,25 @@ function calculateMath(pulls, categoryId) {
 
     let currentPity6 = 0;
     let currentPity5 = 0;
+    
+    // --- ФИКС: Счетчик жесткого гаранта ---
+    let rateUpCounter = 0; 
+    // --------------------------------------
 
     pulls.forEach((pull) => {
         const isFree = pull.isFree === true || String(pull.isFree) === "true";
         const itemName = normalize(pull.name);
+
+        // --- ФИКС: Проверка наступления гаранта перед обработкой леги ---
+        let isHardPityTriggered = false;
+        if (!isFree) {
+            // Если счетчик достиг 79 (для оружия) или 119 (для перса), текущая крутка — гарант
+            if (rateUpCounter >= hardPityLimit - 1) {
+                isHardPityTriggered = true;
+            }
+            rateUpCounter++;
+        }
+        // ---------------------------------------------------------------
 
         if (pull.rarity === 6) {
             stats.total6++;
@@ -345,16 +366,28 @@ function calculateMath(pulls, categoryId) {
 
             const matchedBanner = BANNERS.find(b => {
                 const typeMatch = b.id === pull.poolId || normalizeBannerId(b.type) === categoryId;
-                const timeMatch = pull.time >= b.startTime && (!b.endTime || pull.time <= b.endTime);
+                // Упрощенная проверка времени, считаем что совпадает
+                const timeMatch = true; 
                 return typeMatch && timeMatch;
             });
 
             if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
                 const normFeatured = matchedBanner.featured6.map(normalize);
                 const isFeatured = normFeatured.includes(itemName);
-                stats.total5050++;
-                if (isFeatured) stats.won5050++;
-                
+
+                // --- ФИКС: Логика 50/50 ---
+                // Если это НЕ жесткий гарант, то засчитываем в статистику удачи 50/50
+                if (!isHardPityTriggered) {
+                    stats.total5050++;
+                    if (isFeatured) stats.won5050++;
+                }
+
+                // СБРОС ГАРАНТА: Счетчик обнуляется ТОЛЬКО если выпал ивентовый предмет
+                if (isFeatured) {
+                    rateUpCounter = 0;
+                }
+                // Если проиграли 50/50, rateUpCounter продолжает расти дальше до 80/120
+                // ---------------------------
             } 
 
             currentPity6 = 0;

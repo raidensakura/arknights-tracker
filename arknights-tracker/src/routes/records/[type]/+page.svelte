@@ -45,9 +45,7 @@
 
     $: isWeaponType =
         bannerType.includes("weap") || bannerType.includes("wepon");
-    $: hasRateUp =
-        bannerType === "special" ||
-        (isWeaponType && !bannerType.includes("constant"));
+    $: hasRateUp = bannerType === "special" || isWeaponType;
     $: maxPity6 = isNewPlayer ? 40 : 80;
 
     $: statsBannerStub = {
@@ -227,8 +225,13 @@
         let p6 = 0,
             p5 = 0;
         let bannerCounts = {};
+        
+        // --- НОВОЕ: Счетчик для отслеживания 120/80 ---
+        let rateUpCounter = 0; 
+        // ----------------------------------------------
 
         const isWeapon = bannerType.includes('weap') || bannerType.includes('wepon');
+        const hardPityLimit = isWeapon ? 80 : 120;
 
         let processed = sorted.map((pull) => {
             const p = { ...pull };
@@ -250,7 +253,7 @@
             p.isFree = isFree;
             bannerCounts[bid]++;
 
-            // Считаем Pity
+            // Считаем обычный Pity (сброс при любой леге)
             if (!isFree) {
                 if (p.rarity === 6) {
                     p.pity = p6 + 1;
@@ -269,6 +272,18 @@
                 p.pity = 1;
             }
 
+            // --- НОВОЕ: Проверка на Hard Pity (80/120) ---
+            let isHardPityTriggered = false;
+            if (!isFree) {
+                // Если мы на пороге (например, счетчик 79, и это 80-я крутка)
+                if (rateUpCounter >= hardPityLimit - 1) {
+                    isHardPityTriggered = true;
+                }
+                // Увеличиваем счетчик (если выпадет ивент, сбросим ниже)
+                rateUpCounter++;
+            }
+            // ---------------------------------------------
+
             if (p.rarity >= 5) {
                 if (bannerType === "standard" || bannerType === "new-player") {
                     p.status = "normal";
@@ -284,9 +299,21 @@
                         const featured = isFeatured(p.name, banner, p.rarity);
                         
                         if (featured) {
-                            p.status = "won"; 
+                            // Если выиграли, проверяем, было ли это по жесткому гаранту
+                            if (isHardPityTriggered && p.rarity === 6) {
+                                p.status = "guaranteed"; // <--- ТЕПЕРЬ БУДЕТ GUARANTEED
+                            } else {
+                                p.status = "won"; 
+                            }
+
+                            // СБРОС СЧЕТЧИКА ГАРАНТА при получении ивентового
+                            if (p.rarity === 6) {
+                                rateUpCounter = 0;
+                            }
+
                         } else {
                             p.status = "lost";
+                            // При проигрыше счетчик rateUpCounter НЕ сбрасывается, он продолжает расти
                         }
                     }
                 }
@@ -297,6 +324,7 @@
             return p;
         });
 
+        // Группировка (без изменений)
         let batches = [];
         let currentBatch = [];
 
