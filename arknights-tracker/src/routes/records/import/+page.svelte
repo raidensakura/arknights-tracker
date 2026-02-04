@@ -871,11 +871,11 @@
                             >
                         </h3>
                         <div class="space-y-2 mb-6 ml-1">
-                            {#each Object.entries(previewReport.addedCount) as [bannerId, count]}-->
+                            {#each Object.entries(previewReport.addedCount) as [bannerId, count]}
                                 <div
                                     class="flex justify-between dark:bg-[#373737] dark:border-[#444444] items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md"
                                 >
-                                    <span class="text-gray-700 font-medium">
+                                    <span class="text-gray-700 dark:text-[#E0E0E0] font-medium">
                                         {$t(`bannerTypes.${bannerId}`) ||
                                             bannerId}
                                     </span>
