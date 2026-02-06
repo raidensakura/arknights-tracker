@@ -26,19 +26,12 @@
     switch (rarity) {
       case 5:
       case 6:
-        // Светлая: Янтарный фон / Темная: Прозрачный темно-янтарный фон + Светлый текст
         return "bg-amber-50 border-amber-300 text-amber-800 hover:border-amber-500 dark:bg-amber-900/40 dark:border-amber-700 dark:text-amber-200 dark:hover:border-amber-400";
-
       case 4:
-        // Светлая: Фиолетовый / Темная: Глубокий фиолетовый
         return "bg-purple-50 border-purple-300 text-purple-800 hover:border-purple-500 dark:bg-purple-900/40 dark:border-purple-700 dark:text-purple-200 dark:hover:border-purple-400";
-
       case 3:
-        // Светлая: Синий / Темная: Глубокий синий
         return "bg-blue-50 border-blue-300 text-blue-800 hover:border-blue-500 dark:bg-blue-900/40 dark:border-blue-700 dark:text-blue-200 dark:hover:border-blue-400";
-
       default:
-        // Светлая: Серый / Темная: Темно-серый (почти черный)
         return "bg-gray-100 border-gray-300 text-gray-700 hover:border-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-400";
     }
   }
@@ -64,14 +57,19 @@
 
   function startBannerRotation() {
     if (activeBanners.length <= 1) return;
+    stopBannerRotation();
     bannerInterval = setInterval(() => {
       currentBannerIndex = (currentBannerIndex + 1) % activeBanners.length;
     }, 5000);
   }
 
+  function stopBannerRotation() {
+    if (bannerInterval) clearInterval(bannerInterval);
+  }
+
   function setBanner(index) {
     currentBannerIndex = index;
-    clearInterval(bannerInterval);
+    stopBannerRotation();
     startBannerRotation();
   }
 
@@ -295,6 +293,9 @@
         on:keydown={(e) =>
           (e.key === "Enter" || e.key === " ") &&
           (selectedBanner = activeBanners[currentBannerIndex])}
+        
+        on:mouseenter={stopBannerRotation} 
+        on:mouseleave={startBannerRotation}
       >
         {#if activeBanners.length > 0}
           {#key currentBannerIndex}

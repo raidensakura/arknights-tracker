@@ -175,7 +175,7 @@
     "ios_step7": "Вернитесь в приложение Stream и нажмите большую кнопку Sniff Now.",
     "ios_step8": "Вернитесь в игру и обновите страницу истории (переключите вкладку или откройте заново).",
     "ios_step9": "Вернитесь в Stream и нажмите Stop Sniffing.",
-    "ios_step10": "Зайдите в Sniff History. Найдите запрос начинающийся на <span class='bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-600 border border-gray-200 select-all break-all whitespace-normal inline-block'>https://ef-webview.gryphline.com</span>",
+    "ios_step10": "Зайдите в Sniff History. Найдите запрос начинающийся на <span class='bg-gray-100 dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] px-1.5 py-0.5 rounded text-sm font-mono text-gray-600 border border-gray-200 select-all break-all whitespace-normal inline-block'>https://ef-webview.gryphline.com</span>",
     "ios_step11": "Откройте его, перейдите во вкладку Request, скопируйте ссылку (начинается с https).",
     "ios_step12": "Вставьте полученную ссылку ниже",
     "error_empty": "Требуется ссылка или токен",
@@ -281,7 +281,9 @@
     "final_prep_orders": "Финальная подготовка",
     "awakaningSignIn": "Событие входа «Пробуждение» для новичков",
     "etchspaceSalvage": "Вылазка в Гравирпространство",
-    "workLogbook": "Рабочий журнал"
+    "workLogbook": "Рабочий журнал",
+    "glitteringLifeAtWuling": "Яркая жизнь в Улине",
+    "carlysFairytaleOfTheValley": "Сказка Карли о Долине"
   },
   "mouths": {
     "january": "Январь",
@@ -314,15 +316,21 @@
   "timer": {
     "ongoing_active": "Идет (уже {n} дн.)",
     "left_d_h": "{d}д {h}ч",
-    "days_ago": "{n} дн. назад",
-    "hours_ago": "{n} ч. назад",
+    "left_h_m": "осталось {h}ч {m}мин",
+    "starts_in_h_m": "через {h}ч {m}мин",
+    "starts_in_m": "через {m}мин",
+    "left_m": "осталось {m}мин",
+    "left_h": "{h}ч",
+    "starts_in_d_h": "через {d}д {h}ч",
+    "starts_in_h": "через {h}ч",
+    "days_ago": "{n}дн назад",
+    "hours_ago": "{n}ч назад",
     "just_now": "Только что",
-    "starts_in_days": "{n} дн.",
+    "starts_in_days": "{n}дн",
     "d_h": "{d}д {h}ч",
     "h": "{h}ч",
     "in_d_h": "через {d}д {h}ч",
     "in_h": "через {h}ч",
-    "starts_in_d_h": "{d}д {h}ч",
     "starts_in_hours": "{n}ч",
     "starts_soon": "Скоро начнется"
   },
@@ -500,6 +508,10 @@
       "yesClear": "Да, удалить данные",
       "clearDescription": "Это приведет к окончательному удалению всей истории вызовов для текущей учетной записи. Это действие нельзя отменить.",
       "deleteModalDesc": "Вы собираетесь удалить аккаунт «{name}» и все его данные. Это действие нельзя отменить."
+    },
+    "server": {
+      "title": "Выберите сервер",
+      "hint": "Выбранный сервер влияет на отображение времени на сайте"
     },
     "cloud": {
       "title": "Синхронизация с облаком",

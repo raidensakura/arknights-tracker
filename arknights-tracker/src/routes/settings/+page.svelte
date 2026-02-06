@@ -64,9 +64,33 @@
         }
     }
 
+    let currentServerId = "3";
+
+    const serverOptions = [
+        { value: "3", label: "Americas/Europe" },
+        { value: "2", label: "Asia" }
+    ];
+
     onMount(() => {
         initAuth();
+        if (typeof window !== "undefined") {
+            const savedServer = localStorage.getItem("ark_server_id");
+            if (savedServer) {
+                currentServerId = savedServer;
+            } else {
+                localStorage.setItem("ark_server_id", "3");
+            }
+        }
     });
+
+    function handleServerChange(e) {
+        const newServerId = e.detail;
+        currentServerId = newServerId;
+        
+        if (typeof window !== "undefined") {
+            localStorage.setItem("ark_server_id", newServerId);
+        }
+    }
 
     function handleSync() {
         if ($syncStatus === "synced" || $syncStatus === "local_newer") {
@@ -315,7 +339,7 @@
         {$t("settings.title")}
     </h1>
 
-    <section class="mb-10">
+    <section class="mb-3">
         <div
             class="flex flex-col items-start gap-4 mb-4 md:flex-row md:items-center"
         >
@@ -371,7 +395,29 @@
         </div>
     </section>
 
-    <section class="mb-10">
+    <section class="mb-3">
+        <div class="mt-8 flex flex-col items-start gap-4">
+            <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] whitespace-nowrap">
+                {$t("settings.server.title") || "Select Server"}
+            </h2>
+
+            <div class="w-80">
+                <Select
+                    options={serverOptions}
+                    value={currentServerId}
+                    on:change={handleServerChange}
+                    variant="black"
+                    placeholder="Select server..."
+                />
+            </div>
+            
+            <p class="text-xs text-gray-500 dark:text-[#B7B6B3] max-w-md">
+                {$t("settings.server.hint") || "Changing the server affects import links and data fetching."}
+            </p>
+        </div>
+    </section>
+
+    <section class="mb-5">
         <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.cloud.title")}
         </h2>
@@ -565,7 +611,7 @@
         </div>
     </section>
 
-    <section class="mb-10">
+    <section class="mb-5">
         <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.backup.title")}
         </h2>

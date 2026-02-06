@@ -145,7 +145,6 @@ export function calculateBannerStats(pulls, bannerId) {
     const isEventChar = bannerId.includes('special') && !isWeapon;
     const isStandardChar = bannerId === 'standard' || (bannerId.includes('standard') && !isWeapon);
     
-    // Лимит жесткого гаранта (120 для персов, 80 для оружия)
     const hardPityLimit = isWeapon ? 80 : 120;
 
     let total = pulls.length;
@@ -160,7 +159,6 @@ export function calculateBannerStats(pulls, bannerId) {
     let currentPity6 = 0;
     let currentPity5 = 0;
     
-    // Счетчик "Сколько круток мы сделали без ивентового предмета"
     let rateUpPityCounter = 0; 
 
     let validMileageTotal = 0;
@@ -168,21 +166,13 @@ export function calculateBannerStats(pulls, bannerId) {
     pulls.forEach((pull, index) => {
         const itemName = normalize(pull.name);
         const isFreePullIndex = (index >= 30 && index < 40);
-        // Бесплатные обычно только для персов, но проверим флаг isEventChar
         const isFreePull = isEventChar && isFreePullIndex;
         
         if (!isFreePull) {
             validMileageTotal++;
         }
-
-        // --- ЛОГИКА ЖЕСТКОГО ГАРАНТА (120 / 80) ---
-        // Проверяем ДО того, как обработаем выпадение леги
         let isHardPityTriggered = false;
-        
-        // Если это не бесплатная крутка и мы еще не получали ивент в этой сессии (для отображения)
-        // (Для статистики мы считаем hard pity в любой момент истории)
         if (!isFreePull) {
-            // Если мы дошли до лимита (например, сейчас 119-я крутка была, эта 120-я)
             if (rateUpPityCounter >= hardPityLimit - 1) {
                 isHardPityTriggered = true;
             }
@@ -201,21 +191,15 @@ export function calculateBannerStats(pulls, bannerId) {
                 return false;
             });
 
-            // Статистика 50/50:
-            // Если это НЕ жесткий гарант, то это была проверка удачи
             if (!isHardPityTriggered) {
                 total5050++;
                 if (isFeatured) won5050++;
             }
 
-            // СБРОС СЧЕТЧИКА ГАРАНТА
-            // Счетчик сбрасывается ТОЛЬКО если выпал ивентовый предмет
             if (isFeatured) {
                 rateUpPityCounter = 0;
                 hasReceivedRateUp = true;
-            }
-            // Если выпал стандартный (Lose), rateUpPityCounter ПРОДОЛЖАЕТ расти к 120/80
-            
+            }            
             currentPity6 = 0;
 
         } else {
@@ -275,8 +259,6 @@ export function calculateBannerStats(pulls, bannerId) {
         pity6: currentPity6,
         pity5: currentPity5,
         mileage,
-        // Показываем прогресс до 120/80. Если уже получили главного, можно вернуть 0 или продолжить считать (зависит от дизайна)
-        // В данном случае, если hasReceivedRateUp=true, значит в этом списке мы уже выбили что хотели, но логичнее показывать текущий счетчик
         guarantee120: hasReceivedRateUp ? 0 : rateUpPityCounter, 
         hasReceivedRateUp,
         count6,

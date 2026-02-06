@@ -174,19 +174,14 @@ app.post('/api/import', importLimiter, async (req, res) => {
         }
         
         const token = parsedUrl.searchParams.get('token') || parsedUrl.searchParams.get('u8_token');
-        
         const lang = 'en-us'; 
-        
         let targetServerId = parsedUrl.searchParams.get('server_id') || '3';
-
         if (!token) return res.status(400).json({ error: "No token found in URL" });
-
         console.log(`\n--- New Import Request ---`);
-
         let allPulls = await fetchGameData(token, lang, targetServerId);
 
         if (allPulls.length === 0 && targetServerId === '3') {
-            console.log("\n⚠️ No data found on Server 3. Retrying on Server 2...");
+            console.log("\nNo data found on Server 3. Retrying on Server 2...");
             targetServerId = '2'; 
             allPulls = await fetchGameData(token, lang, targetServerId);
         }
@@ -213,7 +208,8 @@ app.post('/api/import', importLimiter, async (req, res) => {
             code: 0,
             data: {
                 list: allPulls,
-                uid: stableUid
+                uid: stableUid,
+                serverId: targetServerId
             }
         });
 
@@ -427,10 +423,6 @@ app.get('/api/rankings/data', async (req, res) => {
 
         const myStat = usersWithAvg.find(u => u.uid === uid);
         if (!myStat) return res.json({ code: 0, data: { found: false, totalUsers: allStats.length } });
-
-        // CALCULATE RANKS (Percentile: 100 = Best, 0 = Worst)
-        
-        // Luck 6 (Lower avg is better)
         const validLuck6 = usersWithAvg.filter(u => u.total6 > 0).sort((a, b) => a.avg6 - b.avg6);
         const myLuck6Index = validLuck6.findIndex(u => u.uid === uid);
         let rankLuck6 = null;
@@ -438,7 +430,6 @@ app.get('/api/rankings/data', async (req, res) => {
             rankLuck6 = ((validLuck6.length - 1 - myLuck6Index) / validLuck6.length * 100);
         }
 
-        // Luck 5
         const validLuck5 = usersWithAvg.filter(u => u.total5 > 0).sort((a, b) => a.avg5 - b.avg5);
         const myLuck5Index = validLuck5.findIndex(u => u.uid === uid);
         let rankLuck5 = null;
@@ -446,12 +437,10 @@ app.get('/api/rankings/data', async (req, res) => {
             rankLuck5 = ((validLuck5.length - 1 - myLuck5Index) / validLuck5.length * 100);
         }
 
-        // Total Pulls (Higher is better for "Top X%")
         const sortedTotal = [...usersWithAvg].sort((a, b) => b.totalPulls - a.totalPulls);
         const myTotalIndex = sortedTotal.findIndex(u => u.uid === uid);
         const rankTotal = ((sortedTotal.length - 1 - myTotalIndex) / sortedTotal.length * 100);
 
-        // 50/50 Wins (Higher % is better)
         const valid5050 = usersWithAvg.filter(u => u.total5050 > 0).sort((a, b) => b.winRate - a.winRate);
         const my5050Index = valid5050.findIndex(u => u.uid === uid);
         let rank5050 = null;

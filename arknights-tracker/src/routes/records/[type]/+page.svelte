@@ -10,6 +10,7 @@
     import { goto } from "$app/navigation";
     import { currencies } from "$lib/data/items/currencies";
     import { isDarkMode } from "$lib/stores/theme";
+    import { onMount } from "svelte";
     import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -33,6 +34,27 @@
     $: weaponGuaranteeProgress = stats.guarantee120 || 0;
     $: hasReceivedRateUp = stats.hasReceivedRateUp || false;
     $: isStandardWeapon = bannerType.includes("constant");
+
+    let serverOffset = -5;
+
+    function parseServerDate(dateStr) {
+        if (!dateStr) return null;
+        if (dateStr instanceof Date) return dateStr;
+        if (dateStr.includes("Z") || dateStr.includes("+")) return new Date(dateStr);
+
+        const offset = serverOffset;
+        const sign = offset >= 0 ? "+" : "-";
+        const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+        const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+        return new Date(isoStr);
+    }
+
+    onMount(() => {
+        if (typeof window !== "undefined") {
+            const sid = localStorage.getItem("ark_server_id");
+            serverOffset = sid === "2" ? 8 : -5;
+        }
+    });
 
     function getMileageLabel(label) {
         if (label === "selector_6") return $t("stats.selector") || "Selector";
@@ -96,37 +118,32 @@
 
     function getBannerForPull(pullTime, pageType, itemName = null) {
         const pTime = new Date(pullTime).getTime();
+        
         const pType = pageType.toLowerCase();
         const isWeaponPage = pType.includes("weap") || pType.includes("wepon");
-        const isNewPlayerPage =
-            pType.includes("new-player") || pType.includes("new_player");
-        const isStandardPage =
-            (pType.includes("standard") || pType.includes("constant")) &&
-            !isNewPlayerPage;
+        const isNewPlayerPage = pType.includes("new-player") || pType.includes("new_player");
+        const isStandardPage = (pType.includes("standard") || pType.includes("constant")) && !isNewPlayerPage;
+
         const candidates = banners.filter((b) => {
             const bId = (b.id || "").toLowerCase();
             const bType = (b.type || "").toLowerCase();
-            const isBannerWeapon =
-                bType === "weapon" ||
-                bId.includes("weap") ||
-                bId.includes("wepon");
+            const isBannerWeapon = bType === "weapon" || bId.includes("weap") || bId.includes("wepon");
+            
             if (isWeaponPage !== isBannerWeapon) return false;
-            const isBannerNewPlayer =
-                bType === "new-player" || bId.includes("new_player");
+            
+            const isBannerNewPlayer = bType === "new-player" || bId.includes("new_player");
             if (isNewPlayerPage) return isBannerNewPlayer;
             if (isBannerNewPlayer) return false;
-            const isBannerStandard =
-                bType === "standard" ||
-                bType === "constant" ||
-                bId.includes("constant") ||
-                bId.includes("standard");
+            
+            const isBannerStandard = bType === "standard" || bType === "constant" || bId.includes("constant") || bId.includes("standard");
             if (isStandardPage) return isBannerStandard;
             return !isBannerStandard;
         });
 
         let matches = candidates.filter((b) => {
-            const start = new Date(b.startTime).getTime();
-            const end = b.endTime ? new Date(b.endTime).getTime() : Infinity;
+            const start = parseServerDate(b.startTime).getTime();
+            const end = b.endTime ? parseServerDate(b.endTime).getTime() : Infinity;
+            
             return pTime >= start && pTime <= end;
         });
 
@@ -140,40 +157,32 @@
                     return b.featured6.some((fid) => {
                         const nFid = normalize(fid);
                         const nSearch = normalize(searchId);
-                        return (
-                            nFid === nSearch ||
-                            nFid.includes(nSearch) ||
-                            nSearch.includes(nFid)
-                        );
+                        return (nFid === nSearch || nFid.includes(nSearch) || nSearch.includes(nFid));
                     });
                 });
                 if (exactMatch) return exactMatch;
             }
 
             const contextMatch = matches.find((b) => b.id === pageType);
-            if (contextMatch) {
-                return contextMatch;
-            }
+            if (contextMatch) return contextMatch;
 
             matches.sort((a, b) => {
-                const durationA =
-                    new Date(a.endTime || "2099-01-01").getTime() -
-                    new Date(a.startTime).getTime();
-                const durationB =
-                    new Date(b.endTime || "2099-01-01").getTime() -
-                    new Date(b.startTime).getTime();
+                const durationA = (a.endTime ? parseServerDate(a.endTime).getTime() : 4102444800000) - parseServerDate(a.startTime).getTime();
+                const durationB = (b.endTime ? parseServerDate(b.endTime).getTime() : 4102444800000) - parseServerDate(b.startTime).getTime();
+                
                 if (durationA !== durationB) return durationA - durationB;
-                return new Date(b.startTime) - new Date(a.startTime);
+                return parseServerDate(b.startTime) - parseServerDate(a.startTime);
             });
             return matches[0];
         }
 
         const pastBanners = candidates
-            .filter((b) => new Date(b.startTime).getTime() <= pTime)
-            .sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+            .filter((b) => parseServerDate(b.startTime).getTime() <= pTime)
+            .sort((a, b) => parseServerDate(b.startTime) - parseServerDate(a.startTime));
 
         return pastBanners[0];
     }
+
     function getRarityColor(rarity) {
         if (rarity === 6) return "#D97D48";
         if (rarity === 5) return "#E3BC55";
@@ -221,9 +230,8 @@
     };
 
     $: tableData = (() => {
-        const sorted = [...rawPulls].sort(
-            (a, b) => new Date(a.time) - new Date(b.time),
-        );
+        const _ = serverOffset;
+        const sorted = [...rawPulls].sort((a, b) => new Date(a.time) - new Date(b.time));
         let p6 = 0,
             p5 = 0;
         let bannerCounts = {};
@@ -315,17 +323,13 @@
 
         processed.forEach((p, i) => {
             const prev = processed[i - 1];
-            if (
-                prev &&
-                new Date(prev.time).getTime() !== new Date(p.time).getTime()
-            ) {
+            if (prev && new Date(prev.time).getTime() !== new Date(p.time).getTime()) {
                 batches.push(currentBatch);
                 currentBatch = [];
             }
             currentBatch.push(p);
         });
         if (currentBatch.length) batches.push(currentBatch);
-
         batches.forEach((batch) => {
             if (batch.length >= 2) {
                 const midIndex = Math.floor((batch.length - 1) / 2);
@@ -340,7 +344,6 @@
 
         return processed.reverse();
     })();
-
     function getWeaponBg(rarity) {
         if (rarity === 6) return "bg-gradient-to-t from-[#591C00] to-[#BD896E]";
         if (rarity === 5) return "bg-gradient-to-t from-[#261E00] to-[#E3BC55]";

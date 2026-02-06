@@ -46,7 +46,7 @@ export const banners = [
     id: "special_banner_01", 
     name: "Scars Of The Forge",
     type: "special",
-    startTime: "2026-01-22 03:00:00",
+    startTime: "2026-01-22 00:00:00",
     endTime: "2026-02-07 11:59:59",
     gameVersion: "0.1.0",
     featured6: ["laevatain"], 
@@ -56,8 +56,8 @@ export const banners = [
     icon: "laevatain-banner.jpg",
     miniIcon: "laevatain-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 5,
-    color: "#FF6600",
+    layer: 7,
+    color: "#ff4d00",
     iconPosition: 25,
     showOnMain: true
   },
@@ -71,14 +71,14 @@ export const banners = [
     featured6: ["gilberta"],
     featured5: [],
     isServerTime: true, 
-    timezone: "UTC+0",
+    timezone: "UTC-5",
     icon: "gilberta-banner.png",
     miniIcon: "gilberta-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 5,
-    color: "#c2cc3cff",
-    iconPosition: 20,
-    showOnMain: false
+    layer: 7,
+    color: "rgb(177, 63, 18)",
+    iconPosition: 26,
+    showOnMain: true
   },
   {
     id: "special_banner_03",
@@ -94,16 +94,16 @@ export const banners = [
     icon: "yvonne-banner.png",
     miniIcon: "yvonne-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 5,
+    layer: 7,
     color: "#FF33CC",
     iconPosition: 25,
-    showOnMain: false
+    showOnMain: true
   },
   {
     id: "weponbox_1_0_1",
     name: "Smelting Forge Issue",
     type: "weapon",
-    startTime: "2026-01-22 03:00:00",
+    startTime: "2026-01-22 00:00:00",
     endTime: "2026-03-16 11:59:59",
     gameVersion: "0.2.0",
     featured6: ["forgebornScathe"],
@@ -113,7 +113,7 @@ export const banners = [
     icon: "weapon_banner_01.jpg",
     miniIcon: "weapon_banner_01.jpg",
     url: "https://x.com/AKEndfield/status/2013838974239023147",
-    layer: 6,
+    layer: 8,
     color: "#e44e25",
     iconPosition: 50,
     showOnMain: true
@@ -223,14 +223,14 @@ export const banners = [
     featured6: ["deliveryGuaranteed"],
     featured5: [],
     isServerTime: true, 
-    timezone: "UTC+0",
+    timezone: "UTC-5",
     icon: "weapon_banner_02.jpg",
     miniIcon: "weapon_banner_02.jpg",
     url: "",
-    layer: 7,
+    layer: 9,
     color: "#858585",
     iconPosition: 50,
-    showOnMain: false
+    showOnMain: true
   },
   {
     id: "weponbox_1_0_3",
@@ -242,13 +242,13 @@ export const banners = [
     featured6: ["artzyTyrannical"],
     featured5: [],
     isServerTime: true, 
-    timezone: "UTC+0",
+    timezone: "UTC-5",
     icon: "weapon_banner_03.jpg",
     miniIcon: "weapon_banner_03.jpg",
     url: "",
-    layer: 8,
+    layer: 10,
     color: "#b336a2",
     iconPosition: 50,
-    showOnMain: false
+    showOnMain: true
   }
 ];

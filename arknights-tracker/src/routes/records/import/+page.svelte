@@ -95,7 +95,6 @@
     function handleInputProcessing(e) {
         const rawValue = e.target.value;
 
-        // 1. Сразу сбрасываем ошибки при вводе
         errorMsg = "";
         isInputError = false;
 
@@ -105,24 +104,20 @@
             return;
         }
 
-        // 2. Если это ссылка
         if (rawValue.trim().startsWith("http")) {
             urlInput = rawValue;
             realImportUrl = rawValue;
             return;
         }
 
-        // 3. Обработка JSON токена
         let cleanToken = rawValue.trim();
 
         if (cleanToken.includes("token")) {
             try {
-                // Пытаемся найти token внутри JSON
                 const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
                 if (jsonMatch && jsonMatch[1]) {
                     cleanToken = jsonMatch[1];
                 } else {
-                    // Очистка от кавычек по краям, если юзер скопировал "..."
                     if (
                         cleanToken.startsWith("'") ||
                         cleanToken.startsWith('"')
@@ -133,7 +128,6 @@
                     if (obj.token) cleanToken = obj.token;
                 }
             } catch (err) {
-                // Если JSON битый, пробуем просто обрезать края
                 cleanToken = cleanToken
                     .replace(/^{"token":"/, "")
                     .replace(/"}$/, "");
@@ -142,7 +136,6 @@
 
         if (!cleanToken) return;
 
-        // 4. Формируем ссылку для отправки
         const encodedToken = encodeURIComponent(cleanToken);
         const baseUrl =
             "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
@@ -150,10 +143,7 @@
             "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
 
         realImportUrl = baseUrl + encodedToken + tail;
-
-        // 5. Показываем юзеру чистый токен (или то, что он ввел)
         urlInput = cleanToken;
-        // ВАЖНО: Обновляем значение в поле, чтобы убрать лишний JSON мусор визуально
         e.target.value = cleanToken;
     }
     async function handleUrlImport() {
@@ -162,14 +152,12 @@
 
         const urlToSend = realImportUrl || urlInput;
 
-        // 1. Проверка на пустоту
         if (!urlToSend || !urlToSend.trim()) {
             isInputError = true;
             errorMsg = $t("import.error_empty") || "Link or Token is required";
             return;
         }
 
-        // 2. Проверка имени токена (если сохраняем)
         if (isSaveTokenEnabled && !tokenName.trim()) {
             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
             if (!alreadyExists) {
@@ -181,7 +169,6 @@
             }
         }
 
-        // 3. Валидация URL/Домена
         try {
             const parsedUrl = new URL(urlToSend);
             if (parsedUrl.protocol !== "https:") {
@@ -220,6 +207,19 @@
                     accountStore.setServerUid(importedUid);
                 }
 
+                const backendServerId = response.data.serverId;
+                
+                if (backendServerId) {
+                    const SERVER_STORAGE_KEY = "ark_server_id";
+                    const currentServerId = localStorage.getItem(SERVER_STORAGE_KEY);
+                    if (!currentServerId || currentServerId === "2") {
+                        if (backendServerId !== currentServerId) {
+                            localStorage.setItem(SERVER_STORAGE_KEY, String(backendServerId));
+                            console.log(`Global Server ID auto-updated to: ${backendServerId}`);
+                        }
+                    }
+                }
+
                 if (isSaveTokenEnabled && tokenName.trim()) {
                     saveTokenToStorage(tokenName.trim(), urlToSend);
                 }
@@ -231,7 +231,6 @@
                 const report = await pullData.smartImport(cleanPulls, true);
                 previewReport = report;
             } else {
-                // --- ОБРАБОТКА ОШИБОК ОТ СЕРВЕРА ---
                 const rawError =
                     response.error ||
                     response.message ||
@@ -255,7 +254,6 @@
         } catch (err) {
             console.error("Import Error:", err);
 
-            // Проверяем текст ошибки из catch (если сервер вернул 429 или 500 через throw)
             const msg = err.message || "";
 
             if (msg.includes("Too many requests") || msg.includes("429")) {

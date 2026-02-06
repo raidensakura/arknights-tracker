@@ -70,5 +70,33 @@ export const rawEvents = [
       layer: 2,
       type: "web", 
       iconPosition: 54
+    },
+    {
+      id: "ev6-v1.0",
+      title: "events.glitteringLifeAtWuling",
+      startTime: "2026-02-07 12:00:00",
+      endTime: "2026-02-28 04:00:00",
+      gameversion: "global",
+      timezone: "UTC+8",
+      icon: "ev6-v1.0.jpg",
+      url: "https://x.com/AKEndfield/status/2019652274897776708?s=20",
+      color: "#787875",
+      layer: 5,
+      type: "inGame", 
+      iconPosition: 53
+    },
+    {
+      id: "ev7-v1.0",
+      title: "events.carlysFairytaleOfTheValley",
+      startTime: "2026-02-07 12:00:00",
+      endTime: "2026-02-28 04:00:00",
+      gameversion: "global",
+      timezone: "UTC+8",
+      icon: "ev7-v1.0.jpg",
+      url: "https://x.com/AKEndfield/status/2019644725309960481?s=20",
+      color: "#f8f40d",
+      layer: 6,
+      type: "inGame", 
+      iconPosition: 52
     }
 ];

@@ -10,48 +10,115 @@
     import BannerModal from "$lib/components/BannerModal.svelte";
     import Images from "$lib/components/Images.svelte";
 
-    const TIMEZONES = {
-        local: { name: "Local", offset: 0 },
-        utc7: { name: "UTC-7", offset: -7 },
-        utc8: { name: "UTC+8", offset: 8 },
+    let currentServerId = "3"; // По умолчанию 3 (America/Europe)
+
+    $: serverOffset = currentServerId === "2" ? 8 : -5;
+    $: serverName = currentServerId === "2" ? "Asia (UTC+8)" : "Global (UTC-5)";
+
+    function parseServerDate(dateStr) {
+        if (!dateStr) return null;
+        if (dateStr.includes("Z") || dateStr.includes("+"))
+            return new Date(dateStr);
+
+        const offset = serverOffset;
+        const sign = offset >= 0 ? "+" : "-";
+        const pad = (n) => String(Math.abs(n)).padStart(2, "0");
+        const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+        return new Date(isoStr);
+    }
+    $: TIMEZONES = {
+        local: { name: $t("timeline.local") || "Local", offset: "local" },
+        server: { name: serverName, offset: serverOffset },
     };
+
     let selectedTimezone = "local";
     let showTimezoneMenu = false;
-    const allEvents = [
-    ...rawEvents.map((e) => ({
-        ...e,
-        originalType: e.type,
-        type: e.type || "ingame",
-    })),
-    ...banners
-        .filter((b) => b.endTime !== null)
-        .map((b) => ({
-            ...b,
-            originalType: b.type,
-            type: "banner",
-            showOnMain: b.showOnMain 
-        })),
-];
 
-allEvents.sort((a, b) => {
-    const timeA = new Date(a.startTime).getTime();
-    const timeB = new Date(b.startTime).getTime();
+    $: allEvents = [serverOffset, ...rawEvents]
+        .slice(1)
+        .map((e) => ({
+            ...e,
+            originalType: e.type,
+            type: e.type || "ingame",
+            realStartTime: parseServerDate(e.startTime),
+            realEndTime: e.endTime ? parseServerDate(e.endTime) : null,
+        }))
+        .concat(
+            banners
+                .filter((b) => b.endTime !== null)
+                .map((b) => ({
+                    ...b,
+                    originalType: b.type,
+                    type: "banner",
+                    showOnMain: b.showOnMain,
+                    realStartTime: parseServerDate(b.startTime), // И здесь
+                    realEndTime: b.endTime ? parseServerDate(b.endTime) : null,
+                })),
+        )
+        .sort((a, b) => {
+            const timeA = a.realStartTime ? a.realStartTime.getTime() : 0;
+            const timeB = b.realStartTime ? b.realStartTime.getTime() : 0;
 
-    if (timeA !== timeB) {
-        return timeA - timeB;
+            if (timeA !== timeB) return timeA - timeB;
+
+            const mainA = !!a.showOnMain;
+            const mainB = !!b.showOnMain;
+            if (mainA !== mainB) return mainA ? 1 : -1;
+
+            return (a.id || "").localeCompare(b.id || "");
+        });
+
+    let processedEvents = [];
+    let separatorLines = [];
+
+    $: {
+        const maxGapMs = 2 * 60 * 60 * 1000;
+        const groupedByLayer = {};
+        const tempEvents = allEvents.map((e) => ({
+            ...e,
+            connectLeft: false,
+            connectRight: false,
+        }));
+
+        tempEvents.forEach((e) => {
+            const l = e.layer || 0;
+            if (!groupedByLayer[l]) groupedByLayer[l] = [];
+            groupedByLayer[l].push(e);
+        });
+
+        const lines = [];
+
+        Object.values(groupedByLayer).forEach((layerEvents) => {
+            layerEvents.sort((a, b) => a.realStartTime - b.realStartTime);
+
+            for (let i = 0; i < layerEvents.length - 1; i++) {
+                const current = layerEvents[i];
+                const next = layerEvents[i + 1];
+
+                const diff = next.realStartTime - current.realEndTime;
+
+                if (diff >= 0 && diff <= maxGapMs) {
+                    current.connectRight = true;
+                    next.connectLeft = true;
+
+                    const posX = getPositionX(current.realEndTime);
+
+                    lines.push({
+                        left: posX,
+                        top:
+                            current.layer * (ROW_HEIGHT + GAP_HEIGHT) +
+                            HEADER_HEIGHT_PX +
+                            EVENT_TOP_OFFSET,
+                        height: ROW_HEIGHT,
+                        color: "rgba(255, 255, 255, 0.6)", 
+                    });
+                }
+            }
+        });
+
+        processedEvents = tempEvents;
+        separatorLines = lines;
     }
-
-    const mainA = !!a.showOnMain;
-    const mainB = !!b.showOnMain;
-
-    if (mainA !== mainB) {
-        return mainA ? 1 : -1; 
-    }
-
-    return (a.id || "").localeCompare(b.id || "");
-});
-
-const displayEvents = allEvents;
 
     function handleClickOutside(event) {
         if (!showTimezoneMenu) return;
@@ -76,30 +143,14 @@ const displayEvents = allEvents;
         return "event-icon";
     }
 
-    onMount(() => {
-        if (browser) {
-            if (bodyContainer) {
-                bodyContainer.scrollLeft = currentTimeX - 300;
-            }
-            timerInterval = setInterval(() => {
-                now = new Date();
-            }, 1000);
-            document.addEventListener("click", handleClickOutside);
-        }
-    });
-
-    onDestroy(() => {
-        if (browser && timerInterval) clearInterval(timerInterval);
-        if (browser) document.removeEventListener("click", handleClickOutside);
-    });
-
-    function convertTime(dateStr, targetTz) {
-        const date = new Date(dateStr);
-        if (targetTz === "local") return date;
-
-        const offset = TIMEZONES[targetTz].offset;
+    function convertTime(dateInput, targetTzKey) {
+        const date = new Date(dateInput);
+        if (targetTzKey === "local") return date;
+        const tzData = TIMEZONES[targetTzKey];
+        if (!tzData) return date;
+        const targetOffset = tzData.offset;
         const utc = date.getTime() + date.getTimezoneOffset() * 60000;
-        return new Date(utc + 3600000 * offset);
+        return new Date(utc + 3600000 * targetOffset);
     }
 
     const DAY_WIDTH = 35;
@@ -135,15 +186,16 @@ const displayEvents = allEvents;
 
     const totalWidth = days.length * DAY_WIDTH;
 
-    function getPositionX(dateStr) {
-        const date = convertTime(dateStr, selectedTimezone);
-        const diffTime = date - startDate;
+    function getPositionX(dateInput) {
+        const displayDate = convertTime(dateInput, selectedTimezone);
+        const diffTime = displayDate.getTime() - startDate.getTime();
         return (diffTime / (1000 * 60 * 60 * 24)) * DAY_WIDTH;
     }
 
-    function getWidth(startStr, endStr) {
-        const start = convertTime(startStr, selectedTimezone);
-        const end = convertTime(endStr, selectedTimezone);
+    function getWidth(startInput, endInput) {
+        if (!startInput || !endInput) return DAY_WIDTH;
+        const start = convertTime(startInput, selectedTimezone);
+        const end = convertTime(endInput, selectedTimezone);
         const diff = end - start;
         return Math.max(
             (diff / (1000 * 60 * 60 * 24)) * DAY_WIDTH,
@@ -151,9 +203,10 @@ const displayEvents = allEvents;
         );
     }
 
-    function getRemainingTime(endStr, t) {
-        const end = convertTime(endStr, selectedTimezone);
-        const diff = end - now;
+    function getRemainingTime(endInput, t) {
+        if (!endInput) return null;
+        const diff = endInput - now;
+
         if (diff <= 0) return null;
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -161,14 +214,13 @@ const displayEvents = allEvents;
         return t("timer.h", { h });
     }
 
-    function getTimeUntilStart(startStr, t) {
-        const start = convertTime(startStr, selectedTimezone);
-        const diff = start - now;
-        if (diff <= 0) return null;
+    function getTimeUntilStart(startInput, t) {
+        if (!startInput) return null;
+        const diff = startInput - now;
 
+        if (diff <= 0) return null;
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
         if (d > 0) return t("timer.in_d_h", { d, h });
         return t("timer.in_h", { h });
     }
@@ -176,8 +228,8 @@ const displayEvents = allEvents;
     $: currentTimeX = getPositionX(now);
     $: currentTimeData = formatCurrentTime(now, selectedTimezone);
 
-    function formatCurrentTime(date, timezone) {
-        const adjustedDate = convertTime(date.toISOString(), timezone);
+    function formatCurrentTime(date, timezoneKey) {
+        const adjustedDate = convertTime(date, timezoneKey);
         const dd = String(adjustedDate.getDate()).padStart(2, "0");
         const dayKey = adjustedDate
             .toLocaleString("en-US", { weekday: "short" })
@@ -203,17 +255,24 @@ const displayEvents = allEvents;
 
     onMount(() => {
         if (browser) {
-            if (bodyContainer) {
-                bodyContainer.scrollLeft = currentTimeX - 300;
-            }
+            currentServerId = localStorage.getItem("ark_server_id") || "3";
+
+            setTimeout(() => {
+                if (bodyContainer) {
+                    bodyContainer.scrollLeft = currentTimeX - 300;
+                }
+            }, 100);
+
             timerInterval = setInterval(() => {
                 now = new Date();
             }, 1000);
+            document.addEventListener("click", handleClickOutside);
         }
     });
 
     onDestroy(() => {
         if (browser && timerInterval) clearInterval(timerInterval);
+        if (browser) document.removeEventListener("click", handleClickOutside);
     });
 
     let bannerForModal = null;
@@ -279,7 +338,7 @@ const displayEvents = allEvents;
     {#if showTimezoneMenu}
         <div
             data-timezone-menu
-            class="absolute bg-[#21272C]  rounded-lg shadow-xl border border-gray-600 py-1 w-[120px] z-[100]"
+            class="absolute bg-[#21272C] rounded-lg shadow-xl border border-gray-600 py-1 w-[120px] z-[100]"
             style="
         left: {currentTimeX - scrollLeft}px; 
         top: 60px;
@@ -342,9 +401,7 @@ const displayEvents = allEvents;
                         >
                             <button
                                 data-timezone-badge
-                                on:click|stopPropagation={() =>
-                                    (showTimezoneMenu = !showTimezoneMenu)}
-                                class="bg-[#FACC15] text-white text-[10px] bg-opacity-[18%] font-bold px-3 py-1 rounded-full whitespace-nowrap shadow-md border border-yellow-600 hover:bg-yellow-400 hover:scale-105 transition-all duration-200"
+                                class="bg-[#FACC15] text-white hover:text-gray-800 text-[10px] bg-opacity-[18%] font-bold px-3 py-1 rounded-full whitespace-nowrap shadow-md border border-yellow-600 hover:bg-yellow-400"
                             >
                                 &lt; {currentTimeData.dd}
                                 {$t(`weekdays.${currentTimeData.dayKey}`)}
@@ -398,130 +455,106 @@ const displayEvents = allEvents;
                 class="relative px-0"
                 style="padding-top: {HEADER_HEIGHT_PX}px;"
             >
-                {#each displayEvents as event}
+                {#each separatorLines as line}
+                    <div
+                        class="absolute z-30 pointer-events-none"
+                        style="
+                            left: {line.left}px;
+                            top: {line.top}px;
+                            height: {line.height}px;
+                            width: 3px; /* Толщина разделителя */
+                            background-color: {line.color};
+                            transform: translateX(-50%); /* Центрируем по оси X */
+                            box-shadow: 0 0 4px rgba(0,0,0,0.3); /* Тень для объема */
+                        "
+                    ></div>
+                {/each}
+
+                {#each processedEvents as event}
                     {@const badge = getEventBadge(event)}
 
                     <div
                         class="absolute transition-all group"
                         style="
-            left: {getPositionX(event.startTime)}px;
-            width: {getWidth(event.startTime, event.endTime)}px;
-            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) +
-                            HEADER_HEIGHT_PX +
-                            EVENT_TOP_OFFSET}px; 
-            height: {ROW_HEIGHT}px;
-            z-index: 20;
-        "
+                            left: {getPositionX(event.realStartTime)}px;
+                            width: {getWidth(event.realStartTime, event.realEndTime)}px;
+                            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) + HEADER_HEIGHT_PX + EVENT_TOP_OFFSET}px; 
+                            height: {ROW_HEIGHT}px;
+                            z-index: 20;
+                        "
                     >
                         <button
                             on:click={() => openEvent(event)}
                             class="relative block w-full h-full text-left focus:outline-none"
                         >
                             <div
-                                class="absolute inset-0 overflow-hidden rounded shadow-sm hover:ring-1 ring-offset-1 ring-offset-transparent transition-all"
+                                class="absolute inset-0 overflow-hidden shadow-sm hover:ring-1 ring-offset-1 ring-offset-transparent transition-all
+                                {event.connectLeft ? 'rounded-l-none border-l-0' : 'rounded-l'} 
+                                {event.connectRight ? 'rounded-r-none border-r-0' : 'rounded-r'}"
                                 style="
-                    background-color: {event.color};
-                    border-right: 4px solid {event.color};
-                "
+                                    background-color: {event.color};
+                                    /* Если есть соединение справа, убираем правую границу, иначе рисуем */
+                                    border-right: {event.connectRight ? 'none' : `4px solid ${event.color}`};
+                                "
                             >
-                                <div
-                                    class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform group-hover:scale-105"
-                                >
+                                <div class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform group-hover:scale-105">
                                     <Images
                                         item={event}
                                         variant={getVariant(event)}
                                         className="w-full h-full"
                                         style={`
-                            object-position: right ${event.iconPosition || 50}%;
-                            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%);
-                            mask-image: linear-gradient(to right, transparent 0%, black 50%);
-                        `}
+                                            object-position: right ${event.iconPosition || 50}%;
+                                            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%);
+                                            mask-image: linear-gradient(to right, transparent 0%, black 50%);
+                                        `}
                                     />
                                 </div>
-
+                                
                                 <div
                                     class="absolute inset-0 z-10"
                                     style="background: linear-gradient(90deg, {event.color} 35%, {event.color}D9 50%, transparent 100%);"
                                 ></div>
                             </div>
 
-                            <div
-                                class="relative z-20 h-full w-full pointer-events-none"
-                            >
-                                <div
-                                    class="sticky left-0 inline-flex items-center gap-3 px-3 h-full max-w-full pointer-events-auto"
-                                >
+                            <div class="relative z-20 h-full w-full pointer-events-none">
+                                <div class="sticky left-0 inline-flex items-center gap-3 px-3 h-full max-w-full pointer-events-auto">
                                     {#if badge}
-                                        <div
-                                            class="flex items-center gap-1.5 rounded px-2 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}"
-                                        >
-                                            <Icon
-                                                name={badge.icon}
-                                                class="w-3.5 h-3.5"
-                                            />
-                                            <span
-                                                class="text-[10px] font-bold uppercase tracking-wide opacity-90"
-                                            >
+                                        <div class="flex items-center gap-1.5 rounded px-2 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}">
+                                            <Icon name={badge.icon} class="w-3.5 h-3.5" />
+                                            <span class="text-[10px] font-bold uppercase tracking-wide opacity-90">
                                                 {badge.label}
                                             </span>
                                         </div>
                                     {/if}
 
-                                    <div
-                                        class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"
-                                    ></div>
+                                    <div class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"></div>
 
-                                    <div
-                                        class="flex flex-col justify-center min-w-0"
-                                    >
-                                        <span
-                                            class="text-white font-bold text-sm leading-tight truncate drop-shadow-md"
-                                        >
+                                    <div class="flex flex-col justify-center min-w-0">
+                                        <span class="text-white font-bold text-sm leading-tight truncate drop-shadow-md">
                                             {getEventName(event)}
                                         </span>
-                                        <span
-                                            class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
-                                        >
-                                            {new Date(
-                                                event.startTime,
-                                            ).getDate()}
-                                            {$t(
-                                                `months_gen.${new Date(event.startTime).toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
-                                            )}
+                                        <span class="text-white/80 text-[10px] uppercase font-bold tracking-wider">
+                                            {event.realStartTime.getDate()}
+                                            {$t(`months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </button>
-
-                        {#if now >= convertTime(event.startTime, selectedTimezone) && getRemainingTime(event.endTime, $t)}
-                            <div
-                                class="absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap z-30 flex items-center"
-                            >
-                                <span
-                                    class="text-xs font-bold text-green-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-green-200"
-                                >
-                                    {getRemainingTime(event.endTime, $t)}
+                        
+                        {#if now >= event.realStartTime && getRemainingTime(event.realEndTime, $t)}
+                           <div class="absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap z-30 flex items-center">
+                                <span class="text-xs font-bold text-green-600 dark:bg-white/85 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-green-200">
+                                    {getRemainingTime(event.realEndTime, $t)}
                                 </span>
-                                <div
-                                    class="absolute -left-1 w-2 h-2 bg-green-500 rounded-full animate-pulse"
-                                ></div>
-                            </div>
+                           </div>
                         {/if}
-
-                        {#if now < convertTime(event.startTime, selectedTimezone) && getTimeUntilStart(event.startTime, $t)}
-                            <div
-                                class="absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap z-30 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto"
-                            >
-                                <span
-                                    class="text-xs font-bold text-blue-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-blue-200"
-                                >
-                                    {getTimeUntilStart(event.startTime, $t)}
+                        {#if now < event.realStartTime && getTimeUntilStart(event.realStartTime, $t)}
+                           <div class="absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap z-30 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+                                <span class="text-xs font-bold text-blue-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-blue-200">
+                                    {getTimeUntilStart(event.realStartTime, $t)}
                                 </span>
-                                <div
-                                    class="absolute -right-1 w-2 h-2 bg-blue-500 rounded-full"
-                                ></div>
-                            </div>
+                           </div>
                         {/if}
                     </div>
                 {/each}

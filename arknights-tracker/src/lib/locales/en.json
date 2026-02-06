@@ -173,7 +173,7 @@
     "ios_step7": "Return to the Stream app and tap the large Sniff Now button.",
     "ios_step8": "Return to the game and refresh the history page (switch tabs or reopen it).",
     "ios_step9": "Return to Stream and tap Stop Sniffing.",
-    "ios_step10": "Go to Sniff History. Find the request starting with <span class='bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-600 border border-gray-200 select-all break-all whitespace-normal inline-block'>https://ef-webview.gryphline.com</span>",
+    "ios_step10": "Go to Sniff History. Find the request starting with <span class='bg-gray-100 px-1.5 py-0.5 dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] rounded text-sm font-mono text-gray-600 border border-gray-200 select-all break-all whitespace-normal inline-block'>https://ef-webview.gryphline.com</span>",
     "ios_step11": "Open it, go to the Request tab, and copy the link (starts with https).",
     "ios_step12": "Paste the obtained link below",
     "error_empty": "Link or Token is required",
@@ -277,7 +277,9 @@
     "final_prep_orders": "Final Prep Orders",
     "awakaningSignIn": "Awakening Sign-In Event",
     "etchspaceSalvage": "Etchspace Salvage",
-    "workLogbook": "Endministrator Work Logbook"
+    "workLogbook": "Endministrator Work Logbook",
+    "glitteringLifeAtWuling": "Glittering Life at Wuling",
+    "carlysFairytaleOfTheValley": "Carly's Fairytale of the Valley"
   },
   "mouths": {
     "january": "January",
@@ -310,6 +312,12 @@
   "timer": {
     "ongoing_active": "Ongoing ({n} days active)",
     "left_d_h": "{d}d {h}h left",
+    "left_h": "{h}h",
+    "left_h_m": "{h}h {m}min left",
+    "starts_in_h_m": "in {h}h {m}min",
+    "starts_in_m": "in {m}min",
+    "starts_in_d_h": "in {d}d {h}h",
+    "starts_in_h": "in {h}h",
     "days_ago": "{n} days ago",
     "hours_ago": "{n} hours ago",
     "just_now": "Just now",
@@ -318,7 +326,6 @@
     "h": "{h}h",
     "in_d_h": "in {d}d {h}h",
     "in_h": "in {h}h",
-    "starts_in_d_h": "{d}d {h}h",
     "starts_in_hours": "{n}h",
     "starts_soon": "Starting soon"
   },
@@ -496,6 +503,10 @@
       "yesClear": "Yes, clear data",
       "clearDescription": "This will permanently delete all pull history for the current account. This action cannot be undone.",
       "deleteModalDesc": "You are about to delete the account «{name}» and all its data. This action cannot be undone."
+    },
+    "server": {
+      "title": "Select server",
+      "hint": "The selected server affects the time display on the website"
     },
     "cloud": {
       "title": "Cloud Synchronization",

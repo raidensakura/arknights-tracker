@@ -20,6 +20,37 @@
 
     const dispatch = createEventDispatcher();
 
+    // --- ЛОГИКА ВРЕМЕНИ СЕРВЕРА ---
+    let serverOffset = -5; // Default Global (UTC-5)
+
+    // Функция парсинга даты с учетом сервера
+    function parseServerDate(dateStr) {
+        if (!dateStr) return null;
+        if (dateStr instanceof Date) return dateStr; // Если уже Date
+        if (dateStr.includes("Z") || dateStr.includes("+")) return new Date(dateStr);
+
+        const offset = serverOffset;
+        const sign = offset >= 0 ? "+" : "-";
+        const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+        // Превращаем "2026-01-22 12:00:00" в ISO с офсетом
+        const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+        return new Date(isoStr);
+    }
+
+    onMount(() => {
+        if (typeof window !== "undefined") {
+            // Читаем выбранный сервер
+            const sid = localStorage.getItem("ark_server_id");
+            // Server 2 = Asia (UTC+8), иначе Global (UTC-5)
+            serverOffset = sid === "2" ? 8 : -5;
+
+            // URL History update
+            if (banner && banner.id) {
+                replaceState(`#banner-${banner.id}`, {});
+            }
+        }
+    });
+
     // --- Helpers ---
     function normalize(str) {
         return String(str || "").toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -27,6 +58,9 @@
 
     function formatTime(d) {
         if (!d) return "";
+        // d может быть null или Date. 
+        // ВАЖНО: Мы показываем время в локальной зоне пользователя, 
+        // но сам объект d уже скорректирован под серверное время (абсолютный момент)
         return d.toLocaleString("ru-RU", {
             day: "2-digit",
             month: "2-digit",
@@ -47,12 +81,6 @@
         if (rarity === 5) return "#E3BC55";
         return "#888";
     }
-
-    onMount(() => {
-        if (banner && banner.id && typeof window !== "undefined") {
-            replaceState(`#banner-${banner.id}`, {});
-        }
-    });
 
     function close() {
         if (typeof window !== "undefined" && window.location.hash) {
@@ -82,7 +110,7 @@
         );
     })();
 
-    // --- 1. ГИБКИЙ ВЫБОР ДАННЫХ (Fix для оружия) ---
+    // Получаем историю круток (логика без изменений)
     $: categoryPulls = (() => {
         if (!banner || !$pullData) return [];
         
@@ -92,20 +120,15 @@
         const type = (banner.type || "").toLowerCase();
 
         if (isWeaponBanner) {
-            // Если это Постоянный/Стандартный оружейный
             if (id.includes('constant') || id.includes('standard') || type === 'weap-standard') {
                 keysToCheck = ['weap-standard', 'weapon-standard', 'wepon-standard', 'standard-weapon'];
             } 
-            // Иначе считаем это Ивентовым/Специальным оружием
             else {
                 keysToCheck = ['weap-special', 'weapon-special', 'wepon-special', 'special-weapon', 'weapon', 'wepon'];
             }
-            
-            // Добавляем ID самого баннера как фоллбэк
             if (banner.id) keysToCheck.push(banner.id);
         } 
         else {
-            // Персонажи (тут строго, чтобы не смешивать)
             if (id === 'standard' || id.includes('standard') || type === 'standard') {
                 keysToCheck = ['standard'];
             } else if (id.includes('new') || type === 'new-player') {
@@ -115,7 +138,6 @@
             }
         }
 
-        // Ищем первый ключ, в котором есть непустой массив
         for (const key of keysToCheck) {
             const data = $pullData[key];
             if (data && Array.isArray(data.pulls) && data.pulls.length > 0) {
@@ -156,16 +178,20 @@
         });
     };
 
-    // --- РАСЧЕТ СТАТИСТИКИ ---
+    // --- СТАТИСТИКА (с использованием скорректированных дат) ---
+    // Мы должны пересчитать realStart/realEnd здесь, так как они нужны для фильтрации истории
+    $: realStart = banner ? parseServerDate(banner.startTime) : new Date();
+    $: realEnd = banner && banner.endTime ? parseServerDate(banner.endTime) : null;
+
     $: bannerData = (() => {
         if (!banner || !categoryPulls.length || isEvent) {
             return { pulls: [], stats: {} };
         }
 
-        const bStart = new Date(banner.startTime).getTime();
-        const bEnd = banner.endTime ? new Date(banner.endTime).getTime() : Infinity;
+        // Используем уже распаршенные даты
+        const bStart = realStart.getTime();
+        const bEnd = realEnd ? realEnd.getTime() : Infinity;
 
-        // 1. Сортируем ВСЮ историю
         const fullHistory = [...categoryPulls].sort((a, b) => {
             const tA = new Date(a.time).getTime();
             const tB = new Date(b.time).getTime();
@@ -173,43 +199,33 @@
             return (a.seqId || 0) - (b.seqId || 0);
         });
 
-        // 2. Рассчитываем PITY
         let simPity5 = 0;
-        let simPity6 = 0; // На случай отсутствия в базе
+        let simPity6 = 0;
 
         const historyWithPity = fullHistory.map(pull => {
             const p = { ...pull };
             const isFree = p.isFree === true || String(p.isFree) === "true";
 
-            // Увеличиваем Pity ТОЛЬКО если крутка платная
             if (!isFree) {
                 simPity5++;
                 simPity6++;
             }
 
-            // 6*: Берем из базы, если есть. Иначе наш подсчет
             p.calculatedPity6 = (p.pity !== undefined && p.pity !== null) ? Number(p.pity) : simPity6;
-            
-            // 5*: Берем наш подсчет
             p.calculatedPity5 = simPity5;
 
-            // Сброс
             if (p.rarity === 6) simPity6 = 0;
             if (p.rarity === 5) simPity5 = 0;
 
             return p;
         });
 
-        // 3. Фильтруем по датам
-        // ВАЖНО: Для Оружия мы не проверяем bannerId так строго, как для персонажей,
-        // потому что в базе weapon bannerId часто просто "weapon" или "weap-special", без разделения на ID баннера
         const filtered = historyWithPity.filter((pull) => {
             const pullTime = new Date(pull.time).getTime();
             const timeMatch = pullTime >= bStart && pullTime <= bEnd;
             
-            // Для Стандарта персонажей добавляем проверку, чтобы не лез Спешл
             if (!isWeaponBanner && banner.id === 'standard') {
-                return timeMatch && (pull.bannerId === 'standard' || pull.bannerId === '1'); // 1 - часто ID стандарта
+                return timeMatch && (pull.bannerId === 'standard' || pull.bannerId === '1');
             }
             
             return timeMatch;
@@ -217,7 +233,6 @@
 
         if (filtered.length === 0) return { pulls: [], stats: {} };
 
-        // 4. Итоговый подсчет
         const hardPityLimit = isWeaponBanner ? 80 : 120;
         
         let count6 = 0, count5 = 0;
@@ -263,7 +278,7 @@
             }
 
             return p;
-        }).reverse(); // Новые сверху
+        }).reverse();
 
         const total = processed.length;
 
@@ -290,20 +305,21 @@
     $: bannerPulls = bannerData.pulls;
     $: bannerStats = bannerData.stats;
 
-    // --- Time Data ---
+    // --- Time Data (ОБНОВЛЕНО) ---
+    // Используем realStart и realEnd, которые зависят от serverOffset
     $: now = new Date();
-    $: start = banner ? new Date(banner.startTime) : new Date();
-    $: end = banner && banner.endTime ? new Date(banner.endTime) : null;
-    $: isEnded = end && now > end;
-    $: isActive = now >= start && (!end || now <= end);
-    $: isUpcoming = now < start;
+    
+    // ВАЖНО: Мы используем realStart/realEnd, которые уже реактивны к serverOffset
+    $: isEnded = realEnd && now > realEnd;
+    $: isActive = now >= realStart && (!realEnd || now <= realEnd);
+    $: isUpcoming = now < realStart;
 
     $: diff = (() => {
         if (!banner) return 0;
-        if (!end && isActive) return now - start;
-        if (isActive && end) return end - now;
-        if (isEnded && end) return now - end;
-        if (isUpcoming) return start - now;
+        if (!realEnd && isActive) return now - realStart;
+        if (isActive && realEnd) return realEnd - now;
+        if (isEnded && realEnd) return now - realEnd;
+        if (isUpcoming) return realStart - now;
         return 0;
     })();
 
@@ -311,8 +327,9 @@
         ? {
               days: Math.floor(diff / 86400000),
               hours: Math.floor((diff / 3600000) % 24),
+              minutes: Math.floor((diff / 60000) % 60),
           }
-        : { days: 0, hours: 0 };
+        : { days: 0, hours: 0, minutes: 0 };
 </script>
 
 {#if banner}
@@ -388,7 +405,7 @@
                                 >{$t("systemNames.start")}</span
                             >
                             <span class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
-                                >{formatTime(start)}</span
+                                >{formatTime(realStart)}</span
                             >
                         </div>
                         <div class="flex flex-col gap-0.5 text-right">
@@ -397,7 +414,7 @@
                                 >{$t("systemNames.end")}</span
                             >
                             <span class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
-                                >{end ? formatTime(end) : "∞"}</span
+                                >{realEnd ? formatTime(realEnd) : "∞"}</span
                             >
                         </div>
                     </div>
@@ -405,50 +422,52 @@
                     <div
                         class="p-3 bg-gray-50 rounded-xl border dark:border-[#444444] dark:bg-[#343434] border-gray-100 text-center"
                     >
-                        {#if !end}
+                        {#if !realEnd}
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("systemNames.status")}
                             </div>
-                            <div
-                                class="text-blue-600  font-bold font-nums text-lg leading-none"
-                            >
-                                {$t("timer.ongoing_active", {
-                                    n: timeData.days,
-                                })}
+                            <div class="text-blue-600 font-bold font-nums text-lg leading-none">
+                                {$t("timer.ongoing_active", { n: timeData.days })}
                             </div>
+
                         {:else if isActive}
                             <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
                                 {$t("systemNames.timeRemaining")}
                             </div>
-                            <div
-                                class="text-green-600 font-bold font-nums text-lg leading-none"
-                            >
-                                {$t("timer.left_d_h", {
-                                    d: timeData.days,
-                                    h: timeData.hours,
-                                })}
+                            <div class="text-green-600 dark:text-green-500 font-bold font-nums text-lg leading-none">
+                                {#if timeData.days > 0}
+                                    {$t("timer.left_d_h", { d: timeData.days, h: timeData.hours })}
+                                {:else if timeData.hours > 0}
+                                    {$t("timer.left_h_m", { h: timeData.hours, m: timeData.minutes }) || `${timeData.hours}h ${timeData.minutes}m`}
+                                {:else}
+                                    {$t("timer.left_m", { m: timeData.minutes }) || `${timeData.minutes}m`}
+                                {/if}
                             </div>
+
                         {:else if isEnded}
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("status.ended") || "Ended"}
                             </div>
-                            <div
-                                class="text-gray-400 font-bold font-nums text-base leading-none"
-                            >
+                            <div class="text-gray-400 font-bold font-nums text-base leading-none">
                                 {$t("timer.days_ago", { n: timeData.days })}
                             </div>
+
                         {:else if isUpcoming}
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("systemNames.startsIn")}
                             </div>
-                            <div
-                                class="text-blue-600 font-bold font-nums text-lg leading-none"
-                            >
-                                {$t("timer.starts_soon")}
+                            <div class="text-blue-600 dark:text-blue-500 font-bold font-nums text-lg leading-none">
+                                {#if timeData.days > 0}
+                                    {$t("timer.starts_in_d_h", { d: timeData.days, h: timeData.hours }) || `${timeData.days}d ${timeData.hours}h`}
+                                {:else if timeData.hours > 0}
+                                    {$t("timer.starts_in_h_m", { h: timeData.hours, m: timeData.minutes }) || `${timeData.hours}h ${timeData.minutes}m`}
+                                {:else}
+                                    {$t("timer.starts_in_m", { m: timeData.minutes }) || `${timeData.minutes}m`}
+                                {/if}
                             </div>
                         {/if}
                     </div>
-                </div>
+                    </div>
 
                 {#if banner.url}
                     <a
