@@ -40,7 +40,7 @@
 
     $: currentAccount = $accounts.find(a => a.id === $selectedId);
     $: currentServerId = currentAccount?.serverId || '3';
-    $: serverOffset = (currentServerId === '2' || currentServerId === '1') ? 8 : -7;
+    $: serverOffset = (currentServerId === '2' || currentServerId === '1') ? 8 : -5;
 
     function parseServerDate(dateStr) {
         if (!dateStr) return null;

@@ -830,7 +830,7 @@
                             onClick={handleUrlImport}
                             disabled={isLoading}
                         >
-                            <div slot="icon" class="text-gray-500 dark:text-[#B7B6B3]">
+                            <div slot="icon" class="text-gray-500 dark:text-gray-800">
                                 {#if isLoading}
                                     <Icon
                                         name="loading"
