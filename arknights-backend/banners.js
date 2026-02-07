@@ -1,7 +1,7 @@
 // banners.js
 
 // Точная копия твоего конфига с фронта
-const rawBanners = [
+const BANNERS = [
   {
     id: "standard_01",
     name: "Basic Headhunting",

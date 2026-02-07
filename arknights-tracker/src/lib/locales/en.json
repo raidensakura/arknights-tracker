@@ -184,6 +184,7 @@
     "error_rate_limit": "Too many requests. Please wait a minute.",
     "error_no_data": "No pulls found or Link Expired",
     "error_unknown": "Unknown Error",
+    "error_network": "Bad Gateway",
     "error_account_mismatch": "Account Mismatch! You already have history between {start} and {end}, but the imported data differs completely. Please check if you selected the correct account."
   },
   "characters": {
