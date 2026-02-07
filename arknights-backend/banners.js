@@ -91,7 +91,7 @@ const rawBanners = [
     featured6: ["thunderberge"],
   },
   {
-    id: "weponbox_1_0_2",
+    id: "weponbox_1_0_3",
     name: "Express Delivery Issue",
     type: "weapon",
     startTime: "2026-02-07 12:00:00",
@@ -99,7 +99,7 @@ const rawBanners = [
     featured6: ["deliveryGuaranteed"],
   },
   {
-    id: "weponbox_1_0_3",
+    id: "weponbox_1_0_4",
     name: "Graffiti Issue",
     type: "weapon",
     startTime: "2026-02-24 12:00:00",

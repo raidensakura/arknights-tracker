@@ -1,4 +1,3 @@
-// src/lib/stores/pulls.js
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { mergePulls, calculatePity, calculateBannerStats, validateAccountConsistency } from '$lib/utils/importUtils';
@@ -20,22 +19,18 @@ function createPullStore() {
         set(JSON.parse(JSON.stringify(defaultData)));
     };
 
-    const restoreDatesAndStats = (data) => {
+    const restoreDatesAndStats = (data, serverId) => {
         if (!data || typeof data !== 'object') return;
 
         Object.keys(data).forEach(key => {
             if (data[key] && Array.isArray(data[key].pulls)) {
-                // 1. Восстанавливаем объекты Date
                 data[key].pulls.forEach(p => {
                     if (p.time) p.time = new Date(p.time);
                 });
-
-                // 2. ВАЖНО: Принудительно пересчитываем Pity по новой логике
-                // Это исправит старые сохраненные значения (76 -> 66)
-                data[key].pulls = calculatePity(data[key].pulls, key);
-
-                // 3. Пересчитываем общую статистику
-                data[key].stats = calculateBannerStats(data[key].pulls, key);
+                data[key].stats = calculateBannerStats(data[key].pulls, key, serverId);
+                if (serverId) {
+                     data[key].pulls = calculatePity(data[key].pulls, key, serverId);
+                }
             }
         });
     };
@@ -50,7 +45,8 @@ function createPullStore() {
         }
     };
 
-    const loadDataForAccount = (id) => {
+
+    const loadDataForAccount = (id, serverId = '3') => {
         if (!browser) return;
 
         currentAccountId = id;
@@ -61,8 +57,7 @@ function createPullStore() {
 
             if (stored) {
                 const parsed = JSON.parse(stored);
-                // Здесь сработает пересчет
-                restoreDatesAndStats(parsed);
+                restoreDatesAndStats(parsed, serverId);
                 set(parsed);
             } else {
                 const legacyData = localStorage.getItem('ark_tracker_pulls');
@@ -70,8 +65,8 @@ function createPullStore() {
                 if (legacyData && id === 'main') {
                     console.log("Migrating legacy data to Main account...");
                     const parsedLegacy = JSON.parse(legacyData);
-                    restoreDatesAndStats(parsedLegacy);
-                    set(parsedLegacy);
+                     restoreDatesAndStats(parsedLegacy, serverId);
+                     set(parsedLegacy);
 
                     saveDataToStorage(id, parsedLegacy);
                     localStorage.removeItem('ark_tracker_pulls');
@@ -85,9 +80,19 @@ function createPullStore() {
         }
     };
 
+
     if (browser) {
         accountStore.selectedId.subscribe(id => {
-            if (id) loadDataForAccount(id);
+            if (id) {
+                // Берем список всех аккаунтов синхронно
+                const allAccounts = get(accountStore.accounts); 
+                const currentAcc = allAccounts.find(a => a.id === id);
+                
+                // Если у аккаунта есть serverId, используем его, иначе '3'
+                const sId = currentAcc?.serverId || '3';
+                
+                loadDataForAccount(id, sId);
+            }
         });
 
         window.addEventListener('ark_tracker_clear_data', (e) => {
@@ -109,7 +114,7 @@ function createPullStore() {
                 update(currentData => {
                     try {
                         const newData = JSON.parse(JSON.stringify(currentData));
-                        restoreDatesAndStats(newData); // И тут тоже пересчитается перед слиянием
+                        restoreDatesAndStats(newData);
 
                         const report = { status: 'up_to_date', addedCount: {}, totalAdded: 0 };
 
@@ -153,10 +158,7 @@ function createPullStore() {
 
                             if (reallyNew.length > 0) {
                                 const mergedList = mergePulls(oldList, reallyNew);
-                                
-                                // Пересчет pity для объединенного списка
                                 const pullsWithPity = calculatePity(mergedList, targetKey);
-                                
                                 newData[targetKey].pulls = pullsWithPity;
                                 newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey);
 

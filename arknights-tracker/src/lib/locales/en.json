@@ -495,6 +495,9 @@
     "account": {
       "title": "Select Account",
       "add": "Add",
+      "save": "Save",
+      "rename": "Rename",
+      "rename_desc": "Enter a new name for this account",
       "clear": "Clear",
       "delete": "Delete",
       "deleteAccount": "Delete Account",

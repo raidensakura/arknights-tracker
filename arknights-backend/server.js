@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
 
 const importLimiter = rateLimit({
-    windowMs: 60 * 1000, // 1 минута (в миллисекундах)
+    windowMs: 60 * 1000,
     max: 3,
     message: { 
         error: "Too many requests. Please wait a minute before trying again." 
@@ -177,28 +177,18 @@ app.post('/api/import', importLimiter, async (req, res) => {
         const lang = 'en-us';
         
         if (!token) return res.status(400).json({ error: "No token found in URL" });
-
-        // --- ИЗМЕНЕННАЯ ЛОГИКА ВЫБОРА СЕРВЕРА ---
-        
-        // 1. Получаем ID из ссылки (если есть)
         const urlServerId = parsedUrl.searchParams.get('server_id');
-        
-        // 2. Формируем список серверов для проверки в порядке приоритета.
-        // Используем Set, чтобы избежать дубликатов (например, если в ссылке уже стоит 3, чтобы не проверять 3 дважды)
         const serverCandidates = new Set();
 
         if (urlServerId) {
-            serverCandidates.add(urlServerId); // Сначала пробуем то, что в ссылке
+            serverCandidates.add(urlServerId);
         }
-        serverCandidates.add('3'); // Затем пробуем Global/America (обычно id 3)
-        serverCandidates.add('2'); // Затем пробуем Asia (обычно id 2)
-
+        serverCandidates.add('3');
+        serverCandidates.add('2');
         console.log(`\n--- New Import Request ---`);
         
         let allPulls = [];
         let usedServerId = null;
-
-        // 3. Проходимся по кандидатам
         for (const serverId of serverCandidates) {
             console.log(`Checking Server ID: ${serverId}...`);
             const pulls = await fetchGameData(token, lang, serverId);
@@ -207,7 +197,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
                 console.log(`✅ Data found on Server ID: ${serverId}`);
                 allPulls = pulls;
                 usedServerId = serverId;
-                break; // Данные найдены, прерываем цикл, другие сервера не трогаем
+                break;
             } else {
                 console.log(`❌ No data on Server ID: ${serverId}`);
             }
@@ -216,7 +206,6 @@ app.post('/api/import', importLimiter, async (req, res) => {
         console.log(`--- Import Finished. Total: ${allPulls.length} ---`);
 
         if (allPulls.length === 0) {
-            // Если прошли все варианты и везде пусто
             return res.status(400).json({ error: "No pulls found on any checked server (checked URL params, 3, and 2)" });
         }
 
@@ -237,7 +226,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
             data: {
                 list: allPulls,
                 uid: stableUid,
-                serverId: usedServerId // Возвращаем тот сервер, на котором реально нашли данные
+                serverId: usedServerId
             }
         });
 
@@ -327,6 +316,54 @@ async function updateAggregatedStats(uid, allPulls) {
     console.log(`[Stats] Updated for ${uid}: ${Object.keys(pullsByCategory).join(', ')}`);
 }
 
+function parseEarliestDate(dateStr) {
+    if (!dateStr) return null;
+    const offset = 8; 
+    const sign = offset >= 0 ? "+" : "-";
+    const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+    const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+    return new Date(isoStr);
+}
+
+function findBannerConfigByTime(timestamp, categoryContext) {
+    const time = new Date(timestamp).getTime();
+    const BUFFER = 4 * 60 * 60 * 1000; 
+
+    let targetType = null;
+    if (categoryContext) {
+        if (categoryContext.includes('weap') || categoryContext.includes('constant')) targetType = 'weapon';
+        else if (categoryContext.includes('new')) targetType = 'new-player';
+        else if (categoryContext === 'standard') targetType = 'standard';
+        else if (categoryContext === 'special') targetType = 'special';
+    }
+
+    const candidates = BANNERS.filter(b => {
+        const start = parseEarliestDate(b.startTime).getTime();
+        const end = b.endTime ? parseEarliestDate(b.endTime).getTime() : Infinity;
+        
+        if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
+
+        if (targetType) {
+            if (targetType === 'special' && b.type !== 'special') return false;
+            if (targetType === 'standard' && b.type !== 'standard') return false;
+            if (targetType === 'new-player' && b.type !== 'new-player') return false;
+            if (targetType === 'weapon' && b.type !== 'weapon' && !b.id.includes('weap')) return false;
+        } else {
+            const isBannerWeapon = b.type === 'weapon' || (b.id && b.id.includes('weap'));
+            if (b.type === 'new-player') return false;
+            if (isBannerWeapon) return false;
+        }
+        return true;
+    });
+
+    if (candidates.length > 0) {
+        candidates.sort((a, b) => parseEarliestDate(b.startTime).getTime() - parseEarliestDate(a.startTime).getTime());
+        return candidates[candidates.length - 1];
+    }
+
+    return undefined;
+}
+
 function calculateMath(pulls, categoryId) {
     pulls.sort((a, b) => {
         const tA = Number(a.time); 
@@ -344,10 +381,8 @@ function calculateMath(pulls, categoryId) {
         total5: 0, sumPity5: 0,
         won5050: 0, total5050: 0
     };
-
     let currentPity6 = 0;
     let currentPity5 = 0;
-    
     let rateUpCounter = 0; 
 
     pulls.forEach((pull) => {
@@ -365,16 +400,14 @@ function calculateMath(pulls, categoryId) {
         if (pull.rarity === 6) {
             stats.total6++;
             stats.sumPity6 += currentPity6 + (isFree ? 0 : 1);
-
-            const matchedBanner = BANNERS.find(b => {
-                const typeMatch = b.id === pull.poolId || normalizeBannerId(b.type) === categoryId;
-                const timeMatch = true; 
-                return typeMatch && timeMatch;
-            });
-
+            let matchedBanner = findBannerConfigByTime(pull.time, categoryId);
+            if (!matchedBanner) {
+                 matchedBanner = BANNERS.find(b => b.id === pull.poolId);
+            }
             if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
                 const normFeatured = matchedBanner.featured6.map(normalize);
                 const isFeatured = normFeatured.includes(itemName);
+                
                 if (!isHardPityTriggered) {
                     stats.total5050++;
                     if (isFeatured) stats.won5050++;
@@ -384,7 +417,6 @@ function calculateMath(pulls, categoryId) {
                     rateUpCounter = 0;
                 }
             } 
-
             currentPity6 = 0;
         } else {
             if (!isFree) currentPity6++;

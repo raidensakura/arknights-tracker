@@ -17,8 +17,8 @@
       hoverBorder: "group-hover:border-red-400",
     },
     green: {
-      border: "border-green-300",
-      text: "text-green-700",
+      border: "border-green-300 dark:border-[#5D7F37]/75",
+      text: "text-green-700 dark:text-[#55EA69]/75",
       hoverBorder: "group-hover:border-green-400",
     },
   };

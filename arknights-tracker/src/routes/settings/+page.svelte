@@ -11,6 +11,7 @@
     import { onDestroy } from "svelte";
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
+    import Tooltip from "$lib/components/Tooltip.svelte";
     import Button from "$lib/components/Button.svelte";
     import ConfirmationModal from "$lib/components/ConfirmationModal.svelte";
     import SyncModal from "$lib/components/SyncModal.svelte";
@@ -273,10 +274,24 @@
         event.target.value = "";
     }
 
-    $: accountOptions = $accounts.map((acc) => ({
+    function getServerLabel(sid) {
+        if (String(sid) === "2") return "Asia";
+        return "Americas/Europe";
+    }
+
+    $: accountOptions = ($accounts || []).map((acc) => ({
         value: acc.id,
-        label: acc.name,
+        label: `${acc.name} (${getServerLabel(acc.serverId || "3")})`,
     }));
+
+    function handleRenameAccount() {
+        const currentAcc = $accounts.find((a) => a.id === $selectedId);
+        if (!currentAcc) return;
+        const newName = prompt($t("settings.account.rename_prompt") || "Enter new account name:", currentAcc.name);
+        if (newName && newName.trim() !== "") {
+            accountStore.addAccount(currentAcc.id, newName.trim(), currentAcc.serverId);
+        }
+    }
 
     let currentSelection;
     $: if ($selectedId) {
@@ -330,6 +345,30 @@
     }
 
     const noop = () => {};
+
+    let showRenameModal = false;
+    let tempAccountName = "";
+
+    function openRenameModal() {
+        console.log("Opening modal...", $selectedId); // <-- ОТЛАДКА
+        const currentAcc = $accounts.find((a) => a.id === $selectedId);
+        
+        if (currentAcc) {
+            console.log("Account found:", currentAcc.name); // <-- ОТЛАДКА
+            tempAccountName = currentAcc.name;
+            showRenameModal = true;
+        } else {
+            console.error("Account NOT found!"); // <-- Если упадет сюда, значит проблема в ID
+        }
+    }
+
+    function confirmRename() {
+        const currentAcc = $accounts.find((a) => a.id === $selectedId);
+        if (currentAcc && tempAccountName.trim() !== "") {
+            accountStore.addAccount(currentAcc.id, tempAccountName.trim(), currentAcc.serverId);
+        }
+        showRenameModal = false;
+    }
 </script>
 
 <SyncModal />
@@ -384,14 +423,29 @@
             </div>
         </div>
 
-        <div class="w-80">
-            <Select
-                options={accountOptions}
-                value={currentSelection}
-                on:change={handleAccountChange}
-                placeholder="Select account..."
-                variant="black"
-            />
+        <div class="flex items-center gap-2 w-full md:w-auto">
+            <div class="w-80">
+                <Select
+                    options={accountOptions}
+                    value={currentSelection}
+                    on:change={handleAccountChange}
+                    placeholder="Select account..."
+                    variant="black"
+                />
+            </div>
+
+            <Tooltip text={$t("settings.account.rename") || "Rename account"}>
+                <Button 
+                    variant="roundSmall" 
+                    color="white" 
+                    onClick={openRenameModal}
+                    className="w-10 h-10 flex items-center justify-center !p-0"
+                >
+                    <div class="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">
+                        <Icon name="pen" class="w-4 h-4" />
+                    </div>
+                </Button>
+            </Tooltip>
         </div>
     </section>
 
@@ -700,4 +754,15 @@
     isDestructive={true}
     on:confirm={confirmDelete}
     on:close={() => (showDeleteModal = false)}
+/>
+<ConfirmationModal
+    isOpen={showRenameModal}
+    title={$t("settings.account.rename") || "Rename Account"}
+    description={$t("settings.account.rename_desc") || "Enter a new name for this account:"}
+    confirmText={$t("settings.account.save") || "Save"}
+    enableInput={true}
+    bind:value={tempAccountName}
+    on:confirm={confirmRename}
+    confirmColor="green"  on:confirm={confirmRename}
+    on:close={() => (showRenameModal = false)}
 />

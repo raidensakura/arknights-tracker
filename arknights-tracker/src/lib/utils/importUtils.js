@@ -4,7 +4,6 @@ import { characters } from "$lib/data/characters";
 import { weapons } from "$lib/data/weapons";
 import { banners } from "$lib/data/banners";
 
-// --- HELPERS ---
 const normalize = (str) => str?.toLowerCase().replace(/[^a-z0-9]/g, "") || "";
 
 const sortPulls = (a, b) => {
@@ -13,18 +12,29 @@ const sortPulls = (a, b) => {
     return (a.seqId || 0) - (b.seqId || 0);
 };
 
-// --- ФУНКЦИЯ ВРЕМЕНИ (UTC+8) ---
-function parseEarliestDate(dateStr) {
+function getServerOffset(specificServerId) {
+    let sid = specificServerId;
+
+    if (!sid && typeof window !== 'undefined') {
+        sid = localStorage.getItem("ark_server_id");
+    }
+    if (String(sid) === "2") return 8; 
+    
+    return -5; 
+}
+
+function parseDateWithServer(dateStr, serverId) {
     if (!dateStr) return null;
-    const offset = 8; 
+    
+    const offset = getServerOffset(serverId);
+    
     const sign = offset >= 0 ? "+" : "-";
     const pad = (n) => String(Math.abs(n)).padStart(2, '0');
     const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
     return new Date(isoStr);
 }
 
-// --- ПОИСК БАННЕРА ---
-function findBannerConfigByTime(timestamp, categoryContext) {
+function findBannerConfigByTime(timestamp, categoryContext, serverId) {
     const time = new Date(timestamp).getTime();
     const BUFFER = 4 * 60 * 60 * 1000; 
 
@@ -37,8 +47,8 @@ function findBannerConfigByTime(timestamp, categoryContext) {
     }
 
     const candidates = banners.filter(b => {
-        const start = parseEarliestDate(b.startTime).getTime();
-        const end = b.endTime ? parseEarliestDate(b.endTime).getTime() : Infinity;
+        const start = parseDateWithServer(b.startTime, serverId).getTime();
+        const end = b.endTime ? parseDateWithServer(b.endTime, serverId).getTime() : Infinity;
         
         if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
 
@@ -56,28 +66,29 @@ function findBannerConfigByTime(timestamp, categoryContext) {
     });
 
     if (candidates.length > 0) {
-        candidates.sort((a, b) => parseEarliestDate(b.startTime).getTime() - parseEarliestDate(a.startTime).getTime());
+        candidates.sort((a, b) => 
+            parseDateWithServer(b.startTime, serverId).getTime() - 
+            parseDateWithServer(a.startTime, serverId).getTime()
+        );
         return candidates[0];
     }
 
     return undefined;
 }
 
-// --- ID ГЕНЕРАТОР ---
-function getDistinctBannerId(pull) {
+function getDistinctBannerId(pull, serverId) {
     const rawId = pull.rawPoolId || pull.bannerId || 'unknown';
     const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player'];
 
     if (!genericIds.includes(rawId)) return rawId;
 
-    const foundBanner = findBannerConfigByTime(pull.time, rawId);
+    const foundBanner = findBannerConfigByTime(pull.time, rawId, serverId);
     if (foundBanner) return foundBanner.id;
 
     const d = new Date(pull.time);
     return `gen_${rawId}_${d.getFullYear()}_${d.getMonth()}_w${Math.floor(d.getDate()/7)}`; 
 }
 
-// --- STANDARD EXPORTS ---
 export function getInternalBannerType(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
@@ -124,14 +135,13 @@ export function mergePulls(oldList, newList) {
     return Array.from(map.values()).sort(sortPulls);
 }
 
-// --- PITY CALCULATION ---
-export function calculatePity(pulls, bannerId) {
+export function calculatePity(pulls, bannerId, accountServerId = null) {
     const isSpecialCategory = bannerId?.includes('special') && !bannerId.includes('weap');
     let pityCounter = 0;
     const bannerSpecificCounts = {}; 
 
     return pulls.map((pull) => {
-        const uniqueBannerKey = getDistinctBannerId(pull);
+        const uniqueBannerKey = getDistinctBannerId(pull, accountServerId);
 
         if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
         const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
@@ -150,8 +160,7 @@ export function calculatePity(pulls, bannerId) {
     });
 }
 
-// --- STATS CALCULATION ---
-export function calculateBannerStats(pulls, bannerId) {
+export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
     let currentViewBanner = banners.find(b => b.id === bannerId);
     
     if (!currentViewBanner && (bannerId.includes('special') || bannerId.includes('weap'))) {
@@ -161,10 +170,15 @@ export function calculateBannerStats(pulls, bannerId) {
             return b.type === 'special';
         });
         
-        candidates.sort((a, b) => parseEarliestDate(b.startTime).getTime() - parseEarliestDate(a.startTime).getTime());
+        candidates.sort((a, b) => 
+            parseDateWithServer(b.startTime, accountServerId).getTime() - 
+            parseDateWithServer(a.startTime, accountServerId).getTime()
+        );
         
         const lastPullTime = pulls.length > 0 ? pulls[pulls.length - 1].time.getTime() : Date.now();
-        const activeBanner = candidates.find(b => parseEarliestDate(b.startTime).getTime() <= lastPullTime);
+        const activeBanner = candidates.find(b => 
+            parseDateWithServer(b.startTime, accountServerId).getTime() <= lastPullTime
+        );
         
         if (activeBanner) currentViewBanner = activeBanner;
         else if (candidates.length > 0) currentViewBanner = candidates[0];
@@ -173,8 +187,8 @@ export function calculateBannerStats(pulls, bannerId) {
     let mileageStart = 0;
     let mileageEnd = 0;
     if (currentViewBanner) {
-        mileageStart = parseEarliestDate(currentViewBanner.startTime).getTime();
-        mileageEnd = currentViewBanner.endTime ? parseEarliestDate(currentViewBanner.endTime).getTime() : Infinity;
+        mileageStart = parseDateWithServer(currentViewBanner.startTime, accountServerId).getTime();
+        mileageEnd = currentViewBanner.endTime ? parseDateWithServer(currentViewBanner.endTime, accountServerId).getTime() : Infinity;
     }
 
     const hardPityLimit = bannerId.includes('weap') ? 80 : 120;
@@ -192,14 +206,13 @@ export function calculateBannerStats(pulls, bannerId) {
     pulls.forEach((pull) => {
         const itemName = normalize(pull.name);
         const pullTime = new Date(pull.time).getTime();
-        const uniqueBannerKey = getDistinctBannerId(pull);
+        const uniqueBannerKey = getDistinctBannerId(pull, accountServerId);
 
         if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
         const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
         const isFreePull = (bannerId.includes('special') && !bannerId.includes('weap')) && (countInThisBanner >= 30 && countInThisBanner < 40);
         bannerSpecificCounts[uniqueBannerKey]++;
 
-        // БЕСПЛАТНЫЕ НЕ ИДУТ В MILEAGE (Магазин/Спарк)
         if (!isFreePull) {
             if (bannerId.includes('standard') || bannerId.includes('new')) {
                 currentBannerMileage++;
@@ -210,7 +223,6 @@ export function calculateBannerStats(pulls, bannerId) {
             }
         }
 
-        // БЕСПЛАТНЫЕ НЕ ИДУТ В ГАРАНТ
         let isHardPityTriggered = false;
         if (!isFreePull) {
             if (rateUpPityCounter >= hardPityLimit - 1) isHardPityTriggered = true;
@@ -222,7 +234,7 @@ export function calculateBannerStats(pulls, bannerId) {
             sumPity6 += currentPity6 + (isFreePull ? 0 : 1);
 
             let historicConfig = banners.find(b => b.id === uniqueBannerKey);
-            if (!historicConfig) historicConfig = findBannerConfigByTime(pull.time, pull.rawPoolId);
+            if (!historicConfig) historicConfig = findBannerConfigByTime(pull.time, pull.rawPoolId, accountServerId);
             const featuredList = historicConfig?.featured6 || currentViewBanner?.featured6 || [];
 
             const isFeatured = featuredList.some(fid => {
@@ -261,27 +273,10 @@ export function calculateBannerStats(pulls, bannerId) {
     if (bannerId.includes('standard')) {
         if (currentBannerMileage < 300) mileage = { show: true, current: currentBannerMileage, max: 300, label: "selector_6" };
     } else if (bannerId.includes('special') && !bannerId.includes('weap')) {
-        const cycle = 240;
-        
-        // ЛОГИКА ОТОБРАЖЕНИЯ:
-        // 1. Если получили перса (hasReceivedRateUp) -> сразу переходим на цикл 240 (Bonus Copy)
-        // 2. Если НЕ получили, но перевалили за 120 -> тоже переходим на цикл 240 (Bonus Copy)
-        // 3. Иначе -> показываем путь к 120 (Guaranteed)
-        
         if (hasReceivedRateUp || currentBannerMileage >= 120) {
-            mileage = { 
-                show: true, 
-                current: currentBannerMileage % cycle, // Зацикливаем (250 -> 10/240)
-                max: cycle, 
-                label: "bonus_copy_6" 
-            };
+            mileage = { show: true, current: currentBannerMileage % 240, max: 240, label: "bonus_copy_6" };
         } else {
-            mileage = { 
-                show: true, 
-                current: currentBannerMileage, 
-                max: 120, 
-                label: "guaranteed_6" 
-            };
+            mileage = { show: true, current: currentBannerMileage, max: 120, label: "guaranteed_6" };
         }
     }
 

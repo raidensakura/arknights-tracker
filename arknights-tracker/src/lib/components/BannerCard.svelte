@@ -99,7 +99,7 @@
 
   $: icons = pulls
     .filter((p) => p.rarity === 6)
-    .slice(0, 12)
+    .sort((a, b) => new Date(a.time) - new Date(b.time))
     .map((p) => {
       const normName = normalize(p.name);
 

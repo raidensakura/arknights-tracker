@@ -2242,4 +2242,36 @@
             stroke-linejoin="round"
         />
     </svg>
+{:else if name == "pen"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <mask
+            id="mask0_1880_80913"
+            style="mask-type:alpha"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="24"
+            height="24"
+        >
+            <path
+                d="M0 0H6.02857L17.9279 11.8993L19.3271 10.5L8.82714 0H24V24H0V0Z"
+                fill="white"
+            />
+        </mask>
+        <g mask="url(#mask0_1880_80913)">
+            <path
+                d="M17.5859 8.75L6.33594 20H4V17.6641L15.25 6.41406L17.5859 8.75ZM19.5859 6.75L19 7.33594L16.6641 5L17.25 4.41406L19.5859 6.75Z"
+                stroke="currentColor"
+                stroke-width="2"
+            />
+        </g>
+    </svg>
 {/if}

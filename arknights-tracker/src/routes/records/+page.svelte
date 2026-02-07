@@ -80,9 +80,9 @@
   onClose={() => (isSettingsOpen = false)}
 />
 
-<div class="max-w-[1400px]">
-  <div class="flex flex-col md:flex-row mb-8 gap-4 md:items-center">
-    
+<div class="max-w-[1400px] px-4"> 
+  
+  <div class="flex flex-col md:flex-row mb-8 gap-4 md:items-center">    
     <h2 class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] mb-2 md:mb-0">
       {$t("page.title")}
     </h2>
@@ -105,7 +105,6 @@
       </SquareButton>
     </div>
     -->
-
     <div class="w-full md:w-64">
       <SquareButton variant="black2" onClick={() => (isSettingsOpen = true)}>
         <div slot="icon">
@@ -116,9 +115,9 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+  <div class="grid grid-cols-1 md:grid-cols-[400px_400px] xl:grid-cols-[400px_400px_400px] gap-6 items-start">
     
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 w-full">
       {#if bSpecialChar}
         <BannerCard bannerId={bSpecialChar.id} titleKey={bSpecialChar.i18nKey} />
       {/if}
@@ -128,7 +127,7 @@
       {/if}
     </div>
 
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 w-full">
       {#if bStandardChar}
         <BannerCard bannerId={bStandardChar.id} titleKey={bStandardChar.i18nKey} />
       {/if}
@@ -138,7 +137,7 @@
       {/if}
     </div>
 
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 w-full">
       {#if bNewPlayer}
         <BannerCard bannerId={bNewPlayer.id} titleKey={bNewPlayer.i18nKey} />
       {/if}

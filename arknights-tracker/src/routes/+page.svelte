@@ -15,6 +15,8 @@
 
   let now = new Date();
   let timer;
+  // Добавляем переменную для хранения текущего сервера (по умолчанию 3 - Global)
+  let currentServerId = "3";
 
   const allItems = [...currencies, ...progression];
 
@@ -36,10 +38,25 @@
     }
   }
 
+  // Обновленная логика активных баннеров с учетом часового пояса
   $: activeBanners = banners
     .filter((b) => {
-      const start = new Date(b.startTime);
-      const end = b.endTime ? new Date(b.endTime) : new Date(9999, 11, 31);
+      // Определяем смещение: Азия (id 2) = +08:00, Глобал (id 3) = -05:00
+      const offset = currentServerId === "2" ? 8 : -5;
+      
+      const parseWithOffset = (dateStr) => {
+          if (!dateStr) return null;
+          const sign = offset >= 0 ? "+" : "-";
+          const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+          // Превращаем "2026-02-07 12:00:00" в ISO с таймзоной: "2026-02-07T12:00:00+08:00"
+          // Это позволяет браузеру корректно сравнить это время с now (которое в локальном времени пользователя)
+          const iso = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+          return new Date(iso);
+      };
+
+      const start = parseWithOffset(b.startTime);
+      const end = b.endTime ? parseWithOffset(b.endTime) : new Date(9999, 11, 31);
+      
       const isTime = now >= start && now <= end;
       const isShownOnMain = b.showOnMain === true;
 
@@ -80,19 +97,21 @@
     return now <= end;
   });
 
-  function formatDuration(dateStr) {
+  function getFormattedDate(dateStr) {
+    const end = new Date(dateStr);
+    const dateOptions = { month: "short", day: "numeric" };
+    return end.toLocaleDateString(undefined, dateOptions);
+  }
+
+  function getRemainingTime(dateStr) {
     const end = new Date(dateStr);
     const diff = end - now;
-
     if (diff <= 0) return "";
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-    const dateOptions = { month: "short", day: "numeric" };
-    const endDateFormatted = end.toLocaleDateString(undefined, dateOptions);
-
-    return `${$t("home.until")} ${endDateFormatted} (${days > 0 ? days + " " + $t("home.days") : ""} ${hours} ${$t("home.hours")})`;
+    return `(${days > 0 ? days + " " + $t("home.days") : ""} ${hours} ${$t("home.hours")})`;
   }
 
   function sortRewards(rewards) {
@@ -127,6 +146,14 @@
   }
 
   onMount(() => {
+    // Считываем настройки сервера при загрузке
+    if (typeof localStorage !== 'undefined') {
+        const savedServer = localStorage.getItem("ark_server_id");
+        if (savedServer) {
+            currentServerId = savedServer;
+        }
+    }
+
     timer = setInterval(() => {
       now = new Date();
     }, 1000 * 60);
@@ -157,11 +184,11 @@
       class="lg:col-span-5 bg-white/80 dark:bg-[#383838]/80 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-[#444444] overflow-hidden flex flex-col h-full max-h-[500px]"
     >
       <div
-        class="grid grid-cols-12 bg-white border-b border-gray-200 dark:border-[#444444] dark:bg-[#424242] py-3 px-4 text-xs font-bold text-gray-700 dark:text-[#FDFDFD]"
+        class="flex items-center gap-2 bg-white border-b border-gray-200 dark:border-[#444444] dark:bg-[#424242] py-3 px-4 text-xs font-bold text-gray-700 dark:text-[#FDFDFD]"
       >
-        <div class="col-span-5">{$t("home.promocodes")}</div>
-        <div class="col-span-4">{$t("home.rewards")}</div>
-        <div class="col-span-3 text-right">{$t("home.duration")}</div>
+        <div class="w-1/3">{$t("home.promocodes")}</div>
+        <div class="flex-1">{$t("home.rewards")}</div>
+        <div class="w-auto text-right whitespace-nowrap">{$t("home.duration")}</div>
       </div>
 
       <div class="overflow-y-auto custom-scrollbar flex-1 p-2">
@@ -172,11 +199,11 @@
         {:else}
           {#each activePromocodes as promo}
             <div
-              class="grid grid-cols-12 items-center py-3 px-2 border-gray-100 dark:border-[#444444] last:border-0 hover:bg-gray-50 hover:dark:bg-[#343434] transition-colors rounded-lg group"
+              class="flex items-center gap-2 py-3 px-2 border-gray-100 dark:border-[#444444] last:border-0 hover:bg-gray-50 hover:dark:bg-[#343434] transition-colors rounded-lg group"
             >
-              <div class="col-span-5 pr-2">
+              <div class="w-1/3 pr-2 min-w-0">
                 <div class="flex items-center gap-2">
-                  <div class="min-w-0 shrink-1">
+                  <div class="min-w-0 shrink-1 truncate">
                     {#if promo.url}
                       <a
                         href={promo.url}
@@ -230,7 +257,7 @@
                 </div>
               </div>
 
-              <div class="col-span-4 flex flex-wrap gap-2 items-center">
+              <div class="flex-1 flex flex-wrap gap-2 items-center min-w-0">
                 {#each sortRewards(promo.rewards) as reward}
                   <Tooltip text={$t(`items.${reward.id}`)}>
                     <div
@@ -253,9 +280,12 @@
                 {/each}
               </div>
 
-              <div class="col-span-3 text-right">
-                <span class="text-xs font-medium text-gray-500 dark:text-[#B7B6B3] block">
-                  {formatDuration(promo.endTime)}
+              <div class="w-auto text-right shrink-0 pl-2 flex flex-col justify-center">
+                <span class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight">
+                  {$t("home.until")} {getFormattedDate(promo.endTime)}
+                </span>
+                <span class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight">
+                  {getRemainingTime(promo.endTime)}
                 </span>
               </div>
             </div>
@@ -354,7 +384,7 @@
     <Button
       onClick={() => goto("/records")}
       variant="yellow"
-      className="px-10 py-3 text-sm shadow-xl font-nums w-auto min-w-[200px] max-w-[400px]"
+      className="px-10 py-3 text-sm shadow-xl font-nums w-auto min-w-[200px] max-w-[400px] whitespace-nowrap"
     >
       <div slot="icon">
         <Icon name="arrowRight" style="width: 30px; height: 30px;" />

@@ -26,7 +26,7 @@
     $: percent5 = stats.percent5 || "0.00";
     $: avg6 = stats.avg6 || "0.0";
     $: avg5 = stats.avg5 || "0.0";
-    $: avg6Max = (isWeaponBanner || isNewPlayer) ? 40 : 80;
+    $: avg6Max = isWeaponBanner || isNewPlayer ? 40 : 80;
     $: avg5Max = 10;
     $: avgMax = 0;
     $: avg = 0;
@@ -38,7 +38,7 @@
             percent: percent6,
             avg: avg6,
             winRate: winRateStats,
-            avgMax: avg6Max
+            avgMax: avg6Max,
         },
         {
             label: "5",
@@ -46,7 +46,7 @@
             percent: percent5,
             avg: avg5,
             winRate: { won: 0, total: 0, percent: 0 },
-            avgMax: avg5Max
+            avgMax: avg5Max,
         },
     ];
 
@@ -60,8 +60,7 @@
 
     $: icons = pulls
         .filter((p) => p.rarity === 6)
-        .sort((a, b) => new Date(b.time) - new Date(a.time))
-        .slice(0, 6)
+        .sort((a, b) => new Date(a.time) - new Date(b.time))
         .map((p) => {
             const lookupKey = normalize(p.name);
             const itemData = lookupMap[lookupKey];
@@ -180,8 +179,10 @@
                     >
                         {row.percent}%
                     </div>
-                    <div class="text-right font-bold font-nums text-[#1D6F42]"
-                    style="color: {getAvgColor(row.avg, row.avgMax)}">
+                    <div
+                        class="text-right font-bold font-nums text-[#1D6F42]"
+                        style="color: {getAvgColor(row.avg, row.avgMax)}"
+                    >
                         {row.avg}
                     </div>
                 </div>

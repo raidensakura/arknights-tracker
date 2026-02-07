@@ -21,7 +21,6 @@ function createAccountStore() {
     let initialSelected = 'main';
 
     if (browser) {
-        // 1. Загружаем аккаунты
         const storedAccounts = localStorage.getItem(ACCOUNTS_KEY);
         if (storedAccounts) {
             try {
@@ -29,7 +28,6 @@ function createAccountStore() {
             } catch (e) { console.error(e); }
         }
 
-        // 2. Загружаем выбранный ID
         const storedSelected = localStorage.getItem(SELECTED_ID_KEY);
         if (storedSelected && initialAccounts.find(a => a.id === storedSelected)) {
             initialSelected = storedSelected;
@@ -41,32 +39,25 @@ function createAccountStore() {
     const accounts = writable(initialAccounts);
     const selectedId = writable(initialSelected);
 
-    // --- ФУНКЦИЯ СИНХРОНИЗАЦИИ ---
-    // Находит текущий аккаунт и обновляет глобальный currentUid
     const syncAuthStore = (accts, selId) => {
         const currentAcc = accts.find(a => a.id === selId);
         if (currentAcc && currentAcc.serverUid) {
             console.log(`[Accounts] Switching to UID: ${currentAcc.serverUid}`);
             currentUid.set(currentAcc.serverUid);
-            if (browser) localStorage.setItem("user_uid", currentAcc.serverUid); // Дублируем для надежности
-        } else {
+            if (browser) localStorage.setItem("user_uid", currentAcc.serverUid);
             console.log(`[Accounts] No Server UID for this account.`);
-            // Если UID нет, генерируем временный или ставим null, но НЕ БЕРЕМ старый из LS
             currentUid.set(null); 
         }
     };
 
     if (browser) {
-        // Сохраняем при изменениях
         accounts.subscribe(val => {
             localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(val));
-            // При изменении данных аккаунта (например, добавили UID) тоже синхроним
             syncAuthStore(val, get(selectedId));
         });
 
         selectedId.subscribe(val => {
             localStorage.setItem(SELECTED_ID_KEY, val);
-            // При переключении аккаунта синхроним
             syncAuthStore(get(accounts), val);
         });
     }
@@ -75,24 +66,41 @@ function createAccountStore() {
         accounts,
         selectedId,
 
-        addAccount: () => {
+        addAccount: (uid, nickname, serverId = null) => {
+            const effectiveServerId = serverId || '3';
+            
             accounts.update(list => {
-                const regex = /^Account (\d+)$/;
-                let maxNum = 0;
-                list.forEach(acc => {
-                    const match = acc.name.match(regex);
-                    if (match) maxNum = Math.max(maxNum, parseInt(match[1], 10));
-                });
+                let finalUid = uid;
+                let finalName = nickname;
 
-                const newId = generateId();
-                const newAccount = { 
-                    id: newId, 
-                    name: `Account ${maxNum + 1}`,
-                    serverUid: null // Новый аккаунт чист
-                };
-                
-                selectedId.set(newId);
-                return [...list, newAccount];
+                if (!finalUid) {
+                    finalUid = generateId();
+                    finalName = `Account ${maxNum + 1}`;
+                }
+
+                const existingIndex = list.findIndex(a => a.id === finalUid);
+                let newList;
+
+                if (existingIndex >= 0) {
+                    newList = [...list];
+                    const currentServer = serverId ? effectiveServerId : (newList[existingIndex].serverId || '3');
+                    
+                    newList[existingIndex] = { 
+                        ...newList[existingIndex], 
+                        name: finalName, 
+                        serverId: currentServer
+                    };
+                } else {
+                    newList = [...list, { 
+                        id: finalUid, 
+                        name: finalName, 
+                        serverId: effectiveServerId,
+                        serverUid: uid 
+                    }];
+                }
+
+                selectedId.set(finalUid);
+                return newList;
             });
         },
 
@@ -117,8 +125,6 @@ function createAccountStore() {
             selectedId.set(id);
         },
         
-        // === [FIX] СОХРАНЕНИЕ UID ===
-        // Вызываем это при успешном импорте
         setServerUid: (serverUid) => {
             const currentSelected = get(selectedId);
             console.log(`[Accounts] Linking UID ${serverUid} to Account ${currentSelected}`);
@@ -131,7 +137,6 @@ function createAccountStore() {
                     return acc;
                 });
             });
-            // syncAuthStore вызовется автоматически через subscribe
         },
 
         clearCurrentData: () => {

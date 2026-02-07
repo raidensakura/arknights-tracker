@@ -202,22 +202,11 @@
 
             if (response.code === 0 && response.data?.list) {
                 const importedUid = response.data.uid;
+                const backendServerId = response.data.serverId;
 
                 if (importedUid) {
-                    accountStore.setServerUid(importedUid);
-                }
-
-                const backendServerId = response.data.serverId;
-                
-                if (backendServerId) {
-                    const SERVER_STORAGE_KEY = "ark_server_id";
-                    const currentServerId = localStorage.getItem(SERVER_STORAGE_KEY);
-                    if (!currentServerId || currentServerId === "2") {
-                        if (backendServerId !== currentServerId) {
-                            localStorage.setItem(SERVER_STORAGE_KEY, String(backendServerId));
-                            console.log(`Global Server ID auto-updated to: ${backendServerId}`);
-                        }
-                    }
+                    const defaultName = `Doctor_` + importedUid.slice(-4);
+                    accountStore.addAccount(importedUid, defaultName, backendServerId);
                 }
 
                 if (isSaveTokenEnabled && tokenName.trim()) {
@@ -341,7 +330,7 @@
             {#if platformTab === "ios"}
                 {#each [{ text: $t("import.ios_step1") }, { text: $t("import.ios_step2") }, { text: $t("import.ios_step3"), subList: [$t("import.ios_step3_1"), $t("import.ios_step3_2"), $t("import.ios_step3_3")] }, { text: $t("import.ios_step4") }, { text: $t("import.ios_step5") }, { text: $t("import.ios_step6") }, { text: $t("import.ios_step7") }, { text: $t("import.ios_step8") }, { text: $t("import.ios_step9") }, { text: $t("import.ios_step10") }, { text: $t("import.ios_step11") }] as step, i}
                     <div
-                        class="relative border-l-2 border-gray-200 dark:border-[#7A7A7A] pb-10 pl-10 last:border-transparent last:pb-0"
+                        class="relative border-l-2 border-gray-200 dark:border-[#FDFD1F]/50  pb-10 pl-10 last:border-transparent last:pb-0"
                     >
                         <div
                             class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -365,7 +354,7 @@
                     </div>
                 {/each}
 
-                <div class="relative border-l-2 border-transparent pl-10 mt-2">
+                <div class="relative border-l-2 border-transparent pl-10">
                     <div
                         class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
                     >
@@ -395,7 +384,7 @@
 
                 {#each [{ text: $t("import.android_s1") }, { text: $t("import.android_s2") }, { text: $t("import.android_s3"), subList: [$t("import.android_s3_sub1"), $t("import.android_s3_sub2"), $t("import.android_s3_sub3")] }, { text: $t("import.android_s4") }, { text: $t("import.android_s5") }, { text: $t("import.android_s6") }, { text: $t("import.android_s7") }, { text: $t("import.android_s8") }, { text: $t("import.android_s9") }, { text: $t("import.android_s10") }] as step, i}
                     <div
-                        class="relative dark:border-[#7A7A7A] border-l-2 border-gray-200 pb-10 pl-10 last:border-transparent"
+                        class="relative dark:border-[#FDFD1F]/50 border-l-2 border-gray-200 pb-10 pl-10 last:border-transparent"
                     >
                         <div
                             class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -433,7 +422,7 @@
                 </div>
             {:else}
                 <div
-                    class="relative border-l-2 dark:border-[#7A7A7A] border-gray-200 pb-10 pl-10"
+                    class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10"
                 >
                     <div
                         class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -448,7 +437,7 @@
                 </div>
 
                 <div
-                    class="relative border-l-2 dark:border-[#7A7A7A] border-gray-200 pb-8 pl-10"
+                    class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-8 pl-10"
                 >
                     <div
                         class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
