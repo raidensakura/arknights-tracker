@@ -66,40 +66,48 @@ function createAccountStore() {
         accounts,
         selectedId,
 
-        addAccount: (uid, nickname, serverId = null) => {
+        addAccount: (gameUid, nickname, serverId = null) => {
             const effectiveServerId = serverId || '3';
-            
+            const currentSelectedId = get(selectedId);
+
             accounts.update(list => {
-                let finalUid = uid;
-                let finalName = nickname;
-
-                if (!finalUid) {
-                    finalUid = generateId();
-                    finalName = `Account ${maxNum + 1}`;
-                }
-
-                const existingIndex = list.findIndex(a => a.id === finalUid);
-                let newList;
+                const existingIndex = list.findIndex(a => a.serverUid === gameUid);
 
                 if (existingIndex >= 0) {
-                    newList = [...list];
-                    const currentServer = serverId ? effectiveServerId : (newList[existingIndex].serverId || '3');
-                    
+                    const newList = [...list];
                     newList[existingIndex] = { 
                         ...newList[existingIndex], 
-                        name: finalName, 
-                        serverId: currentServer
+                        serverId: effectiveServerId
                     };
-                } else {
-                    newList = [...list, { 
-                        id: finalUid, 
-                        name: finalName, 
-                        serverId: effectiveServerId,
-                        serverUid: uid 
-                    }];
+                    selectedId.set(newList[existingIndex].id);
+                    return newList;
                 }
 
-                selectedId.set(finalUid);
+                const currentAccountIndex = list.findIndex(a => a.id === currentSelectedId);
+                
+                if (currentAccountIndex >= 0) {
+                    const currentAcc = list[currentAccountIndex];
+                    if (!currentAcc.serverUid) {
+                        console.log(`Linking Game UID ${gameUid} to manual account "${currentAcc.name}"`);
+                        
+                        const newList = [...list];
+                        newList[currentAccountIndex] = {
+                            ...currentAcc,
+                            serverUid: gameUid,
+                            serverId: effectiveServerId
+                        };
+                        return newList;
+                    }
+                }
+
+                const newId = generateId(); 
+                const newList = [...list, { 
+                    id: newId, 
+                    name: nickname, 
+                    serverId: effectiveServerId,
+                    serverUid: gameUid 
+                }];
+                selectedId.set(newId);
                 return newList;
             });
         },
