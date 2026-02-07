@@ -65,7 +65,7 @@
         ? $t(`banners.${selectedSubBannerId}`)
         : $t(titleKey)
       : $t(titleKey);
-  $: avg6Max = (isWeaponCard || bannerId.includes("new")) ? 40 : 80;
+  $: avg6Max = isWeaponCard || bannerId.includes("new") ? 40 : 80;
   $: bannerStore = $pullData[displayId] || { pulls: [], stats: {} };
   $: stats = bannerStore.stats || {};
   $: pulls = bannerStore.pulls || [];
@@ -117,7 +117,6 @@
         if (charIds.has(itemId) || (itemData && !itemData.weapon)) {
           isWeapon = false;
         }
-        // Иначе, если есть в базе оружия
         else if (weaponIds.has(itemId) || (itemData && itemData.weapon)) {
           isWeapon = true;
         }

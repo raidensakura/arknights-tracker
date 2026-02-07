@@ -1,3 +1,4 @@
+// src/lib/stores/pulls.js
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { mergePulls, calculatePity, calculateBannerStats, validateAccountConsistency } from '$lib/utils/importUtils';
@@ -24,9 +25,16 @@ function createPullStore() {
 
         Object.keys(data).forEach(key => {
             if (data[key] && Array.isArray(data[key].pulls)) {
+                // 1. Восстанавливаем объекты Date
                 data[key].pulls.forEach(p => {
                     if (p.time) p.time = new Date(p.time);
                 });
+
+                // 2. ВАЖНО: Принудительно пересчитываем Pity по новой логике
+                // Это исправит старые сохраненные значения (76 -> 66)
+                data[key].pulls = calculatePity(data[key].pulls, key);
+
+                // 3. Пересчитываем общую статистику
                 data[key].stats = calculateBannerStats(data[key].pulls, key);
             }
         });
@@ -53,6 +61,7 @@ function createPullStore() {
 
             if (stored) {
                 const parsed = JSON.parse(stored);
+                // Здесь сработает пересчет
                 restoreDatesAndStats(parsed);
                 set(parsed);
             } else {
@@ -92,16 +101,15 @@ function createPullStore() {
         set,
         update,
         smartImport: async (newPulls) => {
-            if (!browser) return; // Защита
+            if (!browser) return;
 
-            // Искусственная задержка для UI
             await new Promise(r => setTimeout(r, 300));
 
             return new Promise((resolve, reject) => {
                 update(currentData => {
                     try {
                         const newData = JSON.parse(JSON.stringify(currentData));
-                        restoreDatesAndStats(newData);
+                        restoreDatesAndStats(newData); // И тут тоже пересчитается перед слиянием
 
                         const report = { status: 'up_to_date', addedCount: {}, totalAdded: 0 };
 
@@ -145,7 +153,10 @@ function createPullStore() {
 
                             if (reallyNew.length > 0) {
                                 const mergedList = mergePulls(oldList, reallyNew);
+                                
+                                // Пересчет pity для объединенного списка
                                 const pullsWithPity = calculatePity(mergedList, targetKey);
+                                
                                 newData[targetKey].pulls = pullsWithPity;
                                 newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey);
 

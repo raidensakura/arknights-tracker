@@ -20,47 +20,36 @@
 
     const dispatch = createEventDispatcher();
 
-    // --- ЛОГИКА ВРЕМЕНИ СЕРВЕРА ---
-    let serverOffset = -5; // Default Global (UTC-5)
+    let serverOffset = -5;
 
-    // Функция парсинга даты с учетом сервера
     function parseServerDate(dateStr) {
         if (!dateStr) return null;
-        if (dateStr instanceof Date) return dateStr; // Если уже Date
+        if (dateStr instanceof Date) return dateStr;
         if (dateStr.includes("Z") || dateStr.includes("+")) return new Date(dateStr);
 
         const offset = serverOffset;
         const sign = offset >= 0 ? "+" : "-";
         const pad = (n) => String(Math.abs(n)).padStart(2, '0');
-        // Превращаем "2026-01-22 12:00:00" в ISO с офсетом
         const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
         return new Date(isoStr);
     }
 
     onMount(() => {
         if (typeof window !== "undefined") {
-            // Читаем выбранный сервер
             const sid = localStorage.getItem("ark_server_id");
-            // Server 2 = Asia (UTC+8), иначе Global (UTC-5)
             serverOffset = sid === "2" ? 8 : -5;
-
-            // URL History update
             if (banner && banner.id) {
                 replaceState(`#banner-${banner.id}`, {});
             }
         }
     });
 
-    // --- Helpers ---
     function normalize(str) {
         return String(str || "").toLowerCase().replace(/[^a-z0-9]/g, "");
     }
 
     function formatTime(d) {
         if (!d) return "";
-        // d может быть null или Date. 
-        // ВАЖНО: Мы показываем время в локальной зоне пользователя, 
-        // но сам объект d уже скорректирован под серверное время (абсолютный момент)
         return d.toLocaleString("ru-RU", {
             day: "2-digit",
             month: "2-digit",
@@ -110,7 +99,6 @@
         );
     })();
 
-    // Получаем историю круток (логика без изменений)
     $: categoryPulls = (() => {
         if (!banner || !$pullData) return [];
         
@@ -178,8 +166,6 @@
         });
     };
 
-    // --- СТАТИСТИКА (с использованием скорректированных дат) ---
-    // Мы должны пересчитать realStart/realEnd здесь, так как они нужны для фильтрации истории
     $: realStart = banner ? parseServerDate(banner.startTime) : new Date();
     $: realEnd = banner && banner.endTime ? parseServerDate(banner.endTime) : null;
 
@@ -188,7 +174,6 @@
             return { pulls: [], stats: {} };
         }
 
-        // Используем уже распаршенные даты
         const bStart = realStart.getTime();
         const bEnd = realEnd ? realEnd.getTime() : Infinity;
 
@@ -304,16 +289,10 @@
 
     $: bannerPulls = bannerData.pulls;
     $: bannerStats = bannerData.stats;
-
-    // --- Time Data (ОБНОВЛЕНО) ---
-    // Используем realStart и realEnd, которые зависят от serverOffset
     $: now = new Date();
-    
-    // ВАЖНО: Мы используем realStart/realEnd, которые уже реактивны к serverOffset
     $: isEnded = realEnd && now > realEnd;
     $: isActive = now >= realStart && (!realEnd || now <= realEnd);
     $: isUpcoming = now < realStart;
-
     $: diff = (() => {
         if (!banner) return 0;
         if (!realEnd && isActive) return now - realStart;

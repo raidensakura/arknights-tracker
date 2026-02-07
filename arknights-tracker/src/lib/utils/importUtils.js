@@ -1,12 +1,11 @@
-// src/lib/utils/importUtils.js
+import { get } from 'svelte/store';
+import { t } from '$lib/i18n';
 import { characters } from "$lib/data/characters";
 import { weapons } from "$lib/data/weapons";
 import { banners } from "$lib/data/banners";
 
-const normalize = (str) => {
-    if (!str || typeof str !== 'string') return "";
-    return str.toLowerCase().replace(/[^a-z0-9]/g, "");
-};
+// --- HELPERS ---
+const normalize = (str) => str?.toLowerCase().replace(/[^a-z0-9]/g, "") || "";
 
 const sortPulls = (a, b) => {
     const timeDiff = a.time.getTime() - b.time.getTime();
@@ -14,58 +13,95 @@ const sortPulls = (a, b) => {
     return (a.seqId || 0) - (b.seqId || 0);
 };
 
-export function getInternalBannerType(rawId) {
-    if (!rawId) return 'standard';
-    
-    const id = String(rawId).toLowerCase().trim();
-    if (
-        id.includes('weapon') || 
-        id.includes('wepon') || 
-        id.includes('constant') || 
-        id.includes('scathe')
-    ) {
-        return rawId;
-    }
-    if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) {
-        return 'new-player';
-    }
-    if (id === '1' || id.includes('standard') || id.includes('permanent')) {
-        return 'standard';
+// --- ФУНКЦИЯ ВРЕМЕНИ (UTC+8) ---
+function parseEarliestDate(dateStr) {
+    if (!dateStr) return null;
+    const offset = 8; 
+    const sign = offset >= 0 ? "+" : "-";
+    const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+    const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+    return new Date(isoStr);
+}
+
+// --- ПОИСК БАННЕРА ---
+function findBannerConfigByTime(timestamp, categoryContext) {
+    const time = new Date(timestamp).getTime();
+    const BUFFER = 4 * 60 * 60 * 1000; 
+
+    let targetType = null;
+    if (categoryContext) {
+        if (categoryContext.includes('weap') || categoryContext.includes('constant')) targetType = 'weapon';
+        else if (categoryContext.includes('new')) targetType = 'new-player';
+        else if (categoryContext === 'standard') targetType = 'standard';
+        else if (categoryContext === 'special') targetType = 'special';
     }
 
+    const candidates = banners.filter(b => {
+        const start = parseEarliestDate(b.startTime).getTime();
+        const end = b.endTime ? parseEarliestDate(b.endTime).getTime() : Infinity;
+        
+        if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
+
+        if (targetType) {
+            if (targetType === 'special' && b.type !== 'special') return false;
+            if (targetType === 'standard' && b.type !== 'standard') return false;
+            if (targetType === 'new-player' && b.type !== 'new-player') return false;
+            if (targetType === 'weapon' && b.type !== 'weapon' && !b.id.includes('weap')) return false;
+        } else {
+            const isBannerWeapon = b.type === 'weapon' || (b.id && b.id.includes('weap'));
+            if (b.type === 'new-player') return false;
+            if (isBannerWeapon) return false;
+        }
+        return true;
+    });
+
+    if (candidates.length > 0) {
+        candidates.sort((a, b) => parseEarliestDate(b.startTime).getTime() - parseEarliestDate(a.startTime).getTime());
+        return candidates[0];
+    }
+
+    return undefined;
+}
+
+// --- ID ГЕНЕРАТОР ---
+function getDistinctBannerId(pull) {
+    const rawId = pull.rawPoolId || pull.bannerId || 'unknown';
+    const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player'];
+
+    if (!genericIds.includes(rawId)) return rawId;
+
+    const foundBanner = findBannerConfigByTime(pull.time, rawId);
+    if (foundBanner) return foundBanner.id;
+
+    const d = new Date(pull.time);
+    return `gen_${rawId}_${d.getFullYear()}_${d.getMonth()}_w${Math.floor(d.getDate()/7)}`; 
+}
+
+// --- STANDARD EXPORTS ---
+export function getInternalBannerType(rawId) {
+    if (!rawId) return 'standard';
+    const id = String(rawId).toLowerCase().trim();
+    if (id.includes('weapon') || id.includes('wepon') || id.includes('constant') || id.includes('scathe')) return rawId;
+    if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) return 'new-player';
+    if (id === '1' || id.includes('standard') || id.includes('permanent')) return 'standard';
     return 'special';
 }
 
 export function getWeaponCategory(bannerId) {
     if (!bannerId) return 'other';
     const id = String(bannerId).toLowerCase();
-
-    if (id.includes('constant') || (id.includes('standard') && id.includes('weapon'))) {
-        return 'weap-standard';
-    }
-
-    if (id.includes('wepon') || (id.includes('special') && id.includes('weapon'))) {
-        return 'weap-special';
-    }
-
+    if (id.includes('constant') || (id.includes('standard') && id.includes('weapon'))) return 'weap-standard';
+    if (id.includes('wepon') || (id.includes('special') && id.includes('weapon'))) return 'weap-special';
     return 'other';
 }
 
-/**
- * ПАРСИНГ ЛОГОВ
- */
 export function parseGachaLog(list) {
-    if (!Array.isArray(list)) throw new Error("Invalid data: expected an array");
-    if (list.length === 0) throw new Error("No data found");
-
-    const parsedList = list.map((item, i) => {
+    if (!Array.isArray(list)) throw new Error("Invalid data array");
+    return list.map((item, i) => {
         const rawName = item.name || item.charName || item.weaponName || item.character || item.item_name;
-        
         const rarity = Number(item.rarity || item.rank || item.rank_type);
         const seqId = Number(item.seqId || item.sequence || 0);
-        
-        const isNew = item.isNew === true || item.isNew === "true" || item.is_new === true;
-
+        const isNew = item.isNew === true || String(item.isNew) === "true" || item.is_new === true;
         let dateObj;
         if (item.gachaTs) dateObj = new Date(Number(item.gachaTs)); 
         else if (item.ts) dateObj = new Date(Number(item.ts) * 1000);
@@ -73,36 +109,12 @@ export function parseGachaLog(list) {
         else dateObj = new Date(0);
         
         const rawBannerId = item.bannerId || item.poolId || item.pool || item.gacha_type;
-
-        if (!rawName) throw new Error(`Item #${i} has no name.`);
-        if (!rarity || isNaN(rarity)) throw new Error(`Item #${i} has invalid rarity.`);
-
         const internalId = getInternalBannerType(rawBannerId);
-        
         const itemType = item.weaponName ? 'weapon' : 'character';
-        let uniqueId = item.id;
-        if (!uniqueId) {
-            if (seqId !== 0) {
-                uniqueId = `${dateObj.getTime()}_${rawName}_${seqId}`;
-            } else {
-                uniqueId = `${dateObj.getTime()}_${rawName}_idx${i}`;
-            }
-        }
-
-        return {
-            id: uniqueId,
-            time: dateObj,
-            name: rawName,
-            rarity: rarity,
-            bannerId: internalId,
-            seqId: seqId,
-            isNew: isNew,
-            type: itemType,
-            rawPoolId: rawBannerId
-        };
-    });
-
-    return parsedList.sort(sortPulls);
+        let uniqueId = item.id || (seqId !== 0 ? `${dateObj.getTime()}_${rawName}_${seqId}` : `${dateObj.getTime()}_${rawName}_idx${i}`);
+        
+        return { id: uniqueId, time: dateObj, name: rawName, rarity, bannerId: internalId, seqId, isNew, type: itemType, rawPoolId: rawBannerId };
+    }).sort(sortPulls);
 }
 
 export function mergePulls(oldList, newList) {
@@ -112,82 +124,111 @@ export function mergePulls(oldList, newList) {
     return Array.from(map.values()).sort(sortPulls);
 }
 
+// --- PITY CALCULATION ---
 export function calculatePity(pulls, bannerId) {
-    const isSpecial = bannerId?.includes('special');
+    const isSpecialCategory = bannerId?.includes('special') && !bannerId.includes('weap');
     let pityCounter = 0;
-    
-    return pulls.map((pull, index) => {
-        const isFreePull = isSpecial && (index >= 30 && index < 40);
+    const bannerSpecificCounts = {}; 
+
+    return pulls.map((pull) => {
+        const uniqueBannerKey = getDistinctBannerId(pull);
+
+        if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
+        const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
+
+        const isFreePull = isSpecialCategory && (countInThisBanner >= 30 && countInThisBanner < 40);
+        bannerSpecificCounts[uniqueBannerKey]++;
 
         if (!isFreePull) pityCounter++;
         
         if (pull.rarity === 6) {
-            const resultPity = pityCounter;
-            pityCounter = 0; 
-            return { ...pull, pity: resultPity, isFree: isFreePull };
+            const res = pityCounter;
+            pityCounter = 0;
+            return { ...pull, pity: res, isFree: isFreePull };
         }
-
         return { ...pull, pity: pityCounter, isFree: isFreePull };
     });
 }
 
+// --- STATS CALCULATION ---
 export function calculateBannerStats(pulls, bannerId) {
-    let bannerConfig = banners.find(b => b.id === bannerId);
-    if (!bannerConfig) {
-         if (bannerId.includes('new')) bannerConfig = banners.find(b => b.type === 'new-player');
-         else if (bannerId.includes('special')) bannerConfig = banners.find(b => b.type === 'special');
-         else bannerConfig = banners.find(b => b.type === 'standard');
+    let currentViewBanner = banners.find(b => b.id === bannerId);
+    
+    if (!currentViewBanner && (bannerId.includes('special') || bannerId.includes('weap'))) {
+        const isWeapon = bannerId.includes('weap');
+        const candidates = banners.filter(b => {
+            if (isWeapon) return b.type === 'weapon' || (b.id && b.id.includes('weap'));
+            return b.type === 'special';
+        });
+        
+        candidates.sort((a, b) => parseEarliestDate(b.startTime).getTime() - parseEarliestDate(a.startTime).getTime());
+        
+        const lastPullTime = pulls.length > 0 ? pulls[pulls.length - 1].time.getTime() : Date.now();
+        const activeBanner = candidates.find(b => parseEarliestDate(b.startTime).getTime() <= lastPullTime);
+        
+        if (activeBanner) currentViewBanner = activeBanner;
+        else if (candidates.length > 0) currentViewBanner = candidates[0];
     }
 
-    const featured6 = bannerConfig?.featured6 || [];
-    
-    const isWeapon = bannerId.includes('weap') || bannerId.includes('wepon');
-    const isEventChar = bannerId.includes('special') && !isWeapon;
-    const isStandardChar = bannerId === 'standard' || (bannerId.includes('standard') && !isWeapon);
-    
-    const hardPityLimit = isWeapon ? 80 : 120;
+    let mileageStart = 0;
+    let mileageEnd = 0;
+    if (currentViewBanner) {
+        mileageStart = parseEarliestDate(currentViewBanner.startTime).getTime();
+        mileageEnd = currentViewBanner.endTime ? parseEarliestDate(currentViewBanner.endTime).getTime() : Infinity;
+    }
 
+    const hardPityLimit = bannerId.includes('weap') ? 80 : 120;
     let total = pulls.length;
-    let count6 = 0;
-    let count5 = 0;
-    let sumPity6 = 0;
-    let sumPity5 = 0;
-    let won5050 = 0;
-    let total5050 = 0;
-    
+    let count6 = 0, count5 = 0;
+    let sumPity6 = 0, sumPity5 = 0;
+    let won5050 = 0, total5050 = 0;
     let hasReceivedRateUp = false;
-    let currentPity6 = 0;
-    let currentPity5 = 0;
-    
+    let currentPity6 = 0, currentPity5 = 0;
     let rateUpPityCounter = 0; 
+    let currentBannerMileage = 0; 
 
-    let validMileageTotal = 0;
+    const bannerSpecificCounts = {};
 
-    pulls.forEach((pull, index) => {
+    pulls.forEach((pull) => {
         const itemName = normalize(pull.name);
-        const isFreePullIndex = (index >= 30 && index < 40);
-        const isFreePull = isEventChar && isFreePullIndex;
-        
+        const pullTime = new Date(pull.time).getTime();
+        const uniqueBannerKey = getDistinctBannerId(pull);
+
+        if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
+        const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
+        const isFreePull = (bannerId.includes('special') && !bannerId.includes('weap')) && (countInThisBanner >= 30 && countInThisBanner < 40);
+        bannerSpecificCounts[uniqueBannerKey]++;
+
+        // БЕСПЛАТНЫЕ НЕ ИДУТ В MILEAGE (Магазин/Спарк)
         if (!isFreePull) {
-            validMileageTotal++;
+            if (bannerId.includes('standard') || bannerId.includes('new')) {
+                currentBannerMileage++;
+            } else {
+                if (pullTime >= mileageStart && pullTime <= mileageEnd) {
+                    currentBannerMileage++;
+                }
+            }
         }
+
+        // БЕСПЛАТНЫЕ НЕ ИДУТ В ГАРАНТ
         let isHardPityTriggered = false;
         if (!isFreePull) {
-            if (rateUpPityCounter >= hardPityLimit - 1) {
-                isHardPityTriggered = true;
-            }
+            if (rateUpPityCounter >= hardPityLimit - 1) isHardPityTriggered = true;
             rateUpPityCounter++;
         }
 
         if (pull.rarity === 6) {
             count6++;
-            sumPity6 += currentPity6 + (isFreePull ? 0 : 1); 
+            sumPity6 += currentPity6 + (isFreePull ? 0 : 1);
 
-            const isFeatured = featured6.some(fid => {
-                const c = characters[fid];
-                if (c && normalize(c.name) === itemName) return true;
-                const w = weapons[fid];
-                if (w && normalize(w.name) === itemName) return true;
+            let historicConfig = banners.find(b => b.id === uniqueBannerKey);
+            if (!historicConfig) historicConfig = findBannerConfigByTime(pull.time, pull.rawPoolId);
+            const featuredList = historicConfig?.featured6 || currentViewBanner?.featured6 || [];
+
+            const isFeatured = featuredList.some(fid => {
+                const c = characters[fid]; if (c && normalize(c.name) === itemName) return true;
+                const w = weapons[fid]; if (w && normalize(w.name) === itemName) return true;
+                if (normalize(fid) === itemName) return true;
                 return false;
             });
 
@@ -198,14 +239,13 @@ export function calculateBannerStats(pulls, bannerId) {
 
             if (isFeatured) {
                 rateUpPityCounter = 0;
-                hasReceivedRateUp = true;
-            }            
-            currentPity6 = 0;
-
-        } else {
-            if (!isFreePull) {
-                currentPity6++;
+                if (pullTime >= mileageStart && pullTime <= mileageEnd) {
+                    hasReceivedRateUp = true; 
+                }
             }
+            currentPity6 = 0;
+        } else {
+            if (!isFreePull) currentPity6++;
         }
 
         if (pull.rarity === 5) {
@@ -217,93 +257,63 @@ export function calculateBannerStats(pulls, bannerId) {
         }
     });
 
-    let mileage = {
-        show: false,
-        current: 0,
-        max: 0,
-        label: ""
-    };
-
-    if (isStandardChar) {
-        if (validMileageTotal < 300) {
-            mileage = {
-                show: true,
-                current: validMileageTotal,
-                max: 300,
-                label: "selector_6"
+    let mileage = { show: false, current: 0, max: 0, label: "" };
+    if (bannerId.includes('standard')) {
+        if (currentBannerMileage < 300) mileage = { show: true, current: currentBannerMileage, max: 300, label: "selector_6" };
+    } else if (bannerId.includes('special') && !bannerId.includes('weap')) {
+        const cycle = 240;
+        
+        // ЛОГИКА ОТОБРАЖЕНИЯ:
+        // 1. Если получили перса (hasReceivedRateUp) -> сразу переходим на цикл 240 (Bonus Copy)
+        // 2. Если НЕ получили, но перевалили за 120 -> тоже переходим на цикл 240 (Bonus Copy)
+        // 3. Иначе -> показываем путь к 120 (Guaranteed)
+        
+        if (hasReceivedRateUp || currentBannerMileage >= 120) {
+            mileage = { 
+                show: true, 
+                current: currentBannerMileage % cycle, // Зацикливаем (250 -> 10/240)
+                max: cycle, 
+                label: "bonus_copy_6" 
             };
-        }
-    } 
-    else if (isEventChar) {
-        if (validMileageTotal < 120) {
-            mileage = {
-                show: true,
-                current: validMileageTotal,
-                max: 120,
-                label: "guaranteed_6"
-            };
-        } 
-        else {
-            const cycle = 240;
-            mileage = {
-                show: true,
-                current: validMileageTotal % cycle,
-                max: cycle,
-                label: "bonus_copy_6"
+        } else {
+            mileage = { 
+                show: true, 
+                current: currentBannerMileage, 
+                max: 120, 
+                label: "guaranteed_6" 
             };
         }
     }
 
     return {
-        total,
-        pity6: currentPity6,
-        pity5: currentPity5,
-        mileage,
+        total, pity6: currentPity6, pity5: currentPity5, mileage,
         guarantee120: hasReceivedRateUp ? 0 : rateUpPityCounter, 
-        hasReceivedRateUp,
-        count6,
-        count5,
+        hasReceivedRateUp, count6, count5,
         avg6: count6 ? (sumPity6 / count6).toFixed(1) : "0.0",
         avg5: count5 ? (sumPity5 / count5).toFixed(1) : "0.0",
         percent6: total ? ((count6 / total) * 100).toFixed(2) : "0.00",
         percent5: total ? ((count5 / total) * 100).toFixed(2) : "0.00",
-        winRate: {
-            won: won5050,
-            total: total5050,
-            percent: total5050 ? ((won5050 / total5050) * 100).toFixed(0) : 0
-        }
+        winRate: { won: won5050, total: total5050, percent: total5050 ? ((won5050 / total5050) * 100).toFixed(0) : 0 }
     };
 }
 
 export function validateAccountConsistency(existingPulls, newPulls) {
     if (!existingPulls.length || !newPulls.length) return;
-
     const sortedNew = [...newPulls].sort((a, b) => a.time - b.time);
     const minNewTime = sortedNew[0].time.getTime();
     const maxNewTime = sortedNew[sortedNew.length - 1].time.getTime();
-
     const overlaps = existingPulls.filter(p => {
         const t = p.time.getTime();
         return t >= minNewTime && t <= maxNewTime;
     });
-
     if (overlaps.length === 0) return;
-
     const existingIdsInrange = new Set(overlaps.map(p => p.id));
-
     let hasMatch = false;
-    for (const p of sortedNew) {
-        if (existingIdsInrange.has(p.id)) {
-            hasMatch = true;
-            break;
-        }
-    }
-
+    for (const p of sortedNew) { if (existingIdsInrange.has(p.id)) { hasMatch = true; break; } }
     if (!hasMatch) {
         const startDate = new Date(minNewTime).toLocaleDateString();
         const endDate = new Date(maxNewTime).toLocaleDateString();
-        throw new Error(
-            `Account Mismatch! You already have history between ${startDate} and ${endDate}, but the imported data differs completely. Please check if you selected the correct account.`
-        );
+        const $t = get(t);
+        throw new Error($t("import.error_account_mismatch", { start: startDate, end: endDate }));
     }
 }

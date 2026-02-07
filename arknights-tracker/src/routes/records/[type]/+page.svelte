@@ -357,22 +357,18 @@
 
     function getBannerImage(id) {
         const b = banners.find((x) => x.id === id);
-        if (!b) return null;
-        if (id === "laevatain-banner") {
-            return "/images/banners/miniIcon/laevatain-banner.jpg";
+                if (b && b.miniIcon) {
+            return `/images/banners/miniIcon/${b.miniIcon}`;
         }
         if (id.includes("constant")) {
             const num = id.replace(/[^0-9]/g, "");
             const cleanNum = parseInt(num, 10);
             return `/images/banners/miniIcon/weaponbox_constant_${cleanNum}.png`;
         }
-        if (id.includes("wepon") || id.includes("weapon")) {
-            return "/images/banners/miniIcon/weapon_01.png";
+        if (b) {
+             return `/images/banners/miniIcon/${b.id}.png`;
         }
-        if (b.miniIcon) {
-            return `/images/banners/miniIcon/${b.miniIcon}`;
-        }
-        return `/images/banners/miniIcon/${b.id}.png`;
+        return null; 
     }
 </script>
 

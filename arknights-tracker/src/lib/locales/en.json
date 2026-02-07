@@ -81,8 +81,8 @@
     "special": "Special Headhunting",
     "new-player": "New Horizons Headhunting",
     "weponbox_1_0_1": "Smelting Forge Issue",
-    "weponbox_1_0_2": "Express Delivery Issue",
-    "weponbox_1_0_3": "Graffiti Issue",
+    "weponbox_1_0_3": "Express Delivery Issue",
+    "weponbox_1_0_4": "Graffiti Issue",
     "weaponbox_constant_1": "Solid Ice Issue",
     "weaponbox_constant_2": "Cosmic Voice Issue",
     "weaponbox_constant_3": "Far Expedition Issue",
@@ -183,7 +183,8 @@
     "error_format": "Invalid URL/Token format",
     "error_rate_limit": "Too many requests. Please wait a minute.",
     "error_no_data": "No pulls found or Link Expired",
-    "error_unknown": "Unknown Error"
+    "error_unknown": "Unknown Error",
+    "error_account_mismatch": "Account Mismatch! You already have history between {start} and {end}, but the imported data differs completely. Please check if you selected the correct account."
   },
   "characters": {
     "endministrator1": "Endministrator",
@@ -257,8 +258,8 @@
     "standard_01": "Basic Headhunting",
     "new_player_01": "New Horizons Headhunting",
     "weponbox_1_0_1": "Smelting Forge Issue",
-    "weponbox_1_0_2": "Express Delivery Issue",
-    "weponbox_1_0_3": "Graffiti Issue",
+    "weponbox_1_0_3": "Express Delivery Issue",
+    "weponbox_1_0_4": "Graffiti Issue",
     "weaponbox_constant_1": "Solid Ice Issue",
     "weaponbox_constant_2": "Cosmic Voice Issue",
     "weaponbox_constant_3": "Far Expedition Issue",
