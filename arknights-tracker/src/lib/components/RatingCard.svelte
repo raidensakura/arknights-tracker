@@ -4,9 +4,14 @@
   import { bannerTypes } from "$lib/data/bannerTypes";
   import { fetchGlobalStats } from "$lib/api";
   import { browser } from "$app/environment";
-  import { currentUid } from "$lib/stores/auth";
+  import { accountStore } from "$lib/stores/accounts";
   import Button from "./Button.svelte";
   import Icon from "./Icons.svelte";
+
+  const { accounts, selectedId } = accountStore;
+  
+  $: currentAccount = $accounts.find(a => a.id === $selectedId);
+  $: gameUid = currentAccount?.serverUid; 
 
   $: ratingTabs = [...bannerTypes]
     .filter((b) => b.showInRating)
@@ -20,7 +25,9 @@
   $: localAvg6 = localStats.avg6 ? parseFloat(localStats.avg6) : 0;
   $: localAvg5 = localStats.avg5 ? parseFloat(localStats.avg5) : 0;
   $: localWinRate = localStats.winRate?.percent ? parseFloat(localStats.winRate.percent) : 0;
+  
   let serverData = null;
+  
   $: displayTotal = serverData?.myStats?.total ?? localTotal;
   $: displayAvg6 = serverData?.myStats?.avg6 ? parseFloat(serverData.myStats.avg6) : localAvg6;
   $: displayWinRate = serverData?.myStats?.winRate ? parseFloat(serverData.myStats.winRate) : localWinRate;
@@ -57,10 +64,9 @@
     return val !== null && val !== undefined && !isNaN(val) ? val : "0";
   }
 
-  // --- ЗАГРУЗКА ---
   $: if (browser && activeTab) {
-      if ($currentUid) {
-          loadRankings(activeTab, $currentUid);
+      if (gameUid) {
+          loadRankings(activeTab, gameUid);
       } else {
           serverData = null; 
       }
@@ -68,10 +74,11 @@
 
   async function loadRankings(poolId, uid) {
     if (!browser || !uid) return;
-    serverData = null; 
+
     try {
       const response = await fetchGlobalStats(uid, poolId);
-      if (uid !== $currentUid) return; 
+      
+      if (uid !== gameUid) return; 
 
       if (response && (response.code === 0 || response.found)) {
          serverData = response.data || response;

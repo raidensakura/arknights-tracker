@@ -105,7 +105,7 @@ function createPullStore() {
         subscribe,
         set,
         update,
-        smartImport: async (newPulls) => {
+        smartImport: async (newPulls, serverId = '3') => {
             if (!browser) return;
 
             await new Promise(r => setTimeout(r, 300));
@@ -114,7 +114,7 @@ function createPullStore() {
                 update(currentData => {
                     try {
                         const newData = JSON.parse(JSON.stringify(currentData));
-                        restoreDatesAndStats(newData);
+                        restoreDatesAndStats(newData, serverId);
 
                         const report = { status: 'up_to_date', addedCount: {}, totalAdded: 0 };
 
@@ -157,15 +157,16 @@ function createPullStore() {
                             const reallyNew = incomeList.filter(p => !existingIds.has(p.id));
 
                             if (reallyNew.length > 0) {
-                                const mergedList = mergePulls(oldList, reallyNew);
-                                const pullsWithPity = calculatePity(mergedList, targetKey);
-                                newData[targetKey].pulls = pullsWithPity;
-                                newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey);
+                                        const mergedList = mergePulls(oldList, reallyNew);
+                                        
+                                        const pullsWithPity = calculatePity(mergedList, targetKey, serverId);
+                                        newData[targetKey].pulls = pullsWithPity;
+                                        newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey, serverId);
 
-                                report.addedCount[targetKey] = (report.addedCount[targetKey] || 0) + reallyNew.length;
-                                report.totalAdded += reallyNew.length;
-                                hasUpdates = true;
-                            }
+                                        report.addedCount[targetKey] = (report.addedCount[targetKey] || 0) + reallyNew.length;
+                                        report.totalAdded += reallyNew.length;
+                                        hasUpdates = true;
+                                    }
                         });
 
                         if (hasUpdates) {

@@ -217,7 +217,7 @@
                 const cleanPulls = parseGachaLog(rawData);
                 pendingData = cleanPulls;
 
-                const report = await pullData.smartImport(cleanPulls, true);
+                const report = await pullData.smartImport(cleanPulls, backendServerId);
                 previewReport = report;
             } else {
                 const rawError =
@@ -225,16 +225,19 @@
                     response.message ||
                     response.msg ||
                     "Unknown error";
+                
+                const lowerError = String(rawError).toLowerCase();
 
-                if (rawError.includes("Too many requests")) {
-                    errorMsg =
-                        $t("import.error_rate_limit") ||
-                        "Too many requests. Please wait a minute.";
-                } else if (rawError.includes("No pulls found")) {
-                    errorMsg =
-                        $t("import.error_no_data") ||
-                        "No pulls found or Link Expired.";
-                } else if (rawError.includes("Invalid domain")) {
+                if (
+                    response.status === 429 || 
+                    lowerError.includes("too many requests") || 
+                    lowerError.includes("rate limit") ||
+                    lowerError.includes("429")
+                ) {
+                    errorMsg = $t("import.error_rate_limit") || "Too many requests. Please wait a minute.";
+                } else if (lowerError.includes("no pulls found")) {
+                    errorMsg = $t("import.error_no_data") || "No pulls found or Link Expired.";
+                } else if (lowerError.includes("invalid domain")) {
                     errorMsg = $t("import.error_domain") || "Invalid domain.";
                 } else {
                     errorMsg = rawError;
@@ -243,17 +246,25 @@
         } catch (err) {
             console.error("Import Error:", err);
 
-            const msg = err.message || "";
+            const msg = (err.message || "").toLowerCase();
+            const errCode = err.status || err.statusCode || err.code || 0;
 
-            if (msg.includes("Too many requests") || msg.includes("429")) {
+            if (
+                errCode === 429 || 
+                msg.includes("too many requests") || 
+                msg.includes("rate limit") || 
+                msg.includes("429")
+            ) {
                 errorMsg = $t("import.error_rate_limit");
             } else if (
-                msg.includes("No pulls found") ||
-                msg.includes("generate UID")
+                msg.includes("no pulls found") ||
+                msg.includes("generate uid")
             ) {
                 errorMsg = $t("import.error_no_data");
+            } else if (msg.includes("backend connection failed") || msg.includes("fetch")) {
+                errorMsg = $t("import.error_network") || "Network Error / Backend unavailable";
             } else {
-                errorMsg = msg || $t("import.error_unknown") || "Unknown Error";
+                errorMsg = err.message || $t("import.error_unknown") || "Unknown Error";
             }
         } finally {
             isLoading = false;
