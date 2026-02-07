@@ -5,6 +5,7 @@
     import { pullData } from "$lib/stores/pulls";
     import { bannerTypes } from "$lib/data/bannerTypes";
     import { characters } from "$lib/data/characters";
+    import { accountStore } from "$lib/stores/accounts";
     import { weapons } from "$lib/data/weapons";
     import { banners } from "$lib/data/banners";
     import { goto } from "$app/navigation";
@@ -35,7 +36,11 @@
     $: hasReceivedRateUp = stats.hasReceivedRateUp || false;
     $: isStandardWeapon = bannerType.includes("constant");
 
-    let serverOffset = -5;
+    const { accounts, selectedId } = accountStore;
+
+    $: currentAccount = $accounts.find(a => a.id === $selectedId);
+    $: currentServerId = currentAccount?.serverId || '3';
+    $: serverOffset = (currentServerId === '2' || currentServerId === '1') ? 8 : -7;
 
     function parseServerDate(dateStr) {
         if (!dateStr) return null;
@@ -50,12 +55,7 @@
     }
 
     onMount(() => {
-        if (typeof window !== "undefined") {
-            const sid = localStorage.getItem("ark_server_id");
-            serverOffset = sid === "2" ? 8 : -5;
-        }
     });
-
     function getMileageLabel(label) {
         if (label === "selector_6") return $t("stats.selector") || "Selector";
         if (label === "guaranteed_6")

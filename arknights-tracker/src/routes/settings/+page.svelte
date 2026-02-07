@@ -540,7 +540,7 @@
                                         class="flex items-center gap-2 px-3 py-1 bg-orange-50 dark:text-orange-400 text-orange-700 dark:bg-[#803E18] dark:border-[#444444] rounded-full text-[10px] font-bold border border-orange-200  uppercase tracking-wider"
                                     >
                                         <Icon
-                                            name="refresh"
+                                            name="loading"
                                             class="w-3 h-3 animate-spin"
                                         />
                                         {$t("settings.cloud.notSynced")}

@@ -3,6 +3,7 @@
     import { replaceState } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
     import { characters } from "$lib/data/characters";
+    import { accountStore } from "$lib/stores/accounts";
     import { weapons } from "$lib/data/weapons";
     import { banners } from "$lib/data/banners";
     import { browser } from "$app/environment";
@@ -20,7 +21,12 @@
 
     const dispatch = createEventDispatcher();
 
-    let serverOffset = -5;
+    const { accounts, selectedId } = accountStore;
+
+    $: currentAccount = $accounts.find(a => a.id === $selectedId);
+    $: currentServerId = currentAccount?.serverId || '3';
+    
+    $: serverOffset = (currentServerId === '2' || currentServerId === '1') ? 8 : -7;
 
     function parseServerDate(dateStr) {
         if (!dateStr) return null;
@@ -36,8 +42,6 @@
 
     onMount(() => {
         if (typeof window !== "undefined") {
-            const sid = localStorage.getItem("ark_server_id");
-            serverOffset = sid === "2" ? 8 : -5;
             if (banner && banner.id) {
                 replaceState(`#banner-${banner.id}`, {});
             }
