@@ -174,22 +174,50 @@ app.post('/api/import', importLimiter, async (req, res) => {
         }
         
         const token = parsedUrl.searchParams.get('token') || parsedUrl.searchParams.get('u8_token');
-        const lang = 'en-us'; 
-        let targetServerId = parsedUrl.searchParams.get('server_id') || '3';
+        const lang = 'en-us';
+        
         if (!token) return res.status(400).json({ error: "No token found in URL" });
-        console.log(`\n--- New Import Request ---`);
-        let allPulls = await fetchGameData(token, lang, targetServerId);
 
-        if (allPulls.length === 0 && targetServerId === '3') {
-            console.log("\nNo data found on Server 3. Retrying on Server 2...");
-            targetServerId = '2'; 
-            allPulls = await fetchGameData(token, lang, targetServerId);
+        // --- ИЗМЕНЕННАЯ ЛОГИКА ВЫБОРА СЕРВЕРА ---
+        
+        // 1. Получаем ID из ссылки (если есть)
+        const urlServerId = parsedUrl.searchParams.get('server_id');
+        
+        // 2. Формируем список серверов для проверки в порядке приоритета.
+        // Используем Set, чтобы избежать дубликатов (например, если в ссылке уже стоит 3, чтобы не проверять 3 дважды)
+        const serverCandidates = new Set();
+
+        if (urlServerId) {
+            serverCandidates.add(urlServerId); // Сначала пробуем то, что в ссылке
+        }
+        serverCandidates.add('3'); // Затем пробуем Global/America (обычно id 3)
+        serverCandidates.add('2'); // Затем пробуем Asia (обычно id 2)
+
+        console.log(`\n--- New Import Request ---`);
+        
+        let allPulls = [];
+        let usedServerId = null;
+
+        // 3. Проходимся по кандидатам
+        for (const serverId of serverCandidates) {
+            console.log(`Checking Server ID: ${serverId}...`);
+            const pulls = await fetchGameData(token, lang, serverId);
+            
+            if (pulls.length > 0) {
+                console.log(`✅ Data found on Server ID: ${serverId}`);
+                allPulls = pulls;
+                usedServerId = serverId;
+                break; // Данные найдены, прерываем цикл, другие сервера не трогаем
+            } else {
+                console.log(`❌ No data on Server ID: ${serverId}`);
+            }
         }
 
         console.log(`--- Import Finished. Total: ${allPulls.length} ---`);
 
         if (allPulls.length === 0) {
-            return res.status(400).json({ error: "No pulls found (checked servers 3 and 2)" });
+            // Если прошли все варианты и везде пусто
+            return res.status(400).json({ error: "No pulls found on any checked server (checked URL params, 3, and 2)" });
         }
 
         const stableUid = generateStableUid(allPulls);
@@ -209,7 +237,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
             data: {
                 list: allPulls,
                 uid: stableUid,
-                serverId: targetServerId
+                serverId: usedServerId // Возвращаем тот сервер, на котором реально нашли данные
             }
         });
 
