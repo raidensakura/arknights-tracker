@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from "svelte";
     import { getImagePath } from "$lib/utils/imageUtils";
     import Icon from "$lib/components/Icons.svelte";
 
@@ -14,32 +13,30 @@
     $: rawId = id || (item?.icon) || (item?.id) || (item?.name);
     $: src = getImagePath(rawId, variant);
 
-    let imgElement;
-    let isLoaded = false;
     let hasError = false;
-    let instantLoad = false;
+    
 
-    onMount(() => {
-        if (imgElement && imgElement.complete) {
-            isLoaded = true;
-            instantLoad = true;
+    let isVisible = false;
+    let allowTransition = false;
+
+    function setupImage(imgNode) {
+        if (imgNode.complete) {
+            isVisible = true;
+            allowTransition = false; 
+        } else {
+            allowTransition = true;
+            imgNode.onload = () => {
+                isVisible = true;
+            };
         }
-    });
-
-    function handleLoad() {
-        isLoaded = true;
     }
 
     function handleError(e) {
-        isLoaded = true;
+        isVisible = true;
         hasError = true;
     }
 
     $: sizeStyle = typeof size === 'number' ? `width: ${size}px; height: ${size}px;` : `width: ${size}; height: ${size};`;
-    
-    $: transitionClasses = instantLoad 
-        ? "" 
-        : "transition-opacity duration-500";
 </script>
 
 {#if hasError}
@@ -52,16 +49,17 @@
         {/if}
     </div>
 {:else}
-    <img
-        bind:this={imgElement} 
-        {src}
-        alt={alt || rawId}
-        loading="lazy"
-        decoding="async"
-        draggable="false"
-        class="{className} object-cover {transitionClasses} {isLoaded ? 'opacity-100' : 'opacity-0'}"
-        style="{sizeStyle} {style}"
-        on:load={handleLoad}
-        on:error={handleError}
-    />
+    {#key src}
+        <img
+            use:setupImage
+            {src}
+            alt={alt || rawId}
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+            class="{className} object-cover {allowTransition ? 'transition-opacity duration-200' : ''} {isVisible ? 'opacity-100' : 'opacity-0'}"
+            style="{sizeStyle} {style}"
+            on:error={handleError}
+        />
+    {/key}
 {/if}

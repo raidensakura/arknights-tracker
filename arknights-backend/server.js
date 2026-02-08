@@ -172,6 +172,8 @@ async function fetchGameData(token, lang, serverId) {
 
 app.post('/api/import', importLimiter, async (req, res) => {
     const { rawUrl } = req.body;
+
+    let usedServerId = null;
     
     try {
         const parsedUrl = new URL(rawUrl);
@@ -238,7 +240,11 @@ app.post('/api/import', importLimiter, async (req, res) => {
 
     } catch (error) {
         console.error("Critical Server Error:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        await logImportError(rawUrl, error, usedServerId);
+        res.status(500).json({ 
+            error: "Internal Server Error", 
+            message: error.message
+        });
     }
 });
 
@@ -544,6 +550,38 @@ app.get('/api/rankings/data', async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(500).json({ code: 500, message: "Error" });
+    }
+});
+
+async function logImportError(url, errorObj, serverId = null) {
+    try {
+        if (!prisma) return;
+
+        await prisma.importError.create({
+            data: {
+                url: url || "No URL provided", // Защита от null
+                error: errorObj.message || String(errorObj),
+                stack: errorObj.stack || null,
+                serverId: serverId ? String(serverId) : null
+            }
+        });
+        console.log("📝 Import error logged to DB");
+    } catch (e) {
+        console.error("Failed to log import error:", e);
+    }
+}
+
+app.get('/api/admin/errors', async (req, res) => {
+    if (req.headers['x-admin-secret'] !== 'florest555') return res.sendStatus(403);
+
+    try {
+        const errors = await prisma.importError.findMany({
+            take: 50,
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(errors);
+    } catch (e) {
+        res.status(500).json({ error: "Failed to fetch errors" });
     }
 });
 

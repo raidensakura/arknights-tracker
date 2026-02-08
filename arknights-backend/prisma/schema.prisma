@@ -13,7 +13,6 @@ model User {
   stats     UserBannerStat[]
 }
 
-// Храним ТОЛЬКО итоговые цифры для рейтинга
 model UserBannerStat {
   uid        String
   bannerId   String // 'standard', 'special', 'special_banner_01' и т.д.
@@ -22,24 +21,31 @@ model UserBannerStat {
   totalPulls Int @default(0)
   lastUpdate DateTime @default(now())
 
-  // Удача (6 звезд)
   total6     Int @default(0)
-  sumPity6   Int @default(0) // Сумма пити всех 6* (для расчета среднего: sumPity6 / total6)
+  sumPity6   Int @default(0)
   
-  // Удача (5 звезд)
   total5     Int @default(0)
   sumPity5   Int @default(0)
 
-  // 50 на 50
-  won5050    Int @default(0) // Сколько раз выиграл
-  total5050  Int @default(0) // Сколько раз был шанс 50/50 (выпал 6*, когда не было гаранта)
+  won5050    Int @default(0)
+  total5050  Int @default(0)
 
   user       User @relation(fields: [uid], references: [uid])
 
-  // Составной ключ: у юзера может быть только 1 статистика для конкретного баннера
   @@id([uid, bannerId])
   
   // Индексы для быстрого построения топов
   @@index([bannerId, totalPulls]) 
   @@index([bannerId, sumPity6])
+}
+
+model ImportError {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  
+  url       String
+  error     String
+  stack     String?
+  serverId  String?
+  solved    Boolean  @default(false)
 }
