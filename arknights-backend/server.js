@@ -46,8 +46,8 @@ function generatePullId(uid, pull) {
 
 function getServerOffset(serverId) {
     const sid = String(serverId);
-    if (sid === '3') return -5; 
-    return 8; 
+    if (sid === '2') return 8;
+    return -5;
 }
 
 app.use(cors());
@@ -148,7 +148,7 @@ async function fetchGameData(token, lang, serverId) {
                 pageCount++;
                 if (pageCount > 2000) hasMore = false;
 
-                await sleep(300); 
+                await sleep(50); 
 
             } catch (err) {
                 console.error(`Error scanning ${poolLabel}: ${err.message}`);
@@ -328,58 +328,51 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     console.log(`[Stats] Updated for ${uid} on Server ${serverId}: ${Object.keys(pullsByCategory).join(', ')}`);
 }
 
-function parseEarliestDate(dateStr, offset = 8) {
-    if (!dateStr) return new Date(0);
-    if (dateStr instanceof Date) return dateStr;
-    if (typeof dateStr === 'number') return new Date(dateStr);
+function parseDateWithServer(dateStr, offset) {
+    if (!dateStr) return null;
     
-    if (typeof dateStr === 'string') {
-        const sign = offset >= 0 ? "+" : "-";
-        const pad = (n) => String(Math.abs(n)).padStart(2, '0');
-        const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
-        return new Date(isoStr);
-    }
+    if (dateStr.includes("Z") || dateStr.includes("+")) return new Date(dateStr);
 
-    return new Date(dateStr);
+    const sign = offset >= 0 ? "+" : "-";
+    const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+    const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
+    return new Date(isoStr);
 }
 
-function findBannerConfigByTime(timestamp, categoryContext, offset = 8) {
+function findBannerConfigByTime(timestamp, categoryContext, offset) {
     const time = new Date(timestamp).getTime();
-    const BUFFER = 4 * 60 * 60 * 1000; 
+    const BUFFER = 12 * 60 * 60 * 1000; 
 
     let targetType = null;
     if (categoryContext) {
-        if (categoryContext.includes('weap') || categoryContext.includes('constant')) targetType = 'weapon';
+        if (categoryContext.includes('weap')) targetType = 'weapon';
         else if (categoryContext.includes('new')) targetType = 'new-player';
         else if (categoryContext === 'standard') targetType = 'standard';
         else if (categoryContext === 'special') targetType = 'special';
     }
 
     const candidates = BANNERS.filter(b => {
-        const start = parseEarliestDate(b.startTime, offset).getTime();
-        const end = b.endTime ? parseEarliestDate(b.endTime, offset).getTime() : Infinity;
-        
-        if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
-
         if (targetType) {
-            if (targetType === 'special' && b.type !== 'special') return false;
-            if (targetType === 'standard' && b.type !== 'standard') return false;
-            if (targetType === 'new-player' && b.type !== 'new-player') return false;
-            if (targetType === 'weapon' && b.type !== 'weapon' && !b.id.includes('weap')) return false;
-        } else {
             const isBannerWeapon = b.type === 'weapon' || (b.id && b.id.includes('weap'));
-            if (b.type === 'new-player') return false;
-            if (isBannerWeapon) return false;
+            if (targetType === 'weapon' && !isBannerWeapon) return false;
+            if (targetType !== 'weapon' && isBannerWeapon) return false;
+            
+            if (targetType === 'standard' && b.type !== 'standard') return false;
+            if (targetType === 'special' && b.type !== 'special') return false;
         }
-        return true;
+
+        const start = parseDateWithServer(b.startTime, offset).getTime();
+        const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
+        
+        return time >= (start - BUFFER) && time <= (end + BUFFER);
     });
 
     if (candidates.length > 0) {
         candidates.sort((a, b) => 
-            parseEarliestDate(b.startTime, offset).getTime() - 
-            parseEarliestDate(a.startTime, offset).getTime()
+            parseDateWithServer(b.startTime, offset).getTime() - 
+            parseDateWithServer(a.startTime, offset).getTime()
         );
-        return candidates[candidates.length - 1];
+        return candidates[0];
     }
 
     return undefined;
@@ -481,17 +474,20 @@ const normalize = (str) => {
 };
 
 function normalizeBannerId(rawId) {
-    if (!rawId) return 'special';
-    const lower = rawId.toLowerCase();
+    if (!rawId) return 'standard';
+    const id = String(rawId).toLowerCase().trim();
     
-    if (['weap-standard', 'weap-special', 'standard', 'special', 'new-player'].includes(lower)) return lower;
-
-    if (lower.includes('weapon') || lower.includes('wepon') || lower.includes('weap')) {
-        if (lower.includes('constant') || lower.includes('standard')) return 'weap-standard';
+    if (id.includes('weapon') || id.includes('wepon') || id.includes('weap')) {
+        if (id.includes('constant') || (id.includes('standard') && !id.includes('special'))) {
+             return 'weap-standard';
+        }
         return 'weap-special';
     }
-    if (lower.includes('new') || lower.includes('beginner')) return 'new-player';
-    if (lower.includes('standard')) return 'standard';
+    
+    if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) return 'new-player';
+    
+    if (id === '1' || id.includes('standard') || id.includes('permanent')) return 'standard';
+    
     return 'special';
 }
 
