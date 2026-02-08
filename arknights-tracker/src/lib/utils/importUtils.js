@@ -1,3 +1,5 @@
+// src/lib/utils/importUtils.js
+
 import { get } from 'svelte/store';
 import { t } from '$lib/i18n';
 import { characters } from "$lib/data/characters";

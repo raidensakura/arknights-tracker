@@ -394,7 +394,9 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     });
 
     const currentOffset = getServerOffset(serverId);
-    
+    const isWeapon = categoryId.includes('weap') || categoryId.includes('wepon');
+    const hardPityLimit = isWeapon ? 80 : 120;
+
     let stats = {
         totalPulls: pulls.length,
         total6: 0, sumPity6: 0,
@@ -404,57 +406,69 @@ function calculateMath(pulls, categoryId, serverId = '3') {
 
     let currentPity6 = 0;
     let currentPity5 = 0;
+    
+    let rateUpPityCounter = 0; 
 
-    let nextIsGuaranteed = false; 
+    const bannerSpecificCounts = {};
 
     pulls.forEach((pull) => {
-        const isFree = pull.isFree === true || String(pull.isFree) === "true";
-        const itemName = normalize(pull.name);
+        const pullTime = Number(pull.time);
+        const uniqueBannerKey = pull.poolId || categoryId; 
+        if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
+        const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
+        const isSpecialCharBanner = categoryId.includes('special') && !isWeapon;
+        const isFreePull = isSpecialCharBanner && (countInThisBanner >= 30 && countInThisBanner < 40);
+        
+        bannerSpecificCounts[uniqueBannerKey]++;
+
+        let isHardPityTriggered = false;
+        
+        if (!isFreePull) {
+            if (rateUpPityCounter >= hardPityLimit - 1) {
+                isHardPityTriggered = true;
+            }
+            rateUpPityCounter++;
+        }
 
         if (pull.rarity === 6) {
             stats.total6++;
-            const pityForThisPull = currentPity6 + (isFree ? 0 : 1);
-            stats.sumPity6 += pityForThisPull;
+            stats.sumPity6 += currentPity6 + (isFreePull ? 0 : 1);
+            
+            const itemName = normalize(pull.name);
 
             let matchedBanner = findBannerConfigByTime(pull.time, categoryId, currentOffset);
             if (!matchedBanner) {
                  matchedBanner = BANNERS.find(b => b.id === pull.poolId);
             }
 
+            let isFeatured = false;
             if (matchedBanner && matchedBanner.featured6 && matchedBanner.featured6.length > 0) {
                 const normFeatured = matchedBanner.featured6.map(normalize);
-                const isFeatured = normFeatured.includes(itemName);
-                
-                if (nextIsGuaranteed) {
-                    if (isFeatured) {
-                        nextIsGuaranteed = false;
-                    } else {
-                        console.warn(`[Math] Got standard char '${itemName}' while guaranteed on banner ${matchedBanner.id}`);
-                    }
-                } else {
-                    stats.total5050++; 
-                    
-                    if (isFeatured) {
-                        stats.won5050++;
-                        nextIsGuaranteed = false;
-                    } else {
-                        nextIsGuaranteed = true;
-                    }
+                isFeatured = normFeatured.includes(itemName);
+            }
+
+            if (!isHardPityTriggered) {
+                stats.total5050++;
+                if (isFeatured) {
+                    stats.won5050++;
                 }
-            } 
+            }
+
+            if (isFeatured) {
+                rateUpPityCounter = 0;
+            }
 
             currentPity6 = 0;
-
         } else {
-            if (!isFree) currentPity6++;
+            if (!isFreePull) currentPity6++;
         }
 
         if (pull.rarity === 5) {
             stats.total5++;
-            stats.sumPity5 += currentPity5 + (isFree ? 0 : 1);
+            stats.sumPity5 += currentPity5 + (isFreePull ? 0 : 1);
             currentPity5 = 0;
         } else {
-            if (!isFree) currentPity5++;
+            if (!isFreePull) currentPity5++;
         }
     });
 
