@@ -48,7 +48,7 @@ function createAccountStore() {
             if (browser) localStorage.setItem("user_uid", currentAcc.serverUid);
         } else {
             console.log(`[Accounts] No Server UID for this account.`);
-            currentUid.set(null);
+            currentUid.set(null); 
             if (browser) localStorage.removeItem("user_uid");
         }
     };
@@ -191,7 +191,25 @@ function createAccountStore() {
              const current = get(selectedId);
              if (browser && current) {
                  localStorage.removeItem(`ark_tracker_data_${current}`);
+                 
+                 accounts.update(list => {
+                    return list.map(acc => {
+                        if (acc.id === current) {
+                            return { 
+                                ...acc, 
+                                serverUid: null,
+                                serverId: '3'
+                            };
+                        }
+                        return acc;
+                    });
+                 });
+
+                 currentUid.set(null);
+                 if (browser) localStorage.removeItem("user_uid");
+
                  window.dispatchEvent(new CustomEvent('ark_tracker_clear_data', { detail: { id: current } }));
+                 console.log("✅ Аккаунт полностью очищен.");
              }
         }
     };

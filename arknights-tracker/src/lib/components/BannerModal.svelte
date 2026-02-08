@@ -210,14 +210,22 @@
         });
 
         const filtered = historyWithPity.filter((pull) => {
+            if (pull.rawPoolId === banner.id || pull.bannerId === banner.id) {
+                return true;
+            }
+
             const pullTime = new Date(pull.time).getTime();
             const timeMatch = pullTime >= bStart && pullTime <= bEnd;
             
-            if (!isWeaponBanner && banner.id === 'standard') {
+            if (!isWeaponBanner && (banner.id === 'standard' || banner.id === '1')) {
                 return timeMatch && (pull.bannerId === 'standard' || pull.bannerId === '1');
             }
             
-            return timeMatch;
+            const typeMatch = isWeaponBanner 
+                ? pull.type === 'weapon' 
+                : pull.type === 'character';
+
+            return timeMatch && typeMatch;
         });
 
         if (filtered.length === 0) return { pulls: [], stats: {} };
