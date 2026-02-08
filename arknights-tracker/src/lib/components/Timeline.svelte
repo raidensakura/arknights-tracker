@@ -110,7 +110,7 @@
                             HEADER_HEIGHT_PX +
                             EVENT_TOP_OFFSET,
                         height: ROW_HEIGHT,
-                        color: "rgba(255, 255, 255, 0.6)", 
+                        color: "rgba(255, 255, 255, 0.6)",
                     });
                 }
             }
@@ -280,15 +280,27 @@
         const fullBanner = event.id 
             ? banners.find(b => b.id === event.id) 
             : null;
+
         const baseData = fullBanner || event;
+        
+        let offsetForModal = serverOffset;
+        
+        if (selectedTimezone && TIMEZONES[selectedTimezone]) {
+            const tz = TIMEZONES[selectedTimezone];
+            if (tz.offset !== 'local') {
+                offsetForModal = tz.offset;
+            } else {
+                 offsetForModal = serverOffset;
+            }
+        }
+
         bannerForModal = {
             ...baseData,
             name: getEventName(baseData),
             startTime: event.realStartTime ? event.realStartTime.toISOString() : baseData.startTime,
             endTime: event.realEndTime ? event.realEndTime.toISOString() : baseData.endTime,
+            forcedOffset: offsetForModal 
         };
-        
-        console.log("Opening modal for:", bannerForModal);
     }
 
     function getEventName(event) {
@@ -485,8 +497,13 @@
                         class="absolute transition-all group"
                         style="
                             left: {getPositionX(event.realStartTime)}px;
-                            width: {getWidth(event.realStartTime, event.realEndTime)}px;
-                            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) + HEADER_HEIGHT_PX + EVENT_TOP_OFFSET}px; 
+                            width: {getWidth(
+                            event.realStartTime,
+                            event.realEndTime,
+                        )}px;
+                            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) +
+                            HEADER_HEIGHT_PX +
+                            EVENT_TOP_OFFSET}px; 
                             height: {ROW_HEIGHT}px;
                             z-index: 20;
                         "
@@ -497,15 +514,23 @@
                         >
                             <div
                                 class="absolute inset-0 overflow-hidden shadow-sm hover:ring-1 ring-offset-1 ring-offset-transparent transition-all
-                                {event.connectLeft ? 'rounded-l-none border-l-0' : 'rounded-l'} 
-                                {event.connectRight ? 'rounded-r-none border-r-0' : 'rounded-r'}"
+                                {event.connectLeft
+                                    ? 'rounded-l-none border-l-0'
+                                    : 'rounded-l'} 
+                                {event.connectRight
+                                    ? 'rounded-r-none border-r-0'
+                                    : 'rounded-r'}"
                                 style="
                                     background-color: {event.color};
                                     /* Если есть соединение справа, убираем правую границу, иначе рисуем */
-                                    border-right: {event.connectRight ? 'none' : `4px solid ${event.color}`};
+                                    border-right: {event.connectRight
+                                    ? 'none'
+                                    : `4px solid ${event.color}`};
                                 "
                             >
-                                <div class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform group-hover:scale-105">
+                                <div
+                                    class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform group-hover:scale-105"
+                                >
                                     <Images
                                         item={event}
                                         variant={getVariant(event)}
@@ -517,52 +542,81 @@
                                         `}
                                     />
                                 </div>
-                                
+
                                 <div
                                     class="absolute inset-0 z-10"
                                     style="background: linear-gradient(90deg, {event.color} 35%, {event.color}D9 50%, transparent 100%);"
                                 ></div>
                             </div>
 
-                            <div class="relative z-20 h-full w-full pointer-events-none">
-                                <div class="sticky left-0 inline-flex items-center gap-3 px-3 h-full max-w-full pointer-events-auto">
+                            <div
+                                class="relative z-20 h-full w-full pointer-events-none"
+                            >
+                                <div
+                                    class="sticky left-0 inline-flex items-center gap-3 px-3 h-full max-w-full pointer-events-auto"
+                                >
                                     {#if badge}
-                                        <div class="flex items-center gap-1.5 rounded px-2 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}">
-                                            <Icon name={badge.icon} class="w-3.5 h-3.5" />
-                                            <span class="text-[10px] font-bold uppercase tracking-wide opacity-90">
+                                        <div
+                                            class="flex items-center gap-1.5 rounded px-2 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}"
+                                        >
+                                            <Icon
+                                                name={badge.icon}
+                                                class="w-3.5 h-3.5"
+                                            />
+                                            <span
+                                                class="text-[10px] font-bold uppercase tracking-wide opacity-90"
+                                            >
                                                 {badge.label}
                                             </span>
                                         </div>
                                     {/if}
 
-                                    <div class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"></div>
+                                    <div
+                                        class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"
+                                    ></div>
 
-                                    <div class="flex flex-col justify-center min-w-0">
-                                        <span class="text-white font-bold text-sm leading-tight truncate drop-shadow-md">
+                                    <div
+                                        class="flex flex-col justify-center min-w-0"
+                                    >
+                                        <span
+                                            class="text-white font-bold text-sm leading-tight truncate drop-shadow-md"
+                                        >
                                             {getEventName(event)}
                                         </span>
-                                        <span class="text-white/80 text-[10px] uppercase font-bold tracking-wider">
+                                        <span
+                                            class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
+                                        >
                                             {event.realStartTime.getDate()}
-                                            {$t(`months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)}
+                                            {$t(
+                                                `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
+                                            )}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </button>
-                        
+
                         {#if now >= event.realStartTime && getRemainingTime(event.realEndTime, $t)}
-                           <div class="absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap z-30 flex items-center">
-                                <span class="text-xs font-bold text-green-600 dark:bg-white/85 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-green-200">
+                            <div
+                                class="absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap z-30 flex items-center"
+                            >
+                                <span
+                                    class="text-xs font-bold text-green-600 dark:bg-white/85 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-green-200"
+                                >
                                     {getRemainingTime(event.realEndTime, $t)}
                                 </span>
-                           </div>
+                            </div>
                         {/if}
                         {#if now < event.realStartTime && getTimeUntilStart(event.realStartTime, $t)}
-                           <div class="absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap z-30 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
-                                <span class="text-xs font-bold text-blue-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-blue-200">
+                            <div
+                                class="absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap z-30 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto"
+                            >
+                                <span
+                                    class="text-xs font-bold text-blue-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-blue-200"
+                                >
                                     {getTimeUntilStart(event.realStartTime, $t)}
                                 </span>
-                           </div>
+                            </div>
                         {/if}
                     </div>
                 {/each}

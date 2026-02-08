@@ -41,12 +41,15 @@ function createAccountStore() {
 
     const syncAuthStore = (accts, selId) => {
         const currentAcc = accts.find(a => a.id === selId);
+        
         if (currentAcc && currentAcc.serverUid) {
             console.log(`[Accounts] Switching to UID: ${currentAcc.serverUid}`);
             currentUid.set(currentAcc.serverUid);
             if (browser) localStorage.setItem("user_uid", currentAcc.serverUid);
+        } else {
             console.log(`[Accounts] No Server UID for this account.`);
-            currentUid.set(null); 
+            currentUid.set(null);
+            if (browser) localStorage.removeItem("user_uid");
         }
     };
 
