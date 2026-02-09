@@ -3,7 +3,7 @@
   "seo": {
     "title": "Goyfield - Arknights Endfield Pull Tracker",
     "description": "Advanced Wish Tracker for Arknights: Endfield. Track your pull history, calculate pity counters, and predict your next guaranteed operator or weapon.",
-    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники"
+    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники, Гойфилд мое, Гойфилд, Goyfield"
   },
   "sidebar": {
     "home": "Home",
@@ -38,7 +38,13 @@
       "avg": "avg",
       "top": "Top",
       "bottom": "Bottom",
-      "noData": "No data"
+      "noData": "No data",
+      "info": {
+        "wonTitle": "Won 50:50",
+        "wonDesc": "Higher win rate and the more 50:50 wins is better",
+        "luck": "Luck",
+        "luckDesc": "Lower average pity is better"
+      }
     },
     "banner": {
       "total": "Total Pulls",
@@ -282,7 +288,9 @@
     "etchspaceSalvage": "Etchspace Salvage",
     "workLogbook": "Endministrator Work Logbook",
     "glitteringLifeAtWuling": "Glittering Life at Wuling",
-    "carlysFairytaleOfTheValley": "Carly's Fairytale of the Valley"
+    "carlysFairytaleOfTheValley": "Carly's Fairytale of the Valley",
+    "thoseForsakenByTheLand": "Monumental Etching: Old Wounds «Those Forsaken by the Land»",
+    "inorganicConstruct": "Monumental Etching: Old Wounds «Inorganic Construct»"
   },
   "mouths": {
     "january": "January",
@@ -559,6 +567,9 @@
       "title": "Feedback",
       "telegram": "Telegram",
       "text": "The site is still under construction, so there may be bugs, incorrect display of pulls, and other issues. If you find a bug, please report it on Telegram."
+    },
+    "donate": {
+      "title": "Support Goyfield"
     }
   },
   "home": {

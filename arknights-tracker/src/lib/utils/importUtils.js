@@ -299,7 +299,7 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
         avg5: count5 ? (sumPity5 / count5).toFixed(1) : "0.0",
         percent6: total ? ((count6 / total) * 100).toFixed(2) : "0.00",
         percent5: total ? ((count5 / total) * 100).toFixed(2) : "0.00",
-        winRate: { won: won5050, total: total5050, percent: total5050 ? ((won5050 / total5050) * 100).toFixed(0) : 0 }
+        winRate: { won: won5050, total: total5050, percent: total5050 ? ((won5050 / total5050) * 100).toFixed(1) : 0 }
     };
 }
 

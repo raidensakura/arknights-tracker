@@ -2272,4 +2272,12 @@
             />
         </g>
     </svg>
+{:else if name == "tribute"}
+    <svg width="35" height="35" viewBox="0 0 187 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="187" height="180" rx="90" fill="#3B99FC"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M132 144L126 107L101 126.698L132 144Z" fill="white" stroke="#FBFFFB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M93.4148 24.3793L75.7642 59.5256L110.608 59.6671L93.4148 24.3793Z" fill="white" stroke="#FBFFFB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M90.2289 71H153L105.96 106.114L52.7512 144L65 99L29 71H90.2289Z" fill="#FBFFFB" stroke="white" stroke-width="7" stroke-linejoin="round"/>
+</svg>
+
 {/if}

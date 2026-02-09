@@ -53,7 +53,7 @@ export const banners = [
     icon: "laevatain-banner.jpg",
     miniIcon: "laevatain-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 7,
+    layer: 9,
     color: "#ff4d00",
     iconPosition: 25,
     showOnMain: true
@@ -72,7 +72,7 @@ export const banners = [
     icon: "gilberta-banner.png",
     miniIcon: "gilberta-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 7,
+    layer: 9,
     color: "rgb(177, 63, 18)",
     iconPosition: 26,
     showOnMain: true
@@ -91,7 +91,7 @@ export const banners = [
     icon: "yvonne-banner.png",
     miniIcon: "yvonne-banner.png",
     url: "https://x.com/AKEndfield/status/2012151008873582825?s=20",
-    layer: 7,
+    layer: 9,
     color: "#FF33CC",
     iconPosition: 25,
     showOnMain: true
@@ -110,7 +110,7 @@ export const banners = [
     icon: "weponbox_1_0_1.png",
     miniIcon: "weponbox_1_0_1.png",
     url: "https://x.com/AKEndfield/status/2013838974239023147",
-    layer: 8,
+    layer: 10,
     color: "#e44e25",
     iconPosition: 50,
     showOnMain: true
@@ -224,7 +224,7 @@ export const banners = [
     icon: "weponbox_1_0_3.png",
     miniIcon: "weponbox_1_0_3.png",
     url: "",
-    layer: 9,
+    layer: 11,
     color: "#858585",
     iconPosition: 50,
     showOnMain: true
@@ -243,7 +243,7 @@ export const banners = [
     icon: "weapon_banner_03.jpg",
     miniIcon: "weapon_banner_03.jpg",
     url: "",
-    layer: 10,
+    layer: 12,
     color: "#b336a2",
     iconPosition: 50,
     showOnMain: true

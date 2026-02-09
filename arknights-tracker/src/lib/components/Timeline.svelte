@@ -158,7 +158,7 @@
     const GAP_HEIGHT = 8;
     const HEADER_HEIGHT_PX = 80;
     const EVENT_TOP_OFFSET = 20;
-    const TIMELINE_HEIGHT = "65vh";
+    const TIMELINE_HEIGHT = "70vh";
 
     let now = new Date();
     let timerInterval;

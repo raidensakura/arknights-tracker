@@ -378,7 +378,7 @@
         {$t("settings.title")}
     </h1>
 
-    <section class="mb-3">
+    <section class="mb-1">
         <div
             class="flex flex-col items-start gap-4 mb-4 md:flex-row md:items-center"
         >
@@ -449,8 +449,8 @@
         </div>
     </section>
 
-    <section class="mb-3">
-        <div class="mt-8 flex flex-col items-start gap-4">
+    <section class="mb-2">
+        <div class="mt-4 flex flex-col items-start gap-4">
             <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] whitespace-nowrap">
                 {$t("settings.server.title") || "Select Server"}
             </h2>
@@ -465,13 +465,13 @@
                 />
             </div>
             
-            <p class="text-xs text-gray-500 dark:text-[#B7B6B3] max-w-md">
+            <p class="text-xs text-gray-500 dark:text-[#787878] max-w-md">
                 {$t("settings.server.hint") || "Changing the server affects import links and data fetching."}
             </p>
         </div>
     </section>
 
-    <section class="mb-5">
+    <section class="mb-3">
         <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.cloud.title")}
         </h2>
@@ -665,7 +665,7 @@
         </div>
     </section>
 
-    <section class="mb-5">
+    <section class="mb-4">
         <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.backup.title")}
         </h2>
@@ -703,7 +703,7 @@
         <div class="text-gray-400 italic">wip</div>
     </section>-->
 
-    <section class="mb-10">
+    <section class="mb-3">
         <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
             {$t("settings.feedback.title")}
         </h2>
@@ -728,6 +728,40 @@
                         <Icon name="telegram" class="w-6 h-6" />
                     </div>
                     {$t("settings.feedback.telegram")}
+                </Button>
+            </a>
+        </div>
+    </section>
+
+    <section class="mb-10">
+        <h2 class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4">
+            {$t("settings.donate.title")}
+        </h2>
+        <div class="w-48 flex gap-3">
+            <a
+                href="https://boosty.to/ivawa/donate"
+                target="_blank"
+                rel="noreferrer"
+                class="no-underline"
+            >
+                <Button variant="black2">
+                    <div slot="icon">
+                        <Icon name="boosty" class="w-6 h-6" />
+                    </div>
+                    Boosty
+                </Button>
+            </a>
+            <a
+                href="https://t.me/tribute/app?startapp=dFlw"
+                target="_blank"
+                rel="noreferrer"
+                class="no-underline"
+            >
+                <Button variant="black2">
+                    <div slot="icon">
+                        <Icon name="tribute" class="w-6 h-6" />
+                    </div>
+                    Tribute
                 </Button>
             </a>
         </div>

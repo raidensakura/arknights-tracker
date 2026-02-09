@@ -3,7 +3,7 @@
   "seo": {
     "title": "Goyfield - Трекер круток для Arknights Endfield",
     "description": "Отслеживайте свою историю круток в Arknights Endfield. Просматривайте статистику, считайте гарант и анализируйте свою удачу.",
-    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники"
+    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники, Гойфилд мое, Гойфилд, Goyfield"
   },
   "sidebar": {
     "home": "Главная",
@@ -38,7 +38,13 @@
       "avg": "ср. знач.",
       "top": "Топ",
       "bottom": "Ниже",
-      "noData": "Нет данных"
+      "noData": "Нет данных",
+      "info": {
+        "wonTitle": "Выигрыши 50:50",
+        "wonDesc": "Чем выше процент побед и больше выигрыннх 50:50, тем лучше",
+        "luck": "Удача",
+        "luckDesc": "Чем ниже средний пити, тем лучше"
+      }
     },
     "banner": {
       "total": "Всего наймов",
@@ -286,7 +292,9 @@
     "etchspaceSalvage": "Вылазка в Гравирпространство",
     "workLogbook": "Рабочий журнал",
     "glitteringLifeAtWuling": "Яркая жизнь в Улине",
-    "carlysFairytaleOfTheValley": "Сказка Карли о Долине"
+    "carlysFairytaleOfTheValley": "Сказка Карли о Долине",
+    "thoseForsakenByTheLand": "Памятные знаки: Старые раны «Отвергнутые земли»",
+    "inorganicConstruct": "Памятные знаки: Старые раны «Неограниченная постройка»"
   },
   "mouths": {
     "january": "Январь",
@@ -564,6 +572,9 @@
       "title": "Обратная связь",
       "telegram": "Telegram",
       "text": "Сайт еще не допилен, так что возможны баги, некорректное отображение круток и всего прочего. Если нашли баг, то отписывайте в Telegram"
+    },
+    "donate": {
+      "title": "Поддержать Goyfield"
     }
   },
   "home": {

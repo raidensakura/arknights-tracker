@@ -7,6 +7,7 @@
   import { accountStore } from "$lib/stores/accounts";
   import Button from "./Button.svelte";
   import Icon from "./Icons.svelte";
+  import Tooltip from "./Tooltip.svelte";
 
   const { accounts, selectedId } = accountStore;
   
@@ -92,9 +93,55 @@
 </script>
 
 <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-6 shadow-sm border border-gray-100 h-full min-w-[320px]">
-  <h3 class="text-xl font-bold mb-6 dark:text-[#FDFDFD] font-sdk text-[#21272C]">
-    {$t("page.rating.ratingTitle")}
-  </h3>
+  <div class="flex justify-between items-center mb-6 relative z-20">
+    <h3 class="text-xl font-bold dark:text-[#FDFDFD] font-sdk text-[#21272C]">
+      {$t("page.rating.ratingTitle")}
+    </h3>
+
+    <div class="group relative flex items-center py-1 pl-4 text-gray-400/90 dark:text-[#7A7A7A]">
+      <Icon name="info" class="w-5 h-5 text-gray-300 hover:text-gray-400 dark:text-[#666] dark:hover:text-[#888] transition-colors cursor-default" />
+
+      <div class="absolute right-0 top-full mt-1 w-[240px] p-3 bg-white dark:bg-[#252525] rounded-lg shadow-sm border border-gray-100 dark:border-[#383838] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left">
+        
+        <div class="mb-3">
+          <div class="font-bold text-xs text-gray-900 dark:text-[#E0E0E0]">
+            {$t("page.rating.info.wonTitle")}
+          </div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-[#999] my-0.5">
+            Win% = (Won5050 / Total5050) × 100
+          </div>
+          <div class="text-[10px] text-gray-400 dark:text-[#777] leading-tight">
+            {$t("page.rating.info.wonDesc")}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="font-bold text-xs text-gray-900 dark:text-[#E0E0E0] flex items-center gap-1">
+            {$t("page.rating.info.luck")} 6 <Icon name="star" class="w-3 h-3" />
+          </div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-[#999] my-0.5">
+            Avg6 = ∑ Pity6 / Count6
+          </div>
+          <div class="text-[10px] text-gray-400 dark:text-[#777] leading-tight">
+            {$t("page.rating.info.luckDesc")}
+          </div>
+        </div>
+
+        <div>
+          <div class="font-bold text-xs text-gray-900 dark:text-[#E0E0E0] flex items-center gap-1">
+            {$t("page.rating.info.luck")} 5 <Icon name="star" class="w-3 h-3" />
+          </div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-[#999] my-0.5">
+            Avg5 = ∑ Pity5 / Count5
+          </div>
+          <div class="text-[10px] text-gray-400 dark:text-[#777] leading-tight">
+            {$t("page.rating.info.luckDesc")}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <div class="space-y-6">
     
