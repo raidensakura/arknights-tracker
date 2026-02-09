@@ -716,7 +716,7 @@
             <p>{$t("settings.feedback.text")}</p>
         </div>
 
-        <div class="w-48">
+        <div class="w-48 flex gap-3">
             <a
                 href="https://t.me/ivawa73"
                 target="_blank"
@@ -728,6 +728,19 @@
                         <Icon name="telegram" class="w-6 h-6" />
                     </div>
                     {$t("settings.feedback.telegram")}
+                </Button>
+            </a>
+            <a
+                href="https://discord.gg/6XmrdB6r"
+                target="_blank"
+                rel="noreferrer"
+                class="no-underline"
+            >
+                <Button variant="black2">
+                    <div slot="icon">
+                        <Icon name="discord" class="w-6 h-6" />
+                    </div>
+                    Discord
                 </Button>
             </a>
         </div>

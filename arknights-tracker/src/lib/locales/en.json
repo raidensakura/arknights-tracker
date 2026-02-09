@@ -566,7 +566,7 @@
     "feedback": {
       "title": "Feedback",
       "telegram": "Telegram",
-      "text": "The site is still under construction, so there may be bugs, incorrect display of pulls, and other issues. If you find a bug, please report it on Telegram."
+      "text": "The site is still under construction, so there may be bugs, incorrect display of pulls, and other issues. If you find a bug, please report it on Telegram or Discord."
     },
     "donate": {
       "title": "Support Goyfield"
