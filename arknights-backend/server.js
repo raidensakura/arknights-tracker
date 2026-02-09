@@ -499,6 +499,7 @@ function getDistinctBannerId(pull, serverId) {
 }
 
 function calculateMath(pulls, categoryId, serverId = '3') {
+    // 1. Сортировка
     pulls.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
     const isWeaponType = categoryId.includes('weap') || categoryId.includes('wepon') || categoryId.includes('constant');
@@ -512,8 +513,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     let currentPity6 = 0, currentPity5 = 0;
     let rateUpCounter = 0; 
 
+    // Поиск конфига для определения 50/50
     let bannerConfig = BANNERS.find(b => b.id === categoryId);
-    
     if (!bannerConfig) {
         const firstPull = pulls[0];
         if (firstPull && firstPull.poolId) {
@@ -521,19 +522,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
              bannerConfig = findBannerConfigByTime(firstPull.time, firstPull.poolId, offset);
         }
     }
-
     const featured6 = bannerConfig?.featured6 || [];
     const normFeatured = featured6.map(id => normalize(id));
-
-    // --- ЛОГИ (Удалишь, когда настроишь) ---
-    console.log(`\n[DEBUG] Calc Math for Banner: "${categoryId}"`);
-    console.log(`[DEBUG] Config Found: ${!!bannerConfig} | Type: ${isWeaponType ? 'Weapon' : 'Char'}`);
-    if (featured6.length > 0) {
-        console.log(`[DEBUG] Featured List: [${featured6.join(', ')}] -> Norm: [${normFeatured.join(', ')}]`);
-    } else {
-        console.log(`[DEBUG] ⚠️ No featured items found for "${categoryId}". 50/50 will be 0/X.`);
-    }
-    // ----------------------------------------
     
     const enrichedPulls = [];
 
@@ -541,6 +531,7 @@ function calculateMath(pulls, categoryId, serverId = '3') {
         const p = { ...pull };
         const itemName = normalize(p.name);
         
+        // Логика бесплатных круток (только для ивент персонажей)
         const isSpecialCharBanner = categoryId.includes('special') && !isWeaponType;
         const isFreePull = isSpecialCharBanner && (index >= 30 && index < 40);
 
@@ -553,6 +544,7 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             rateUpCounter++;
         }
 
+        // --- ЛОГИКА 6* ---
         if (p.rarity === 6) {
             count6++;
             
@@ -562,20 +554,19 @@ function calculateMath(pulls, categoryId, serverId = '3') {
 
             const isFeatured = normFeatured.includes(itemName) || normFeatured.includes(normalize(p.name));
 
-            console.log(`[DEBUG 6*] Pull: "${p.name}" (norm: ${itemName}) | Pity: ${thisPity} | Featured? ${isFeatured} | HardPity? ${isHardPityTriggered}`);
-
-            total5050++; 
-
             if (isFeatured) {
                 if (isHardPityTriggered) {
                     p.gachaStatus = "guaranteed"; 
+                    // ГАРАНТ: Не считаем в total5050, так как это не "попытка", а неизбежность
                 } else {
                     won5050++;
+                    total5050++; // ПРИБАВЛЯЕМ К ОБЩЕМУ (Это была попытка и она удачная)
                     p.gachaStatus = "won";
                 }
                 rateUpCounter = 0;
             } else {
                 p.gachaStatus = "lost";
+                total5050++; // ПРИБАВЛЯЕМ К ОБЩЕМУ (Это была попытка и она неудачная)
             }
 
             currentPity6 = 0;
@@ -584,6 +575,7 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             p.pity = currentPity6;
         }
 
+        // --- ЛОГИКА 5* (ИСПРАВЛЕНА) ---
         if (p.rarity === 5) {
             count5++;
             const thisPity5 = currentPity5 + (isFreePull ? 0 : 1);
@@ -591,13 +583,13 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             
             currentPity5 = 0;
         } else {
+            // Увеличиваем пити 5* на любой другой редкости (6*, 4*, 3*)
+            // Если выпала 6*, это не сбрасывает пити 5*, а увеличивает его
             if (!isFreePull) currentPity5++;
         }
         
         enrichedPulls.push(p);
     });
-
-    console.log(`[DEBUG RESULT] Won: ${won5050}/${total5050} | Avg 5*: ${(count5 ? sumPity5/count5 : 0).toFixed(2)}`);
 
     const stats = {
         totalPulls: total,
