@@ -192,7 +192,11 @@
                         <div
                             class="text-gray-600 dark:text-[#E0E0E0] text-xs pl-6"
                         >
-                            {$t("page.banner.won5050")}
+                            {#if isWeaponBanner}
+                                25:75
+                            {:else}
+                                50:50
+                            {/if}
                         </div>
                         <div
                             class="text-right font-nums dark:text-[#E0E0E0] text-[#21272C]"

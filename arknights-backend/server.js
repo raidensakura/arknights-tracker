@@ -500,28 +500,58 @@ function findBannerConfigByTime(timestamp, categoryContext, offset) {
     const time = new Date(timestamp).getTime();
     const BUFFER = 12 * 60 * 60 * 1000;
 
+    // Определяем более строгий тип поиска
     let targetType = null;
+    let isWeaponStandard = false;
+    let isWeaponSpecial = false;
+
     if (categoryContext) {
-        if (categoryContext.includes('weap')) targetType = 'weapon';
+        if (categoryContext === 'weap-standard') {
+            targetType = 'weapon';
+            isWeaponStandard = true;
+        }
+        else if (categoryContext === 'weap-special') {
+            targetType = 'weapon';
+            isWeaponSpecial = true;
+        }
+        else if (categoryContext.includes('weap')) targetType = 'weapon';
         else if (categoryContext.includes('new')) targetType = 'new-player';
         else if (categoryContext === 'standard') targetType = 'standard';
         else if (categoryContext === 'special') targetType = 'special';
     }
 
     const candidates = BANNERS.filter(b => {
+        // 1. Проверка времени
+        const start = parseDateWithServer(b.startTime, offset).getTime();
+        const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
+        if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
+
+        // 2. Проверка типов
         if (targetType) {
-            const isBannerWeapon = b.type === 'weapon' || (b.id && b.id.includes('weap'));
+            const isBannerWeapon = b.type === 'weapon' || (b.id && (b.id.includes('weap') || b.id.includes('wepon')));
+            
+            // Если ищем оружие, но баннер не оружейный
             if (targetType === 'weapon' && !isBannerWeapon) return false;
+            // Если ищем НЕ оружие, но баннер оружейный
             if (targetType !== 'weapon' && isBannerWeapon) return false;
+
+            // --- СТРОГАЯ ФИЛЬТРАЦИЯ ОРУЖИЯ ---
+            if (isWeaponStandard) {
+                // Ищем стандартный? В ID должно быть 'constant' или 'standard'
+                if (!b.id.includes('constant') && !b.id.includes('standard')) return false;
+            }
+            if (isWeaponSpecial) {
+                // Ищем специальный? В ID должно быть 'weponbox' или тип 'special'
+                // (У тебя в banners.js они помечены type: weapon, но id начинается с weponbox)
+                if (!b.id.includes('weponbox') && !b.id.includes('special')) return false;
+            }
+            // ----------------------------------
 
             if (targetType === 'standard' && b.type !== 'standard') return false;
             if (targetType === 'special' && b.type !== 'special') return false;
         }
 
-        const start = parseDateWithServer(b.startTime, offset).getTime();
-        const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
-
-        return time >= (start - BUFFER) && time <= (end + BUFFER);
+        return true;
     });
 
     if (candidates.length > 0) {

@@ -355,7 +355,11 @@
           <div
             class="text-gray-600 dark:text-[#E4E4E4] text-xs pl-6 col-span-1"
           >
-            50/50
+            {#if bannerId.includes('weap')}
+              25:75
+            {:else}
+              50:50
+            {/if}
           </div>
           <div
             class="text-right font-nums text-[#21272C] dark:text-[#E4E4E4] col-span-1"

@@ -569,7 +569,11 @@
                                     class="grid grid-cols-4 text-sm items-center py-1"
                                 >
                                     <div class="text-gray-600 dark:text-[#E0E0E0] text-xs pl-2">
-                                        {$t("page.banner.won5050")}
+                                        {#if isWeaponType}
+                                25:75
+                            {:else}
+                                50:50
+                            {/if}
                                     </div>
 
                                     <div

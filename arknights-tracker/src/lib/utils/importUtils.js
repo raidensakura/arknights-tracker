@@ -248,12 +248,13 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
                 return false;
             });
 
-            total5050++; 
-
+            // --- ИСПРАВЛЕННАЯ ЛОГИКА 50/50 ---
             if (isFeatured) {
                 if (isHardPityTriggered) {
+                    // Гарант: НЕ увеличиваем total5050, НЕ увеличиваем won5050
                 } else {
                     won5050++;
+                    total5050++; // Честная победа - идет в зачет
                 }
                 rateUpCounter = 0;
 
@@ -261,7 +262,9 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
                     hasReceivedRateUp = true; 
                 }
             } else {
+                total5050++; // Проигрыш - идет в зачет
             }
+            // ----------------------------------
 
             currentPity6 = 0;
         } else {

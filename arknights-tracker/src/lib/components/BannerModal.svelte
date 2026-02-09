@@ -210,28 +210,33 @@
         });
 
         const filtered = historyWithPity.filter((pull) => {
+            // 1. Если ID совпадает точно — берем всегда (самый надежный вариант)
             if (pull.rawPoolId === banner.id || pull.bannerId === banner.id) return true;
-            const isGenericType = ['special', 'standard', 'weapon', 'weap-special'].some(t => pull.bannerId?.includes(t));
-            const typesMatch = isWeaponBanner ? pull.type === 'weapon' : pull.type === 'character';
-
-            if (isGenericType && typesMatch) {
-                const accServerId = currentAccount?.serverId || '3'; 
-                const realStartForAccount = parseServerDate(banner.startTime).getTime();
-                const pullTime = new Date(pull.time).getTime();
-                const looseStart = bStart - (24 * 60 * 60 * 1000);
-                const looseEnd = bEnd + (24 * 60 * 60 * 1000);
-                
-                if (pullTime >= looseStart && pullTime <= looseEnd) return true;
-            }
 
             const pullTime = new Date(pull.time).getTime();
+
+            // 2. СТРОГАЯ проверка времени
+            // Убираем looseStart/looseEnd с буфером 24 часа, так как это ломает баннеры, идущие подряд.
+            // Если bEnd не задан (Infinity), то берем всё до конца времен.
             const timeMatch = pullTime >= bStart && pullTime <= bEnd;
-            
+
+            if (!timeMatch) return false;
+
+            // 3. Проверка типов (чтобы оружие не попало в чаров и наоборот)
+            const isGenericType = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player'].some(t => pull.bannerId?.includes(t));
+            const typesMatch = isWeaponBanner ? pull.type === 'weapon' : pull.type === 'character';
+
+            // Специфичная проверка для Стандартного баннера (так как у него ID '1' или 'standard')
             if (!isWeaponBanner && (banner.id === 'standard' || banner.id === '1')) {
-                return timeMatch && (pull.bannerId === 'standard' || pull.bannerId === '1');
+                return (pull.bannerId === 'standard' || pull.bannerId === '1');
+            }
+
+            // Если время совпало (строго) И типы совпали И это generic-импорт — показываем
+            if (isGenericType && typesMatch) {
+                return true;
             }
             
-            return timeMatch && typesMatch;
+            return false;
         });
 
         if (filtered.length === 0) return { pulls: [], stats: {} };
@@ -251,7 +256,7 @@
                 if (localRateUpCounter >= hardPityLimit - 1) {}
                 localRateUpCounter++;
             }
-            const isHardPityTriggered = (localRateUpCounter > hardPityLimit);
+            const isHardPityTriggered = (localRateUpCounter >= hardPityLimit);
 
             if (p.rarity === 6) {
                 count6++;

@@ -133,7 +133,13 @@
     {#if activeTab !== 'standard' && activeTab !== 'new-player'}
       <div class="flex justify-between items-center border-b dark:border-[#444444] border-gray-100 pb-4 h-[72px]">
         <div class="flex flex-col justify-center">
-          <div class="font-medium text-[#21272C] dark:text-[#FDFDFD]">{$t("page.rating.lucky5050")}</div>
+          <div class="font-medium text-[#21272C] dark:text-[#FDFDFD]">
+            {#if activeTab.includes('weap')}
+                Won 25:75 {:else}
+                {$t("page.rating.lucky5050")}
+            {/if}
+          </div>
+          
           {#if rank5050 !== null}
             <div class="text-xs text-gray-400 dark:text-[#B7B6B3] mt-1">
                 {#if rank5050 < 50}
