@@ -266,9 +266,8 @@ function mapPoolTypeToShort(longType) {
 async function processGlobalDelta(uid, bannerId, newPulls, serverId) {
     if (newPulls.length === 0) return;
 
-    newPulls.sort((a, b) => a.time - b.time);
-    const maxTime = newPulls[newPulls.length - 1].time;
-
+    newPulls.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
+    
     let d_totalPulls = newPulls.length;
     let d_total6 = 0;
     let d_total5 = 0;
@@ -278,9 +277,6 @@ async function processGlobalDelta(uid, bannerId, newPulls, serverId) {
     const timelineUpdates = {};
     const pityUpdates6 = {};
     const itemUpdates = {};
-
-    const bannerConfig = BANNERS.find(b => b.id === bannerId);
-    const featured6 = bannerConfig?.featured6?.map(n => normalize(n)) || [];
 
     newPulls.forEach(p => {
         const dateKey = new Date(p.time).toISOString().split('T')[0];
@@ -297,13 +293,10 @@ async function processGlobalDelta(uid, bannerId, newPulls, serverId) {
                 pityUpdates6[p.pity] = (pityUpdates6[p.pity] || 0) + 1;
             }
 
-            const nName = normalize(p.name);
-            if (featured6.includes(nName)) {
+            if (p.gachaStatus === 'won') {
                 d_limited++;
-            } else {
-                if (bannerConfig?.type !== 'standard' && bannerConfig?.type !== 'new-player') {
-                    d_lost++;
-                }
+            } else if (p.gachaStatus === 'lost') {
+                d_lost++;
             }
         }
         if (p.rarity === 5) d_total5++;
