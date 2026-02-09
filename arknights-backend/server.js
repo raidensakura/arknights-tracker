@@ -268,10 +268,10 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
 
     await prisma.user.upsert({ where: { uid }, update: {}, create: { uid } });
 
-    // Группируем входящие крутки
     const pullsByBanner = {};
     const offset = getServerOffset(serverId);
 
+    // 1. Группируем крутки по баннерам
     allPulls.forEach(p => {
         let pullTimeMs = 0;
         if (p.gachaTs) pullTimeMs = Number(p.gachaTs);
@@ -288,77 +288,78 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         pullsByBanner[specificBannerId].push(pullWithCorrectTime);
     });
 
-    console.log(`\n--- Incremental Sync for ${uid} ---`);
+    console.log(`\n--- Force Sync (User Overwrite) for ${uid} ---`);
 
     for (const [bannerId, rawPulls] of Object.entries(pullsByBanner)) {
         
-        // 1. Узнаем, на чем мы остановились в прошлый раз
-        const currentUserStat = await prisma.userBannerStat.findUnique({
+        // 1. Считаем АБСОЛЮТНО ТОЧНУЮ статистику по файлу импорта
+        // (Если в файле 130 круток, тут будет totalPulls: 130)
+        const calculationResult = calculateMath(rawPulls, bannerId, serverId);
+        const { stats, enrichedPulls } = calculationResult;
+
+        // 2. Получаем старые данные (чтобы правильно обновить глобал)
+        const oldUserStat = await prisma.userBannerStat.findUnique({
             where: { uid_bannerId: { uid, bannerId } }
         });
 
-        const lastProcessedTime = Number(currentUserStat?.lastProcessedPullTime || 0);
+        const oldTotalPulls = oldUserStat?.totalPulls || 0;
+        const oldTotal6 = oldUserStat?.total6 || 0;
+        const oldTotal5 = oldUserStat?.total5 || 0;
+        const oldWon = oldUserStat?.won5050 || 0;
+        const oldTotal5050 = oldUserStat?.total5050 || 0;
+        const oldLost = oldTotal5050 - oldWon; 
 
-        // 2. Отфильтровываем ТОЛЬКО НОВЫЕ крутки (которых еще нет в базе)
-        // Используем строгое сравнение по времени и seqId если есть
-        const newPulls = rawPulls.filter(p => {
-             // Если время больше - точно новая
-             if (p.time > lastProcessedTime) return true;
-             // Если время равно, но seqId больше (для дубликатов в одну секунду) - можно усложнить, 
-             // но для простоты берем > lastTime. 
-             // Если у тебя крутки в одну секунду, API обычно дает им разный gachaTs?
-             // Для надежности берем строго >.
-             return p.time > lastProcessedTime;
-        });
+        // Новые значения (из файла)
+        const newLost = stats.total5050 - stats.won5050;
 
-        if (newPulls.length === 0) {
-            // console.log(`[${bannerId}] No new pulls.`);
-            continue;
+        // 3. Считаем разницу для Глобала
+        const d_totalPulls = stats.totalPulls - oldTotalPulls;
+        const d_total6 = stats.total6 - oldTotal6;
+        const d_total5 = stats.total5 - oldTotal5;
+        const d_limited = stats.won5050 - oldWon;
+        const d_lost = newLost - oldLost;
+        const d_users = oldUserStat ? 0 : 1; 
+
+        // 4. Обновляем ГЛОБАЛ (Инкрементально / Дельта)
+        if (d_totalPulls !== 0 || d_total6 !== 0 || d_limited !== 0 || d_lost !== 0) {
+            await prisma.globalBannerStats.upsert({
+                where: { bannerId },
+                create: {
+                    bannerId,
+                    totalPulls: stats.totalPulls,
+                    total6: stats.total6,
+                    total5: stats.total5,
+                    limitedCount: stats.won5050,
+                    lost5050: newLost,
+                    totalUsers: 1
+                },
+                update: {
+                    totalPulls: { increment: d_totalPulls },
+                    total6: { increment: d_total6 },
+                    total5: { increment: d_total5 },
+                    limitedCount: { increment: d_limited },
+                    lost5050: { increment: d_lost },        
+                    totalUsers: { increment: d_users }
+                }
+            });
         }
 
-        // 3. Считаем статистику ТОЛЬКО для этого кусочка
-        const { stats, enrichedPulls } = calculateMath(newPulls, bannerId, serverId);
+        // 5. ГРАФИКИ ГЛОБАЛА (Только новые по времени)
+        const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
+        const newGlobalPulls = enrichedPulls.filter(p => p.time > lastTime);
+        if (newGlobalPulls.length > 0) {
+            await processGlobalGraphsOnly(bannerId, newGlobalPulls);
+        }
 
-        console.log(`[${bannerId}] Found ${newPulls.length} NEW pulls. Adding to DB...`);
-
-        // 4. ПРИБАВЛЯЕМ (INCREMENT) к тому, что уже есть в базе
-        // Это решит проблему 3 месяцев. Данные будут только расти.
+        // 6. ОБНОВЛЕНИЕ ЮЗЕРА (ЖЕСТКАЯ ПЕРЕЗАПИСЬ / HARD OVERWRITE)
+        // Мы НЕ используем increment. Мы ставим точное значение из файла.
+        // Было 129? Станет 130. Было криво? Станет ровно.
         
-        // Для Глобала:
-        const d_lost = stats.total5050 - stats.won5050;
-        
-        await prisma.globalBannerStats.upsert({
-            where: { bannerId },
-            create: {
-                bannerId,
-                totalPulls: stats.totalPulls,
-                total6: stats.total6,
-                total5: stats.total5,
-                limitedCount: stats.won5050,
-                lost5050: d_lost,
-                totalUsers: 1
-            },
-            update: {
-                totalPulls: { increment: stats.totalPulls },
-                total6: { increment: stats.total6 },
-                total5: { increment: stats.total5 },
-                limitedCount: { increment: stats.won5050 },
-                lost5050: { increment: d_lost },
-                // Юзеров не инкрементим каждый раз, это делается 1 раз при создании
-            }
-        });
-
-        // Обновляем глобальные графики (только новыми)
-        await processGlobalGraphsOnly(bannerId, enrichedPulls);
-
-        // Для Юзера (UserBannerStat):
-        // Тоже используем increment!
-        
-        // Находим время самой последней новой крутки
         const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time; 
-
+        
         await prisma.userBannerStat.upsert({
             where: { uid_bannerId: { uid, bannerId } },
+            // CREATE: Пишем точные значения
             create: {
                 uid, bannerId,
                 totalPulls: stats.totalPulls,
@@ -370,20 +371,21 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
                 total5050: stats.total5050,
                 lastProcessedPullTime: BigInt(maxTimeInBatch)
             },
+            // UPDATE: ПЕРЕЗАПИСЫВАЕМ точными значениями (НЕ increment)
             update: {
-                totalPulls: { increment: stats.totalPulls },
-                total6: { increment: stats.total6 },
-                sumPity6: { increment: stats.sumPity6 },
-                total5: { increment: stats.total5 },
-                sumPity5: { increment: stats.sumPity5 },
-                won5050: { increment: stats.won5050 },
-                total5050: { increment: stats.total5050 },
+                totalPulls: stats.totalPulls, // <= ВОТ ОНО! Прямая запись.
+                total6: stats.total6,
+                sumPity6: stats.sumPity6,
+                total5: stats.total5,
+                sumPity5: stats.sumPity5,
+                won5050: stats.won5050,
+                total5050: stats.total5050,
                 lastUpdate: new Date(),
-                lastProcessedPullTime: BigInt(maxTimeInBatch) // Обновляем "закладку" вперед
+                lastProcessedPullTime: BigInt(maxTimeInBatch)
             }
         });
     }
-    console.log(`[Stats] Sync Complete for ${uid}`);
+    console.log(`[Stats] User Stats Overwritten for ${uid}`);
 }
 
 async function processGlobalGraphsOnly(bannerId, newPulls) {
