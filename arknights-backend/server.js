@@ -562,10 +562,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     const isWeaponType = categoryId.includes('weap') || categoryId.includes('wepon') || categoryId.includes('constant');
     const hardPityLimit = isWeaponType ? 80 : 120;
 
-    // Проверяем, считаем ли мы Общую Категорию (где много разных баннеров)
-    // или Конкретный Баннер (где список персонажей фиксирован)
     const specificBannerConfig = BANNERS.find(b => b.id === categoryId);
-    const isGenericCalculation = !specificBannerConfig; // Если конфига нет по ID, значит это generic (special, weapon...)
+    const isGenericCalculation = !specificBannerConfig; 
 
     if (pulls.length > 0 && isGenericCalculation) {
         console.log(`\n[MATH DEBUG] Calculating Generic Category: "${categoryId}" (Pulls: ${pulls.length})`);
@@ -587,8 +585,6 @@ function calculateMath(pulls, categoryId, serverId = '3') {
         const p = { ...pull };
         const itemName = normalize(p.name);
         
-        // Логика бесплатных круток (30-40)
-        // Для Generic категорий это может быть не совсем точно, но оставляем как есть
         const isSpecialCharBanner = categoryId.includes('special') && !isWeaponType;
         const isFreePull = isSpecialCharBanner && (index >= 30 && index < 40);
 
@@ -604,13 +600,14 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             sumPity6 += thisPity;
             p.pity = thisPity;
 
-            // --- ОПРЕДЕЛЕНИЕ: ЭТО ПОБЕДА ИЛИ НЕТ? ---
+            // --- ОПРЕДЕЛЕНИЕ ПОБЕДЫ ---
             let currentFeaturedList = [];
             let bannerDebugName = "Unknown";
 
             if (isGenericCalculation) {
-                // Если это Общая категория, ищем, к какому баннеру относилась ЭТА крутка по времени
-                const rawId = p.poolId || p.bannerId || categoryId;
+                // ФИКС: Используем categoryId (например 'special'), чтобы искать ТОЛЬКО спец. баннеры.
+                // Раньше мы использовали p.poolId, который мог быть пустым или ошибочным.
+                const rawId = categoryId; 
                 const foundConfig = findBannerConfigByTime(p.time, rawId, offset);
                 
                 if (foundConfig) {
@@ -618,21 +615,17 @@ function calculateMath(pulls, categoryId, serverId = '3') {
                     bannerDebugName = foundConfig.id;
                 }
             } else {
-                // Если это Конкретный баннер, берем его список
                 currentFeaturedList = specificBannerConfig.featured6 || [];
                 bannerDebugName = specificBannerConfig.id;
             }
 
             const normFeatured = currentFeaturedList.map(n => normalize(n));
-            
-            // Проверка на совпадение (Имя чара ИЛИ Имя как ID)
             const isFeatured = normFeatured.includes(itemName) || normFeatured.includes(normalize(p.name));
 
-            // ЛОГ ДЛЯ ОТЛАДКИ (Покажет почему 0% или 100%)
             if (isGenericCalculation) {
                 console.log(`   [6* CHECK] Pull: ${p.name} (${p.time})`);
                 console.log(`       -> Detected Banner: ${bannerDebugName}`);
-                console.log(`       -> Featured List: [${normFeatured.join(', ')}]`);
+                // console.log(`       -> Featured List: [${normFeatured.join(', ')}]`);
                 console.log(`       -> Is Match? ${isFeatured} | HardPity? ${isHardPityTriggered}`);
             }
             
