@@ -499,7 +499,12 @@ function getDistinctBannerId(pull, serverId) {
 }
 
 function calculateMath(pulls, categoryId, serverId = '3') {
-    pulls.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
+    // 1. Sort by time AND seqId to match frontend exactly
+    pulls.sort((a, b) => {
+        const tDiff = new Date(a.time).getTime() - new Date(b.time).getTime();
+        if (tDiff !== 0) return tDiff;
+        return (Number(a.seqId) || 0) - (Number(b.seqId) || 0);
+    });
 
     const isWeaponType = categoryId.includes('weap') || categoryId.includes('wepon') || categoryId.includes('constant');
     const hardPityLimit = isWeaponType ? 80 : 120;
@@ -521,21 +526,16 @@ function calculateMath(pulls, categoryId, serverId = '3') {
              bannerConfig = findBannerConfigByTime(firstPull.time, firstPull.poolId, offset);
         }
     }
-    
     const featured6 = bannerConfig?.featured6 || [];
     const normFeatured = featured6.map(id => normalize(id));
-
-    console.log(`\n=== BANNER DEBUG: ${categoryId} ===`);
-    console.log(`Type: ${isWeaponType ? 'Weapon' : 'Character'}`);
-    console.log(`Featured Raw: [${featured6.join(', ')}]`);
-    console.log(`Featured Norm: [${normFeatured.join(', ')}]`);
-
+    
     const enrichedPulls = [];
 
     pulls.forEach((pull, index) => {
         const p = { ...pull };
         const itemName = normalize(p.name);
         
+        // Free Pull Logic
         const isSpecialCharBanner = categoryId.includes('special') && !isWeaponType;
         const isFreePull = isSpecialCharBanner && (index >= 30 && index < 40);
 
@@ -548,43 +548,29 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             rateUpCounter++;
         }
 
+        // --- 6* LOGIC ---
         if (p.rarity === 6) {
             count6++;
             
-            // Pity 6*: Считаем текущую крутку (+1)
-            // Если isFreePull, то +0 (согласно твоей логике на фронте)
             const thisPity = currentPity6 + (isFreePull ? 0 : 1);
             sumPity6 += thisPity;
             p.pity = thisPity;
 
-            // Проверка на совпадение:
-            // 1. Имя входит в список Featured
-            // 2. ИЛИ Имя совпадает с нормализованным ID (для оружия часто помогает)
-            const matchesList = normFeatured.includes(itemName);
-            const matchesId = normFeatured.includes(normalize(p.name));
-            const isFeatured = matchesList || matchesId;
-
-            // Лог по каждой леге
-            console.log(`[6* CHECK] Item: "${p.name}" (norm: ${itemName})`);
-            console.log(`   -> Pity: ${thisPity} (IsFree: ${isFreePull})`);
-            console.log(`   -> RateUpCounter: ${rateUpCounter} / ${hardPityLimit}`);
-            console.log(`   -> Is Featured? ${isFeatured} (MatchesList: ${matchesList})`);
+            const isFeatured = normFeatured.includes(itemName) || normFeatured.includes(normalize(p.name));
             
-            total5050++; 
-
             if (isFeatured) {
                 if (isHardPityTriggered) {
                     p.gachaStatus = "guaranteed"; 
-                    console.log(`   -> RESULT: GUARANTEED (Not counted in won)`);
+                    // GUARANTEED: Exclude from Total 50/50 count (it's not a gamble)
                 } else {
                     won5050++;
+                    total5050++; // WIN: Include in Total
                     p.gachaStatus = "won";
-                    console.log(`   -> RESULT: WIN`);
                 }
-                rateUpCounter = 0; 
+                rateUpCounter = 0;
             } else {
+                total5050++; // LOSS: Include in Total
                 p.gachaStatus = "lost";
-                console.log(`   -> RESULT: LOSS`);
             }
 
             currentPity6 = 0;
@@ -593,9 +579,9 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             p.pity = currentPity6;
         }
 
+        // --- 5* LOGIC ---
         if (p.rarity === 5) {
             count5++;
-            // Pity 5*: Логика независимая
             const thisPity5 = currentPity5 + (isFreePull ? 0 : 1);
             sumPity5 += thisPity5;
             currentPity5 = 0;
@@ -606,9 +592,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
         enrichedPulls.push(p);
     });
 
-    // Финальный лог статов
-    console.log(`[STATS END] Total6: ${count6}, Avg6: ${(count6 ? sumPity6/count6 : 0).toFixed(2)}`);
-    console.log(`[STATS END] Won: ${won5050} / Total5050: ${total5050} (HardPityExcluded: ${count6 - total5050})`);
+    // Logging to confirm fix
+    console.log(`[MATH FINAL] ${categoryId} -> Won: ${won5050}/${total5050} (${(total5050 ? won5050/total5050*100 : 0).toFixed(1)}%) | Avg6: ${(count6 ? sumPity6/count6 : 0).toFixed(2)}`);
 
     const stats = {
         totalPulls: total,
