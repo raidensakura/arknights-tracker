@@ -12,7 +12,7 @@
     import BannerModal from "$lib/components/BannerModal.svelte";
 
     import { characters } from "$lib/data/characters";
-    import { weapons } from "$lib/data/weapons"; // <--- ДОБАВИЛ ИМПОРТ ОРУЖИЯ
+    import { weapons } from "$lib/data/weapons"; 
     import { currencies } from "$lib/data/items/currencies";
     import { banners } from "$lib/data/banners";
     import { bannerTypes } from "$lib/data/bannerTypes";
@@ -20,8 +20,8 @@
 
     // --- ХЕЛПЕРЫ ---
     
-    // Поиск ID по Имени (для картинок)
-    function findIdByName(name) {
+    // ИСПРАВЛЕНО: Функция теперь называется так же, как в шаблоне
+    function getItemIconId(name) {
         if (!name) return "";
         const lowerName = name.toLowerCase();
 
@@ -40,6 +40,7 @@
     let now = new Date();
     let timer;
     const currentServerId = "3"; 
+    let hoveredIndex = -1;
 
     function parseWithServerOffset(dateStr) {
         if (!dateStr) return null;
@@ -154,7 +155,6 @@
             const char = characters[id];
             const weapon = weapons[id];
             
-            // Если нашли в оружии или категория оружия - ставим флаг
             const isWep = isWeaponCategory || !!weapon || !char; 
             
             return { 
@@ -166,13 +166,11 @@
         });
     })();
 
-    // Main Featured (Карточка слева сверху)
     $: mainFeatured = !isSimpleType && allFeaturedItems.length === 1 ? allFeaturedItems[0] : null;
 
     const oroberyl = currencies.find((c) => c.id === "oroberyl") || { id: "oroberyl" };
 
     // --- СТАТИСТИКА ---
-    // Начальное состояние (пустое)
     const initialStats = {
         totalUsers: 0,
         totalPulls: 0,
@@ -191,7 +189,6 @@
     let isLoading = false;
 
     async function fetchStats(bannerId) {
-        // СБРОС ПРИ СМЕНЕ БАННЕРА
         stats = { ...initialStats };
         
         if (!bannerId) return;
@@ -208,7 +205,6 @@
                 const r5 = total > 0 ? (d.total5 / total * 100).toFixed(3) : "0.00";
                 
                 let obtained = 0;
-                // Ищем полученных по имени, так как бэк возвращает имена
                 if (mainFeatured && d.items6) {
                     const foundItem = d.items6.find(i => i.name === mainFeatured.name);
                     obtained = foundItem ? foundItem.count : 0;
@@ -258,7 +254,6 @@
         return d;
     }
 
-    // Вычисляем даты для оси X (5 точек)
     $: graphDates = (() => {
         if (!stats.timeline.length) return [];
         const count = 5;
@@ -336,7 +331,7 @@
         <div class="lg:col-span-4 xl:col-span-3 flex flex-col gap-4">
             
             {#if mainFeatured}
-                {@const iconId = findIdByName(mainFeatured.name) || mainFeatured.id}
+                {@const iconId = getItemIconId(mainFeatured.name) || mainFeatured.id}
                 
                 <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 relative overflow-hidden group">
                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#D84C38]"></div>
@@ -368,8 +363,7 @@
                     
                     <div class="flex flex-wrap gap-2">
                         {#each allFeaturedItems as item}
-                            {@const iconId = findIdByName(item.name) || item.id}
-                            
+                            {@const iconId = getItemIconId(item.name) || item.id}
                             <Tooltip text={$t(item.isWeapon ? `weaponsList.${iconId}` : `characters.${iconId}`) || item.name}>
                                 <div class="w-12 h-12 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#555] overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-sm relative group">
                                      <Images
@@ -522,55 +516,100 @@
                 </div>
             {/if}
 
-            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col relative group overflow-hidden">
-                <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] mb-4 shrink-0">
-                    {$t("global.pullsPerDay") || "Pulls per Day"}
+            <div 
+                class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col relative group"
+                role="figure"
+                on:mousemove={(e) => {
+                    if (stats.timeline.length === 0) return;
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    // Вычисляем индекс ближайшей точки
+                    // (x / ширина) * кол-во точек
+                    // padding-left/right (20px) нужно учесть для точности, но для простоты берем всю ширину
+                    const idx = Math.min(Math.max(0, Math.floor((x / rect.width) * stats.timeline.length)), stats.timeline.length - 1);
+                    hoveredIndex = idx;
+                }}
+                on:mouseleave={() => (hoveredIndex = -1)}
+            >
+                <div class="flex justify-between items-center mb-2 shrink-0">
+                    <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase">
+                        {$t("global.pullsPerDay") || "Pulls per Day"}
+                    </div>
+                    {#if hoveredIndex !== -1 && stats.timeline[hoveredIndex]}
+                        <div class="text-xs font-mono font-bold text-[#D84C38] animate-in fade-in zoom-in duration-200">
+                            {stats.timeline[hoveredIndex].date}: {stats.timeline[hoveredIndex].count}
+                        </div>
+                    {/if}
                 </div>
                 
-                <div class="flex-1 w-full h-full relative z-10 min-h-0">
+                <div class="flex-1 w-full h-full relative min-h-0">
                     {#if stats.timeline.length > 0}
+                        {@const maxVal = Math.max(...stats.timeline.map(t => t.count), 1)}
+                        
                         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full block overflow-visible">
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stop-color="#D84C38" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="#D84C38" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+
+                            <path 
+                                d="{getLinePath(stats.timeline, 100, 100)} V 100 H 0 Z" 
+                                fill="url(#chartGradient)" 
+                                stroke="none" 
+                            />
+
                             <path 
                                 d={getLinePath(stats.timeline, 100, 100)} 
                                 fill="none" 
                                 class="stroke-[#21272C] dark:stroke-[#FDFDFD]" 
-                                stroke-width="0.3" 
+                                stroke-width="0.5" 
                                 vector-effect="non-scaling-stroke"
                             />
-                            <path 
-                                d="{getLinePath(stats.timeline, 100, 100)} V 100 H 0 Z" 
-                                class="fill-[#21272C] dark:fill-[#FDFDFD]" 
-                                fill-opacity="0.05" 
-                                stroke="none" 
-                            />
-                            
-                            {#each stats.timeline as point, i}
-                                <g class="group/point">
-                                    <circle 
-                                        cx={i * (100 / (stats.timeline.length - 1))} 
-                                        cy={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100)} 
-                                        r="2" 
-                                        class="fill-transparent hover:fill-[#D84C38] transition-colors cursor-pointer"
-                                    />
-                                    
-                                    <foreignObject 
-                                        x={i * (100 / (stats.timeline.length - 1)) - 50} 
-                                        y={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100) - 35} 
-                                        width="100" 
-                                        height="40" 
-                                        class="opacity-0 group-hover/point:opacity-100 transition-opacity pointer-events-none overflow-visible"
-                                    >
-                                        <div class="flex flex-col items-center justify-end h-full pb-1">
-                                            <div class="bg-black/90 text-white text-[10px] rounded px-1.5 py-0.5 shadow-md whitespace-nowrap border border-white/10">
-                                                <span class="font-bold">{point.date}:</span> {point.count}
-                                            </div>
-                                        </div>
-                                    </foreignObject>
-                                </g>
-                            {/each}
+
+                            {#if hoveredIndex !== -1}
+                                {@const point = stats.timeline[hoveredIndex]}
+                                {@const px = hoveredIndex * (100 / (stats.timeline.length - 1))}
+                                {@const py = 100 - (point.count / maxVal * 100)}
+                                
+                                <line 
+                                    x1={px} x2={px} 
+                                    y1="0" y2="100" 
+                                    class="stroke-gray-300 dark:stroke-gray-600" 
+                                    stroke-width="0.5" 
+                                    stroke-dasharray="2 2"
+                                    vector-effect="non-scaling-stroke"
+                                />
+                                
+                                <circle 
+                                    cx={px} 
+                                    cy={py} 
+                                    r="2" 
+                                    class="fill-[#D84C38] stroke-white dark:stroke-[#2C2C2C] stroke-[0.5]" 
+                                    vector-effect="non-scaling-stroke"
+                                />
+                            {/if}
                         </svg>
+
+                        {#if hoveredIndex !== -1}
+                            {@const point = stats.timeline[hoveredIndex]}
+                            {@const leftPos = (hoveredIndex / (stats.timeline.length - 1)) * 100}
+                            
+                            <div 
+                                class="absolute top-0 pointer-events-none transition-all duration-75 ease-out z-20"
+                                style="left: {leftPos}%; transform: translateX({leftPos > 50 ? '-100%' : '0%'});"
+                            >
+                                <div class="bg-black/90 text-white text-[10px] rounded px-2 py-1.5 shadow-xl backdrop-blur-md border border-white/10 mt-2 ml-2 whitespace-nowrap">
+                                    <div class="font-bold mb-0.5 text-gray-400">{point.date}</div>
+                                    <div class="text-sm font-nums font-bold">
+                                        <span class="text-[#D84C38]">{point.count}</span> pulls
+                                    </div>
+                                </div>
+                            </div>
+                        {/if}
                         
-                        <div class="flex justify-between text-[10px] text-gray-400 dark:text-[#B7B6B3] absolute bottom-0 left-0 right-0 pointer-events-none px-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 dark:text-[#B7B6B3] absolute bottom-0 left-0 right-0 pointer-events-none px-1 select-none">
                              {#each graphDates as date}
                                 <span>{date}</span>
                              {/each}
@@ -655,7 +694,9 @@
                                 {#if stats.rates.sixStar.items && stats.rates.sixStar.items.length > 0}
                                     {#each stats.rates.sixStar.items as item, i}
                                         {@const iconId = getItemIconId(item.name)}
-                                        {@const isChar = !!characters[iconId]} <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
+                                        {@const isChar = !!characters[iconId]}
+                                        
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
                                             <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
                                                 {#if i === 0}
                                                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#FACC15]"></div>
