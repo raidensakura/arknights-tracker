@@ -119,7 +119,9 @@
     $: {
         if (isSimpleType) {
             const found = banners.find(b => b.type === selectedType);
-            if (found) selectedBannerId = found.id;
+            if (found) {
+                selectedBannerId = found.id;
+            }
         } else if (bannerOptions.length > 0) {
             // Проверяем, есть ли текущий выбранный ID в новом списке
             const currentExists = bannerOptions.find(o => o.value === selectedBannerId);
@@ -537,9 +539,9 @@
                 </div>
             {/if}
 
-            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[250px] flex flex-col">
+            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col relative group">
                 <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase mb-4">{$t("global.pullsPerDay") || "Pulls per Day"}</div>
-                <div class="flex-1 w-full relative">
+                <div class="flex-1 w-full relative z-10">
                     {#if stats.timeline.length > 0}
                         <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible" preserveAspectRatio="none">
                             <path 
@@ -556,14 +558,29 @@
                                 stroke="none" 
                             />
                             {#each stats.timeline as point, i}
-                                <circle 
-                                    cx={i * (100 / (stats.timeline.length - 1))} 
-                                    cy={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100)} 
-                                    r="3" 
-                                    class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-150 transition-transform cursor-pointer"
-                                >
-                                    <title>{point.date}: {point.count}</title>
-                                </circle>
+                                <g class="group/point">
+                                    <circle 
+                                        cx={i * (100 / (stats.timeline.length - 1))} 
+                                        cy={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100)} 
+                                        r="3" 
+                                        class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-150 transition-transform cursor-pointer"
+                                    />
+                                    
+                                    <foreignObject 
+                                        x={i * (100 / (stats.timeline.length - 1)) - 50} 
+                                        y={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100) - 45} 
+                                        width="100" 
+                                        height="50" 
+                                        class="opacity-0 group-hover/point:opacity-100 transition-opacity pointer-events-none overflow-visible"
+                                    >
+                                        <div class="flex flex-col items-center justify-center">
+                                            <div class="bg-black/80 text-white text-[10px] rounded px-2 py-1 shadow-lg whitespace-nowrap z-50">
+                                                <div class="font-bold">{point.date}</div>
+                                                <div>Total: {point.count}</div>
+                                            </div>
+                                        </div>
+                                    </foreignObject>
+                                </g>
                             {/each}
                         </svg>
                         <div class="flex justify-between text-[10px] text-gray-400 dark:text-[#B7B6B3] mt-2">
@@ -579,7 +596,7 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[250px] flex flex-col">
+            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col z-0">
                 <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase mb-4 flex items-center gap-1">
                     {$t("global.pityDist") || "Pity Distribution"} 
                     <Icon name="star" class="w-3 h-3 text-[#D0926E]" />
@@ -591,16 +608,23 @@
                             {@const pity = i + 1}
                             {@const data = stats.pityDist.find(p => p.pity === pity)}
                             {@const count = data ? data.count : 0}
+                            {@const percent = data ? data.percent : 0}
                             {@const heightPct = (count / maxCount) * 100}
                             
-                            <div class="flex-1 bg-gray-100 dark:bg-[#2C2C2C] relative group flex items-end rounded-t-sm overflow-hidden" style="height: 100%;">
+                            <div class="flex-1 bg-gray-100 dark:bg-[#2C2C2C] relative group flex items-end rounded-t-sm" style="height: 100%;">
                                 {#if count > 0}
                                     <div 
-                                        class="w-full bg-[#D4BE48] transition-all duration-500" 
+                                        class="w-full bg-[#D4BE48] hover:bg-[#FACC15] transition-all duration-200" 
                                         style="height: {heightPct}%;"
                                     ></div>
-                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-black text-white text-[10px] px-1 py-0.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-10">
-                                        {pity}: {count}
+                                    
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 opacity-0 group-hover:opacity-100 pointer-events-none z-50 transition-opacity duration-150">
+                                        <div class="bg-black/90 backdrop-blur text-white text-[10px] rounded-md px-2 py-1.5 shadow-xl border border-white/10 whitespace-nowrap">
+                                            <div class="font-mono text-gray-300">Roll: <span class="text-white font-bold">{pity}</span></div>
+                                            <div class="font-mono text-gray-300">Total: <span class="text-white font-bold">{count}</span></div>
+                                            <div class="font-mono text-gray-300">Percent: <span class="text-[#FACC15] font-bold">{percent}%</span></div>
+                                        </div>
+                                        <div class="w-2 h-2 bg-black/90 rotate-45 absolute -bottom-1 left-1/2 -translate-x-1/2"></div>
                                     </div>
                                 {/if}
                             </div>
@@ -621,16 +645,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100">
-                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2">
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col max-h-[500px]">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838] z-10">
                         <h3 class="font-bold text-[#D0926E] text-lg flex items-center gap-1">
                             6 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
                     
-                    <div class="overflow-x-auto">
+                    <div class="overflow-y-auto custom-scrollbar flex-1">
                         <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C] sticky top-0 z-10">
                                 <tr>
                                     <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
                                     <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
@@ -641,8 +665,10 @@
                                 {#if stats.rates.sixStar.items && stats.rates.sixStar.items.length > 0}
                                     {#each stats.rates.sixStar.items as item, i}
                                         {@const charId = Object.keys(characters).find(k => characters[k].name === item.name) || item.name}
-                                        {@const isWeaponItem = !characters[charId]}
+                                        {@const isChar = !!characters[charId]}
                                         
+                                        {@const imageId = isChar ? charId : item.name.toLowerCase().replace(/ /g, '_')}
+
                                         <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
                                             <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
                                                 {#if i === 0}
@@ -651,8 +677,8 @@
 
                                                 <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
                                                      <Images 
-                                                        id={charId} 
-                                                        variant={isWeaponItem ? "weapon-icon" : "avatar"} 
+                                                        id={item.name} 
+                                                        variant={!isChar ? "weapon-icon" : "avatar"} 
                                                         className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
                                                      />
@@ -682,16 +708,16 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100">
-                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2">
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col max-h-[500px]">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838] z-10">
                         <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-1">
                             5 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
                     
-                    <div class="overflow-x-auto">
+                    <div class="overflow-y-auto custom-scrollbar flex-1">
                         <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C] sticky top-0 z-10">
                                 <tr>
                                     <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
                                     <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
@@ -700,9 +726,9 @@
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
                                 {#if stats.rates.fiveStar.items && stats.rates.fiveStar.items.length > 0}
-                                    {#each stats.rates.fiveStar.items.slice(0, 10) as item, i}
+                                    {#each stats.rates.fiveStar.items as item, i}
                                         {@const charId = Object.keys(characters).find(k => characters[k].name === item.name) || item.name}
-                                        {@const isWeaponItem = !characters[charId]}
+                                        {@const isChar = !!characters[charId]}
 
                                         <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors relative">
                                             <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
@@ -711,8 +737,8 @@
                                                 {/if}
                                                 <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
                                                      <Images 
-                                                        id={charId} 
-                                                        variant={isWeaponItem ? "weapon-icon" : "avatar"} 
+                                                        id={item.name} 
+                                                        variant={!isChar ? "weapon-icon" : "avatar"} 
                                                         className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
                                                      />
@@ -727,13 +753,6 @@
                                             </td>
                                         </tr>
                                     {/each}
-                                    {#if stats.rates.fiveStar.items.length > 10}
-                                        <tr>
-                                            <td colspan="3" class="px-4 py-2 text-center text-xs text-gray-400 italic">
-                                                ... and {stats.rates.fiveStar.items.length - 10} more
-                                            </td>
-                                        </tr>
-                                    {/if}
                                 {:else}
                                     <tr>
                                         <td colspan="3" class="px-4 py-10">
