@@ -469,7 +469,7 @@
                     </div>
                     {#if !isSimpleType && stats.winRate5050 > 0}
                         <div class="flex justify-between items-center">
-                             <span class="text-gray-600 dark:text-[#E4E4E4]">
+                             <span class="text-sm text-gray-600 dark:text-[#E4E4E4]">
                                  {#if isWeaponCategory} Won 25:75 {:else} Won 50:50 {/if}
                              </span>
                              <span class="font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">{stats.winRate5050}%</span>
@@ -554,16 +554,23 @@
                 </div>
             {/if}
 
-            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col relative group">
-                <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase mb-4">{$t("global.pullsPerDay") || "Pulls per Day"}</div>
-                <div class="flex-1 w-full relative z-10">
+            <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col relative group overflow-hidden">
+                <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase mb-4 shrink-0">
+                    {$t("global.pullsPerDay") || "Pulls per Day"}
+                </div>
+                
+                <div class="flex-1 w-full h-full relative z-10 min-h-0">
                     {#if stats.timeline.length > 0}
-                        <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                        <svg 
+                            viewBox="0 0 100 100" 
+                            preserveAspectRatio="none" 
+                            class="w-full h-full block overflow-visible"
+                        >
                             <path 
                                 d={getLinePath(stats.timeline, 100, 100)} 
                                 fill="none" 
                                 class="stroke-[#21272C] dark:stroke-[#FDFDFD]" 
-                                stroke-width="0.5" 
+                                stroke-width="0.3" 
                                 vector-effect="non-scaling-stroke"
                             />
                             <path 
@@ -577,28 +584,28 @@
                                     <circle 
                                         cx={i * (100 / (stats.timeline.length - 1))} 
                                         cy={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100)} 
-                                        r="1.5" 
-                                        class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-[3] transition-transform cursor-pointer"
+                                        r="0.6" 
+                                        class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-[4] transition-transform cursor-pointer"
                                     />
                                     
                                     <foreignObject 
                                         x={i * (100 / (stats.timeline.length - 1)) - 50} 
-                                        y={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100) - 45} 
+                                        y={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100) - 35} 
                                         width="100" 
-                                        height="50" 
+                                        height="40" 
                                         class="opacity-0 group-hover/point:opacity-100 transition-opacity pointer-events-none overflow-visible"
                                     >
-                                        <div class="flex flex-col items-center justify-center">
-                                            <div class="bg-black/80 text-white text-[10px] rounded px-2 py-1 shadow-lg whitespace-nowrap z-50 border border-white/10">
-                                                <div class="font-bold">{point.date}</div>
-                                                <div>Total: {point.count}</div>
+                                        <div class="flex flex-col items-center justify-end h-full pb-1">
+                                            <div class="bg-black/90 text-white text-[10px] rounded px-1.5 py-0.5 shadow-md whitespace-nowrap border border-white/10">
+                                                <span class="font-bold">{point.date}:</span> {point.count}
                                             </div>
                                         </div>
                                     </foreignObject>
                                 </g>
                             {/each}
                         </svg>
-                        <div class="flex justify-between text-[10px] text-gray-400 dark:text-[#B7B6B3] mt-2">
+                        
+                        <div class="flex justify-between text-[10px] text-gray-400 dark:text-[#B7B6B3] absolute bottom-0 left-0 right-0 pointer-events-none">
                              <span>{stats.timeline[0]?.date}</span>
                              <span>{stats.timeline[stats.timeline.length - 1]?.date}</span>
                         </div>
@@ -750,66 +757,6 @@
                                                      <Images 
                                                         id={iconId} 
                                                         variant={isChar ? "avatar" : "weapon-icon"} 
-                                                        className="w-full h-full object-cover transform scale-110" 
-                                                        alt={item.name}
-                                                     />
-                                                </div>
-                                                <span class="truncate max-w-[120px]" title={item.name}>{item.name}</span>
-                                            </td>
-                                            <td class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]">
-                                                {fmt(item.count)}
-                                            </td>
-                                            <td class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]">
-                                                {item.percent}%
-                                            </td>
-                                        </tr>
-                                    {/each}
-                                {:else}
-                                    <tr>
-                                        <td colspan="3" class="px-4 py-10">
-                                            <div class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]">
-                                                <Icon name="noData" className="w-8 h-8 opacity-50" />
-                                                <span class="text-xs">{$t("global.noData") || "No Data"}</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {/if}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col max-h-[500px]">
-                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838] z-10">
-                        <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-1">
-                            5 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
-                        </h3>
-                    </div>
-                    
-                    <div class="overflow-y-auto custom-scrollbar flex-1">
-                        <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C] sticky top-0 z-10">
-                                <tr>
-                                    <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
-                                    <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
-                                    <th class="px-4 py-3 font-bold text-right">%</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
-                                {#if stats.rates.fiveStar.items && stats.rates.fiveStar.items.length > 0}
-                                    {#each stats.rates.fiveStar.items as item, i}
-                                        {@const charId = Object.keys(characters).find(k => characters[k].name === item.name) || item.name}
-                                        {@const isChar = !!characters[charId]}
-
-                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors relative">
-                                            <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
-                                                {#if i === 0}
-                                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#E3BC55]"></div>
-                                                {/if}
-                                                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
-                                                     <Images 
-                                                        id={item.name} 
-                                                        variant={!isChar ? "weapon-icon" : "avatar"} 
                                                         className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
                                                      />
