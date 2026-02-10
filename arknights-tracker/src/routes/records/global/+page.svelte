@@ -18,22 +18,16 @@
     import { bannerTypes } from "$lib/data/bannerTypes";
     import { API_BASE } from "$lib/api";
 
-    // --- ХЕЛПЕРЫ ---
-    
-    // ИСПРАВЛЕНО: Функция теперь называется так же, как в шаблоне
     function getItemIconId(name) {
         if (!name) return "";
         const lowerName = name.toLowerCase();
 
-        // 1. Ищем в персонажах
         for (const [key, val] of Object.entries(characters)) {
             if (val.name.toLowerCase() === lowerName) return key;
         }
-        // 2. Ищем в оружии
         for (const [key, val] of Object.entries(weapons)) {
             if (val.name.toLowerCase() === lowerName) return key;
         }
-        // 3. Fallback: slugify
         return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_');
     }
 
@@ -72,8 +66,6 @@
     });
 
     onDestroy(() => clearInterval(timer));
-
-    // --- ЛОГИКА СЕЛЕКТОВ ---
 
     $: sortedBannerTypes = [...bannerTypes].sort((a, b) => {
         if (a.id === 'special') return -1;
@@ -132,11 +124,8 @@
         }
     }
 
-    // --- ДАННЫЕ БАННЕРА ---
-
     $: currentBannerRaw = banners.find(b => b.id === selectedBannerId);
     $: currentBanner = currentBannerRaw ? { ...currentBannerRaw, id: currentBannerRaw.id, icon: currentBannerRaw.icon || currentBannerRaw.id } : null;
-
     $: bannerStatus = (() => {
         if (!currentBanner) return null;
         const start = parseWithServerOffset(currentBanner.startTime);
@@ -145,10 +134,7 @@
         if (end && now > end) return 'ended';
         return 'active';
     })();
-
     $: timeLeftString = currentBanner ? formatTimeLeft(currentBanner.endTime) : null;
-
-    // Сбор данных для отображения иконок
     $: allFeaturedItems = (() => {
         if (!currentBanner?.featured6) return [];
         return currentBanner.featured6.map(id => {
@@ -165,12 +151,8 @@
             };
         });
     })();
-
     $: mainFeatured = !isSimpleType && allFeaturedItems.length === 1 ? allFeaturedItems[0] : null;
-
     const oroberyl = currencies.find((c) => c.id === "oroberyl") || { id: "oroberyl" };
-
-    // --- СТАТИСТИКА ---
     const initialStats = {
         totalUsers: 0,
         totalPulls: 0,
@@ -265,7 +247,6 @@
         });
     })();
     
-    // Модалка
     let isModalOpen = false;
     function openModal() { if (currentBanner) isModalOpen = true; }
 </script>
@@ -430,9 +411,9 @@
                         <span class="font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">{stats.median6}</span>
                     </div>
                     {#if !isSimpleType && stats.winRate5050 > 0}
-                        <div class="flex justify-between items-center pt-3 mt-1 border-t border-gray-100 dark:border-[#444]">
-                             <span class="text-gray-500 dark:text-[#B7B6B3] text-xs font-medium uppercase tracking-wide">
-                                 {#if isWeaponCategory} Won 75:25 {:else} Won 50:50 {/if}
+                        <div class="flex justify-between items-center">
+                             <span class="text-sm font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">
+                                 {#if isWeaponCategory} {$t("global.won") || "Won"} 25:75 {:else} {$t("global.won") || "Won"} 50:50 {/if}
                              </span>
                              <span class="font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">{stats.winRate5050}%</span>
                         </div>
@@ -523,23 +504,15 @@
                     if (stats.timeline.length === 0) return;
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = e.clientX - rect.left;
-                    // Вычисляем индекс ближайшей точки
-                    // (x / ширина) * кол-во точек
-                    // padding-left/right (20px) нужно учесть для точности, но для простоты берем всю ширину
                     const idx = Math.min(Math.max(0, Math.floor((x / rect.width) * stats.timeline.length)), stats.timeline.length - 1);
                     hoveredIndex = idx;
                 }}
                 on:mouseleave={() => (hoveredIndex = -1)}
             >
                 <div class="flex justify-between items-center mb-2 shrink-0">
-                    <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] uppercase">
+                    <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD]">
                         {$t("global.pullsPerDay") || "Pulls per Day"}
                     </div>
-                    {#if hoveredIndex !== -1 && stats.timeline[hoveredIndex]}
-                        <div class="text-xs font-mono font-bold text-[#D84C38] animate-in fade-in zoom-in duration-200">
-                            {stats.timeline[hoveredIndex].date}: {stats.timeline[hoveredIndex].count}
-                        </div>
-                    {/if}
                 </div>
                 
                 <div class="flex-1 w-full h-full relative min-h-0">
@@ -549,8 +522,8 @@
                         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full block overflow-visible">
                             <defs>
                                 <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stop-color="#D84C38" stop-opacity="0.2" />
-                                    <stop offset="100%" stop-color="#D84C38" stop-opacity="0" />
+                                    <stop offset="0%" stop-color="#FACC15" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="#FACC15" stop-opacity="0" />
                                 </linearGradient>
                             </defs>
 
@@ -578,17 +551,19 @@
                                     y1="0" y2="100" 
                                     class="stroke-gray-300 dark:stroke-gray-600" 
                                     stroke-width="0.5" 
-                                    stroke-dasharray="2 2"
+                                    stroke-dasharray="3 3"
                                     vector-effect="non-scaling-stroke"
                                 />
                                 
-                                <circle 
-                                    cx={px} 
-                                    cy={py} 
-                                    r="2" 
-                                    class="fill-[#D84C38] stroke-white dark:stroke-[#2C2C2C] stroke-[0.5]" 
-                                    vector-effect="non-scaling-stroke"
-                                />
+                                <svg x={px} y={py} overflow="visible">
+                                    <circle 
+                                        cx="0" cy="0" 
+                                        r="2.5" 
+                                        class="fill-[#FACC15] stroke-white dark:stroke-[#2C2C2C]" 
+                                        stroke-width="1"
+                                        vector-effect="non-scaling-stroke"
+                                    />
+                                </svg>
                             {/if}
                         </svg>
 
@@ -598,12 +573,12 @@
                             
                             <div 
                                 class="absolute top-0 pointer-events-none transition-all duration-75 ease-out z-20"
-                                style="left: {leftPos}%; transform: translateX({leftPos > 50 ? '-100%' : '0%'});"
+                                style="left: {leftPos}%; transform: translateX({leftPos > 60 ? '-100%' : '0%'});"
                             >
                                 <div class="bg-black/90 text-white text-[10px] rounded px-2 py-1.5 shadow-xl backdrop-blur-md border border-white/10 mt-2 ml-2 whitespace-nowrap">
                                     <div class="font-bold mb-0.5 text-gray-400">{point.date}</div>
                                     <div class="text-sm font-nums font-bold">
-                                        <span class="text-[#D84C38]">{point.count}</span> pulls
+                                        <span class="text-[#FACC15]">{point.count}</span> pulls
                                     </div>
                                 </div>
                             </div>
@@ -676,7 +651,7 @@
                 
                 <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
                     <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
-                        <h3 class="font-bold text-[#D0926E] text-lg flex items-center gap-1">
+                        <h3 class="font-bold text-[#D0926E] text-lg flex items-center gap-0.5">
                             6 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
@@ -737,7 +712,7 @@
 
                 <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
                     <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
-                        <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-1">
+                        <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-0.5">
                             5 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
