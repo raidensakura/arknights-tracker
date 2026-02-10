@@ -510,7 +510,10 @@
     "featuredList": "Featured Items",
     "pityDist": "Pity Distribution",
     "noData": "No Data",
-    "won": "Won"
+    "won": "Won",
+    "pulls": "pulls",
+    "roll": "Roll",
+    "percent": "Percent"
 },
   "settings": {
     "title": "Settings",
