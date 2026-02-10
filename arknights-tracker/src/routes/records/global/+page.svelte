@@ -3,59 +3,70 @@
     import { t } from "$lib/i18n";
     import { goto } from "$app/navigation";
     import { fade } from "svelte/transition";
-
+    
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
-    import Images from "$lib/components/Images.svelte";
+    import Images from "$lib/components/Images.svelte"; 
     import Button from "$lib/components/Button.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import BannerModal from "$lib/components/BannerModal.svelte";
 
     import { characters } from "$lib/data/characters";
-    import { weapons } from "$lib/data/weapons";
+    import { weapons } from "$lib/data/weapons"; 
     import { currencies } from "$lib/data/items/currencies";
     import { banners } from "$lib/data/banners";
     import { bannerTypes } from "$lib/data/bannerTypes";
     import { API_BASE } from "$lib/api";
 
+    // --- ХЕЛПЕРЫ ---
+    
+    // Хелпер для генерации ID (CamelCase)
     function getItemIconId(name) {
         if (!name) return "";
-        
-        const customMap = {
-            "Arlight": "arlight", 
-            "Endministrator": "endministrator"
-        };
-        if (customMap[name]) return customMap[name];
 
-        const lowerName = name.toLowerCase();
-        for (const [key, val] of Object.entries(characters)) {
-            if (val.name.toLowerCase() === lowerName) return key;
+        // 1. Ручные исключения (если имя с бэка не мапится авто-логикой)
+        const overrides = {
+            "Endministrator": "endministrator1", // В твоем JSON есть 1 и 2, но бэк скорее всего шлет просто имя
+            "Arlight": "arclight" // На случай опечатки бэка (ты кидал лог с 404 Arlight)
+        };
+        if (overrides[name]) return overrides[name];
+
+        let clean = name.trim();
+
+        // 2. Если это "грязное" имя с бэка типа "objEdgeOfLightness"
+        if (clean.startsWith("obj")) {
+            // Убираем obj
+            clean = clean.substring(3); 
         }
-        for (const [key, val] of Object.entries(weapons)) {
-            if (val.name.toLowerCase() === lowerName) return key;
+
+        // 3. Если в имени есть пробелы ("Chen Qianyu", "Last Rite") -> Делаем CamelCase
+        if (clean.includes(" ")) {
+            return clean.split(/\s+/).map((word, index) => {
+                // Очищаем от спецсимволов
+                const w = word.replace(/[^a-zA-Z0-9]/g, '');
+                // Первое слово - с маленькой, остальные - с большой
+                if (index === 0) return w.toLowerCase();
+                return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+            }).join('');
         }
-        let clean = name.replace(/^obj/, '');
-        clean = clean.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-        if (clean.startsWith('_')) clean = clean.slice(1);
-        return clean.trim().toLowerCase().replace(/[^a-z0-9_]+/g, '');
+
+        // 4. Если это одно слово ("Perlica", "Ember") или уже CamelCase ("EdgeOfLightness")
+        // Просто делаем первую букву маленькой
+        return clean.charAt(0).toLowerCase() + clean.slice(1);
     }
 
     let now = new Date();
     let timer;
-    const currentServerId = "3";
-    let hoveredIndex = -1;
+    const currentServerId = "3"; 
 
     function parseWithServerOffset(dateStr) {
         if (!dateStr) return null;
-        if (
-            dateStr.includes("Z") ||
-            (dateStr.includes("T") && dateStr.includes("+"))
-        ) {
+        if (dateStr.includes("Z") || (dateStr.includes("T") && dateStr.includes("+"))) {
             return new Date(dateStr);
         }
         const offset = currentServerId === "2" ? 8 : -5;
         const sign = offset >= 0 ? "+" : "-";
-        const pad = (n) => String(Math.abs(n)).padStart(2, "0");
+        const pad = (n) => String(Math.abs(n)).padStart(2, '0');
         const iso = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
         return new Date(iso);
     }
@@ -66,64 +77,55 @@
         const diff = end - now;
         if (diff <= 0) return null;
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-            (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        );
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        if (days > 0)
-            return (
-                $t("timer.left_d_h", { d: days, h: hours }) ||
-                `${days}d ${hours}h`
-            );
-        if (hours > 0)
-            return (
-                $t("timer.left_h_m", { h: hours, m: minutes }) ||
-                `${hours}h ${minutes}m`
-            );
+        if (days > 0) return $t("timer.left_d_h", { d: days, h: hours }) || `${days}d ${hours}h`;
+        if (hours > 0) return $t("timer.left_h_m", { h: hours, m: minutes }) || `${hours}h ${minutes}m`;
         return $t("timer.left_m", { m: minutes }) || `${minutes}m`;
     }
 
     onMount(() => {
-        timer = setInterval(() => {
-            now = new Date();
-        }, 1000 * 60);
+        timer = setInterval(() => { now = new Date(); }, 1000 * 60);
     });
 
     onDestroy(() => clearInterval(timer));
 
+    // --- ЛОГИКА СЕЛЕКТОВ ---
+
     $: sortedBannerTypes = [...bannerTypes].sort((a, b) => {
-        if (a.id === "special") return -1;
-        if (b.id === "special") return 1;
+        if (a.id === 'special') return -1;
+        if (b.id === 'special') return 1;
         return a.order - b.order;
     });
 
-    $: typeOptions = sortedBannerTypes.map((bt) => ({
-        value: bt.id,
-        label: $t(bt.i18nKey) || bt.name,
+    $: typeOptions = sortedBannerTypes.map(bt => ({
+        value: bt.id, 
+        label: $t(bt.i18nKey) || bt.name
     }));
 
     let selectedType = "special";
 
-    $: isSimpleType =
-        selectedType === "standard" || selectedType === "new-player";
-    $: isWeaponCategory =
-        selectedType.toLowerCase().includes("weap") ||
-        selectedType === "weapon";
+    $: isSimpleType = selectedType === 'standard' || selectedType === 'new-player';
+    $: isWeaponCategory = selectedType.toLowerCase().includes('weap') || selectedType === 'weapon';
 
+    // ФИЛЬТРАЦИЯ БАННЕРОВ
     $: bannerOptions = banners
         .filter(b => {
             const bid = b.id.toLowerCase();
             const bType = b.type.toLowerCase();
             const sType = selectedType.toLowerCase();
 
-            // Специальная логика для Стандарта и Новичка
-            if (sType === 'new-player') return bType === 'new-player';
-            if (sType === 'standard') return bType === 'standard';
+            // 1. Логика для Новичка (Beginner)
+            if (sType === 'new-player') {
+                return bType === 'new-player' || bid === 'beginner';
+            }
 
+            // 2. Логика для Оружия
             if (sType.includes('standard') && sType.includes('weap')) return bid.includes('constant');
             if (sType.includes('special') && sType.includes('weap')) return (bType === 'weapon' || bid.includes('weapon')) && !bid.includes('constant');
             if (sType === 'weapon') return bType === 'weapon' || bid.includes('weapon');
             
+            // 3. Остальное
             return b.type === selectedType;
         })
         .sort((a, b) => new Date(b.startTime) - new Date(a.startTime))
@@ -134,14 +136,20 @@
 
     let selectedBannerId = "";
 
+    // АВТОВЫБОР БАННЕРА
     $: {
         let foundId = "";
         
-        if (isSimpleType) {
-            const directMatch = banners.find(b => b.type === selectedType);
-            if (directMatch) foundId = directMatch.id;
+        // 1. Попытка найти beginner/standard напрямую
+        if (selectedType === 'new-player') {
+             const found = banners.find(b => b.id === 'beginner' || b.type === 'new-player');
+             if (found) foundId = found.id;
+        } else if (isSimpleType) {
+            const found = banners.find(b => b.type === selectedType);
+            if (found) foundId = found.id;
         } 
         
+        // 2. Если не нашли, ищем через список опций
         if (!foundId && bannerOptions.length > 0) {
             const currentExists = bannerOptions.find(o => o.value === selectedBannerId);
             if (!currentExists) {
@@ -163,50 +171,42 @@
         }
     }
 
-    $: currentBannerRaw = banners.find((b) => b.id === selectedBannerId);
-    $: currentBanner = currentBannerRaw
-        ? {
-              ...currentBannerRaw,
-              id: currentBannerRaw.id,
-              icon: currentBannerRaw.icon || currentBannerRaw.id,
-          }
-        : null;
+    // --- ДАННЫЕ БАННЕРА ---
+
+    $: currentBannerRaw = banners.find(b => b.id === selectedBannerId);
+    $: currentBanner = currentBannerRaw ? { ...currentBannerRaw, id: currentBannerRaw.id, icon: currentBannerRaw.icon || currentBannerRaw.id } : null;
+
     $: bannerStatus = (() => {
         if (!currentBanner) return null;
         const start = parseWithServerOffset(currentBanner.startTime);
-        const end = currentBanner.endTime
-            ? parseWithServerOffset(currentBanner.endTime)
-            : null;
-        if (now < start) return "upcoming";
-        if (end && now > end) return "ended";
-        return "active";
+        const end = currentBanner.endTime ? parseWithServerOffset(currentBanner.endTime) : null;
+        if (now < start) return 'upcoming';
+        if (end && now > end) return 'ended';
+        return 'active';
     })();
-    $: timeLeftString = currentBanner
-        ? formatTimeLeft(currentBanner.endTime)
-        : null;
+
+    $: timeLeftString = currentBanner ? formatTimeLeft(currentBanner.endTime) : null;
+
     $: allFeaturedItems = (() => {
         if (!currentBanner?.featured6) return [];
-        return currentBanner.featured6.map((id) => {
+        return currentBanner.featured6.map(id => {
             const char = characters[id];
             const weapon = weapons[id];
-
-            const isWep = isWeaponCategory || !!weapon || !char;
-
-            return {
-                id: id,
-                name: (char && char.name) || (weapon && weapon.name) || id,
-                isWeapon: isWep,
-                rarity: 6,
+            
+            const isWep = isWeaponCategory || !!weapon || !char; 
+            
+            return { 
+                id: id, 
+                name: (char && char.name) || (weapon && weapon.name) || id, 
+                isWeapon: isWep, 
+                rarity: 6
             };
         });
     })();
-    $: mainFeatured =
-        !isSimpleType && allFeaturedItems.length === 1
-            ? allFeaturedItems[0]
-            : null;
-    const oroberyl = currencies.find((c) => c.id === "oroberyl") || {
-        id: "oroberyl",
-    };
+
+    $: mainFeatured = !isSimpleType && allFeaturedItems.length === 1 ? allFeaturedItems[0] : null;
+
+    // --- СТАТИСТИКА ---
     const initialStats = {
         totalUsers: 0,
         totalPulls: 0,
@@ -215,48 +215,39 @@
         totalObtained: 0,
         rates: {
             sixStar: { percent: "0.00", count: 0, items: [] },
-            fiveStar: { percent: "0.00", count: 0, items: [] },
+            fiveStar: { percent: "0.00", count: 0, items: [] }
         },
         timeline: [],
-        pityDist: [],
+        pityDist: []
     };
 
     let stats = { ...initialStats };
     let isLoading = false;
+    let hoveredIndex = -1; // Для графика
 
     async function fetchStats(bannerId) {
         stats = { ...initialStats };
-
         if (!bannerId) return;
         isLoading = true;
         try {
-            const res = await fetch(
-                `${API_BASE}/global/stats?bannerId=${bannerId}`,
-            );
+            const res = await fetch(`${API_BASE}/global/stats?bannerId=${bannerId}`);
             const json = await res.json();
-
+            
             if (json.code === 0) {
                 const d = json.data;
                 const total = d.totalPulls || 0;
-
-                const r6 =
-                    total > 0 ? ((d.total6 / total) * 100).toFixed(3) : "0.00";
-                const r5 =
-                    total > 0 ? ((d.total5 / total) * 100).toFixed(3) : "0.00";
-
+                
+                const r6 = total > 0 ? (d.total6 / total * 100).toFixed(3) : "0.00";
+                const r5 = total > 0 ? (d.total5 / total * 100).toFixed(3) : "0.00";
+                
                 let obtained = 0;
                 if (mainFeatured && d.items6) {
-                    const foundItem = d.items6.find(
-                        (i) => i.name === mainFeatured.name,
-                    );
+                    const foundItem = d.items6.find(i => i.name === mainFeatured.name);
                     obtained = foundItem ? foundItem.count : 0;
                 }
 
-                const total5050 = d.limitedCount + d.lost5050;
-                const winRate =
-                    total5050 > 0
-                        ? ((d.limitedCount / total5050) * 100).toFixed(0)
-                        : 0;
+                const total5050 = (d.limitedCount + d.lost5050);
+                const winRate = total5050 > 0 ? (d.limitedCount / total5050 * 100).toFixed(0) : 0;
 
                 stats = {
                     totalUsers: d.totalUsers,
@@ -265,19 +256,11 @@
                     winRate5050: winRate,
                     totalObtained: obtained,
                     rates: {
-                        sixStar: {
-                            percent: r6,
-                            count: d.total6,
-                            items: d.items6 || [],
-                        },
-                        fiveStar: {
-                            percent: r5,
-                            count: d.total5,
-                            items: d.items5 || [],
-                        },
+                        sixStar: { percent: r6, count: d.total6, items: d.items6 || [] },
+                        fiveStar: { percent: r5, count: d.total5, items: d.items5 || [] }
                     },
                     timeline: d.timeline || [],
-                    pityDist: d.pityDistribution || [],
+                    pityDist: d.pityDistribution || []
                 };
             }
         } catch (e) {
@@ -291,17 +274,17 @@
         fetchStats(selectedBannerId);
     }
 
-    const fmt = (num) => (num ? num.toLocaleString("ru-RU") : "0");
+    const fmt = (num) => num ? num.toLocaleString('ru-RU') : "0";
 
     function getLinePath(data, width, height) {
         if (!data || data.length < 2) return "";
-        const counts = data.map((d) => d.count);
+        const counts = data.map(d => d.count);
         const max = Math.max(...counts, 1);
         const step = width / (data.length - 1);
-        let d = `M 0 ${height - (counts[0] / max) * height}`;
+        let d = `M 0 ${height - (counts[0] / max * height)}`;
         for (let i = 1; i < data.length; i++) {
             const x = i * step;
-            const y = height - (counts[i] / max) * height;
+            const y = height - (counts[i] / max * height);
             d += ` L ${x} ${y}`;
         }
         return d;
@@ -311,19 +294,15 @@
         if (!stats.timeline.length) return [];
         const count = 5;
         const step = (stats.timeline.length - 1) / (count - 1);
-        return Array.from({ length: count }, (_, i) => {
+        return Array.from({length: count}, (_, i) => {
             const index = Math.round(i * step);
-            const item =
-                stats.timeline[index] ||
-                stats.timeline[stats.timeline.length - 1];
+            const item = stats.timeline[index] || stats.timeline[stats.timeline.length-1];
             return item ? item.date : "";
         });
     })();
-
+    
     let isModalOpen = false;
-    function openModal() {
-        if (currentBanner) isModalOpen = true;
-    }
+    function openModal() { if (currentBanner) isModalOpen = true; }
 </script>
 
 {#if isModalOpen && currentBanner}
@@ -936,90 +915,51 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div
-                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto"
-                >
-                    <div
-                        class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]"
-                    >
-                        <h3
-                            class="font-bold text-[#D0926E] text-lg flex items-center gap-0.5"
-                        >
-                            6 <Icon name="star" class="w-4 h-4" />
-                            {$t("global.list") || "List"}
+                
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
+                        <h3 class="font-bold text-[#D0926E] text-lg flex items-center gap-1">
+                            6 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
-
+                    
                     <div class="w-full">
                         <table class="w-full text-sm text-left">
-                            <thead
-                                class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]"
-                            >
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
                                 <tr>
-                                    <th class="px-4 py-3 font-bold"
-                                        >{$t("global.name") || "Name"}</th
-                                    >
-                                    <th class="px-4 py-3 font-bold text-right"
-                                        >{$t("global.total") || "Total"}</th
-                                    >
-                                    <th class="px-4 py-3 font-bold text-right"
-                                        >%</th
-                                    >
+                                    <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">%</th>
                                 </tr>
                             </thead>
-                            <tbody
-                                class="divide-y divide-gray-100 dark:divide-[#444]"
-                            >
+                            <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
                                 {#if stats.rates.sixStar.items && stats.rates.sixStar.items.length > 0}
                                     {#each stats.rates.sixStar.items as item, i}
-                                        {@const iconId = getItemIconId(
-                                            item.name,
-                                        )}
-                                        {@const isChar = !!characters[iconId]}
-
-                                        <tr
-                                            class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group"
-                                        >
-                                            <td
-                                                class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative"
-                                            >
+                                        {@const iconId = getItemIconId(item.name)}
+                                        {@const isChar = characters[iconId] !== undefined}
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
+                                            <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
                                                 {#if i === 0}
-                                                    <div
-                                                        class="absolute left-0 top-0 bottom-0 w-1 bg-[#FACC15]"
-                                                    ></div>
+                                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#FACC15]"></div>
                                                 {/if}
 
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0"
-                                                >
-                                                    <Images
-                                                        id={iconId}
-                                                        variant={isChar
-                                                            ? "avatar"
-                                                            : "weapon-icon"}
-                                                        className="w-full h-full object-cover transform scale-110"
+                                                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
+                                                     <Images 
+                                                        id={iconId} 
+                                                        variant={isChar ? "avatar" : "weapon-icon"} 
+                                                        className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
-                                                    />
+                                                     />
                                                 </div>
-                                                <span
-                                                    class="truncate max-w-[120px]"
-                                                    title={item.name}
-                                                >
-                                                    {$t(
-                                                        isChar
-                                                            ? `characters.${iconId}`
-                                                            : `weaponsList.${iconId}`,
-                                                    ) || item.name}
+                                                
+                                                <span class="truncate max-w-[120px]" title={item.name}>
+                                                    {$t(isChar ? `characters.${iconId}` : `weaponsList.${iconId}`) || item.name}
                                                 </span>
                                             </td>
-                                            <td
-                                                class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]"
-                                            >
+                                            <td class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]">
                                                 {fmt(item.count)}
                                             </td>
-                                            <td
-                                                class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]"
-                                            >
+                                            <td class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]">
                                                 {item.percent}%
                                             </td>
                                         </tr>
@@ -1027,17 +967,9 @@
                                 {:else}
                                     <tr>
                                         <td colspan="3" class="px-4 py-10">
-                                            <div
-                                                class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]"
-                                            >
-                                                <Icon
-                                                    name="noData"
-                                                    className="w-8 h-8 opacity-50"
-                                                />
-                                                <span class="text-xs"
-                                                    >{$t("global.noData") ||
-                                                        "No Data"}</span
-                                                >
+                                            <div class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]">
+                                                <Icon name="noData" className="w-8 h-8 opacity-50" />
+                                                <span class="text-xs">{$t("global.noData") || "No Data"}</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -1047,84 +979,49 @@
                     </div>
                 </div>
 
-                <div
-                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto"
-                >
-                    <div
-                        class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]"
-                    >
-                        <h3
-                            class="font-bold text-[#E3BC55] text-lg flex items-center gap-0.5"
-                        >
-                            5 <Icon name="star" class="w-4 h-4" />
-                            {$t("global.list") || "List"}
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
+                        <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-1">
+                            5 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
-
+                    
                     <div class="w-full">
                         <table class="w-full text-sm text-left">
-                            <thead
-                                class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]"
-                            >
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
                                 <tr>
-                                    <th class="px-4 py-3 font-bold"
-                                        >{$t("global.name") || "Name"}</th
-                                    >
-                                    <th class="px-4 py-3 font-bold text-right"
-                                        >{$t("global.total") || "Total"}</th
-                                    >
-                                    <th class="px-4 py-3 font-bold text-right"
-                                        >%</th
-                                    >
+                                    <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">%</th>
                                 </tr>
                             </thead>
-                            <tbody
-                                class="divide-y divide-gray-100 dark:divide-[#444]"
-                            >
+                            <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
                                 {#if stats.rates.fiveStar.items && stats.rates.fiveStar.items.length > 0}
                                     {#each stats.rates.fiveStar.items as item, i}
-                                        {@const iconId = getItemIconId(
-                                            item.name,
-                                        )}
-                                        {@const isChar = !!characters[iconId]}
+                                        {@const iconId = getItemIconId(item.name)}
+                                        {@const isChar = characters[iconId] !== undefined}
 
-                                        <tr
-                                            class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors relative"
-                                        >
-                                            <td
-                                                class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative"
-                                            >
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors relative">
+                                            <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
                                                 {#if i === 0}
-                                                    <div
-                                                        class="absolute left-0 top-0 bottom-0 w-1 bg-[#E3BC55]"
-                                                    ></div>
+                                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#E3BC55]"></div>
                                                 {/if}
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0"
-                                                >
-                                                    <Images
-                                                        id={iconId}
-                                                        variant={isChar
-                                                            ? "avatar"
-                                                            : "weapon-icon"}
-                                                        className="w-full h-full object-cover transform scale-110"
+                                                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
+                                                     <Images 
+                                                        id={iconId} 
+                                                        variant={isChar ? "avatar" : "weapon-icon"} 
+                                                        className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
-                                                    />
+                                                     />
                                                 </div>
-                                                <span
-                                                    class="truncate max-w-[120px]"
-                                                    title={item.name}
-                                                    >{item.name}</span
-                                                >
+                                                <span class="truncate max-w-[120px]" title={item.name}>
+                                                    {$t(isChar ? `characters.${iconId}` : `weaponsList.${iconId}`) || item.name}
+                                                </span>
                                             </td>
-                                            <td
-                                                class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]"
-                                            >
+                                            <td class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]">
                                                 {fmt(item.count)}
                                             </td>
-                                            <td
-                                                class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]"
-                                            >
+                                            <td class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]">
                                                 {item.percent}%
                                             </td>
                                         </tr>
@@ -1132,17 +1029,9 @@
                                 {:else}
                                     <tr>
                                         <td colspan="3" class="px-4 py-10">
-                                            <div
-                                                class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]"
-                                            >
-                                                <Icon
-                                                    name="noData"
-                                                    className="w-8 h-8 opacity-50"
-                                                />
-                                                <span class="text-xs"
-                                                    >{$t("global.noData") ||
-                                                        "No Data"}</span
-                                                >
+                                            <div class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]">
+                                                <Icon name="noData" className="w-8 h-8 opacity-50" />
+                                                <span class="text-xs">{$t("global.noData") || "No Data"}</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -1151,6 +1040,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
