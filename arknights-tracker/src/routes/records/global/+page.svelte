@@ -35,6 +35,21 @@
         return new Date(iso);
     }
 
+    function getItemIconId(name, isWeapon) {
+        if (!name) return "";
+        
+        // 1. Пробуем найти персонажа в базе (сравниваем без учета регистра)
+        const charId = Object.keys(characters).find(
+            k => characters[k].name.toLowerCase() === name.toLowerCase()
+        );
+        
+        if (charId) return charId;
+
+        // 2. Если не нашли или это оружие — превращаем имя в id (lowercase + snake_case)
+        // Пример: "Solid Ice Issue" -> "solid_ice_issue"
+        return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_');
+    }
+
     function formatTimeLeft(endTimeStr) {
         if (!endTimeStr) return null;
         const end = parseWithServerOffset(endTimeStr);
@@ -453,8 +468,8 @@
                         <span class="font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">{stats.median6}</span>
                     </div>
                     {#if !isSimpleType && stats.winRate5050 > 0}
-                        <div class="flex justify-between items-center pt-3 mt-1 border-t border-gray-100 dark:border-[#444]">
-                             <span class="text-gray-500 dark:text-[#B7B6B3] text-xs font-medium uppercase tracking-wide">
+                        <div class="flex justify-between items-center">
+                             <span class="text-gray-600 dark:text-[#E4E4E4]">
                                  {#if isWeaponCategory} Won 25:75 {:else} Won 50:50 {/if}
                              </span>
                              <span class="font-bold text-lg font-nums text-[#21272C] dark:text-[#FDFDFD]">{stats.winRate5050}%</span>
@@ -548,7 +563,7 @@
                                 d={getLinePath(stats.timeline, 100, 100)} 
                                 fill="none" 
                                 class="stroke-[#21272C] dark:stroke-[#FDFDFD]" 
-                                stroke-width="2" 
+                                stroke-width="0.5" 
                                 vector-effect="non-scaling-stroke"
                             />
                             <path 
@@ -562,8 +577,8 @@
                                     <circle 
                                         cx={i * (100 / (stats.timeline.length - 1))} 
                                         cy={100 - (point.count / Math.max(...stats.timeline.map(t=>t.count), 1) * 100)} 
-                                        r="3" 
-                                        class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-150 transition-transform cursor-pointer"
+                                        r="1.5" 
+                                        class="fill-[#21272C] dark:fill-[#FDFDFD] hover:scale-[3] transition-transform cursor-pointer"
                                     />
                                     
                                     <foreignObject 
@@ -574,7 +589,7 @@
                                         class="opacity-0 group-hover/point:opacity-100 transition-opacity pointer-events-none overflow-visible"
                                     >
                                         <div class="flex flex-col items-center justify-center">
-                                            <div class="bg-black/80 text-white text-[10px] rounded px-2 py-1 shadow-lg whitespace-nowrap z-50">
+                                            <div class="bg-black/80 text-white text-[10px] rounded px-2 py-1 shadow-lg whitespace-nowrap z-50 border border-white/10">
                                                 <div class="font-bold">{point.date}</div>
                                                 <div>Total: {point.count}</div>
                                             </div>
@@ -645,16 +660,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col max-h-[500px]">
-                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838] z-10">
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
                         <h3 class="font-bold text-[#D0926E] text-lg flex items-center gap-1">
                             6 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
                         </h3>
                     </div>
                     
-                    <div class="overflow-y-auto custom-scrollbar flex-1">
+                    <div class="w-full">
                         <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C] sticky top-0 z-10">
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
                                 <tr>
                                     <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
                                     <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
@@ -664,12 +679,8 @@
                             <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
                                 {#if stats.rates.sixStar.items && stats.rates.sixStar.items.length > 0}
                                     {#each stats.rates.sixStar.items as item, i}
-                                        {@const charId = Object.keys(characters).find(k => characters[k].name === item.name) || item.name}
-                                        {@const isChar = !!characters[charId]}
-                                        
-                                        {@const imageId = isChar ? charId : item.name.toLowerCase().replace(/ /g, '_')}
-
-                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
+                                        {@const iconId = getItemIconId(item.name)}
+                                        {@const isChar = !!characters[iconId]} <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors group">
                                             <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
                                                 {#if i === 0}
                                                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#FACC15]"></div>
@@ -677,8 +688,68 @@
 
                                                 <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
                                                      <Images 
-                                                        id={item.name} 
-                                                        variant={!isChar ? "weapon-icon" : "avatar"} 
+                                                        id={iconId} 
+                                                        variant={isChar ? "avatar" : "weapon-icon"} 
+                                                        className="w-full h-full object-cover transform scale-110" 
+                                                        alt={item.name}
+                                                     />
+                                                </div>
+                                                <span class="truncate max-w-[120px]" title={item.name}>{item.name}</span>
+                                            </td>
+                                            <td class="px-4 py-2 text-right font-nums font-bold text-gray-900 dark:text-[#FDFDFD]">
+                                                {fmt(item.count)}
+                                            </td>
+                                            <td class="px-4 py-2 text-right font-nums text-gray-500 dark:text-[#B7B6B3]">
+                                                {item.percent}%
+                                            </td>
+                                        </tr>
+                                    {/each}
+                                {:else}
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-10">
+                                            <div class="flex flex-col items-center justify-center gap-2 text-gray-300 dark:text-[#666]">
+                                                <Icon name="noData" className="w-8 h-8 opacity-50" />
+                                                <span class="text-xs">{$t("global.noData") || "No Data"}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-auto">
+                    <div class="p-4 border-b border-gray-100 dark:border-[#444] flex items-center justify-center gap-2 shrink-0 bg-white dark:bg-[#383838]">
+                        <h3 class="font-bold text-[#E3BC55] text-lg flex items-center gap-1">
+                            5 <Icon name="star" class="w-4 h-4" /> {$t("global.list") || "List"}
+                        </h3>
+                    </div>
+                    
+                    <div class="w-full">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-gray-500 dark:text-[#B7B6B3] uppercase bg-gray-50 dark:bg-[#2C2C2C]">
+                                <tr>
+                                    <th class="px-4 py-3 font-bold">{$t("global.name") || "Name"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">{$t("global.total") || "Total"}</th>
+                                    <th class="px-4 py-3 font-bold text-right">%</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 dark:divide-[#444]">
+                                {#if stats.rates.fiveStar.items && stats.rates.fiveStar.items.length > 0}
+                                    {#each stats.rates.fiveStar.items as item, i}
+                                        {@const iconId = getItemIconId(item.name)}
+                                        {@const isChar = !!characters[iconId]}
+
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-[#444] transition-colors relative">
+                                            <td class="px-4 py-2 font-medium text-gray-900 dark:text-[#FDFDFD] flex items-center gap-3 relative">
+                                                {#if i === 0}
+                                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#E3BC55]"></div>
+                                                {/if}
+                                                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-[#1E1E1E] overflow-hidden border border-gray-200 dark:border-[#555] shrink-0">
+                                                     <Images 
+                                                        id={iconId} 
+                                                        variant={isChar ? "avatar" : "weapon-icon"} 
                                                         className="w-full h-full object-cover transform scale-110" 
                                                         alt={item.name}
                                                      />
