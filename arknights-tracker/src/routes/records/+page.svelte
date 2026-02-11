@@ -83,30 +83,36 @@
       {$t("page.title")}
     </h2>
 
-    <div class="w-full md:w-48">
+    <div class="w-full md:w-auto">
       <SquareButton variant="yellow" onClick={openImport}>
         <div slot="icon">
           <Icon name="import" style="width: 30px; height: 30px;" />
         </div>
-        {$t("page.importBtn")}
+        <span class="whitespace-nowrap px-2">
+            {$t("page.importBtn")}
+        </span>
       </SquareButton>
     </div>
 
-    <div class="w-full md:w-80">
+    <div class="w-full md:w-auto">
       <SquareButton variant="black2" onClick={openGlobal}>
         <div slot="icon">
           <Icon name="globe" style="width: 30px; height: 30px;" />
         </div>
-        {$t("page.globalBtn")}
+        <span class="whitespace-nowrap px-2">
+            {$t("page.globalBtn")}
+        </span>
       </SquareButton>
     </div>
 
-    <div class="w-full md:w-64">
+    <div class="w-full md:w-auto">
       <SquareButton variant="black2" onClick={() => (isSettingsOpen = true)}>
         <div slot="icon">
           <Icon name="settings" style="width: 30px; height: 30px;" />
         </div>
-        {$t("page.settingsBtn")}
+        <span class="whitespace-nowrap px-2">
+            {$t("page.settingsBtn")}
+        </span>
       </SquareButton>
     </div>
   </div>
