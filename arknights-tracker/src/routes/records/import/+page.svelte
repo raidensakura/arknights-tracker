@@ -1,12 +1,13 @@
 <script>
     import { onMount } from "svelte";
+    import { get } from "svelte/store"; // <--- ВАЖНО: Добавил get для чтения стора
     import { t } from "$lib/i18n";
     import { goto } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
     import { parseGachaLog } from "$lib/utils/importUtils";
     import { currentUid } from "$lib/stores/auth";
     import { accountStore } from "$lib/stores/accounts";
-    import { API_BASE } from "$lib/api";
+    import { API_BASE } from "$lib/api"; // Убедись, что путь правильный
 
     import Button from "$lib/components/Button.svelte";
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
@@ -39,34 +40,22 @@
     function loadSavedTokens() {
         try {
             const raw = localStorage.getItem("ark_saved_tokens");
-            if (raw) {
-                savedTokens = JSON.parse(raw);
-            }
-        } catch (e) {
-            console.error("Failed to load saved tokens", e);
-        }
+            if (raw) savedTokens = JSON.parse(raw);
+        } catch (e) { console.error(e); }
     }
 
     function saveTokenToStorage(name, url) {
         try {
             if (savedTokens.some((t) => t.url === url)) return;
-
-            const newToken = {
-                name: name,
-                url: url,
-                date: Date.now(),
-            };
+            const newToken = { name, url, date: Date.now() };
             const newList = [newToken, ...savedTokens];
             localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
             savedTokens = newList;
-        } catch (e) {
-            console.error("Failed to save token", e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function deleteToken(index) {
-        if (!confirm($t("import.delete_confirm") || "Delete this saved token?"))
-            return;
+        if (!confirm($t("import.delete_confirm") || "Delete this saved token?")) return;
         const newList = [...savedTokens];
         newList.splice(index, 1);
         savedTokens = newList;
@@ -83,58 +72,33 @@
 
     function handleInputProcessing(e) {
         const rawValue = e.target.value;
-
-        errorMsg = "";
-        isInputError = false;
-
-        if (!rawValue) {
-            urlInput = "";
-            realImportUrl = "";
-            return;
-        }
-
-        if (rawValue.trim().startsWith("http")) {
-            urlInput = rawValue;
-            realImportUrl = rawValue;
-            return;
-        }
-
+        errorMsg = ""; isInputError = false;
+        if (!rawValue) { urlInput = ""; realImportUrl = ""; return; }
+        if (rawValue.trim().startsWith("http")) { urlInput = rawValue; realImportUrl = rawValue; return; }
         let cleanToken = rawValue.trim();
-
         if (cleanToken.includes("token")) {
             try {
                 const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
-                if (jsonMatch && jsonMatch[1]) {
-                    cleanToken = jsonMatch[1];
-                } else {
-                    if (
-                        cleanToken.startsWith("'") ||
-                        cleanToken.startsWith('"')
-                    ) {
-                        cleanToken = cleanToken.slice(1, -1);
-                    }
+                if (jsonMatch && jsonMatch[1]) cleanToken = jsonMatch[1];
+                else {
+                    if (cleanToken.startsWith("'") || cleanToken.startsWith('"')) cleanToken = cleanToken.slice(1, -1);
                     const obj = JSON.parse(cleanToken);
                     if (obj.token) cleanToken = obj.token;
                 }
             } catch (err) {
-                cleanToken = cleanToken
-                    .replace(/^{"token":"/, "")
-                    .replace(/"}$/, "");
+                cleanToken = cleanToken.replace(/^{"token":"/, "").replace(/"}$/, "");
             }
         }
-
         if (!cleanToken) return;
-
         const encodedToken = encodeURIComponent(cleanToken);
-        const baseUrl =
-            "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
-        const tail =
-            "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
-
+        const baseUrl = "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+        const tail = "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
         realImportUrl = baseUrl + encodedToken + tail;
         urlInput = cleanToken;
         e.target.value = cleanToken;
     }
+
+    // --- ФУНКЦИЯ ИМПОРТА (Live Stream) ---
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
@@ -184,7 +148,6 @@
 
                 buffer += decoder.decode(value, { stream: true });
                 const lines = buffer.split('\n');
-                
                 buffer = lines.pop(); 
 
                 for (const line of lines) {
@@ -194,12 +157,14 @@
                         
                         if (msg.type === 'progress') {
                             const { poolId, count } = msg;
-                            previewReport.totalAdded += count;
+                            
+                            // Обновляем данные
                             const currentCount = previewReport.addedCount[poolId] || 0;
-                            previewReport.addedCount = {
-                                ...previewReport.addedCount,
-                                [poolId]: currentCount + count
-                            };
+                            previewReport.totalAdded += count;
+                            previewReport.addedCount[poolId] = currentCount + count;
+                            
+                            // ВАЖНО: Заставляем Svelte перерисовать объект!
+                            previewReport = previewReport; 
                         } 
                         else if (msg.type === 'complete') {
                             await handleImportComplete(msg.data, urlToSend);
@@ -239,17 +204,22 @@
         const cleanPulls = parseGachaLog(rawData);
         pendingData = cleanPulls;
 
+        // Только превью, без сохранения (commit=false)
         const report = await pullData.smartImport(cleanPulls, backendServerId, false);
         previewReport = report; 
     }
 
+    // --- ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ ---
     async function confirmSave() {
         if (!pendingData) return;
         isLoading = true;
         try {
-            const currentAcc = $accountStore.accounts.find(a => a.id === $accountStore.selectedId);
+            // ИСПОЛЬЗУЕМ get() ВМЕСТО $store
+            const storeValue = get(accountStore);
+            const currentAcc = storeValue.accounts.find(a => a.id === storeValue.selectedId);
             const sId = currentAcc?.serverId || '3';
 
+            // Сохраняем по-настоящему (commit=true)
             await pullData.smartImport(pendingData, sId, true);
             
             goto("/records");
