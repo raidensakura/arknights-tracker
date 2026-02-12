@@ -41,7 +41,9 @@
         try {
             const raw = localStorage.getItem("ark_saved_tokens");
             if (raw) savedTokens = JSON.parse(raw);
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function saveTokenToStorage(name, url) {
@@ -51,11 +53,14 @@
             const newList = [newToken, ...savedTokens];
             localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
             savedTokens = newList;
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function deleteToken(index) {
-        if (!confirm($t("import.delete_confirm") || "Delete this saved token?")) return;
+        if (!confirm($t("import.delete_confirm") || "Delete this saved token?"))
+            return;
         const newList = [...savedTokens];
         newList.splice(index, 1);
         savedTokens = newList;
@@ -72,33 +77,49 @@
 
     function handleInputProcessing(e) {
         const rawValue = e.target.value;
-        errorMsg = ""; isInputError = false;
-        if (!rawValue) { urlInput = ""; realImportUrl = ""; return; }
-        if (rawValue.trim().startsWith("http")) { urlInput = rawValue; realImportUrl = rawValue; return; }
+        errorMsg = "";
+        isInputError = false;
+        if (!rawValue) {
+            urlInput = "";
+            realImportUrl = "";
+            return;
+        }
+        if (rawValue.trim().startsWith("http")) {
+            urlInput = rawValue;
+            realImportUrl = rawValue;
+            return;
+        }
         let cleanToken = rawValue.trim();
         if (cleanToken.includes("token")) {
             try {
                 const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
                 if (jsonMatch && jsonMatch[1]) cleanToken = jsonMatch[1];
                 else {
-                    if (cleanToken.startsWith("'") || cleanToken.startsWith('"')) cleanToken = cleanToken.slice(1, -1);
+                    if (
+                        cleanToken.startsWith("'") ||
+                        cleanToken.startsWith('"')
+                    )
+                        cleanToken = cleanToken.slice(1, -1);
                     const obj = JSON.parse(cleanToken);
                     if (obj.token) cleanToken = obj.token;
                 }
             } catch (err) {
-                cleanToken = cleanToken.replace(/^{"token":"/, "").replace(/"}$/, "");
+                cleanToken = cleanToken
+                    .replace(/^{"token":"/, "")
+                    .replace(/"}$/, "");
             }
         }
         if (!cleanToken) return;
         const encodedToken = encodeURIComponent(cleanToken);
-        const baseUrl = "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
-        const tail = "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
+        const baseUrl =
+            "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+        const tail =
+            "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
         realImportUrl = baseUrl + encodedToken + tail;
         urlInput = cleanToken;
         e.target.value = cleanToken;
     }
 
-    // --- ФУНКЦИЯ ИМПОРТА (Live Stream) ---
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
@@ -110,66 +131,68 @@
             return;
         }
         if (isSaveTokenEnabled && !tokenName.trim()) {
-             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
-             if (!alreadyExists) {
+            const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
+            if (!alreadyExists) {
                 isInputError = true;
-                errorMsg = $t("import.error_token_name") || "Token name required";
+                errorMsg =
+                    $t("import.error_token_name") || "Token name required";
                 return;
-             }
+            }
         }
 
         isLoading = true;
         pendingData = null;
-        
+
         previewReport = {
             status: "loading",
             totalAdded: 0,
-            addedCount: {}
+            addedCount: {},
         };
 
         try {
             const response = await fetch(`${API_BASE}/import`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ rawUrl: urlToSend })
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rawUrl: urlToSend }),
             });
 
             if (!response.ok && response.status !== 429) {
-                 throw new Error(`HTTP Error ${response.status}`);
+                throw new Error(`HTTP Error ${response.status}`);
             }
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            let buffer = '';
+            let buffer = "";
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
 
                 buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split('\n');
-                buffer = lines.pop(); 
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
 
                 for (const line of lines) {
                     if (!line.trim()) continue;
                     try {
                         const msg = JSON.parse(line);
-                        
-                        if (msg.type === 'progress') {
+
+                        if (msg.type === "progress") {
                             const { poolId, count } = msg;
-                            
-                            // Обновляем данные
-                            const currentCount = previewReport.addedCount[poolId] || 0;
+
+                            const currentCount =
+                                previewReport.addedCount[poolId] || 0;
                             previewReport.totalAdded += count;
-                            previewReport.addedCount[poolId] = currentCount + count;
-                            
-                            // ВАЖНО: Заставляем Svelte перерисовать объект!
-                            previewReport = previewReport; 
-                        } 
-                        else if (msg.type === 'complete') {
+
+                            previewReport.addedCount = {
+                                ...previewReport.addedCount,
+                                [poolId]: currentCount + count,
+                            };
+
+                            previewReport = previewReport;
+                        } else if (msg.type === "complete") {
                             await handleImportComplete(msg.data, urlToSend);
-                        } 
-                        else if (msg.type === 'error') {
+                        } else if (msg.type === "error") {
                             throw new Error(msg.message);
                         }
                     } catch (e) {
@@ -177,7 +200,6 @@
                     }
                 }
             }
-
         } catch (err) {
             console.error("Import Error:", err);
             errorMsg = err.message || "Unknown Error";
@@ -192,8 +214,49 @@
         const backendServerId = data.serverId;
 
         if (importedUid) {
-            const defaultName = `Doctor_` + importedUid.slice(-4);
-            accountStore.addAccount(importedUid, defaultName, backendServerId);
+            const accounts = get(accountStore.accounts);
+            const selectedId = get(accountStore.selectedId);
+            const currentAcc = accounts.find(a => a.id === selectedId);
+
+            const currentPullData = get(pullData);
+            let hasPulls = false;
+            
+            if (currentPullData) {
+                for (const key of Object.keys(currentPullData)) {
+                    if (currentPullData[key]?.pulls?.length > 0) {
+                        hasPulls = true;
+                        break;
+                    }
+                }
+            }
+
+            const isUidMatch = currentAcc && String(currentAcc.uid) === String(importedUid);
+
+            if (!hasPulls || isUidMatch) {
+                
+                if (accountStore.updateAccount && currentAcc) {
+                    const newName = (currentAcc.name === 'Doctor' || currentAcc.name.startsWith('Doctor_')) 
+                        ? `Doctor_${importedUid.slice(-4)}` 
+                        : currentAcc.name;
+
+                    accountStore.updateAccount(currentAcc.id, { 
+                        uid: importedUid, 
+                        serverId: backendServerId,
+                        name: newName
+                    });
+                }
+            } else {                
+                const existingAccount = accounts.find(a => String(a.uid) === String(importedUid));
+
+                if (existingAccount) {
+                    if (accountStore.selectAccount) {
+                        accountStore.selectAccount(existingAccount.id);
+                    }
+                } else {
+                    const defaultName = `Account-` + importedUid.slice(-4);
+                    accountStore.addAccount(importedUid, defaultName, backendServerId);
+                }
+            }
         }
 
         if (isSaveTokenEnabled && tokenName.trim()) {
@@ -204,26 +267,23 @@
         const cleanPulls = parseGachaLog(rawData);
         pendingData = cleanPulls;
 
-        // Только превью, без сохранения (commit=false)
         const report = await pullData.smartImport(cleanPulls, backendServerId, false);
         previewReport = report; 
     }
 
-    // --- ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ ---
     async function confirmSave() {
         if (!pendingData) return;
         isLoading = true;
         try {
-            // ИСПОЛЬЗУЕМ get() ВМЕСТО $store
-            const storeValue = get(accountStore);
-            const currentAcc = storeValue.accounts.find(a => a.id === storeValue.selectedId);
-            const sId = currentAcc?.serverId || '3';
-
-            // Сохраняем по-настоящему (commit=true)
+            const accounts = get(accountStore.accounts);
+            const selectedId = get(accountStore.selectedId);
+            const currentAcc = accounts.find((a) => a.id === selectedId);
+            const sId = currentAcc?.serverId || "3";
             await pullData.smartImport(pendingData, sId, true);
-            
+
             goto("/records");
         } catch (err) {
+            console.error(err);
             errorMsg = err.message;
             isLoading = false;
         }
@@ -757,7 +817,10 @@
                             onClick={handleUrlImport}
                             disabled={isLoading}
                         >
-                            <div slot="icon" class="text-gray-500 dark:text-gray-800">
+                            <div
+                                slot="icon"
+                                class="text-gray-500 dark:text-gray-800"
+                            >
                                 {#if isLoading}
                                     <Icon
                                         name="loading"
@@ -770,65 +833,103 @@
                                     />
                                 {/if}
                             </div>
-                            <span>{isLoading ? $t("import.importing") || "Scanning..." : $t("page.importBtn")}</span>
+                            <span
+                                >{isLoading
+                                    ? $t("import.importing") || "Scanning..."
+                                    : $t("page.importBtn")}</span
+                            >
                         </Button>
                     </div>
                 </div>
             </div>
 
             {#if errorMsg && !isInputError}
-                <div class="mt-5 p-4 bg-red-50 dark:text-red-300 text-red-600 dark:bg-[#902E2E] dark:border-[#444444] rounded-lg border border-red-100 flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+                <div
+                    class="mt-5 p-4 bg-red-50 dark:text-red-300 text-red-600 dark:bg-[#902E2E] dark:border-[#444444] rounded-lg border border-red-100 flex items-center gap-2 animate-in fade-in slide-in-from-top-2"
+                >
                     <Icon name="close" style="width: 20px; height: 20px;" />
                     {errorMsg}
                 </div>
             {/if}
 
             {#if previewReport}
-                <div class="mt-5 p-5 rounded-lg bg-gray-50 dark:bg-[#343434] dark:border-[#444444] border border-gray-200 animate-in fade-in slide-in-from-bottom-2">
-                    
+                <div
+                    class="mt-5 p-5 rounded-lg bg-gray-50 dark:bg-[#343434] dark:border-[#444444] border border-gray-200 animate-in fade-in slide-in-from-bottom-2"
+                >
                     {#if previewReport.status === "up_to_date"}
-                        <div class="flex items-center gap-3 dark:text-green-500 text-green-600 font-bold text-lg">
-                            <Icon name="check" style="width: 24px; height: 24px;" />
+                        <div
+                            class="flex items-center gap-3 dark:text-green-500 text-green-600 font-bold text-lg"
+                        >
+                            <Icon
+                                name="check"
+                                style="width: 24px; height: 24px;"
+                            />
                             {$t("import.statusUpToDate")}
                         </div>
                     {:else}
-                        <h3 class="font-bold text-lg gap-4 dark:text-[#E0E0E0] text-[#21272C] mb-4 flex items-center gap-2">
+                        <h3
+                            class="font-bold text-lg gap-4 dark:text-[#E0E0E0] text-[#21272C] mb-4 flex items-center gap-2"
+                        >
                             {#if isLoading}
                                 <span class="relative flex h-3 w-3 mr-1">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0926E] opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[#D0926E]"></span>
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0926E] opacity-75"
+                                    ></span>
+                                    <span
+                                        class="relative inline-flex rounded-full h-3 w-3 bg-[#D0926E]"
+                                    ></span>
                                 </span>
-                                {$t("import.processing") || "Scanning Servers..."}
+                                {$t("import.processing") ||
+                                    "Scanning Servers..."}
                             {:else}
-                                <Icon name="import" style="width: 20px; height: 20px;" />
+                                <Icon
+                                    name="import"
+                                    style="width: 20px; height: 20px;"
+                                />
                                 {$t("import.newFound")}
                             {/if}
-                            
-                            <span class="text-[#D0926E] ml-1">+{previewReport.totalAdded}</span>
+
+                            <span class="text-[#D0926E] ml-1"
+                                >+{previewReport.totalAdded}</span
+                            >
                         </h3>
 
                         <div class="space-y-2 mb-6 ml-1">
                             {#each Object.entries(previewReport.addedCount) as [bannerId, count]}
-                                <div class="flex justify-between dark:bg-[#373737] dark:border-[#444444] items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md transition-all duration-300">
-                                    <span class="text-gray-700 dark:text-[#E0E0E0] font-medium flex items-center gap-2">
-                                        {$t(`bannerTypes.${bannerId}`) || bannerId}
+                                <div
+                                    class="flex justify-between dark:bg-[#373737] dark:border-[#444444] items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md transition-all duration-300"
+                                >
+                                    <span
+                                        class="text-gray-700 dark:text-[#E0E0E0] font-medium flex items-center gap-2"
+                                    >
+                                        {$t(`bannerTypes.${bannerId}`) ||
+                                            bannerId}
                                     </span>
-                                    <span class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md transition-all">
+                                    <span
+                                        class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md transition-all"
+                                    >
                                         +{count}
                                     </span>
                                 </div>
                             {/each}
-                            
+
                             {#if isLoading && Object.keys(previewReport.addedCount).length === 0}
-                                <div class="text-sm text-gray-500 italic ml-2">Waiting for response...</div>
+                                <div class="text-sm text-gray-500 italic ml-2">
+                                    Waiting for response...
+                                </div>
                             {/if}
                         </div>
 
                         {#if !isLoading}
-                            <div class="w-48 animate-in fade-in zoom-in duration-300">
+                            <div
+                                class="w-48 animate-in fade-in zoom-in duration-300"
+                            >
                                 <Button variant="black2" onClick={confirmSave}>
                                     <div slot="icon">
-                                        <Icon name="save" style="width: 20px; height: 20px; stroke: white;" />
+                                        <Icon
+                                            name="save"
+                                            style="width: 20px; height: 20px; stroke: white;"
+                                        />
                                     </div>
                                     {$t("buttons.saveBtn") || "Save"}
                                 </Button>

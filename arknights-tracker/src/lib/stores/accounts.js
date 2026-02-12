@@ -169,6 +169,26 @@ function createAccountStore() {
             });
         },
 
+        updateAccount: (id, updates) => {
+            accounts.update(list => {
+                return list.map(acc => {
+                    if (acc.id === id) {
+                        const newProps = {};
+                        if (updates.name !== undefined) newProps.name = updates.name;
+                        if (updates.uid !== undefined) newProps.serverUid = updates.uid;
+                        if (updates.serverId !== undefined) newProps.serverId = updates.serverId;
+                        
+                        return { ...acc, ...newProps };
+                    }
+                    return acc;
+                });
+            });
+            
+            if (get(selectedId) === id && updates.uid) {
+                 syncAuthStore(get(accounts), id);
+            }
+        },
+
         selectAccount: (id) => {
             selectedId.set(id);
         },
