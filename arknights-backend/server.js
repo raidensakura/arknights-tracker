@@ -64,7 +64,7 @@ const POOL_TYPES = [
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-async function fetchGameData(token, lang, serverId) {
+async function fetchGameData(token, lang, serverId, onProgress) {
     console.log(`\n--- Starting PARALLEL Scan on SERVER ID: ${serverId} ---`);
 
     const fetchPool = async (poolType) => {
@@ -79,7 +79,7 @@ async function fetchGameData(token, lang, serverId) {
             ? 'https://ef-webview.gryphline.com/api/record/weapon'
             : 'https://ef-webview.gryphline.com/api/record/char';
 
-        const poolLabel = isWeaponScan ? 'WEAPONS' : mapPoolTypeToShort(poolType);
+        const poolLabel = isWeaponScan ? 'weapon-all' : mapPoolTypeToShort(poolType);
 
         while (hasMore) {
             const params = new URLSearchParams({ token, lang, server_id: serverId });
@@ -122,6 +122,14 @@ async function fetchGameData(token, lang, serverId) {
                     visitedIds.add(uniqueKey);
                 });
 
+                if (onProgress && newItems.length > 0) {
+                    onProgress({
+                        type: 'progress',
+                        poolId: poolLabel,
+                        count: newItems.length
+                    });
+                }
+
                 const listWithMeta = newItems.map(item => {
                     let finalPoolId;
                     finalPoolId = item.poolId || item.bannerId || mapPoolTypeToShort(poolType);
@@ -156,9 +164,7 @@ async function fetchGameData(token, lang, serverId) {
 
     try {
         const results = await Promise.all(POOL_TYPES.map(type => fetchPool(type)));
-
         const allPulls = results.flat();
-
         return allPulls;
     } catch (e) {
         console.error("Parallel fetch failed", e);
@@ -169,18 +175,30 @@ async function fetchGameData(token, lang, serverId) {
 app.post('/api/import', importLimiter, async (req, res) => {
     const { rawUrl } = req.body;
 
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Transfer-Encoding', 'chunked');
+
+    const sendEvent = (data) => {
+        res.write(JSON.stringify(data) + "\n");
+    };
+
     let usedServerId = null;
 
     try {
         const parsedUrl = new URL(rawUrl);
         if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
-            return res.status(400).json({ error: "Invalid domain" });
+            sendEvent({ type: 'error', message: "Invalid domain" });
+            return res.end();
         }
 
         const token = parsedUrl.searchParams.get('token') || parsedUrl.searchParams.get('u8_token');
         const lang = 'en-us';
 
-        if (!token) return res.status(400).json({ error: "No token found in URL" });
+        if (!token) {
+            sendEvent({ type: 'error', message: "No token found in URL" });
+            return res.end();
+        }
+
         const urlServerId = parsedUrl.searchParams.get('server_id');
         const serverCandidates = new Set();
 
@@ -189,58 +207,57 @@ app.post('/api/import', importLimiter, async (req, res) => {
         }
         serverCandidates.add('3');
         serverCandidates.add('2');
-        console.log(`\n--- New Import Request ---`);
+        
+        console.log(`\n--- New Import Request (Streaming) ---`);
 
         let allPulls = [];
-        let usedServerId = null;
+        
+        const progressCallback = (data) => {
+            sendEvent(data);
+        };
+
         for (const serverId of serverCandidates) {
             console.log(`Checking Server ID: ${serverId}...`);
-            const pulls = await fetchGameData(token, lang, serverId);
+            const pulls = await fetchGameData(token, lang, serverId, progressCallback);
 
             if (pulls.length > 0) {
                 console.log(`✅ Data found on Server ID: ${serverId}`);
                 allPulls = pulls;
                 usedServerId = serverId;
                 break;
-            } else {
-                console.log(`❌ No data on Server ID: ${serverId}`);
             }
         }
 
-        console.log(`--- Import Finished. Total: ${allPulls.length} ---`);
-
         if (allPulls.length === 0) {
-            return res.status(400).json({ error: "No pulls found on any checked server (checked URL params, 3, and 2)" });
+            sendEvent({ type: 'error', message: "No pulls found or link expired" });
+            return res.end();
         }
 
         const stableUid = generateStableUid(allPulls);
-
         if (!stableUid) {
-            return res.status(400).json({ error: "Unable to generate UID from pulls" });
+            sendEvent({ type: 'error', message: "Unable to generate UID" });
+            return res.end();
         }
-
-        console.log(`User Stable UID: ${stableUid}`);
 
         if (prisma) {
             await updateAggregatedStats(stableUid, allPulls, usedServerId);
         }
 
-        res.json({
-            code: 0,
+        sendEvent({
+            type: 'complete',
             data: {
                 list: allPulls,
                 uid: stableUid,
                 serverId: usedServerId
             }
         });
+        res.end();
 
     } catch (error) {
         console.error("Critical Server Error:", error);
         await logImportError(rawUrl, error, usedServerId);
-        res.status(500).json({
-            error: "Internal Server Error",
-            message: error.message
-        });
+        sendEvent({ type: 'error', message: error.message || "Internal Server Error" });
+        res.end();
     }
 });
 

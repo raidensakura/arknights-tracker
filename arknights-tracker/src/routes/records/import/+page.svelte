@@ -4,7 +4,6 @@
     import { goto } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
     import { parseGachaLog } from "$lib/utils/importUtils";
-    import { proxyImport } from "$lib/api";
     import { currentUid } from "$lib/stores/auth";
     import { accountStore } from "$lib/stores/accounts";
 
@@ -27,21 +26,10 @@
     let savedTokens = [];
 
     const ALLOWED_DOMAINS = ["ef-webview.gryphline.com"];
-
     let isInputError = false;
 
     const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
     const powerShellScript2 = `[regex]::Matches((Get-Content "$env:USERPROFILE\\AppData\\LocalLow\\Gryphline\\Endfield\\sdklogs\\HGWebview.log" -Raw), "https://ef-webview\\.gryphline\\.com[^\\s]+u8_token=[^\\s]+").Value[-1] | Set-Clipboard`;
-
-    $: importSummary = pendingData
-        ? pendingData.reduce((acc, pull) => {
-              const id = pull.bannerId || "other";
-              acc[id] = (acc[id] || 0) + 1;
-              return acc;
-          }, {})
-        : {};
-
-    $: importedPulls = pendingData || [];
 
     onMount(() => {
         loadSavedTokens();
@@ -149,7 +137,6 @@
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
-
         const urlToSend = realImportUrl || urlInput;
 
         if (!urlToSend || !urlToSend.trim()) {
@@ -157,144 +144,113 @@
             errorMsg = $t("import.error_empty") || "Link or Token is required";
             return;
         }
-
         if (isSaveTokenEnabled && !tokenName.trim()) {
-            const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
-            if (!alreadyExists) {
+             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
+             if (!alreadyExists) {
                 isInputError = true;
-                errorMsg =
-                    $t("import.error_token_name") ||
-                    "Token name is required for saving.";
+                errorMsg = $t("import.error_token_name") || "Token name required";
                 return;
-            }
-        }
-
-        try {
-            const parsedUrl = new URL(urlToSend);
-            if (parsedUrl.protocol !== "https:") {
-                errorMsg =
-                    $t("import.error_https") || "Only HTTPS links are allowed.";
-                return;
-            }
-            const isAllowed = ALLOWED_DOMAINS.some(
-                (domain) =>
-                    parsedUrl.hostname === domain ||
-                    parsedUrl.hostname.endsWith("." + domain),
-            );
-            if (!isAllowed) {
-                errorMsg =
-                    $t("import.error_domain") ||
-                    "Invalid game link. Domain not supported.";
-                return;
-            }
-        } catch (e) {
-            isInputError = true;
-            errorMsg = $t("import.error_format") || "Invalid URL/Token format.";
-            return;
+             }
         }
 
         isLoading = true;
-        previewReport = null;
         pendingData = null;
+        
+        previewReport = {
+            status: "loading",
+            totalAdded: 0,
+            addedCount: {}
+        };
 
         try {
-            const response = await proxyImport(urlToSend, isGlobalStatsEnabled);
+            const response = await fetch(`${API_BASE}/import`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rawUrl: urlToSend })
+            });
 
-            if (response.code === 0 && response.data?.list) {
-                const importedUid = response.data.uid;
-                const backendServerId = response.data.serverId;
+            if (!response.ok && response.status !== 429) {
+                 throw new Error(`HTTP Error ${response.status}`);
+            }
 
-                if (importedUid) {
-                    const defaultName = `Doctor_` + importedUid.slice(-4);
-                    accountStore.addAccount(
-                        importedUid,
-                        defaultName,
-                        backendServerId,
-                    );
-                }
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
 
-                if (isSaveTokenEnabled && tokenName.trim()) {
-                    saveTokenToStorage(tokenName.trim(), urlToSend);
-                }
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
 
-                const rawData = response.data.list;
-                const cleanPulls = parseGachaLog(rawData);
-                pendingData = cleanPulls;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                
+                buffer = lines.pop(); 
 
-                const report = await pullData.smartImport(
-                    cleanPulls,
-                    backendServerId,
-                );
-                previewReport = report;
-            } else {
-                const rawError =
-                    response.error ||
-                    response.message ||
-                    response.msg ||
-                    "Unknown error";
-
-                const lowerError = String(rawError).toLowerCase();
-
-                if (
-                    response.status === 429 ||
-                    lowerError.includes("too many requests") ||
-                    lowerError.includes("rate limit") ||
-                    lowerError.includes("429")
-                ) {
-                    errorMsg =
-                        $t("import.error_rate_limit") ||
-                        "Too many requests. Please wait a minute.";
-                } else if (lowerError.includes("no pulls found")) {
-                    errorMsg =
-                        $t("import.error_no_data") ||
-                        "No pulls found or Link Expired.";
-                } else if (lowerError.includes("invalid domain")) {
-                    errorMsg = $t("import.error_domain") || "Invalid domain.";
-                } else {
-                    errorMsg = rawError;
+                for (const line of lines) {
+                    if (!line.trim()) continue;
+                    try {
+                        const msg = JSON.parse(line);
+                        
+                        if (msg.type === 'progress') {
+                            const { poolId, count } = msg;
+                            previewReport.totalAdded += count;
+                            const currentCount = previewReport.addedCount[poolId] || 0;
+                            previewReport.addedCount = {
+                                ...previewReport.addedCount,
+                                [poolId]: currentCount + count
+                            };
+                        } 
+                        else if (msg.type === 'complete') {
+                            await handleImportComplete(msg.data, urlToSend);
+                        } 
+                        else if (msg.type === 'error') {
+                            throw new Error(msg.message);
+                        }
+                    } catch (e) {
+                        console.error("Stream parse error", e);
+                    }
                 }
             }
+
         } catch (err) {
             console.error("Import Error:", err);
-
-            const msg = (err.message || "").toLowerCase();
-            const errCode = err.status || err.statusCode || err.code || 0;
-
-            if (
-                errCode === 429 ||
-                msg.includes("too many requests") ||
-                msg.includes("rate limit") ||
-                msg.includes("429")
-            ) {
-                errorMsg = $t("import.error_rate_limit");
-            } else if (
-                msg.includes("no pulls found") ||
-                msg.includes("generate uid")
-            ) {
-                errorMsg = $t("import.error_no_data");
-            } else if (
-                msg.includes("backend connection failed") ||
-                msg.includes("fetch")
-            ) {
-                errorMsg =
-                    $t("import.error_network") ||
-                    "Network Error / Backend unavailable";
-            } else {
-                errorMsg =
-                    err.message ||
-                    $t("import.error_unknown") ||
-                    "Unknown Error";
-            }
+            errorMsg = err.message || "Unknown Error";
+            previewReport = null;
         } finally {
             isLoading = false;
         }
+    }
+
+    async function handleImportComplete(data, urlToSend) {
+        const importedUid = data.uid;
+        const backendServerId = data.serverId;
+
+        if (importedUid) {
+            const defaultName = `Doctor_` + importedUid.slice(-4);
+            accountStore.addAccount(importedUid, defaultName, backendServerId);
+        }
+
+        if (isSaveTokenEnabled && tokenName.trim()) {
+            saveTokenToStorage(tokenName.trim(), urlToSend);
+        }
+
+        const rawData = data.list;
+        const cleanPulls = parseGachaLog(rawData);
+        pendingData = cleanPulls;
+
+        const report = await pullData.smartImport(cleanPulls, backendServerId, false);
+        previewReport = report; 
     }
 
     async function confirmSave() {
         if (!pendingData) return;
         isLoading = true;
         try {
-            await pullData.smartImport(pendingData, false);
+            const currentAcc = $accountStore.accounts.find(a => a.id === $accountStore.selectedId);
+            const sId = currentAcc?.serverId || '3';
+
+            await pullData.smartImport(pendingData, sId, true);
+            
             goto("/records");
         } catch (err) {
             errorMsg = err.message;
@@ -843,80 +799,70 @@
                                     />
                                 {/if}
                             </div>
-                            <span
-                                >{isLoading
-                                    ? "..."
-                                    : $t("page.importBtn")}</span
-                            >
+                            <span>{isLoading ? $t("import.importing") || "Scanning..." : $t("page.importBtn")}</span>
                         </Button>
                     </div>
                 </div>
             </div>
 
             {#if errorMsg && !isInputError}
-                <div
-                    class="mt-5 p-4 bg-red-50 dark:text-red-300 text-red-600 dark:bg-[#902E2E] dark:border-[#444444] rounded-lg border border-red-100 flex items-center gap-2 animate-in fade-in slide-in-from-top-2"
-                >
+                <div class="mt-5 p-4 bg-red-50 dark:text-red-300 text-red-600 dark:bg-[#902E2E] dark:border-[#444444] rounded-lg border border-red-100 flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
                     <Icon name="close" style="width: 20px; height: 20px;" />
                     {errorMsg}
                 </div>
             {/if}
+
             {#if previewReport}
-                <div
-                    class="mt-5 p-5 rounded-lg bg-gray-50 dark:bg-[#343434] dark:border-[#444444] border border-gray-200 animate-in fade-in slide-in-from-bottom-2"
-                >
+                <div class="mt-5 p-5 rounded-lg bg-gray-50 dark:bg-[#343434] dark:border-[#444444] border border-gray-200 animate-in fade-in slide-in-from-bottom-2">
+                    
                     {#if previewReport.status === "up_to_date"}
-                        <div
-                            class="flex items-center gap-3 dark:text-green-500 text-green-600 font-bold text-lg"
-                        >
-                            <Icon
-                                name="check"
-                                style="width: 24px; height: 24px;"
-                            />
+                        <div class="flex items-center gap-3 dark:text-green-500 text-green-600 font-bold text-lg">
+                            <Icon name="check" style="width: 24px; height: 24px;" />
                             {$t("import.statusUpToDate")}
                         </div>
-                    {:else if previewReport.status === "updated"}
-                        <h3
-                            class="font-bold text-lg gap-4 dark:text-[#E0E0E0] text-[#21272C] mb-4 flex items-center gap-2"
-                        >
-                            <Icon
-                                name="import"
-                                style="width: 20px; height: 20px;"
-                            />
-                            {$t("import.newFound")}
-                            <span class="text-[#D0926E] ml-1"
-                                >+{previewReport.totalAdded}</span
-                            >
+                    {:else}
+                        <h3 class="font-bold text-lg gap-4 dark:text-[#E0E0E0] text-[#21272C] mb-4 flex items-center gap-2">
+                            {#if isLoading}
+                                <span class="relative flex h-3 w-3 mr-1">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0926E] opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[#D0926E]"></span>
+                                </span>
+                                {$t("import.scanning") || "Scanning Servers..."}
+                            {:else}
+                                <Icon name="import" style="width: 20px; height: 20px;" />
+                                {$t("import.newFound")}
+                            {/if}
+                            
+                            <span class="text-[#D0926E] ml-1">+{previewReport.totalAdded}</span>
                         </h3>
+
                         <div class="space-y-2 mb-6 ml-1">
                             {#each Object.entries(previewReport.addedCount) as [bannerId, count]}
-                                <div
-                                    class="flex justify-between dark:bg-[#373737] dark:border-[#444444] items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md"
-                                >
-                                    <span
-                                        class="text-gray-700 dark:text-[#E0E0E0] font-medium"
-                                    >
-                                        {$t(`bannerTypes.${bannerId}`) ||
-                                            bannerId}
+                                <div class="flex justify-between dark:bg-[#373737] dark:border-[#444444] items-center bg-white p-3 rounded border border-gray-100 shadow-sm max-w-md transition-all duration-300">
+                                    <span class="text-gray-700 dark:text-[#E0E0E0] font-medium flex items-center gap-2">
+                                        {$t(`bannerTypes.${bannerId}`) || bannerId}
                                     </span>
-                                    <span
-                                        class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md"
-                                        >+{count}</span
-                                    >
+                                    <span class="bg-[#FFE145] text-[#21272C] text-xs font-bold px-2 py-1 rounded-md transition-all">
+                                        +{count}
+                                    </span>
                                 </div>
                             {/each}
+                            
+                            {#if isLoading && Object.keys(previewReport.addedCount).length === 0}
+                                <div class="text-sm text-gray-500 italic ml-2">Waiting for response...</div>
+                            {/if}
                         </div>
-                        <div class="w-48">
-                            <Button variant="black2" onClick={confirmSave}>
-                                <div slot="icon">
-                                    <Icon
-                                        name="save"
-                                        style="width: 20px; height: 20px; stroke: white;"
-                                    />
-                                </div>
-                                {$t("buttons.saveBtn") || "Save"}
-                            </Button>
-                        </div>
+
+                        {#if !isLoading}
+                            <div class="w-48 animate-in fade-in zoom-in duration-300">
+                                <Button variant="black2" onClick={confirmSave}>
+                                    <div slot="icon">
+                                        <Icon name="save" style="width: 20px; height: 20px; stroke: white;" />
+                                    </div>
+                                    {$t("buttons.saveBtn") || "Save"}
+                                </Button>
+                            </div>
+                        {/if}
                     {/if}
                 </div>
             {/if}

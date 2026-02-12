@@ -84,11 +84,8 @@ function createPullStore() {
     if (browser) {
         accountStore.selectedId.subscribe(id => {
             if (id) {
-                // Берем список всех аккаунтов синхронно
                 const allAccounts = get(accountStore.accounts); 
                 const currentAcc = allAccounts.find(a => a.id === id);
-                
-                // Если у аккаунта есть serverId, используем его, иначе '3'
                 const sId = currentAcc?.serverId || '3';
                 
                 loadDataForAccount(id, sId);
@@ -105,10 +102,10 @@ function createPullStore() {
         subscribe,
         set,
         update,
-        smartImport: async (newPulls, serverId = '3') => {
+        smartImport: async (newPulls, serverId = '3', commit = true) => {
             if (!browser) return;
 
-            await new Promise(r => setTimeout(r, 300));
+            await new Promise(r => setTimeout(r, 100));
 
             return new Promise((resolve, reject) => {
                 update(currentData => {
@@ -157,27 +154,33 @@ function createPullStore() {
                             const reallyNew = incomeList.filter(p => !existingIds.has(p.id));
 
                             if (reallyNew.length > 0) {
-                                        const mergedList = mergePulls(oldList, reallyNew);
-                                        
-                                        const pullsWithPity = calculatePity(mergedList, targetKey, serverId);
-                                        newData[targetKey].pulls = pullsWithPity;
-                                        newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey, serverId);
+                                const mergedList = mergePulls(oldList, reallyNew);
+                                
+                                const pullsWithPity = calculatePity(mergedList, targetKey, serverId);
+                                newData[targetKey].pulls = pullsWithPity;
+                                newData[targetKey].stats = calculateBannerStats(pullsWithPity, targetKey, serverId);
 
-                                        report.addedCount[targetKey] = (report.addedCount[targetKey] || 0) + reallyNew.length;
-                                        report.totalAdded += reallyNew.length;
-                                        hasUpdates = true;
-                                    }
+                                report.addedCount[targetKey] = (report.addedCount[targetKey] || 0) + reallyNew.length;
+                                report.totalAdded += reallyNew.length;
+                                hasUpdates = true;
+                            }
                         });
 
                         if (hasUpdates) {
                             report.status = 'updated';
-                            saveDataToStorage(currentAccountId, newData);
-                            if (browser) localStorage.setItem("ark_last_sync", Date.now().toString());
-                            if (get(user)) {
-                                uploadLocalData();
+                            
+                            if (commit) {
+                                saveDataToStorage(currentAccountId, newData);
+                                if (browser) localStorage.setItem("ark_last_sync", Date.now().toString());
+                                if (get(user)) {
+                                    uploadLocalData();
+                                }
+                                resolve(report);
+                                return newData;
+                            } else {
+                                resolve(report);
+                                return currentData;
                             }
-                            resolve(report);
-                            return newData;
                         } else {
                             resolve(report);
                             return currentData;
