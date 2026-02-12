@@ -395,7 +395,7 @@ function getFormattedDate(dateStr) {
     </div>
   </div>
 
-  <div class="w-full flex justify-center mb-10">
+  <div class="w-full flex justify-center mb-5">
     <Button
       onClick={() => goto("/records")}
       variant="yellow"
@@ -407,6 +407,21 @@ function getFormattedDate(dateStr) {
       {$t("home.go_to_tracker")}
     </Button>
   </div>
+  <div class="w-48 flex gap-1 mb-5">
+            <a
+                href="https://discord.gg/6XmrdB6r"
+                target="_blank"
+                rel="noreferrer"
+                class="no-underline"
+            >
+                <Button variant="black2">
+                    <div slot="icon">
+                        <Icon name="discord" class="w-6 h-6" />
+                    </div>
+                    Discord
+                </Button>
+            </a>
+        </div>
 </div>
 
 <BannerModal banner={selectedBanner} on:close={() => (selectedBanner = null)} />

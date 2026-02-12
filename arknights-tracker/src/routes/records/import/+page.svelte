@@ -6,6 +6,7 @@
     import { parseGachaLog } from "$lib/utils/importUtils";
     import { currentUid } from "$lib/stores/auth";
     import { accountStore } from "$lib/stores/accounts";
+    import { API_BASE } from "$lib/api";
 
     import Button from "$lib/components/Button.svelte";
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
