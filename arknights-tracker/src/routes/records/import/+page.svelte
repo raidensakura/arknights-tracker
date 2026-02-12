@@ -153,6 +153,8 @@
                     if (!line.trim()) continue;
                     try {
                         const msg = JSON.parse(line);
+
+                        console.log("Stream received:", msg);
                         
                         if (msg.type === 'progress') {
                             const { poolId, count } = msg;

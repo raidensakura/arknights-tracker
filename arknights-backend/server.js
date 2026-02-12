@@ -175,11 +175,17 @@ async function fetchGameData(token, lang, serverId, onProgress) {
 app.post('/api/import', importLimiter, async (req, res) => {
     const { rawUrl } = req.body;
 
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Transfer-Encoding', 'chunked');
-
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream; charset=utf-8',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+        'X-Accel-Buffering': 'no',
+        'Transfer-Encoding': 'chunked'
+    });
+    
     const sendEvent = (data) => {
         res.write(JSON.stringify(data) + "\n");
+        if (res.flush) res.flush(); 
     };
 
     let usedServerId = null;
