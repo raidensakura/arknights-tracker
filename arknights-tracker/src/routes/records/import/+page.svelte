@@ -1,13 +1,13 @@
 <script>
     import { onMount } from "svelte";
-    import { get } from "svelte/store"; // <--- ВАЖНО: Добавил get для чтения стора
+    import { get } from "svelte/store"; 
     import { t } from "$lib/i18n";
     import { goto } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
     import { parseGachaLog } from "$lib/utils/importUtils";
     import { currentUid } from "$lib/stores/auth";
     import { accountStore } from "$lib/stores/accounts";
-    import { API_BASE } from "$lib/api"; // Убедись, что путь правильный
+    import { API_BASE } from "$lib/api"; 
 
     import Button from "$lib/components/Button.svelte";
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
@@ -41,9 +41,7 @@
         try {
             const raw = localStorage.getItem("ark_saved_tokens");
             if (raw) savedTokens = JSON.parse(raw);
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function saveTokenToStorage(name, url) {
@@ -53,14 +51,11 @@
             const newList = [newToken, ...savedTokens];
             localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
             savedTokens = newList;
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function deleteToken(index) {
-        if (!confirm($t("import.delete_confirm") || "Delete this saved token?"))
-            return;
+        if (!confirm($t("import.delete_confirm") || "Delete this saved token?")) return;
         const newList = [...savedTokens];
         newList.splice(index, 1);
         savedTokens = newList;
@@ -77,49 +72,33 @@
 
     function handleInputProcessing(e) {
         const rawValue = e.target.value;
-        errorMsg = "";
-        isInputError = false;
-        if (!rawValue) {
-            urlInput = "";
-            realImportUrl = "";
-            return;
-        }
-        if (rawValue.trim().startsWith("http")) {
-            urlInput = rawValue;
-            realImportUrl = rawValue;
-            return;
-        }
+        errorMsg = ""; isInputError = false;
+        if (!rawValue) { urlInput = ""; realImportUrl = ""; return; }
+        if (rawValue.trim().startsWith("http")) { urlInput = rawValue; realImportUrl = rawValue; return; }
         let cleanToken = rawValue.trim();
         if (cleanToken.includes("token")) {
             try {
                 const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
                 if (jsonMatch && jsonMatch[1]) cleanToken = jsonMatch[1];
                 else {
-                    if (
-                        cleanToken.startsWith("'") ||
-                        cleanToken.startsWith('"')
-                    )
-                        cleanToken = cleanToken.slice(1, -1);
+                    if (cleanToken.startsWith("'") || cleanToken.startsWith('"')) cleanToken = cleanToken.slice(1, -1);
                     const obj = JSON.parse(cleanToken);
                     if (obj.token) cleanToken = obj.token;
                 }
             } catch (err) {
-                cleanToken = cleanToken
-                    .replace(/^{"token":"/, "")
-                    .replace(/"}$/, "");
+                cleanToken = cleanToken.replace(/^{"token":"/, "").replace(/"}$/, "");
             }
         }
         if (!cleanToken) return;
         const encodedToken = encodeURIComponent(cleanToken);
-        const baseUrl =
-            "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
-        const tail =
-            "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
+        const baseUrl = "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+        const tail = "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
         realImportUrl = baseUrl + encodedToken + tail;
         urlInput = cleanToken;
         e.target.value = cleanToken;
     }
 
+    // --- ИМПОРТ (LIVE STREAM) ---
     async function handleUrlImport() {
         errorMsg = "";
         isInputError = false;
@@ -131,68 +110,75 @@
             return;
         }
         if (isSaveTokenEnabled && !tokenName.trim()) {
-            const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
-            if (!alreadyExists) {
+             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
+             if (!alreadyExists) {
                 isInputError = true;
-                errorMsg =
-                    $t("import.error_token_name") || "Token name required";
+                errorMsg = $t("import.error_token_name") || "Token name required";
                 return;
-            }
+             }
         }
 
         isLoading = true;
         pendingData = null;
-
+        
+        // Инициализация превью
         previewReport = {
             status: "loading",
             totalAdded: 0,
-            addedCount: {},
+            addedCount: {}
         };
 
         try {
             const response = await fetch(`${API_BASE}/import`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ rawUrl: urlToSend }),
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rawUrl: urlToSend })
             });
 
             if (!response.ok && response.status !== 429) {
-                throw new Error(`HTTP Error ${response.status}`);
+                 throw new Error(`HTTP Error ${response.status}`);
             }
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            let buffer = "";
+            let buffer = '';
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
 
                 buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split("\n");
-                buffer = lines.pop();
+                const lines = buffer.split('\n');
+                buffer = lines.pop(); 
 
                 for (const line of lines) {
                     if (!line.trim()) continue;
                     try {
                         const msg = JSON.parse(line);
-
-                        if (msg.type === "progress") {
+                        
+                        if (msg.type === 'progress') {
                             const { poolId, count } = msg;
-
-                            const currentCount =
-                                previewReport.addedCount[poolId] || 0;
+                            
+                            // Обновляем счетчики
+                            const currentCount = previewReport.addedCount[poolId] || 0;
                             previewReport.totalAdded += count;
-
+                            
+                            // Создаем новый объект addedCount для реактивности
                             previewReport.addedCount = {
                                 ...previewReport.addedCount,
-                                [poolId]: currentCount + count,
+                                [poolId]: currentCount + count
                             };
-
-                            previewReport = previewReport;
-                        } else if (msg.type === "complete") {
+                            
+                            // ЖЕСТКОЕ ОБНОВЛЕНИЕ для Svelte
+                            previewReport = { ...previewReport };
+                            
+                            // ДАЕМ БРАУЗЕРУ ОТРИСОВАТЬ (Фикс Live View)
+                            await new Promise(r => setTimeout(r, 0));
+                        } 
+                        else if (msg.type === 'complete') {
                             await handleImportComplete(msg.data, urlToSend);
-                        } else if (msg.type === "error") {
+                        } 
+                        else if (msg.type === 'error') {
                             throw new Error(msg.message);
                         }
                     } catch (e) {
@@ -200,6 +186,7 @@
                     }
                 }
             }
+
         } catch (err) {
             console.error("Import Error:", err);
             errorMsg = err.message || "Unknown Error";
@@ -214,10 +201,13 @@
         const backendServerId = data.serverId;
 
         if (importedUid) {
+            // Читаем сторы
             const accounts = get(accountStore.accounts);
             const selectedId = get(accountStore.selectedId);
             const currentAcc = accounts.find(a => a.id === selectedId);
 
+            // 1. Проверяем, ПУСТОЙ ли текущий аккаунт (по данным pullData)
+            // Мы должны прочитать текущее состояние pullData, чтобы узнать, есть ли там крутки
             const currentPullData = get(pullData);
             let hasPulls = false;
             
@@ -230,12 +220,13 @@
                 }
             }
 
-            const isUidMatch = currentAcc && String(currentAcc.uid) === String(importedUid);
+            const isUidMatch = currentAcc && String(currentAcc.serverUid) === String(importedUid);
 
+            // ЛОГИКА ВЫБОРА АККАУНТА
             if (!hasPulls || isUidMatch) {
-                
+                // Если аккаунт пустой ИЛИ UID уже совпадает -> Обновляем текущий
                 if (accountStore.updateAccount && currentAcc) {
-                    const newName = (currentAcc.name === 'Doctor' || currentAcc.name.startsWith('Doctor_')) 
+                    const newName = (currentAcc.name === 'Main Account' || currentAcc.name.startsWith('Account ') || currentAcc.name === 'Doctor') 
                         ? `Doctor_${importedUid.slice(-4)}` 
                         : currentAcc.name;
 
@@ -244,16 +235,18 @@
                         serverId: backendServerId,
                         name: newName
                     });
+                } else if (!currentAcc.serverUid) {
+                    // Фоллбек, если updateAccount нет, но акк пустой (вряд ли сработает, если метода нет, но на всякий)
+                    // Тут лучше ничего не делать, чем ломать
                 }
-            } else {                
-                const existingAccount = accounts.find(a => String(a.uid) === String(importedUid));
+            } else {
+                // Если крутки есть и UID другой -> Ищем существующий или создаем новый
+                const existingAccount = accounts.find(a => String(a.serverUid) === String(importedUid));
 
                 if (existingAccount) {
-                    if (accountStore.selectAccount) {
-                        accountStore.selectAccount(existingAccount.id);
-                    }
+                    accountStore.selectAccount(existingAccount.id);
                 } else {
-                    const defaultName = `Account-` + importedUid.slice(-4);
+                    const defaultName = `Doctor_` + importedUid.slice(-4);
                     accountStore.addAccount(importedUid, defaultName, backendServerId);
                 }
             }
@@ -267,20 +260,27 @@
         const cleanPulls = parseGachaLog(rawData);
         pendingData = cleanPulls;
 
+        // Превью без сохранения (commit=false)
         const report = await pullData.smartImport(cleanPulls, backendServerId, false);
         previewReport = report; 
     }
 
+    // --- ИСПРАВЛЕННОЕ СОХРАНЕНИЕ ---
     async function confirmSave() {
         if (!pendingData) return;
         isLoading = true;
         try {
+            // ФИКС: Читаем вложенные сторы отдельно!
+            // get(accountStore) вызвал бы ошибку, т.к. accountStore - это объект.
             const accounts = get(accountStore.accounts);
             const selectedId = get(accountStore.selectedId);
-            const currentAcc = accounts.find((a) => a.id === selectedId);
-            const sId = currentAcc?.serverId || "3";
-            await pullData.smartImport(pendingData, sId, true);
+            
+            const currentAcc = accounts.find(a => a.id === selectedId);
+            const sId = currentAcc?.serverId || '3';
 
+            // Сохраняем по-настоящему (commit=true)
+            await pullData.smartImport(pendingData, sId, true);
+            
             goto("/records");
         } catch (err) {
             console.error(err);
