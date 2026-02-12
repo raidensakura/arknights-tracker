@@ -123,11 +123,22 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 });
 
                 if (onProgress && newItems.length > 0) {
-                    onProgress({
-                        type: 'progress',
-                        poolId: poolLabel,
-                        count: newItems.length
+                    const countsByCat = {};
+                    
+                    newItems.forEach(item => {
+                        const rawId = item.poolId || item.bannerId || poolLabel;
+                        const catId = normalizeBannerId(rawId); 
+                        
+                        countsByCat[catId] = (countsByCat[catId] || 0) + 1;
                     });
+
+                    for (const [catId, count] of Object.entries(countsByCat)) {
+                        onProgress({
+                            type: 'progress',
+                            poolId: catId, 
+                            count: count
+                        });
+                    }
                 }
 
                 const listWithMeta = newItems.map(item => {

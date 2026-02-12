@@ -97,7 +97,8 @@
     "weaponbox_constant_4": "崇山刊",
     "weaponbox_constant_5": "雷鳴刊",
     "weapStandard": "標準武器",
-    "weapSpecial": "活動武器"
+    "weapSpecial": "活動武器",
+    "weapon-all": "武器卡池"
   },
   "import": {
     "title": "匯入尋訪記錄",

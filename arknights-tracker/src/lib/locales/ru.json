@@ -99,7 +99,8 @@
     "weaponbox_constant_4": "Высокий пик",
     "weaponbox_constant_5": "Громовой раскат",
     "weapStandard": "Стандартные поставки",
-    "weapSpecial": "Специальные поставки"
+    "weapSpecial": "Специальные поставки",
+    "weapon-all": "Оружейные баннеры"
   },
   "import": {
     "title": "Импорт записей о найме",

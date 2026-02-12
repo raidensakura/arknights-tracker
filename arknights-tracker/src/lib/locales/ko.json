@@ -97,7 +97,8 @@
     "weaponbox_constant_4": "라이징 마운트 발행",
     "weaponbox_constant_5": "천둥 소리 발행",
     "weapStandard": "통상 무기",
-    "weapSpecial": "이벤트 무기"
+    "weapSpecial": "이벤트 무기",
+    "weapon-all": "무기 배너"
   },
   "import": {
     "title": "헤드헌팅 기록 가져오기",
