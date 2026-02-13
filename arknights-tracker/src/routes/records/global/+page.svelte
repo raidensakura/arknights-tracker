@@ -768,21 +768,10 @@
                 </div>
             {/if}
             <!-- График круток в день-->
-            <div
-                class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[240px] flex flex-col relative group overflow-hidden"
-                role="figure"
-            >
-                <div class="flex justify-between items-center mb-4 shrink-0 z-10 relative">
-                    <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-[#FACC15] shadow-[0_0_8px_rgba(250,204,21,0.6)]"></div>
-                        {$t("global.pullsPerDay") || "Pulls per Day"}
-                    </div>
-                </div>
-
-                <div class="flex-1 flex flex-col min-h-0 relative">
+            <div class="flex-1 flex flex-col min-h-0 relative">
                     
                     <div 
-                        class="flex-1 w-full relative z-10"
+                        class="flex-1 w-full relative min-h-0 z-10 group/chart"
                         role="application"
                         aria-label="Interactive chart showing pulls history"
                         on:mousemove={(e) => {
@@ -801,7 +790,7 @@
                             <svg
                                 viewBox="0 0 100 100"
                                 preserveAspectRatio="none"
-                                class="w-full h-full block overflow-visible"
+                                class="absolute inset-0 w-full h-full block overflow-visible"
                             >
                                 <defs>
                                     <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
@@ -809,7 +798,7 @@
                                         <stop offset="100%" stop-color="#FACC15" stop-opacity="0" />
                                     </linearGradient>
                                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feGaussianBlur stdDeviation="1.5" result="blur" />
                                         <feComposite in="SourceGraphic" in2="blur" operator="over" />
                                     </filter>
                                 </defs>
@@ -824,7 +813,7 @@
                                     d={smoothPath}
                                     fill="none"
                                     stroke="#FACC15"
-                                    stroke-width="2"
+                                    stroke-width="1.5"
                                     vector-effect="non-scaling-stroke"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
@@ -838,31 +827,30 @@
                                 {@const topPos = 100 - (point.count / maxVal) * 100}
 
                                 <div
-                                    class="absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#FACC15]/50 to-transparent pointer-events-none"
+                                    class="absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#FACC15]/60 to-transparent pointer-events-none"
                                     style="left: {leftPos}%;"
                                 ></div>
 
                                 <div
-                                    class="absolute w-4 h-4 rounded-full shadow-[0_0_10px_#FACC15] border-2 border-white dark:border-[#383838] bg-[#FACC15] pointer-events-none transform -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-75"
+                                    class="absolute w-3 h-3 rounded-full shadow-[0_0_8px_#FACC15] border-[1.5px] border-white dark:border-[#383838] bg-[#FACC15] pointer-events-none transform -translate-x-1/2 -translate-y-1/2 z-20"
                                     style="left: {leftPos}%; top: {topPos}%;"
                                 ></div>
 
                                 <div
-                                    class="absolute top-0 pointer-events-none transition-all duration-100 ease-out z-30"
+                                    class="absolute top-0 pointer-events-none transition-all duration-75 ease-out z-30"
                                     style="left: {leftPos}%; transform: translateX({leftPos > 60 ? '-105%' : '5%'});"
                                 >
-                                    <div class="bg-white/90 dark:bg-black/80 backdrop-blur-md text-xs rounded-lg p-3 shadow-xl border border-white/20 dark:border-white/10 mt-2 min-w-[80px]">
-                                        <div class="text-gray-500 dark:text-gray-400 font-medium mb-1 text-[10px] uppercase tracking-wider">
+                                    <div class="bg-white/95 dark:bg-[#2C2C2C]/95 backdrop-blur-sm text-xs rounded-md p-2 shadow-lg border border-black/5 dark:border-white/10 mt-1 min-w-[70px]">
+                                        <div class="text-gray-400 font-medium mb-0.5 text-[10px] uppercase tracking-wide">
                                             {point.date}
                                         </div>
-                                        <div class="flex items-baseline gap-1">
-                                            <span class="text-xl font-black text-[#21272C] dark:text-[#FDFDFD] font-nums">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-base font-black text-[#21272C] dark:text-[#FDFDFD] font-nums leading-none">
                                                 {point.count}
                                             </span>
-                                            <span class="text-[#FACC15] font-bold text-xs">
+                                            <span class="text-[#FACC15] font-bold text-[10px] leading-none mt-0.5">
                                                 {(() => {
-                                                    // Автоматическое склонение через Intl
-                                                    const keySuffix = new Intl.PluralRules($currentLocale || 'ru').select(point.count);
+                                                    const keySuffix = new Intl.PluralRules($t("global.lang") || 'ru').select(point.count);
                                                     const fullKey = `global.pull_${keySuffix}`;
                                                     return $t(fullKey) === fullKey ? $t("global.pull_other") : $t(fullKey);
                                                 })()}
@@ -873,22 +861,21 @@
                             {/if}
 
                         {:else}
-                            <div class="w-full h-full flex flex-col items-center justify-center text-gray-300 dark:text-[#666]">
-                                <Icon name="noData" className="w-10 h-10 mb-3 opacity-30" />
-                                <span class="text-sm font-medium opacity-50">{$t("global.noData") || "No Data"}</span>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-300 dark:text-[#666]">
+                                <Icon name="noData" className="w-8 h-8 mb-2 opacity-30" />
+                                <span class="text-xs font-medium opacity-50">{$t("global.noData") || "No Data"}</span>
                             </div>
                         {/if}
                     </div>
 
                     {#if stats.timeline.length > 0}
-                        <div class="h-6 mt-2 flex justify-between items-center text-[10px] font-medium text-gray-400 dark:text-[#787878] select-none border-t border-dashed border-gray-100 dark:border-[#444] pt-2">
+                        <div class="h-5 mt-1 flex justify-between items-center text-[9px] font-medium text-gray-400 dark:text-[#787878] select-none border-t border-dashed border-gray-100 dark:border-[#444] pt-1 shrink-0">
                             {#each graphDates as date}
                                 <span>{date}</span>
                             {/each}
                         </div>
                     {/if}
                 </div>
-            </div>
             <!-- График лег за крутку -->
             <div
                 class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col z-0"
