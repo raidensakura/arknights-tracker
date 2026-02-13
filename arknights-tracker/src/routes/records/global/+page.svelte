@@ -768,7 +768,18 @@
                 </div>
             {/if}
             <!-- График круток в день-->
-            <div class="flex-1 flex flex-col min-h-0 relative">
+            <div
+                class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[240px] flex flex-col relative group overflow-hidden"
+                role="figure"
+            >
+                <div class="flex justify-between items-center mb-4 shrink-0 z-10 relative">
+                    <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-[#FACC15] shadow-[0_0_8px_rgba(250,204,21,0.6)]"></div>
+                        {$t("global.pullsPerDay") || "Pulls per Day"}
+                    </div>
+                </div>
+
+                <div class="flex-1 flex flex-col min-h-0 relative">
                     
                     <div 
                         class="flex-1 w-full relative min-h-0 z-10 group/chart"
@@ -876,6 +887,7 @@
                         </div>
                     {/if}
                 </div>
+            </div>
             <!-- График лег за крутку -->
             <div
                 class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col z-0"
