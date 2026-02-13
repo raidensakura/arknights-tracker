@@ -105,7 +105,7 @@
   >
     {tooltipText}
     <span
-      class="absolute top-full left-1/2 -translate-x-1/2 -mt-px
+      class="absolute dark:border-t-[#1E1E1E] top-full left-1/2 -translate-x-1/2 -mt-px
              border-4 border-transparent border-t-gray-900"
     ></span>
   </span>

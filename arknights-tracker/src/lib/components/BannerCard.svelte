@@ -26,7 +26,13 @@
       if (!isWeaponCard) return key === bannerId;
       return getWeaponCategory(key) === bannerId;
     })
-    .sort();
+    .sort((a, b) => {
+       const banA = banners.find(x => x.id === a);
+       const banB = banners.find(x => x.id === b);
+       if (!banA) return 1;
+       if (!banB) return -1;
+       return new Date(banB.startTime).getTime() - new Date(banA.startTime).getTime();
+    });
 
   $: if (availableSubBanners.length > 0) {
     const storageKey = `ark_selected_sub_${bannerId}`;
