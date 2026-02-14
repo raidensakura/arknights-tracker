@@ -144,21 +144,22 @@ export function calculatePity(pulls, bannerId, accountServerId = null) {
 
     return pulls.map((pull) => {
         const uniqueBannerKey = getDistinctBannerId(pull, accountServerId);
-
         if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
+        
         const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
-
         const isFreePull = isSpecialCategory && (countInThisBanner >= 30 && countInThisBanner < 40);
         bannerSpecificCounts[uniqueBannerKey]++;
 
-        if (!isFreePull) pityCounter++;
+        if (!isFreePull) {
+            pityCounter++;
+        }
         
         if (pull.rarity === 6) {
-            const res = pityCounter;
-            pityCounter = 0;
-            return { ...pull, pity: res, isFree: isFreePull };
+            const currentPityValue = isFreePull ? 1 : pityCounter;
+            if (!isFreePull) pityCounter = 0;
+            return { ...pull, pity: currentPityValue, isFree: isFreePull };
         }
-        return { ...pull, pity: pityCounter, isFree: isFreePull };
+        return { ...pull, pity: isFreePull ? 1 : pityCounter, isFree: isFreePull };
     });
 }
 
@@ -216,27 +217,24 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
         const isFreePull = (bannerId.includes('special') && !isWeaponType) && (countInThisBanner >= 30 && countInThisBanner < 40);
         bannerSpecificCounts[uniqueBannerKey]++;
 
+        if (isFreePull) {
+            return; 
+        }
+
         let isHardPityTriggered = false;
+        if (rateUpCounter >= hardPityLimit - 1) isHardPityTriggered = true;
+        rateUpCounter++;
 
-        if (!isFreePull) {
-            if (rateUpCounter >= hardPityLimit - 1) {
-                isHardPityTriggered = true;
-            }
-            rateUpCounter++;
-
-            if (bannerId.includes('standard') || bannerId.includes('new')) {
-                currentBannerMileage++;
-            } else {
-                if (pullTime >= mileageStart && pullTime <= mileageEnd) {
-                    currentBannerMileage++;
-                }
-            }
+        if (bannerId.includes('standard') || bannerId.includes('new')) {
+            currentBannerMileage++;
+        } else if (pullTime >= mileageStart && pullTime <= mileageEnd) {
+            currentBannerMileage++;
         }
 
         if (pull.rarity === 6) {
             count6++;
-            sumPity6 += currentPity6 + (isFreePull ? 0 : 1);
-
+            sumPity6 += currentPity6 + 1;
+            
             let historicConfig = banners.find(b => b.id === uniqueBannerKey);
             if (!historicConfig) historicConfig = findBannerConfigByTime(pull.time, pull.rawPoolId, accountServerId);
             const featuredList = historicConfig?.featured6 || currentViewBanner?.featured6 || [];
@@ -244,36 +242,27 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
             const isFeatured = featuredList.some(fid => {
                 const c = characters[fid]; if (c && normalize(c.name) === itemName) return true;
                 const w = weapons[fid]; if (w && normalize(w.name) === itemName) return true;
-                if (normalize(fid) === itemName) return true;
-                return false;
+                return normalize(fid) === itemName;
             });
 
             if (isFeatured) {
-                if (isHardPityTriggered) {
-                } else {
-                    won5050++;
-                    total5050++;
-                }
+                if (!isHardPityTriggered) { won5050++; total5050++; }
                 rateUpCounter = 0;
-
-                if (pullTime >= mileageStart && pullTime <= mileageEnd) {
-                    hasReceivedRateUp = true; 
-                }
+                if (pullTime >= mileageStart && pullTime <= mileageEnd) hasReceivedRateUp = true;
             } else {
                 total5050++;
             }
-
             currentPity6 = 0;
         } else {
-            if (!isFreePull) currentPity6++;
+            currentPity6++;
         }
 
         if (pull.rarity === 5) {
             count5++;
-            sumPity5 += currentPity5 + (isFreePull ? 0 : 1);
+            sumPity5 += currentPity5 + 1;
             currentPity5 = 0;
         } else {
-            if (!isFreePull) currentPity5++;
+            currentPity5++;
         }
     });
 

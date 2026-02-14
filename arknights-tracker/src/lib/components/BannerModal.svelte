@@ -11,11 +11,12 @@
 
     import Icon from "$lib/components/Icons.svelte";
     import OperatorCard from "$lib/components/OperatorCard.svelte";
+    import WeaponCard from "$lib/components/WeaponCard.svelte";
     import Images from "$lib/components/Images.svelte";
     import BannerStats from "$lib/components/BannerStats.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
 
-    export const bannerId = undefined; 
+    export const bannerId = undefined;
     export let banner = null;
     export let pageContext = null;
 
@@ -23,19 +24,21 @@
 
     const { accounts, selectedId } = accountStore;
 
-    $: currentAccount = $accounts.find(a => a.id === $selectedId);
-    $: currentServerId = currentAccount?.serverId || '3';
-    
-    $: serverOffset = (currentServerId === '2' || currentServerId === '1') ? 8 : -5;
+    $: currentAccount = $accounts.find((a) => a.id === $selectedId);
+    $: currentServerId = currentAccount?.serverId || "3";
+
+    $: serverOffset =
+        currentServerId === "2" || currentServerId === "1" ? 8 : -5;
 
     function parseServerDate(dateStr) {
         if (!dateStr) return null;
         if (dateStr instanceof Date) return dateStr;
-        if (dateStr.includes("Z") || dateStr.includes("+")) return new Date(dateStr);
+        if (dateStr.includes("Z") || dateStr.includes("+"))
+            return new Date(dateStr);
 
         const offset = serverOffset;
         const sign = offset >= 0 ? "+" : "-";
-        const pad = (n) => String(Math.abs(n)).padStart(2, '0');
+        const pad = (n) => String(Math.abs(n)).padStart(2, "0");
         const isoStr = dateStr.replace(" ", "T") + `${sign}${pad(offset)}:00`;
         return new Date(isoStr);
     }
@@ -49,7 +52,9 @@
     });
 
     function normalize(str) {
-        return String(str || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        return String(str || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
     }
 
     function formatTime(d) {
@@ -97,36 +102,56 @@
         const type = (banner.type || "").toLowerCase();
         const ctx = (pageContext || "").toLowerCase();
         return (
-            type === 'weapon' || 
-            id.includes('weap') || id.includes('wepon') ||
-            ctx.includes('weap') || ctx.includes('wepon')
+            type === "weapon" ||
+            id.includes("weap") ||
+            id.includes("wepon") ||
+            ctx.includes("weap") ||
+            ctx.includes("wepon")
         );
     })();
 
     $: categoryPulls = (() => {
         if (!banner || !$pullData) return [];
-        
+
         let keysToCheck = [];
-        
+
         const id = (banner.id || "").toLowerCase();
         const type = (banner.type || "").toLowerCase();
 
         if (isWeaponBanner) {
-            if (id.includes('constant') || id.includes('standard') || type === 'weap-standard') {
-                keysToCheck = ['weap-standard', 'weapon-standard', 'wepon-standard', 'standard-weapon'];
-            } 
-            else {
-                keysToCheck = ['weap-special', 'weapon-special', 'wepon-special', 'special-weapon', 'weapon', 'wepon'];
+            if (
+                id.includes("constant") ||
+                id.includes("standard") ||
+                type === "weap-standard"
+            ) {
+                keysToCheck = [
+                    "weap-standard",
+                    "weapon-standard",
+                    "wepon-standard",
+                    "standard-weapon",
+                ];
+            } else {
+                keysToCheck = [
+                    "weap-special",
+                    "weapon-special",
+                    "wepon-special",
+                    "special-weapon",
+                    "weapon",
+                    "wepon",
+                ];
             }
             if (banner.id) keysToCheck.push(banner.id);
-        } 
-        else {
-            if (id === 'standard' || id.includes('standard') || type === 'standard') {
-                keysToCheck = ['standard'];
-            } else if (id.includes('new') || type === 'new-player') {
-                keysToCheck = ['new-player', 'new'];
+        } else {
+            if (
+                id === "standard" ||
+                id.includes("standard") ||
+                type === "standard"
+            ) {
+                keysToCheck = ["standard"];
+            } else if (id.includes("new") || type === "new-player") {
+                keysToCheck = ["new-player", "new"];
             } else {
-                keysToCheck = ['special'];
+                keysToCheck = ["special"];
             }
         }
 
@@ -160,7 +185,7 @@
 
     const checkIsFeatured = (itemName) => {
         const normItem = normalize(itemName);
-        return featuredList.some(fid => {
+        return featuredList.some((fid) => {
             const c = characters[fid];
             if (c && normalize(c.name) === normItem) return true;
             const w = weapons[fid];
@@ -171,7 +196,8 @@
     };
 
     $: realStart = banner ? parseServerDate(banner.startTime) : new Date();
-    $: realEnd = banner && banner.endTime ? parseServerDate(banner.endTime) : null;
+    $: realEnd =
+        banner && banner.endTime ? parseServerDate(banner.endTime) : null;
 
     $: bannerData = (() => {
         if (!banner || !categoryPulls.length || isEvent) {
@@ -191,7 +217,7 @@
         let simPity5 = 0;
         let simPity6 = 0;
 
-        const historyWithPity = fullHistory.map(pull => {
+        const historyWithPity = fullHistory.map((pull) => {
             const p = { ...pull };
             const isFree = p.isFree === true || String(p.isFree) === "true";
 
@@ -200,7 +226,10 @@
                 simPity6++;
             }
 
-            p.calculatedPity6 = (p.pity !== undefined && p.pity !== null) ? Number(p.pity) : simPity6;
+            p.calculatedPity6 =
+                p.pity !== undefined && p.pity !== null
+                    ? Number(p.pity)
+                    : simPity6;
             p.calculatedPity5 = simPity5;
 
             if (p.rarity === 6) simPity6 = 0;
@@ -210,75 +239,92 @@
         });
 
         const filtered = historyWithPity.filter((pull) => {
-            if (pull.rawPoolId === banner.id || pull.bannerId === banner.id) return true;
+            if (pull.rawPoolId === banner.id || pull.bannerId === banner.id)
+                return true;
 
             const pullTime = new Date(pull.time).getTime();
             const timeMatch = pullTime >= bStart && pullTime <= bEnd;
 
             if (!timeMatch) return false;
 
-            const isGenericType = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player'].some(t => pull.bannerId?.includes(t));
-            const typesMatch = isWeaponBanner ? pull.type === 'weapon' : pull.type === 'character';
+            const isGenericType = [
+                "special",
+                "standard",
+                "weapon",
+                "weap-special",
+                "weap-standard",
+                "new-player",
+            ].some((t) => pull.bannerId?.includes(t));
+            const typesMatch = isWeaponBanner
+                ? pull.type === "weapon"
+                : pull.type === "character";
 
-            if (!isWeaponBanner && (banner.id === 'standard' || banner.id === '1')) {
-                return (pull.bannerId === 'standard' || pull.bannerId === '1');
+            if (
+                !isWeaponBanner &&
+                (banner.id === "standard" || banner.id === "1")
+            ) {
+                return pull.bannerId === "standard" || pull.bannerId === "1";
             }
 
             if (isGenericType && typesMatch) {
                 return true;
             }
-            
+
             return false;
         });
 
         if (filtered.length === 0) return { pulls: [], stats: {} };
 
         const hardPityLimit = isWeaponBanner ? 80 : 120;
-        
-        let count6 = 0, count5 = 0;
-        let sumPity6 = 0, sumPity5 = 0;
-        let total5050 = 0, won5050 = 0;
-        let localRateUpCounter = 0; 
 
-        const processed = filtered.map((pull) => {
-            const p = { ...pull };
-            const isFree = p.isFree === true || String(p.isFree) === "true";
-            
-            if (!isFree) {
-                if (localRateUpCounter >= hardPityLimit - 1) {}
-                localRateUpCounter++;
-            }
-            const isHardPityTriggered = (localRateUpCounter >= hardPityLimit);
+        let count6 = 0,
+            count5 = 0;
+        let sumPity6 = 0,
+            sumPity5 = 0;
+        let total5050 = 0,
+            won5050 = 0;
+        let localRateUpCounter = 0;
 
-            if (p.rarity === 6) {
-                count6++;
-                sumPity6 += p.calculatedPity6; 
-                p.realPity = p.calculatedPity6;
+        const processed = filtered
+            .map((pull) => {
+                const p = { ...pull };
+                const isFree = p.isFree === true || String(p.isFree) === "true";
 
-                const isFeatured = checkIsFeatured(p.name);
-                if (isFeatured) {
-                    if (!isHardPityTriggered) {
-                        total5050++;
-                        won5050++;
+                if (!isFree) {
+                    if (localRateUpCounter >= hardPityLimit - 1) {
                     }
-                    localRateUpCounter = 0;
-                } else {
-                    if (!isHardPityTriggered) {
-                        total5050++;
-                    }
+                    localRateUpCounter++;
                 }
-            } 
-            else if (p.rarity === 5) {
-                count5++;
-                sumPity5 += p.calculatedPity5;
-                p.realPity = p.calculatedPity5;
-            } 
-            else {
-                p.realPity = 1;
-            }
+                const isHardPityTriggered = localRateUpCounter >= hardPityLimit;
 
-            return p;
-        }).reverse();
+                if (p.rarity === 6) {
+                    count6++;
+                    sumPity6 += p.calculatedPity6;
+                    p.realPity = p.calculatedPity6;
+
+                    const isFeatured = checkIsFeatured(p.name);
+                    if (isFeatured) {
+                        if (!isHardPityTriggered) {
+                            total5050++;
+                            won5050++;
+                        }
+                        localRateUpCounter = 0;
+                    } else {
+                        if (!isHardPityTriggered) {
+                            total5050++;
+                        }
+                    }
+                } else if (p.rarity === 5) {
+                    count5++;
+                    sumPity5 += p.calculatedPity5;
+                    p.realPity = p.calculatedPity5;
+                } else {
+                    p.realPity = 1;
+                }
+
+                return p;
+            })
+            .reverse();
 
         const total = processed.length;
 
@@ -288,15 +334,18 @@
             count5,
             percent6: total > 0 ? ((count6 / total) * 100).toFixed(2) : "0.00",
             percent5: total > 0 ? ((count5 / total) * 100).toFixed(2) : "0.00",
-            
+
             avg6: count6 > 0 ? (sumPity6 / count6).toFixed(1) : "0.0",
             avg5: count5 > 0 ? (sumPity5 / count5).toFixed(1) : "0.0",
-            
-            winRate: { 
-                won: won5050, 
-                total: total5050, 
-                percent: total5050 > 0 ? ((won5050 / total5050) * 100).toFixed(0) : 0 
-            }
+
+            winRate: {
+                won: won5050,
+                total: total5050,
+                percent:
+                    total5050 > 0
+                        ? ((won5050 / total5050) * 100).toFixed(0)
+                        : 0,
+            },
         };
 
         return { pulls: processed, stats: localStats };
@@ -335,7 +384,7 @@
         on:keydown={(e) => (e.key === "Escape" || e.key === "Enter") && close()}
     >
         <div
-            class="bg-white dark:bg-[#383838]  rounded-2xl shadow-2xl max-w-md w-full overflow-hidden relative animate-in zoom-in-95 duration-200 flex flex-col cursor-auto"
+            class="bg-white dark:bg-[#383838] rounded-2xl shadow-2xl max-w-md w-full overflow-hidden relative animate-in zoom-in-95 duration-200 flex flex-col cursor-auto"
         >
             <button
                 class="hover:bg-[#FACC15] text-white hover:text-[#21272C] absolute top-3 right-3 z-20 p-2 bg-black/30 text-white rounded-full transition-colors backdrop-blur-md cursor-pointer"
@@ -344,7 +393,7 @@
                 <Icon name="close" class="w-5 h-5" />
             </button>
 
-            <div class="aspect-[21/9]  w-full relative bg-gray-100">
+            <div class="aspect-[21/9] w-full relative bg-gray-100">
                 <Images
                     item={banner}
                     variant={imageVariant}
@@ -353,7 +402,7 @@
                     style="object-fit: cover;"
                 />
                 <div
-                    class="absolute  inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
                 ></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5">
                     <h3
@@ -364,7 +413,7 @@
                             : banner.name || banner.id}
                     </h3>
                     <div
-                        class="inline-flex items-center gap-1.5 px-2.5 py-0.5  rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-md border border-white/10 shadow-sm {isActive
+                        class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-md border border-white/10 shadow-sm {isActive
                             ? 'bg-green-500/20 text-green-300'
                             : ''} {isEnded
                             ? 'bg-gray-500/40 text-gray-300'
@@ -398,7 +447,8 @@
                                 class="text-gray-400 dark:text-[#B7B6B3] text-xs font-bold uppercase tracking-wide"
                                 >{$t("systemNames.start")}</span
                             >
-                            <span class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
+                            <span
+                                class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
                                 >{formatTime(realStart)}</span
                             >
                         </div>
@@ -407,7 +457,8 @@
                                 class="text-gray-400 dark:text-[#B7B6B3] text-xs font-bold uppercase tracking-wide"
                                 >{$t("systemNames.end")}</span
                             >
-                            <span class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
+                            <span
+                                class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
                                 >{realEnd ? formatTime(realEnd) : "∞"}</span
                             >
                         </div>
@@ -420,48 +471,76 @@
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("systemNames.status")}
                             </div>
-                            <div class="text-blue-600 font-bold font-nums text-lg leading-none">
-                                {$t("timer.ongoing_active", { n: timeData.days })}
+                            <div
+                                class="text-blue-600 font-bold font-nums text-lg leading-none"
+                            >
+                                {$t("timer.ongoing_active", {
+                                    n: timeData.days,
+                                })}
                             </div>
-
                         {:else if isActive}
-                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
+                            <div
+                                class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5"
+                            >
                                 {$t("systemNames.timeRemaining")}
                             </div>
-                            <div class="text-green-600 dark:text-green-500 font-bold font-nums text-lg leading-none">
+                            <div
+                                class="text-green-600 dark:text-green-500 font-bold font-nums text-lg leading-none"
+                            >
                                 {#if timeData.days > 0}
-                                    {$t("timer.left_d_h", { d: timeData.days, h: timeData.hours })}
+                                    {$t("timer.left_d_h", {
+                                        d: timeData.days,
+                                        h: timeData.hours,
+                                    })}
                                 {:else if timeData.hours > 0}
-                                    {$t("timer.left_h_m", { h: timeData.hours, m: timeData.minutes }) || `${timeData.hours}h ${timeData.minutes}m`}
+                                    {$t("timer.left_h_m", {
+                                        h: timeData.hours,
+                                        m: timeData.minutes,
+                                    }) ||
+                                        `${timeData.hours}h ${timeData.minutes}m`}
                                 {:else}
-                                    {$t("timer.left_m", { m: timeData.minutes }) || `${timeData.minutes}m`}
+                                    {$t("timer.left_m", {
+                                        m: timeData.minutes,
+                                    }) || `${timeData.minutes}m`}
                                 {/if}
                             </div>
-
                         {:else if isEnded}
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("status.ended") || "Ended"}
                             </div>
-                            <div class="text-gray-400 font-bold font-nums text-base leading-none">
+                            <div
+                                class="text-gray-400 font-bold font-nums text-base leading-none"
+                            >
                                 {$t("timer.days_ago", { n: timeData.days })}
                             </div>
-
                         {:else if isUpcoming}
                             <div class="text-gray-500 text-xs mb-0.5">
                                 {$t("systemNames.startsIn")}
                             </div>
-                            <div class="text-blue-600 dark:text-blue-500 font-bold font-nums text-lg leading-none">
+                            <div
+                                class="text-blue-600 dark:text-blue-500 font-bold font-nums text-lg leading-none"
+                            >
                                 {#if timeData.days > 0}
-                                    {$t("timer.starts_in_d_h", { d: timeData.days, h: timeData.hours }) || `${timeData.days}d ${timeData.hours}h`}
+                                    {$t("timer.starts_in_d_h", {
+                                        d: timeData.days,
+                                        h: timeData.hours,
+                                    }) ||
+                                        `${timeData.days}d ${timeData.hours}h`}
                                 {:else if timeData.hours > 0}
-                                    {$t("timer.starts_in_h_m", { h: timeData.hours, m: timeData.minutes }) || `${timeData.hours}h ${timeData.minutes}m`}
+                                    {$t("timer.starts_in_h_m", {
+                                        h: timeData.hours,
+                                        m: timeData.minutes,
+                                    }) ||
+                                        `${timeData.hours}h ${timeData.minutes}m`}
                                 {:else}
-                                    {$t("timer.starts_in_m", { m: timeData.minutes }) || `${timeData.minutes}m`}
+                                    {$t("timer.starts_in_m", {
+                                        m: timeData.minutes,
+                                    }) || `${timeData.minutes}m`}
                                 {/if}
                             </div>
                         {/if}
                     </div>
-                    </div>
+                </div>
 
                 {#if banner.url}
                     <a
@@ -493,7 +572,7 @@
                     <div class="space-y-3">
                         <div class="flex items-center gap-2">
                             <span
-                                class="text-gray-400  text-[10px] font-bold uppercase tracking-widest"
+                                class="text-gray-400 text-[10px] font-bold uppercase tracking-widest"
                             >
                                 {#if isWeaponBanner}
                                     {$t("page.banner.featuredWeapons") ||
@@ -502,56 +581,37 @@
                                     {$t("systemNames.featuredCharacters")}
                                 {/if}
                             </span>
-                            <div class="h-px flex-1 bg-gray-100 dark:bg-[#444444]"></div>
+                            <div
+                                class="h-px flex-1 bg-gray-100 dark:bg-[#444444]"
+                            ></div>
                         </div>
 
                         <div class="flex flex-wrap gap-2 justify-center">
                             {#each featuredItems as item}
-                                <Tooltip
-                                    text={$t(
-                                        item.isWeapon
-                                            ? `weaponsList.${item.id}`
-                                            : `characters.${item.id}`,
-                                    ) || item.name}
-                                >
-                                    {#if item.isWeapon}
-                                        <div
-                                            class="w-[90px] h-[90px] flex items-center justify-center relative group cursor-pointer"
-                                        >
-                                            <div
-                                                class="w-[70px] h-[70px] rounded-full overflow-hidden border-2 shadow-sm relative
-                                {getWeaponBg(item.rarity)}"
-                                                style="border-color: {getRarityColor(
-                                                    item.rarity,
-                                                )}"
-                                            >
-                                                <Images
-                                                    id={item.id}
-                                                    variant="weapon-icon"
-                                                    alt={item.name}
-                                                    className="w-full h-full object-cover transform scale-[1.3]"
-                                                />
-                                            </div>
-                                        </div>
-                                    {:else}
-                                        <div
-                                            class="w-[90px] h-[90px] rounded-lg border border-gray-100 dark:border-[#444444] shadow-sm relative overflow-hidden group cursor-pointer"
-                                        >
-                                            <div
-                                                class="scale-[0.6] w-[80px] origin-top-left"
-                                            >
-                                                <OperatorCard operator={item} />
-                                            </div>
-                                        </div>
-                                    {/if}
-                                </Tooltip>
+                                {#if item.isWeapon}
+                                    <WeaponCard
+                                        weapon={item}
+                                        variant="small"
+                                        className="w-[80px] h-[80px]"
+                                    />
+                                {:else}
+                                    <OperatorCard
+                                        operator={item}
+                                        variant="small"
+                                        className="w-[80px] h-[100px]"
+                                    />
+                                {/if}
                             {/each}
                         </div>
                     </div>
                 {/if}
 
                 {#if bannerPulls.length > 0}
-                    <BannerStats pulls={bannerPulls} {banner} stats={bannerStats} />
+                    <BannerStats
+                        pulls={bannerPulls}
+                        {banner}
+                        stats={bannerStats}
+                    />
                 {/if}
             </div>
         </div>

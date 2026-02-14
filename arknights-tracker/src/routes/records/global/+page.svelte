@@ -11,6 +11,8 @@
     import Button from "$lib/components/Button.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import BannerModal from "$lib/components/BannerModal.svelte";
+    import OperatorCard from "$lib/components/OperatorCard.svelte";
+    import WeaponCard from "$lib/components/WeaponCard.svelte";
 
     import { characters } from "$lib/data/characters";
     import { weapons } from "$lib/data/weapons";
@@ -34,7 +36,7 @@
     };
 
     let stats = { ...initialStats };
-    
+
     export let graphDates = [];
 
     $: chartData = stats.timeline || [];
@@ -58,7 +60,8 @@
             const [x0, y0] = i > 0 ? points[i - 1] : points[0];
             const [x1, y1] = points[i];
             const [x2, y2] = points[i + 1];
-            const [x3, y3] = i !== points.length - 2 ? points[i + 2] : points[i + 1];
+            const [x3, y3] =
+                i !== points.length - 2 ? points[i + 2] : points[i + 1];
 
             const cp1x = x1 + (x2 - x0) / 6;
             const cp1y = y1 + (y2 - y0) / 6;
@@ -466,27 +469,32 @@
                 {@const resolved = resolveItem(mainFeatured.name)}
 
                 <div
-                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 relative overflow-hidden group"
+                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 relative overflow-hidden"
                 >
-                    <div
-                        class="absolute left-0 top-0 bottom-0 w-1 bg-[#D84C38]"
-                    ></div>
                     <div class="flex items-start gap-4">
-                        <div
-                            class="w-16 h-16 bg-gray-100 dark:bg-[#2C2C2C] dark:border-[#444444] rounded-lg border border-gray-200 overflow-hidden shrink-0 shadow-inner flex items-center justify-center"
-                        >
-                            <Images
-                                id={resolved.id}
-                                variant={resolved.isWeapon
-                                    ? "weapon-icon"
-                                    : "operator-icon"}
-                                className="w-full h-full object-cover"
-                                size="100%"
-                            />
+                        <div class="shrink-0">
+                            {#if resolved.isWeapon}
+                                <WeaponCard
+                                    weapon={{ ...resolved, rarity: 6 }}
+                                    variant="small"
+                                    hideName={true}
+                                    className="w-[70px] h-[70px] shadow-sm"
+                                />
+                            {:else}
+                                <OperatorCard
+                                    operator={{ ...resolved, rarity: 6 }}
+                                    variant="small"
+                                    hideName={true}
+                                    className="w-[70px] h-[70px] shadow-sm border border-gray-100 dark:border-[#444444]"
+                                />
+                            {/if}
                         </div>
-                        <div class="flex flex-col justify-center h-16">
+
+                        <div
+                            class="flex flex-col justify-center min-h-[70px] flex-1"
+                        >
                             <div
-                                class="font-bold text-base text-[#21272C] dark:text-[#FDFDFD] leading-tight mb-0.5 line-clamp-2"
+                                class="font-bold text-base text-[#21272C] dark:text-[#FDFDFD] leading-tight mb-1 line-clamp-2"
                             >
                                 {$t(
                                     resolved.isWeapon
@@ -495,12 +503,12 @@
                                 ) || mainFeatured.name}
                             </div>
                             <div
-                                class="text-[10px] text-gray-500 dark:text-[#B7B6B3] uppercase tracking-wide"
+                                class="text-[10px] text-gray-500 dark:text-[#B7B6B3] uppercase tracking-wide leading-none"
                             >
                                 {$t("global.totalObtained") || "Total Obtained"}
                             </div>
                             <div
-                                class="font-nums font-bold text-xl text-[#21272C] dark:text-[#FDFDFD] leading-none mt-0.5"
+                                class="font-nums font-bold text-xl text-[#21272C] dark:text-[#FDFDFD] leading-none mt-1"
                             >
                                 {fmt(stats.totalObtained)}
                             </div>
@@ -522,6 +530,7 @@
                     <div class="flex flex-wrap gap-2">
                         {#each allFeaturedItems as item}
                             {@const resolved = resolveItem(item.name)}
+
                             <Tooltip
                                 text={$t(
                                     resolved.isWeapon
@@ -529,19 +538,21 @@
                                         : `characters.${resolved.id}`,
                                 ) || item.name}
                             >
-                                <div
-                                    class="w-12 h-12 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#555] overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-sm relative group"
-                                >
-                                    <Images
-                                        id={resolved.id}
-                                        variant={resolved.isWeapon
-                                            ? "weapon-icon"
-                                            : "operator-icon"}
-                                        size="100%"
-                                        className="w-full h-full object-cover"
-                                        alt={item.name}
+                                {#if resolved.isWeapon}
+                                    <WeaponCard
+                                        weapon={item}
+                                        variant="small"
+                                        hideName={true}
+                                        className="w-[60px] h-[60px] shadow-sm"
                                     />
-                                </div>
+                                {:else}
+                                    <OperatorCard
+                                        operator={item}
+                                        variant="small"
+                                        hideName={true}
+                                        className="w-[60px] h-[60px] shadow-sm border border-gray-100 dark:border-[#444444]"
+                                    />
+                                {/if}
                             </Tooltip>
                         {/each}
                     </div>
@@ -772,131 +783,193 @@
             {/if}
             <!-- График круток в день-->
             <div
-    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[240px] flex flex-col relative group overflow-visible"
-    role="figure"
->
-    <div class="flex justify-between items-center mb-4 shrink-0 relative z-10">
-        <div class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD]">
-            {$t("global.pullsPerDay") || "Pulls per Day"}
-        </div>
-    </div>
-
-    <div class="flex-1 flex flex-col min-h-0 relative">
-        
-        <div class="flex-1 w-full relative min-h-0">
-            
-            {#if chartData.length > 0}
-                {@const maxVal = Math.max(...chartData.map((t) => t.count), 1)}
-                {@const smoothPath = getSmoothPath(chartData, 100, 100)}
-
-                <svg
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    class="absolute inset-0 w-full h-full block overflow-visible pointer-events-none z-10"
-                >
-                    <defs>
-                        <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0%" stop-color="#FACC15" stop-opacity="0.4" />
-                            <stop offset="100%" stop-color="#FACC15" stop-opacity="0" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <path
-                        d="{smoothPath} V 100 H 0 Z"
-                        fill="url(#chartGradient)"
-                        stroke="none"
-                    />
-                    <path
-                        d={smoothPath}
-                        fill="none"
-                        stroke="#FACC15"
-                        stroke-width="2"
-                        vector-effect="non-scaling-stroke"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-
+                class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[240px] flex flex-col relative group overflow-visible"
+                role="figure"
+            >
                 <div
-                    class="absolute inset-0 w-full h-full z-20 bg-transparent"
-                    role="application"
-                    aria-label="Interactive chart showing pulls history per day"
-                    on:mousemove={(e) => {
-                        const rect = e.currentTarget.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        if (rect.width === 0) return;
-                        const idx = Math.floor((x / rect.width) * chartData.length);
-                        hoveredIndex = Math.min(Math.max(0, idx), chartData.length - 1);
-                    }}
-                    on:mouseleave={() => (hoveredIndex = -1)}
-                ></div>
-
-                {#if hoveredIndex !== -1 && chartData[hoveredIndex]}
-                    {@const point = chartData[hoveredIndex]}
-                    {@const leftPos = (hoveredIndex / (chartData.length - 1)) * 100}
-                    {@const topPos = 100 - (point.count / maxVal) * 100}
-
-                    <div class="absolute inset-0 z-30 pointer-events-none">
-                        
-                        <div
-                            class="absolute top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-600 border-r border-dashed border-gray-400"
-                            style="left: {leftPos}%;"
-                        ></div>
-
-                        <div
-                            class="absolute w-3 h-3 rounded-full border-2 border-white dark:border-[#383838] bg-[#FACC15] transform -translate-x-1/2 -translate-y-1/2"
-                            style="left: {leftPos}%; top: {topPos}%;"
-                        ></div>
-
-                        <div
-                            class="absolute top-0 transition-transform duration-75 ease-out"
-                            style="left: {leftPos}%; transform: translateX({leftPos > 60 ? '-105%' : '5%'});"
-                        >
-                            <div class="bg-white/95 dark:bg-[#2C2C2C]/95 backdrop-blur-sm text-xs rounded-md p-2 shadow-lg border border-black/5 dark:border-white/10 mt-1 min-w-[70px]">
-                                <div class="text-gray-400 font-medium mb-0.5 text-[10px] uppercase tracking-wide">
-                                    {point.date}
-                                </div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="text-base font-black text-[#21272C] dark:text-[#FDFDFD] font-nums leading-none">
-                                        {point.count}
-                                    </span>
-                                    <span class="text-[#FACC15] font-bold text-[10px] leading-none mt-0.5">
-                                         {(() => {
-                                            const n = point.count;
-                                            // Если есть currentLocale, используем его, иначе фоллбек
-                                            const loc = $currentLocale || 'ru';
-                                            const keySuffix = new Intl.PluralRules(loc).select(n);
-                                            const fullKey = `global.pull_${keySuffix}`;
-                                            return $t(fullKey) === fullKey ? $t("global.pulls") : $t(fullKey);
-                                        })()}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    class="flex justify-between items-center mb-4 shrink-0 relative z-10"
+                >
+                    <div
+                        class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD]"
+                    >
+                        {$t("global.pullsPerDay") || "Pulls per Day"}
                     </div>
-                {/if}
-
-            {:else}
-                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-300 dark:text-[#666]">
-                    <Icon name="noData" className="w-8 h-8 mb-2 opacity-30" />
-                    <span class="text-xs font-medium opacity-50">{$t("global.noData") || "No Data"}</span>
                 </div>
-            {/if}
-        </div>
 
-        <div class="h-5 mt-1 flex justify-between items-center text-[9px] font-medium text-gray-400 dark:text-[#787878] select-none border-t border-dashed border-gray-100 dark:border-[#444] pt-1 shrink-0 z-0">
-            {#each displayDates as date}
-                <span>{date}</span>
-            {/each}
-        </div>
-    </div>
-</div>
+                <div class="flex-1 flex flex-col min-h-0 relative">
+                    <div class="flex-1 w-full relative min-h-0">
+                        {#if chartData.length > 0}
+                            {@const maxVal = Math.max(
+                                ...chartData.map((t) => t.count),
+                                1,
+                            )}
+                            {@const smoothPath = getSmoothPath(
+                                chartData,
+                                100,
+                                100,
+                            )}
+
+                            <svg
+                                viewBox="0 0 100 100"
+                                preserveAspectRatio="none"
+                                class="absolute inset-0 w-full h-full block overflow-visible pointer-events-none z-10"
+                            >
+                                <defs>
+                                    <linearGradient
+                                        id="chartGradient"
+                                        x1="0"
+                                        x2="0"
+                                        y1="0"
+                                        y2="1"
+                                    >
+                                        <stop
+                                            offset="0%"
+                                            stop-color="#FACC15"
+                                            stop-opacity="0.4"
+                                        />
+                                        <stop
+                                            offset="100%"
+                                            stop-color="#FACC15"
+                                            stop-opacity="0"
+                                        />
+                                    </linearGradient>
+                                </defs>
+
+                                <path
+                                    d="{smoothPath} V 100 H 0 Z"
+                                    fill="url(#chartGradient)"
+                                    stroke="none"
+                                />
+                                <path
+                                    d={smoothPath}
+                                    fill="none"
+                                    stroke="#FACC15"
+                                    stroke-width="2"
+                                    vector-effect="non-scaling-stroke"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+
+                            <div
+                                class="absolute inset-0 w-full h-full z-20 bg-transparent"
+                                role="application"
+                                aria-label="Interactive chart showing pulls history per day"
+                                on:mousemove={(e) => {
+                                    const rect =
+                                        e.currentTarget.getBoundingClientRect();
+                                    const x = e.clientX - rect.left;
+                                    if (rect.width === 0) return;
+                                    const idx = Math.floor(
+                                        (x / rect.width) * chartData.length,
+                                    );
+                                    hoveredIndex = Math.min(
+                                        Math.max(0, idx),
+                                        chartData.length - 1,
+                                    );
+                                }}
+                                on:mouseleave={() => (hoveredIndex = -1)}
+                            ></div>
+
+                            {#if hoveredIndex !== -1 && chartData[hoveredIndex]}
+                                {@const point = chartData[hoveredIndex]}
+                                {@const leftPos =
+                                    (hoveredIndex / (chartData.length - 1)) *
+                                    100}
+                                {@const topPos =
+                                    100 - (point.count / maxVal) * 100}
+
+                                <div
+                                    class="absolute inset-0 z-30 pointer-events-none"
+                                >
+                                    <div
+                                        class="absolute top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-600 border-r border-dashed border-gray-400"
+                                        style="left: {leftPos}%;"
+                                    ></div>
+
+                                    <div
+                                        class="absolute w-3 h-3 rounded-full border-2 border-white dark:border-[#383838] bg-[#FACC15] transform -translate-x-1/2 -translate-y-1/2"
+                                        style="left: {leftPos}%; top: {topPos}%;"
+                                    ></div>
+
+                                    <div
+                                        class="absolute top-0 transition-transform duration-75 ease-out"
+                                        style="left: {leftPos}%; transform: translateX({leftPos >
+                                        60
+                                            ? '-105%'
+                                            : '5%'});"
+                                    >
+                                        <div
+                                            class="bg-white/95 dark:bg-[#2C2C2C]/95 backdrop-blur-sm text-xs rounded-md p-2 shadow-lg border border-black/5 dark:border-white/10 mt-1 min-w-[70px]"
+                                        >
+                                            <div
+                                                class="text-gray-400 font-medium mb-0.5 text-[10px] uppercase tracking-wide"
+                                            >
+                                                {point.date}
+                                            </div>
+                                            <div
+                                                class="flex items-center gap-1.5"
+                                            >
+                                                <span
+                                                    class="text-base font-black text-[#21272C] dark:text-[#FDFDFD] font-nums leading-none"
+                                                >
+                                                    {point.count}
+                                                </span>
+                                                <span
+                                                    class="text-[#FACC15] font-bold text-[10px] leading-none mt-0.5"
+                                                >
+                                                    {(() => {
+                                                        const n = point.count;
+                                                        // Если есть currentLocale, используем его, иначе фоллбек
+                                                        const loc =
+                                                            $currentLocale ||
+                                                            "ru";
+                                                        const keySuffix =
+                                                            new Intl.PluralRules(
+                                                                loc,
+                                                            ).select(n);
+                                                        const fullKey = `global.pull_${keySuffix}`;
+                                                        return $t(fullKey) ===
+                                                            fullKey
+                                                            ? $t("global.pulls")
+                                                            : $t(fullKey);
+                                                    })()}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {:else}
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center text-gray-300 dark:text-[#666]"
+                            >
+                                <Icon
+                                    name="noData"
+                                    className="w-8 h-8 mb-2 opacity-30"
+                                />
+                                <span class="text-xs font-medium opacity-50"
+                                    >{$t("global.noData") || "No Data"}</span
+                                >
+                            </div>
+                        {/if}
+                    </div>
+
+                    <div
+                        class="h-5 mt-1 flex justify-between items-center text-[9px] font-medium text-gray-400 dark:text-[#787878] select-none border-t border-dashed border-gray-100 dark:border-[#444] pt-1 shrink-0 z-0"
+                    >
+                        {#each displayDates as date}
+                            <span>{date}</span>
+                        {/each}
+                    </div>
+                </div>
+            </div>
             <!-- График лег за крутку -->
             <div
                 class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 h-[220px] flex flex-col z-0"
             >
                 <div
-                    class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD]  mb-4 flex items-center gap-0.5"
+                    class="text-xs font-bold text-gray-800 dark:text-[#FDFDFD] mb-4 flex items-center gap-0.5"
                 >
                     {$t("global.pityDist") || "Pity Distribution"}
                     <Icon

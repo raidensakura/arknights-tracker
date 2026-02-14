@@ -27,11 +27,13 @@
       return getWeaponCategory(key) === bannerId;
     })
     .sort((a, b) => {
-       const banA = banners.find(x => x.id === a);
-       const banB = banners.find(x => x.id === b);
-       if (!banA) return 1;
-       if (!banB) return -1;
-       return new Date(banB.startTime).getTime() - new Date(banA.startTime).getTime();
+      const banA = banners.find((x) => x.id === a);
+      const banB = banners.find((x) => x.id === b);
+      if (!banA) return 1;
+      if (!banB) return -1;
+      return (
+        new Date(banB.startTime).getTime() - new Date(banA.startTime).getTime()
+      );
     });
 
   $: if (availableSubBanners.length > 0) {
@@ -82,36 +84,50 @@
   $: hasReceivedRateUp = stats.hasReceivedRateUp || false;
   $: billableCount = (() => {
     if (isWeaponCard || isNewPlayer) return 0;
-    const sorted = [...pulls].sort((a, b) => new Date(a.time) - new Date(b.time));
-    
+    const sorted = [...pulls].sort(
+      (a, b) => new Date(a.time) - new Date(b.time),
+    );
+
     let billable = 0;
     let bannerCounts = {};
 
-    sorted.forEach(p => {
+    sorted.forEach((p) => {
       const pTime = new Date(p.time).getTime();
-      const match = banners.find(b => {
-         const start = new Date(b.startTime).getTime();
-         const end = b.endTime ? new Date(b.endTime).getTime() : 4102444800000;
-         if (pTime < start || pTime > end) return false;
-         const bType = (b.type || "").toLowerCase();
-         if (displayId === 'special' && bType === 'special') return true;
-         if (displayId.includes('standard') && (bType === 'standard' || bType === 'constant')) return true;
-         
-         return false;
+      const match = banners.find((b) => {
+        const start = new Date(b.startTime).getTime();
+        const end = b.endTime ? new Date(b.endTime).getTime() : 4102444800000;
+        if (pTime < start || pTime > end) return false;
+        const bType = (b.type || "").toLowerCase();
+        if (displayId === "special" && bType === "special") return true;
+        if (
+          displayId.includes("standard") &&
+          (bType === "standard" || bType === "constant")
+        )
+          return true;
+
+        return false;
       });
-      const bid = match ? match.id : 'other_' + displayId;
-      const type = match ? match.type : (displayId === 'special' ? 'special' : 'standard');
+      const bid = match ? match.id : "other_" + displayId;
+      const type = match
+        ? match.type
+        : displayId === "special"
+          ? "special"
+          : "standard";
 
       if (!bannerCounts[bid]) bannerCounts[bid] = 0;
       let isFree = false;
-      if (type === 'special' && bannerCounts[bid] >= 30 && bannerCounts[bid] < 40) {
-          isFree = true;
+      if (
+        type === "special" &&
+        bannerCounts[bid] >= 30 &&
+        bannerCounts[bid] < 40
+      ) {
+        isFree = true;
       }
 
       bannerCounts[bid]++;
-      
+
       if (!isFree) {
-          billable++;
+        billable++;
       }
     });
 
@@ -129,7 +145,8 @@
   $: isNewPlayer = bannerId.includes("new-player");
   $: maxPity6 = isWeaponCard ? 40 : isNewPlayer ? 40 : 80;
   $: maxGuaranteed = isWeaponCard ? 80 : 120;
-  $: showRateUpGuarantee = isWeaponCard && !bannerId.includes("constant") && !hasReceivedRateUp;
+  $: showRateUpGuarantee =
+    isWeaponCard && !bannerId.includes("constant") && !hasReceivedRateUp;
   $: showWinRate = winRate.total > 0 && !isNewPlayer && bannerId !== "standard";
   const normalize = (str) => str?.toLowerCase().replace(/[^a-z0-9]/g, "") || "";
 
@@ -161,8 +178,7 @@
       } else {
         if (charIds.has(itemId) || (itemData && !itemData.weapon)) {
           isWeapon = false;
-        }
-        else if (weaponIds.has(itemId) || (itemData && itemData.weapon)) {
+        } else if (weaponIds.has(itemId) || (itemData && itemData.weapon)) {
           isWeapon = true;
         }
       }
@@ -177,6 +193,7 @@
         name: p.name,
         translationKey,
         isWeapon,
+        isFree: p.isFree,
       };
     });
 
@@ -216,14 +233,16 @@
     if (label === "selector_6") return $t("stats.selector") || "Selector";
     if (label === "guaranteed_6") return $t("stats.guaranteed") || "Guaranteed";
     if (label === "bonus_copy_6") return $t("stats.bonus_copy") || "Bonus Copy";
-    if (label === "arms_offering") return $t("stats.arms_offering") || "Arms Offering";
-    if (label === "featured_guarantee") return $t("stats.featured_guarantee") || "Featured Wep.";
+    if (label === "arms_offering")
+      return $t("stats.arms_offering") || "Arms Offering";
+    if (label === "featured_guarantee")
+      return $t("stats.featured_guarantee") || "Featured Wep.";
     return label;
   }
 </script>
 
 <div
-  class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 min-w-[320px] flex flex-col" 
+  class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 min-w-[320px] flex flex-col"
 >
   {#if availableSubBanners.length > 1}
     <div
@@ -402,7 +421,7 @@
           <div
             class="text-gray-600 dark:text-[#E4E4E4] text-xs pl-6 col-span-1"
           >
-            {#if bannerId.includes('weap')}
+            {#if bannerId.includes("weap")}
               25:75
             {:else}
               50:50
@@ -469,13 +488,13 @@
             <Tooltip text={$t(icon.translationKey) || icon.name}>
               <div
                 class="relative w-12 h-12 transition-transform cursor-pointer hover:scale-110
-    {icon.isWeapon
+        {icon.isWeapon
                   ? ''
                   : 'rounded-full border-2 border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#CA774C] shadow-sm'}"
               >
                 <div
                   class="w-full h-full rounded-full overflow-hidden flex items-center justify-center
-        {icon.isWeapon
+          {icon.isWeapon
                     ? 'border-[2px] border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#CA774C] shadow-sm'
                     : ''}"
                 >
@@ -493,22 +512,30 @@
                   </div>
                 </div>
 
-                <div
-                  class="absolute -bottom-1 -right-1 min-w-7 px-2 py-1 rounded font-nums leading-none font-bold shadow-lg pointer-events-none flex items-center justify-center"
-                  style="font-size: 0.85rem; min-width: 1.7rem;"
-                >
+                {#if icon.isFree}
                   <div
-                    class="absolute inset-0 rounded opacity-[0.88]"
-                    style="background-color: {getPityColor(icon.pity)};"
-                  ></div>
-
-                  <span
-                    class="relative text-white z-10"
-                    title="{icon.pity} / {currentMaxPity}"
+                    class="absolute -bottom-1 -right-1 bg-green-500 text-white font-bold rounded px-1 shadow-md z-20 pointer-events-none"
+                    style="font-size: 0.65rem; line-height: 1.2rem; min-width: 1.7rem; text-align: center;"
                   >
-                    {icon.pity}
-                  </span>
-                </div>
+                    FREE
+                  </div>
+                {:else}
+                  <div
+                    class="absolute -bottom-1 -right-1 min-w-7 px-2 py-1 rounded font-nums leading-none font-bold shadow-lg pointer-events-none flex items-center justify-center"
+                    style="font-size: 0.85rem; min-width: 1.7rem;"
+                  >
+                    <div
+                      class="absolute inset-0 rounded opacity-[0.88]"
+                      style="background-color: {getPityColor(icon.pity)};"
+                    ></div>
+                    <span
+                      class="relative text-white z-10"
+                      title="{icon.pity} / {currentMaxPity}"
+                    >
+                      {icon.pity}
+                    </span>
+                  </div>
+                {/if}
               </div>
             </Tooltip>
           </div>

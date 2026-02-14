@@ -354,7 +354,7 @@
     }
 </script>
 
-<div class="w-full flex flex-col relative" style="height: {TIMELINE_HEIGHT};">
+<div class="w-full max-w-full flex flex-col relative overflow-hidden" style="height: {TIMELINE_HEIGHT};">
     {#if showTimezoneMenu}
         <div
             data-timezone-menu
@@ -385,7 +385,7 @@
         </div>
     {/if}
     <!-- 1. ХЕДЕР -->
-    <div class="absolute top-2 left-0 right-0 z-40 pointer-events-none">
+    <div class="absolute top-2 left-0 right-0 z-40 pointer-events-none overflow-hidden max-w-full">
         <div
             class="bg-[#21272C] dark:bg-[#1E1E1E] dark:border-[#3F3F3F] text-white rounded-2xl shadow-lg border border-gray-700 overflow-hidden pointer-events-auto"
         >
@@ -452,10 +452,11 @@
 
     <!-- 2. ТЕЛО (СЕТКА + ЛИНИЯ + СОБЫТИЯ) -->
     <div
-        bind:this={bodyContainer}
-        on:scroll={handleScroll}
-        class="overflow-x-auto custom-scrollbar flex-grow relative"
-    >
+    bind:this={bodyContainer}
+    on:scroll={handleScroll}
+    class="overflow-x-auto overflow-y-auto custom-scrollbar flex-grow relative w-full"
+    style="scrollbar-gutter: stable;"
+>
         <div class="relative h-full" style="width: {totalWidth}px;">
             <div class="absolute inset-0 top-0 pointer-events-none z-0 flex">
                 {#each days as day}

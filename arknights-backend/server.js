@@ -616,7 +616,6 @@ function getDistinctBannerId(pull, serverId) {
 }
 
 function calculateMath(pulls, categoryId, serverId = '3') {
-    // 1. Сортировка
     pulls.sort((a, b) => {
         const tDiff = new Date(a.time).getTime() - new Date(b.time).getTime();
         if (tDiff !== 0) return tDiff;
@@ -659,32 +658,25 @@ function calculateMath(pulls, categoryId, serverId = '3') {
         }
 
         if (p.rarity === 6) {
-            count6++;
-            const thisPity = currentPity6 + (isFreePull ? 0 : 1);
-            sumPity6 += thisPity;
+            const thisPity = isFreePull ? 1 : (currentPity6 + 1);
+            if (!isFreePull) {
+                count6++;
+                sumPity6 += thisPity;
+                currentPity6 = 0;
+            }
+
             p.pity = thisPity;
 
-            // --- ОПРЕДЕЛЕНИЕ ПОБЕДЫ ---
             let currentFeaturedList = [];
-            let bannerDebugName = "Unknown";
-
             if (isGenericCalculation) {
-                // ФИКС: Используем categoryId (например 'special'), чтобы искать ТОЛЬКО спец. баннеры.
-                // Раньше мы использовали p.poolId, который мог быть пустым или ошибочным.
-                const rawId = categoryId; 
-                const foundConfig = findBannerConfigByTime(p.time, rawId, offset);
-                
-                if (foundConfig) {
-                    currentFeaturedList = foundConfig.featured6 || [];
-                    bannerDebugName = foundConfig.id;
-                }
+                const foundConfig = findBannerConfigByTime(p.time, categoryId, offset);
+                if (foundConfig) currentFeaturedList = foundConfig.featured6 || [];
             } else {
                 currentFeaturedList = specificBannerConfig.featured6 || [];
-                bannerDebugName = specificBannerConfig.id;
             }
 
             const normFeatured = currentFeaturedList.map(n => normalize(n));
-            const isFeatured = normFeatured.includes(itemName) || normFeatured.includes(normalize(p.name));
+            const isFeatured = normFeatured.includes(itemName);
 
             if (isGenericCalculation) {
                 console.log(`   [6* CHECK] Pull: ${p.name} (${p.time})`);
@@ -692,48 +684,58 @@ function calculateMath(pulls, categoryId, serverId = '3') {
                 // console.log(`       -> Featured List: [${normFeatured.join(', ')}]`);
                 console.log(`       -> Is Match? ${isFeatured} | HardPity? ${isHardPityTriggered}`);
             }
-            
-            if (isFeatured) {
-                if (isHardPityTriggered) {
-                    p.gachaStatus = "guaranteed"; 
-                    if (isGenericCalculation) console.log(`       -> Result: GUARANTEED (Ignored in 50/50)`);
+
+            if (!isFreePull) {
+                if (isFeatured) {
+                    if (isHardPityTriggered) {
+                        p.gachaStatus = "guaranteed"; 
+                    } else {
+                        won5050++;
+                        total5050++;
+                        p.gachaStatus = "won";
+                    }
+                    rateUpCounter = 0;
                 } else {
-                    won5050++;
                     total5050++;
-                    p.gachaStatus = "won";
-                    if (isGenericCalculation) console.log(`       -> Result: WIN (+1 Won, +1 Total)`);
+                    p.gachaStatus = "lost";
                 }
-                rateUpCounter = 0;
             } else {
-                total5050++;
-                p.gachaStatus = "lost";
-                if (isGenericCalculation) console.log(`       -> Result: LOSS (+0 Won, +1 Total)`);
+                p.gachaStatus = "free";
             }
-            currentPity6 = 0;
+
         } else {
-            if (!isFreePull) currentPity6++;
+            if (!isFreePull) {
+                currentPity6++;
+                currentPity5++;
+            }
             p.pity = currentPity6;
         }
 
         if (p.rarity === 5) {
-            count5++;
-            const thisPity5 = currentPity5 + (isFreePull ? 0 : 1);
-            sumPity5 += thisPity5;
-            currentPity5 = 0;
-        } else {
-            if (!isFreePull) currentPity5++;
+            if (!isFreePull) {
+                count5++;
+                const thisPity5 = currentPity5;
+                sumPity5 += thisPity5;
+                currentPity5 = 0;
+            }
         }
+
         enrichedPulls.push(p);
     });
 
     const winRate = total5050 > 0 ? (won5050 / total5050 * 100) : 0;
 
-    if (isGenericCalculation) {
-        console.log(`[MATH END] ${categoryId} -> Won: ${won5050} / Total: ${total5050} = ${winRate.toFixed(1)}%`);
-    }
-
     return { 
-        stats: { totalPulls: total, total6: count6, sumPity6, total5: count5, sumPity5, won5050, total5050, winRate }, 
+        stats: { 
+            totalPulls: total,
+            total6: count6,
+            sumPity6, 
+            total5: count5,
+            sumPity5, 
+            won5050, 
+            total5050, 
+            winRate 
+        }, 
         enrichedPulls 
     };
 }

@@ -4,15 +4,13 @@
     import { t } from "$lib/i18n";
     import { characters } from "$lib/data/characters.js";
     import OperatorCard from "$lib/components/OperatorCard.svelte";
-    import DataToolbar from "$lib/components/DataToolbar.svelte"; // Импорт тулбара
+    import DataToolbar from "$lib/components/DataToolbar.svelte";
     import Icon from "$lib/components/Icons.svelte";
 
-    // Исходный список (массив)
     const allOperators = Object.values(characters || {}).filter(
         (op) => op && op.id,
     );
 
-    // === СОСТОЯНИЕ ФИЛЬТРОВ И СОРТИРОВКИ ===
     let sortField = "rarity";
     let sortDirection = "desc";
     let searchQuery = "";
@@ -27,29 +25,22 @@
             "striker",
         ],
         element: ["cryo", "physical", "nature", "heat", "electric"],
-        weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"]
+        weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
     };
 
-    // === РЕАКТИВНЫЙ СПИСОК (ФИЛЬТРАЦИЯ + СОРТИРОВКА) ===
     $: filteredOperators = allOperators
-        // 1. Фильтрация
         .filter((op) => {
-            // Поиск по имени (с учетом перевода можно усложнить, пока по ID/Name)
             const query = searchQuery.toLowerCase();
             const matchesSearch =
                 !query ||
                 op.name.toLowerCase().includes(query) ||
                 (op.id && op.id.toLowerCase().includes(query)) ||
-                // Поиск по переводу (если нужно)
                 ($t(`characters.${op.id}`) || "").toLowerCase().includes(query);
 
             if (!matchesSearch) return false;
-
-            // Фильтры (если массив пуст = все, иначе ищем совпадение)
             const matchesRarity =
                 filters.rarity.length === 0 ||
                 filters.rarity.includes(op.rarity);
-            // Нормализация классов для сравнения (guard == Guard)
             const matchesClass =
                 filters.class.length === 0 ||
                 filters.class.some(
@@ -66,19 +57,16 @@
                     (e) => e.toLowerCase() === op.weapon?.toLowerCase(),
                 );
 
-            return matchesRarity && matchesClass && matchesElement && matchesWeapon;
+            return (
+                matchesRarity && matchesClass && matchesElement && matchesWeapon
+            );
         })
-        // 2. Сортировка
         .sort((a, b) => {
             let valA = a[sortField];
             let valB = b[sortField];
-
-            // Если сортируем по rarity, это числа
             if (sortField === "rarity") {
                 return sortDirection === "asc" ? valA - valB : valB - valA;
             }
-
-            // Для строк (class, element)
             if (!valA) valA = "";
             if (!valB) valB = "";
 
@@ -90,18 +78,19 @@
 
 <div class="max-w-[100%] max-h-[100%] justify-start min-h-screen">
     <div class="flex items-center gap-4 mb-8">
-    <h2 class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex items-start gap-0 md:flex-row md:items-center md:gap-3">
-        <span class="text-3xl md:text-5xl tracking-wide">
-            {$t("pages.operators") || "Operators"}
-        </span>
-        
-        <span class="text-gray-400 text-xl pl-3 md:text-3xl font-normal">
-            / {filteredOperators.length}
-        </span>
-    </h2>
-</div>
+        <h2
+            class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex items-start gap-0 md:flex-row md:items-center md:gap-3"
+        >
+            <span class="text-3xl md:text-5xl tracking-wide">
+                {$t("pages.operators") || "Operators"}
+            </span>
 
-    <!-- Toolbar (В контейнере, чтобы не разъезжался) -->
+            <span class="text-gray-400 text-xl pl-3 md:text-3xl font-normal">
+                / {filteredOperators.length}
+            </span>
+        </h2>
+    </div>
+
     <div class="w-full xl:w-[70%] px-8 mb-4">
         <DataToolbar
             bind:sortField
@@ -111,18 +100,21 @@
         />
     </div>
 
-    <!-- Grid -->
-    <div class="w-full xl:w-[70%] px-8 pb-8">
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(110px,1fr))] gap-4">
+    <div class="w-full xl:w-[70%] pb-8">
+        <div
+            class="grid grid-cols-[repeat(auto-fill,120px)] gap-4 justify-center"
+        >
             {#each filteredOperators as op (op.id)}
-                <div class="flex justify-start">
+                <div class="flex justify-center">
                     <OperatorCard operator={op} />
                 </div>
             {/each}
         </div>
 
         {#if filteredOperators.length === 0}
-            <div class="text-center py-20 text-gray-400 italic flex flex-col items-center justify-center">
+            <div
+                class="text-center py-20 text-gray-400 italic flex flex-col items-center justify-center"
+            >
                 <Icon name="noData" class="w-4 h-4" />
                 <p class="text-sm">
                     {$t("emptyState.noData") || "Нет данных"}

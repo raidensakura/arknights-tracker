@@ -1,24 +1,18 @@
 <script>
     import { t } from "$lib/i18n";
-    // Icon нам больше не нужен, так как Images сам обрабатывает ошибки
-    // import Icon from "$lib/components/Icons.svelte"; 
     import Images from "$lib/components/Images.svelte";
 
-    // item: { id, name, rarity }
     export let item = {};
     export let amount = 0;
-
-    // Цвета редкости для нижней полоски (оставил твою логику)
     function getRarityColor(rarity) {
-        if (rarity === 5) return "#FFC107"; // Gold
-        if (rarity === 4) return "#A857FA"; // Purple
-        if (rarity === 3) return "#25B9F9"; // Blue
-        if (rarity === 2) return "#8F8F8F"; // Gray
+        if (rarity === 5) return "#FFC107";
+        if (rarity === 4) return "#A857FA";
+        if (rarity === 3) return "#25B9F9";
+        if (rarity === 2) return "#8F8F8F";
         return "#8F8F8F";
     }
 
     $: color = getRarityColor(item.rarity || 3);
-    // Исправление для ключа перевода: убираем пробелы, если id есть
     $: itemIdKey = item.id ? item.id.replace(/\s+/g, '') : "unknown";
 </script>
 
