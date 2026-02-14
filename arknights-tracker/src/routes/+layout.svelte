@@ -36,14 +36,21 @@
         }
     }
 
-    function toggleCollapse() {
-        isCollapsed = !isCollapsed;
+    function setSidebarState(collapsed) {
+        isCollapsed = collapsed;
         if (browser) {
-            localStorage.setItem("sidebarCollapsed", String(isCollapsed));
-            document.documentElement.style.setProperty('--sb-w', isCollapsed ? '5rem' : '16rem');
-            if (isCollapsed) document.documentElement.classList.add('sidebar-closed');
-            else document.documentElement.classList.remove('sidebar-closed');
+            localStorage.setItem("sidebarCollapsed", String(collapsed));
+            document.documentElement.style.setProperty('--sb-w', collapsed ? '5rem' : '16rem');
+            if (collapsed) {
+                document.documentElement.classList.add('sidebar-closed');
+            } else {
+                document.documentElement.classList.remove('sidebar-closed');
+            }
         }
+    }
+
+    function toggleCollapse() {
+        setSidebarState(!isCollapsed);
     }
 
     function toggleThemeSmall() {
@@ -230,12 +237,15 @@
                     <a
                         href={item.path}
                         class="
-                            flex items-center gap-3 py-3 rounded-lg transition-all group relative min-h-[48px]
-                            {visuallyCollapsed ? 'justify-center px-0' : 'px-3'}
-                            {isCurrent(item.path) &&
-                        (item.path === '/' ? $page.url.pathname === '/' : true)
-                            ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
-                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
+                            flex items-center gap-3 py-3 rounded-lg group relative min-h-[48px]
+                            {ready ? 'transition-all' : ''} 
+                            pl-7 
+                            [.sidebar-closed_&]:pl-0 
+                            [.sidebar-closed_&]:justify-center
+
+                            {isCurrent(item.path) && (item.path === '/' ? $page.url.pathname === '/' : true)
+                                ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
+                                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
                         "
                         title={visuallyCollapsed ? $t(item.label) : ""}
                     >
@@ -322,9 +332,9 @@
                     {/if}
                 </button>
 
-                <button
-                    on:click={() => (isCollapsed = false)}
-                    class="w-10 h-10 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-colors"
+                <button 
+                    on:click={() => setSidebarState(false)} 
+                    class="w-10 h-10 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-colors" 
                     title="Change Language"
                 >
                     <Icons name="globe" style="width:22px; height:22px;" />
