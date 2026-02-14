@@ -644,12 +644,19 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     const offset = getServerOffset(serverId);
     const enrichedPulls = [];
 
-    pulls.forEach((pull, index) => {
+    const bannerCounters = {};
+
+    pulls.forEach((pull) => {
         const p = { ...pull };
         const itemName = normalize(p.name);
         
+        const pullBannerId = getDistinctBannerId(p, serverId);
+        if (!bannerCounters[pullBannerId]) bannerCounters[pullBannerId] = 0;
+        const localIndex = bannerCounters[pullBannerId];
+        bannerCounters[pullBannerId]++;
+
         const isSpecialCharBanner = categoryId.includes('special') && !isWeaponType;
-        const isFreePull = isSpecialCharBanner && (index >= 30 && index < 40);
+        const isFreePull = isSpecialCharBanner && (localIndex >= 30 && localIndex < 40);
 
         if (!isFreePull) {
             currentPity6++;
@@ -671,7 +678,6 @@ function calculateMath(pulls, categoryId, serverId = '3') {
                 console.log(`   [6* FREE] ${p.name} | Ignored in stats | Pity set to 1`);
             }
 
-            // Определение баннера для 50/50
             let currentFeaturedList = [];
             if (isGenericCalculation) {
                 const foundConfig = findBannerConfigByTime(p.time, categoryId, offset);
