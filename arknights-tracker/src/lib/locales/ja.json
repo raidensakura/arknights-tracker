@@ -413,10 +413,10 @@
     "level": "レベル",
     "attributesTable": "ステータス一覧",
     "selector": "選択",
-    "bonus_copy": "ボーナス分",
+    "bonus_copy": "印報酬",
     "guaranteed": "確定",
-  "arms_offering": "武器奉納",
-  "featured_guarantee": "確定"
+    "arms_offering": "武庫・特典",
+    "featured_guarantee": "確定"
   },
   "bioValues": {
     "Unknown": "不明",
@@ -487,7 +487,7 @@
     "igneosite": "燎石",
     "wulingstone": "武陵石",
     "vitrodendra": "至晶鋭葉"
-},
+  },
   "common": {
     "copy": "コピー",
     "copied": "コピーしました！"

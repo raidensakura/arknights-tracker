@@ -413,10 +413,10 @@
     "level": "Level",
     "attributesTable": "Tabel atribut",
     "selector": "Pemilih",
-    "bonus_copy": "Salinan bonus",
+    "bonus_copy": "Persembahan Token",
     "guaranteed": "Jaminan",
-  "arms_offering": "Persembahan Senjata",
-  "featured_guarantee": "Jaminan"
+    "arms_offering": "Penawaran Senjata",
+    "featured_guarantee": "Jaminan"
   },
   "bioValues": {
     "Unknown": "Tidak Diketahui",
@@ -487,7 +487,7 @@
     "igneosite": "Igneosite",
     "wulingstone": "Wulingstone",
     "vitrodendra": "Vitrodendra"
-},
+  },
   "common": {
     "copy": "Salin",
     "copied": "Disalin!"
@@ -675,7 +675,7 @@
     "jiminy12": "Jiminy 12",
     "peco5": "Peco 5",
     "tarr11": "Tarr 11"
-},
+  },
   "cookies": {
     "title": "Kami menggunakan cookie",
     "text": "Kami menggunakan cookie untuk menyimpan preferensi Anda (seperti tema dan bahasa) serta menganalisis lalu lintas situs untuk meningkatkan pengalaman pengguna",

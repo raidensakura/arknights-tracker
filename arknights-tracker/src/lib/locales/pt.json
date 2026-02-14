@@ -413,10 +413,10 @@
     "level": "Nível",
     "attributesTable": "Tabela de atributos",
     "selector": "Seletor",
-    "bonus_copy": "Cópia bônus",
+    "bonus_copy": "Tributo em Símbolos",
     "guaranteed": "Garantido",
-  "arms_offering": "Oferenda de Armas",
-  "featured_guarantee": "Garantido"
+    "arms_offering": "Oferta de Armas",
+    "featured_guarantee": "Garantido"
   },
   "bioValues": {
     "Unknown": "Desconhecido",

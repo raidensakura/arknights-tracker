@@ -413,10 +413,10 @@
     "level": "Level",
     "attributesTable": "Attributstabelle",
     "selector": "Auswahl",
-    "bonus_copy": "Bonus-Kopie",
+    "bonus_copy": "Token-Tribut",
     "guaranteed": "Garantiert",
-    "arms_offering": "Waffen-Darbietung",
-  "featured_guarantee": "Garantiert"
+    "arms_offering": "Waffenangebot",
+    "featured_guarantee": "Garantiert"
   },
   "bioValues": {
     "Unknown": "Unbekannt",

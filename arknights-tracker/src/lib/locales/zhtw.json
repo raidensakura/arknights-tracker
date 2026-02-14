@@ -258,8 +258,8 @@
     "new": "NEW"
   },
   "status": {
-    "won": "UP命中 (50/50)",
-    "lost": "歪了 (Lost 50/50)",
+    "won": "UP命中 (50:50)",
+    "lost": "歪了 (Lost 50:50)",
     "guaranteed": "大保底",
     "active": "進行中",
     "ended": "已結束",
@@ -413,10 +413,10 @@
     "level": "等級",
     "attributesTable": "屬性表",
     "selector": "選擇器",
-    "bonus_copy": "額外副本",
+    "bonus_copy": "信物贈禮",
     "guaranteed": "必出",
-  "arms_offering": "武器供奉",
-  "featured_guarantee": "必出"
+    "arms_offering": "武庫贈禮",
+    "featured_guarantee": "必出"
   },
   "bioValues": {
     "Unknown": "未知",

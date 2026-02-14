@@ -818,13 +818,12 @@
                 </svg>
 
                 <div
-                    class="absolute inset-0 w-full h-full z-20 cursor-crosshair bg-transparent"
+                    class="absolute inset-0 w-full h-full z-20 bg-transparent"
                     role="application"
-                    aria-label="Interactive chart showing pulls history"
+                    aria-label="Interactive chart showing pulls history per day"
                     on:mousemove={(e) => {
                         const rect = e.currentTarget.getBoundingClientRect();
                         const x = e.clientX - rect.left;
-                        // Защита от деления на ноль и выхода за границы
                         if (rect.width === 0) return;
                         const idx = Math.floor((x / rect.width) * chartData.length);
                         hoveredIndex = Math.min(Math.max(0, idx), chartData.length - 1);

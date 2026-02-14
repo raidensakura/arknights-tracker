@@ -15,9 +15,15 @@
     import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
 
     let isMobileMenuOpen = false;
-    let isCollapsed = false;
+    let isCollapsed = browser ? localStorage.getItem("sidebarCollapsed") === "true" : false;
+    let ready = false;
 
-    // Закрываем мобильное меню при переходе по ссылке
+    onMount(() => {
+        if (browser) {
+            setTimeout(() => { ready = true; }, 100);
+        }
+    });
+
     $: if ($page.url.pathname) {
         isMobileMenuOpen = false;
     }
@@ -30,17 +36,14 @@
         }
     }
 
-    onMount(() => {
-        if (browser) {
-            const storedState = localStorage.getItem("sidebarCollapsed");
-            if (storedState === "true") isCollapsed = true;
-        }
-    });
-
     function toggleCollapse() {
         isCollapsed = !isCollapsed;
-        if (browser)
+        if (browser) {
             localStorage.setItem("sidebarCollapsed", String(isCollapsed));
+            document.documentElement.style.setProperty('--sb-w', isCollapsed ? '5rem' : '16rem');
+            if (isCollapsed) document.documentElement.classList.add('sidebar-closed');
+            else document.documentElement.classList.remove('sidebar-closed');
+        }
     }
 
     function toggleThemeSmall() {
@@ -89,6 +92,19 @@
         sizes="512x512"
         href="/android-chrome-512x512.png"
     />
+    <script>
+        let w = '16rem';
+        let isCol = false;
+        try {
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                w = '5rem';
+                isCol = true;
+            }
+        } catch(e){}
+        document.documentElement.style.setProperty('--sb-w', w);
+        if (isCol) document.documentElement.classList.add('sidebar-closed');
+        else document.documentElement.classList.remove('sidebar-closed');
+    </script>
 </svelte:head>
 
 <div class="flex min-h-screen bg-[#F9F9F9] dark:bg-[#2C2C2C]">
@@ -132,10 +148,13 @@
             py-8
             z-[10000] shadow-2xl md:shadow-none
             
+            {ready ? 'transition-all duration-300 ease-in-out' : ''}
+
             {isMobileMenuOpen
             ? 'translate-x-0 w-64'
             : '-translate-x-full md:translate-x-0'}
-            {isCollapsed ? 'md:w-20' : 'md:w-64'}
+            
+            md:w-[var(--sb-w)] 
         "
     >
         <div class="flex-1 overflow-y-auto overflow-x-hidden">
@@ -145,7 +164,7 @@
                     : 'justify-between'}"
             >
                 {#if !visuallyCollapsed}
-                    <div class="pr-1">
+                    <div class="pr-1 [.sidebar-closed_&]:hidden">
                         <h1
                             class="font-black text-2xl tracking-tighter text-gray-900 dark:text-white leading-none"
                         >
@@ -236,7 +255,7 @@
                         {#if !visuallyCollapsed}
                             <span
                                 class="
-                                    text-lg leading-tight
+                                    text-lg leading-tight [.sidebar-closed_&]:hidden
                                     {isCurrent(item.path) &&
                                 (item.path === '/'
                                     ? $page.url.pathname === '/'
@@ -261,11 +280,13 @@
 
         <div class="w-full mt-auto mb-4 flex flex-col items-center gap-6 px-4">
             {#if !visuallyCollapsed}
+            <div class="w-full flex justify-center flex-col gap-6 [.sidebar-closed_&]:hidden">
                 <div class="w-full flex justify-center">
                     <ThemeSwitch />
                 </div>
                 <div class="w-full">
                     <LanguageSelect />
+                </div>
                 </div>
             {:else}
                 <button
@@ -314,9 +335,11 @@
 
     <main
         class="
-            w-full p-4 md:p-8 relative z-0 transition-all duration-300 ease-in-out
+            w-full p-4 md:p-8 relative z-0 
             ml-0
-            {isCollapsed ? 'md:ml-20' : 'md:ml-64'}
+            {ready ? 'transition-all duration-300 ease-in-out' : ''}
+            
+            md:ml-[var(--sb-w)]
         "
     >
         {#key $currentLocale}

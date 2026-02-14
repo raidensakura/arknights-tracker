@@ -225,7 +225,7 @@
     "catcher": "卡契尔",
     "estella": "埃特拉",
     "fluorite": "萤石"
-},
+  },
   "emptyState": {
     "noData": "无记录"
   },
@@ -413,10 +413,10 @@
     "level": "等级",
     "attributesTable": "属性表",
     "selector": "选择器",
-    "bonus_copy": "额外副本",
+    "bonus_copy": "信物赠礼",
     "guaranteed": "必出",
-  "arms_offering": "武器供奉",
-  "featured_guarantee": "必出"
+    "arms_offering": "武库赠礼",
+    "featured_guarantee": "必出"
   },
   "bioValues": {
     "Unknown": "未知",
@@ -487,7 +487,7 @@
     "igneosite": "燎石",
     "wulingstone": "武陵石",
     "vitrodendra": "至晶多齿叶"
-},
+  },
   "common": {
     "copy": "复制",
     "copied": "已复制！"
@@ -675,7 +675,7 @@
     "jiminy12": "吉米尼12",
     "peco5": "佩科5",
     "tarr11": "塔尔11"
-},
+  },
   "cookies": {
     "title": "我们使用 Cookie",
     "text": "我们使用 Cookie 来保存您的偏好（如主题和语言）并分析网站流量以改善用户体验",

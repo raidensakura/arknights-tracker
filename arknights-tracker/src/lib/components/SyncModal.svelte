@@ -40,20 +40,10 @@
     $: cloudData = $cloudDataBuffer;
     $: cloudCount = cloudData?.total ?? 0;
     $: cloudTime = cloudData?.timestamp || 0;
-
-    // --- ЧЕСТНАЯ ЛОГИКА БЕЙДЖЕЙ ---
-    // Сравниваем числа "в лоб"
     $: isLocalMore = localCount > cloudCount;
     $: isCloudMore = cloudCount > localCount;
-
-    // Сравниваем время
-    // Локально считаем "Новее", только если разница существенная или мы явно знаем, что работали локально
     $: isLocalNewerTime = localTime > cloudTime;
     $: isCloudNewerTime = cloudTime > localTime;
-
-    // Кто "победитель" для зеленой рамки?
-    // Если статус "local_newer", мы верим системе, что локальные важнее (например, только что импортировали)
-    // НО если время в облаке явно свежее, мы не будем красить локальное в зеленый, оставим нейтральным.
     $: highlightLocal = $syncStatus === "local_newer" && !isCloudNewerTime;
     $: highlightCloud = $syncStatus === "conflict_cloud_newer" || (isCloudNewerTime && !highlightLocal);
 
@@ -64,7 +54,6 @@
         const storedIgnore = typeof window !== 'undefined' ? localStorage.getItem("ark_ignore_cloud_ts") : null;
         
         if (isConflict) {
-            // Условие показа: Игнор снят ИЛИ время изменилось ИЛИ локально явно больше/новее
             if (!storedIgnore || parseInt(storedIgnore) !== cloudTime || $syncStatus === "local_newer") {
                 showModal = true;
                 localCount = getAllLocalPullsCount(); 
@@ -81,8 +70,6 @@
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem("ark_last_sync");
             localTime = stored ? parseInt(stored) : 0;
-            // Если мы только что импортировали или статус говорит что локально новее, 
-            // но время "Never", подставляем текущее для красоты, НО ТОЛЬКО ЕСЛИ РЕАЛЬНО ИЗМЕНИЛИ
             if ($syncStatus === "local_newer" && localTime === 0) {
                  localTime = Date.now();
             }
@@ -105,11 +92,11 @@
 
 {#if showModal}
     <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
-        <div class="bg-white rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
+        <div class="bg-white dark:bg-[#383838] rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
             
-            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="text-xl font-bold text-[#21272C] flex items-center gap-3">
-                    <Icon name="cloud" class="w-6 h-6 text-[#21272C]" />
+            <div class="px-6 py-5 border-b border-gray-100 dark:border-[#444444] flex justify-between items-center bg-gray-50 dark:bg-[#343434]">
+                <h2 class="text-xl font-bold text-[#21272C] dark:text-[#FDFDFD] flex items-center gap-3">
+                    <Icon name="cloud" class="w-6 h-6 text-[#21272C] dark:text-[#FDFDFD]" />
                     {#if highlightLocal}
                         {$t("settings.cloud.localNewerTitle")}
                     {:else}
@@ -120,9 +107,9 @@
 
             <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                <div class="relative p-5 rounded-lg border-2 transition-all {highlightLocal ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
+                <div class="relative p-5 rounded-lg border-2 transition-all {highlightLocal ? 'border-green-500 bg-green-50 dark:bg-[#1a382e] dark:border-green-600' : 'border-gray-100 dark:border-[#444444] bg-white dark:bg-[#2C2C2C] opacity-60'}">
                     <div class="flex flex-col gap-2 items-start mb-2">
-                        <span class="text-xs font-bold text-gray-500 tracking-wider">
+                        <span class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3] tracking-wider">
                             {$t("settings.cloud.thisDevice")}
                         </span>
                         
@@ -140,16 +127,16 @@
                         </div>
                     </div>
 
-                    <div class="text-3xl font-bold text-[#21272C] font-nums mb-1">{localCount}</div>
-                    <div class="text-sm text-gray-500">{$t("settings.cloud.totalPulls")}</div>
-                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-400 font-mono">
+                    <div class="text-3xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-nums mb-1">{localCount}</div>
+                    <div class="text-sm text-gray-500 dark:text-[#B7B6B3]">{$t("settings.cloud.totalPulls")}</div>
+                    <div class="mt-4 pt-3 border-t border-gray-200 dark:border-[#444444] text-xs text-gray-400 dark:text-[#787878] font-mono">
                         {formatDate(localTime)}
                     </div>
                 </div>
 
-                <div class="relative p-5 rounded-lg border-2 transition-all {highlightCloud ? 'border-green-500 bg-green-50' : 'border-gray-100 bg-white opacity-60'}">
+                <div class="relative p-5 rounded-lg border-2 transition-all {highlightCloud ? 'border-green-500 bg-green-50 dark:bg-[#1a382e] dark:border-green-600' : 'border-gray-100 dark:border-[#444444] bg-white dark:bg-[#2C2C2C] opacity-60'}">
                     <div class="flex flex-col gap-2 items-start mb-2">
-                        <span class="text-xs font-bold text-gray-500 tracking-wider">
+                        <span class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3] tracking-wider">
                             {$t("settings.cloud.googleCloud")}
                         </span>
 
@@ -167,15 +154,15 @@
                         </div>
                     </div>
 
-                    <div class="text-3xl font-bold text-[#21272C] font-nums mb-1">{cloudCount}</div>
-                    <div class="text-sm text-gray-500">{$t("settings.cloud.totalPulls")}</div>
-                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-400 font-mono">
+                    <div class="text-3xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-nums mb-1">{cloudCount}</div>
+                    <div class="text-sm text-gray-500 dark:text-[#B7B6B3]">{$t("settings.cloud.totalPulls")}</div>
+                    <div class="mt-4 pt-3 border-t border-gray-200 dark:border-[#444444] text-xs text-gray-400 dark:text-[#787878] font-mono">
                         {formatDate(cloudTime)}
                     </div>
                 </div>
             </div>
 
-            <div class="px-6 pb-6 text-sm text-gray-500 leading-relaxed">
+            <div class="px-6 pb-6 text-sm text-gray-500 dark:text-[#B7B6B3] leading-relaxed">
                  {#if $syncStatus === "local_newer"}
                     {@html $t("settings.cloud.localNewerMsg")}
                  {:else}
@@ -183,7 +170,7 @@
                  {/if}
             </div>
 
-            <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+            <div class="p-4 bg-gray-50 dark:bg-[#343434] border-t border-gray-100 dark:border-[#444444] flex justify-end gap-3">
                 <Button variant="black2" onClick={handleLeftButton}>
                     <div slot="icon">
                         {#if $syncStatus === "local_newer"}
