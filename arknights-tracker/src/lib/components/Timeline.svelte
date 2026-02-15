@@ -70,6 +70,7 @@
 
     let processedEvents = [];
     let separatorLines = [];
+    let maxLayerIndex = 0;
 
     $: {
         const maxGapMs = 2 * 60 * 60 * 1000;
@@ -82,6 +83,7 @@
 
         tempEvents.forEach((e) => {
             const l = e.layer || 0;
+            if (l > maxLayerIndex) maxLayerIndex = l;
             if (!groupedByLayer[l]) groupedByLayer[l] = [];
             groupedByLayer[l].push(e);
         });
@@ -120,6 +122,14 @@
         separatorLines = lines;
     }
 
+    $: contentHeight = Math.max(
+        (maxLayerIndex + 1) * (ROW_HEIGHT + GAP_HEIGHT) +
+            HEADER_HEIGHT_PX +
+            EVENT_TOP_OFFSET +
+            50,
+        500,
+    );
+
     function handleClickOutside(event) {
         if (!showTimezoneMenu) return;
         const clickedBadge = event.target.closest("[data-timezone-badge]");
@@ -157,8 +167,8 @@
     const ROW_HEIGHT = 44;
     const GAP_HEIGHT = 7;
     const HEADER_HEIGHT_PX = 80;
-    const EVENT_TOP_OFFSET = 20;
-    const TIMELINE_HEIGHT = "82vh";
+    const EVENT_TOP_OFFSET = 8;
+    const TIMELINE_HEIGHT = "80%";
 
     let now = new Date();
     let timerInterval;
@@ -206,23 +216,24 @@
     function getRemainingTime(endInput, t) {
         if (!endInput) return null;
         const diff = endInput - now;
-
         if (diff <= 0) return null;
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         if (d > 0) return t("timer.d_h", { d, h });
-        return t("timer.h", { h });
+        return t("timer.left_h_m", { h, m });
     }
 
     function getTimeUntilStart(startInput, t) {
         if (!startInput) return null;
         const diff = startInput - now;
-
         if (diff <= 0) return null;
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        if (d > 0) return t("timer.in_d_h", { d, h });
-        return t("timer.in_h", { h });
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        if (d > 0) return t("timer.starts_in_d_h", { d, h });
+        if (h > 0) return t("timer.starts_in_h_m", { h, m });
+        return t("timer.starts_in_m", { m: Math.max(1, m) });
     }
 
     $: currentTimeX = getPositionX(now);
@@ -246,10 +257,60 @@
     let bodyContainer;
     let scrollLeft = 0;
 
+    let isDown = false;
+    let startX;
+    let startY;
+    let scrollLeftState;
+    let scrollTopState;
+
+    function handleMouseDown(e) {
+        // Если кликнули, начинаем тянуть
+        isDown = true;
+        bodyContainer.style.cursor = 'grabbing';
+        
+        startX = e.pageX - bodyContainer.offsetLeft;
+        startY = e.pageY - bodyContainer.offsetTop;
+        
+        scrollLeftState = bodyContainer.scrollLeft;
+        scrollTopState = bodyContainer.scrollTop;
+    }
+
+    function handleMouseLeave() {
+        isDown = false;
+        if (bodyContainer) bodyContainer.style.cursor = 'grab';
+    }
+
+    function handleMouseUp() {
+        isDown = false;
+        if (bodyContainer) bodyContainer.style.cursor = 'grab';
+    }
+
+    function handleMouseMove(e) {
+        if (!isDown) return;
+        e.preventDefault(); // Чтобы текст не выделялся пока тянешь
+        
+        const x = e.pageX - bodyContainer.offsetLeft;
+        const y = e.pageY - bodyContainer.offsetTop;
+        
+        const walkX = (x - startX); // Можно умножить на 1.5 для скорости
+        const walkY = (y - startY);
+        
+        bodyContainer.scrollLeft = scrollLeftState - walkX;
+        bodyContainer.scrollTop = scrollTopState - walkY;
+    }
+
     function handleScroll() {
         if (headerContainer && bodyContainer) {
             headerContainer.scrollLeft = bodyContainer.scrollLeft;
             scrollLeft = bodyContainer.scrollLeft;
+        }
+    }
+
+    function handleWheel(e) {
+        if (e.shiftKey) return;
+        if (e.deltaY !== 0) {
+            e.preventDefault();
+            bodyContainer.scrollLeft += e.deltaY;
         }
     }
 
@@ -277,29 +338,33 @@
 
     let bannerForModal = null;
     function openEvent(event) {
-        const fullBanner = event.id 
-            ? banners.find(b => b.id === event.id) 
+        const fullBanner = event.id
+            ? banners.find((b) => b.id === event.id)
             : null;
 
         const baseData = fullBanner || event;
-        
+
         let offsetForModal = serverOffset;
-        
+
         if (selectedTimezone && TIMEZONES[selectedTimezone]) {
             const tz = TIMEZONES[selectedTimezone];
-            if (tz.offset !== 'local') {
+            if (tz.offset !== "local") {
                 offsetForModal = tz.offset;
             } else {
-                 offsetForModal = serverOffset;
+                offsetForModal = serverOffset;
             }
         }
 
         bannerForModal = {
             ...baseData,
             name: getEventName(baseData),
-            startTime: event.realStartTime ? event.realStartTime.toISOString() : baseData.startTime,
-            endTime: event.realEndTime ? event.realEndTime.toISOString() : baseData.endTime,
-            forcedOffset: offsetForModal 
+            startTime: event.realStartTime
+                ? event.realStartTime.toISOString()
+                : baseData.startTime,
+            endTime: event.realEndTime
+                ? event.realEndTime.toISOString()
+                : baseData.endTime,
+            forcedOffset: offsetForModal,
         };
     }
 
@@ -325,7 +390,8 @@
     function getEventBadge(event) {
         const origType = (event.originalType || "").toLowerCase();
 
-        const glassStyle = "bg-black/30 backdrop-blur-md border border-white/10 shadow-sm";
+        const glassStyle =
+            "bg-black/30 backdrop-blur-md border border-white/10 shadow-sm";
 
         if (event.type === "mailEvent") {
             return { icon: "mail", label: "Mail Event", bg: glassStyle };
@@ -337,7 +403,7 @@
         if (event.type === "web") {
             return { icon: "link", label: "Web", bg: glassStyle };
         }
-        
+
         if (
             event.type === "banner" ||
             event.type === "standard" ||
@@ -357,7 +423,7 @@
                 bg: glassStyle,
             };
         }
-        
+
         return {
             icon: "event",
             label: "Limited Event",
@@ -366,7 +432,10 @@
     }
 </script>
 
-<div class="w-full max-w-full flex flex-col relative overflow-hidden" style="height: {TIMELINE_HEIGHT};">
+<div
+    class="w-full max-w-full flex flex-col relative overflow-hidden"
+    style="height: {TIMELINE_HEIGHT};"
+>
     {#if showTimezoneMenu}
         <div
             data-timezone-menu
@@ -397,7 +466,9 @@
         </div>
     {/if}
     <!-- 1. ХЕДЕР -->
-    <div class="absolute top-2 left-0 right-0 z-40 pointer-events-none overflow-hidden max-w-full">
+    <div
+        class="absolute left-0 right-0 z-40 pointer-events-none overflow-hidden max-w-full"
+    >
         <div
             class="bg-[#21272C] dark:bg-[#1E1E1E] dark:border-[#3F3F3F] text-white rounded-2xl shadow-lg border border-gray-700 overflow-hidden pointer-events-auto"
         >
@@ -464,12 +535,22 @@
 
     <!-- 2. ТЕЛО (СЕТКА + ЛИНИЯ + СОБЫТИЯ) -->
     <div
-    bind:this={bodyContainer}
-    on:scroll={handleScroll}
-    class="overflow-x-auto overflow-y-auto custom-scrollbar flex-grow relative w-full"
-    style="scrollbar-gutter: stable;"
->
-        <div class="relative h-full" style="width: {totalWidth}px;">
+        bind:this={bodyContainer}
+        on:scroll={handleScroll}
+        on:wheel={handleWheel}
+        
+        on:mousedown={handleMouseDown}
+        on:mouseleave={handleMouseLeave}
+        on:mouseup={handleMouseUp}
+        on:mousemove={handleMouseMove}
+
+        class="overflow-x-auto overflow-y-auto custom-scrollbar flex-grow relative w-full cursor-grab select-none"
+        style="scrollbar-gutter: stable;"
+    >
+        <div
+            class="relative min-h-full"
+            style="width: {totalWidth}px; height: {contentHeight}px;"
+        >
             <div class="absolute inset-0 top-0 pointer-events-none z-0 flex">
                 {#each days as day}
                     <div
@@ -480,7 +561,7 @@
             </div>
 
             <div
-                class="absolute top-0 bottom-0 w-[4px] bg-[#FACC15] z-30 mt-5 pointer-events-none transition-all duration-1000 ease-linear transform -translate-x-1/2"
+                class="absolute top-0 bottom-0 w-[4px] bg-[#FACC15] z-30 mt-1 pointer-events-none transition-all duration-1000 ease-linear transform -translate-x-1/2"
                 style="left: {currentTimeX}px;"
             ></div>
 
@@ -495,10 +576,10 @@
                             left: {line.left}px;
                             top: {line.top}px;
                             height: {line.height}px;
-                            width: 3px; /* Толщина разделителя */
+                            width: 3px;
                             background-color: {line.color};
-                            transform: translateX(-50%); /* Центрируем по оси X */
-                            box-shadow: 0 0 4px rgba(0,0,0,0.3); /* Тень для объема */
+                            transform: translateX(-50%);
+                            box-shadow: 0 0 4px rgba(0,0,0,0.3);
                         "
                     ></div>
                 {/each}
@@ -509,50 +590,44 @@
                     <div
                         class="absolute transition-all group"
                         style="
-                            left: {getPositionX(event.realStartTime)}px;
-                            width: {getWidth(
-                            event.realStartTime,
-                            event.realEndTime,
-                        )}px;
-                            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) +
+            left: {getPositionX(event.realStartTime)}px;
+            width: {getWidth(event.realStartTime, event.realEndTime)}px;
+            top: {event.layer * (ROW_HEIGHT + GAP_HEIGHT) +
                             HEADER_HEIGHT_PX +
                             EVENT_TOP_OFFSET}px; 
-                            height: {ROW_HEIGHT}px;
-                            z-index: 20;
-                        "
+            height: {ROW_HEIGHT}px;
+            z-index: 20;
+        "
                     >
                         <button
                             on:click={() => openEvent(event)}
                             class="relative block w-full h-full text-left focus:outline-none"
                         >
                             <div
-                                class="absolute inset-0 overflow-hidden shadow-sm hover:ring-1 ring-offset-1 ring-offset-transparent transition-all
-                                {event.connectLeft
-                                    ? 'rounded-l-none border-l-0'
-                                    : 'rounded-l'} 
-                                {event.connectRight
+                                class="absolute inset-0 overflow-hidden shadow-sm group-hover:ring-1 ring-offset-3 ring-white/30 ring-offset-transparent transition-all
+                {event.connectLeft ? 'rounded-l-none border-l-0' : 'rounded-l'} 
+                {event.connectRight
                                     ? 'rounded-r-none border-r-0'
                                     : 'rounded-r'}"
                                 style="
-                                    background-color: {event.color};
-                                    /* Если есть соединение справа, убираем правую границу, иначе рисуем */
-                                    border-right: {event.connectRight
+                    background-color: {event.color};
+                    border-right: {event.connectRight
                                     ? 'none'
                                     : `4px solid ${event.color}`};
-                                "
+                "
                             >
                                 <div
-                                    class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform group-hover:scale-105"
+                                    class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform"
                                 >
                                     <Images
                                         item={event}
                                         variant={getVariant(event)}
                                         className="w-full h-full"
                                         style={`
-                                            object-position: right ${event.iconPosition || 50}%;
-                                            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%);
-                                            mask-image: linear-gradient(to right, transparent 0%, black 50%);
-                                        `}
+                            object-position: right ${event.iconPosition || 50}%;
+                            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%);
+                            mask-image: linear-gradient(to right, transparent 0%, black 50%);
+                        `}
                                     />
                                 </div>
 
@@ -641,17 +716,32 @@
 <BannerModal banner={bannerForModal} on:close={() => (bannerForModal = null)} />
 
 <style>
-    .custom-scrollbar::-webkit-scrollbar {
-        height: 14px;
-        background-color: transparent;
+    .custom-scrollbar {
+        scrollbar-width: auto;
+        scrollbar-color: #a1a1aa transparent;
     }
+    
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 14px;
+        height: 14px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
     .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: #d1d5db;
+        background-color: #a1a1aa;
         border-radius: 10px;
         border: 3px solid transparent;
         background-clip: content-box;
     }
+
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: #9ca3af;
+        background-color: #71717a;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-corner {
+        background: transparent;
     }
 </style>

@@ -31,17 +31,31 @@ export const rawEvents = [
   },
   {
     id: "ev3-v1.0",
-    title: "events.awakaningSignIn",
+    title: "events.fireWalkerTrialSignIn",
     startTime: "2026-01-22 03:00:00",
-    endTime: "2026-03-16 11:59:59",
+    endTime: "2026-02-07 11:59:59",
     gameversion: "global",
     timezone: "UTC+8",
     icon: "ev3-v1.0.jpg",
     url: "",
-    color: "#e6369a",
+    color: "#EC1C4B",
     layer: 3,
     type: "inGame",
-    iconPosition: 7
+    iconPosition: 20
+  },
+  {
+    id: "ev3.1-v1.0",
+    title: "events.messagerExpressSignIn",
+    startTime: "2026-02-07 12:00:00",
+    endTime: "2026-02-24 11:59:59",
+    gameversion: "global",
+    timezone: "UTC+8",
+    icon: "ev3.1-v1.0.jpg",
+    url: "",
+    color: "#E2441C",
+    layer: 3,
+    type: "inGame",
+    iconPosition: 20
   },
   {
     id: "ev4-v1.0",
@@ -172,8 +186,8 @@ export const rawEvents = [
   {
     id: "ev13-v1.0",
     title: "events.springNoteWarmlyCrafted",
-    startTime: "2026-02-16 20:00:00",
-    endTime: "2026-03-07 20:00:00",
+    startTime: "2026-02-16 12:00:00",
+    endTime: "2026-03-07 11:59:59",
     gameversion: "global",
     timezone: "UTC+8",
     icon: "ev13-v1.0.jpg",
