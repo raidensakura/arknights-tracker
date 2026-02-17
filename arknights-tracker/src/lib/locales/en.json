@@ -44,7 +44,8 @@
         "wonTitle": "Won 50:50",
         "wonDesc": "Higher win rate and the more 50:50 wins is better",
         "luck": "Luck",
-        "luckDesc": "Lower average pity is better"
+        "luckDesc": "Lower average pity is better",
+        "basedOn": "Based on {n} players"
       }
     },
     "banner": {
@@ -63,7 +64,7 @@
       "avg": "Avg.",
       "fallBackCharacters": "There are no six-star hires yet...",
       "fallBackWeapons": "There are no six-star excanges yet...",
-      "guarantee_rateup": "Guarantee",
+      "guarantee_rateup": "Guaranteed",
       "won5050": "50/50",
       "origeometry": "Origeometry",
       "pulled": "Pulled",

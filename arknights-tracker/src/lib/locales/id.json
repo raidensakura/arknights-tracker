@@ -44,7 +44,8 @@
         "wonTitle": "Menang 50:50",
         "wonDesc": "Tingkat kemenangan yang lebih tinggi dan jumlah kemenangan 50:50 yang lebih banyak itu lebih baik",
         "luck": "Keberuntungan",
-        "luckDesc": "Rata-rata pity yang lebih rendah itu lebih baik"
+        "luckDesc": "Rata-rata pity yang lebih rendah itu lebih baik",
+        "basedOn": "Berdasarkan {n} pemain"
       }
     },
     "banner": {

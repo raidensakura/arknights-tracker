@@ -288,11 +288,11 @@ function mapPoolTypeToShort(longType) {
     if (longType.includes('Beginner')) return 'new-player';
     if (longType.includes('Standard') && !longType.includes('Weapon')) return 'standard';
     if (longType.includes('Special') && !longType.includes('Weapon') && !longType.includes('weponbox')) return 'special';
-    if (longType === 'WEAPON_FETCH_ALL') return 'weapon-all'; // Временный тип
+    if (longType === 'WEAPON_FETCH_ALL') return 'weapon-all';
     if (longType.includes('Weapon') && longType.includes('Standard')) return 'weap-standard';
     if (longType.includes('Weapon') && longType.includes('Special')) return 'weap-special';
-    if (longType.includes('constant')) return 'weap-standard'; // weaponbox_constant_2
-    if (longType.includes('weponbox')) return 'weap-special';  // weponbox_1_0_1
+    if (longType.includes('constant')) return 'weap-standard';
+    if (longType.includes('weponbox')) return 'weap-special';
 
     return 'unknown';
 }
@@ -409,11 +409,9 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     }
 
     // --- ЭТАП 3: Обновление ОБЩИХ категорий (ДЛЯ РЕЙТИНГА) ---
-    // Рейтинг ищет 'special', 'standard' и т.д. Нам нужно собрать их и обновить.
     
     console.log(`--- Updating Generic Categories for Rankings (${uid}) ---`);
     
-    // Группируем ВСЕ крутки по общим категориям
     const pullsByGeneric = {
         'special': [],
         'standard': [],
@@ -423,10 +421,8 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     };
 
     allPulls.forEach(p => {
-        // Используем твою функцию normalizeBannerId из server.js
         const genId = normalizeBannerId(p.poolId || p.bannerId);
         if (pullsByGeneric[genId]) {
-            // Важно: нужно передавать крутки с правильным временем!
             let pullTimeMs = 0;
             if (p.gachaTs) pullTimeMs = Number(p.gachaTs);
             else if (p.timestamp) pullTimeMs = Number(p.timestamp) * 1000;
@@ -438,11 +434,30 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         }
     });
 
+    // --- НОВОЕ: Переменная для подсчета ОБЩЕЙ суммы (Overall) ---
+    let overallStats = {
+        totalPulls: 0,
+        total6: 0, sumPity6: 0,
+        total5: 0, sumPity5: 0,
+        won5050: 0, total5050: 0
+    };
+
     for (const [genId, pulls] of Object.entries(pullsByGeneric)) {
         if (!pulls.length) continue;
 
         // Считаем стату для всей категории (например, всё что 'special')
         const { stats } = calculateMath(pulls, genId, serverId);
+
+        // --- НОВОЕ: Складываем всё в кучу для баннера "all" ---
+        if (genId !== 'new-player') {
+            overallStats.totalPulls += stats.totalPulls;
+            overallStats.total6 += stats.total6;
+            overallStats.sumPity6 += stats.sumPity6;
+            overallStats.total5 += stats.total5;
+            overallStats.sumPity5 += stats.sumPity5;
+            overallStats.won5050 += stats.won5050;
+            overallStats.total5050 += stats.total5050;
+        }
 
         // Пишем в базу с ID = 'special' (или 'standard' и т.д.)
         // Именно эту запись читает API рейтинга!
@@ -457,10 +472,10 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
                 sumPity5: stats.sumPity5,
                 won5050: stats.won5050,
                 total5050: stats.total5050,
-                lastProcessedPullTime: 0 // Для общих категорий это поле не так важно
+                lastProcessedPullTime: 0
             },
             update: {
-                totalPulls: stats.totalPulls, // Жесткая перезапись
+                totalPulls: stats.totalPulls,
                 total6: stats.total6,
                 sumPity6: stats.sumPity6,
                 total5: stats.total5,
@@ -471,6 +486,29 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
             }
         });
         console.log(`   -> Ranked Category [${genId}]: Updated to ${stats.totalPulls} pulls`);
+    }
+
+    // --- НОВОЕ: Записываем итоговый "all" в базу ---
+    if (overallStats.totalPulls > 0) {
+        await prisma.userBannerStat.upsert({
+            where: { uid_bannerId: { uid, bannerId: 'all' } },
+            create: {
+                uid, bannerId: 'all',
+                totalPulls: overallStats.totalPulls,
+                total6: overallStats.total6, sumPity6: overallStats.sumPity6,
+                total5: overallStats.total5, sumPity5: overallStats.sumPity5,
+                won5050: overallStats.won5050, total5050: overallStats.total5050,
+                lastProcessedPullTime: 0
+            },
+            update: {
+                totalPulls: overallStats.totalPulls,
+                total6: overallStats.total6, sumPity6: overallStats.sumPity6,
+                total5: overallStats.total5, sumPity5: overallStats.sumPity5,
+                won5050: overallStats.won5050, total5050: overallStats.total5050,
+                lastUpdate: new Date()
+            }
+        });
+        console.log(`   -> RANKING [ALL]: Updated (Total: ${overallStats.totalPulls})`);
     }
 
     console.log(`[Stats] Sync Complete for ${uid}`);
@@ -534,7 +572,6 @@ function findBannerConfigByTime(timestamp, categoryContext, offset) {
     const time = new Date(timestamp).getTime();
     const BUFFER = 12 * 60 * 60 * 1000;
 
-    // Определяем более строгий тип поиска
     let targetType = null;
     let isWeaponStandard = false;
     let isWeaponSpecial = false;
@@ -555,31 +592,21 @@ function findBannerConfigByTime(timestamp, categoryContext, offset) {
     }
 
     const candidates = BANNERS.filter(b => {
-        // 1. Проверка времени
         const start = parseDateWithServer(b.startTime, offset).getTime();
         const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
         if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
 
-        // 2. Проверка типов
         if (targetType) {
             const isBannerWeapon = b.type === 'weapon' || (b.id && (b.id.includes('weap') || b.id.includes('wepon')));
-            
-            // Если ищем оружие, но баннер не оружейный
             if (targetType === 'weapon' && !isBannerWeapon) return false;
-            // Если ищем НЕ оружие, но баннер оружейный
             if (targetType !== 'weapon' && isBannerWeapon) return false;
 
-            // --- СТРОГАЯ ФИЛЬТРАЦИЯ ОРУЖИЯ ---
             if (isWeaponStandard) {
-                // Ищем стандартный? В ID должно быть 'constant' или 'standard'
                 if (!b.id.includes('constant') && !b.id.includes('standard')) return false;
             }
             if (isWeaponSpecial) {
-                // Ищем специальный? В ID должно быть 'weponbox' или тип 'special'
-                // (У тебя в banners.js они помечены type: weapon, но id начинается с weponbox)
                 if (!b.id.includes('weponbox') && !b.id.includes('special')) return false;
             }
-            // ----------------------------------
 
             if (targetType === 'standard' && b.type !== 'standard') return false;
             if (targetType === 'special' && b.type !== 'special') return false;
@@ -746,6 +773,8 @@ const normalize = (str) => {
 function normalizeBannerId(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
+
+    if (id === 'all') return 'all';
 
     if (id.includes('weapon') || id.includes('wepon') || id.includes('weap')) {
         if (id.includes('constant') || (id.includes('standard') && !id.includes('special'))) {

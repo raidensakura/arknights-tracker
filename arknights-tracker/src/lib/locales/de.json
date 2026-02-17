@@ -44,7 +44,8 @@
         "wonTitle": "50:50 Gewonnen",
         "wonDesc": "Eine höhere Gewinnrate und mehr gewonnene 50:50-Ziehungen sind besser",
         "luck": "Glück",
-        "luckDesc": "Ein niedrigerer Durchschnitt bis zum Pity ist besser"
+        "luckDesc": "Ein niedrigerer Durchschnitt bis zum Pity ist besser",
+        "basedOn": "Basierend auf {n} Spielern"
       }
     },
     "banner": {

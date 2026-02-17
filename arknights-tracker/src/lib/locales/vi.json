@@ -44,7 +44,8 @@
         "wonTitle": "Thắng 50:50",
         "wonDesc": "Tỷ lệ thắng càng cao và thắng 50:50 càng nhiều thì càng tốt",
         "luck": "May mắn",
-        "luckDesc": "Số lần quay trung bình để ra vàng (pity) càng thấp càng tốt"
+        "luckDesc": "Số lần quay trung bình để ra vàng (pity) càng thấp càng tốt",
+        "basedOn": "Dựa trên {n} người chơi"
       }
     },
     "banner": {

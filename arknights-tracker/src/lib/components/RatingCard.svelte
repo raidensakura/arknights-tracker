@@ -14,12 +14,25 @@
   $: currentAccount = $accounts.find(a => a.id === $selectedId);
   $: gameUid = currentAccount?.serverUid; 
 
-  $: ratingTabs = [...bannerTypes]
-    .filter((b) => b.showInRating)
-    .sort((a, b) => a.order - b.order);
+  // Добавляем кастомную вкладку "Total" в начало списка
+  const totalTab = {
+      id: "total",
+      i18nKey: "systemNames.total", // убедись, что ключ есть в переводах
+      order: -1
+  };
 
-  let activeTab = ratingTabs?.[0]?.id ?? "special";
+  $: ratingTabs = [
+      totalTab,
+      ...[...bannerTypes]
+        .filter((b) => b.showInRating)
+        .sort((a, b) => a.order - b.order)
+  ];
+
+  let activeTab = "total"; // По умолчанию Total
   
+  // Локальные данные берем из стора. Если activeTab === 'total', 
+  // то локальные данные, скорее всего, не нужны или их нужно суммировать отдельно.
+  // Но для рейтинга важны данные с сервера.
   $: localStore = $pullData[activeTab] || { pulls: [], stats: {} };
   $: localStats = localStore.stats || {};
   $: localTotal = localStore.pulls?.length || 0;
@@ -43,6 +56,7 @@
   $: rankLuck6 = safeParse(serverData?.rankLuck6);
   $: rank5050 = safeParse(serverData?.rank5050);
   $: rankLuck5 = safeParse(serverData?.rankLuck5);
+  $: totalUsers = serverData?.totalUsers || 0;
 
   const getRankValue = (rank) => {
       if (rank === null) return null;
@@ -69,7 +83,9 @@
 
   $: if (browser && activeTab) {
       if (gameUid) {
-          loadRankings(activeTab, gameUid);
+          // Если выбрана вкладка "total", отправляем "all"
+          const queryId = activeTab === "total" ? "all" : activeTab;
+          loadRankings(queryId, gameUid);
       } else {
           serverData = null; 
       }
@@ -127,7 +143,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="mb-3">
           <div class="font-bold text-xs text-gray-900 dark:text-[#E0E0E0] flex items-center gap-1">
             {$t("page.rating.info.luck")} 5 <Icon name="star" class="w-3 h-3" />
           </div>
@@ -138,6 +154,14 @@
             {$t("page.rating.info.luckDesc")}
           </div>
         </div>
+        
+        {#if totalUsers > 0}
+            <div class="pt-2 mt-2 border-t border-gray-100 dark:border-[#333]">
+                <div class="text-[10px] text-gray-400 dark:text-[#666] italic text-center">
+                    {$t("page.rating.info.basedOn", { n: totalUsers })}
+                </div>
+            </div>
+        {/if}
 
       </div>
     </div>
@@ -287,7 +311,7 @@
           className={activeTab === tab.id ? "shadow-md" : "opacity-70 hover:opacity-100"}
           onClick={() => (activeTab = tab.id)}
         >
-          {$t(tab.i18nKey)}
+          {$t(tab.i18nKey) || tab.id}
         </Button>
       {/each}
     </div>

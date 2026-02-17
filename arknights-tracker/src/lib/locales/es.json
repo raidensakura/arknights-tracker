@@ -44,7 +44,8 @@
         "wonTitle": "Ganó el 50:50",
         "wonDesc": "Una mayor tasa de victorias y más 50:50 ganados es mejor",
         "luck": "Suerte",
-        "luckDesc": "Un promedio de pity más bajo es mejor"
+        "luckDesc": "Un promedio de pity más bajo es mejor",
+        "basedOn": "Basado en {n} jugadores"
       }
     },
     "banner": {

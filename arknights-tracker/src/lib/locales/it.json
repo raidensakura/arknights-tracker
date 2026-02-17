@@ -44,7 +44,8 @@
         "wonTitle": "Vinto 50:50",
         "wonDesc": "Un tasso di vittoria più alto e più 50:50 vinti indicano un risultato migliore",
         "luck": "Fortuna",
-        "luckDesc": "Una media pity più bassa indica un risultato migliore"
+        "luckDesc": "Una media pity più bassa indica un risultato migliore",
+        "basedOn": "Basato su {n} giocatori"
       }
     },
     "banner": {
