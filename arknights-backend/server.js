@@ -434,7 +434,6 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         }
     });
 
-    // --- НОВОЕ: Переменная для подсчета ОБЩЕЙ суммы (Overall) ---
     let overallStats = {
         totalPulls: 0,
         total6: 0, sumPity6: 0,
@@ -442,25 +441,25 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         won5050: 0, total5050: 0
     };
 
+    const RATE_UP_CATEGORIES = ['special', 'weap-special', 'weap-standard'];
+
     for (const [genId, pulls] of Object.entries(pullsByGeneric)) {
         if (!pulls.length) continue;
 
-        // Считаем стату для всей категории (например, всё что 'special')
         const { stats } = calculateMath(pulls, genId, serverId);
 
-        // --- НОВОЕ: Складываем всё в кучу для баннера "all" ---
         if (genId !== 'new-player') {
             overallStats.totalPulls += stats.totalPulls;
             overallStats.total6 += stats.total6;
             overallStats.sumPity6 += stats.sumPity6;
             overallStats.total5 += stats.total5;
             overallStats.sumPity5 += stats.sumPity5;
-            overallStats.won5050 += stats.won5050;
-            overallStats.total5050 += stats.total5050;
+            if (RATE_UP_CATEGORIES.includes(genId)) {
+                overallStats.won5050 += stats.won5050;
+                overallStats.total5050 += stats.total5050;
+            }
         }
 
-        // Пишем в базу с ID = 'special' (или 'standard' и т.д.)
-        // Именно эту запись читает API рейтинга!
         await prisma.userBannerStat.upsert({
             where: { uid_bannerId: { uid, bannerId: genId } },
             create: {
@@ -488,7 +487,6 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         console.log(`   -> Ranked Category [${genId}]: Updated to ${stats.totalPulls} pulls`);
     }
 
-    // --- НОВОЕ: Записываем итоговый "all" в базу ---
     if (overallStats.totalPulls > 0) {
         await prisma.userBannerStat.upsert({
             where: { uid_bannerId: { uid, bannerId: 'all' } },
@@ -508,7 +506,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
                 lastUpdate: new Date()
             }
         });
-        console.log(`   -> RANKING [ALL]: Updated (Total: ${overallStats.totalPulls})`);
+        console.log(`   -> RANKING [ALL]: Updated (Total: ${overallStats.totalPulls}, WinRate Base: ${overallStats.won5050}/${overallStats.total5050})`);
     }
 
     console.log(`[Stats] Sync Complete for ${uid}`);
