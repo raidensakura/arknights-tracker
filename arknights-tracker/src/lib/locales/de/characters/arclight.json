@@ -1,0 +1,131 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "STD-ANG-SEQ-1-Multiplikator",
+        "batkSeq2Multiplier": "STD-ANG-SEQ-2-Multiplikator",
+        "batkSeq3Multiplier": "STD-ANG-SEQ-3-Multiplikator",
+        "batkSeq4Multiplier": "STD-ANG-SEQ-4-Multiplikator",
+        "batkSeq5Multiplier": "STD-ANG-SEQ-5-Multiplikator",
+        "finisherAtkMultiplier": "Wuchtschlag-ANG-Multiplikator",
+        "diveAtkMultiplier": "Sturz-ANG-Multiplikator"
+      },
+      "name": "Suche und Jagd",
+      "description": "STANDARDANGRIFF: \nEin Angriff mit bis zu 5 Sequenzen, der <@ba.pd>Physischen SDN</> zufügt. Mit dem gesteuerten Operator fügt der <#ba.lastcombo>Abschlussangriff</> außerdem <@ba.poise>{poise:0}</> Taumeln zu. \n\nSTURZANGRIFF: \nStandardangriffe, die in der Luft durchgeführt werden, werden zu Sturzangriffen, die Gegnern in der Nähe <@ba.pd>Physischen SDN</> zufügen. \n\nWUCHTSCHLAG: \nStandardangriffe, die nahe einem Taumelnden Gegner durchgeführt werden, werden zu Wuchtschlagangriffen, die massiven <@ba.pd>Physischen SDN</> zufügen und ein wenig FP wiederherstellen."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "seq1DmgMultiplier": "SEQ-1-SDN-Multiplikator",
+        "seq2DmgMultiplier": "SEQ-2-SDN-Multiplikator",
+        "seq2Stagger": "SEQ 2 – Taumeln",
+        "additionalAtkDmgMultiplier": "Zusätzlicher ANG-SDN-Multiplikator",
+        "additionalAtkStagger": "Zusätzliches ANG-Taumeln",
+        "spRecovery": "FP-Wiederherstellung"
+      },
+      "name": "Stürmischer Bogen",
+      "description": "Springt sofort an die Seite des Gegners, um 2 Hiebe zu entfesseln, die etwas <@ba.pd>Physischen SDN</> verursachen. Wenn der Gegner mit einer aktiven <#ba.conduct>Elektrifizierung</> belegt ist, wird seine <#ba.conduct>Elektrifizierung</> <#ba.consume>verbraucht</>, um einen zusätzlichen Angriff auszuführen, der <@ba.pulse>Elektrischen SDN</> verursacht und einige FP wiederherstellt."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "SDN-Multiplikator",
+        "spRecovery": "FP-Wiederherstellung",
+        "stagger": "Taumeln"
+      },
+      "name": "Donnerschlag",
+      "description": "KOMBOAUSLÖSER: Wenn ein Gegner <#ba.conduct>Elektrifizierung</> erleidet oder nachdem ein aktiver <#ba.conduct>Elektrifizierungs</>-Zustand eines Gegners <#ba.consume>verbraucht</> wird. \nSpringt an die Seite des Gegners und führt eine Reihe von Hieben aus, die <@ba.pd>Physischen SDN</> verursachen und einige FP wiederherstellen."
+    },
+    "ultimate": {
+      "ultimate": {
+        "seq1DmgMultiplier": "SEQ-1-SDN-Multiplikator",
+        "seq1Stagger": "SEQ 1 – Taumeln",
+        "seq2DmgMultiplier": "SEQ-2-SDN-Multiplikator",
+        "seq2Stagger": "SEQ 2 – Taumeln"
+      },
+      "name": "Explodierender Blitz",
+      "description": "Führt einen kurzen Vorwärtssprint aus, während er von Elektrizitätsbögen umhüllt ist, um <@ba.pulse>Elektrischen SDN</> zu verursachen und allen getroffenen Gegnern <#ba.pulseinflict>Elektrik</> zuzufügen. Die Bögen explodieren nach kurzer Zeit und verursachen einen weiteren Treffer mit <@ba.pulse>Elektrischem SDN</>. Falls <#ba.pulseinflict>Elektrik</> auf dem Gegner aktiv ist, wird <#ba.pulseinflict>Elektrik</> <#ba.consume>verbraucht</> und <#ba.conduct>Elektrifizieren</> verursacht."
+    },
+    "indicator": {
+      "levels": [
+        "Operator-Beweglichkeit +15.",
+        "Operator-Beweglichkeit +15.",
+        "Operator-Beweglichkeit +20."
+      ],
+      "name": "Scharmützler"
+    },
+    "talent1": {
+      "levels": [
+        "Kampffertigkeit <@ba.key>Stürmischer Bogen</> verbessert: Wird der zusätzliche Effekt <@ba.key>{count:0}</>-mal ausgelöst, erhält das Team <@ba.vup>+{pulse_up:0.00%}</> verursachten <@ba.pulse>Elektrischen SDN</> für jeden Punkt Intellekt von Arclight. Dieser Effekt dauert <@ba.vup>{duration:0}</> Sek. und kann nicht kumuliert werden.",
+        "Kampffertigkeit <@ba.key>Stürmischer Bogen</> verbessert: Wird der zusätzliche Effekt <@ba.key>{count:0}</>-mal ausgelöst, erhält das Team <@ba.vup>+{pulse_up:0.00%}</> verursachten <@ba.pulse>Elektrischen SDN</> für jeden Punkt Intellekt von Arclight. Dieser Effekt dauert <@ba.vup>{duration:0}</> Sek. und kann nicht kumuliert werden."
+      ],
+      "name": "Wildtrekker"
+    },
+    "talent2": {
+      "levels": [
+        "<@ba.vup>{prob:0%}</>-Chance, die <#ba.spellinflictonchar>Technikkumulierung</>, mit der sie belegt wird, zu ignorieren.",
+        "<@ba.vup>{prob:0%}</>-Chance, die <#ba.spellinflictonchar>Technikkumulierung</>, mit der sie belegt wird, zu ignorieren."
+      ],
+      "name": "Hannabit-Weisheit"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Der Herstellungskabine zuweisen, um Waffen-EP-Materialproduktionseffizienz um +10 % zu erhöhen.",
+        "Der Herstellungskabine zuweisen, um Waffen-EP-Materialproduktionseffizienz um +20 % zu erhöhen."
+      ],
+      "name": "Klinge der Wildnis"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Dem Empfang zuweisen, um die Wahrscheinlichkeit geringfügig zu erhöhen, dass der Operator Hinweis 6: Hannabit-Zirkel sammelt (wird bei Zuweisung aktiviert; Effekte derselben Art können nicht kombiniert werden).",
+        "Dem Empfang zuweisen, um die Wahrscheinlichkeit zu erhöhen, dass der Operator Hinweis 6: Hannabit-Zirkel sammelt (wird bei Zuweisung aktiviert; Effekte derselben Art können nicht kombiniert werden)."
+      ],
+      "name": "Hanna-Traditionen"
+    },
+    "files": {
+      "main": "<@profile.key>DECKNAME: Arclight \nGESCHLECHT: Weiblich \nAUTHENTIFIZIERUNG: Hannabit-Zirkel \nGEB.: 3. Januar \nSPEZIES: Kuranta \n[ORIPATHIE-INFEKTIONSSTATUS] \nOripathie-positiv (infiziert), basierend auf ärztlichen Befunden. \n\n[INTEGRIERTE PHYSISCHE UNTERSUCHUNG] \nPHYSIOLOGISCHE STÄRKE: Ausgezeichnet \nKAMPFFERTIGKEIT: Standard \nTAKTISCHER SCHARFSINN: Normal \nORIGINIUM-TECHNIKEN-ASSIMILIERUNG: Ausgezeichnet</>",
+      "humanResources": "<@profile.key>Arclight ist eine Liedsucherin aus dem Hannabit-Zirkel und sie ist Endfield Industries mit Empfehlungen von Aldertone Orisha als Feldoperatorin beigetreten. Sie unterstützt auch verschiedene Endfield-Operationen und wartet sowie repariert Endfield-Maschinen und -Fahrzeuge. \n\nFür Arclight ist das Motorrad mehr als nur ein Transportmittel. Sie sieht es als einen Begleiter, der mit ihr „wächst“. Jede Demontage und Modifizierung war mehr als einfach nur eine Reparatur – sie sorgten für Transformationen und ein neues Leben. Vielleicht war es das Bedürfnis, sowohl Maschinen als auch Leben zu beschützen, wodurch Arclight ein ausgezeichnetes Verständnis für Maschinentechnik und Ästhetik entwickelte. \nUnd da Arclight aus dem Hannabit-Zirkel stammt, ist sie äußerst bereitwillig, all ihr Wissen mit denen zu teilen, die Hilfe benötigen. Auch wenn ihre Phrasen und Worte voller Metaphern sind, sie reflektieren ihre einzigartigen und tiefgehenden Kenntnisse über die Wildnis. \n– Martin Marvin Malen, Assistent, Personalabteilung, Endfield Industries</>",
+      "file1": "<@profile.key>Ekut ist der echte Name von Operatorin Arclight. Immer wenn Leute fragen, ob sie vom Hannabit-Zirkel stammt, antwortet Arclight mit dem folgenden Satz: „Ich folge Aldertone Orisha und jede Liedsucherin ist ihre eigene Meisterin.“ \nOperatorin Arclight hat eine unbeschreibliche Leidenschaft für Motorräder. Waffeningenieur Semjon unterhielt sich oft mit Arclight über ihr Motorrad und er hatte Folgendes zu sagen: \n„Am Anfang dachte ich, es wäre ein personalisiertes Militärgefährt gewesen, das auf dem zivilen Markt gelandet ist. Ich konnte meinen Augen kaum glauben, als ich erfuhr, dass es ein Meisterwerk der Ingenieurskunst war, das Arclight selbst zusammengebaut und optimiert hatte. Mit ihrer Erlaubnis nahm ich das Motorrad unter die Lupe. Sein Originium-Motor war ein zehn Jahre altes Stück überholte Technik von Mieszko Industries. Der Antrieb wurde von Triglava-Arsenal hergestellt. Die Beschriftung auf den Radaufhängungen war abgenutzt, aber wegen ihrer Strukturen ging ich davon aus, dass sie vom Northmarch-Support-Zentrum waren. Die beeindruckendste Komponente war das Fahrwerk: Das ganze Ding war handgefertigt und bis aufs kleinste Detail verschweißt. Das gesamte Gefüge fühlte sich beinahe nahtlos an. Noch außergewöhnlicher war die Tatsache, dass das Motorrad nicht nur zusammengefügt war, sondern eine Integration, die die Stärken der Hersteller jeder Komponente veranschaulichte. Nur jemand mit dem höchsten Level an Expertise konnte so etwas erreichen. Das ganze Fahrzeug hatte eine beinahe perfekte Balance von Kraft, Ausdauer und Handhabung.“ \nAuch wenn alle die hervorragenden technischen Fähigkeiten von Operatorin Arclight gutheißen, erwähnen viele auch folgende Beobachtung: Sie behandelt Leute recht kalt und spricht auf eine Weise, die ziemlich schwer zu verstehen war. Selbst Operator Semjon fand, dass Arclight selten sprach. Vielleicht führten ihre einzigartigen Erfahrung dazu, dass Operatorin Arclight so gleichgültig wirkt, und ihr erster Eindruck vermittelte oft den Eindruck, sie sei ein unfreundliches Individuum. Aber diejenigen, die sie besser kennenlernen konnten, fanden heraus, dass sie eine äußerst vernünftige Person ist. Diejenigen, die sich oft mit Arclight unterhielten, hörten sie sogar schockierende Dinge sagen, die Witzen ähnelten. Es muss wohl nicht erwähnt werden, dass Operatorin Arclight in diesen Momenten nur sagte, was sie dachte, und nicht versuchte, lustig zu sein. \nKommentare über Schwierigkeiten, mit Arclight zu reden, kommen typischerweise auf, weil ihre Sprache sehr von den einzigartigen Ausdrucksweisen des Hannabit-Zirkels beeinflusst wurde. Arclight tendiert dazu, Metaphern zu verwenden, die von der natürlich Welt inspiriert wurden. So verwendet sie zum Beispiel das Gemüt einer Monsterbestie für mechanische Pannen oder morgendlichen Nebel für das Zögern einer Person. Wer sich direkter ausdrückt, ist womöglich oft wegen Arclights einzigartigen linguistischen Entscheidungen verwirrt. Gute Zuhörer jedoch schätzen ihre klare Argumentation und die konsistente Beständigkeit ihrer Taten. Liedsucher des Hannabit-Zirkels haben ihr eigenes Verständnis der Welt und ihre eigene Vorgehensweise. Wenn man Arclight besser verstehen möchte, muss man wohl ihre Art, die Welt zu beschreiben, schätzen lernen. </>",
+      "file2": "<@profile.key>Ich erinnere mich noch daran, wie ich Ekut das erste Mal traf. Die patrouillierenden Jagdsänger brachten das Mädchen zurück zum Camp und sie war kaum noch am Leben. Es war schwer zu begreifen, warum solch ein junges Kind monatelang allein in der Wildnis gelassen wurden. Ein Leid, das sie beinahe durch Unterernährung und Durst umgebracht hätte. Um die Wunden an ihrem rechten Arm zu behandeln, waren wir gezwungen, die Nerven durch Schaltkreise wieder zu verbinden. Natürlich gibt es keinen Grund, sich Sorgen um die Gefahren zu machen, die von ihrer rechten Hand ausgehen. Wir haben ein besonderes Paar Isolierungshandschuhe entworfen, damit sie wie wir normal leben kann. \nIch nannte sie Ekut, nach der starken und intelligenten Monsterbestie unseres Hanna. Ich hoffe, dass sie eines Tages stark wird und Wind wie auch Frost wie eine mächtige Monsterbestie überlebt. All das hat sie geschafft und sie hat meine Erwartungen sogar übertroffen. \nAber Ekut wuchs mit einer immensen Pflicht auf, die viel zu schwer für sie zu sein schien. Vielleicht war es ihr früher Sieg über den Tod selbst oder ihr mächtiger Name, inspiriert vom Hanna. Als sie fünfzehn wurde, fing Ekut an, nach Liedern zu suchen und die Wildnis zu durchstreifen. Die Liedsucherin tat alles, was sie konnte, um Dörfern und Städten in Not zu helfen, auch wenn die Herausforderungen viel zu groß waren. \nIch erinnere mich noch an jenen Sturm. Während unserer Rettungsoperation begab sich Ekut allein in das Herz des Unwetters. Wir dachten, sie würde nie wieder zurückkehren. Als alle Hoffnung vergeblich zu sein schien, blitzte ein Lichtbogen am Himmel entlang. Wie jener Bogen durchbrach sie den Zorn der Natur und sprang auf den letzten Wagen. Und so begann die Wildnis, sie als Arclight anzusprechen. Der Name wurde in zahlreiche Hanna der Liedsucher gewebt. Sie nahm einen Namen aus den Zeilen und fügte ihnen einen neuen hinzu. \nIch war nicht überrascht, als Arclight mir mitteilte, dass sie bei Endfield neue Antworten finden wollte. Tatsächlich erinnerte mich das an die Wahl, die ich getroffen habe, als ich noch jünger war. Einst reiste ich weit zu den Dächern des Sternenhimmels und von dort ausvernahm ich einen Chor der Hoffnung und des Muts in der schwebenden Stadt. \nEs fühlt sich an, als gehörten diese Erinnerungen eine Lebzeit in die Vergangenheit. Aber ich glaube daran, dass die Zivilisation eines Tages wiedervereint sein wird, solange die Sterne noch am Himmel strahlen. Ich glaube auch daran, dass Arclight, gemeinsam mit den Namen und Schwüren, die sie in ihr Hanna gewebt hat, die Antworten finden wird, die sie aufrichtig sucht. \n– Empfehlungsschreiben für Endfield Industries, verfasst von Aldertone Orisha</>",
+      "file3": "<@profile.key>Eine massive Landbrecher-Armee hatte ein Wildnisdorf umzingelt. Die Brecher hatten sich auf einen Sturmangriff vorbereitet. Hoffnungslosigkeit breitete sich wie eine Plage unter den stationierten Endfield-Operatoren und den Anwohnern aus. \nSie sahen sie in jenem Moment. Arclight vom Hannabit-Zirkel – die einsame Liedsucherin, die auf ihrem Motorrad in die Stadt toste. \nSie brach durch die Rückseite der Brecher-Armee und nahm ohne zu zögern die Kontrolle der Situation an sich. Unter ihrer Leitung erbauten die Bewohner eine Verteidigungslinie aus Wagen und Altmaterial. Die Alten und Kinder wurden zu den Hügeln gebracht. Alle, die arbeiten konnten, hoben Gräben aus und stellten einfache Originium-Verteidigungseinheiten auf. Jede Aktion war ruhig und einfach und sie bewegte sich durch den Ort, als wäre sie selbst ein Teil der Wildnis. \nAm Vorabend des Landbrecherangriffs grollte Donner in der Ferne. Der Monsun kam wie immer und der sintflutartige Regen einer ganzen Nacht erschuf einen neuen Fluss, der durch den Ort floss. Arclight könnte jede Ecke der Wildnis auswendig gelernt haben. Das Wasser strömte durch die Gräben, die Arclight geschaffen hatte, und formte schließlich einen Festungsgraben, der das ganze Dorf beschützte. Die Flut schoss auch durch das Camp der Brecher und machte ihre Angriffsformationen zunichte. \nDie Landbrecher zogen jedoch nicht mit leeren Händen von dannen. Sie versuchten, den Graben zu durchqueren und ihre Verteidigung zu durchbrechen, doch jeder Angriff wurde von Arclight, den Endfieldern und den Dorfbewohnern zurückgeschlagen. Letztendlich waren die Plünderer gezwungen, im Schutz der regnerischen Nacht zu fliehen. \nAls die dunklen Regenwolken endlich die Wildnis verließen, fand Arclight den Endfield-Operator, der einen Bericht an die Dijiang schickte. Sie wedelte mit einem Empfehlungsschreiben Richtung Himmel und sagte: „Das Beben des Drecks der Wildnis hat mich hierhergeführt. Führt mich nun bitte zu Endfield.“</>",
+      "file4": "<@profile.key>Einst wiegten und reiften Gräser im Wind, währen Flüsse strömten und glänzten. \nNun lösten sich die Knochen des Landes, \nder Himmel hing tief und Regen prasselte sturzflutartig nieder. \nKnochen blichen in der Wildnis aus, Winde voll Staub rauben den Atem. \nKein Liedsucher-Hanna konnte Zorn oder Angst verstecken. \nWie eine lahme Monsterbestie floh ich aus finsteren Wellen, die sich wälzten und grollten. \nWo ist der Hannabit-Zirkel, das Land, wo alles wächst? \nMein Weg ist bedeckt von Staub und Dornen. \nWo ist der Hannabit-Zirkel, das Land, wo alles wächst? \nDie treibende Stadt warf den Ländern den Anker der Hoffnung aus. \nUnd ich, auf der Suche nach stillen Sternen, beginne eine neue Reise. \nHannabit-Zirkel, bring mich zur Schwelle. \nSo wie Winde niemals ruhen, werde ich nie aufgeben. \n– „Hanna“ von Arclight</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Kampffertigkeit <@ba.key>Stürmischer Bogen</> verbessert: Nach dem Auslösen zusätzlicher Effekte stellt die Fertigkeit <@ba.vup>{atb:0}</> FP zusätzlich wieder her.",
+      "name": "Kind des Sturms"
+    },
+    "potential2": {
+      "description": "Beweglichkeit <@ba.vup>+{Agi:0}</>, Intellekt <@ba.vup>+{Wisd:0}</>.",
+      "name": "Geschwindigkeitskämpferin"
+    },
+    "potential3": {
+      "description": "Talent <@ba.key>Wildtrekker</> verbessert: Der SDN-Boost-Effekt wird um das <@ba.vup>{pulse_up:0.0}</>-Fache des ursprünglichen Werts erhöht.",
+      "name": "„Hanna“"
+    },
+    "potential4": {
+      "description": "Ultimative Fertigkeit <@ba.key>Explodierender Blitz</> verbessert: Ultimative Energiekosten <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Aldertones Lehren"
+    },
+    "potential5": {
+      "description": "Talent <@ba.key>Wildtrekker</> verbessert: Voraussetzung für das Auslösen verringert sich auf <@ba.vup>{count:0}</>-mal.",
+      "name": "Dienerin der Wildnis"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Eintauchende Sonne",
+      "author": "直立行走",
+      "description": "Wenn man den Sinnen nicht trauen kann, verlässt ein Liedsucher sich auf die Führung der Verse des Hanna."
+    },
+    "potential3": {
+      "name": "Ruhelos",
+      "author": "またよし",
+      "description": "Kein Sturm könnte sie jemals am Weiterkommen hindern."
+    },
+    "potential6": {
+      "name": "Sichelförmiger Säbel",
+      "author": "Z3zz",
+      "description": "Sie bezeichnete sich selbst stets als Echoling, doch viele Menschen, die sie vor den Klingen der Brecher rettete, bestanden darauf, sie eine Aldertone zu nennen."
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Moltiplicatore SEQ ATTB 1",
+        "batkSeq2Multiplier": "Moltiplicatore SEQ ATTB 2",
+        "batkSeq3Multiplier": "Moltiplicatore SEQ ATTB 3",
+        "batkSeq4Multiplier": "Moltiplicatore SEQ ATTB 4",
+        "batkSeq5Multiplier": "Moltiplicatore SEQ ATTB 5",
+        "finisherAtkMultiplier": "Moltiplicatore ATT mossa letale",
+        "diveAtkMultiplier": "Moltiplicatore ATT dall'alto"
+      },
+      "name": "Ricerca e caccia",
+      "description": "ATTACCO BASE: \nsequenza di massimo cinque attacchi che infliggono <@ba.pd>danni fisici</>. Quando controlli l'operatore, il <#ba.lastcombo>colpo finale</> infligge anche <@ba.poise>{poise:0}</> di Vacillamento. \n\nATTACCO DALL'ALTO: \ngli attacchi base eseguiti a mezz'aria diventano attacchi dall'alto che infliggono <@ba.pd>danni fisici</> ai nemici nelle vicinanze. \n\nMOSSA LETALE: \ngli attacchi base eseguiti vicino a un nemico Vacillante diventano mosse letali che infliggono ingenti <@ba.pd>danni fisici</> e ripristinano parzialmente i PA."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
+        "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
+        "seq2Stagger": "Vacillamento SEQ 2",
+        "additionalAtkDmgMultiplier": "Moltiplicatore danni ATT aggiuntivo",
+        "additionalAtkStagger": "Vacillamento ATT aggiuntivo",
+        "spRecovery": "Recupero PA"
+      },
+      "name": "Arco tempestoso",
+      "description": "Si teletrasporta accanto al nemico e lo colpisce con due sferzate che infliggono <@ba.pd>danni fisici</>. Se il nemico ha <#ba.conduct>Elettrificazione</> attiva, <#ba.consume>consuma</> l'<#ba.conduct>Elettrificazione</> per scatenare un attacco aggiuntivo che infligge <@ba.pulse>danni da elettricità</> e ripristina parzialmente i PA."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Moltiplicatore danni",
+        "spRecovery": "Recupero PA",
+        "stagger": "Vacillamento"
+      },
+      "name": "Fragore di tuono",
+      "description": "ATTIVAZIONE COMBO: quando un nemico subisce <#ba.conduct>Elettrificazione</> o dopo che un'<#ba.conduct>Elettrificazione</> di un nemico viene <#ba.consume>consumata</>. \nSi teletrasporta accanto al nemico ed esegue una serie di sferzate che infliggono <@ba.pd>danni fisici</> e ripristinano parzialmente i PA."
+    },
+    "ultimate": {
+      "ultimate": {
+        "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
+        "seq1Stagger": "Vacillamento SEQ 1",
+        "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
+        "seq2Stagger": "Vacillamento SEQ 2"
+      },
+      "name": "Blitz esplosivo",
+      "description": "Esegue un breve scatto in avanti mentre è avvolta da archi elettrici per infliggere <@ba.pulse>danni da elettricità</> e applicare <#ba.pulseinflict>Afflizione da elettricità</> a tutti i nemici sul percorso. Gli archi fluttuanti esplodono poco dopo, infliggendo altri <@ba.pulse>danni da elettricità</>. Se il nemico ha un'<#ba.pulseinflict>Afflizione da elettricità</> attiva, <#ba.consume>consuma</> l'<#ba.pulseinflict>Afflizione da elettricità</> e applica <#ba.conduct>Elettrificazione forzata</>."
+    },
+    "indicator": {
+      "levels": [
+        "Agilità operatore +15.",
+        "Agilità operatore +15.",
+        "Agilità operatore +20."
+      ],
+      "name": "Destrezza"
+    },
+    "talent1": {
+      "levels": [
+        "Abilità di combattimento <@ba.key>Arco tempestoso</> migliorata: attivare l'effetto aggiuntivo per <@ba.key>{count:0}</> volta/e conferisce alla squadra <@ba.vup>+{pulse_up:0.00%}</> di <@ba.pulse>danni da elettricità inflitti</> per ogni punto di Intelletto di Arclight. Questo effetto dura <@ba.vup>{duration:0}</> s e non si accumula.",
+        "Abilità di combattimento <@ba.key>Arco tempestoso</> migliorata: attivare l'effetto aggiuntivo per <@ba.key>{count:0}</> volta/e conferisce alla squadra <@ba.vup>+{pulse_up:0.00%}</> di <@ba.pulse>danni da elettricità inflitti</> per ogni punto di Intelletto di Arclight. Questo effetto dura <@ba.vup>{duration:0}</> s e non si accumula."
+      ],
+      "name": "Sopravvissuta errante"
+    },
+    "talent2": {
+      "levels": [
+        "<@ba.vup>{prob:0%}</> di probabilità di ignorare un'<#ba.spellinflictonchar>Afflizione da Arti</> applicata su di lei.",
+        "<@ba.vup>{prob:0%}</> di probabilità di ignorare un'<#ba.spellinflictonchar>Afflizione da Arti</> applicata su di lei."
+      ],
+      "name": "Saggezza Hannabit"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assegna alla cabina di produzione per aumentare del 10% l'efficienza di produzione dei materiali per l'ESP delle armi.",
+        "Assegna alla cabina di produzione per aumentare del 20% l'efficienza di produzione dei materiali per l'ESP delle armi."
+      ],
+      "name": "Lama della terre selvagge"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assegna alla sala di ricevimento per conferire agli operatori un piccolo indizio 6 UP: Circuito Hannabit (si attiva all'assegnazione; non è possibile accumulare effetti dello stesso tipo).",
+        "Assegna alla sala di ricevimento per conferire agli operatori l'indizio 6 UP: Circuito Hannabit (si attiva all'assegnazione; non è possibile accumulare effetti dello stesso tipo)."
+      ],
+      "name": "Tradizioni hanna"
+    },
+    "files": {
+      "main": "<@profile.key>NOME IN CODICE: Arclight \nGENERE: F \nAFFILIAZIONE: Circuito Hannabit \nDATA DI NASCITA: 3 gennaio \nRAZZA: Kuranta \n[STATO ORIPATIA] \nI referti medici confermano la positività all'Oripatia (infetta). \n\n[RISULTATI DELL'ESAME FISICO] \nFORZA FISICA: Eccellente \nABILITÀ DI COMBATTIMENTO: Normali \nACUME TATTICO: Normale \nASSIMILAZIONE DELLE ARTI DI ORIGINIUM: Eccellente</>",
+      "humanResources": "<@profile.key>Arclight è una Cercatrice dei canti del Circuito Hannabit, entrata a far parte della Endfield Industries in qualità di operatrice sul campo su raccomandazione della Cantora Orisha. Inoltre, Arclight riveste funzioni di supporto in varie operazioni Endfield, oltre a occuparsi della manutenzione e riparazione di macchinari e veicoli. \n\nPer Arclight, la motocicletta non è un semplice mezzo di trasporto, ma una compagna che \"cresce\" insieme a lei. Ciascun pezzo smontato, ogni modifica introdotta è ben più di una banale riparazione: è fonte di trasformazione e rinascita. È possibile che il desiderio di Arclight di proteggere in egual modo macchine ed esseri viventi sia la fonte della sua eccellente comprensione dei principi di ingegneria meccanica ed estetica. \nTra le altre cose, dato che proviene dal Circuito Hannabit, Arclight detiene una particolare predisposizione a condividere le proprie conoscenze con chi ne ha bisogno. Anche se tende a esprimersi usando spesso metafore, le sue parole riflettono la propria conoscenza unica e approfondita delle terre selvagge. \n- Martin Marvin Malen, assistente alle risorse umane, Endfield Industries</>",
+      "file1": "<@profile.key>Il vero nome dell'operatrice Arclight è Ekut. A chi le chiede se viene dal Circuito Hannabit, Arclight risponde sempre dicendo: \"Io seguo la Cantora Orisha, e ogni Cercatore dei Canti è padrone di sé.\" \nL'operatrice Arclight ha una passione irrefrenabile per le motociclette. L'ingegnere dell'arsenale Semyon parla spesso con Arclight della sua moto, e questo è stato il suo commento: \n\"All'inizio credevo fosse un veicolo militare personalizzato, sbarcato in qualche modo sul mercato civile. Non riuscivo a crederci quand'è venuto fuori che si trattava di un'opera ingegneristica totalmente assemblata e messa a punto da Arclight stessa. Con il suo permesso, l'ho esaminata da vicino. Il motore a Originium è un pezzo obsoleto, vecchio di dieci anni, della Mieszko Industries. La trasmissione è stata prodotta dalla Triglava Armoury. Le etichette sulle sospensioni erano consumate, ma la struttura mi fa pensare che provengano dal Polo di supporto Northmarch. Il componente più strabiliante è il telaio, interamente realizzato a mano, in cui ogni saldatura è curata fin nei minimi dettagli. È quasi come se fosse sempre stato un pezzo unico. Ancora più straordinario è il fatto che la moto non è semplicemente un insieme di pezzi, bensì un amalgama che, attraverso i vari componenti, mette in risalto i punti di forza di ciascun costruttore. Un risultato simile si può ottenere solamente con i più elevati livelli di competenza tecnica. L'intero veicolo incarna un equilibrio praticamente perfetto di potenza, resistenza e maneggevolezza.\" \nSebbene tutti apprezzino le straordinarie abilità tecniche dell'operatrice Arclight, molti riferiscono che sembra trattare le persone con una certa freddezza, rivolgendosi a loro in maniera alquanto difficile da interpretare. Perfino l'operatore Semyon ha menzionato la scarsa loquacità di Arclight. Forse le sue peculiari esperienze la fanno apparire indifferente, per questo di primo acchito dà l'impressione di essere mal disposta. Tuttavia, conoscendola meglio, molti capiscono che in realtà è una persona straordinariamente ragionevole. Addirittura, c'è chi l'ha sentita dire cose sconvolgenti, assimilabili a battute umoristiche. Ovviamente, in tali occasioni l'operatrice Arclight stava solo esprimendo il suo pensiero, e non cercando di suscitare ilarità. \nI commenti sulle difficoltà di Arclight nell'arte della conversazione sono solitamente legati al fatto che la sua parlata è fortemente influenzata dal peculiare modo di esprimersi del Circuito Hannabit. Arclight ha infatti la tendenza a parlare per metafore ispirate al mondo naturale, usando ad esempio il temperamento delle bestie da soma per descrivere un guasto meccanico o la nebbia del mattino per indicare l'esitazione di una persona indecisa. Coloro che sono abituati a una maggiore linearità rimangono talvolta disorientati da quelle insolite scelte linguistiche. Tuttavia, chi sa ascoltare apprezzerà i suoi ragionamenti chiari e l'incrollabile coerenza delle sue azioni. I Cercatori dei canti del Circuito Hannabit hanno un modo di agire e interpretare la realtà tutto loro. Chi desidera conoscere Arclight più a fondo dovrebbe quindi sforzarsi di apprezzare il suo modo di descrivere il mondo. </>",
+      "file2": "<@profile.key>Ricordo ancora la prima volta che incontrai Ekut. I Cantori della caccia di pattuglia l'avevano riportata all'accampamento più morta che viva. Non riuscivamo a immaginare perché mai una bambina così piccola fosse stata lasciata a vagare sola per mesi tra le terre selvagge, una sofferenza che le era quasi costata la vita a causa di sete e malnutrizione. Per guarire le ferite sul suo braccio destro dovemmo ricollegare i nervi usando dei circuiti. Ovviamente, nonostante l'operazione, la sua mano destra non pone alcun pericolo. Infatti, progettammo un paio di speciali guanti isolanti per consentirle di condurre una vita normale, come tutti noi. \nLa chiamai Ekut, ispirandomi al nome dalla bestia da soma della nostra hanna, che brillava per forza e intelligenza. La mia speranza era che, crescendo, si rafforzasse e diventasse capace di sopravvivere al vento e al gelo, proprio come la possente bestia da soma. Ci è riuscita, andando ben oltre le mie aspettative. \nEkut, tuttavia, è sempre stata animata da un profondo senso del dovere il cui peso sembrava eccessivo per lei. Forse era dovuto al modo in cui aveva sconfitto la morte in così tenera età, o al potente nome che avevamo tratto dall'hanna. Quando compì quindici anni, Ekut iniziò a cercare i canti vagando per le terre selvagge. La Cercatrice fece sempre il possibile per aiutare villaggi e cittadine in difficoltà, anche quando gli ostacoli sembravano insormontabili. \nRicordo ancora quel temporale. Durante le operazioni di soccorso, Ekut si avventurò da sola nel cuore della tempesta. Pensavamo che non sarebbe mai tornata. Proprio quando ogni speranza sembrava perduta, un fulmine disegnò un arco nel cielo. Come quell'arco, Ekut sfidò la furia della natura e saltò sull'ultimo carro. Con quel gesto, le terre selvagge iniziarono a rivolgersi a lei col nome \"Arclight\". Quel nome fu poi intessuto nelle hanna di numerosi Cercatori dei canti. Ekut prese il proprio nome dai versi, e ai versi lo restituì. \nNon fu una sorpresa quando Arclight mi disse che intendeva andare in cerca di nuove risposte alla Endfield. Anzi, mi ricordò la scelta che feci quando da giovane mi allontanai, avventurandomi fino alle chiome degli alberi sotto la notte stellata, e sentii un coro fatto di speranza e coraggio formarsi nella città fluttuante. \nQuei ricordi sembrano appartenere a una vita fa. Eppure ritengo che, finché le stelle continueranno a brillare nel cielo, la civiltà scoprirà ancora una volta cosa significa essere uniti. Credo anche che Arclight, insieme ai nomi e ai giuramenti che ha intessuto nella sua hanna, riuscirà a trovare le risposte che cerca. \n— Lettera di raccomandazione per la Endfield Industries, scritta dalla Cantora Orisha</>",
+      "file3": "<@profile.key>Un'enorme orda di Fenditerra aveva circondato un villaggio delle terre selvagge, preparandosi a un assalto su larga scala. Gli operatori Endfield a presidio del villaggio e i suoi abitanti stavano perdendo del tutto la speranza. \nFu in quel momento che la vidi. Arclight del Circuito Hannabit, la Cercatrice dei canti solitaria, entrò in città in sella alla sua moto rombante. \nSbaragliò la retroguardia dei Fenditerra e assunse il controllo della situazione senza la minima esitazione. Sotto la sua guida, gli abitanti crearono una linea di difesa usando carri e materiali di recupero. Anziani e bambini furono trasferiti sulle colline. Chiunque fosse in grado di lavorare contribuì a scavare trincee e predisporre semplici unità di difesa a base di Originium. Ogni sua azione era semplice e controllata: si spostava da un luogo all'altro come se fosse parte delle terre selvagge stesse. \nAlla vigilia dell'attacco dei Fenditerra, un tuono risuonò in lontananza. Erano arrivati i monsoni, puntuali come sempre, e una notte di pioggia torrenziale scavò un nuovo ruscello nel villaggio. È possibile che Arclight conoscesse le terre selvagge a tal punto. L'acqua iniziò a scorrere attraverso le trincee che lei aveva ordinato di scavare, diventando un fossato che aiutò a proteggere l'intero villaggio. La pioggia aveva anche inondato l'accampamento dei Fenditerra, sconvolgendo le loro formazioni d'assalto. \nI Fenditerra non se ne andarono a mani vuote. Cercarono di guadare il fossato e attaccare le difese, ma ogni loro offensiva veniva respinta da Arclight, dagli Endfielder e dagli abitanti del villaggio. Alla fine, gli sciacalli furono costretti a fuggire sotto il manto di quella notte piovosa. \nQuando le nuvole scure lasciarono finalmente le terre selvagge, Arclight andò da un operatore Endfield che stava facendo rapporto alla Dijiang. Agitò in aria una lettera di raccomandazione e disse: \"Il tremore delle terre selvagge mi ha condotta qui. Ora, per favore, portami alla Endfield.\"</>",
+      "file4": "<@profile.key>Un tempo l'erba cresceva e s'increspava, i fiumi scorrevano e brillavano. \nOra il suolo trema e si allenta, \ni torrenti si riempiono di pioggia violenta. \nOssa scolorite nelle terre selvagge, la polvere soffoca i venti. \nLe hanna dei Cercatori sono colme di rabbia e risentimenti. \nCome una bestia da soma zoppicante, sono sfuggita alle vorticanti onde oscure. \nDov'è il Circuito Hannabit, terra di prosperità e mille avventure? \nIl mio cammino è coperto di cenere e costellato di spaccature. \nDov'è il Circuito Hannabit, terra di prosperità e mille avventure? \nLa città alla deriva lancia alla terra l'ancora della speranza. \nE io, alla ricerca di stelle silenziose, comincerò la mia danza. \nCircuito Hannabit, portami a un passo dal precipizio. \nCom'è certo che i venti mai si placano, c'è sempre un nuovo inizio. \n— \"Hanna\" di Arclight</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Abilità di combattimento <@ba.key>Arco tempestoso</> migliorata: dopo aver attivato effetti aggiuntivi, l'abilità ripristina <@ba.vup>{atb:0}</> PA extra.",
+      "name": "Prole della tempesta"
+    },
+    "potential2": {
+      "description": "Agilità <@ba.vup>+{Agi:0}</>, Intelletto <@ba.vup>+{Wisd:0}</>.",
+      "name": "Combattente veloce"
+    },
+    "potential3": {
+      "description": "Talento <@ba.key>Sopravvissuta errante</> migliorato: l'effetto di potenziamento aumenta di <@ba.vup>{pulse_up:0.0}</> volte rispetto all'originale.",
+      "name": "\"Hanna\""
+    },
+    "potential4": {
+      "description": "Abilità suprema <@ba.key>Blitz esplosivo</> migliorata: <@ba.vup>-{1-costvalue:0%}</> al costo di energia suprema.",
+      "name": "Insegnamenti dei Cantori"
+    },
+    "potential5": {
+      "description": "Talento <@ba.key>Sopravvissuta errante</> migliorato: il requisito di attivazione si riduce a <@ba.vup>{count:0}</> volta/e.",
+      "name": "Serva delle terre selvagge"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Sole morente",
+      "author": "直立行走",
+      "description": "Quando i sensi non sono più sufficienti, una Cercatrice dei canti può sempre lasciarsi guidare dai versi della sua hanna."
+    },
+    "potential3": {
+      "name": "Irrequietezza",
+      "author": "またよし",
+      "description": "Neanche la peggiore delle tempeste può sperare di fermarla."
+    },
+    "potential6": {
+      "name": "Scimitarra lucente",
+      "author": "Z3zz",
+      "description": "Si è sempre definita una Risonante, ma le molte persone che ha salvato dai Fenditerra insistono nel chiamarla Cantora."
+    }
+  }
+}

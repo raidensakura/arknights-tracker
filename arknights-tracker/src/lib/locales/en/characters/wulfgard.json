@@ -1,0 +1,126 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "BATK SEQ 1 Multiplier",
+        "batkSeq2Multiplier": "BATK SEQ 2 Multiplier",
+        "batkSeq3Multiplier": "BATK SEQ 3 Multiplier",
+        "batkSeq4Multiplier": "BATK SEQ 4 Multiplier",
+        "finisherAtkMultiplier": "Finisher ATK Multiplier",
+        "diveAtkMultiplier": "Dive ATK Multiplier"
+      },
+      "name": "Rapid Fire Akimbo",
+      "description": "BASIC ATTACK: \nAn attack with up to 4 sequences that deals <@ba.fire>Heat DMG</>. As the controlled operator, <#ba.lastcombo>Final Strike</> also deals <@ba.poise>{poise:0}</> Stagger. \n\nDIVE ATTACK: \nBasic attack performed in mid-air becomes a dive attack that deals <@ba.fire>Heat DMG</> to nearby enemies. \n\nFINISHER: \nBasic attack performed near a Staggered enemy becomes a finisher that deals massive <@ba.fire>Heat DMG</> and recovers some SP."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "dmgMultiplier": "DMG Multiplier",
+        "stagger": "Stagger",
+        "additionalAtkDmgMultiplier": "Additional ATK DMG Multiplier",
+        "additionalAtkStagger": "Additional ATK Stagger"
+      },
+      "name": "Thermite Tracers",
+      "description": "Fires multiple shots at the target that deal some <@ba.fire>Heat DMG</>. The final shot also applies <#ba.fireinflict>Heat Infliction</>. If the target has active <#ba.burning>Combustion</> or <#ba.conduct>Electrification</>, do not apply <#ba.fireinflict>Heat Infliction</> but instead <#ba.consume>consume</> the Arts Reaction to fire an additional shot that deals massive <@ba.fire>Heat DMG</>."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "DMG Multiplier",
+        "stagger": "Stagger"
+      },
+      "name": "Frag Grenade·β",
+      "description": "COMBO TRIGGER: When an <#ba.spellinflict>Arts Infliction</> is applied to an enemy. \nThrows a frag grenade at the target's location that explodes upon hitting the ground, dealing <@ba.fire>Heat DMG</> and <#ba.fireinflict>Heat Infliction</> to nearby enemies."
+    },
+    "ultimate": {
+      "ultimate": {
+        "dmgMultiplierPerSeq": "DMG Multiplier per SEQ",
+        "stagger": "Stagger"
+      },
+      "name": "Wolven Fury",
+      "description": "Fire a rapid barrage of shots and unleashes the <@ba.key>Wolven Fury</> to attack nearby enemies, dealing 5 hits of <@ba.fire>Heat DMG</> and forcibly applying <#ba.burning>Combustion</>."
+    },
+    "indicator": {
+      "levels": [
+        "Operator Strength +10.",
+        "Operator Strength +15.",
+        "Operator Strength +15.",
+        "Operator Strength +20."
+      ],
+      "name": "Forged"
+    },
+    "talent1": {
+      "levels": [
+        "Whenever Wulfgard applies <#ba.burning>Combustion</>, he gains <@ba.key>Scorching Fangs</> for {duration:0}s. This effect cannot stack. Scorching Fangs: While active, Wulfgard gains <@ba.fire>Heat DMG Dealt</> <@ba.vup>+{add:0%}</>.",
+        "Whenever Wulfgard applies <#ba.burning>Combustion</>, he gains <@ba.key>Scorching Fangs</> for {duration:0}s. This effect cannot stack. Scorching Fangs: While active, Wulfgard gains <@ba.fire>Heat DMG Dealt</> <@ba.vup>+{add:0%}</>."
+      ],
+      "name": "Scorching Fangs"
+    },
+    "talent2": {
+      "levels": [
+        "Whenever the battle skill <@ba.key>Thermite Tracers</> successfully consumes an <#ba.spellstatus>Arts Reaction</>, <#ba.return>return</> <@ba.vup>{returnskillpower:0}</> SP.",
+        "Whenever the battle skill <@ba.key>Thermite Tracers</> successfully consumes an <#ba.spellstatus>Arts Reaction</>, <#ba.return>return</> <@ba.vup>{returnskillpower:0}</> SP."
+      ],
+      "name": "Code of Restraint"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assign to Manufacturing Cabin to grant operator EXP material production efficiency +10%",
+        "Assign to Manufacturing Cabin to grant operator EXP material production efficiency +20%"
+      ],
+      "name": "Pack Techniques"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assign to Growth Chamber to grant rare mineral growth rate +20%",
+        "Assign to Growth Chamber to grant rare mineral growth rate +30%"
+      ],
+      "name": "Knack for the Wildlands"
+    },
+    "files": {
+      "main": "<@profile.key>CODENAME: Wulfgard\nGENDER: Male \nAUTHENTICATION: The Pack\nDOB: November 16\nRACE: Lupo\n[ORIPATHY INFECTION STATUS]\nOripathy positive (infected), based on medical examination reports.\n\n[INTEGRATED PHYSICAL EXAMINATION]\nPHYSIOLOGICAL STRENGTH: Excellent\nCOMBAT SKILL: Excellent\nTACTICAL ACUMEN: Standard\nORIGINIUM ARTS ASSIMILATION: Standard\n\nThe Landbreakers' way of life has left its mark on Wulfgard. Each scar stands as evidence of past trials. Though the pain doesn't seem to weigh on him now, that may not always be the case. He must learn to approach missions with greater regard for his own life — or at the very least, to place more trust in his teammates, rather than charging in alone every time.</>",
+      "humanResources": "<@profile.key>Operator Wulfgard, full name Catello Wulfgard Luppino, hails from a Landbreaker clan known as the Pack. As their appointed representative, he established a partnership with Endfield Industries. Recommended by Supervisor Perlica, he joined the Specialist Tech Division and now serves on the Crisis Team. \n\nWulfgard possesses exceptional observational skills and adaptability. As far as I know, he can handle most high-risk environments with ease. \nHe clearly prefers to operate alone and excels at covert operations. However, he seems reluctant to engage in interpersonal matters, so for missions requiring teamwork, it's recommended that he be given as much autonomy as possible. \nNotably, test reports show that Wulfgard performs extremely well in both physical endurance and reaction speed. He is proficient with guns, adept at hand-to-hand combat, and has a knack for turning any object (even a pen) into a weapon. \nPerhaps his time in the wildlands has sharpened his instincts — Wulfgard has an acute sense for danger and a deep understanding of how to interact with frontier residents, especially when Landbreaker affairs are involved. I believe anyone who's ever partnered with him would agree. \n— Martin Marvin Malen, Assistant, HR Division, Endfield Industries</>",
+      "file1": "<@profile.key>When Wulfgard first arrived at Endfield, his Landbreaker background raised a few eyebrows. Some operators suspected he had hidden motives. But as the years passed, they discovered that behind the cold exterior and sharp tongue was someone surprisingly easy to get along with. \nHe's always punctual, efficient, responsible, and thorough with cleanup. In many ways, he checks every box of the \"ideal teammate.\" Unfortunately, he doesn't seem to enjoy working with others. Whenever he's required to submit a report, he always requests to be assigned to solo operations instead. \nOn the other hand, Wulfgard has never been shy about sharing his insights into weapon modifications, which has caused headaches for Endfield's Arsenal Engineers. Many operators first met Wulfgard during one of the regular new weapon testing sessions, where they'd watch him coolly tweak a weapon right in front of its designer, then say, \"It works better this way.\" This often left the engineers on the verge of losing their composure. \nThough this earned him a spot on the arsenal team's \"unwelcome\" list, Wulfgard didn't care. He kept modifying every new weapon he got until it felt right to him. \n\n\"Experienced hunters always select their best hunting tools or modify them until they become the best.\"</>",
+      "file2": "<@profile.key>In a time when most Landbreakers are seen as \"destroyers of order\", the Pack stands out as an anomaly. They value order and hold a peaceful attitude toward the Civilization Band. Even now, they cling to certain old traditions, such as strong familial bonds and a deep respect for unity. \nThat very difference only fueled the long-standing feud between them and their rivals, the Bonekrushers. Over ten years ago, the Bonekrushers struck with a vicious ambush, shattering the Pack when they were at their weakest — just after the death of their Alpharion. \nWulfgard and his younger sister survived the attack, but they refused to speak of what truly happened. \nWulfgard then left the Pack a few years after his coming-of-age ceremony, keeping in touch with only a few trusted friends and his sister. \nNo one ever knew why he left. He stayed silent, just like he did about the attack. \nLater, he approached Endfield and proposed a partnership. He eventually joined the Specialist Tech Division as an operator. \nSomeone once asked why he chose Endfield. \nAt first, he was silent. Then, with startling honesty, he answered: \n\"I want another future for the Pack... and Endfield holds the possibility of making it real.\" \nWulfgard spoke candidly of the Pack's struggles. His steady resolve and honest intent opened doors. \nSo it made perfect sense when he became an operator. As he put it, he had a duty — to prove the Pack's worth and to repay Endfield's trust in him. \nSince then, he's become a quiet but reliable presence on many tough and dangerous missions. \nOperators who once held deep prejudice against the Landbreakers began to change their views — thanks to Wulfgard. \nThen, opinions shifted once more after the arrival of his sister — Operator Rossi. But that's a story for another time...</>",
+      "file3": "<@profile.key>\"How long are you gonna stay this time? You coming home?\" \n\"...A day. And nah.\" \n\"Just a day? Then never mind ... sigh. Well, a couple of days ago, Rossi was whining again, saying she thinks you'll pull the same stunt this year — you know, 'the gift arrives, but the brother doesn't.' Come on, even if you're not planning to come home, you could at least find time to see her once in a while.\" \n\"It's already been what, over half a year? Since you two last met up at Tommaso's place.\" \n\"I still need to take care of a few things. Once it's done...\" \n\"Stop right there! That's what you said last time! Then you ran off to the frontier, saying you had to clean up someone's mess...\" \n\"Gosh, I don't get you young folks. How do you always have so much to do?\" \n\"Hey, if I were you, no matter how swamped I was, I'd still swing by more to check in on my little sis. She's a kid! Every other kid her age in the clan's doted on by their families all day every day...\" \n\"You're her family too.\" \n\"Well, yeah — Wait! No, don't try to spin this on me... I get you've got your own things going on. But listen, as someone who's been there — whenever I see little Rossi, I can't help but think of my own little girl... Biggest regret of my life? Not being there for her when I still had the chance.\" \n\"Just hear me out, Catello... Life's short, don't do things you'll end up regretting.\" \n\"I hear you. Uncle Rust.\"  \n\"Rossi knows I'm back today.\" \n\"WHAT? No way!\" \n\"Then why would she run off to the hunting grounds first thing in the morning with the Louis twins? Unless...\" \n\"Uh-huh. Exactly.\" \n\"Argh... You two really are true Lupus. So stubborn and so damn alike ... it's scary.\" \n\"Alright, alright. Do whatever you like! But if you're always absent, aren't you worried something might go wrong?\" \n\"I was gonna keep it from you for Rossi's sake ... but looks like you need to hear it. Six months ago, she got herself into serious trouble — stuck her neck out for Old Bart and his men, and ended up on the Shadowskull's hit list. I remember it clear as day. Fourteen of them showed up, each nastier than the last. If Tommaso hadn't pulled some strings and brought in Capone's Fangs, we probably wouldn't have even made it out of the black market alive...\" \n\"...\" \n\"Worried now, huh?\" \n\"Nope. I was just wondering how Rossi found out I was heading north. It was you, wasn't it?\" \n\"Oh! Um, heh ... well ... yeah, I might've let that slip ... wasn't on purpose though...\" \n\"Ahem, anyway! I checked your guns! They're as good as new! Just ease up on those custom rounds of yours. No barrel's gonna last with the way you burn through them...\" \n\"Got it.\" \n\"And ... there were actually fifteen of them.\" \n\"Huh?\" \n\"Alright, see you around.\" \n— Audio log from Howlfire Gunsmiths</>",
+      "file4": "<@profile.key>Wulfgard knew better than anyone, that leaving the Pack for good meant this journey had no return date. By his own standards, that meant packing everything that might prove useful. \nYet, standing before Il Cacciatore and sweeping his gaze over the massive rig that had been his and his sister's home for nearly a decade... he realized, abruptly, that there was nothing left worth taking. \nHe went over his plans once more in his mind: make sure Rossi knew exactly who in the clan could be trusted, confirm the two ways people could reach him, ask Tommaso to keep a close watch over Rossi, settle the last bit of custom work fees at Uncle Rust's, feed Giovanni's semi-wild fowlbeasts one last time, entrust them to little Vincenzo next door... No, he hasn't forgotten a thing. \nSatisfied, he turned for one final check. Just to be absolutely sure he hadn’t left Rossi's handmade Originium lamp glowing on the bedside table. \nBut as soon as he stepped into his sleeping compartment, his eyes caught sight of something in an unremarkable corner of the cabinet: his worn guns — the very first weapons he'd ever owned. \nThough secondhand and now running low on compatible ammo, those guns were priceless treasures back then. They kept him and his sister alive, earned him his first mercenary contract, and helped him take down his first target. When one of the Originium activators failed, he was forced to master one-handed reloads and gun maintenance. After three years of supporting his family with mercenary pay, he finally replaced the worn Originium activator and even crafted a set of custom-etched ammo. \nThese guns were passed down from the clan's elders. Like many inherited dreams, they met their end during a high-stakes escort mission, overheating after prolonged firing. \nSoon after, Uncle Rust — a bounty hunter who had returned to the Pack and opened a weapon refurbishment shop called \"Howlfire Gunsmiths.\" There, Wulfgard was introduced to custom weapon modifications for the first time. \nThen he learned to make weapons truly his own, even if they only suited him. \nStill, he never got rid of those guns that got him started. They remained tucked away in a quiet corner. \nWhy keep them? As a reminder? A keepsake? Or a memento of painful memories? \nHe wasn't sure — maybe all, maybe none. \nAfter confirming the Originium lamp was off, he headed for the door, ready to embark on a journey that might finally give him an answer.</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Strength <@ba.vup>+{Str:0}</>, Agility <@ba.vup>+{Agi:0}</>.",
+      "name": "Lone Wolf"
+    },
+    "potential2": {
+      "description": "Talent <@ba.key>Code of Restraint</> improved: <#ba.return>Returns</> <@ba.vup>{potential_skillpower:0}</> additional SP.",
+      "name": "Firearm Mods"
+    },
+    "potential3": {
+      "description": "While <@ba.key>Scorching Fangs</> is active, triggering the battle skill's additional effects immediately resets the <@ba.key>Scorching Fangs</> duration and grants other teammates <@ba.key>Scorching Fangs</> with <@ba.vup>{teammate_percent:0%}</> of the base effects.",
+      "name": "Hunting Hour"
+    },
+    "potential4": {
+      "description": "Ultimate <@ba.key>Wolven Fury</> improved: Ultimate Energy cost <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Will of the Pack"
+    },
+    "potential5": {
+      "description": "Casting the ultimate <@ba.key>Wolven Fury</> immediately resets the cooldown of the combo skill <@ba.key>Frag Grenade·β</>.",
+      "name": "Natural Predator"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Time for the Hunt",
+      "author": "umo_yszx",
+      "description": "The best hunter of the wildlands will always appear at the best opportunities."
+    },
+    "potential3": {
+      "name": "Lowering the Gard Today",
+      "author": "MeanWhile",
+      "description": "He only relaxes his vigilance with those who have truly earned his trust. And then he'll reveal his true nature, one that has been abandoned in his childhood."
+    },
+    "potential6": {
+      "name": "Predator's Glance",
+      "author": "FE",
+      "description": "The young predator stepped into his personal hunting ground as the Wolf Spirit howled. His eyes are on every single prey, and his guns will bring every single one of them down."
+    }
+  }
+}

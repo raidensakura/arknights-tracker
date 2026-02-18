@@ -1,0 +1,129 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "BATK SEQ 1 Multiplier",
+        "batkSeq2Multiplier": "BATK SEQ 2 Multiplier",
+        "batkSeq3Multiplier": "BATK SEQ 3 Multiplier",
+        "batkSeq4Multiplier": "BATK SEQ 4 Multiplier",
+        "finisherAtkMultiplier": "Finisher ATK Multiplier",
+        "diveAtkMultiplier": "Dive ATK Multiplier"
+      },
+      "name": "Signature Gun Kata",
+      "description": "BASIC ATTACK: \nAn attack with up to 4 sequences that deals <@ba.natur>Nature DMG</>. As the controlled operator, <#ba.lastcombo>Final Strike</> also deals <@ba.poise>{attack_poise:0}</> Stagger. \n\nDIVE ATTACK: \nBasic attack performed in mid-air becomes a dive attack that deals <@ba.natur>Nature DMG</> to nearby enemies. \n\nFINISHER: \nBasic attack performed near a Staggered enemy becomes a finisher that deals massive <@ba.natur>Nature DMG</> and recovers some SP."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "dmgMultiplier": "DMG Multiplier",
+        "stagger": "Stagger",
+        "slowEffect": "Slow Effect"
+      },
+      "name": "Tiny Surprise",
+      "description": "Kicks an <@ba.key>Improvised Explosive</> that sticks to the target, applying <#ba.slow>Slow</> and exploding after a short duration. The explosion deals <@ba.natur>Nature DMG</> and <#ba.naturalinflict>Nature Infliction</> to enemies in the area of effect. Defeating the target also sets off the <@ba.key>Improvised Explosive</> immediately.\n<@ba.info>Only 1 Improvised Explosive can be present in the battlefield.</>"
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "DMG Multiplier",
+        "stagger": "Stagger"
+      },
+      "name": "Free Giveaway",
+      "description": "COMBO TRIGGER: When an enemy has 2 or more stacks of <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</>. \nShoots the target enemy to trigger a special explosion that deals <@ba.natur>Nature DMG</> and applies another <#ba.spellinflict>Arts Infliction</> of the element already on the enemy."
+    },
+    "ultimate": {
+      "ultimate": {
+        "seq1DmgMultiplier": "SEQ 1 DMG Multiplier",
+        "seq2DmgMultiplier": "SEQ 2 DMG Multiplier",
+        "seq3DmgMultiplier": "SEQ 3 DMG Multiplier",
+        "seq4DmgMultiplier": "SEQ 4 DMG Multiplier",
+        "battleSkillAoeBoost": "Battle Skill AOE Boost",
+        "battleSkillDmgBoost": "Battle Skill DMG Boost",
+        "stagger": "Stagger"
+      },
+      "name": "Apex Prankster",
+      "description": "Fluorite quickly moves in an arc and rapidly fires at the target within the arc to deal 4 sequences of <@ba.natur>Nature DMG</>. If an <@ba.key>Improvised Explosive</> has been stuck to the target, the skill detonates it immediately and increases the DMG and size of the explosion.\nIf the final DMG sequence hits a target with at least 2 stacks of <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</>, then apply the same <#ba.spellinflict>Arts Infliction</> again."
+    },
+    "indicator": {
+      "levels": [
+        "Operator Agility +15.",
+        "Operator Agility +15.",
+        "Operator Agility +20."
+      ],
+      "name": "Skirmisher"
+    },
+    "talent1": {
+      "levels": [
+        "Fluorite gains DMG Dealt <@ba.vup>+{dmg_up:0%}</> against <#ba.slow>Slowed</> targets.",
+        "Fluorite gains DMG Dealt <@ba.vup>+{dmg_up:0%}</> against <#ba.slow>Slowed</> targets."
+      ],
+      "name": "Love the Stab and Twist"
+    },
+    "talent2": {
+      "levels": [
+        "Grants <@ba.vup>{probability:0%}</> chance of <#ba.spelldmg>Arts DMG</> immunity and grants Fluorite ATK <@ba.vup>+{atk_up:0%}</> for <@ba.vup>{duration:0}</>s. This effect cannot stack.",
+        "Grants <@ba.vup>{probability:0%}</> chance of <#ba.spelldmg>Arts DMG</> immunity and grants Fluorite ATK <@ba.vup>+{atk_up:0%}</> for <@ba.vup>{duration:0}</>s. This effect cannot stack."
+      ],
+      "name": "Unpredictable"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assign to Growth Chamber to grant rare mineral growth rate +10%",
+        "Assign to Growth Chamber to grant rare mineral growth rate +20%"
+      ],
+      "name": "Wildlands Trekker"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assign to Control Nexus to grant all operators' Mood Regen +12%",
+        "Assign to Control Nexus to grant all operators' Mood Regen +16%"
+      ],
+      "name": "Reader of Emotions"
+    },
+    "files": {
+      "main": "<@profile.key>CODENAME: Fluorite \nGENDER: Female \nAUTHENTICATION: Endfield Industries \nDOB: June 21 \nRACE: Phidia \n[ORIPATHY INFECTION STATUS] \nOripathy positive (infected), based on medical examination reports. \n\n[INTEGRATED PHYSICAL EXAMINATION] \nPHYSIOLOGICAL STRENGTH: Standard \nCOMBAT SKILL: Excellent \nTACTICAL ACUMEN: Standard \nORIGINIUM ARTS ASSIMILATION: Normal \n\nWe would like to remind Miss Fluorite to regard our regular physical examinations as an official requirement and attend a session. If she finds yet another excuse for her absence, we shall escalate this situation to Miss Akekuri. </>",
+      "humanResources": "<@profile.key>Operator Fluorite once encouraged local civilians to violently resist a criminal organization and helped an Endfield field operations team escape certain threats. Operator Akekuri thus endorsed Fluorite's employment with Endfield Industries. She is now a member of Operations Team Z7. No new criminal records have been filed against the Operator since then. \n\nPay particular attention to Fluorite in social settings. Her \"personal grudges\" are usually not as significant as we make them, but conversations with her may take unexpected turns. Fortunately, Fluorite is not adverse to being a listener. Since we place greater importance on an operator's combat capabilities, her peculiarity is not particularly difficult to handle. \nHowever, she seized the initiative and answered every question on the list before I formally delivered it to her. In fact, she even started laughing before I could complete my engaging answers. This situation was not predicted by my algorithms. Hence, this interview has been added to the archives of unique case studies for further analysis. \n— Martin Marvin Malen, Assistant, HR Division, Endfield Industries</>",
+      "file1": "<@profile.key>According to Fluorite herself, her Originium Arts solely focused on the creation of polymorphic fluids with adhesive abilities. However, if this were true (which I personally feel to be not), then her malignant social skills could only be explained by her \"extensive experiences\" — since she has expert-level abilities in identifying damaging information about others. Fluorite's willingness to reveal such information without hesitation is another thing entirely. Even though Arts assimilation test results are publicly accessible, there are those who stubbornly believe that Fluorite has secret \"divination\" abilities. \n\"Just think about it. You almost flopped your PE and the instructor just gave you an earful. While heading back to the dorms you see Fluorite along the corridors and she suddenly goes, 'I guess it can't be helped. Midnight sandwiches are just so divine'... She's so friggin' annoying! Fine, I know I shouldn't be snacking at night but why would she say it out loud?\" \nOne Operations Team Z7 member once voiced their frustrations, but instead of receiving comfort, they were met with a chorus of knowing looks that silently said, \"I feel you.\" In all fairness, Fluorite does not intend to stir up trouble and she hardly speaks during dialogs. However, her carefree nature combined with her excessively unforgiving tone proved to be rather discomforting to most people during many situations. When these issues were brought before Fluorite, her defense was simple and sincere: \n\"You want me to go and apologize?\" </>",
+      "file2": "<@profile.key>Verana. Known aliases: Double Hands, Gossipmonger, Shots-Got-Eyes, Strangleweed. Female. Phidia. Green haired. \nFormer muscle Boozers, former muscle for the Lamelegs; former member of the gunslinger posse for the Hungry Lupos; honorary member of the Scarred Company (scratched out to avoid reprisal); top shooter working for \"Weird Neck\" Logan. Rumors say that Verana began working at a proper security company after leaving the underworld. \nVerana is extremely skilled in the use of hand guns, throwing daggers, and hand crossbows. She is famous for her quick-draws, cunning, and willingness to lay down various traps. Keep an eye on anything she holds. Do not believe anything (not even a word) she says. Do not attempt to confront her in the wildlands as it has proved to be extremely risky and dangerous. \nWANTED FOR: Violating the established order; stealing gang supplies, treason; inflaming local tensions in the town of Oriron Screw, toppling the business of \"Weird Neck\" Logan, and physically wounding and crippling every member of his operations. Also, we now have verified that she is the one who dealt a powerful kick to the nethers of a certain spokesperson in a public setting before fleeing the scene. \nINTERMEDIARY: Go to the bar Road of No Return and talk to Bald Brown. Payment upon delivery, to be made in old bills with no consecutive serials. Body parts also accepted. 30% for hands and feet. 50% for the tongue. \nBOUNTY: 300,000 T-Creds \nUPDATE: 450,000 T-Creds \nUPDATE: 800,000 T-Creds (Payer's request: Another 200,000 T-Creds if captured alive!) \nUPDATE: 1,200,000 T-Creds \n\n(Handwritten scribbles) That \"certain\" spokesperson is Powell. He deserved it. \n\nSOW Notes: After much persuasion from our side, Operator Fluorite voluntarily submitted this bounty poster. As of now, we can verify that no copies furnished with her handwriting can be found. The Human Resources Division has already conferred with Operator Fluorite regarding the public attack on the spokesperson. Please direct your inquiries to the said division if you need to peruse the relevant records. \nSpokesperson Powell did not suffer serious physical injuries, but his public image took a significant blow. This was due not only to his exaggerated and undignified reactions to the intense pain, but also to the revelation that Fluorite's malicious demeanor after the incident sharply contrasted with the public persona she had cultivated. Our investigations further revealed that Spokesperson Powell's early political activities were primarily centered around several free cities near the frontiers. Records indicate frequent interactions with leaders of various minor criminal organizations. One such example is \"Weird Neck\" Logan, who once dominated the town of Oriron Screw and is a potential suspect in illicit crop trading and the use of forced labor in hazardous environments. Logan has, on multiple occasions, granted Powell monetary benefits in exchange for protection. \nOperator Fluorite's final action in the town of Oriron Screw obviously revealed her personal grudge against Spokesperson Powell, who had secretly offered protection for local criminal organizations. After accessing monitoring records, we verified that Fluorite carried out the deed while donning a mask. Spokesperson Powell's criminal records have since been submitted to the TGCC. This incident is unlikely to trigger further PR issues, for now. </>",
+      "file3": "<@profile.key>\"The thing is, those towns and villages have been completely abandoned. According to the path described by Fluorite herself, you'll realize that she's like a scavenger, swooping from one dying town to the next. Once a new 'corpse' appears, she would spread her wings and 'fly off' again...\" \n\"I'm not questioning her motives. These vagabonds were not the ones who caused the towns to fade away. Folks could only find less than ideal places to settle, places that only had limited access to support and resources from the fringes. If a hub city meets a crisis, then the resulting supply breakdown could initiate a chain reaction capable of killing every town along the route.\" \n\"Death starts from the most isolated spots, the weakest link of the chain. Refugees would then ride the wave of collapse until they either arrive at a new town that offers enough stability, or fade away completely in the wildlands like a certain town out there... People even came up with a special name to describe this phenomenon.\" \n\"As long as the links between our cities remain fragile and tenuous, the stranding will never end. Crisis breeds privilege, and privilege is a hot bed for sin. Once we reach the threshold, Civilization is no longer a home, but a yoke that the monopolists shackle onto the necks of their slaves.\" \n\"We must master the power that can help us prevent this from happening.\" </>",
+      "file4": "<@profile.key>Mama, I heard about how my uncles and aunts are doing: \nGordon. Alloycarrot. Trucker. \nElsa. The Unicity. Seems to be a cashier at a grocery store. \nAndalusia. Free City of Neo Tsukushi. Journalist. \nBig William. Town of Oriron Screw (abandoned). Passed away due to a railroad accident. \nKarakurt. I only managed to learn that she left for Morospolis. She was last seen near Valley V. \nEbby. Not yet found. \nCavill. Not yet found. \n\"Long Legs\". Currently serving his term. They treat inmates pretty well in Hongshan. \nAldan. Tried fighting me but ran away. I don't intend to look for him anymore. Piece of trash. \n............ \nVerana, you can also call me \"Fluorite\" now. I've reached the skies. Place is interesting so I might stick around for a while. \nIf you find this letter and regard yourself as a decent individual, please give this to Endfield Industries or burn it in the frontiers. Much appreciated. \n— A piece of wrinkled paper, folded many times. When the logistics operator gave this to Fluorite, she noticed a gentleness rarely seen in the latter's eyes. </>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Agility <@ba.vup>+{Agi:0}</>, Intellect <@ba.vup>+{Wisd:0}</>.",
+      "name": "Ten-Finger Smith"
+    },
+    "potential2": {
+      "description": "Talent <@ba.key>Unpredictable</> improved: Chance to ignore Arts DMG <@ba.vup>+{probability:0%}</>.",
+      "name": "Mind Reading Technique"
+    },
+    "potential3": {
+      "description": "Battle skill <@ba.key>Tiny Surprise</> improved: After <@ba.key>Improvised Explosive</> explodes, the <#ba.slow>slow</> effect is applied to all enemies hit and lasts <@ba.vup>{duration_potential:0}</>s.",
+      "name": "Triple Surprise"
+    },
+    "potential4": {
+      "description": "Ultimate <@ba.key>Apex Prankster</> improved: Ultimate Energy cost <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Prank Master"
+    },
+    "potential5": {
+      "description": "Combo skill <@ba.key>Free Giveaway</> improved: Whenever <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</> is applied to the enemy, cooldown is shortened by <@ba.vup>{reduce:0}</>s. Effect can only trigger once every 1s.",
+      "name": "Craver of Chaos"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Got a Small Problem",
+      "author": "Kaneni",
+      "description": "Don't let Fluorite know what you're thinking about... Oh. I think it's too late for that already."
+    },
+    "potential3": {
+      "name": "Action Oriented",
+      "author": "GHOSTY",
+      "description": "She hardly bears grudges. Her enemies usually don't last that long."
+    },
+    "potential6": {
+      "name": "Gray Fringes of the Rules",
+      "author": "Doppel",
+      "description": "Justice is always served. However, if justice decides to show up late, then we're in for quite a show."
+    }
+  }
+}

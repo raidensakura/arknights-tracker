@@ -124,18 +124,18 @@ async function fetchGameData(token, lang, serverId, onProgress) {
 
                 if (onProgress && newItems.length > 0) {
                     const countsByCat = {};
-                    
+
                     newItems.forEach(item => {
                         const rawId = item.poolId || item.bannerId || poolLabel;
-                        const catId = normalizeBannerId(rawId); 
-                        
+                        const catId = normalizeBannerId(rawId);
+
                         countsByCat[catId] = (countsByCat[catId] || 0) + 1;
                     });
 
                     for (const [catId, count] of Object.entries(countsByCat)) {
                         onProgress({
                             type: 'progress',
-                            poolId: catId, 
+                            poolId: catId,
                             count: count
                         });
                     }
@@ -149,7 +149,8 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                         ...item,
                         name: item.name || item.charName || item.weaponName,
                         poolId: finalPoolId,
-                        itemType: isWeaponScan ? 'weapon' : 'character'
+                        itemType: isWeaponScan ? 'weapon' : 'character',
+                        isFree: item.isFree
                     };
                 });
 
@@ -193,10 +194,10 @@ app.post('/api/import', importLimiter, async (req, res) => {
         'X-Accel-Buffering': 'no',
         'Transfer-Encoding': 'chunked'
     });
-    
+
     const sendEvent = (data) => {
         res.write(JSON.stringify(data) + "\n");
-        if (res.flush) res.flush(); 
+        if (res.flush) res.flush();
     };
 
     let usedServerId = null;
@@ -224,11 +225,11 @@ app.post('/api/import', importLimiter, async (req, res) => {
         }
         serverCandidates.add('3');
         serverCandidates.add('2');
-        
+
         console.log(`\n--- New Import Request (Streaming) ---`);
 
         let allPulls = [];
-        
+
         const progressCallback = (data) => {
             sendEvent(data);
         };
@@ -312,19 +313,19 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         else if (p.timestamp) pullTimeMs = Number(p.timestamp) * 1000;
         else if (p.ts) pullTimeMs = Number(p.ts) * 1000;
         else if (p.time) pullTimeMs = new Date(p.time).getTime();
-        
+
         if (!pullTimeMs || isNaN(pullTimeMs)) pullTimeMs = Date.now();
 
         const pullWithCorrectTime = { ...p, time: pullTimeMs };
         const specificBannerId = getDistinctBannerId(pullWithCorrectTime, serverId);
-        
+
         if (!pullsByBanner[specificBannerId]) pullsByBanner[specificBannerId] = [];
         pullsByBanner[specificBannerId].push(pullWithCorrectTime);
     });
 
     // --- ЭТАП 2: Обновление КОНКРЕТНЫХ баннеров (для Глобала и Истории) ---
     for (const [bannerId, rawPulls] of Object.entries(pullsByBanner)) {
-        
+
         const { stats, enrichedPulls } = calculateMath(rawPulls, bannerId, serverId);
 
         // --- Глобальная статистика (Дельта логика) ---
@@ -337,7 +338,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         const oldTotal5 = oldUserStat?.total5 || 0;
         const oldWon = oldUserStat?.won5050 || 0;
         const oldTotal5050 = oldUserStat?.total5050 || 0;
-        const oldLost = oldTotal5050 - oldWon; 
+        const oldLost = oldTotal5050 - oldWon;
 
         const newLost = stats.total5050 - stats.won5050;
 
@@ -346,7 +347,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         const d_total5 = stats.total5 - oldTotal5;
         const d_limited = stats.won5050 - oldWon;
         const d_lost = newLost - oldLost;
-        const d_users = oldUserStat ? 0 : 1; 
+        const d_users = oldUserStat ? 0 : 1;
 
         if (d_totalPulls !== 0 || d_total6 !== 0 || d_limited !== 0 || d_lost !== 0) {
             await prisma.globalBannerStats.upsert({
@@ -365,7 +366,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
                     total6: { increment: d_total6 },
                     total5: { increment: d_total5 },
                     limitedCount: { increment: d_limited },
-                    lost5050: { increment: d_lost },        
+                    lost5050: { increment: d_lost },
                     totalUsers: { increment: d_users }
                 }
             });
@@ -379,8 +380,8 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         }
 
         // Запись UserBannerStat (Specific ID)
-        const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time; 
-        
+        const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time;
+
         await prisma.userBannerStat.upsert({
             where: { uid_bannerId: { uid, bannerId } },
             create: {
@@ -409,9 +410,9 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     }
 
     // --- ЭТАП 3: Обновление ОБЩИХ категорий (ДЛЯ РЕЙТИНГА) ---
-    
+
     console.log(`--- Updating Generic Categories for Rankings (${uid}) ---`);
-    
+
     const pullsByGeneric = {
         'special': [],
         'standard': [],
@@ -526,7 +527,7 @@ async function processGlobalGraphsOnly(bannerId, newPulls) {
         itemUpdates[normName].count++;
 
         if (p.rarity === 6 && p.pity) {
-             pityUpdates6[p.pity] = (pityUpdates6[p.pity] || 0) + 1;
+            pityUpdates6[p.pity] = (pityUpdates6[p.pity] || 0) + 1;
         }
     });
 
@@ -651,7 +652,7 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     const hardPityLimit = isWeaponType ? 80 : 120;
 
     const specificBannerConfig = BANNERS.find(b => b.id === categoryId);
-    const isGenericCalculation = !specificBannerConfig; 
+    const isGenericCalculation = !specificBannerConfig;
 
     if (pulls.length > 0 && isGenericCalculation) {
         console.log(`\n[MATH DEBUG] Calculating Generic Category: "${categoryId}" (Pulls: ${pulls.length})`);
@@ -661,27 +662,18 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     let count6 = 0, count5 = 0;
     let sumPity6 = 0, sumPity5 = 0;
     let won5050 = 0, total5050 = 0;
-    
+
     let currentPity6 = 0;
     let currentPity5 = 0;
-    let rateUpCounter = 0; 
-    
+    let rateUpCounter = 0;
+
     const offset = getServerOffset(serverId);
     const enrichedPulls = [];
-
-    const bannerCounters = {};
 
     pulls.forEach((pull) => {
         const p = { ...pull };
         const itemName = normalize(p.name);
-        
-        const pullBannerId = getDistinctBannerId(p, serverId);
-        if (!bannerCounters[pullBannerId]) bannerCounters[pullBannerId] = 0;
-        const localIndex = bannerCounters[pullBannerId];
-        bannerCounters[pullBannerId]++;
-
-        const isSpecialCharBanner = categoryId.includes('special') && !isWeaponType;
-        const isFreePull = isSpecialCharBanner && (localIndex >= 30 && localIndex < 40);
+        const isFreePull = p.isFree === true;
 
         if (!isFreePull) {
             currentPity6++;
@@ -697,7 +689,7 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             if (!isFreePull) {
                 count6++;
                 sumPity6 += currentPity6;
-                console.log(`   [6* PAID] ${p.name} | Pity: ${currentPity6} | Total6: ${count6} | Avg: ${(sumPity6/count6).toFixed(1)}`);
+                console.log(`   [6* PAID] ${p.name} | Pity: ${currentPity6} | Total6: ${count6} | Avg: ${(sumPity6 / count6).toFixed(1)}`);
                 currentPity6 = 0;
             } else {
                 console.log(`   [6* FREE] ${p.name} | Ignored in stats | Pity set to 1`);
@@ -746,20 +738,20 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     });
 
     const winRate = total5050 > 0 ? (won5050 / total5050 * 100) : 0;
-    console.log(`[MATH END] ${categoryId} Result -> Avg6: ${(sumPity6/count6 || 0).toFixed(1)} | WinRate: ${winRate.toFixed(1)}% (Won: ${won5050}/${total5050})`);
+    console.log(`[MATH END] ${categoryId} Result -> Avg6: ${(sumPity6 / count6 || 0).toFixed(1)} | WinRate: ${winRate.toFixed(1)}% (Won: ${won5050}/${total5050})`);
 
-    return { 
-        stats: { 
+    return {
+        stats: {
             totalPulls: total,
             total6: count6,
-            sumPity6, 
+            sumPity6,
             total5: count5,
-            sumPity5, 
-            won5050, 
-            total5050, 
-            winRate 
-        }, 
-        enrichedPulls 
+            sumPity5,
+            won5050,
+            total5050,
+            winRate
+        },
+        enrichedPulls
     };
 }
 

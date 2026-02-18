@@ -1,0 +1,142 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Moltiplicatore SEQ ATTB 1",
+        "batkSeq2Multiplier": "Moltiplicatore SEQ ATTB 2",
+        "batkSeq3Multiplier": "Moltiplicatore SEQ ATTB 3",
+        "batkSeq4Multiplier": "Moltiplicatore SEQ ATTB 4",
+        "batkSeq5Multiplier": "Moltiplicatore SEQ ATTB 5",
+        "finisherAtkMultiplier": "Moltiplicatore ATT mossa letale",
+        "diveAtkMultiplier": "Moltiplicatore ATT dall'alto"
+      },
+      "name": "Ceneri infuocate",
+      "description": "ATTACCO BASE: \nsequenza di massimo cinque attacchi che infliggono <@ba.fire>danni da fuoco</>. Quando controlli l'operatore, il <#ba.lastcombo>colpo finale</> infligge anche <@ba.poise>{poise:0}</> di Vacillamento. \n\nATTACCO DALL'ALTO: \ngli attacchi base eseguiti a mezz'aria diventano attacchi dall'alto che infliggono <@ba.fire>danni da fuoco</> ai nemici nelle vicinanze. \n\nMOSSA LETALE: \ngli attacchi base eseguiti vicino a un nemico Vacillante diventano mosse letali che infliggono ingenti <@ba.fire>danni da fuoco</> e ripristinano parzialmente i PA."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "baseExplosionDmgMultiplier": "Moltiplicatore danni Esplosione base",
+        "baseExplosionStagger": "Vacillamento Esplosione base",
+        "dmgOverTimeMultiplierPerSeq": "Moltiplicatore danni progressivi per SEQ",
+        "additionalAtkDmgMultiplier": "Moltiplicatore danni ATT aggiuntivo",
+        "additionalAtkStagger": "Vacillamento ATT aggiuntivo",
+        "combustionDurationS": "Durata Combustione (s)",
+        "additionalAtkUltimateEnergyGain": "Incremento energia suprema ATT aggiuntivo",
+        "duringUltimateBatkSeq1Multiplier": "Durante abilità suprema: moltiplicatore SEQ ATTB 1",
+        "duringUltimateBatkSeq1Stagger": "Durante abilità suprema: Vacillamento SEQ ATTB 1",
+        "duringUltimateBatkSeq2Multiplier": "Durante abilità suprema: moltiplicatore SEQ ATTB 2",
+        "duringUltimateBatkSeq2Stagger": "Durante abilità suprema: Vacillamento SEQ ATTB 2",
+        "duringUltimateAdditionalAtkMultiplier": "Durante abilità suprema: moltiplicatore ATT aggiuntivo",
+        "duringUltimateAdditionalAtkStagger": "Durante abilità suprema: Vacillamento ATT aggiuntivo",
+        "duringUltimateCombustionDurationS": "Durante abilità suprema: durata Combustione (s)"
+      },
+      "name": "Fuoco quiescente",
+      "description": "Evoca un frammento di magma che attacca continuamente i nemici e infligge <@ba.fire>danni da fuoco</>. Colpire il nemico conferisce un accumulo di <@ba.key>Fiamma di scioglimento</>. \nSe Laevatain ha già {count:0} accumulo/i di <@ba.key>Fiamma di scioglimento</> quando usa l'abilità, consuma tutti gli accumuli ed esegue un attacco aggiuntivo che infligge <@ba.fire>danni da fuoco</> e attiva forzatamente <#ba.burning>Combustione</> temporanea a tutti i nemici in un'ampia area.\nQuando l'attacco aggiuntivo colpisce il nemico, ripristina ulteriore energia suprema.\n<@ba.info>Mentre l'abilità suprema di Laevatain è attiva, gli effetti delle abilità di combattimento sono potenziati.</>"
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Moltiplicatore danni",
+        "stagger": "Vacillamento",
+        "ultimateEnergyGainWhenHitting1Enemy": "Incremento energia suprema quando viene colpito 1 nemico",
+        "ultimateEnergyGainWhenHitting2Enemies": "Incremento energia suprema quando vengono colpiti 2 nemici",
+        "ultimateEnergyGainWhenHitting3Enemies": "Incremento energia suprema quando vengono colpiti 3 nemici"
+      },
+      "name": "Ribollire",
+      "description": "ATTIVAZIONE COMBO: quando un nemico subisce <#ba.burning>Combustione</> o <#ba.corrupt>Corrosione</>. \nIl fuoco divampa sotto i piedi di qualsiasi nemico con <#ba.burning>Combustione</> o <#ba.corrupt>Corrosione</>, infliggendo loro <@ba.fire>danni da fuoco</>. \nSe l'abilità colpisce il nemico, Laevatain ottiene un accumulo di <@ba.key>Fiamma di scioglimento</> e ulteriore energia suprema per ogni nemico colpito."
+    },
+    "ultimate": {
+      "ultimate": {
+        "durationS": "Durata (s)",
+        "enhancedBatkSeq1Multiplier": "Moltiplicatore SEQ ATTB 1 amplificato",
+        "enhancedBatkSeq2Multiplier": "Moltiplicatore SEQ ATTB 2 amplificato",
+        "enhancedBatkSeq3Multiplier": "Moltiplicatore SEQ ATTB 3 amplificato",
+        "enhancedBatkSeq4Multiplier": "Moltiplicatore SEQ ATTB 4 amplificato"
+      },
+      "name": "Crepuscolo",
+      "description": "Laevatain evoca il suo Sviga Lævi e diventa l'operatore controllato. \nPer un certo periodo di tempo, i suoi attacchi base (ATTB) vengono potenziati e lo Sviga Lævi attacca insieme a Laevatain, infliggendo <@ba.fire>danni da fuoco</>. La sequenza di attacchi base 3 applica anche <#ba.fireinflict>Afflizione da fuoco</>."
+    },
+    "indicator": {
+      "levels": [
+        "Intelletto operatore +15.",
+        "Intelletto operatore +15.",
+        "Intelletto operatore +20."
+      ],
+      "name": "Acume"
+    },
+    "talent1": {
+      "levels": [
+        "Dopo che il <#ba.lastcombo>colpo finale</> o la mossa letale dell'operatore controllato colpisce il nemico, Laevatain assorbe <#ba.fireinflict>Afflizione da fuoco</> dai nemici vicini. \nOgni accumulo di <#ba.fireinflict>Afflizione da fuoco</> assorbito conferisce a Laevatain 1 accumulo di <@ba.key>Fiamma di scioglimento</> (accumuli massimi: {max_stack:0}). \nRaggiunti {max_stack:0} accumuli, i danni inflitti da Laevatain ignorano un <@ba.vup>{100*ignore_fire_resist:0}</> di <@ba.fire>resistenza al fuoco</> del nemico per {ignore_fire_resist_duration:0} s. \n<@ba.info>Laevatain assorbe anche Afflizione da fuoco dai nemici vicini sconfitti.</>",
+        "Dopo che il <#ba.lastcombo>colpo finale</> o la mossa letale dell'operatore controllato colpisce il nemico, Laevatain assorbe <#ba.fireinflict>Afflizione da fuoco</> dai nemici vicini. \nOgni accumulo di <#ba.fireinflict>Afflizione da fuoco</> assorbito conferisce a Laevatain 1 accumulo di <@ba.key>Fiamma di scioglimento</> (accumuli massimi: {max_stack:0}). \nRaggiunti {max_stack:0} accumuli, i danni inflitti da Laevatain ignorano un <@ba.vup>{100*ignore_fire_resist:0}</> di <@ba.fire>resistenza al fuoco</> del nemico per {ignore_fire_resist_duration:0} s. \n<@ba.info>Laevatain assorbe anche Afflizione da fuoco dai nemici vicini sconfitti.</>"
+      ],
+      "name": "Cuore fiammeggiante"
+    },
+    "talent2": {
+      "levels": [
+        "Quando i PS scendono sotto un {hp_threshold:0%}, ottieni un <@ba.vup>{shelter:0%}</> di <#ba.guard>Protezione</> e ripristini un <@ba.heal>{heal_max_hp:0%}</> di PS massimi al secondo per <@ba.vup>{duration:0}</> s. L'effetto si attiva una sola volta ogni {cd:0} s.",
+        "Quando i PS scendono sotto un {hp_threshold:0%}, ottieni un <@ba.vup>{shelter:0%}</> di <#ba.guard>Protezione</> e ripristini un <@ba.heal>{heal_max_hp:0%}</> di PS massimi al secondo per <@ba.vup>{duration:0}</> s. L'effetto si attiva una sola volta ogni {cd:0} s."
+      ],
+      "name": "Riaccensione"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assegna alla cabina di produzione per aumentare del 20% l'efficienza di produzione dei materiali per l'ESP degli operatori.",
+        "Assegna alla cabina di produzione per aumentare del 30% l'efficienza di produzione dei materiali per l'ESP degli operatori."
+      ],
+      "name": "Crogiolo della memoria"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assegna alla cabina di produzione per rallentare del 14% il calo dell'umore di tutti gli operatori al suo interno.",
+        "Assegna alla cabina di produzione per rallentare del 18% il calo dell'umore di tutti gli operatori al suo interno."
+      ],
+      "name": "Fiamme senza tempo"
+    },
+    "files": {
+      "main": "<@profile.key>NOME IN CODICE: Laevatain \nGENERE: F \nAFFILIAZIONE: Rhodes Island \nDATA DI NASCITA: La stessa dell'Endmin \nRAZZA: Sarkaz \n[STATO ORIPATIA] \nI referti medici confermano la negatività all'Oripatia. \n\n[RISULTATI DELL'ESAME FISICO] \nFORZA FISICA: Eccellente \nABILITÀ DI COMBATTIMENTO: Normali \nACUME TATTICO: Normale \nASSIMILAZIONE DELLE ARTI DI ORIGINIUM: Eccellente \n\nSi prega di tenere presente che la struttura simile a un anello che si porta sempre dietro dev'essere ispezionata e riparata regolarmente dagli ingegneri dell'arsenale. - Krad, professionista della sicurezza Endfield </>",
+      "humanResources": "<@profile.key>L'operatrice Laevatain, una veicolante, si è unita alla Endfield su raccomandazione dell'Endministrator. Dopo aver ottenuto il suo consenso, oltre che l'approvazione delle risorse umane e della Rhodes Island, Laevatain è entrata a far parte della Endfield nel ruolo di operatrice, sotto il comando diretto dell'Endministrator. \n\nLaevatain si è presentata all'appuntamento con ben quarantacinque minuti di anticipo sull'orario concordato. Si è limitata ad appoggiare la notifica di assunzione sul tavolo e ha detto semplicemente: \"Eccomi. Possiamo cominciare.\" \nNelle fasi iniziali del colloquio è stata molto collaborativa, accettando di fornire la propria firma, sottoporsi alla scansione della retina e collegare il suo livello di autorità protocollare senza lamentarsi o fare commenti. Ho provato a sciogliere la tensione dicendo: \"Benvenuta alla Endfield.\" Annuendo, lei ha risposto: \"Ok.\" \nDurante i test di valutazione delle inclinazioni professionali, mi sono attenuto al questionario prescritto e le ho chiesto se avesse mai pensato di utilizzare le proprie abilità in ruoli che non prevedono attività di combattimento diretto, ad esempio come coordinatrice tattica, allenatrice o istruttrice. Lei non ha risposto, ma è apparsa visibilmente infastidita. \nAlla fine, l'operatrice Laevatain se n'è andata dicendo: \"Vi chiedo solo di mandarmi in più luoghi possibile, così potrò crearmi una miriade di nuovi ricordi.\" \n- Martin Marvin Malen, assistente alle risorse umane, Endfield Industries</>",
+      "file1": "<@profile.key>Endministrator e supervisora Perlica della Endfield Industries, \nMi fa molto piacere sapere che, grazie all'aiuto dell'Endministrator, Laevatain è tornata. Sebbene il suo percorso sia tutt'altro che concluso, il suo ritorno dimostra che ha finalmente trovato un nuovo obiettivo e dei compagni con cui è disposta a viaggiare. \nLaevatain ha messo piede su Talos-II spinta da \"un desiderio e una speranza estremamente profondi\". La prima volta che abbiamo percepito la sua esistenza, la luce che emanava era accecante. Solo dopo ho capito che quella luce era il riflesso della sua ossessione, il suo io più profondo che desiderava trovare risposta alla domanda: \"Chi sono?\" \nGuidati da tale ossessione, i frammenti si sono risvegliati, dando forma a un essere completo. \"Lei\" è emersa dal Bosco di Originium, rinata e immacolata, ed è giunta alla Rhodes Island con il nome \"Laevatain\". Ho pensato che sarebbe presto diventata una delle nostre risorse migliori, ma si è rifiutata. Proprio come Surtr, che ha sempre percorso il suo cammino in solitudine, Laevatain non può essere controllata o trattenuta in un unico luogo. Non si legherà ad alcuna fazione finché non avrà trovato la risposta capace di dissipare il miasma della sua amnesia. Di conseguenza, abbiamo deciso di lasciarla andare con i nostri migliori auguri. \nAll'inizio, temevo che la scelta di Laevatain avrebbe condizionato anche altri veicolanti. Poi ho capito che ognuno di essi era diventato un veicolante proprio perché non aveva dimenticato i sogni e le visioni del passato; infatti, il loro cammino è profondamente intrecciato con il vostro. Questo pensiero mi toglie un grosso peso dallo stomaco. \nOra che Laevatain è un'Endfielder ufficiale e combatte al vostro fianco, lasciate che vi dia qualche consiglio (in base a quanto ho capito di \"lei\") per \"andarci d'accordo\". \nPrima di tutto, accettate la natura diretta di Laevatain. Spesso dice esattamente ciò che le passa per la testa, ma non perché sia mossa da ostilità, malizia o maleducazione. Anzi, questa non è che una dimostrazione della sua natura aperta e sincera: \"Preferisco dire ciò che penso e basta.\" \nSecondo, se Laevatain dovesse mostrare segni di rabbia o impazienza, non cercate di convincerla a \"calmarsi\". Vi assicuro che ci sono mezzi più efficaci, come offrirle un gelato o qualsiasi altra cosa che possa \"raffreddare\" la situazione. Laevatain è una persona con cui si può dialogare, che però non ama \"sentirsi dire cosa fare\". \nTra parentesi, prima di lasciare la Rhodes Island ha tirato fuori il gelato alla baccarossa dal congelatore del mio laboratorio e se l'è mangiato tutto guardandomi dritto in faccia, assolutamente convinta che fosse la cosa giusta da fare. \"Hai detto che a volte i ricordi mentono,\" ha esclamato leccando il cucchiaino, \"quindi mi conviene mangiarne a più non posso, così avrò un ricordo davvero sincero.\" È stato così che Laevatain ci ha detto addio, cercando di assicurarsi che quel momento fosse autentico e reale. Tiene moltissimo ai suoi amici, molto più di quanto non faccia trasparire. \nTerzo, Laevatain ha moltissime cose in comune con Surtr, ma, dato il suo temperamento... non ditele che le somiglia. Ma non ditele nemmeno che NON le somiglia. Anzi, evitate del tutto qualsiasi confronto con Surtr, a meno che non sia lei a tirare fuori l'argomento. Mi raccomando! \nVi facciamo i nostri migliori auguri nel vostro viaggio attraverso Talos-II. \n\nRhodes Island </>",
+      "file2": "<@profile.key>DOCUMENTO: Registro di servizio della Divisione medica della Endfield Industries \nAUTRICE: Dulla Gray, psicologa clinica \n\nREGISTRO 1 \nIl chirurgo Answorth è stato mandato sulla superficie per un'emergenza, quindi questa è la prima volta, da quando mi sono unita alla Endfield, che tengo sessioni di psicoterapia da sola. Devo svolgere una serie di valutazioni psicologiche su un'operatrice assunta da poco. Spero sia l'inizio di un bellissimo rapporto. \n............ \nHo aspettato per sei ore, ma l'operatrice non si è presentata. \n\nREGISTRO 2 \nHo fatto delle verifiche. A quanto pare, l'operatrice è una veicolante affetta da \"disturbo polimnesico\". Continuerò a essere io la terapeuta incaricata del caso. \nIl secondo incontro (che, a ben vedere, è in realtà il primo) con l'operatrice Laevatain è stato un successo. Sono riuscita a svolgere le valutazioni psicologiche che avremmo dovuto fare la volta prima, e lei mi ha anche spiegato il motivo della sua assenza. Profondamente scossa e turbata da una seria di incubi, ha deciso di andare sulla superficie per \"mettere ordine fra le sue emozioni\". Con il mio incoraggiamento, ha accettato di descrivermi quei sogni. \n\nLaevatain si trovava nell'aula di una scuola. Uno a uno, i suoi compagni si erano presentati al resto della classe. Una volta arrivato il suo turno, però, dalla bocca non le usciva alcun suono. Al secondo tentativo, con la gola che le bruciava, era riuscita a emettere solamente versi rauchi e indistinti. \nL'insegnante si era voltata verso di lei, ma al posto del suo volto vi era una fiamma impetuosa: \"Non riesci a dirlo perché non hai mai avuto una vita tua.\" \nA quel punto, Laevatain aveva provato a lasciare l'aula, ritrovandosi in una casa che le risultava al tempo stesso aliena e familiare. Tutto, intorno a lei, stava bruciando. Il fuoco stava consumando le pareti, i libri e gli specchi. I suoi compagni di classe, gli amici, gli insegnanti e perfino i colleghi che aveva conosciuto alla Rhodes Island e sulla Dijiang erano lì nella stanza, ma al posto dei loro volti c'erano fiamme contorte che li rendevano irriconoscibili. \nLaevatain era corsa verso la porta e l'aveva spalancata, solo per poi ritrovarsi nella stessa identica casa, anch'essa in fiamme. Mille volte era corsa via, aveva spalancato la porta e il ciclo si era ripetuto. \nOgni volta che apriva la porta, la stanza si faceva più piccola e le fiamme più vicine. \nAlla fine, dopo aver aperto l'ultima porta, si era ritrovata in una stanza coperta di cenere, senza più fiamme o fumo. Lì aveva visto sé stessa, che con un sorriso le aveva detto: \n\"Finalmente hai bruciato ogni cosa.\" \n\nIl sogno ricorrente di Laevatain sembra avere a che fare coi \"ricordi\" nella sua mente. Resta da chiarire se questi siano legati a esperienze reali o semplici illusioni, ma pare che si porti dietro questo peso da molto tempo. \n\nREGISTRO 3 \nHo provato a prescrivere svariate terapie all'operatrice Laevatain, ma con risultati deludenti. Su suggerimento del chirurgo Answorth, le ho chiesto se avesse mai considerato l'idea di rimuovere chirurgicamente quei ricordi, dato che gli incubi continuavano a tormentarla senza tregua. \nLei ci ha riflettuto per un attimo, per poi rifiutare. \nQualche giorno dopo mi ha raccontato un altro suo sogno. \n\nQuesta volta Laevatain si era svegliata in un mondo bianco. Il cielo era perfettamente limpido, e la terra sembrava estendersi all'infinito. \nAveva camminato a lungo senza sentire il vento, senza incontrare nessuno, senza sentire alcun suono e senza vedere alcuna ombra. \nAlla fine di tutto c'era una porta, e sulla porta era appeso un biglietto: \"Se non vuoi essere nessun altro, entra.\" \nA quel punto Laevatain si è fermata, decidendo di non aprire la porta. \n\nFinita la sessione, l'operatrice Laevatain mi ha regalato dei fiori rosso fuoco come ringraziamento per i nostri \"futuri viaggi fra i ricordi\". </>",
+      "file3": "<@profile.key>DOCUMENTO: Registri delle prove di adattamento al combattimento (ID: L-067) \nCANDIDATA: Laevatain (veicolante) \nSUPERVISORE: Krad (professionista della sicurezza Endfield) \nSISTEMA OPERATIVO: Simulatore di combattimento S7 \nCONTENUTI: Ingaggio multiplo e attacchi mirati \nDURATA: 3 minuti e 42 secondi \nRISULTATI: Idonea (con riserva) \n\nRIEPILOGO DEL TEST \nAl secondo 7 della fase 1, l'operatrice Laevatain evoca un'enorme spada fiammeggiante (ID equipaggiamento non rilevato; la lama è probabilmente frutto delle Arti di Originium di Laevatain) e si avventa sui nemici ancora prima di ascoltare le istruzioni relative alla simulazione. \nAl secondo 31, gli indicatori termici superano la soglia massima consentita dall'ambiente simulato e il sistema attiva automaticamente le misure per il controllo della temperatura. Krad, professionista della sicurezza Endfield, chiede di interrompere il test, ma l'operatrice Laevatain rifiuta. \nAl minuto 1 e 24 secondi, l'operatrice Laevatain annienta l'ultimo nemico e si erge al centro dell'area di simulazione, riprendendo fiato dopo l'intenso sforzo. \nIl combattimento riprende dopo 38 secondi con la fase 2. Viene avviato il protocollo \"Soppressione stazionaria\". Le prestazioni dell'operatrice superano quelle dimostrate nella fase 1 e l'intero test viene completato in 1 minuto e 40 secondi. \n\nVALUTAZIONE COMPORTAMENTALE \nLo stile di combattimento dell'operatrice è estremamente aggressivo e privilegia la rottura dello stallo attraverso la forza bruta. \nL'operatrice mostra una marcata propensione all'iniziativa individuale, a scapito del coordinamento tattico. La sua propensione al gioco di squadra è incostante. \nL'efficacia offensiva aumenta notevolmente al raggiungimento di determinate soglie emotive. Gli effetti includono: propagazione di fiamme, ustioni localizzate e interferenze di segnale. \n\nRISULTATO DEL TEST \nL'operatrice dimostra una potenza straordinaria, ma non ha ancora sviluppato la solidità mentale necessaria per avere il pieno controllo delle sue capacità. La distruzione non è per lei fonte di soddisfazione, ma utilizza il combattimento come mezzo per sfogare le emozioni e affermare la propria esistenza. Deve imparare a contenersi e a governare la propria instabilità: solo così potrà dominare il fuoco, anziché diventarlo lei stessa. Se dovesse perdere i contatti con gli operatori medici e di supporto, nessuno sarebbe in grado di salvarla. \n- Valutazione di Krad, professionista della sicurezza \n\nNon mi avete sottoposta a questo test per vedere se sono ancora in grado di combattere, volevate sapere se rischio di \"perdere il controllo\", vero? Non vi preoccupate... so esattamente quello che faccio. \n- Commento dell'operatrice Laevatain \n\nNOTA: Sarà necessario installare un nuovo sistema di isolamento termico nell'area di combattimento. In caso di ulteriori test, predisporre tre porzioni di bevande refrigeranti. \n\nDOCUMENTO: Resoconto post-operativo (ID: SU-58R-TR) \nDurante la missione di combattimento in oggetto, l'operatrice Laevatain si è lanciata contro il nemico di propria iniziativa nelle fasi iniziali della battaglia, ignorando le direttive tattiche del resto della squadra. Le sue azioni hanno causato l'interruzione temporanea delle comunicazioni, compromettendo la catena di comando e provocando attimi di panico tra i membri della squadra. Per fortuna, non sono state registrate vittime. \nAl termine dell'operazione, l'analisi delle tracce di energia residua e i registratori di dati hanno confermato che l'operatrice Laevatain ha concentrato l'attenzione dei nemici su di sé con i seguenti mezzi: rivelazione deliberata della propria posizione e sprigionamento continuo di fiamme incandescenti per compromettere le difese nemiche. In altre parole, ha usato sé stessa come esca per creare una breccia e consentire all'unità d'assalto di sfruttare l'apertura per raggiungere gli obiettivi tattici. \nUna volta conclusa la missione, l'operatrice Laevatain si è seduta su un frammento di roccia fusa solidificata. I segni di bruciatura nelle vicinanze sembravano suggerire che l'area fosse stata colpita in maniera particolarmente intensa. Laevatain è rimasta in silenzio mentre il campo di battaglia veniva analizzato. Dopo essersi assicurata che tutti gli altri operatori fossero sani e salvi, ha detto sottovoce: \"Bene.\" </>",
+      "file4": "<@profile.key>Rapporto operativo periodico per gli operatori sotto la supervisione dell'Endministrator \nOPERATRICE: Laevatain \n\nHo scortato il messaggero fino a raggiungere un bacino vulcanico. La lava fusa scorreva nella terra sotto i nostri piedi, scaldando la pioggia e l'acqua del ruscello in un continuo ribollire e gorgogliare. La stazione di monitoraggio si trovava proprio in cima a questo \"calderone di zuppa viva\". \nLì c'è pochissimo Originium, perciò gli scienziati sfruttano il calore geotermico per cucinare. Si può cuocere una latta di razioni semplicemente seppellendola sottoterra per un'oretta. Hanno anche quelli che loro chiamano \"stufati tascabili\": brodo e altri ingredienti sigillati in una busta per alimenti che, dopo una breve cottura, si può aprire direttamente con i denti. Una volta me ne sono spruzzato uno in faccia, ed era talmente bollente che mi sembrava di andare a fuoco. \nDopo il mio primo pasto, uno scienziato mi ha insegnato a intonare il loro canto \"rituale\", che recita: \"Possa la tua zuppa non rovesciarsi mai e la tua fiamma restare eternamente accesa.\" \nHo cantato con lui. Era la prima volta che ricevevo la benedizione di uno sconosciuto su Talos-II. \n- Rapporto inviato dalla stazione di monitoraggio 34 \n\nEssendo la soccorritrice più esperta e vicina alla sede dell'incidente, mi è stato ordinato di raggiungere il più rapidamente possibile una base dell'USLT non segnalata sulla mappa. \nNiente di complicato: si trattava di un semplice malfunzionamento inatteso dell'altoforno, che ne ha causato lo spegnimento e la perdita di potenza. Ho usato i miei poteri per aiutarli a riaccendere il nucleo. Così, la temperatura è tornata ai livelli operativi normali e il sistema è stato ripristinato, sventando momentaneamente la crisi. \nCiò che mi è rimasto particolarmente impresso sono stati i loro \"nomi\". Ci trovavamo in una base segreta nelle gelide terre di █████, convenzionalmente identificata dal suo codice univoco. Lì nessuno poteva usare il suo vero nome, né scegliersene uno in codice; erano consentiti solo quelli a loro \"assegnati\". \nIl mio nome provvisorio era \"Olga Randall\". Mi è stato detto che altre tre persone hanno usato lo stesso nome prima di me, e probabilmente la prossima operatrice che verrà mandata qui farà lo stesso. \nÈ stata un'esperienza strana. Non ero che un'utilizzatrice temporanea del nome \"Olga Randall\". Mi ha fatto pensare ai frammenti di ricordi che popolano la mia mente. Né il nome né i frammenti mi appartenevano davvero, ma in quel momento erano una parte di me. \n- Rapporto inviato dalla base dell'USLT DAU.14 \n\nDopo aver eliminato l'Aggelos che si era stabilito nella stazione di smistamento, ho riaperto il cancello che da tempo teneva sigillato il tunnel. \nIn quelle gallerie era stato mantenuto un ambiente a bassa gravità, perciò i rifugiati, intrappolati lì per mesi, si sono diretti verso l'uscita fluttuando. Tornati coi piedi per terra, si muovevano a fatica, scossi da tremori. Dovevano imparare nuovamente a correre e camminare sotto il poderoso effetto della gravità. \nMa una ragazzina ha indugiato per un momento, muovendosi in una danza fluttuante prima di uscire dal tunnel. Ha detto che quello era stato il suo modo di mantenere la calma e restare lucida nei mesi di isolamento. \nHo memorizzato la sua danza, una sequenza di movimenti rassicuranti e potenti al tempo stesso. Quando torno, se vuoi, te la faccio vedere. Potrei anche insegnartela. Non è difficile, basta capire come controllare il respiro e seguire il ritmo. \n- Rapporto inviato dallo snodo merci MC-20 \n\nIn questo periodo mi sono creata molti nuovi ricordi. So che anche tu stai ancora inseguendo i tuoi. Ho trovato alcuni luoghi legati alla vecchia versione di \"te\". Se la cosa ti interessa, vieni a cercarmi. \n- Messaggio di emergenza, inviato dal punto di contatto 084A </>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Abilità di combattimento <@ba.key>Fuoco quiescente</> migliorata: il moltiplicatore di attacco aggiuntivo aumenta di <@ba.vup>{ratio:0.0}</> volte rispetto all'originale, e i colpi a segno <#ba.return>ripristinano</> <@ba.vup>{atb:0}</> PA.",
+      "name": "Cuore della Fiamma di scioglimento"
+    },
+    "potential2": {
+      "description": "Intelletto <@ba.vup>+{Wisd:0}</>, <@ba.vup>+{NormalAttackDamageIncrease:0%}</> di danni dell'attacco base inflitti.",
+      "name": "All'inseguimento dei ricordi"
+    },
+    "potential3": {
+      "description": "Abilità di combattimento <@ba.key>Fuoco quiescente</> migliorata: la durata della <#ba.burning>Combustione</> applicata dall'abilità aumenta di un <@ba.vup>{duration-1:0%}</>. I danni causati dalla <#ba.burning>Combustione</> applicata tramite le abilità aumentano di <@ba.vup>{extra_scaling:0.0}</> volte rispetto all'originale.",
+      "name": "Frammenti del passato"
+    },
+    "potential4": {
+      "description": "Abilità suprema <@ba.key>Crepuscolo</> migliorata: <@ba.vup>-{1-costvalue:0%}</> al costo di energia suprema.",
+      "name": "Potere dei gelati"
+    },
+    "potential5": {
+      "description": "Abilità suprema <@ba.key>Crepuscolo</> migliorata: il moltiplicatore danni dell'attacco base ottimizzato aumenta di <@ba.vup>{ratio:0.0}</> volte rispetto all'originale; ogni nemico sconfitto da Laevatain prolunga la durata dell'abilità suprema di <@ba.vup>{extend_duration:0}</> s (massimo <@ba.vup>+{max_duration:0}</> s).",
+      "name": "Prova dell'esistenza"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Il fuoco e la spada",
+      "author": "Ask",
+      "description": "Le fiamme hanno inghiottito il suo passato, ma un'unica promessa ha forgiato la sua volontà di brandire la spada per il futuro del mondo."
+    },
+    "potential3": {
+      "name": "1538 °C",
+      "author": "嘴広コウ",
+      "description": "1538 °C è il punto di fusione del ferrium, non il suo. Avvicinati pure a lei, se credi di essere all'altezza."
+    },
+    "potential6": {
+      "name": "Invito nel fuoco rovente",
+      "author": "min",
+      "description": "Stai al suo fianco nelle lunghe notti prive di ricordi. Combattete insieme per incenerire i nemici oscuri e terrificanti. Resta con lei mentre accende un fuoco per illuminare i viaggi che verranno."
+    }
+  }
+}

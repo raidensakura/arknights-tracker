@@ -1,0 +1,142 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Multiplicador SEQ 1 ATQB",
+        "batkSeq2Multiplier": "Multiplicador SEQ 2 ATQB",
+        "batkSeq3Multiplier": "Multiplicador SEQ 3 ATQB",
+        "batkSeq4Multiplier": "Multiplicador SEQ 4 ATQB",
+        "batkSeq5Multiplier": "Multiplicador SEQ 5 ATQB",
+        "finisherAtkMultiplier": "Multiplicador ATQ Finalizador",
+        "diveAtkMultiplier": "Multiplicador ATQ Mergulho"
+      },
+      "name": "Brasas Flamejantes",
+      "description": "ATAQUE BÁSICO: \nAtaque em até 5 sequências que causa <@ba.fire>DNO Térmico</>. Como operador controlado, o <#ba.lastcombo>Golpe Final</> também causa <@ba.poise>{poise:0}</> de Desorientação. \n\nATAQUE DE MERGULHO: \nO ataque básico realizado no ar se torna um ataque de mergulho que causa <@ba.fire>DNO Térmico</> aos inimigos nas proximidades. \n\nFINALIZADOR: \nO ataque básico realizado próximo a um inimigo Desorientado torna-se um finalizador que causa <@ba.fire>DNO Térmico</> significativo e recupera PH."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "baseExplosionDmgMultiplier": "Multiplicador DNO Explosão Base",
+        "baseExplosionStagger": "Desorientação Explosão Base",
+        "dmgOverTimeMultiplierPerSeq": "Multiplicador DNO ao Longo do Tempo por SEQ",
+        "additionalAtkDmgMultiplier": "Multiplicador DNO ATQ Adicional",
+        "additionalAtkStagger": "Desorientação ATQ Adicional",
+        "combustionDurationS": "Duração da Combustão (s)",
+        "additionalAtkUltimateEnergyGain": "Ganho de Energia Suprema ATQ Adicional",
+        "duringUltimateBatkSeq1Multiplier": "Durante a Habilidade Suprema: Multiplicador SEQ 1 ATQB",
+        "duringUltimateBatkSeq1Stagger": "Durante a Habilidade Suprema: Desorientação SEQ 1 ATQB",
+        "duringUltimateBatkSeq2Multiplier": "Durante a Habilidade Suprema: Multiplicador SEQ 2 ATQB",
+        "duringUltimateBatkSeq2Stagger": "Durante a Habilidade Suprema: Desorientação SEQ 2 ATQB",
+        "duringUltimateAdditionalAtkMultiplier": "Durante a Habilidade Suprema: Multiplicador ATQ Adicional",
+        "duringUltimateAdditionalAtkStagger": "Durante a Habilidade Suprema: Desorientação ATQ Adicional",
+        "duringUltimateCombustionDurationS": "Durante a Habilidade suprema: Duração da Combustão (s)"
+      },
+      "name": "Fogo Fumegante",
+      "description": "Invoca um Fragmento de Magma que ataca continuamente os inimigos e causa <@ba.fire>DNO Térmico</>. Atingir o inimigo concede 1 acúmulo de <@ba.key>Chama da Fusão</>. \nSe Laevatain já tiver {count:0} acúmulo(s) de <@ba.key>Chama da Fusão</> ao conjurar habilidade, então consome todos os acúmulos e realiza 1 ataque adicional que causa <@ba.fire>DNO Térmico</> e aciona <#ba.burning>Combustão</> temporária a força a todos os inimigos em uma grande área.\nQuando o ataque adicional atinge o inimigo, restaura Energia Suprema adicional.\n<@ba.info>Os efeitos da habilidade de batalha são aperfeiçoados quando a habilidade suprema de Laevatain está ativa.</>"
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Multiplicador DNO",
+        "stagger": "Desorientação",
+        "ultimateEnergyGainWhenHitting1Enemy": "Ganho de Energia Suprema ao Atingir 1 Inimigo",
+        "ultimateEnergyGainWhenHitting2Enemies": "Ganho de Energia Suprema ao Atingir 2 Inimigos",
+        "ultimateEnergyGainWhenHitting3Enemies": "Ganho de Energia Suprema ao Atingir 3 Inimigos"
+      },
+      "name": "Ferver",
+      "description": "ACIONADOR DO COMBO: Quando um inimigo sofre <#ba.burning>Combustão</> ou <#ba.corrupt>Corrosão</>. \nFogo surge por baixo dos pés de qualquer inimigo com <#ba.burning>Combustão</> ou <#ba.corrupt>Corrosão</>, causando <@ba.fire>DNO Térmico</> a eles. \nSe a habilidade atinge o inimigo, Laevatain ganha 1 acúmulo de <@ba.key>Chama da Fusão</> e também Energia Suprema por cada acerto no inimigo."
+    },
+    "ultimate": {
+      "ultimate": {
+        "durationS": "Duração (s)",
+        "enhancedBatkSeq1Multiplier": "Multiplicador SEQ 1 ATQB Aprimorado",
+        "enhancedBatkSeq2Multiplier": "Multiplicador SEQ 2 ATQB Aprimorado",
+        "enhancedBatkSeq3Multiplier": "Multiplicador SEQ 3 ATQB Aprimorado",
+        "enhancedBatkSeq4Multiplier": "Multiplicador SEQ 4 ATQB Aprimorado"
+      },
+      "name": "Crepúsculo",
+      "description": "Laevatain invoca sua Sviga Lævi e se torna a operadora controlada. \nDurante um certo período, seus ataques básicos (ATQB) são aprimorados e Sviga Lævi ataca em conjunto com Laevatain, com cada ataque causando <@ba.fire>DNO Térmico</>. A sequência de ATQB 3 também aplica <#ba.fireinflict>Inflição Térmica</>."
+    },
+    "indicator": {
+      "levels": [
+        "Inteligência do Operador + 15.",
+        "Inteligência do Operador + 15.",
+        "Inteligência do Operador + 20."
+      ],
+      "name": "Mente Aguçada"
+    },
+    "talent1": {
+      "levels": [
+        "Após o <#ba.lastcombo>Golpe Final</> ou Finalizador do operador controlado atingir o inimigo, Laevatain absorve <#ba.fireinflict>Inflição Térmica</> dos inimigos próximos. \nCada acúmulo de <#ba.fireinflict>Inflição Térmica</> absorvido dá a Laevatain 1 acúmulo de <@ba.key>Chama da Fusão</> (máximo de acúmulos: {max_stack:0}). \nAo atingir {max_stack:0} acúmulos, o DNO causado por Laevatain ignora <@ba.vup>{100*ignore_fire_resist:0}</> de <@ba.fire>Resistência Térmica</> do inimigo por {ignore_fire_resist_duration:0} s. \n<@ba.info>Laevatain também absorve Inflição Térmica dos inimigos derrotados nas proximidades.</>",
+        "Após o <#ba.lastcombo>Golpe Final</> ou Finalizador do operador controlado atingir o inimigo, Laevatain absorve <#ba.fireinflict>Inflição Térmica</> dos inimigos próximos. \nCada acúmulo de <#ba.fireinflict>Inflição Térmica</> absorvido dá a Laevatain 1 acúmulo de <@ba.key>Chama da Fusão</> (máximo de acúmulos: {max_stack:0}). \nAo atingir {max_stack:0} acúmulos, o DNO causado por Laevatain ignora <@ba.vup>{100*ignore_fire_resist:0}</> de <@ba.fire>Resistência Térmica</> do inimigo por {ignore_fire_resist_duration:0} s. \n<@ba.info>Laevatain também absorve Inflição Térmica dos inimigos derrotados nas proximidades.</>"
+      ],
+      "name": "Coração Ardente"
+    },
+    "talent2": {
+      "levels": [
+        "Quando PV cai abaixo de {hp_threshold:0%}, ganha <@ba.vup>{shelter:0%}</> de <#ba.guard>Proteção</> e restaura <@ba.heal>{heal_max_hp:0%}</> de PV Máximo por segundo por <@ba.vup>{duration:0}</> s. Esse efeito é acionado uma vez a cada {cd:0} s.",
+        "Quando PV cai abaixo de {hp_threshold:0%}, ganha <@ba.vup>{shelter:0%}</> de <#ba.guard>Proteção</> e restaura <@ba.heal>{heal_max_hp:0%}</> de PV Máximo por segundo por <@ba.vup>{duration:0}</> s. Esse efeito é acionado uma vez a cada {cd:0} s."
+      ],
+      "name": "Reignição"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de Operador + 20%",
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de Operador + 30%"
+      ],
+      "name": "Crisol de Memória"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Atribua à Cabine de Manufatura para desacelerar a Queda de Humor de todos os operadores em 14%",
+        "Atribua à Cabine de Manufatura para desacelerar a Queda de Humor de todos os operadores em 18%"
+      ],
+      "name": "Chamas Imortais"
+    },
+    "files": {
+      "main": "<@profile.key>CODINOME: Laevatain \nGÊNERO: Feminino \nAUTENTICAÇÃO: Rhodes Island \nDATA DE NASCIMENTO: A mesma de Endmin\nRAÇA: Sarkaz \n[STATUS DE INFECÇÃO POR ORIPATIA] \nNegativa para Oripatia com base em relatórios de exames médicos. \n\n[EXAME FÍSICO INTEGRADO] \nFORÇA FISIOLÓGICA: Excelente\nHABILIDADE DE COMBATE: Padrão \nPERSPICÁCIA TÁTICA: Padrão \nASSIMILAÇÃO DE ARTES DE ORIGINIUM: Excelente \n\nNOTA: Nossos engenheiros de arsenal devem inspecionar e consertar regularmente a estrutura em forma de anel que ela trouxe — Krad, Profissional de Segurança da Endfield</>",
+      "humanResources": "<@profile.key>A Reconvocadora e Operadora Laevatain juntou-se à Endfield por recomendação direta de Endministrator. Após obter seu consentimento pessoal, bem como a aprovação da Divisão de RH e a autorização da Rhodes Island, Laevatain juntou-se a Endfield como operadora sob o comando direto de Endministrator. \n\nLaevatain chegou à recepção 45 minutos antes do horário combinado. Ela simplesmente colocou a notificação de emprego na mesa e disse: \"Estou aqui. Podemos começar\". \nEla foi bastante cooperativa durante a fase inicial da entrevista — assinando, enviando uma varredura da retina e vinculando seu Nível de Autoridade do Protocolo sem qualquer alarde ou comentário. Tentei animar o ambiente dizendo: \"Bem-vinda a Endfield\". Ela assentiu e respondeu: \"Já estou aqui\". \nDurante o teste de aptidão para o trabalho, segui a lista de perguntas prescrita e perguntei se ela considerava utilizar suas habilidades em outras funções não relacionadas a combate, como planejadora de combate, treinadora ou instrutora. Ela não disse nada, mas pareceu visivelmente irritada. \nNo final, a Operadora Laevatain saiu com esta última frase: \"Deixe-me ir a quantos lugares você puder — lugares que me permitam construir o máximo de memórias que eu puder.\" \n— Martin Marvin Malen, Assistente, Divisão de RH, Endfield Industries</>",
+      "file1": "<@profile.key>Endministrator e Supervisora Perlica da Endfield Industries: \nEstou extremamente feliz em saber que Laevatain retornou com a ajuda de Endministrator. Embora sua jornada esteja longe de terminar, seu retorno prova que ela encontrou um novo objetivo e pessoas com quem está disposta a viajar. \nUm \"desejo e esperança\" extremamente poderosos levaram Laevatain a pisar nas terras de Talos-II. Quando sentimos sua existência pela primeira vez, a luz que ela emitia era deslumbrante. Mais tarde, percebi que essa luz era emitida por sua obsessão — seu ego mais íntimo exigindo a resposta: \"Quem sou eu?\" \nImpulsionados por essa obsessão, os fragmentos despertaram e criaram uma persona completa. \"Ela\" saiu da Floresta de Originium, nova e intacta, e chegou à Rhodes Island sob o nome \"Laevatain\". Pensei que ela se tornaria imediatamente um de nossos maiores aliados e apoiadores, mas ela nos recusou. Assim como Surtr, que sempre caminhou sozinha, ninguém pode comandar Laevatain ou forçá-la a permanecer no mesmo lugar. Ela não responderá a nenhuma facção até encontrar a resposta para dissipar seu próprio miasma de amnésia. Por isso, decidimos abrir as portas e nos despedir dela com as nossas melhores saudações. \nEm certa ocasião, tive a preocupação de que a escolha de Laevatain poderia afetar outros convocadores. Então, percebi que eles se tornaram convocadores porque nenhum deles se esqueceu do antigo sonho e visão. E é por isso que se reuniram com vocês neste mesmo caminho. Agora, só esse pensamento já me tirou uma pedra do peito. \nJá que Laevatain é atualmente uma Endfielder oficial lutando ao seu lado, permitam-me compartilhar alguns conselhos (com base no meu conhecimento sobre \"ela\") para \"como conviver bem com ela\". \nEm primeiro lugar, aceitem a natureza direta de Laevatain. Ela costuma dizer o que quer que lhe venha à mente. Não é um ato de hostilidade, malícia ou grosseria. Na verdade, tais palavras são um símbolo de sua atitude sincera e sem disfarces — \"Prefiro simplesmente dizer o que estou pensando agora.\" \nEm segundo lugar, caso Laevatain demonstre sinais óbvios de fúria ou impaciência, não tentem persuadi-la a se \"acalmar\". Acreditem, existem meios mais eficazes, como oferecer sorvete ou outras coisas que podem \"esfriar\" a situação rapidamente. Laevatain é alguém com quem vocês podem se comunicar, mas ela não gosta de que \"digam o que ela tem que fazer\". \nSó para constar, antes de deixar Rhodes Island, ela pegou todo o sorvete de amora vermelha do freezer do meu laboratório — e comeu tudo, bem na minha frente, como se fosse a coisa certa a fazer. \"Achei que você tinha me dito que as memórias mentem\", disse ela enquanto lambia a colher, \"então é melhor eu comer mais disso para torná-lo o mais memorável possível.\" Laevatain marcou sua despedida com essa ação para garantir a veracidade do momento. Ela realmente se importa profundamente com seus amigos, muito mais do que a maioria gostaria de pensar. \nEm terceiro lugar, Laevatain é extremamente parecida com Surtr, mas de acordo com seu temperamento... Não digam a ela que ela se parece com Surtr. Também não digam a ela que ela NÃO se parece com Surtr. Aliás, nunca a comparem a Surtr, a menos que ela mesma toque no assunto. Lembrem-se sempre disso! \nDesejo-lhes tudo de bom em sua jornada coletiva por Talos-II. \n\nRhodes Island</>",
+      "file2": "<@profile.key>DOCUMENTO: Log de Serviços da Divisão Médica da Endfield Industries \nAUTOR: Dulla Gray, psicólogo clínico \n\nLOG 1 \nO cirurgião Answorth foi enviado à superfície em resposta a uma emergência. Portanto, esta é a primeira vez que presto serviços psicoterapêuticos por conta própria desde que entrei para a Endfield. Os detalhes do trabalho são fornecer avaliações psicológicas para uma operadora de integração. Espero que este seja o início de um lindo relacionamento entre nós. \n............ \nEsperei seis horas, mas a operadora não apareceu. \n\nLOG 2 \nVerifiquei os registros. Acontece que a operadora é uma reconvocadora com problemas de \"transtornos polimnésicos\". Continuo sendo o terapeuta-chefe responsável por este caso. \nMinha segunda reunião (que é tecnicamente a primeira, considerando todos os fatos) com a Operadora Laevatain foi bem-sucedida. Fiz as avaliações psicológicas que perdemos da última vez, e ela também explicou por que não compareceu àquela reunião. Parecia que ela estava profundamente perturbada e incomodada por certos pesadelos. Por isso, optou por ir à superfície e \"resolver os sentimentos\". Com o meu incentivo, concordou em me descrever seus sonhos. \n\nLaevatain sonhou que estava em pé em uma sala de aula. Um por um, seus colegas se apresentaram na frente. Mas quando chegou a sua vez, tentou abrir a boca, mas nenhuma voz saiu. Tentou novamente, mas sua garganta começou a doer e ela só conseguiu emitir ruídos roucos e indistintos. \nA professora se virou, mas uma chama ardente dançou onde seu rosto deveria estar: \"Você não podia dizer isso porque nunca teve sua própria vida.\" \nLaevatain tentou sair da sala de aula, mas apenas para se ver em uma casa familiar, porém de aparência estranha. Tudo ao seu redor estava queimando. O fogo consumia as paredes, os livros e os espelhos. Seus colegas de classe, amigos, professores, familiares e até mesmo colegas que ela conheceu na Rhodes Island e na Dijiang estavam na sala, mas todos os seus rostos eram contorções de chamas retorcidas e irreconhecíveis. \nEla então correu para a porta e forçou a passagem, apenas para se ver outra vez na mesma casa, também em chamas. Ela correu novamente, abriu a porta e viu a mesma coisa. \nA cada porta que passava, a sala ficava menor e as chamas se aproximavam. \nNo final, ela abriu a última porta e chegou a uma sala de cinzas, sem fogo nem fumaça. Ela se viu sentada na sala, sorrindo para ela: \n\"Você finalmente queimou tudo.\" \n\nO sonho recorrente de Laevatain parece estar enraizado em \"memórias\" que ela carregava em sua mente. Não está claro se são resultantes de experiências reais ou meras ilusões, mas parece que ela vem viajando com esse fardo há muito tempo. \n\nLOG 3 \nTentei prescrever várias terapias recomendadas para a Operadora Laevatain, mas os resultados foram menos que ideais. Depois de receber sugestões do Cirurgião Answorth, perguntei a Laevatain se ela já havia considerado a remoção médica dessas memórias, já que as cenas e pesadelos continuam a afetá-la de forma inabalável. \nEla ponderou por um momento e não aceitou o conselho. \nVários dias depois, ela descreveu outro sonho para mim. \n\nNesse sonho, Laevatain acordou em um mundo branco. O céu estava limpo e perfeito, e a terra parecia infinita. \nEla caminhou por um longo tempo sem sentir o vento. Ela não encontrou ninguém, não ouviu nada e não viu sombras. \nUma porta estava bem no final. Afixada na porta havia um bilhete — Entre, se você não quiser ser outra pessoa. \nLá ela parou. Ela escolheu não abrir a porta. \n\nQuando a sessão terminou, a Operadora Laevatain me deu um buquê de flores vermelhas flamejantes — um símbolo de gratidão por \"futuras sessões de compartilhamento de memórias\". </>",
+      "file3": "<@profile.key>DOCUMENTO: Registros de Teste de Adaptação ao Combate (ID: L-067) \nCANDIDATA: Laevatain (reconvocadora) \nMONITOR: Krad (Profissional de Segurança da Endfield) \nSO: Sistema de Simulação de Combate S7 \nCONTEÚDO: Supressão em massa e ataques de precisão \nDURAÇÃO: 3 minutos e 42 segundos \nRESULTADOS: Aprovada (condicional) \n\nRESUMO DO TESTE \nNo 7º segundo da Fase 1, a Operadora Laevatain invoca uma lâmina gigante flamejante com uma mão (nenhum ID de equipamento identificado; a lâmina provavelmente foi criada pelas Artes de Originium de Laevatain) e avança diretamente para o centro do grupo inimigo simulado antes que instruções verbais fossem dadas ou confirmadas. \nNo 31º segundo, as leituras térmicas excederam os limites de monitoramento ambiental da simulação. O sistema ativa automaticamente as medidas antitérmicas. O profissional de segurança Krad solicita a interrupção do teste, mas a Operadora Laevatain nega o pedido. \nApós 1 minuto e 24 segundos, a Operadora Laevatain havia destruído todas as unidades inimigas e assumido uma postura ereta no centro da área de simulação, enquanto ajustava sua respiração após uma explosão de atividades de alta intensidade. \nO combate foi retomado após 38 segundos para iniciar a Fase 2. O item de teste \"Supressão Estacionária\" foi iniciado. O desempenho da operadora foi muito mais extremo do que na Fase 1 e todo o teste foi concluído após 1 minuto e 40 segundos. \n\nRESUMO COMPORTAMENTAL \nO estilo de combate é altamente agressivo e prioriza romper o impasse com força esmagadora. \nEla prefere tomar a iniciativa de combate em vez de se concentrar na coordenação tática. A disposição para apoiar o trabalho em equipe é instável. \nA eficácia da arma é significativamente melhorada em limiares emocionais. Os efeitos incluem propagação de fogo, marcas de queimadura localizadas e interferência de sinal. \n\nREVISÃO DO TESTE \nEla é incrivelmente poderosa, mas ainda precisa desenvolver a força mental necessária para dominar suas habilidades. Ela não gosta de destruição, mas usa o combate como um meio de desabafar suas emoções e provar sua existência. Ela precisa aprender a se conter e controlar essa instabilidade — dominar o fogo, mas não se tornar o fogo. Se ela perder a conexão com os médicos ou operadores de suporte da equipe, ninguém poderá salvá-la. \n— Avaliações de Krad, Profissional de Segurança \n\nAcho que você não me deu esse teste para ver se ainda consigo lutar. Você queria saber se eu \"perderia o controle\", certo? Não se preocupe... Eu sei exatamente o que estou fazendo. \n— Comentários da Operadora Laevatain \n\nNOTA: Um novo isolamento térmico deve ser instalado na área de teste de combate. Se houver outro teste, prepare também 3 porções de bebidas refrigerantes. \n\nDOCUMENTO: Resumo Pós-Operacional (ID: SU-58R-TR) \nDurante esta operação de combate, a Operadora Laevatain atacou o inimigo por conta própria nos estágios iniciais da batalha e não respondeu aos chamados táticos de sua equipe. Suas ações interromperam temporariamente as comunicações, interromperam a cadeia de comando e causaram pânico momentâneo entre os membros da equipe. Felizmente, a equipe não sofreu nenhuma baixa. \nAo final da operação, análises de traços de energia residual e registradores de dados táticos confirmaram que a Operadora Laevatain desviou com sucesso o foco do fogo inimigo para si mesma com estes meios: exposição deliberada de sua própria posição e emissão contínua de chamas superquentes que interrompem as defesas inimigas. Em outras palavras, ela se usou como isca para criar uma brecha tática e permitiu que nossos operadores atacantes explorassem a abertura e alcançassem nossos objetivos táticos. \nAo concluir a operação, a Operadora Laevatain sentou-se sobre um fragmento resfriado de rocha derretida. Marcas de queimadura nas proximidades sugeriram que esta área foi submetida a ataques extremamente intensos. Laevatain não disse nada enquanto examinávamos o campo de batalha. Depois de verificar se todos os outros operadores estavam bem, ela disse suavemente: \"Ótimo.\" </>",
+      "file4": "<@profile.key>Relatório de Trabalho Periódico para Operadores sob Endministrator \nREPORTADO POR: Laevatain \n\nAcompanhei o mensageiro até esta bacia vulcânica. Lava derretida fluía pelo solo sob nossos pés, aquecendo a chuva e o riacho, fazendo a terra espumar e borbulhar sem parar. A estação de monitoramento ficava bem em cima deste \"caldeirão de sopa viva\". \nEste lugar é extremamente pobre em Originium. Cientistas residentes dependem do calor geotérmico para cozinhar alimentos. Uma lata de ração pode ser cozida completamente simplesmente enterrando-a na terra por uma hora. Eles até têm \"ensopados de bolso\": um caldo líquido e outros ingredientes selados em um saco próprio para alimentos — após um cozimento rápido, você pode simplesmente rasgá-lo com os dentes. Certa vez, fiquei com a cara cheia de ensopado quente e senti como se estivesse pegando fogo. \nQuando fiz minha primeira refeição, o cientista me ensinou a cantar seu cântico \"ritual\": \"Que sua sopa nunca derrame e que sua chama nunca se apague.\" \nCantei o cântico com ele. Foi a primeira vez que recebi a bênção de um estranho em Talos-II. \n— Enviado da Estação de Monitoramento 34 \n\nComo Operadora mais perto do incidente e a socorrista mais capaz, recebi ordens para chegar à base do STUT não marcada no mapa o mais rápido possível. \nO problema não era complicado. Apenas um mau funcionamento inesperado do alto-forno, desligamento e perda de energia. Gastei um pouco dos meus poderes e os ajudei a reacender o núcleo. A temperatura retornou aos níveis operacionais e o sistema foi restaurado. A crise foi temporariamente evitada. \nSeus \"nomes\" me deixaram bastante impressionada. O local era uma base secreta nas terras gélidas de █████, geralmente referida por seu código de sinalização exclusivo. Todos ali estavam proibidos de usar seus nomes verdadeiros ou quaisquer codinomes escolhidos; apenas o nome \"atribuído\" era permitido. \nMeu nome temporário aqui era \"Olga Randall\". Disseram-me que havia outros três antes de mim com o mesmo nome, e é provável que o próximo atuário substituto enviado para cá também adote esse nome. \nFoi uma experiência estranha. Eu era apenas uma usuária temporária do nome \"Olga Randall\". Parecia semelhante aos fragmentos de memória que nadavam em minha mente. Nem o nome nem os fragmentos eram verdadeiramente meus, mas naquele exato momento, todos faziam parte de mim. \n— Enviado do Sinalizador do STUT DAU.14. \n\nDepois de eliminar o acampamento Aggelos na estação de carga, reabri o portão que havia mantido o túnel selado por um bom tempo. \nEles mantinham um ambiente de baixa gravidade dentro dos túneis. Refugiados, presos ali por meses, flutuavam até a saída, tremendo e se esforçando ao deixar o local. Eles precisavam reaprender a andar e correr sob a pesada influência da gravidade. \nMas havia uma garotinha que flutuou dentro dos túneis e dançou um pouco antes de sair do lugar. Ela me disse que era assim que se mantinha calma e sã quando estavam presos naquele lugar. \nMemorizei a dança dela, uma rotina de ritmos reconfortante, porém poderosa. Se quiser, posso te mostrar e deixar você tentar quando eu voltar. Os movimentos não são difíceis. É tudo uma questão de respiração e ritmo. \n— Enviado do Nexus de Transporte MC-20 \n\n— Criei muitas memórias novas durante esse tempo. Ainda me lembro de você também estar buscando suas próprias memórias. Encontrei alguns lugares relacionados ao antigo \"você\". Me procure se tiver interesse. \n— Mensagem de emergência, enviada do Ponto de Contato 084A </>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Habilidade de batalha <@ba.key>Fogo Fumegante</> melhorada: o multiplicador de ataque adicional é aumentado para <@ba.vup>{ratio:0.0}</> vezes o original, e realizar um acerto <#ba.return>devolve</> <@ba.vup>{atb:0}</> de PH.",
+      "name": "Coração da Chama da Fusão"
+    },
+    "potential2": {
+      "description": "Inteligência <@ba.vup>+ {Wisd:0}</>, DNO Ataque Básico Causado <@ba.vup>+ {NormalAttackDamageIncrease:0%}</>.",
+      "name": "Perseguição das Memórias"
+    },
+    "potential3": {
+      "description": "Habilidade de batalha <@ba.key>Fogo Fumegante</> melhorada: a duração da <#ba.burning>Combustão</> aplicada pela habilidade é aumentada em <@ba.vup>{duration-1:0%}</>. O DNO da <#ba.burning>Combustão</> aplicada pelas habilidades é aumentado em <@ba.vup>{extra_scaling:0.0}</> vezes o original.",
+      "name": "Fragmentos do Passado"
+    },
+    "potential4": {
+      "description": "Habilidade suprema <@ba.key>Crepúsculo</> melhorada: custo da Energia Suprema <@ba.vup>- {1-costvalue:0%}</>.",
+      "name": "Forno de Sorvete"
+    },
+    "potential5": {
+      "description": "Habilidade suprema <@ba.key>Crepúsculo</> melhorada: o multiplicador DNO do ataque básico melhorado é aumentado para <@ba.vup>{ratio:0.0}</> vezes o original; durante a habilidade suprema, cada inimigo derrotado por Laevatain estende a duração da habilidade suprema por <@ba.vup>+ {extend_duration:0}</> s (máx: <@ba.vup>+ {max_duration:0}</> s).",
+      "name": "Prova da Existência"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Fogo e Espada",
+      "author": "Ask",
+      "description": "As chamas engoliram seu passado. Mas uma única promessa fortaleceu sua determinação de brandir sua espada em prol do futuro."
+    },
+    "potential3": {
+      "name": "1538°C",
+      "author": "嘴広コウ",
+      "description": "1538 °C é o ponto de fusão do ferrium, não o dela. Sinta-se à vontade para se aproximar dela se achar que está pronto."
+    },
+    "potential6": {
+      "name": "Um Convite Para o Fogo Fundente",
+      "author": "min",
+      "description": "Acompanhe-a pelas longas noites sem lembranças. Lute ao lado dela e queime os inimigos sombrios e assustadores. Permaneça com ela enquanto acende chamas que iluminam as jornadas do amanhã."
+    }
+  }
+}

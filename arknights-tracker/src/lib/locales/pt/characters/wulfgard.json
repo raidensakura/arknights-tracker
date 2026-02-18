@@ -1,0 +1,126 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Multiplicador SEQ 1 ATQB",
+        "batkSeq2Multiplier": "Multiplicador SEQ 2 ATQB",
+        "batkSeq3Multiplier": "Multiplicador SEQ 3 ATQB",
+        "batkSeq4Multiplier": "Multiplicador SEQ 4 ATQB",
+        "finisherAtkMultiplier": "Multiplicador ATQ Finalizador",
+        "diveAtkMultiplier": "Multiplicador ATQ Mergulho"
+      },
+      "name": "Disparo Rápido Duplo",
+      "description": "ATAQUE BÁSICO: \nAtaque em até 4 sequências que causa <@ba.fire>DNO Térmico</>. Como operador controlado, o <#ba.lastcombo>Golpe Final</> também causa <@ba.poise>{poise:0}</> de Desorientação. \n\nATAQUE DE MERGULHO: \nO ataque básico realizado no ar se torna um ataque de mergulho que causa <@ba.fire>DNO Térmico</> aos inimigos nas proximidades. \n\nFINALIZADOR: \nO ataque básico realizado próximo a um inimigo Desorientado torna-se um finalizador que causa uma enorme quantidade de <@ba.fire>DNO Térmico</> e recupera PH."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "dmgMultiplier": "Multiplicador DNO",
+        "stagger": "Desorientação",
+        "additionalAtkDmgMultiplier": "Multiplicador DNO ATQ Adicional",
+        "additionalAtkStagger": "Desorientação ATQ Adicional"
+      },
+      "name": "Rastreadores de Termita",
+      "description": "Dispara vários tiros no alvo, causando <@ba.fire>DNO Térmico</>. O disparo final também aplica <#ba.fireinflict>Inflição Térmica</>. Se o alvo tiver <#ba.burning>Combustão</> ou <#ba.conduct>Eletrificação</> ativa, não aplica a <#ba.fireinflict>Inflição Térmica</>. Em vez disso, <#ba.consume>consome</> a Reação de Artes para disparar um tiro adicional que causa <@ba.fire>DNO Térmico</> significativo."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Multiplicador DNO",
+        "stagger": "Desorientação"
+      },
+      "name": "Granada de Fragmentação·β",
+      "description": "ACIONADOR DO COMBO: Quando uma <#ba.spellinflict>Inflição de Artes</> é aplicada a um inimigo. \nArremessa uma granada de fragmentação no local do alvo que explode ao atingir o chão, causando <@ba.fire>DNO Térmico</> e <#ba.fireinflict>Inflição Térmica</> aos inimigos nas proximidades."
+    },
+    "ultimate": {
+      "ultimate": {
+        "dmgMultiplierPerSeq": "Multiplicador DNO por SEQ",
+        "stagger": "Desorientação"
+      },
+      "name": "Fúria dos Lobos",
+      "description": "Dispara uma rajada de tiros veloz e liberta a <@ba.key>Fúria do Lobo</> para atacar os inimigos nas proximidades, causando 5 acertos de <@ba.fire>DNO Térmico</> e aplicando <#ba.burning>Combustão</> à força."
+    },
+    "indicator": {
+      "levels": [
+        "Força do Operador + 10.",
+        "Força do Operador + 15.",
+        "Força do Operador + 15.",
+        "Força do Operador + 20."
+      ],
+      "name": "Forjada"
+    },
+    "talent1": {
+      "levels": [
+        "Sempre que Wulfgard aplica <#ba.burning>Combustão</>, ele ganha <@ba.key>Presas Ardentes</> por {duration:0} s. Esse efeito não pode se acumular. Presas Ardentes: enquanto ativas, Wulfgard ganha <@ba.fire>DNO Térmico Causado</> <@ba.vup>+ {add:0%}</>.",
+        "Sempre que Wulfgard aplica <#ba.burning>Combustão</>, ele ganha <@ba.key>Presas Ardentes</> por {duration:0} s. Esse efeito não pode se acumular. Presas Ardentes: enquanto ativas, Wulfgard ganha <@ba.fire>DNO Térmico Causado</> <@ba.vup>+ {add:0%}</>."
+      ],
+      "name": "Presas Ardentes"
+    },
+    "talent2": {
+      "levels": [
+        "Sempre que a habilidade de batalha <@ba.key>Rastreadores de Termita</> consome com êxito uma <#ba.spellstatus>Reação de Artes</>, <#ba.return>devolve</> <@ba.vup>{returnskillpower:0}</> PH.",
+        "Sempre que a habilidade de batalha <@ba.key>Rastreadores de Termita</> consome com êxito uma <#ba.spellstatus>Reação de Artes</>, <#ba.return>devolve</> <@ba.vup>{returnskillpower:0}</> PH."
+      ],
+      "name": "Código de Restrição"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de Operador + 10%",
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de Operador + 20%"
+      ],
+      "name": "Técnicas da Matilha"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Atribua à Câmara de Crescimento para conceder taxa de crescimento de minerais raros + 20%",
+        "Atribua à Câmara de Crescimento para conceder taxa de crescimento de minerais raros + 30%"
+      ],
+      "name": "Aptidão para as Terras Selvagens"
+    },
+    "files": {
+      "main": "<@profile.key>CODINOME: Wulfgard\nGÊNERO: Masculino \nAUTENTICAÇÃO: A Matilha\nDATA DE NASCIMENTO: 16 de novembro\nRAÇA: Lupo\n[STATUS DE INFECÇÃO POR ORIPATIA]\nPositivo para Oripatia (infectado) com base em relatórios de exames médicos.\n\n[EXAME FÍSICO INTEGRADO]\nFORÇA FISIOLÓGICA: Excelente\nHABILIDADE DE COMBATE: Excelente\nPERSPICÁCIA TÁTICA: Padrão\nASSIMILAÇÃO DE ARTES DE ORIGINIUM: Padrão\n\nO estilo de vida dos Invasores de Terras deixou marcas em Wulfgard. Cada cicatriz permanece como evidência de provações passadas. Embora a dor não pareça pesar sobre ele agora, isso pode não ser sempre o caso. Ele precisa aprender a encarar as missões com mais respeito pela própria vida — ou, pelo menos, a confiar mais em seus companheiros de equipe, em vez de atacar sozinho em qualquer oportunidade.</>",
+      "humanResources": "<@profile.key>O Operador Wulfgard, cujo nome completo é Catello Wulfgard Luppino, vem de um clã de Invasores de Terras conhecido como Matilha. Como representante designado, ele estabeleceu uma parceria com a Endfield Industries. Recomendado pela Supervisora Perlica, ele ingressou na Divisão Técnica Especializada e agora atua na Equipe de Crises. \n\nWulfgard possui habilidades excepcionais de observação e adaptabilidade. Pelo que sei, ele consegue lidar com a maioria dos ambientes de alto risco com facilidade. \nEle claramente prefere operar sozinho e se destaca em operações secretas. No entanto, parece relutante em se envolver em questões interpessoais. Por isso, em missões que exigem trabalho em equipe, recomenda-se que ele tenha o máximo de autonomia possível. \nNotavelmente, relatórios de testes mostram que Wulfgard tem um desempenho extremamente bom tanto em resistência física quanto em velocidade de reação. Ele é proficiente com armas de fogo, hábil em combate corpo a corpo e tem um talento especial para transformar qualquer objeto (até mesmo uma caneta) em arma. \nTalvez seu tempo nas terras selvagens tenha aguçado seus instintos — Wulfgard tem um aguçado senso de perigo e uma profunda compreensão de como interagir com os moradores da fronteira, especialmente quando se trata de assuntos de Invasores de Terras. Acredito que qualquer um que já tenha trabalhado com ele concordaria. \n— Martin Marvin Malen, Assistente, Divisão de RH, Endfield Industries</>",
+      "file1": "<@profile.key>Quando Wulfgard chegou à Endfield, sua experiência como Invasor de Terras causou surpresa. Alguns operadores suspeitavam que ele tivesse intenções ocultas. Mas, com o passar dos anos, descobriram que por trás da aparência fria e da língua afiada havia alguém surpreendentemente fácil de se conviver. \nEle é sempre pontual, eficiente, responsável e meticuloso na limpeza. Em muitos aspectos, ele atende a todos os requisitos do \"companheiro de equipe ideal\". Infelizmente, ele não parece gostar de trabalhar em equipe. Toda vez que precisa entregar um relatório, ele sempre pede para ser designado para operações solo. \nPor outro lado, Wulfgard nunca hesitou em compartilhar seu conhecimento sobre modificações em armas, o que causou dores de cabeça aos Engenheiros de Arsenal da Endfield. Muitos operadores conheceram Wulfgard durante uma das sessões costumeiras de testes de novas armas, onde o observavam ajustar uma arma tranquilamente na frente do projetista e então dizia: \"Funciona melhor assim\". Isso muitas vezes deixou os engenheiros à beira de perder a linha. \nEmbora isso lhe tenha rendido um lugar na lista de \"indesejados\" da equipe do Arsenal, Wulfgard não ligou. Ele continuou modificando cada nova arma que recebia até que parecesse a certa para ele. \n\n\"Caçadores experientes sempre selecionam suas melhores ferramentas de caça ou as modificam até que se tornem as melhores.\"</>",
+      "file2": "<@profile.key>Em uma época em que a maioria dos Invasores de Terras é vista como \"destruidores da ordem\", a Matilha se destaca como uma anomalia. Eles valorizam a ordem e mantêm uma atitude pacífica em relação ao Cinturão da Civilização. Mesmo agora, eles se apegam a certas tradições antigas, como fortes laços familiares e um profundo respeito pela unidade. \nEssa mesma diferença só alimentou a rivalidade de longa data entre eles e seus rivais, os Quebra-Ossos. Há mais de dez anos, os Quebra-Ossos atacaram com uma emboscada cruel, destruindo a Matilha quando ela esta estava em seu momento mais fraco — logo após a morte de seu Alpharion. \nWulfgard e sua irmã mais nova sobreviveram ao ataque, mas se recusaram a falar sobre o que realmente aconteceu. \nWulfgard deixou a Matilha alguns anos após sua cerimônia de maioridade, mantendo contato apenas com alguns amigos de confiança e sua irmã. \nNinguém jamais soube por que ele foi embora. Ele permaneceu em silêncio, assim como havia feito em relação ao ataque. \nMais tarde, ele abordou a Endfield e propôs uma parceria. Ele acabou ingressando na Divisão Técnica Especializada como operador. \nAlguém uma vez perguntou por que ele escolheu a Endfield. \nA princípio, ele ficou em silêncio. Então, com uma honestidade surpreendente, respondeu: \n\"Quero outro futuro para a Matilha... e Endfield oferece a possibilidade de transformá-lo realidade.\" \nWulfgard falou abertamente sobre as dificuldades da Matilha. Sua determinação firme e intenção honesta abriram portas. \nEntão, fazia todo o sentido que ele se tornasse um operador. Como ele mesmo disse, ele tinha um dever: provar o valor da Matilha e retribuir a confiança depositada nele pela Endfield. \nDesde então, ele se tornou uma presença silenciosa, mas confiável, em muitas missões difíceis e perigosas. \nOperadores que antes tinham profundo preconceito contra os Invasores de Terras começaram a mudar de opinião, graças a Wulfgard. \nEntão, as opiniões mudaram mais uma vez após a chegada de sua irmã, a Operadora Rossi. Mas essa é uma outra história...</>",
+      "file3": "<@profile.key>\"Quanto tempo você vai ficar desta vez? Vai voltar para casa?\" \n\"...Um dia. E não.\" \n\"Só um dia? Então deixa pra lá... suspiro. Bem, alguns dias atrás, a Rossi estava reclamando de novo, dizendo que acha que você vai fazer a mesma coisa este ano — sabe, o presente chega, mas o irmão não. Vamos lá, mesmo que não esteja planejando voltar para casa, você poderia pelo menos encontrar um tempo para vê-la de vez em quando.\" \n\"Já faz o quê, mais de meio ano? Desde que vocês dois se encontraram pela última vez na casa de Tommaso.\" \n\"Ainda preciso cuidar de algumas coisas. Depois que terminar...\" \n\"Pare aí! Foi o que você disse da última vez! Depois você correu para a fronteira, dizendo que tinha que limpar a bagunça de alguém...\" \n\"Nossa, eu não entendo vocês, jovens. Como vocês sempre têm tanta coisa para fazer?\" \n\"Ei, se eu fosse você, não importa o quanto ocupado eu estivesse, eu ainda passaria mais para ver como está minha irmãzinha. Ela é uma criança! Todas as outras crianças da idade dela no clã são mimadas por suas famílias o dia todo, todos os dias...\" \n\"Você também é a família dela.\" \"\nBem, é — Espere! Não, não tente me enganar... Eu entendo que você tem suas próprias coisas acontecendo. Mas ouça, como alguém que já passou por isso — sempre que vejo a pequena Rossi, não consigo deixar de pensar na minha própria garotinha... Maior arrependimento da minha vida? Não ter estado lá quando eu ainda tinha a chance.\" \n\"Só me escute, Catello... A vida é curta, não faça coisas das quais você vai se arrepender.\" \n\"Eu te entendo. Tio Rust.\" \n\"Rossi sabe que eu voltei hoje.\" \n\"O QUÊ? De jeito nenhum!\" \n\"Então por que ela correria para os campos de caça logo de manhã com os gêmeos Louis? A menos que...\" \n\"Aham. Exatamente.\" \n\"Argh... Vocês dois são mesmo Lupus de verdade. Tão teimosos e tão parecidos... é assustador.\" \n\"Tá bom, tá bom. Façam o que quiserem! Mas se vocês estão sempre ausentes, não se preocupam que algo possa dar errado?\" \n\"Eu ia esconder isso de você pelo bem da Rossi... mas parece que você precisa ouvir. Seis meses atrás, ela se meteu numa enrascada séria: se arriscou pelo Velho Bart e seus homens e acabou na lista negra dos Caveiras Sombrias. Lembro-me perfeitamente. Quatorze deles apareceram, cada um mais perigoso que o outro. Se o Tommaso não tivesse mexido uns pauzinhos e trazido as Presas do Capone, provavelmente nem teríamos saído vivos do mercado negro...\" \n\"...\"\n \"Preocupado agora, não é?\" \n\"Não. Eu só estava me perguntando como a Rossi descobriu que eu estava indo para o norte. Foi você, não foi?\" \n\"Ah! Hum, heh... bem... é, talvez eu tenha deixado escapar... mas não foi de propósito...\" \n\"Aham, enfim! Eu verifiquei suas armas! Elas estão como novas! Só vá com calma com essas suas balas personalizadas. Nenhum cano vai durar do jeito que você as queima...\" \n\"Entendi.\" \n\"E... na verdade eram quinze delas.\" \n\"Hã?\" \n\"Certo, te vejo por aí.\" \n— Log de áudio da Armaria Howlfire</>",
+      "file4": "<@profile.key>Wulfgard sabia melhor do que ninguém que deixar a Matilha para sempre significava que aquela jornada não tinha data de retorno. Pelos seus próprios padrões, isso significava empacotar tudo o que pudesse ser útil. \nNo entanto, parado diante do Il Cacciatore e passando o olhar sobre o enorme veículo que havia sido o lar dele e de sua irmã por quase uma década... ele percebeu, abruptamente, que não havia mais nada que valesse a pena levar. \nEle repassou seus planos mais uma vez em sua mente: garantir que Rossi soubesse exatamente em quem do clã ela podia confiar, confirmar as duas formas como as pessoas poderiam contatá-lo, pedir a Tommaso para ficar de olho em Rossi, acertar as últimas taxas de serviço personalizado na casa do Tio Rust, alimentar as aves-feras semisselvagens de Giovanni uma última vez, confiá-las ao pequeno Vincenzo, que morava ao lado... Não, ele não havia esquecido nada. \nSatisfeito, virou-se para uma última verificação. Só para ter certeza absoluta de que não havia deixado o abajur de Originium, feito à mão por Rossi, aceso na mesa de cabeceira. \nMas assim que ele entrou em seu compartimento de dormir, seus olhos avistaram algo em um canto comum do armário: suas armas gastas — as primeiras armas que ele teve. \nEmbora de segunda mão e agora com pouca munição compatível, essas armas eram tesouros inestimáveis naquela época. Elas mantiveram ele e sua irmã vivos, renderam a ele seu primeiro contrato como mercenário e o ajudaram a abater seu primeiro alvo. Quando um dos ativadores de Originium falhou, ele foi forçado a dominar recargas com uma mão e a manutenção da arma. Depois de três anos sustentando sua família com pagamento de mercenário, ele finalmente substituiu o ativador de Originium desgastado e até mesmo criou um conjunto de munição entalhada sob medida. \nEssas armas foram passadas de geração em geração pelos anciões do clã. Como muitos sonhos herdados, elas encontraram seu fim durante uma missão de escolta de alto risco, superaquecendo após disparos prolongados. \nLogo depois, o Tio Rust — um caçador de recompensas que havia retornado à Matilha e aberto uma loja de reforma de armas chamada \"Armaria Howlfire\". Lá, Wulfgard foi apresentado às modificações personalizadas de armas pela primeira vez. \nEntão ele aprendeu a fazer armas verdadeiramente suas, mesmo que elas fossem adequadas apenas para ele. \nMesmo assim, ele nunca se livrou das armas que o levaram a começar. Elas permaneceram escondidas em um canto tranquilo. \nPor que guardá-las? Como uma lembrança? Uma recordação? Ou uma lembrança de memórias dolorosas? \nEle não tinha certeza — talvez todas, talvez nenhuma. \nDepois de confirmar que a lâmpada de Originium estava apagada, ele se dirigiu à porta, pronto para embarcar em uma jornada que poderia finalmente fornecer uma resposta.</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Força <@ba.vup>+ {Str:0}</>. Agilidade <@ba.vup>+ {Agi:0}</>.",
+      "name": "Lobo Solitário"
+    },
+    "potential2": {
+      "description": "Talento <@ba.key>Código de Restrição</> melhorado: <#ba.return>Devolve</> <@ba.vup>{potential_skillpower:0}</> de PH adicional.",
+      "name": "Mods de Armas de Fogo"
+    },
+    "potential3": {
+      "description": "Enquanto <@ba.key>Presas Ardentes</> estiver ativo, ativar os efeitos adicionais da habilidade de batalha redefine imediatamente a duração de <@ba.key>Presas Ardentes</> e concede a outros membros da equipe <@ba.key>Presas Ardentes</> com <@ba.vup>{teammate_percent:0%}</> dos efeitos base.",
+      "name": "Hora da Caçada"
+    },
+    "potential4": {
+      "description": "Habilidade suprema <@ba.key>Fúria do Lobo</> melhorada: custo da Energia Suprema <@ba.vup>- {1-costvalue:0%}</>.",
+      "name": "Vontade da Matilha"
+    },
+    "potential5": {
+      "description": "Conjurar a habilidade suprema <@ba.key>Fúria do Lobo</> reinicia imediatamente o tempo de recarga do combo de habilidades <@ba.key>Granada de Fragmentação·β</>.",
+      "name": "Predador Natural"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Hora de Caçar",
+      "author": "umo_yszx",
+      "description": "O melhor caçador das terras selvagens sempre aparecerá nas melhores oportunidades."
+    },
+    "potential3": {
+      "name": "Abaixando a Guarda Hoje",
+      "author": "MeanWhile",
+      "description": "Ele só relaxa a vigilância com aqueles que realmente conquistaram sua confiança. E então ele revelará sua verdadeira natureza, aquela que foi abandonada em sua infância."
+    },
+    "potential6": {
+      "name": "Olhar do Predador",
+      "author": "FE",
+      "description": "O jovem predador entrou em seu território de caça pessoal enquanto o Espírito do Lobo uivava. Seus olhos estão em cada presa, e suas armas derrubarão cada uma delas."
+    }
+  }
+}

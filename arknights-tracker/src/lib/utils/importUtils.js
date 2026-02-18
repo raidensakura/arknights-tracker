@@ -115,6 +115,7 @@ export function parseGachaLog(list) {
         const rarity = Number(item.rarity || item.rank || item.rank_type);
         const seqId = Number(item.seqId || item.sequence || 0);
         const isNew = item.isNew === true || String(item.isNew) === "true" || item.is_new === true;
+        const isFree = item.isFree === true || String(item.isFree) === "true";
         let dateObj;
         if (item.gachaTs) dateObj = new Date(Number(item.gachaTs)); 
         else if (item.ts) dateObj = new Date(Number(item.ts) * 1000);
@@ -125,8 +126,7 @@ export function parseGachaLog(list) {
         const internalId = getInternalBannerType(rawBannerId);
         const itemType = item.weaponName ? 'weapon' : 'character';
         let uniqueId = item.id || (seqId !== 0 ? `${dateObj.getTime()}_${rawName}_${seqId}` : `${dateObj.getTime()}_${rawName}_idx${i}`);
-        
-        return { id: uniqueId, time: dateObj, name: rawName, rarity, bannerId: internalId, seqId, isNew, type: itemType, rawPoolId: rawBannerId };
+        return { id: uniqueId, time: dateObj, name: rawName, rarity, bannerId: internalId, seqId, isNew, isFree, type: itemType, rawPoolId: rawBannerId };
     }).sort(sortPulls);
 }
 
@@ -146,8 +146,14 @@ export function calculatePity(pulls, bannerId, accountServerId = null) {
         const uniqueBannerKey = getDistinctBannerId(pull, accountServerId);
         if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
         
-        const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
-        const isFreePull = isSpecialCategory && (countInThisBanner >= 30 && countInThisBanner < 40);
+        let isFreePull = false;
+        if (typeof pull.isFree === 'boolean') {
+            isFreePull = pull.isFree;
+        } else {
+            const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
+            isFreePull = isSpecialCategory && (countInThisBanner >= 30 && countInThisBanner < 40);
+        }
+
         bannerSpecificCounts[uniqueBannerKey]++;
 
         if (!isFreePull) {
@@ -213,8 +219,15 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
         const uniqueBannerKey = getDistinctBannerId(pull, accountServerId);
 
         if (!bannerSpecificCounts[uniqueBannerKey]) bannerSpecificCounts[uniqueBannerKey] = 0;
-        const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
-        const isFreePull = (bannerId.includes('special') && !isWeaponType) && (countInThisBanner >= 30 && countInThisBanner < 40);
+
+        let isFreePull = false;
+        if (typeof pull.isFree === 'boolean') {
+            isFreePull = pull.isFree;
+        } else {
+            const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
+            isFreePull = (bannerId.includes('special') && !isWeaponType) && (countInThisBanner >= 30 && countInThisBanner < 40);
+        }
+        
         bannerSpecificCounts[uniqueBannerKey]++;
 
         if (isFreePull) {

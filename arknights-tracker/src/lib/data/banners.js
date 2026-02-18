@@ -78,7 +78,7 @@ export const banners = [
     showOnMain: true
   },
   {
-    id: "special_1_0_4",
+    id: "special_1_0_2",
     name: "Hues Of Passion",
     type: "special",
     startTime: "2026-02-24 12:00:00",

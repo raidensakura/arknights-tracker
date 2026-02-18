@@ -1,0 +1,126 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Hệ Số Nhân Chuỗi Công CB 1",
+        "batkSeq2Multiplier": "Hệ Số Nhân Chuỗi Công CB 2",
+        "batkSeq3Multiplier": "Hệ Số Nhân Chuỗi Công CB 3",
+        "batkSeq4Multiplier": "Hệ Số Nhân Chuỗi Công CB 4",
+        "finisherAtkMultiplier": "Hệ Số Nhân Tấn Công Kết Liễu",
+        "diveAtkMultiplier": "Hệ Số Nhân Tấn Công Lặn"
+      },
+      "name": "Bắn Nhanh Song Song",
+      "description": "CÔNG CB: \nMột đòn tấn công gồm tối đa 4 chuỗi gây <@ba.fire>ST Nhiệt</>. Với đặc vụ được điều khiển, <#ba.lastcombo>Kết Liễu</> cũng gây <@ba.poise>{poise:0}</> Suy Sụp. \n\nTẤN CÔNG LẶN: \nCông CB thi triển trên không trở thành tấn công lặn gây <@ba.fire>ST Nhiệt</> cho kẻ địch gần đó. \n\nKẾT LIỄU: \nCông CB thi triển lên kẻ địch bị Suy Sụp trở thành tấn công kết liễu gây lượng lớn <@ba.fire>ST Nhiệt</> và hồi ít Điểm KN."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "dmgMultiplier": "Hệ Số ST",
+        "stagger": "Suy Sụp",
+        "additionalAtkDmgMultiplier": "Hệ Số ST Tấn Công Bổ Sung",
+        "additionalAtkStagger": "Suy Sụp Tấn Công Bổ Sung"
+      },
+      "name": "Đạn Dò Nhiệt",
+      "description": "Bắn liên tục lên mục tiêu gây ít <@ba.fire>ST Nhiệt</>. Đòn cuối cùng gây hiệu ứng <#ba.fireinflict>Nhiễm Nhiệt</>. Nếu mục tiêu đang ở trạng thái <#ba.burning>Thiêu Đốt</> hoặc <#ba.conduct>Điện Hóa</>, không áp dụng <#ba.fireinflict>Nhiễm Nhiệt</> mà thay vào đó <#ba.consume>tiêu hao</> Phản Ứng Thuật Pháp để bắn thêm một phát gây <@ba.fire>ST Nhiệt</>."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Hệ Số ST",
+        "stagger": "Suy Sụp"
+      },
+      "name": "Lựu Đạn Phá Mảnh·β",
+      "description": "KÍCH HOẠT LIÊN HOÀN: Khi một kẻ địch phải chịu <#ba.spellinflict>Nhiễm Thuật Pháp</>. \nNém một quả lựu đạn phá mảnh đến vị trí của kẻ địch, lựu đạn sẽ phát nổ ngay khi chạm đất, gây <@ba.fire>ST Nhiệt</> và <#ba.fireinflict>Nhiễm Nhiệt</> lên kẻ địch lân cận."
+    },
+    "ultimate": {
+      "ultimate": {
+        "dmgMultiplierPerSeq": "Hệ Số ST Mỗi Chuỗi Công",
+        "stagger": "Suy Sụp"
+      },
+      "name": "Sói Cuồng Nộ",
+      "description": "Bắn ra một loạt đạn oanh kích nhanh và giải phóng <@ba.key>Sói Cuồng Nộ</> tấn công kẻ địch xung quanh, gây 5 lần <@ba.fire>ST Nhiệt</> và cưỡng chế kích hoạt hiệu ứng <#ba.burning>Thiêu Đốt</>."
+    },
+    "indicator": {
+      "levels": [
+        "Sức Mạnh Đặc Vụ +10.",
+        "Sức Mạnh Đặc Vụ +15.",
+        "Sức Mạnh Đặc Vụ +15.",
+        "Sức Mạnh Đặc Vụ +20."
+      ],
+      "name": "Rèn Luyện"
+    },
+    "talent1": {
+      "levels": [
+        "Mỗi khi Wulfgard dùng <#ba.burning>Thiêu Đốt</> sẽ nhận được <@ba.key>Nanh Thiêu Đốt</> trong {duration:0} giây. Hiệu ứng này không thể cộng dồn. Nanh Thiêu Đốt: Khi hiệu lực, Wulfgard nhận <@ba.fire>ST Nhiệt Gây Ra</> <@ba.vup>+{add:0%}</>.",
+        "Mỗi khi Wulfgard dùng <#ba.burning>Thiêu Đốt</> sẽ nhận được <@ba.key>Nanh Thiêu Đốt</> trong {duration:0} giây. Hiệu ứng này không thể cộng dồn. Nanh Thiêu Đốt: Khi hiệu lực, Wulfgard nhận <@ba.fire>ST Nhiệt Gây Ra</> <@ba.vup>+{add:0%}</>."
+      ],
+      "name": "Nanh Thiêu Đốt"
+    },
+    "talent2": {
+      "levels": [
+        "Mỗi khi KN chiến đấu <@ba.key>Đạn Dò Nhiệt</> tiêu hao thành công một <#ba.spellstatus>Phản Ứng Thuật Pháp</>, sẽ <#ba.return>hồi phục</> <@ba.vup>{returnskillpower:0}</> KN.",
+        "Mỗi khi KN chiến đấu <@ba.key>Đạn Dò Nhiệt</> tiêu hao thành công một <#ba.spellstatus>Phản Ứng Thuật Pháp</>, sẽ <#ba.return>hồi phục</> <@ba.vup>{returnskillpower:0}</> KN."
+      ],
+      "name": "Nguyên Tắc Kiềm Chế"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Khi phân công vào Khoang Sản Xuất, hiệu suất sản xuất nguyên liệu EXP đặc vụ +10%",
+        "Khi phân công vào Khoang Sản Xuất, hiệu suất sản xuất nguyên liệu EXP đặc vụ +20%"
+      ],
+      "name": "Kỹ Thuật Nhóm"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Khi phân công vào Buồng Phát Triển, tăng tốc độ tăng trưởng khoáng sản quý hiếm thêm 20%",
+        "Khi phân công vào Buồng Phát Triển, tăng tốc độ tăng trưởng khoáng sản quý hiếm thêm 30%"
+      ],
+      "name": "Thành Thạo Hoang Địa"
+    },
+    "files": {
+      "main": "<@profile.key>MẬT DANH: Wulfgard\nGIỚI TÍNH: Nam \nNHẬN BIẾT: Băng Nhóm Pack\nNGÀY SINH: 16 tháng 11\nCHỦNG TỘC: Lupo\n[TÌNH TRẠNG NHIỄM ORIPATHY]\nDương tính với Oripathy (đã nhiễm), dựa trên các báo cáo khám y tế.\n\n[KHÁM SỨC KHỎE TỔNG HỢP]\nTHỂ TRẠNG: Xuất sắc\nKN CHIẾN ĐẤU: Xuất sắc\nNHẠY BÉN CHIẾN THUẬT: Chuẩn\nKHẢ NĂNG ĐỒNG HÓA THUẬT PHÁP ORIGINIUM: Chuẩn\n\nTrên người Wulfgard hằn rõ từng tập tục sống của lũ Landbreaker. Mỗi vết sẹo đều là bằng chứng cho những thử thách trong quá khứ. Dù giờ đây nỗi đau ấy có vẻ không còn đè nặng lên anh, nhưng vẫn có lúc nhức nhối. Wulfgard cần học cách quý trọng mạng sống của mình hơn khi làm nhiệm vụ, hay chí ít là tin tưởng đồng đội hơn, thay vì lúc nào cũng lao lên một mình.</>",
+      "humanResources": "<@profile.key>Đặc Vụ Wulfgard, tên đầy đủ là Catello Wulfgard Luppino, xuất thân từ một tộc Landbreaker được gọi là Băng Nhóm Pack. Với tư cách là đại diện được chỉ định, anh đã thiết lập quan hệ đối tác với Tập Đoàn Endfield. Được Giám Sát Viên Perlica giới thiệu, anh gia nhập Bộ Phận Chuyên Gia Kỹ Thuật và hiện đang làm việc tại Đội Ứng Phó Nguy Cảnh. \n\nWulfgard sở hữu khả năng quan sát và thích nghi đặc biệt. Theo tôi biết, anh ấy có thể xử lý hầu hết các môi trường có rủi ro cao một cách dễ dàng. \nRõ ràng là anh ta thích hoạt động một mình và rất giỏi trong các hoạt động bí mật. Tuy nhiên, anh ấy có vẻ miễn cưỡng tham gia vào các vấn đề giữa các cá nhân, vì vậy đối với các nhiệm vụ đòi hỏi làm việc nhóm, nên trao cho anh ấy càng nhiều quyền tự chủ càng tốt. \nĐáng chú ý, các báo cáo thử nghiệm cho thấy Wulfgard có hiệu suất cực kỳ tốt về cả sức bền thể chất và tốc độ phản ứng. Anh ta thành thạo sử dụng súng, giỏi chiến đấu tay đôi và có khả năng biến bất kỳ vật nào (kể cả bút) thành vũ khí. \nCó lẽ thời gian ở vùng hoang địa đã tôi luyện bản năng của anh, Wulfgard có khả năng nhạy bén với nguy hiểm và hiểu biết sâu sắc về cách tương tác với cư dân vùng biên giới, đặc biệt là khi liên quan đến các vấn đề của tộc Landbreaker. Tôi tin rằng bất kỳ ai từng hợp tác với anh ấy đều sẽ đồng ý. \n- Martin Marvin Malen, Trợ Lý, Bộ Phận HR, Tập Đoàn Endfield</>",
+      "file1": "<@profile.key>Khi Wulfgard mới đến Endfield, lý lịch về Landbreaker của anh khiến nhiều người phải ngạc nhiên. Một số đặc vụ nghi ngờ anh ta có động cơ ẩn giấu. Nhưng theo thời gian, họ phát hiện ra rằng đằng sau vẻ ngoài lạnh lùng và miệng lưỡi sắc bén là một người dễ gần đến ngạc nhiên. \nAnh ấy luôn đúng giờ, làm việc hiệu quả, có trách nhiệm và dọn dẹp kỹ lưỡng. Theo nhiều cách, anh ấy đáp ứng mọi tiêu chuẩn của một \"người đồng đội lý tưởng\". Thật không may, anh ấy có vẻ không thích làm việc với người khác. Bất cứ khi nào được yêu cầu nộp báo cáo, anh ấy luôn yêu cầu được phân công làm việc độc lập. \nMặt khác, Wulfgard chưa bao giờ ngại chia sẻ hiểu biết của mình về việc cải tiến vũ khí, điều này khiến các Kỹ Sư Kho Vũ Khí của Endfield phải đau đầu. Nhiều đặc vụ lần đầu gặp Wulfgard trong một trong những buổi thử nghiệm vũ khí mới thường kỳ, nơi họ chứng kiến anh bình tĩnh điều chỉnh một vũ khí ngay trước mặt nhà thiết kế của nó, rồi nói, \"Nó hoạt động tốt hơn theo cách này.\" Điều này thường khiến các kỹ sư mất bình tĩnh. \nMặc dù điều này khiến anh có tên trong danh sách \"không được chào đón\" của đội kho vũ khí, Wulfgard vẫn không quan tâm. Anh liên tục cải tiến mọi loại vũ khí mới mà mình có được cho đến khi cảm thấy phù hợp. \n\n\"Những thợ săn giàu kinh nghiệm luôn lựa chọn những công cụ săn bắn tốt nhất hoặc cải tiến chúng cho đến khi chúng trở thành công cụ tốt nhất.\"</>",
+      "file2": "<@profile.key>Vào thời điểm mà hầu hết bọn Landbreaker bị coi là \"kẻ phá hoại trật tự\", thì Băng Nhóm Pack lại nổi lên như một hiện tượng bất thường. Họ coi trọng trật tự và có thái độ ôn hòa đối với Vành Đai Văn Minh. Ngay cả bây giờ, họ vẫn giữ một số truyền thống cũ, chẳng hạn như mối quan hệ gia đình bền chặt và sự tôn trọng sâu sắc đối với sự thống nhất. \nSự khác biệt đó chỉ làm gia tăng thêm mối thù lâu đời giữa họ và đối thủ của họ, băng nhóm Bonekrusher. Hơn mười năm trước, băng nhóm Bonekrusher đã tấn công bằng một cuộc phục kích tàn bạo, làm tan vỡ Băng Nhóm Pack khi họ suy yếu nhất, ngay sau cái chết của Thủ lĩnh. \nWulfgard và em gái của anh sống sót sau vụ tấn công, nhưng họ từ chối nói về những gì thực sự đã xảy ra. \nWulfgard sau đó rời khỏi Băng Nhóm Pack vài năm sau lễ trưởng thành của mình, chỉ giữ liên lạc với một vài người bạn đáng tin cậy và em gái của mình. \nKhông ai biết lý do tại sao anh ấy lại rời đi. Anh ấy vẫn im lặng, giống như anh ấy đã làm khi bị tấn công. \nSau đó, anh tiếp cận Endfield và đề xuất hợp tác. Cuối cùng, anh gia nhập Bộ Phận Chuyên Gia Kỹ Thuật với vai trò là đặc vụ. \nCó người từng hỏi tại sao anh lại chọn Endfield. \nLúc đầu, anh ấy im lặng. Sau đó, với sự trung thực đáng kinh ngạc, anh trả lời: \n\"Tôi muốn một tương lai khác cho Băng Nhóm Pack... và Endfield có khả năng biến điều đó thành hiện thực.\" \nWulfgard đã thẳng thắn nói về những khó khăn của Băng Nhóm Pack. Sự quyết tâm vững vàng và ý định trung thực của anh đã mở ra nhiều cánh cửa. \nVì vậy, việc anh ấy trở thành một đặc vụ là hoàn toàn hợp lý. Như anh ấy đã nói, anh ấy có nhiệm vụ phải chứng minh giá trị của Băng Nhóm Pack và đền đáp lại lòng tin mà Endfield dành cho anh ấy. \nKể từ đó, anh trở thành một người lặng lẽ nhưng đáng tin cậy trong nhiều nhiệm vụ khó khăn và nguy hiểm. \nNhững đặc vụ từng có thành kiến sâu sắc với băng đảng Landbreaker đã bắt đầu thay đổi quan điểm của họ, tất cả là nhờ Wulfgard. \nSau đó, ý kiến lại thay đổi một lần nữa sau khi em gái của anh - Đặc Vụ Rossi xuất hiện. Nhưng đó là câu chuyện của một thời điểm khác...</>",
+      "file3": "<@profile.key>\"Lần này anh định ở lại bao lâu? Anh có đinh về nhà không??\" \n\"...Một ngày. Và chỉ vậy thôi.\" \n\"Chỉ một ngày ư? Vậy thì thôi... hừm. Vâng, vài ngày trước, Rossi lại than vãn, nói rằng cô ấy nghĩ năm nay anh sẽ lại làm trò tương tự, biết đấy, \"món quà thì đến, nhưng anh trai thì không.\" Thôi nào, ngay cả khi anh không có ý định về nhà, ít nhất anh cũng có thể dành thời gian để gặp cô ấy một lần chứ.\" \n\"Đã bao lâu rồi, hơn nửa năm rồi nhỉ? Từ lần cuối hai người gặp nhau ở nhà Tommaso.\" \n\"Tôi vẫn cần phải lo liệu một vài việc. Một khi việc đó hoàn tất...\" \n\"Dừng lại ngay! Lần trước anh cũng nói thế mà! Sau đó, anh chạy đến biên giới và nói rằng anh phải dọn dẹp đống bừa bộn của ai đó...\" \n\"Trời ơi, tôi không hiểu nổi các bạn trẻ. Sao lúc nào anh cũng có nhiều việc phải làm thế nhỉ?\" \n\"Này, nếu tôi là anh, dù có bận rộn đến đâu, tôi vẫn sẽ ghé qua thăm em gái mình nhiều hơn. Cô ấy chỉ là một đứa trẻ! Mọi đứa trẻ cùng tuổi trong gia tộc đều được gia đình cưng chiều suốt ngày...\" \n\"Anh cũng là gia đình của cô ấy.\" \n\"Vâng, đúng vậy. Chờ đã! Không, đừng cố lừa tôi... Tôi hiểu là anh có những việc riêng của mình. Nhưng hãy nghe này, với tư cách là người đã từng trải qua điều đó, bất cứ khi nào tôi nhìn thấy cô bé Rossi, tôi không thể không nghĩ đến cô con gái nhỏ của mình... Điều hối tiếc lớn nhất trong cuộc đời tôi là gì ư? Không ở bên con bé khi tôi vẫn còn cơ hội.\" \n\"Hãy nghe tôi nói hết đã, Catello... Cuộc sống ngắn ngủi lắm, đừng làm những điều khiến anh phải hối hận.\" \n\"Tôi hiểu rồi. Chú Rust.\" \n\"Rossi biết hôm nay tôi trở lại.\" \n\"HẢ? Không thể nào!\" \n\"Vậy tại sao cô ấy lại chạy đến bãi săn vào sáng sớm cùng với cặp song sinh nhà Louis? Trừ khi...\" \n\"Đúng. Chính xác là vậy.\" \n\"Ôi... Hai người đúng là nhà Lupus thật. Thật bướng bỉnh và giống nhau đến thế... thật đáng sợ.\" \n\"Thôi, được rồi. Muốn làm gì cũng được! Nhưng nếu luôn vắng mặt, cậu không lo lắng điều gì đó có thể xảy ra sao?\" \n\"Tôi định giữ bí mật với cậu vì Rossi... nhưng có vẻ như cậu cần phải nghe. Sáu tháng trước, cô đã gặp phải rắc rối nghiêm trọng. Cô đã liều mình giúp đỡ Lão Bart và đồng bọn của hắn, và cuối cùng bị đưa vào danh sách giết chóc của Shadowskull. Tôi nhớ rõ như ban ngày. Có mười bốn tên xuất hiện, tên sau còn hung dữ hơn tên trước. Nếu Tommaso không giật dây và đưa Nanh Capone vào, có lẽ chúng ta đã không thể sống sót mà thoát khỏi chợ đen...\" \n\"...\" \n\"Thấy lo lắng rồi chứ?\" \n\"Không. Tôi chỉ tự hỏi làm sao Rossi biết được tôi đang đi về phía bắc. Là ông nói phải không?\" \n\"Ơ! À, ừm... ừm... đúng rồi, có thể tôi đã lỡ lời... nhưng không cố ý đâu...\" \n\"E hèm, dù sao thì! Tôi đã kiểm tra súng của cậu rồi! Chúng tốt như mới vậy! Chỉ cần giảm bớt số vòng tùy chỉnh của cậu. Không có thùng nào có thể tồn tại lâu dài khi cậu đốt chúng...\" \n\"Hiểu rồi.\" \n\"Và... thực ra có mười lăm người.\" \n\"Hả?\" \n\"Được rồi, hẹn gặp lại nhé\" \n- Nhật ký âm thanh từ Thợ Súng Howlfire</>",
+      "file4": "<@profile.key>Wulfgard hiểu rõ hơn ai hết rằng việc rời khỏi Băng Nhóm Pack vĩnh viễn có nghĩa là cuộc hành trình này sẽ không có ngày trở lại. Theo tiêu chuẩn của anh, điều đó có nghĩa là phải đóng gói mọi thứ có ích. \nTuy nhiên, khi đứng trước Il Cacciatore và nhìn lướt qua chiếc xe tải khổng lồ đã là nhà của anh và em gái anh trong gần một thập kỷ... anh đột nhiên nhận ra rằng không còn gì đáng để mang đi nữa. \nAnh ta lại xem xét kế hoạch của mình một lần nữa trong đầu: đảm bảo Rossi biết chính xác ai trong gia tộc có thể tin cậy được, xác nhận hai cách mọi người có thể liên lạc với anh ta, yêu cầu Tommaso theo dõi chặt chẽ Rossi, thanh toán khoản phí dịch vụ tùy chỉnh cuối cùng tại nhà chú Rust, cho đàn thú lông vũ bán hoang dã của Giovanni ăn lần cuối, giao chúng cho cậu nhóc Vincenzo ở nhà bên cạnh... Không, anh ấy không quên điều gì cả. \nHài lòng, anh quay lại để kiểm tra lần cuối. Chỉ để chắc chắn rằng anh ấy không để chiếc đèn Originium thủ công của Rossi đang sáng trên bàn cạnh giường ngủ. \nNhưng ngay khi bước vào khoang ngủ, mắt anh bắt gặp thứ gì đó ở một góc tủ không có gì nổi bật: những khẩu súng cũ của anh - thứ vũ khí đầu tiên anh từng sở hữu. \nMặc dù đã qua sử dụng và hiện đang hết đạn tương thích, nhưng những khẩu súng đó lại là báu vật vô giá vào thời điểm đó. Chúng đã cứu sống anh và em gái anh, giúp anh có được hợp đồng lính đánh thuê đầu tiên và giúp anh hạ gục mục tiêu đầu tiên. Khi một trong những người kích hoạt Originium bị lỗi, anh ta buộc phải học cách nạp đạn bằng một tay và bảo dưỡng súng. Sau ba năm làm lính đánh thuê để nuôi gia đình, cuối cùng anh đã thay thế bộ kích hoạt Originium đã cũ và thậm chí còn chế tạo được một bộ đạn được khắc theo yêu cầu. \nNhững khẩu súng này được truyền lại từ những bậc trưởng lão trong gia tộc. Giống như nhiều giấc mơ được thừa hưởng khác, họ đã gặp phải kết cục bi thảm trong một nhiệm vụ hộ tống có rủi ro cao, bị quá nhiệt sau một thời gian dài bắn phá. \nNgay sau đó, chú Rust - một thợ săn tiền thưởng đã trở lại Băng Nhóm Pack và mở một cửa hàng tân trang vũ khí có tên là \"Thợ Súng Howlfire.\" Ở đó, Wulfgard lần đầu tiên được giới thiệu về các sửa đổi vũ khí tùy chỉnh. \nSau đó, anh học cách chế tạo vũ khí thực sự theo ý mình, ngay cả khi chúng chỉ phù hợp với anh. \nNhưng anh ấy vẫn không bao giờ vứt bỏ những khẩu súng đã giúp anh từ những ngày đầu. Chúng vẫn ẩn mình trong một góc yên tĩnh. \nTại sao lại giữ chúng? Như một lời nhắc nhở? Một vật kỷ niệm? Hay là kỷ vật của những ký ức đau buồn? \nAnh không chắc chắn - có thể là tất cả, có thể là không gì cả. \nSau khi xác nhận đèn Originium đã tắt, anh đi về phía cửa, sẵn sàng bắt đầu cuộc hành trình có thể cuối cùng sẽ cho anh câu trả lời.</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Sức Mạnh <@ba.vup>+{Str:0}</>, Nhanh Nhẹn <@ba.vup>+{Agi:0}</>.",
+      "name": "Sói Cô Độc"
+    },
+    "potential2": {
+      "description": "Tài Năng <@ba.key>Nguyên Tắc Kiềm Chế</> được cải thiện: <#ba.return>Hồi phục thêm</> <@ba.vup>{potential_skillpower:0}</> KN.",
+      "name": "Phụ Kiện Súng"
+    },
+    "potential3": {
+      "description": "Trong khi <@ba.key>Nanh Thiêu Đốt</> đang kích hoạt, việc kích hoạt hiệu ứng cộng thêm của KN chiến đấu sẽ lập tức làm mới thời gian duy trì của <@ba.key>Nanh Thiêu Đốt</> và trao cho đồng đội khác <@ba.key>Nanh Thiêu Đốt</> bằng <@ba.vup>{teammate_percent:0%}</> hiệu ứng cơ bản.",
+      "name": "Giờ Săn"
+    },
+    "potential4": {
+      "description": "Tuyệt Kỹ <@ba.key>Sói Cuồng Nộ</> được cải thiện: Tiêu hao Năng Lượng Tuyệt Kỹ <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Ý Chí Của Băng Nhóm Pack"
+    },
+    "potential5": {
+      "description": "Khi thi triển Tuyệt Kỹ <@ba.key>Sói Cuồng Nộ</> sẽ cài lại ngay thời gian hồi chiêu của KN liên hoàn <@ba.key>Lựu Đạn Phá Mảnh·β</>.",
+      "name": "Kẻ Săn Mồi Bẩm Sinh"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Thời Khắc Săn Mồi",
+      "author": "umo_yszx",
+      "description": "Thợ săn giỏi nhất của vùng hoang địa sẽ luôn xuất hiện vào những thời điểm tốt nhất."
+    },
+    "potential3": {
+      "name": "Thả Lỏng Hôm Nay",
+      "author": "MeanWhile",
+      "description": "Anh chỉ buông lỏng cảnh giác với những ai thực sự xứng đáng với lòng tin của anh. Và rồi anh sẽ bộc lộ bản chất thật sự, bản chất đã bị anh chối bỏ từ thuở ấu thơ."
+    },
+    "potential6": {
+      "name": "Cái Nhìn Của Kẻ Săn Mồi",
+      "author": "FE",
+      "description": "Gã săn mồi trẻ tuổi bước vào vùng săn mồi của riêng mình khi Linh Hồn Sói tru lên. Mắt gã dõi theo từng con mồi, và súng của gã sẽ hạ gục từng con một."
+    }
+  }
+}

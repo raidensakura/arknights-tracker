@@ -1,0 +1,146 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Multiplicador SEQ 1 ATQB",
+        "batkSeq2Multiplier": "Multiplicador SEQ 2 ATQB",
+        "batkSeq3Multiplier": "Multiplicador SEQ 3 ATQB",
+        "batkSeq4Multiplier": "Multiplicador SEQ 4 ATQB",
+        "batkSeq5Multiplier": "Multiplicador SEQ 5 ATQB",
+        "finisherAtkMultiplier": "Multiplicador ATQ Finalizador",
+        "diveAtkMultiplier": "Multiplicador ATQ Mergulho"
+      },
+      "name": "Ofensiva Total",
+      "description": "ATAQUE BÁSICO: \nAtaque em até 5 sequências que causa <@ba.pd>DNO Físico</>. Como operador controlado, o <#ba.lastcombo>Golpe Final</> também causa <@ba.poise>{poise:0}</> de Desorientação. \n\nATAQUE DE MERGULHO: \nO ataque básico realizado no ar se torna um ataque de mergulho que causa <@ba.pd>DNO Físico</> aos inimigos nas proximidades. \n\nFINALIZADOR: \nO ataque básico realizado próximo a um inimigo Desorientado torna-se um ataque finalizador que causa uma enorme quantidade de <@ba.pd>DNO Físico</> e recupera PH."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "seq1DmgMultiplier": "Multiplicador DNO SEQ 1",
+        "seq1Stagger": "Desorientação SEQ 1",
+        "seq2DmgMultiplier": "Multiplicador DNO SEQ 2",
+        "seq2Stagger": "Desorientação SEQ 2",
+        "spRecoveryByConsuming1VulnerabilityStack": "Recuperação de PH com Consumo de 1 Acúmulo de Vulnerabilidade",
+        "spRecoveryByConsuming2VulnerabilityStacks": "Recuperação de PH com Consumo de 2 Acúmulos de Vulnerabilidade",
+        "spRecoveryByConsuming3VulnerabilityStacks": "Recuperação de PH com Consumo de 3 Acúmulos de Vulnerabilidade",
+        "spRecoveryByConsuming4VulnerabilityStacks": "Recuperação de PH com Consumo de 4 Acúmulos de Vulnerabilidade"
+      },
+      "name": "A Frente Pulverizadora",
+      "description": "Pogranichnik desfere um ataque cortante em sequência de 2 contra os inimigos à sua frente, causando <@ba.pd>DNO Físico</>, aplicando <#ba.fracture>Romper</> e recuperando PH com base no número de acúmulos de Vulnerabilidade <#ba.consume>consumidos</>. O efeito de recuperação de PH só pode ser acionado 1 vez, mesmo que a habilidade atinja vários alvos."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "seq1DmgMultiplier": "Multiplicador DNO SEQ 1",
+        "seq1Stagger": "Desorientação SEQ 1",
+        "seq1SpRecovery": "Recuperação de PH SEQ 1",
+        "seq2DmgMultiplier": "Multiplicador DNO SEQ 2",
+        "seq2Stagger": "Desorientação SEQ 2",
+        "seq2SpRecovery": "Recuperação de PH SEQ 2",
+        "seq3DmgMultiplier": "Multiplicador DNO SEQ 3",
+        "seq3Stagger": "Desorientação SEQ 3",
+        "seq3SpRecovery": "Recuperação de PH SEQ 3",
+        "enhancedSeq3DmgMultiplier": "Multiplicador DNO SEQ 3 Aperfeiçoado",
+        "enhancedSeq3Stagger": "Desorientação SEQ 3 Aperfeiçoada",
+        "enhancedSeq3SpRecovery": "Recuperação de PH SEQ 3 Aperfeiçoada"
+      },
+      "name": "Corte da Lua Cheia",
+      "description": "ACIONADOR DO COMBO: Quando <#ba.crush>Esmagar</> ou <#ba.fracture>Romper</> <#ba.consume>consome</> os acúmulos de <#ba.noguard>Vulnerabilidade</> do inimigo. \nDesfere várias sequências de golpes cortantes (até 3) com base no número máximo de acúmulos de <#ba.noguard>Vulnerabilidade</> <#ba.consume>consumidos</>, causando <@ba.pd>DNO Físico</> e recuperando PH. Cada golpe cortante causa mais DNO e fornece uma recuperação de PH melhor. \n<@ba.info>Consumir 4 acúmulos de Vulnerável aprimora o 3º golpe cortante.</>"
+    },
+    "ultimate": {
+      "ultimate": {
+        "steelOathDuration": "Duração do Juramento de Aço",
+        "advanceDmgMultiplier": "Multiplicador DNO Avançar",
+        "advanceStagger": "Desorientação Avançar",
+        "harassDmgMultiplier": "Multiplicador DNO Assédio",
+        "harassSpRecovery": "Recuperação de PH Assédio",
+        "decisiveAssaultDmgMultiplier": "Multiplicador DNO Assalto Decisivo",
+        "decisiveAssaultStagger": "Desorientação Assalto Decisivo",
+        "decisiveAssaultSpRecovery": "Recuperação de PH Assalto Decisivo"
+      },
+      "name": "Estandarte dos Escudeiros, Avançar",
+      "description": "Invoca 4 Escudeiros para avançar em direção ao alvo e empurrar todos os inimigos ao longo do caminho, empurrando todos os inimigos ao longo do caminho até ele e causando <@ba.pd>DNO Físico</> enquanto gera 5 pontos de <@ba.key>Juramento de Aço</>. Após um inimigo sofrer um <#ba.physicalstatus>Status Físico</> ou receber DNO causado pelo combo de habilidades de Pogranichnik, Pogranichnik consome 1 ponto de <@ba.key>Juramento de Aço</> e invoca 1 Escudeiro para hostilizar o inimigo em questão, causando <@ba.pd>DNO Físico</> e recuperando um pouco de PH. Quando o último ponto de <@ba.key>Juramento de Aço</> for consumido, todos os 4 Escudeiros iniciarão um Assalto Decisivo que causará <@ba.pd>DNO Físico</> ao alvo ao mesmo tempo que recupera uma quantidade significativa de PH."
+    },
+    "indicator": {
+      "levels": [
+        "Vontade do Operador + 15.",
+        "Vontade do Operador + 15.",
+        "Vontade do Operador + 20."
+      ],
+      "name": "Inabalável"
+    },
+    "talent1": {
+      "levels": [
+        "Durante a batalha, recuperar <@ba.vup>{atb_gain:0}</> de PH com suas próprias habilidades concede <@ba.key>Moral Fervente</> por <@ba.vup>{duration:0}</> s. \nEfeitos de <@ba.key>Moral Fervente</>: ATQ <@ba.vup>+ {atk_up:0%}</> e Intensidade das Artes <@ba.vup>+ {physpell_up:0}</>. \n<@ba.info>Esse efeito pode atingir 3 acúmulos. A duração de cada acúmulo é contada separadamente.</>",
+        "Durante a batalha, recuperar <@ba.vup>{atb_gain:0}</> de PH com suas próprias habilidades concede <@ba.key>Moral Fervente</> por <@ba.vup>{duration:0}</> s. \nEfeitos de <@ba.key>Moral Fervente</>: ATQ <@ba.vup>+ {atk_up:0%}</> e Intensidade das Artes <@ba.vup>+ {physpell_up:0}</>. \n<@ba.info>Esse efeito pode atingir 3 acúmulos. A duração de cada acúmulo é contada separadamente.</>"
+      ],
+      "name": "O Estandarte Vivo"
+    },
+    "talent2": {
+      "levels": [
+        "Habilidade suprema <@ba.key>Estandarte dos Escudeiros, Avançar</> melhorada: qualquer operador que acionar os efeitos subsequentes da habilidade suprema também ganhará <@ba.key>Moral Fervente</> por <@ba.vup>{duration:0}</> s. \n<@ba.info>Requer a ativação do talento: O Estandarte Vivo.</>",
+        "Habilidade suprema <@ba.key>Estandarte dos Escudeiros, Avançar</> melhorada: qualquer operador que acionar os efeitos subsequentes da habilidade suprema também ganhará <@ba.key>Moral Fervente</> por <@ba.vup>{duration:0}</> s. \n<@ba.info>Requer a ativação do talento: O Estandarte Vivo.</>"
+      ],
+      "name": "Instrução Tática"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de arma + 20%",
+        "Atribua à Cabine de Manufatura para conceder eficiência em produção de materiais de EXP de arma + 30%"
+      ],
+      "name": "Aprimore as Armas"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Atribua à Cabine de Manufatura para desacelerar a Queda de Humor de todos os operadores em 14%",
+        "Atribua à Cabine de Manufatura para desacelerar a Queda de Humor de todos os operadores em 18%"
+      ],
+      "name": "Reforço Moral"
+    },
+    "files": {
+      "main": "<@profile.key>CODINOME: Pogranichnik (Пограничник) \nGÊNERO: Masculino \nAUTENTICAÇÃO: Rhodes Island \nDATA DE NASCIMENTO: 23 de julho \nRAÇA: Liberi \n[STATUS DE INFECÇÃO POR ORIPATIA] \nNegativo para Oripatia com base em relatórios de exames médicos. \n\n[EXAME FÍSICO INTEGRADO] \nFORÇA FISIOLÓGICA: Excelente \nHABILIDADE DE COMBATE: Excelente \nPERSPICÁCIA TÁTICA: Excepcional \nASSIMILAÇÃO DE ARTES DE ORIGINIUM: Padrão</>",
+      "humanResources": "<@profile.key>Pogranichnik (nome de identificação: Khorsyn) é um representante de ligação da Rhodes Island e Comandante de Estandarte da Ordem do Juramento de Aço. Ele passou anos na frente do Círculo Polar, ao norte de Talos-II. Considerando as necessidades da situação atual, Pogranichnik juntou-se à Endfield Industries para fornecer apoio de combate. \n\nA aparência intransigente de um soldado profissional como Pogranichnik me impressionou bastante quando o conheci. Ele age com grande determinação e presteza, sem nunca duvidar ou hesitar. Quando promete assumir uma tarefa, por menor ou mais difícil que seja, ele a executa com o máximo de suas habilidades. \nEmbora Pogranichnik não demonstrasse nenhuma preferência óbvia pelos Três Grandes do Acordo do Cinturão, ele demonstrava uma conexão emocional especial com Mat' Gorodov, do STUT. Ele não se importava de conversar com seus companheiros de equipe que buscavam sombra nos canteiros de obras das placas da cidade. Houve até ocasiões em que encontrou companheiros de equipe do STUT confusos com a vida ou sofrendo com a dor de sonhos despedaçados. Pogranichnik é excepcional em elevar o moral, mesmo para gente comum afastada do campo de batalha. Ele sempre encontrava uma maneira de reavivar a confiança no coração das pessoas. Guardiões do Juramento e membros da equipe do STUT que conheciam Pogranichnik frequentemente destacavam seu senso de humor frio, afiado, porém cativante. \n— Martin Marvin Malen, Assistente, Divisão de RH, Endfield Industries</>",
+      "file1": "<@profile.key>DOCUMENTO: Duas Fotografias \nUma fotografia antiga com bordas amareladas, mostrando Pogranichnik em pé entre uma equipe diversificada com várias raças. O grupo estava diante de uma fortificação forjada em aço e coberta de neve. Dois batedores Guardiões do Juramento estavam no topo das defesas, olhando para a distância com binóculos. FUNDO: Os contornos de um forte podiam ser vistos no horizonte ligeiramente borrado, juntamente com canhões de alto calibre apontando para o céu. PERSONAGENS NOTÁVEIS: Um membro da equipe em particular, em pé ao lado de Pogranichnik, tinha uma expressão de orgulho que se destacava dos demais. O homem apontou para o céu onde uma nave gigante flutuava acima de tudo. Esta fotografia não mostra a totalidade da nave em questão. \n\nUma fotografia de um grande salão dentro de um forte, tirada de cima. Soldados da Ordem do Juramento de Aço que estavam no meio do salão levantaram suas taças no ar para Pogranichnik que estava no palco. SUPERIOR ESQUERDO: Pogranichnik colocando um punho no enorme mapa atrás dele. SUPERIOR DIREITO: Uma longa mesa de jantar. Um velho de cabelos prateados com um rosto esculpido, embora as feições estivessem obscurecidas quando ele olhava para o outro lado. Todos os sentados à mesa usavam distintivos e faixas de comandantes de estandartes e, como os soldados, também levantaram suas taças. INFERIOR ESQUERDO: Jovens recrutas esfregando ombros uns com os outros. Um deles tocava acordeão e aqueles próximos pareciam estar cantando e aplaudindo alto com suas bocas abertas. NOTA: O salão está cheio de muitas pessoas em espírito festivo, mas Pogranichnik nunca mostrou a foto a ninguém, nem a emoldurou. \n\nDOCUMENTO: Três Receitas \nReceita de Prato Principal C5: Bife de Besta de Carga Prime. Cortesia do STUT. Um corte prime de pernil de besta de carga, enriquecido com nutrientes e defumado. Prato militar padrão dos Guardas do STUT. Vencedor do Prêmio do Comitê Central de Planejamento da Produção dos Sindicatos dos Trabalhadores Unidos de Talos-II por 20 anos consecutivos. \n\"Os Escudeiros ainda estão se acostumando com o sabor único dos agentes fortificantes. Além disso, esta ração é impecável como ração de campo. Oferece calorias e nutrientes suficientes, e o filé foi preparado para proporcionar uma textura excelente — lembro-me de ter experimentado algo parecido antes, algo de Ursus.\" \n\nReceita de Prato Principal C8: Conjunto Doria de Caranguejos de Metal. Cortesia da CGCT. Caranguejos de metal de La Fantoma e queijo Kjersch se unem nesta preparação dos chefs renomados de Nova Tsukushi. A receita foi criada para criar explosões de frescor que misturam as colinas e os oceanos de Talos. Uma experiência gastronômica digna dos indomáveis Guardiões do Juramento. \n\"Uma maravilha culinária raramente vista em rações autocozidas. Elas são bastante eficazes em manter o moral dos estandartes de combate. No entanto, o conteúdo calórico deste item em particular é atualmente incapaz de atender aos requisitos dos Escudeiros. Por favor, tentem melhorar a receita.\" \n\nReceita de Prato Principal C12: Cozido de Shangshu Instantâneo. Cortesia da ACH. Estas palavras estavam rabiscadas desleixadamente no verso da caixa de rações: \"Khorsyn, seus soldados são veteranos calejados pela batalha. E com o que você os alimenta? Uma porcaria tão rançosa que eles estão gritando \"AVE\"! Já que você foi muito respeitoso com este Tianshi, esta caixa inteira é por minha conta. Garantido para dissipar o frio e aquecer suas entranhas. Não se esqueça de aquecer o sebo de besta para o molho de gordura.\" \n\"Esta entrada dizimou completamente meus guerreiros. Metade dos Escudeiros em todo o estandarte clamava por analgésicos. Alguns deles conseguiram encontrar forças para rastejar no chão e enfiar punhados de neve na boca. No entanto, ninguém no estandarte reclamou do frio durante a marcha a pé de 30 quilômetros.\" \n\nDOCUMENTO: Um Mapa \nUm mapa enorme ilustrado em um pedaço enorme de couro curtido de besta cística. Foi feito para o caso de todos os instrumentos e máquinas que funcionam com a tecnologia de Originium falharem. \nO mapa é densamente marcado com zonas de defesa da Ordem do Juramento de Aço, rotas de suprimento e pontos fortes importantes. Os Arsenais de Forte Forgefane também foram incluídos. \nA área sul do mapa mostra dezenas de estradas serpenteando ao longo dos contornos que conectam os vários fortes da Ordem. Algumas dessas rotas passam por Floresta de Murta — linhas vitais que conectam o Cinturão da Civilização à Ordem do Juramento de Aço e à própria borda do Corredor Norte. A área norte do mapa mostra uma linha de batalha irregular que se estende pela terra como uma cicatriz. Ela se estende das principais zonas de defesa da Ordem e termina apenas na orla da Aurora. \nNa seção de memorandos fornecida ao lado do suporte para exibição de mapas, Pogranichnik, o autor deste mapa, deixou esta mensagem manuscrita: \n1.237 nomes. É isso que vale.</>",
+      "file2": "<@profile.key>DOCUMENTO: Trecho de uma conversa gravada no Forte ████\n\"Senhor Instrutor, por favor, espere! Essa aula foi muito envolvente. O senhor deve ser um verdadeiro especialista em lutar contra os Aggeloi. Acabamos de ouvir aqueles guerreiros chamando você de — Khorsyn?\" \n\"A lição servirá ao seu propósito se ajudar você a sobreviver a um confronto real. Posso ajudar em mais alguma coisa?\" \n\"Ah, isso é ótimo! Eu sou Vadim. Vadim Ignatyevich Smirnov. Este aqui é Muravyov. Nós dois somos do TU.\" \n\"Ignaty? Eu conheço esse nome. Você saiu de casa por causa do seu pai, recruta? Ele sempre mostrava fotos suas.\" \n\"Sim. Quando ele estava por perto, frequentemente mencionava seus feitos heroicos em suas cartas. Ele tinha orgulho de lutar ao seu lado contra os Aggeloi que tentavam romper nossas defesas — sempre. Em todas as cartas.\" \n\"É! Quando Vasha e eu éramos crianças, nós... tentávamos ser os heróis descritos nas cartas! Brincávamos de fingir ser os Escudeiros guerreiros. Todo mundo quer ser tão corajoso quanto você!\" \n\"Nós... Bem, Muravyov e eu passamos nos testes de seleção do Forte. Queremos herdar a coragem do nosso pai, mesmo que isso custe nossas vidas.\" \n\"Um objetivo muito respeitável. Mas quero que vocês entendam que o sacrifício nunca é o objetivo. Pelo contrário, a Ordem luta para evitá-lo completamente.\" \n\"Instrutor Khorsyn, quando eu ainda estava na escola, sempre imaginei isso! Os Aggeloi do norte se chocando contra as linhas de frente e os estandartes cedendo sob seu peso. Justo quando os sodomitas estavam prestes a romper, os Guardiões do Juramento ouviram o estrondo poderoso de escudos de ferro batendo na terra — Khorsyn e seus Escudeiros haviam chegado e avançaram! Aquele estrondo poderoso revelou a todos que você era a frente inquebrável! O terreno onde você se encontra jamais seria tomado!\" \n\"Vasha está certo, instrutor. Não temos medo de sacrifício!\" \n\"Não. Já vi muitos aspirantes caírem neste lugar. Se você realmente quer ser um Escudeiro de verdade, ser um herói ou sacrificar suas vidas não são as qualidades necessárias.\" \n\"Mas você...\" \n\"Filho, você precisa aprender a sobreviver. Só assim você poderá estar nos lugares que mais precisam de você. Então você deve colocar o escudo à sua frente, e —\" \n\"Ajudar os outros... a sobreviver?\" \n\"Exatamente. Você realmente prestou atenção na aula. Esta é a tática mais básica da muralha Escudeira. Ficamos lado a lado para proteger os outros e ajudá-los a sobreviver — não nos importamos se eles estão tentando salvar a própria pele, herdando um legado ou se preparando para um contra-ataque tático eficaz.\" \n\"Suas aulas são realmente inspiradoras, Instrutor Khorsyn! Eu... nós... AHEM! Vasha, diga alguma coisa!\" \n\"É! Eu... quer dizer, Muravyov e eu nos tornaremos Escudeiros! Serviremos sob seu estandarte!\" \n\"Então aguardarei ansiosamente o dia em que lutarei ao seu lado.\"</>",
+      "file3": "<@profile.key>DOCUMENTO: Resumo da Batalha de █████ pelo Centro de Pesquisa de Serviços Unidos da CGCT: \nPrezados representantes presentes nesta sessão conjunta das empresas e corporações da CGCT, sou Tanner Orrigan, observador especial e agente de seguros de ativos de batalha. Estou aqui para apresentar um relatório sobre a Batalha de █████, que testemunhei e vivenciei como observador integrado à Ordem do Juramento de Aço. \nEste conflito de alta intensidade entre a Ordem do Juramento de Aço e o hospedeiro Aggeloide do Norte resultou em severas perdas de ativos militares fornecidos por todos os signatários do Acordo do Cinturão. As principais perdas de ativos sofridas pela Ordem incluem: 31 unidades de artilharia e outros veículos aéreos não tripulados (VANTs) pesados para reforçar diversas zonas de defesa. Para mais detalhes, consulte o anexo A3 impresso fornecido ao seu lado. \n...... \nObviamente, o súbito aparecimento da entidade desconhecida forçou a Ordem a interromper sua ofensiva contra a Aurora. Mas eu gostaria de lembrar a todos os estimados representantes que todas as perdas sofridas nesta ofensiva demonstram fortemente nossa disposição de aprofundar nossa parceria e fornecer ajuda incondicional à Ordem. Assim que auxiliarmos a Ordem na construção de instalações industriais, o Norte precisará apenas de mais produtos de diversas empresas. Há uma grande chance de que o modelo atual de compras em massa de equipamentos ceda lugar a um novo paradigma de parceria tecnológica e propriedade intelectual multifacetada, muito mais benéfico para nossos interesses. \n...... \nDurante esta batalha, eu estava cravado com um estandarte que fazia parte da ofensiva principal. Aproximamo-nos de uma crista e seguimos em direção a um forte avançado. No entanto, a visão desarmada não foi capaz de identificar a localização exata do forte, já que a enorme tropa Aggeloide cobria toda a topografia. Isso terminou quando o Comandante da Tropa Khorsyn, aquele que havia sido mais desprendido em gastar recursos militares, iniciou seu ataque do outro lado da tropa Aggeloide. Os Escudeiros avançaram em formação, empurraram as linhas de batalha sobre a crista e posicionaram sinalizadores nas terras altas para ajudar a artilharia do forte a direcionar seus disparos. \nFoi durante esse tempo que a entidade desconhecida, a mesma que frustrou as outras ofensivas do Estandarte, reapareceu no fundo da Aurora. Estimados representantes, gostaria de aproveitar este momento para expressar um consenso a que cheguei com a Ordem do Juramento de Aço: em nenhuma circunstância podemos permitir que qualquer entidade desse tipo entre em áreas densamente povoadas. Então, voltando ao assunto. Quando a entidade reapareceu, eu estava na relativa segurança de um centro de comando avançado. No entanto, atividades de Æther desencadeadas pela referida entidade tornaram meus dispositivos de gravação inoperantes. Nesse momento de desespero, Khorsyn liderou seu Estandarte de Escudeiros e atacou pela frente. Os Escudeiros ergueram seus escudos e impulsionaram o avanço com firme determinação e valentia. Receio não conseguir descrever o que vi em seguida de forma objetiva. Vi clarões vermelhos despedaçando os maiores Aggeloi, transformando-os em lápides silenciosas. Cada buraco que surgia no bastião de escudos de ferro era rapidamente selado por outro Escudeiro. Após 47 minutos de batalha brutal, Khorsyn e seus Escudeiros conseguiram abrir caminho através da hoste Aggeloide e sitiaram a entidade desconhecida responsável pela morte de centenas dos melhores soldados dos Guardiões do Juramento. Em uma única troca, Khorsyn abriu caminho através do plano mediano da carapaça escultural. A estranha matéria contida na entidade desconhecida tentou escapar ejetando-se para o ar. No entanto, fogo choveu dos céus enquanto vapor escapava pelas aberturas da armadura. Os últimos estertores da resistência foram finalmente extintos. \n...... \nEstimados representantes, a Ordem do Juramento de Aço provou nesta batalha ser indispensável. Nosso apoio é mais do que apenas contribuir para o espírito de altruísmo defendido pelos Acordos do Cinturão. É um investimento na resiliência estratégica crucial da Frente Norte. Outro objetivo deste relatório é esclarecer que o verdadeiro legado da Ordem não reside em seu Cofre de Relíquias, mas sim entre pessoas-chave, como Khorsyn. Os valores desses indivíduos não podem ser avaliados, nem negociados. No entanto, \"Heróis do Cinturão\" será uma oportunidade de investimento extremamente valiosa para a CGCT — isso é inquestionável.</>",
+      "file4": "<@profile.key>Mat' Gorodov. \nJá vi esse nome inúmeras vezes em filmes de arte do STUT antes da minha visita propriamente dita. Ela é o coração dos Sindicatos dos Trabalhadores Unidos de Talos-II, repleta de torres de comando imponentes que arranhavam os céus e integravam pátios de construção de placas da cidade. Ela se assemelhava às cidades nômades que vi em minhas memórias — sólidas e absolutamente gigantescas. \nMas, quando entrei na cidade, a primeira coisa que vi não foram megaestruturas industriais imponentes. Não, eram membros de equipes carregando materiais de construção e correndo em direção aos seus postos de trabalho. As equipes nunca pareciam exaustas e trabalhavam arduamente para transportar a essência desta cidade até cada canto. Cada centímetro de concreto trazia as marcas de suas mãos. \nNão procurei os serviços de um guia local, pois pretendia satisfazer minha curiosidade sozinho. Em vez disso, optei por seguir um membro da equipe que acabara de concluir seu dia de trabalho e o segui até um prédio enorme e minimalista. Depois de alguns empurrões, cheguei ao segundo andar do salão principal e sentei-me em uma poltrona macia — e só naquele momento percebi que estava em um teatro da equipe. O membro que tinha acabado de terminar seu turno já havia trocado de roupa e se tornado um artista de ópera. \nNão consegui adivinhar o enredo da performance. Eles não entoaram louvores aos heróis do trabalho. Em vez disso, foi uma comédia que criticou a burocracia — a equipe de trabalhadores tacitamente cooperou e \"enganou\" o oficial corrupto, levando-o a descobrir Ouro Puro, algo que não existe em Talos-II. No final, o oficial comeu os frutos amargos de sua ganância. É claro que os trabalhadores continuaram sendo os heróis desta história. Mas esses heróis eram bem-humorados e compartilhavam uma paixão sem limites por uma vida feliz. \nO espetáculo terminou e saí do teatro com vários pensamentos pesando em minha mente. Foi então que uma menina de uns dez anos e seu irmão gêmeo perceberam quem eu era. \"Um Guardião do Juramento! Da Ordem do Juramento de Aço!\", gritaram eles, animados. As crianças ficaram na minha frente e me saudaram como se fossem da Ordem. Seus pais e outros trabalhadores as puxaram com alguma dificuldade, pois tinham uma sequência interminável de perguntas que considero bastante difíceis de responder. Mas eu podia perceber, pelas expressões deles, que aqueles adultos teriam feito o mesmo que as crianças se fossem mais jovens. \nTive um sonho antes de deixar a Rhodes Island. Sonhei com um banquete. Os filhos da nobreza do grupo do exército estavam vestidos luxuosamente e mantidos sob a vigilância de servos e governantas, como bonecas intrincadas meticulosamente preparadas para o espetáculo. Essas crianças bem-cuidadas exalavam a mesma inocência e paixão emanadas dos gêmeos. Mas os olhares desses jovens nobres também carregavam algo mais. Seria honra familiar? Ou um desejo de poder exercido pelos mais velhos? Eu não saberia dizer, mas sei que a mácula não veio por vontade própria. Testemunhei a mácula se transformando em ambição e brilhando com o brilho frio de esquemas e conspirações. No final, eles se tornaram algo que eu não conseguia mais reconhecer. \nDepois de sair do teatro, percorri sozinho as ruas de Mat' Gorodov. Foi então que uma estranha sensação de liberdade me invadiu. Eu ainda me lembrava dos combatentes imperiais de elite me seguindo naqueles grandes ataques, da garota com Oripatia, de clínicas clandestinas reduzidas a ruínas, de multidões tentando ganhar a vida e de crianças brincando umas com as outras. Essas lembranças permaneciam em algum lugar dentro de mim, mas não me pesavam mais. \nUm novo marco foi erguido sobre o túmulo de dias há muito passados. Concluí meu breve passeio pela cidade e retornei rapidamente para o norte. Ali jaz um campo de batalha onde uma geração inteira caiu. Um lugar sem a poeira do velho mundo nem grandes projetos para o novo. Um campo de carnificina onde a sobrevivência era o único objetivo. \nÉ aí que lutamos. \n — Transcrição de áudio gravada por um indivíduo anônimo arquivada na Rhodes Island</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Habilidade de batalha <@ba.key>A Frente Pulverizadora</> melhorada: ao acertar pelo menos 2 inimigos, <@ba.vup>{atb_return:0}</> de PH é <#ba.return>devolvido</>.",
+      "name": "Varredura da Linha de Frente"
+    },
+    "potential2": {
+      "description": "Vontade <@ba.vup>+ {Will:0}</>, DNO Físico Causado <@ba.vup>+ {PhysicalDamageIncrease:0%}</>.",
+      "name": "\"Avançar\""
+    },
+    "potential3": {
+      "description": "Talento <@ba.key>O Estandarte Vivo</> melhorado: a quantidade de recuperação de PH necessária para ganhar <@ba.key>Moral Fervente</> é reduzida para <@ba.vup>{atb_gain:0}</>. Máximo de acúmulos de <@ba.key>Moral Fervente</> no mesmo <@ba.vup>+ {max_stack_owner-3}</>.",
+      "name": "Quando o Estandarte Tremula"
+    },
+    "potential4": {
+      "description": "Habilidade suprema <@ba.key>Estandarte dos Escudeiros, Avançar</> melhorado: custo da Energia Suprema <@ba.vup>- {1-costvalue:0%}</>.",
+      "name": "Escudo de Talos-II"
+    },
+    "potential5": {
+      "description": "Combo de habilidades <@ba.key>Corte da Lua Cheia</> melhorado: duração do tempo de recarga <@ba.vup>{coolDown:0}</> s; a recuperação de PH é aumentada para <@ba.vup>{atb_ratio:0.0}</> vezes o original.",
+      "name": "Lâmina Recém-Forjada"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Roque Maior",
+      "author": "FE",
+      "description": "Ele sempre aparece onde é mais necessário."
+    },
+    "potential3": {
+      "name": "O Rei e o Cavaleiro",
+      "author": "Kala",
+      "description": "Mas ele não nutria absolutamente nenhum ódio pelo Império. Mais de um século se passara desde a morte do \"Imperador\", e uma nova formação de escudeiros se ergueu atrás dele."
+    },
+    "potential6": {
+      "name": "Xeque-Mate",
+      "author": "大明",
+      "description": "A fumaça da ruína ainda pairava no ar. Inúmeros pedaços, vivos e mortos, se desprendiam do pesado cadáver. Sua lâmina servia de suporte para o corpo, seu juramento de aço e sua vigília — e então ele fez seu movimento. Xeque-mate."
+    }
+  }
+}

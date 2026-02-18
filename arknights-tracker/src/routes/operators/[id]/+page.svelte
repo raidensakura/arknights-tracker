@@ -270,7 +270,7 @@
         </div>
         <!-- Градиент, чтобы текст читался (опционально) -->
         <div
-            class="absolute inset-0 bg-gradient-to-r from-[#F9F9F9] via-[#F9F9F9]/80 to-transparent lg:via-[#F9F9F9]/40 z-10 opacity-40"
+            class="absolute inset-0 bg-gradient-to-r dark:from-[#707070] from-[#F9F9F9] via-[#F9F9F9]/80 to-transparent lg:via-[#F9F9F9]/40 z-10 opacity-40"
         ></div>
     </div>
 

@@ -1,0 +1,142 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Pengganda BATK SEQ 1",
+        "batkSeq2Multiplier": "Pengganda BATK SEQ 2",
+        "batkSeq3Multiplier": "Pengganda BATK SEQ 3",
+        "batkSeq4Multiplier": "Pengganda BATK SEQ 4",
+        "batkSeq5Multiplier": "Pengganda BATK SEQ 5",
+        "finisherAtkMultiplier": "Pengganda ATK Penuntas",
+        "diveAtkMultiplier": "Pengganda ATK Menukik"
+      },
+      "name": "Flaming Cinders",
+      "description": "SERANGAN DASAR: \nSerangan dengan maksimum 5 tahap yang akan menimbulkan <@ba.fire>Heat DMG</>. Jika digunakan oleh operator terkontrol, <#ba.lastcombo>Final Strike</> juga akan menimbulkan <@ba.poise>{poise:0}</> Stagger. \n\nSERANGAN MENUKIK: \nSerangan dasar yang dilancarkan sambil melayang akan menjadi serangan menukik yang akan menimbulkan <@ba.fire>Heat DMG</> kepada musuh di sekitar. \n\nPENUNTAS: \nSerangan dasar yang dilancarkan di dekat musuh yang terkena Staggered akan menjadi penuntas yang akan menimbulkan <@ba.fire>Heat DMG</> sangat besar dan memulihkan sebagian SP."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "baseExplosionDmgMultiplier": "Pengganda DMG Ledakan Dasar",
+        "baseExplosionStagger": "Stagger Ledakan Dasar",
+        "dmgOverTimeMultiplierPerSeq": "Pengganda DMG Over Time per SEQ",
+        "additionalAtkDmgMultiplier": "Tambahan Pengganda ATK DMG",
+        "additionalAtkStagger": "Tambahan ATK Stagger",
+        "combustionDurationS": "Durasi Combustion (dtk)",
+        "additionalAtkUltimateEnergyGain": "Tambahan Perolehan Energi Ultimate ATK",
+        "duringUltimateBatkSeq1Multiplier": "Saat Ultimate: Pengganda BATK SEQ 1",
+        "duringUltimateBatkSeq1Stagger": "Saat Ultimate: BATK SEQ 1 Stagger",
+        "duringUltimateBatkSeq2Multiplier": "Saat Ultimate: Pengganda BATK SEQ 2",
+        "duringUltimateBatkSeq2Stagger": "Saat Ultimate: BATK SEQ 2 Stagger",
+        "duringUltimateAdditionalAtkMultiplier": "Saat Ultimate: Tambahan Pengganda ATK",
+        "duringUltimateAdditionalAtkStagger": "Saat Ultimate: Tambahan ATK Stagger",
+        "duringUltimateCombustionDurationS": "Saat Ultimate: Durasi Combustion (dtk)"
+      },
+      "name": "Smouldering Fire",
+      "description": "Memanggil Serpihan Magma yang akan terus-menerus menyerang musuh dan menimbulkan <@ba.fire>Heat DMG</>. Jika berhasil menghantam musuh, skill ini akan memberikan 1 tumpuk <@ba.key>Melting Flame</>. \nJika Laevatain sudah punya {count:0} tumpuk <@ba.key>Melting Flame</> saat menggunakan skill ini, dia akan memakai semua tumpukan itu dan melancarkan satu serangan lagi sehingga akan menimbulkan <@ba.fire>Heat DMG</>, lalu secara paksa mengaktifkan efek <#ba.burning>Combustion</> untuk sementara kepada semua musuh di area besar.\nJika serangan tambahan ini berhasil menghantam musuh, Energi Ultimate akan dipulihkan lagi.\n<@ba.info>Efek skill tarung akan diperkuat selagi ultimate Laevatain masih aktif.</>"
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Pengganda DMG",
+        "stagger": "Stagger",
+        "ultimateEnergyGainWhenHitting1Enemy": "Perolehan Energi Ultimate saat Menghantam 1 Musuh",
+        "ultimateEnergyGainWhenHitting2Enemies": "Perolehan Energi Ultimate saat Menghantam 2 Musuh",
+        "ultimateEnergyGainWhenHitting3Enemies": "Perolehan Energi Ultimate saat Menghantam 3 Musuh"
+      },
+      "name": "Seethe",
+      "description": "PEMICU KOMBO: Saat satu musuh terkena <#ba.burning>Combustion</> atau <#ba.corrupt>Corrosion</>. \nApi akan muncul dari bawah kaki musuh yang terkena <#ba.burning>Combustion</> atau <#ba.corrupt>Corrosion</> sehingga akan menimbulkan <@ba.fire>Heat DMG</> kepada mereka. \nJika skill berhasil menghantam musuh, Laevatain akan mendapatkan 1 tumpuk <@ba.key>Melting Flame</> dan Energi Ultimate lagi setiap kali ada musuh yang terhantam."
+    },
+    "ultimate": {
+      "ultimate": {
+        "durationS": "Durasi (dtk)",
+        "enhancedBatkSeq1Multiplier": "Penambahan Pengganda BATK SEQ 1",
+        "enhancedBatkSeq2Multiplier": "Penambahan Pengganda BATK SEQ 2",
+        "enhancedBatkSeq3Multiplier": "Penambahan Pengganda BATK SEQ 3",
+        "enhancedBatkSeq4Multiplier": "Penambahan Pengganda BATK SEQ 4"
+      },
+      "name": "Twilight",
+      "description": "Laevatain akan memanggil Sviga Lævi dan menjadi operator terkontrol. \nSelama durasi tertentu, serangan dasarnya (BATK) akan diperkuat dan Sviga Lævi akan menyerang serentak bersama Laevatain. Setiap serangan akan menimbulkan <@ba.fire>Heat DMG</>. Tahap 3 BATK juga akan mengakibatkan <#ba.fireinflict>Heat Infliction</>."
+    },
+    "indicator": {
+      "levels": [
+        "Intellect Operator +15.",
+        "Intellect Operator +15.",
+        "Intellect Operator +20."
+      ],
+      "name": "Keen Mind"
+    },
+    "talent1": {
+      "levels": [
+        "Setelah operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> atau Penuntas dan berhasil menghantam musuh, Laevatain akan menyerap <#ba.fireinflict>Heat Infliction</> dari musuh di sekitar. \nSetiap tumpuk <#ba.fireinflict>Heat Infliction</> yang diserap akan memberikan 1 tumpuk <@ba.key>Melting Flame</> kepada Laevatain (tumpukan maks: {max_stack:0}). \nSetelah tumpukan mencapai {max_stack:0}, DMG yang ditimbulkan Laevatain akan mengabaikan <@ba.vup>{100*ignore_fire_resist:0}</> <@ba.fire>Resistansi Heat</> musuh selama {ignore_fire_resist_duration:0} dtk. \n<@ba.info>Laevatain juga akan menyerap Heat Infliction dari musuh di sekitar yang berhasil dikalahkan.</>",
+        "Setelah operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> atau Penuntas dan berhasil menghantam musuh, Laevatain akan menyerap <#ba.fireinflict>Heat Infliction</> dari musuh di sekitar. \nSetiap tumpuk <#ba.fireinflict>Heat Infliction</> yang diserap akan memberikan 1 tumpuk <@ba.key>Melting Flame</> kepada Laevatain (tumpukan maks: {max_stack:0}). \nSetelah tumpukan mencapai {max_stack:0}, DMG yang ditimbulkan Laevatain akan mengabaikan <@ba.vup>{100*ignore_fire_resist:0}</> <@ba.fire>Resistansi Heat</> musuh selama {ignore_fire_resist_duration:0} dtk. \n<@ba.info>Laevatain juga akan menyerap Heat Infliction dari musuh di sekitar yang berhasil dikalahkan.</>"
+      ],
+      "name": "Scorching Heart"
+    },
+    "talent2": {
+      "levels": [
+        "Saat HP turun hingga kurang dari {hp_threshold:0%}, <@ba.vup>{shelter:0%}</> <#ba.guard>Protection</> akan diperoleh dan <@ba.heal>{heal_max_hp:0%}</> HP maks akan dipulihkan per detik selama <@ba.vup>{duration:0}</> dtk. Efek ini hanya aktif satu kali setiap {cd:0} dtk.",
+        "Saat HP turun hingga kurang dari {hp_threshold:0%}, <@ba.vup>{shelter:0%}</> <#ba.guard>Protection</> akan diperoleh dan <@ba.heal>{heal_max_hp:0%}</> HP maks akan dipulihkan per detik selama <@ba.vup>{duration:0}</> dtk. Efek ini hanya aktif satu kali setiap {cd:0} dtk."
+      ],
+      "name": "Re-Ignition"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Saat ditugaskan ke Kabin Manufaktur, efisiensi produksi material EXP operator akan meningkat sebesar +20%",
+        "Saat ditugaskan ke Kabin Manufaktur, efisiensi produksi material EXP operator akan meningkat sebesar +30%"
+      ],
+      "name": "Memory Crucible"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Saat ditugaskan ke Kabin Manufaktur, Penurunan Suasana Hati semua operator di dalamnya akan melambat sebesar 14%",
+        "Saat ditugaskan ke Kabin Manufaktur, Penurunan Suasana Hati semua operator di dalamnya akan melambat sebesar 18%"
+      ],
+      "name": "Undying Flames"
+    },
+    "files": {
+      "main": "<@profile.key>NAMA SANDI: Laevatain \nGENDER: Perempuan \nAUTENTIKASI: Rhodes Island \nTANGGAL LAHIR: Sama dengan Endmin \nRAS: Sarkaz \n[STATUS INFEKSI ORIPATI] \nNegatif Oripati, berdasarkan laporan pemeriksaan medis. \n\n[PEMERIKSAAN FISIK TERPADU] \nKEKUATAN FISIOLOGIS: Sangat Baik \nKEMAMPUAN TEMPUR: Standar \nKECERDASAN TAKTIS: Standar \nASIMILASI ORIGINIUM ARTS: Sangat Baik \n\nCATATAN: Ahli mesin senjata kita harus melakukan pemeriksaan dan perbaikan rutin pada struktur mirip cincin yang dibawa Laevatain— Krad, Profesional Sekuriti Endfield </>",
+      "humanResources": "<@profile.key>Laevatain, seorang Reconvener sekaligus Operator, bergabung dengan Endfield atas rekomendasi langsung dari Endministrator. Setelah mendapatkan persetujuan langsung darinya, serta persetujuan dari Divisi SDM dan autentikasi dari Rhodes Island, Laevatain bergabung dengan Endfield sebagai operator di bawah perintah langsung Endministrator. \n\nLaevatain tiba di area resepsionis 45 menit lebih awal dari jadwal yang sudah disepakati. Dia hanya meletakkan pemberitahuan penerimaannya di atas meja dan tak banyak bicara. Dia hanya bilang, “Aku sudah tiba. Kita bisa mulai.” \nSelama fase awal wawancara, dia cukup kooperatif—dia membubuhkan tanda tangan, mengikuti prosedur pemindaian retina, dan menautkan Level Otoritas Protokol tanpa masalah, tanpa berkomentar. Aku berusaha mencerahkan suasana dengan berkata, “Selamat datang di Endfield.” Dia mengangguk dan menjawab, “Aku sudah di sini.” \nSelama pengujian preferensi pekerjaan, aku mengikuti daftar pertanyaan yang sudah ditentukan dan menanyakan apa dia punya pertimbangan untuk menggunakan kemampuan yang dimilikinya untuk hal lain selain pertempuran, misalnya untuk perencanaan tempur, menjadi pelatih, atau menjadi instruktur. Dia tak menjawab, tapi jelas dia terlihat kesal. \nAkhirnya, Operator Laevatain pergi sambil mengucapkan satu kalimat: “Kirim saja aku ke berbagai tempat, sebanyak mungkin—tempat-tempat yang bisa menghasilkan sebanyak mungkin kenangan untukku.” \n— Martin Marvin Malen, Asisten, Divisi SDM, Endfield Industries</>",
+      "file1": "<@profile.key>Endministrator dan Pengawas Perlica, di Endfield Industries: \nAku sangat senang mengetahui Laevatain sudah kembali dengan bantuan Endministrator. Walau perjalanannya sama sekali belum usai, kembalinya Laevatain berarti dia sudah menemukan tujuan dan orang-orang baru untuk menemaninya dalam perjalanannya. \nLaevatain memasuki negeri Talos-II dengan dorongan “hasrat dan harapan” yang amat kuat. Pertama kali kami merasakan kehadirannya, cahaya yang memancar darinya begitu memukau. Baru kemudian aku sadar bahwa cahaya yang memancar darinya itu muncul dari obsesinya—ego terdalamnya menuntut jawaban: “Siapa aku?” \nDengan bimbingan obsesi itu, fragmen-fragmen dalam dirinya bangkit dan menciptakan sebuah persona yang utuh. “Dia” keluar dari Hutan Originium, baru dan utuh, dan tiba di Rhodes Island dengan menyandang nama “Laevatain”. Kukira dia akan langsung menjadi aset dan pendukung terkuat kami, tapi dia menolak bergabung. Layaknya Surtr yang selalu berjalan seorang diri, tak seorang pun bisa menyuruh atau memaksa Laevatain untuk berdiam di satu tempat. Dia tak akan patuh kepada faksi mana pun sebelum dia bisa menemukan jawaban yang mampu menghalau kabut amnesia yang ada dalam dirinya. Karenanya, kami memutuskan membuka pintu dan mengantarkan kepergiannya. \nAku sempat khawatir bahwa pilihan Laevatain akan memengaruhi reconvener lainnya. Kemudian, aku sadar bahwa mereka menjadi reconvener karena mereka semua tak melupakan mimpi dan visi yang sudah mereka pegang sejak dulu. Karena itulah mereka berkumpul kembali denganmu di jalan ini. Nah, memikirkan hal itu saja sudah mengurangi beban di batinku. \nKarena sekarang Laevatain secara resmi sudah menjadi Endfielder yang bertarung bersamamu, izinkan aku memberikan sedikit nasihat (berdasarkan pengetahuanku tentang “dia”) agar bisa “akrab dengannya”. \nPertama, terima dan beradaptasilah dengan sifatnya yang lugas. Dia sering mengatakan apa pun yang muncul dalam benaknya tanpa basa-basi. Itu bukan karena dia kasar, jahat, atau tidak sopan. Bahkan, kata-kata itu adalah tanda ketulusan dan kegamblangan perilakunya—“Aku lebih suka langsung mengatakan apa yang sedang kupikirkan sekarang.” \nKedua, kalau Laevatain menunjukkan tanda-tanda akan marah atau kehilangan kesabaran, jangan menyuruhnya untuk “tenang”. Percayalah, ada banyak cara lain yang lebih efektif, seperti menyediakan es krim atau apa saja yang bisa dengan cepat “mendinginkan” keadaan. Laevatain bisa diajak berkomunikasi, tapi dia tak suka “disuruh”. \nSedikit tambahan, sebelum dia meninggalkan Rhodes Island, dia mengambil semua es krim beri merah dari freezer labku—dan memakan semuanya tepat di depan mataku, seolah itu hal yang wajar. “Kaubilang kenangan bisa menipu,” ujarnya sambil menjilat sendok es krim, “Jadi lebih baik kumakan sebanyak-banyaknya agar kenangannya kuat.” Laevatain menandai perpisahannya dengan tindakan ini untuk memastikan momen itu terpatri jelas dalam ingatannya. Dia sebenarnya sangat peduli kepada teman-temannya, jauh melebihi dugaan kebanyakan orang. \nKetiga, Laevatain sangat mirip dengan Surtr, tapi kalau melihat temperamennya .... Jangan bilang kepadanya bahwa dia mirip Surtr. Selain itu, jangan pula bilang kepadanya bahwa dia TIDAK mirip Surtr. Intinya, jangan pernah membandingkan dia dengan Surtr, kecuali dia sendiri yang mulai membicarakan itu. Ingat itu! \nSemoga berhasil dalam perjalanan kalian melintasi Talos-II. \n\nRhodes Island </>",
+      "file2": "<@profile.key>DOKUMEN: Log Penanganan Divisi Medis Endfield Industries \nPENULIS: Dulla Gray, ahli psikologi klinis \n\nLOG 1 \nAhli Bedah Answorth sedang diberangkatkan ke permukaan untuk menangani sebuah laporan keadaan darurat. Jadi, ini pertama kalinya aku memberikan layanan psikoterapi tanpa pendamping sejak pertama kali aku bergabung dengan Endfield. Detail pekerjaan ini adalah memberikan penilaian psikologis untuk seorang operator yang baru bergabung. Kuharap ini jadi awal yang baik untuk hubungan kami. \n............ \nSudah enam jam aku menunggu, tapi operator itu belum juga datang. \n\nLOG 2 \nAku sudah memeriksa catatannya. Rupanya operator itu adalah reconvener yang punya masalah dengan “gangguan polimnestik”. Aku masih menjadi ahli terapi yang bertanggung jawab dalam kasus ini. \nPertemuan keduaku (yang sebenarnya adalah pertemuan pertama, kalau mengingat fakta pertemuan sebelumnya) dengan Operator Laevatain berhasil. Aku berhasil menjalankan pemeriksaan psikologis yang belum sempat kami lakukan sebelumnya, dan dia pun menjelaskan kenapa dia tidak datang saat itu. Rupanya dia sangat gusar dan terganggu dengan suatu rangkaian mimpi buruk. Karenanya, dia memilih untuk pergi ke permukaan dan “menata hati”. Dengan dorongan dariku, dia pun bersedia menjelaskan mimpi yang dilihatnya itu. \n\nLaevatain bermimpi sedang berdiri di sebuah ruang kelas. Satu per satu teman sekelasnya memperkenalkan diri di depan kelas. Tapi, saat gilirannya tiba, dia mencoba membuka mulut tapi tidak ada suara yang keluar. Dia mencoba lagi, tapi kerongkongannya tercekat dan dia hanya bisa mengeluarkan suara tak jelas dan serak. \nGurunya berbalik, tapi wajahnya digantikan kobaran api membara, “Kau tak bisa memperkenalkan diri karena kau tak pernah punya kehidupan sendiri.” \nLaevatain berusaha meninggalkan ruang kelas, tapi malah berada di sebuah rumah yang terasa tak asing sekaligus asing baginya. Semua hal di sekelilingnya terbakar. Apinya melalap dinding, buku-buku, dan cermin-cermin di sana. Teman sekelasnya, teman-temannya, gurunya, keluarganya, bahkan rekan kerjanya yang ditemuinya di Rhodes Island dan Dijiang, semua berdiri di ruangan itu, tapi wajah mereka hanya berupa api yang berpusar dan melintir, sama sekali tak bisa dikenali. \nDia kemudian berlari ke arah pintu dan menerjang keluar, tapi dia masih ada di rumah yang sama, masih terbakar. Dia berlari lagi, membuka pintu, dan melihat pemandangan yang sama. \nSetiap pintu yang dilewatinya membuat ruangannya makin kecil dan lingkaran api pun makin dekat dengannya. \nPada akhirnya, dia membuka pintu terakhir dan tiba di sebuah ruangan penuh abu, tanpa asap dan api. Dia melihat dirinya sendiri terduduk di dalam ruangan itu, tersenyum menatapnya: \n“Akhirnya kau membakar segalanya.” \n\nMimpi berulang yang dialami Laevatain sepertinya berakar pada “kenangan” yang masih tersimpan dalam benaknya. Masih belum jelas apakah hal itu berasal dari pengalaman nyata atau sekadar ilusi, tapi sepertinya dia sudah lama berkelana sambil menanggung beban ini. \n\nLOG 3 \nAku mencoba meresepkan beberapa terapi anjuran untuk Operator Laevatain, tapi hasilnya sama sekali tak ideal. Setelah menerima saran dari Ahli Bedah Answorth, aku menanyai Laevatain, apa dia pernah mempertimbangkan untuk menjalani prosedur medis untuk mengangkat kenangan-kenangan itu karena dia terus-menerus mimpi buruk. \nDia berpikir beberapa saat, lalu menolak saranku itu. \nBeberapa hari kemudian, dia menceritakan mimpi lain kepadaku. \n\nDalam mimpi itu, Laevatain terbangun di suatu dunia serba putih. Langitnya bersih tanpa cela, dan daratan terbentang seolah tidak berujung. \nDia berjalan lama sekali tanpa merasakan angin. Dia tak bertemu siapa pun, tak melihat bayangan apa pun. \nAda sebuah pintu di ujung. Sebuah catatan tertempel di pintu itu—Masuklah kalau kau tak ingin menjadi orang lain. \nDi sanalah dia berhenti. Dia memilih untuk tak membuka pintu itu. \n\nSaat sesi kami selesai, Operator Laevatain memberiku segenggam bunga merah yang menyerupai api—sebuah tanda terima kasih untuk “sesi-sesi berbagi kenangan yang akan datang”. </>",
+      "file3": "<@profile.key>DOKUMEN: Catatan Ujian Adaptasi Tempur (ID: L-067) \nKANDIDAT: Laevatain (reconvener) \nPENGAWAS: Krad (Profesional Sekuriti Endfield) \nOS: Sistem Simulasi Tempur S7 \nKONTEN: Serangan penekan massa dan serangan presisi \nDURASI: 3 menit 42 detik \nHASIL: Lulus (bersyarat) \n\nRINGKASAN UJIAN \nPada detik ke-7 Fase 1, Operator Laevatain memanggil pedang besar membara dengan satu tangan (ID peralatan tidak teridentifikasi; pedang tersebut kemungkinan dibuat dengan Originium Arts Laevatain) dan langsung menerjang ke tengah gerombolan musuh simulasi sebelum instruksi verbal diberikan, apalagi dikonfirmasi. \nPada detik ke-31, deteksi termal melebihi ambang batas pemantauan lingkungan simulasi. Sistem pun otomatis mengaktifkan penanganan antipanas. Profesional Sekuriti Krad meminta tes dihentikan, tapi Operator Laevatain menolak permintaan itu. \nPada menit ke-1 detik 24, Operator Laevatain sudah menghancurkan semua unit musuh dan berdiri tegap di tengah area simulasi sambil mengatur napas setelah bergerak begitu intens. \nPertempuran dilanjutkan setelah 38 detik, menuju Fase 2. Materi ujian “Penekanan Stasioner” dimulai. Performa operator jauh lebih ekstrem dibandingkan dengan performanya pada Fase 1, dan seluruh ujian diselesaikan dalam 1 menit 40 detik. \n\nRINGKASAN PERILAKU \nGaya bertempurnya sangat agresif dan prioritasnya adalah menghancurkan kondisi imbang dengan kekuatan yang sangat besar. \nDia lebih memilih bertindak lebih dulu alih-alih fokus ke koordinasi taktis. Kesediaannya untuk mendukung kerja tim tidak stabil. \nEfisiensi senjatanya meningkat drastis pada ambang batas emosional. Efek yang terdeteksi mencakup api yang menyebar, tanda-tanda hangus di sekitar, dan gangguan sinyal. \n\nULASAN UJIAN \nDia sangat kuat, tapi belum punya ketahanan mental untuk menguasai kemampuannya. Dia tak suka menghancurkan, tapi menggunakan pertempuran untuk melampiaskan emosinya dan membuktikan keberadaan diri. Dia perlu belajar mengendalikan diri dan menjaga kestabilan mentalnya—menguasai api tanpa terbakar. Kalau dia kehilangan kontak dengan petugas medis atau operator pendukung dalam tim, tak akan ada yang bisa menyelamatkannya. \n— Evaluator: Krad, Profesional Sekuriti \n\nKurasa kau memberiku ujian ini bukan untuk menguji apakah aku masih bisa bertarung. Kau ingin tahu apakah aku akan “hilang kendali”, ‘kan? Tenang saja ... aku tahu betul apa yang kulakukan. \n— Komentar dari Operator Laevatain \n\nCATATAN: Area ujian tempur butuh insulasi termal baru. Jika ada ujian lagi, siapkan juga 3 porsi Minuman Pendingin. \n\nDOKUMEN: Ringkasan Pascaoperasi (ID: SU-58R-TR) \nSelama operasi tempur ini, Operator Laevatain menyerbu musuh tanpa perintah pada tahap-tahap awal pertempuran. Dia juga tidak merespons seruan taktis dari timnya. Tindakannya sempat memutus jaringan komunikasi, melompati rantai komando, dan menyebabkan panik sesaat di antara para anggota tim. Untungnya, tak ada korban dalam tim. \nSaat operasi selesai, analisis jejak energi residu dan pencatat datalog taktis mengonfirmasi bahwa Operator Laevatain berhasil mengalihkan fokus serangan musuh ke dirinya sendiri dengan aksinya: memperlihatkan posisinya sendiri dan melancarkan serangan beruntun berupa semburan api panas yang mengacaukan pertahanan musuh. Dengan kata lain, dia menjadikan dirinya umpan untuk menciptakan celah taktis dan memberi kesempatan bagi para operator kita untuk memanfaatkan kesempatan itu dan meraih tujuan taktis kita. \nSetelah mengakhiri operasi, Operator Laevatain duduk di atas lelehan batu yang sudah mendingin. Dari tanda hangus di sekitar, sepertinya area itu dihujani serangan membabi buta. Laevatain tak berkata apa-apa saat kami memeriksa medan pertarungan. Setelah memastikan semua operator lain dalam keadaan baik, dia berkata lirih, “Bagus.” </>",
+      "file4": "<@profile.key>Laporan Kerja Rutin untuk Operator Bawahan Endministrator \nPELAPOR: Laevatain \n\nAku sudah memandu kurir ke daerah vulkanis ini. Lava pijar mengalir di bawah tanah yang kami pijak. Air hujan dan aliran air terus memanas di sini, jadi tanah seolah mendidih karena panas bumi. Stasiun pantau berdiri tepat di atas “kuali sup hidup” ini. \nDi sini nyaris tak ada Originium. Para peneliti yang tinggal di sini mengandalkan panas geotermal untuk memasak makanan. Kaleng ransum bisa dimasak cukup dengan menguburnya di tanah selama satu jam. Mereka bahkan punya “sup kantong”: kaldu cair dan bahan lainnya disegel di dalam kantong khusus makanan—setelah dimasak sebentar, kantongnya tinggal disobek dengan gigi. Mukaku pernah ketumpahan sup panas, rasanya seperti terbakar. \nSaat pertama kali aku makan di sana, seorang peneliti mengajariku mantra “ritual” mereka: “Semoga sup kita tak pernah tumpah, semoga api kita tak pernah padam.” \nAku melantunkan mantra itu bersamanya. Baru kali itu aku menerima berkat dari orang asing di Talos-II. \n— Dikirim dari Stasiun Pantau 34 \n\nKarena aku adalah Operator yang paling dekat dengan kejadian itu, dan yang paling mampu melakukan operasi tanggap darurat, aku diperintahkan secepat mungkin menuju markas UWST yang tidak tertera di peta. \nMasalah saat itu tak rumit. Ada malafungsi pada tungku ledak yang mengakibatkan tungku rusak, mati, dan kehilangan daya. Aku menggunakan sebagian dayaku untuk membantu mereka menyalakan kembali inti tungku. Suhu kembali ke level normal dan sistem pun aktif lagi. Keadaan genting sementara sudah teratasi. \nAku cukup terkesan dengan “nama-nama” mereka. Tempat itu adalah markas rahasia di tanah █████ nan dingin, dan biasanya disebut dengan sandi suar pandunya. Semua orang di sana dilarang menggunakan nama asli mereka maupun nama sandi pilihan mereka sendiri; yang boleh dipakai hanya nama yang “ditetapkan” untuk mereka. \nNama sementaraku di sana adalah “Olga Randall”. Mereka bilang ada tiga orang lain sebelum aku yang diberi nama itu, dan kemungkinan besar aktuaris berikutnya yang menggantikanku juga akan diberi nama yang sama. \nRasanya aneh. Aku hanya pengguna sementara nama “Olga Randall”. Perasaan ini mirip seperti melihat fragmen-fragmen kenangan yang berkeliaran di dalam benakku. Nama dan fragmen itu bukan benar-benar milikku, tapi pada saat itu, keduanya juga menjadi bagian diriku. \n— Dikirim dari Suar Pandu UWST DAU.14 \n\nSetelah menyingkirkan Aggelos yang bersarang di stasiun angkut, aku membuka kembali gerbang yang sudah cukup lama menyegel akses ke dalam terowongan. \nLingkungan di dalam terowongan punya gravitasi yang rendah. Para pengungsi yang terjebak di sini berbulan-bulan melayang menuju pintu keluar. Dengan badan gemetar, mereka berusaha meninggalkan tempat itu. Mereka harus kembali belajar berjalan dan berlari di bawah tekanan gravitasi. \nTapi, ada seorang gadis kecil yang melayang-layang di dalam terowongan dan menari kecil sebelum meninggalkan tempat itu. Dia bilang begitulah caranya menjaga agar tetap tenang dan stabil selama mereka terjebak di tempat ini. \nAku mengingat tarian kecilnya, sebuah gerakan berirama yang menenangkan, tapi juga menguatkan. Kalau mau, aku bisa menunjukkannya kepadamu kalau aku sudah kembali. Kau bisa mencobanya. Gerakannya mudah. Yang penting adalah pernapasan dan irama. \n— Dikirim dari nexus angkut MC-20 \n\nAku sudah mengukir cukup banyak kenangan selama operasi ini. Aku masih ingat kau sendiri juga sedang mengejar ingatanmu. Aku menemukan beberapa tempat yang terkait dengan “dirimu” yang dulu. Temui aku kalau kau ingin tahu lebih banyak. \n— Pesan darurat, dikirim dari Titik Kontak 084A </>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Skill tarung <@ba.key>Smouldering Fire</> meningkat: Pengganda serangan tambahan akan meningkat hingga <@ba.vup>{ratio:0.0}</> kali nilai aslinya, dan setiap hantaman yang berhasil mengenai musuh <#ba.return>akan mengembalikan</> <@ba.vup>{atb:0}</> SP.",
+      "name": "Heart of Melting Flame"
+    },
+    "potential2": {
+      "description": "Intellect <@ba.vup>+{Wisd:0}</>, DMG Dealt dari Serangan Dasar <@ba.vup>+{NormalAttackDamageIncrease:0%}</>.",
+      "name": "Pursuit of Memories"
+    },
+    "potential3": {
+      "description": "Skill tarung <@ba.key>Smouldering Fire</> meningkat: Durasi <#ba.burning>Combustion</> yang diakibatkan oleh skill ini akan meningkat sebanyak <@ba.vup>{duration-1:0%}</>. DMG dari <#ba.burning>Combustion</> yang diakibatkan oleh skill ini akan meningkat menjadi <@ba.vup>{extra_scaling:0.0}</> kali nilai aslinya.",
+      "name": "Fragments from the Past"
+    },
+    "potential4": {
+      "description": "Ultimate <@ba.key>Twilight</> meningkat: Biaya Energi Ultimate <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Ice Cream Furnace"
+    },
+    "potential5": {
+      "description": "Ultimate <@ba.key>Twilight</> meningkat: Pengganda DMG serangan dasar yang diperkuat akan meningkat hingga <@ba.vup>{ratio:0.0}</> kali nilai aslinya; selama ultimate, setiap kali ada musuh yang dikalahkan Laevatain, durasi ultimate akan diperpanjang sebanyak <@ba.vup>+{extend_duration:0}</> dtk (maks: <@ba.vup>+{max_duration:0}</> dtk).",
+      "name": "Proof of Existence"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Api dan Pedang",
+      "author": "Ask",
+      "description": "Api membakar masa lalunya. Tapi, berkat satu janji, dia pun mantap mengayunkan pedangnya demi masa depan."
+    },
+    "potential3": {
+      "name": "1538°C",
+      "author": "嘴広コウ",
+      "description": "1538°C adalah titik lebur ferrium, bukan dirinya. Dekati saja dia kalau kau memang merasa sudah siap."
+    },
+    "potential6": {
+      "name": "Undangan ke Leburan Api",
+      "author": "min",
+      "description": "Temani dia melewati malam-malam panjang tanpa ingatan. Bertarunglah bersamanya dan bakar musuh-musuh gelap yang menghantuinya. Dampingilah saat dia menyalakan api untuk menerangi perjalanan mendatang."
+    }
+  }
+}

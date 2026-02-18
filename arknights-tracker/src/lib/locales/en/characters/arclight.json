@@ -1,0 +1,131 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "BATK SEQ 1 Multiplier",
+        "batkSeq2Multiplier": "BATK SEQ 2 Multiplier",
+        "batkSeq3Multiplier": "BATK SEQ 3 Multiplier",
+        "batkSeq4Multiplier": "BATK SEQ 4 Multiplier",
+        "batkSeq5Multiplier": "BATK SEQ 5 Multiplier",
+        "finisherAtkMultiplier": "Finisher ATK Multiplier",
+        "diveAtkMultiplier": "Dive ATK Multiplier"
+      },
+      "name": "Seek and Hunt",
+      "description": "BASIC ATTACK: \nAn attack with up to 5 sequences that deals <@ba.pd>Physical DMG</>. As the controlled operator, <#ba.lastcombo>Final Strike</> also deals <@ba.poise>{poise:0}</> Stagger. \n\nDIVE ATTACK: \nBasic attack performed in mid-air becomes a dive attack that deals <@ba.pd>Physical DMG</> to nearby enemies. \n\nFINISHER: \nBasic attack performed near a Staggered enemy becomes a finisher attack that deals massive <@ba.pd>Physical DMG</> and recovers some SP."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "seq1DmgMultiplier": "SEQ 1 DMG Multiplier",
+        "seq2DmgMultiplier": "SEQ 2 DMG Multiplier",
+        "seq2Stagger": "SEQ 2 Stagger",
+        "additionalAtkDmgMultiplier": "Additional ATK DMG Multiplier",
+        "additionalAtkStagger": "Additional ATK Stagger",
+        "spRecovery": "SP Recovery"
+      },
+      "name": "Tempestuous Arc",
+      "description": "Instantly blinks to the enemy's side to deal 2 slashes that deal some <@ba.pd>Physical DMG</>. If the enemy has active <#ba.conduct>Electrification</>, <#ba.consume>consume</> the <#ba.conduct>Electrification</> to unleash an additional attack that deals <@ba.pulse>Electric DMG</> and recovers some SP."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "DMG Multiplier",
+        "spRecovery": "SP Recovery",
+        "stagger": "Stagger"
+      },
+      "name": "Peal of Thunder",
+      "description": "COMBO TRIGGER: When an enemy suffers <#ba.conduct>Electrification</> or after an enemy's <#ba.conduct>Electrification</> is <#ba.consume>consumed</>. \nBlinks to the enemy's side to unleash a flurry of slashes that deals <@ba.pd>Physical DMG</> and recovers some SP."
+    },
+    "ultimate": {
+      "ultimate": {
+        "seq1DmgMultiplier": "SEQ 1 DMG Multiplier",
+        "seq1Stagger": "SEQ 1 Stagger",
+        "seq2DmgMultiplier": "SEQ 2 DMG Multiplier",
+        "seq2Stagger": "SEQ 2 Stagger"
+      },
+      "name": "Exploding Blitz",
+      "description": "Performs a short forward dash while wreathed in arcs of electricity to deal <@ba.pulse>Electric DMG</> and apply <#ba.pulseinflict>Electric Infliction</> to all enemies in the path. The lingering arcs explode after a short while, dealing another hit of <@ba.pulse>Electric DMG</>. If the enemy has active <#ba.pulseinflict>Electric Infliction</>, <#ba.consume>consume</> the <#ba.pulseinflict>Electric Infliction</> and forcibly apply <#ba.conduct>Electrification</>."
+    },
+    "indicator": {
+      "levels": [
+        "Operator Agility +15.",
+        "Operator Agility +15.",
+        "Operator Agility +20."
+      ],
+      "name": "Skirmisher"
+    },
+    "talent1": {
+      "levels": [
+        "Battle skill <@ba.key>Tempestuous Arc</> improved: Triggering the additional effect <@ba.key>{count:0}</> time(s) grants the team <@ba.pulse>Electric DMG Dealt</> <@ba.vup>+{pulse_up:0.00%}</> for every point of Arclight's Intellect. This effect has a <@ba.vup>{duration:0}</>s duration and cannot stack.",
+        "Battle skill <@ba.key>Tempestuous Arc</> improved: Triggering the additional effect <@ba.key>{count:0}</> time(s) grants the team <@ba.pulse>Electric DMG Dealt</> <@ba.vup>+{pulse_up:0.00%}</> for every point of Arclight's Intellect. This effect has a <@ba.vup>{duration:0}</>s duration and cannot stack."
+      ],
+      "name": "Wildland Trekker"
+    },
+    "talent2": {
+      "levels": [
+        "<@ba.vup>{prob:0%}</> chance to ignore an <#ba.spellinflictonchar>Arts Infliction</> applied on her.",
+        "<@ba.vup>{prob:0%}</> chance to ignore an <#ba.spellinflictonchar>Arts Infliction</> applied on her."
+      ],
+      "name": "Hannabit Wisdom"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assign to Manufacturing Cabin to grant weapon EXP material production efficiency +10%",
+        "Assign to Manufacturing Cabin to grant weapon EXP material production efficiency +20%"
+      ],
+      "name": "Blade of the Wildlands"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assign to Reception Room to grant operators a small Clue 6 Rate-UP: Hannabit Circuit (activates upon assignment; effects of the same type cannot stack)",
+        "Assign to Reception Room to grant operators Clue 6 Rate-UP: Hannabit Circuit (activates upon assignment; effects of the same type cannot stack)"
+      ],
+      "name": "Hanna Traditions"
+    },
+    "files": {
+      "main": "<@profile.key>CODENAME: Arclight \nGENDER: Female \nAUTHENTICATION: Hannabit Circuit \nDOB: January 3 \nRACE: Kuranta \n[ORIPATHY INFECTION STATUS] \nOripathy positive (infected), based on medical examination reports. \n\n[INTEGRATED PHYSICAL EXAMINATION] \nPHYSIOLOGICAL STRENGTH: Excellent \nCOMBAT SKILL: Standard \nTACTICAL ACUMEN: Normal \nORIGINIUM ARTS ASSIMILATION: Excellent</>",
+      "humanResources": "<@profile.key>Arclight is a Songseeker from the Hannabit Circuit, and she has joined Endfield Industries as a field operator with recommendations from Aldertone Orisha. Arclight also provides support for various Endfield operations as well as maintenance and repairs for Endfield machinery and vehicles. \n\nTo Arclight, the motorcycle is more than just a transport vehicle. She regards them as a companion that \"grows\" with her. Every dismantling and modification achieved more than just simple repairs — they brought transformation and new life. Perhaps the need to protect both machinery and life gave Arclight her excellent understanding of mechanical engineering and aesthetics. \nAlso, since Arclight hails from the Hannabit Circuit, she is more than eager to share everything she knows with those in need. Although the phrases and words she uses are full of metaphors, they also reflect her unique and in-depth knowledge of the wildlands. \n— Martin Marvin Malen, Assistant, HR Division, Endfield Industries</>",
+      "file1": "<@profile.key>Ekut is the actual name of Operator Arclight. Whenever people ask if she came from the Hannabit Circuit, Arclight always answered with this line: \"I follow Aldertone Orisha, and every Songseeker is her own master.\" \nOperator Arclight has an indescribable passion about motorcycles. Arsenal Engineer Semyon often conversed with Arclight regarding her motorcycle, and these are what he had to say: \n\"Initially, I thought it was a custom military vehicle that found its way into the civilian market. I could hardly believe what I saw when it turned out to be a work of engineering that Arclight assembled and tuned on her own. I studied the motorcycle closely after acquiring her permission. Its Originium engine was a ten-year-old piece of obsolete tech from Mieszko Industries. The drivetrain was produced by Triglava Armoury. Labels on the suspensions were worn out, but I guessed, based on the structures, that they were from Northmarch Support Hub. The most impressive component would be the chassis — the entire thing was handcrafted, and every weld made to the greatest detail. The entire framework felt almost seamless. Even more extraordinary was the fact that the motorcycle wasn't just an assembly, but an integration that exemplified the strengths of every component's manufacturer. This could only have been achieved with the highest level of technical expertise. The entire vehicle was a near-perfect balance of power, endurance, and handling.\" \nAlthough everyone approves of Operator Arclight's superb technical abilities, many also pointed out this observation: She treated people rather coldly, and spoke in a manner that was rather difficult to understand. Even Operator Semyon reflected that Arclight rarely spoke. Perhaps Operator Arclight's unique experiences made her appear lukewarm, and her first impressions often gave off the vibe of an unfriendly individual. However, people who got to know her better would learn that she was an incredibly reasonable person. Those who often converse with Arclight even heard her saying shocking things that resembled jokes. Needless to say, Operator Arclight was simply speaking her mind and wasn't trying to be funny in these instances. \nComments about Arclight being difficult to converse with typically arise as her language was heavily influenced by the Hannabit Circuit's unique form of expressions. Arclight has a tendency to use metaphors inspired by the natural world, such as using burdenbeast temper to describe mechanical breakdowns, or the morning mist to illustrate an individual's hesitation. People who are more forthright in their manners of speech may be thrown off by Arclight's unique linguistic choices. However, good listeners would appreciate her clear reasoning and steadfast consistency in her actions. Songseekers of the Hannabit Circuit have their own unique understanding of the world and modus operandi. If one wishes to understand Arclight better, one would do well to appreciate her way of describing this world. </>",
+      "file2": "<@profile.key>I still remember the first time I met Ekut. The patrolling Huntsingers brought her back to the camp and the girl was barely alive. It was difficult for us to fathom why such a young child was left to roam the wildlands for months on her own, a suffering that almost killed her with malnutrition and thirst. To treat the injuries on her right arm, we were forced to reconnect the nerves with circuitry. Of course, there is no need to be worried about the hazards posed by her right hand. We have designed a special pair of insulation gloves so that she may live normally like us. \nI named her Ekut, based on the strong and intelligent burdenbeast of our hanna. It is my hope that she could grow up strong, and survive the wind and frost like the powerful burdenbeast. She achieved all that, and went beyond my expectations. \nBut Ekut grew up with an immense duty that seemed far too heavy for her. Perhaps it was her early victory over death itself, or her powerful name we took from the hanna. When she turned fifteen, Ekut started to seek the songs and roamed the wildlands. The Songseeker did everything she could to help villages and towns in dire straits, even when the challenges were far too great. \nI still remember that rainstorm. During our rescue operation, Ekut ventured alone into the heart of the tempest. We thought she would never come back. Just when all hopes seemed lost, an arc of lightning streaked across the sky. Like that arc, she pierced the fury of nature and leaped onto the last wagon. And with this act, the wildlands began to address her as Arclight. The name was woven into the hanna of numerous Songseekers. She took a name from the verses and returned a new name to their songs. \nI was not surprised when Arclight told me that she wanted to seek new answers from Endfield. In fact, it reminded me of the choice I made when I was younger. I once roamed far to the canopies of starry night, and from there I felt a chorus of hope and courage assembled in the floating city. \nThose memories felt like they belonged to a lifetime ago. But I believe that as long as the stars still shine in the sky, Civilization will one day be united once more. I also believe that Arclight, along with the names and oaths she wove into her hanna, will find the answers she truly seeks. \n— Letter of Recommendation for Endfield Industries, written by Aldertone Orisha</>",
+      "file3": "<@profile.key>A massive Landbreaker army had encircled a wildlands village. The breakers prepared themselves for a full scale assault. Hopelessness spread like a plague amongst the garrisoned Endfield operators and the local residents. \nThat was the moment when they saw her. Arclight of the Hannabit Circuit — the lone Songseeker who roared into the town astride her motorcycle. \nShe tore through the rear of the breaker army and seized control of the situation without hesitation. Under her leadership, the residents created a defense line with their wagons and salvage. The elderly and children were moved to the hills. Everyone who could work dug the trenches and set up simple Originium defense units. Every action was calm and simple, and she moved throughout the place like a part of the wildlands itself. \nOn the eve of the Landbreaker attack, thunder rumbled from afar. The monsoons came as usual, and a nightlong of torrential rain carved a new creek that coursed through the place. Arclight may have memorized every corner of the wildlands. The river coursed through the trenches that Arclight directed and became a protective moat that protected the entire village. The flood waters also washed through the breakers' camp and foiled their attack formations. \nThe Landbreakers did not leave empty handed. They attempted to ford the moat and assail the defenses, but every attack was beaten back by Arclight, the Endfielders, and village residents. In the end, the raiders were forced to escape under the cover of a rainy night. \nWhen the dark rainclouds finally left the wildlands, Arclight found the Endfield operator who was sending a report to Dijiang. She waved a letter of recommendation to the skies and said, \"The quaking of the wildlands dirt led me here. Now, please lead me to Endfield.\"</>",
+      "file4": "<@profile.key>Once the grasses rippled and ripened, while rivers flowed and glistened. \nNow the bones of the land have loosened, \nthe sky hanged low as rain fell in torrents. \nBones bleached in the wildlands, winds choked with dust. \nNo Songseeker hanna could hide anger nor angst. \nLike a lame budenbeast, I escaped dark waves that tossed and rolled. \nWhere is the Hannabit Circuit, the land where all may grow? \nMy path is filled with dust and thorns. \nWhere is the Hannabit Circuit, the land where all may grow? \nThe drifting city cast to the lands the anchor of hope. \nAnd I, in pursuit of silent stars, will start another trip. \nHannabit Circuit, take me to the brink. \nAs winds never cease, I shall never quit. \n— \"Hanna\" of Arclight</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Battle skill <@ba.key>Tempestuous Arc</> improved: After triggering additional effects, the skill recovers another <@ba.vup>{atb:0}</> SP.",
+      "name": "Child of the Storm"
+    },
+    "potential2": {
+      "description": "Agility <@ba.vup>+{Agi:0}</>, Intellect <@ba.vup>+{Wisd:0}</>.",
+      "name": "Speed Battler"
+    },
+    "potential3": {
+      "description": "Talent <@ba.key>Wildland Trekker</> improved: DMG Boost effect increased to <@ba.vup>{pulse_up:0.0}</> times the original.",
+      "name": "\"Hanna\""
+    },
+    "potential4": {
+      "description": "Ultimate <@ba.key>Exploding Blitz</> improved: Ultimate Energy cost <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Aldertone's Teachings"
+    },
+    "potential5": {
+      "description": "Talent <@ba.key>Wildland Trekker</> improved: Trigger requirement is reduced to <@ba.vup>{count:0}</> time(s).",
+      "name": "Servant of the Wildlands"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Dipping Sun",
+      "author": "直立行走",
+      "description": "When the senses could no longer be relied upon, a Songseeker could always seek guidance from verses of the hanna."
+    },
+    "potential3": {
+      "name": "Restless",
+      "author": "またよし",
+      "description": "No storms could ever hope to stop her in her tracks."
+    },
+    "potential6": {
+      "name": "Crescent Scimitar",
+      "author": "Z3zz",
+      "description": "She always called herself an Echoling, but the many people she saved from breaker blades insisted on addressing her as an Aldertone."
+    }
+  }
+}

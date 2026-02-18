@@ -1,0 +1,127 @@
+{
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Pengganda BATK SEQ 1",
+        "batkSeq2Multiplier": "Pengganda BATK SEQ 2",
+        "batkSeq3Multiplier": "Pengganda BATK SEQ 3",
+        "batkSeq4Multiplier": "Pengganda BATK SEQ 4",
+        "finisherAtkMultiplier": "Pengganda ATK Penuntas",
+        "diveAtkMultiplier": "Pengganda ATK Menukik"
+      },
+      "name": "Rocky Whispers",
+      "description": "SERANGAN DASAR: \nSerangan dengan maksimum 4 tahap yang akan menimbulkan <@ba.natur>Nature DMG</>. Jika digunakan oleh operator terkontrol, <#ba.lastcombo>Final Strike</> juga akan menimbulkan <@ba.poise>{poise:0}</> Stagger. \n\nSERANGAN MENUKIK: \nSerangan dasar yang dilancarkan sambil melayang akan menjadi serangan menukik yang akan menimbulkan <@ba.natur>Nature DMG</> kepada musuh di sekitar. \n\nPENUNTAS: \nSerangan dasar yang dilancarkan di dekat musuh yang terkena Staggered akan menjadi penuntas yang akan menimbulkan <@ba.natur>Nature DMG</> sangat besar dan memulihkan sebagian SP."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "dmgMultiplier": "Pengganda DMG",
+        "stagger": "Stagger",
+        "susceptibility": "Susceptibility",
+        "susceptibilityDurationS": "Durasi Susceptibility (dtk)"
+      },
+      "name": "Dolly Rush",
+      "description": "Menunggangi Pak Dolly lalu menabrak target sehingga akan menimbulkan <@ba.natur>Nature DMG</>. Jika target sedang terkena <#ba.corrupt>Corrosion</>, <#ba.corrupt>Corrosion</> ini akan <#ba.consume>dipakai</> dan mengakibatkan <#ba.physicalvul>Physical Susceptibility</> serta <#ba.spellvul>Arts Susceptibility</> kepada target."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "dmgMultiplier": "Pengganda DMG",
+        "explosionDmgMultiplier": "Pengganda DMG Ledakan",
+        "stagger": "Stagger",
+        "corrodeDurationS": "Durasi Corrode (dtk)"
+      },
+      "name": "Eruption Column",
+      "description": "PEMICU KOMBO: Saat operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> kepada musuh yang <@ba.key>tidak</> terkena tumpukan <#ba.noguard>Vulnerability</> atau <#ba.spellinflict>Arts Infliction</>. \nAwan Vulkanis pelacak akan diluncurkan ke arah musuh tertarget sehingga akan menimbulkan <@ba.natur>Nature DMG</> saat cukup dekat dengan target. Awan Vulkanis akan meledak setelah beberapa saat dan menimbulkan setengah <@ba.natur>Nature DMG</> serta secara paksa mengakibatkan <#ba.corrupt>Corrosion</> untuk sementara kepada musuh di sekitar."
+    },
+    "ultimate": {
+      "ultimate": {
+        "dmgMultiplier": "Pengganda DMG",
+        "stagger": "Stagger",
+        "durationS": "Durasi (dtk)"
+      },
+      "name": "Wooly Party",
+      "description": "Ardelia akan memasuki status penyaluran bergerak dan memanggil bantuan Pak Dolly. Beberapa duplikat Pak Dolly akan dilemparkan ke segala arah. Setiap duplikatnya akan menimbulkan <@ba.natur>Nature DMG</>. Setiap musuh hanya bisa terkena damage 1 kali setiap {interval:0.0} dtk."
+    },
+    "indicator": {
+      "levels": [
+        "Intellect Operator +15.",
+        "Intellect Operator +15.",
+        "Intellect Operator +20."
+      ],
+      "name": "Keen Mind"
+    },
+    "talent1": {
+      "levels": [
+        "Skill tarung <@ba.key>Dolly Rush</> akan memunculkan {sheep_num:0} <@ba.key>Bayangan Pak Dolly</> setelah berhasil menghantam musuh. Duplikat Pak Dolly yang tersebar dari ultimate <@ba.key>Wooly Party</> juga punya peluang sebesar {effect_prob:0%} untuk memunculkan <@ba.key>Bayangan Pak Dolly</> saat jatuh ke tanah. Jika operator terkontrol menyentuh <@ba.key>Bayangan Pak Dolly</>, Ardelia akan memulihkan HP operator yang bersangkutan sebesar <@ba.heal>[{heal_value:0} + Will ×{heal_scale:0.00}]</>.\n<@ba.info>Jika HP operator terkontrol sudah maks, HP rekan tim yang persentase HP-nya paling rendah akan dipulihkan.</>\n<@ba.info>Bayangan Pak Dolly akan bertahan selama 10 dtk, dan maksimum 10 bayangan bisa ada di medan pertarungan.</>",
+        "Skill tarung <@ba.key>Dolly Rush</> akan memunculkan {sheep_num:0} <@ba.key>Bayangan Pak Dolly</> setelah berhasil menghantam musuh. Duplikat Pak Dolly yang tersebar dari ultimate <@ba.key>Wooly Party</> juga punya peluang sebesar {effect_prob:0%} untuk memunculkan <@ba.key>Bayangan Pak Dolly</> saat jatuh ke tanah. Jika operator terkontrol menyentuh <@ba.key>Bayangan Pak Dolly</>, Ardelia akan memulihkan HP operator yang bersangkutan sebesar <@ba.heal>[{heal_value:0} + Will ×{heal_scale:0.00}]</>.\n<@ba.info>Jika HP operator terkontrol sudah maks, HP rekan tim yang persentase HP-nya paling rendah akan dipulihkan.</>\n<@ba.info>Bayangan Pak Dolly akan bertahan selama 10 dtk, dan maksimum 10 bayangan bisa ada di medan pertarungan.</>"
+      ],
+      "name": "Friendly Presence"
+    },
+    "talent2": {
+      "levels": [
+        "Skill tarung <@ba.key>Dolly Rush</> meningkat: Jika berhasil mengaktifkan efek tambahan saat ada musuh yang terkena <#ba.corrupt>Corrosion</> di sekitarnya, skill tarung ini langsung digunakan lagi. \n<@ba.info>Efek ini hanya bisa aktif satu kali per penggunaan skill tarung aktif.</>"
+      ],
+      "name": "Mountainpeak Surfer"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Saat ditugaskan ke Ruang Resepsionis, efisiensi pengumpulan petunjuk operator akan meningkat sebesar +20%",
+        "Saat ditugaskan ke Ruang Resepsionis, efisiensi pengumpulan petunjuk operator akan meningkat sebesar +30%"
+      ],
+      "name": "Tales of the Land"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Saat ditugaskan ke Ruang Resepsionis, Penurunan Suasana Hati semua operator di dalamnya akan melambat sebesar 14%",
+        "Saat ditugaskan ke Ruang Resepsionis, Penurunan Suasana Hati semua operator di dalamnya akan melambat sebesar 18%"
+      ],
+      "name": "Mr. Dolly’s Game"
+    },
+    "files": {
+      "main": "<@profile.key>NAMA SANDI: Ardelia \nGENDER: Perempuan \nAUTENTIKASI: Rhodes Island \nTANGGAL LAHIR: 18 Oktober \nRAS: Caprinae \n[STATUS INFEKSI ORIPATI] \nNegatif Oripati, berdasarkan laporan pemeriksaan medis. \n\n[PEMERIKSAAN FISIK TERPADU] \nKEKUATAN FISIOLOGIS: Normal \nKEMAMPUAN TEMPUR: Standar \nKECERDASAN TAKTIS: Normal \nASIMILASI ORIGINIUM ARTS: Luar Biasa</>",
+      "humanResources": "<@profile.key>Ardelia adalah seorang ahli geologi dari Rhodes Island. Spesialisasinya adalah bahaya gunung berapi, dan dia telah memberikan kontribusi penting bagi penelitian geologi Talos-II. Dia kini bekerja di Endfield dan menghabiskan sebagian besar waktunya untuk melakukan investigasi lokasi. \n\nArdelia adalah salah satu pemikir langka yang berada di garda terdepan penemuan ilmiah. Yang membuatnya berbeda bukan hanya keahliannya, tapi juga ketekunan, semangat tak kenal takut, dan yang terpenting, kecintaannya pada sains dan rasa ingin tahunya yang tak pernah padam. Tanpa peneliti berdedikasi sepertinya, kita mungkin tak akan pernah bisa memahami dunia yang kita tinggali ini. \nDia sering menjelajah sendirian—mengumpulkan sampel, mempelajari struktur geologi, dan mengubah pengamatan menjadi teori. Berkat usahanya, Endfield bisa memperoleh pemahaman yang jauh lebih mendalam tentang geologi Talos-II dan ancaman yang ditimbulkan oleh Hawar. Penelitiannya menjadi dasar bagi rencana darurat jika terjadi wabah Hawar. Aku sangat menghormati Ardelia—karena kerendahan hatinya, keanggunannya, dan keteguhan tekadnya. Seolah-olah dia punya sumber kekuatan yang tak pernah habis, selalu yakin akan jalan yang harus ditempuhnya. \n— Martin Marvin Malen, Asisten, Divisi SDM, Endfield Industries</>",
+      "file1": "<@profile.key>Permainan Pak Dolly I \nTak lama setelah bergabung dengan Endfield, Ardelia mengunjungi sektor Talos-II yang dilanda Hawar. Bencana geologis itu telah menghancurkan permukiman yang dulunya damai, meninggalkan retakan yang berdenyut dengan sisa energi. Mereka yang selamat menanggung luka yang melampaui luka fisik, mata mereka cekung karena trauma yang hanya dialami oleh para pengungsi bencana. \nArdelia tinggal di selter untuk sementara waktu. Para korban luka memadati ranjang baja—anggota tubuh yang hilang, mata yang kosong, suara yang terputus oleh trauma. Tirai putih memisahkan penderitaan mereka sementara monitor medis berdenyut seperti jantung yang lelah. \nArdelia bekerja tanpa kenal lelah—mengatur pasokan, mengganti perban, bergumam, “Aku bisa paham kesedihanmu” kepada mereka yang terluka. Hingga kemudian sebuah suara, yang dipenuhi duka, memotong: “Kau tak paham.” \nSuara itu berasal dari seorang gadis muda. Tubuhnya kecil tapi tegar, dia memaksakan kata-kata itu dengan gigi terkatup, “Kau berdiri tegak. Langkahmu tak goyah. Tak ada bencana yang terukir dalam dirimu.” \nGadis itu berpaling, suaranya terdengar putus-putus. “Hentikan. Berhentilah berpura-pura. Mungkin kau pernah sakit, tapi kau sudah sembuh. Itu keberuntungan yang takkan pernah kami rasakan. Kisah kami berakhir dengan kalimat yang sama: rasa sakit seumur hidup. Jadi, saat kaubilang ‘paham’ ... apa itu hanya karena kasihan? Kami tak butuh itu.” \nArdelia berdiri di sana dengan mantel penelitiannya, rambut kucir kuda yang rapi, langkah mantap, dan mata berbinar. Originium telah menyingkirkan penyakit reconvener itu, dan menyelaraskannya dengan bisikan angin dan retakan mikroskopis di batu. Tapi, di sini, di hadapan mereka yang masih tenggelam dalam kesakitan, kesempurnaan rekayasanya membuatnya membisu. \nSaat kegelapan menyelimuti negeri itu, Pak Dolly muncul. \nIa berderap di antara ranjang dan koridor, meninggalkan jejak kekacauan—lemari obat yang roboh, nampan teh yang terbalik, menendang botol air panas di bawah bantal yang baru diisi. Para perawat mengutuk huru-hara mendadak itu; anak-anak menjerit, menyebut-nyebut ‘sesuatu yang berbulu’ yang menyusup di bawah selimut mereka. \nArdelia mengejar Pak Dolly ke ruang istirahat tua. Di sana, dia menarik kain kanvas dan mengungkapkan sebuah piano berdebu. Pak Dolly pun mengentakkan kaki ke tuts-tutsnya, bunyi sumbangnya membuat Ardelia tersentak. \nArdelia mendekat dan mengusap debu dari sana. Tuts yang menguning itu menatap balik, beberapa nada basnya tak selaras tapi masih berfungsi. Dia duduk, ujung-ujung jarinya menelusuri urutan tentatif arpegio Leithanien ke udara yang pengap. \nBagian pertama ... kedua ... dan saat yang ketiga dimulai, terdengar suara lirih langkah kaki dari kedalaman lorong. \nPak Dolly berbaring meringkuk di dekatnya, seperti bantal hangat yang sunyi. Anak-anak itu bersandar pada bulunya, napas mereka selaras dengan permainan piano Ardelia saat nada-nadanya menggema di udara pengap itu. \nGadis muda itu juga ikut masuk, duduk dengan tenang di sudut yang jauh. \n“Rasanya masih sakit,” gumamnya, “tapi saat kau bermain ... dunia ini rasanya jadi layak dijalani.” </>",
+      "file2": "<@profile.key>Permainan Pak Dolly II \nGeologi Talos-II ... tak seperti gunung berapi yang dikenalnya, yang penuh vitalitas ekspansi, erupsi, dan aliran. Setelah tererosi, gunung itu menunjukkan banyak korosi, pelapukan, dan pengikisan. Lapisan-lapisan batuan kehilangan kekuatannya, tanahnya seolah terjangkit penyakit. Kulitnya terkelupas, urat-uratnya terpelintir, beberapa area melengkung karena aberasi. \nArdelia datang untuk mempelajari Hawar, untuk mengimbangi penyebarannya yang tak terduga. Dia sering menjelajah sendirian ke zona berisiko tinggi, membuat hidupnya menjadi daftar tugas. \nDia mulai jarang bicara, tak lagi merangkai pikirannya menjadi puisi. Suaranya makin pelan, waktu makannya sering terlupakan, dan pada malam hari tangannya mengepal tanpa sadar saat tidur. Hal-hal yang dilindunginya sekuat tenaga—matanya, telinganya, irama denyut nadinya, kini terus membuatnya gelisah. Kesehatan yang telah pulih kembali perlahan-lahan terkikis oleh ketakutan yang tak terlihat. \n“Berapa lama sisa waktuku?” dia bertanya-tanya. Yang ditakutinya bukanlah kematian, melainkan perlombaan tanpa harapan melawan kehancuran negeri baru yang asing ini. \nHingga suatu hari saat Pak Dolly melompat keluar dari sebuah lubang dangkal. \nPak Dolly menyenggol palu batunya sampai jatuh lalu menyambar kotak instrumennya. Ardelia mengejarnya sambil berteriak sia-sia. Mereka berlari makin jauh—keluar dari jalur, keluar dari rencana. Seharusnya dia mengamati celah Hawar yang baru terbentuk, tapi malah mendapati dirinya berada di lembah yang tenang, terlindung oleh tebing. \nHamparan luas batuan beku berbentuk kolom membentang di hadapannya. Pilar-pilar segi enam menjulang dari tanah seperti tuts piano. Di bawah kakinya terbentang sisa-sisa gunung berapi purba, yang begitu terawat seolah-olah waktu telah berhenti. \nPercikan tak asing itu kembali menyala di hatinya. Ardelia berlutut, mengeluarkan buku catatannya, dan mulai membuat sketsa—bukan untuk misi, atau untuk data, tapi karena pemandangan itu indah dan memikat. \nMalam itu, Ardelia dan Pak Dolly berkemah di dekat situ. Angin sejuk berembus di udara sementara bintang-bintang muncul di antara puncak-puncak batu yang bergerigi. Pak Dolly yang meringkuk di kakinya tiba-tiba bersin, membuat tutup pulpennya jatuh ke rumput. \n“Kau sengaja membawaku ke sini, ‘kan?” \nPak Dolly tak menjawab. Ia berguling dan mengetuk sepatu bot Ardelia dengan kakinya. \n“Kau merasa aku sudah tak lagi menjadi diriku sendiri ... bahwa yang kulakukan sekarang hanyalah khawatir, berpacu melawan Hawar.” \n“Tapi, aku juga takut. Takut kalau aku melambat, walau sesaat ... semuanya akan terlambat.” \nDia mengusap punggung Pak Dolly dan memejamkan mata. Kehangatan bulu Pak Dolly di telapak tangannya terasa begitu nyaman sehingga untuk pertama kalinya, dia bisa tidur dengan nyenyak di bawah langit terbuka. \nKeesokan paginya, dia menulis di jurnalnya: \n“Sisa-sisa gunung berapi purba ditemukan di timur laut. Ruas-ruas kolom terpelihara dengan baik.” \n“Diarahkan ke sini oleh Pak Dolly. Terhubung kembali dengan kecintaanku pada geologi. Suasana hati: puas.” \n“Catatan untuk diri sendiri: Pelan-pelan saja. Jaga kesehatan.” </>",
+      "file3": "<@profile.key>Permainan Pak Dolly III \nSaat menatap garis pantai yang berkilauan dan gedung-gedung pencakar langit di kejauhan, Ardelia teringat akan sebuah nama yang telah lama terlupakan—Siesta, kota vulkanis yang terbalut kenangan hangat. \nTapi, inilah La Fantoma—permata Sentrapolis, kota keemasan di Talos-II. \nSebagai seorang geolog ternama, Ardelia diundang sebagai pembicara di sebuah forum akademis besar tentang “Keteraturan dalam Ekologi Geologi Baru Talos-II”. Dia berencana melakukan presentasi standar saja, tapi ternyata presentasinya menimbulkan kehebohan. \nPerwakilan perusahaan langsung mengerumuninya, menunjukkan cetak biru kawasan industri baru dan meminta pendapatnya. Para peneliti senior dengan antusias menceritakan temuan terbaru mereka, dengan harapan bisa berkolaborasi dengan Ardelia. Bahkan ada pejabat pemerintah yang membawa map tebal dan mengundangnya untuk bergabung dengan proyek besar mereka berikutnya. \nBegitulah, seorang peneliti lapangan pendiam pun menjadi bintang pertunjukan. \nYang awalnya hanya jabat tangan biasa pun berubah menjadi pujian hangat, “Kau inspirasi bagi kami semua.” Di dalam elevator, seseorang menghentikan Ardelia sambil membawa sebuah buku catatan, meminta tanda tangan untuk digantung di labnya. Di penyeberangan, anak-anak berseru, “Aku mau jadi ilmuwan juga!” Bahkan ada pedagang kaki lima yang memberinya segelas soda sambil berkata, “Keponakanku suka geologi—ada rekomendasi buku?” \nAwalnya, Ardelia merasa terharu. Dia mengangguk sopan kepada setiap wajah yang tulus, dengan sabar menjawab setiap pertanyaan yang bermaksud baik. Tapi, perlahan, dia pun merasa kelelahan. Dia bukannya membenci orang-orang ini, juga bukannya membenci perhatian mereka. Hanya saja ... dia belum siap “dikenal”. \nSetelah diskusi meja bundar yang melelahkan selama tiga jam, dia membuka pintu dan berlari. Dia melewati poster raksasa bergambar dirinya yang bertuliskan “Ilmuwan Wanita Muda Teladan” dan menghilang di antara kerumunan. \nSaat itulah dia menyadari: Pak Dolly telah pergi. \nTak ada yang tahu Pak Dolly itu makhluk apa atau ke mana perginya. Di sebuah pusat perbelanjaan, seorang wanita berteriak tentang “sesuatu yang berbulu” yang menabraknya. Di atap, ada hamparan bunga yang terinjak-injak oleh “sesuatu yang berwarna pink”. Bahkan ada yang memposting foto buram “sesuatu yang bulat” memelesat melewati gerbang tiket—membawa sekantong gulali. \nArdelia melacak petunjuk-petunjuk ini dan mencari di hampir separuh kota. Sepatunya pun menipis, lumpur menempel di roknya, dan dia mulai sakit kepala. \nSetelah hampir kehabisan napas, dia terhuyung-huyung keluar dari gang kecil dan berhenti. \nDi depannya ada sepetak alam liar yang belum terjamah di tepi kota—masih liar, dipenuhi bunga liar. Angin laut membawa wanginya dalam gelombang lembut. Di sana, Pak Dolly berbaring, terkapar di tengah-tengahnya, tak bergerak seperti tanah itu sendiri. \n“Kau sedang apa di sini?” tanya Ardelia, setengah frustrasi, setengah geli. Pak Dolly tak menjawab. Ia hanya berguling malas. \nArdelia menghampirinya dan duduk di sampingnya. Dia lalu mematikan handyterm-nya. Semua rapat dan kewajiban itu—bisa nanti saja. \nLagi pula, tak ada yang lebih cocok untuk seorang ahli geologi selain alam bebas. </>",
+      "file4": "<@profile.key>Permainan Pak Dolly IV \nPada hari saat Ardelia naik ke Dijiang membawa kotak sampelnya, dia menyadari ada sesuatu yang hilang. \n“Di mana Pak Dolly ...?” \nMakhluk berbulu halus yang tak terlihat oleh kebanyakan orang ini sudah berkeliaran dengan riang ke seluruh Dijiang. \n\nDi depan umum, Xaihi membungkuk meminta maaf ke ruang kosong dan berkata, “Mohon maaf sekali, aku tak bermaksud menginjakmu, wahai makhluk tak kasatmata yang mulia.” \n“Ada sesuatu yang baru saja menerobos masuk!” “Siapa yang menjilati kuah sup hotpot sampai habis setengah!” Kantin pun dipenuhi teriakan kaget. \n“Siapa yang mengganti suara alarmku jadi ‘mbek mbek mbek’!? Oh tidak, oh tidak .... Aku bisa terlambat latihan pedang!” \n“Pasti hantu! Dan warnanya pink! Oooohhh, dia harus jadi punyaku!” Yvonne berlari menyusuri lorong dengan penuh semangat. \nSaat Ardelia sampai, dia melihat Endministrator berjongkok di dekat pintu, perlahan mengulurkan tangan, seolah menunggu persetujuan dalam diam. \nPak Dolly menatap Endministrator sejenak sebelum mencondongkan tubuh, membiarkan jari-jarinya terbenam di wol tebalnya, tanpa sepatah kata pun. \n\n“Suster yang saleh itu ... tak terlalu peduli pada apa pun selain mencapai kebijaksanaan.” \n“Koki yang ceria? Oh, di balik seringainya ada pemikiran yang lebih berat. Jangan salah mengartikan sifat santainya sebagai kecerobohan, sebelum masalahnya terselesaikan.” \n“Gadis yang bermimpi menjadi ahli bela diri .... Akankah dia terbangun dari mimpinya itu? Atau akankah dia membuat dunia menurutinya?” \n“Yang berwarna pink sepertiku .... Dia sudah menemukan jalannya. Sudah bahagia.” \nDi Anjungan Komando, Ardelia duduk bersama Pak Dolly. Di luar jendela pandang, bintang-bintang berkelap-kelip bagai lentera di kejauhan, dan Dijiang sendiri terlelap dalam kegelapan yang sunyi, raksasa bisu yang terombang-ambing di kosmos. \n“Sedangkan yang bertopeng itu ....” \nPak Dolly menjentikkan telinganya dan mengeluarkan suara ‘mbek’ yang lembut dan puas—seolah berkata, “Endministrator itu bisa dipercaya.”</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Skill tarung <@ba.key>Dolly Rush</> meningkat: <#ba.consume>Pemakaian</> <#ba.corrupt>Corrosion</> kini akan mengakibatkan <#ba.physicalvul>Physical Susceptibility</> dan <#ba.spellvul>Arts Susceptibility</> dengan efek <@ba.vup>+{rate_vul_base:0%}</>.",
+      "name": "Dolly Paradise"
+    },
+    "potential2": {
+      "description": "Talent <@ba.key>Friendly Presence</> meningkat: Jika operator terkontrol menyentuh <@ba.key>Bayangan Pak Dolly</>, Ardelia juga akan memberikan setengah efek treatment kepada operator rekan lain yang persentase HP-nya paling rendah.",
+      "name": "Game Rewards"
+    },
+    "potential3": {
+      "description": "Ultimate <@ba.key>Wooly Party</> meningkat: Durasi <@ba.vup>+{potential3_duration:0}</> dtk; peluang untuk memunculkan <@ba.key>Bayangan Pak Dolly</> akan meningkat hingga <@ba.vup>{effect_prob:0.0}</> kali nilai aslinya.",
+      "name": "Explosive Eruption"
+    },
+    "potential4": {
+      "description": "Ultimate <@ba.key>Wooly Party</> meningkat: Biaya Energi Ultimate <@ba.vup>-{1-costvalue:0%}</>.",
+      "name": "Rock Blossom"
+    },
+    "potential5": {
+      "description": "Skill kombo <@ba.key>Eruption Column</> meningkat: Durasi cooldown <@ba.vup>-{-coolDown:0}</> dtk; pengganda DMG akan meningkat menjadi <@ba.vup>{potential5_dmg_rate:0.0}</> kali nilai aslinya; durasi <#ba.corrupt>Corrosion</> yang diakibatkan <@ba.vup>+{potential5_duration:0}</> dtk.",
+      "name": "Volcanic Steam"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Ayo Main",
+      "author": "温泉瓜",
+      "description": "“Pak Dolly juga mengajakmu! Ayo ikut main!”"
+    },
+    "potential3": {
+      "name": "Lamunan Tanpa Akhir",
+      "author": "宇木敦哉",
+      "description": "Apa yang dilamunkannya saat berbaring di atas gumpalan awan merah muda yang lembut itu? Batu-batu aneh? Tempat yang belum pernah dikunjungi? Atau ...."
+    },
+    "potential6": {
+      "name": "Aspirasi",
+      "author": "Eteru",
+      "description": "Bunga bermekaran di bebatuan yang dingin dan keras ... tanah tandus yang dipenuhi kehidupan dan kehangatan ... dan lagu indah yang bersenandung di telinga kita .... Profesor, ini bukan sekadar mimpi, ‘kan?"
+    }
+  }
+}
