@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "百菓繚乱",
     "springNoteWarmlyCrafted": "春待つ便り",
     "fireWalkerTrialSignIn": "不滅の残火スタンプ",
-    "messagerExpressSignIn": "爛漫の使者スタンプ"
+    "messagerExpressSignIn": "爛漫の使者スタンプ",
+    "delverOfTheCryptic": "密境の探索者"
   },
   "mouths": {
     "january": "1月",
@@ -424,6 +425,7 @@
     "bonus_copy": "印報酬",
     "guaranteed": "確定",
     "arms_offering": "武庫・特典",
+    "editPotential": "潜在を編集",
     "featured_guarantee": "確定"
   },
   "bioValues": {

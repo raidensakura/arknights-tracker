@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Steps to Sweet Success",
     "springNoteWarmlyCrafted": "A Spring Note, Warmly Crafted",
     "fireWalkerTrialSignIn": "Firewalker's Trail Sign-In",
-    "messagerExpressSignIn": "Messenger Express Sign-In"
+    "messagerExpressSignIn": "Messenger Express Sign-In",
+    "delverOfTheCryptic": "Delver of the Cryptic"
   },
   "mouths": {
     "january": "January",
@@ -424,6 +425,7 @@
     "bonus_copy": "Token Tribute",
     "guaranteed": "Guaranteed",
     "arms_offering": "Arms Offering",
+    "editPotential": "Edit Potential",
     "featured_guarantee": "Guaranteed"
   },
   "bioValues": {

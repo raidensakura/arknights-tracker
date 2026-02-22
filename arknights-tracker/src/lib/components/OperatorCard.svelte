@@ -2,35 +2,45 @@
     import { t } from "$lib/i18n";
     import { goto } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
+    import { manualPotentials } from "$lib/stores/potentials";
+    import { accountStore } from "$lib/stores/accounts";
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Images from "$lib/components/Images.svelte";
 
     export let operator = {};
-    export let variant = "default"; // "default" | "small"
+    export let variant = "default"; //small default
     export let className = ""; 
+    export let isNew = false; 
 
-    $: totalPulls = (() => {
+    $: gachaPulls = (() => {
         if (!$pullData) return 0;
         let count = 0;
-        
-        Object.entries($pullData).forEach(([bannerName, banner]) => {
+        Object.entries($pullData).forEach(([_, banner]) => {
             const pulls = banner?.pulls || [];
-            
             const matches = pulls.filter(p => 
                 p.id === operator.id || 
                 p.name === operator.id || 
                 p.itemId === operator.id || 
                 (p.name && operator.name && p.name.toLowerCase() === operator.name.toLowerCase())
             );
-            
             count += matches.length;
         });
-        
         return count;
     })();
 
-    $: constCount = totalPulls > 0 ? Math.min(5, totalPulls - 1) : 0;
+    const { selectedId } = accountStore;
+    $: currentAccountId = $selectedId;
+    $: isAlwaysOwned = operator.id === "endministrator1" || operator.id === "endministrator2";
+    $: basePot = gachaPulls > 0 ? Math.min(5, gachaPulls - 1) : (isAlwaysOwned ? 0 : -1);
+    $: accountPots = $manualPotentials[currentAccountId] || {};
+    $: currentPot = accountPots[operator.id] !== undefined 
+        ? (isAlwaysOwned ? Math.max(0, accountPots[operator.id]) : accountPots[operator.id]) 
+        : basePot;
+    $: manualPot = accountPots[operator.id];
+    $: actualPulls = manualPot !== undefined ? manualPot + 1 : gachaPulls; 
+    $: hasOperator = currentPot >= 0;
+    $: constCount = hasOperator ? currentPot : 0;
     $: isMaxPot = constCount === 5;
 
     const potPaths = [
@@ -118,9 +128,15 @@
                     variant="operator-preview"
                     size="100%"
                     alt={operator.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-all duration-300 {!hasOperator ? 'brightness-50 grayscale-[50%]' : ''}"
                 />
                 
+                {#if isNew && hasOperator}
+                    <div class="absolute top-1 left-1 bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 tracking-wider">
+                        NEW
+                    </div>
+                {/if}
+
                 {#if variant === "small" && !hideName}
                     <div class="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none"></div>
                 {/if}
@@ -185,26 +201,28 @@
                     </div>
                     <div class="absolute bottom-0 left-0 w-full h-[7px]" style:background-color={rarityColor}></div>
                 </div>
+                {#if hasOperator}
                 <div class="absolute top-1 right-1.5 z-20 pointer-events-none drop-shadow-md shadow-black">
                 <svg 
-                    width={variant === 'small' ? '18' : '34'} 
-                    height={variant === 'small' ? '18' : '34'} 
-                    viewBox="0 0 68 66" 
-                    fill="none" 
-                    class="transition-all  duration-300 {isMaxPot ? 'drop-shadow-[0_0_8px_rgba(254,222,40,0.8)]' : 'drop-shadow-sm'}"
-                >
-                    {#each potPaths as d, i}
-                        {@const isActive = i < constCount}
-                        <path 
-                            {d} 
-                            fill={isActive ? "#FEDE28" : "black"} 
-                            stroke={isMaxPot ? "white" : (isActive ? "#E5D32B" : "white")} 
-                            stroke-width="1.5"
-                            class="transition-colors duration-300"
-                        />
-                    {/each}
-                </svg>
+                            width={variant === 'small' ? '18' : '34'} 
+                            height={variant === 'small' ? '18' : '34'} 
+                            viewBox="0 0 68 66" 
+                            fill="none" 
+                            class="transition-all  duration-300 {isMaxPot ? 'drop-shadow-[0_0_8px_rgba(254,222,40,0.8)]' : 'drop-shadow-sm'}"
+                        >
+                            {#each potPaths as d, i}
+                                {@const isActive = i < constCount}
+                                <path 
+                                    {d} 
+                                    fill={isActive ? "#FEDE28" : "black"} 
+                                    stroke={isMaxPot ? "white" : (isActive ? "#E5D32B" : "white")} 
+                                    stroke-width="1.5"
+                                    class="transition-colors duration-300"
+                                />
+                            {/each}
+                        </svg>
             </div>
+            {/if}
             {/if}
 
             {#if variant === "small" && !hideName}

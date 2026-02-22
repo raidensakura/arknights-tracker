@@ -306,7 +306,8 @@
     "stepsToSweetSuccess": "Сладкий путь к успеху",
     "springNoteWarmlyCrafted": "Доброе весеннее послание",
     "fireWalkerTrialSignIn": "Вход «Тропа огнестранника»",
-    "messagerExpressSignIn": "Вход «Быстрый гонец»"
+    "messagerExpressSignIn": "Вход «Быстрый гонец»",
+    "delverOfTheCryptic": "Исследование загадок"
   },
   "mouths": {
     "january": "Январь",
@@ -427,6 +428,7 @@
     "bonus_copy": "Жетон-подношение",
     "guaranteed": "Гарантированно",
     "arms_offering": "Пополнение арсенала",
+    "editPotential": "Изменить потенциалы",
     "featured_guarantee": "Гарантированно"
   },
   "bioValues": {

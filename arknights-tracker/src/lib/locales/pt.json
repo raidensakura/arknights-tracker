@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Étapes vers un succès succulent",
     "springNoteWarmlyCrafted": "Uma Nota de Primavera Feita com Carinho",
     "fireWalkerTrialSignIn": "Login Andarilho de Fogo",
-    "messagerExpressSignIn": "Login Expresso Mensageiro"
+    "messagerExpressSignIn": "Login Expresso Mensageiro",
+    "delverOfTheCryptic": "Explorador do Enigmático"
   },
   "mouths": {
     "january": "Janeiro",
@@ -424,6 +425,7 @@
     "bonus_copy": "Tributo em Símbolos",
     "guaranteed": "Garantido",
     "arms_offering": "Oferta de Armas",
+    "editPotential": "Editar Potencial",
     "featured_guarantee": "Garantido"
   },
   "bioValues": {

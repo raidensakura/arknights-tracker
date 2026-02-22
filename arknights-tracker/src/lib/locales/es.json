@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Pasos para saborear el dulce triunfo",
     "springNoteWarmlyCrafted": "Una nota primaveral elaborada con cariño",
     "fireWalkerTrialSignIn": "Inicio de sesión de Sendero del caminante de fuego",
-    "messagerExpressSignIn": "Inicio de sesión de Mensajera exprés"
+    "messagerExpressSignIn": "Inicio de sesión de Mensajera exprés",
+    "delverOfTheCryptic": "Explorador de lo críptico"
   },
   "mouths": {
     "january": "Enero",
@@ -424,6 +425,7 @@
     "bonus_copy": "Tributo de fichas",
     "guaranteed": "Garantizado",
     "arms_offering": "Ofrenda de armas",
+    "editPotential": "Editar potencial",
     "featured_guarantee": "Garantizado"
   },
   "bioValues": {

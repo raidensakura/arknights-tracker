@@ -1,6 +1,7 @@
+// src/lib/stores/accounts.js
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
-import { currentUid } from './auth'; // Импортируем auth store
+import { currentUid } from './auth';
 
 const ACCOUNTS_KEY = 'ark_tracker_accounts_meta';
 const SELECTED_ID_KEY = 'ark_tracker_selected_account_id';

@@ -5,6 +5,9 @@
     import { progression } from "$lib/data/items/progression.js";
     import { currencies } from "$lib/data/items/currencies.js";
     import { characters } from "$lib/data/characters.js";
+    import { manualPotentials } from "$lib/stores/potentials";
+    import { pullData } from "$lib/stores/pulls";
+    import { accountStore } from "$lib/stores/accounts";
 
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -30,6 +33,58 @@
         zhcn: import.meta.glob("$lib/locales/zhcn/characters/*.json", { eager: true }),
         zhtw: import.meta.glob("$lib/locales/zhtw/characters/*.json", { eager: true })
     };
+
+    let isEditingPot = false;
+
+    const { selectedId } = accountStore;
+
+    $: gachaPulls = (() => {
+        if (!$pullData) return 0;
+        let count = 0;
+        Object.entries($pullData).forEach(([_, banner]) => {
+            const pulls = banner?.pulls || [];
+            const matches = pulls.filter(p => 
+                p.id === char.id || 
+                p.name === char.id || 
+                p.itemId === char.id || 
+                (p.name && char.name && p.name.toLowerCase() === char.name.toLowerCase())
+            );
+            count += matches.length;
+        });
+        return count;
+    })();
+
+    $: currentAccountId = $selectedId;
+    $: isAlwaysOwned = id === "endministrator1" || id === "endministrator2";
+    $: basePot = gachaPulls > 0 ? Math.min(5, gachaPulls - 1) : (isAlwaysOwned ? 0 : -1);
+    $: accountPots = $manualPotentials[currentAccountId] || {};
+    $: currentPot = accountPots[id] !== undefined 
+        ? (isAlwaysOwned ? Math.max(0, accountPots[id]) : accountPots[id]) 
+        : basePot;
+
+    $: isOwned = currentPot >= 0;
+
+    function changePot(delta) {
+        let newPot = currentPot + delta;
+        
+        const minPot = isAlwaysOwned ? 0 : -1;
+        
+        if (newPot < minPot) newPot = minPot; 
+        if (newPot > 5) newPot = 5;
+        
+        const activeId = currentAccountId;
+
+        manualPotentials.update(pots => {
+            const currentAccPots = pots[activeId] || {};
+            return { 
+                ...pots, 
+                [activeId]: {
+                    ...currentAccPots,
+                    [id]: newPot
+                }
+            };
+        });
+    }
 
     $: id = $page.params.id;
     $: char = Object.values(characters).find((c) => c.id === id) || {};
@@ -394,11 +449,64 @@
                     </Button>
                 </div>
 
-                <h1
-                    class="font-sdk text-5xl font-bold dark:text-[#FDFDFD] text-[#21272C]"
-                >
-                    {$t(`characters.${id}`) || char.name}
-                </h1>
+                <div class="flex items-center flex-wrap gap-x-4 gap-y-2">
+                    <h1 class="font-sdk text-4xl md:text-5xl font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none shrink break-all md:break-normal">
+                        {$t(`characters.${id}`) || char.name}
+                    </h1>
+
+                    <div class="flex items-center shrink-0 self-center pt-2">
+                        {#if !isEditingPot}
+                            <div class="flex items-center gap-3">
+                                {#if isOwned}
+                                    <div class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white text-[15px] font-black px-2.5 py-1 rounded-md shadow-sm border border-white/20 leading-none">
+                                        P{currentPot}
+                                    </div>
+                                {/if}
+                                
+                                <Tooltip text={$t("stats.editPotential") || "Edit Potential"}>
+                                    <button 
+                                        on:click={() => isEditingPot = true}
+                                        class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#383838] text-gray-600 dark:text-gray-300 shadow-sm border border-gray-200 dark:border-[#444444] hover:bg-gray-50 dark:hover:bg-[#444] hover:border-gray-300 dark:hover:border-[#555] transition-all"
+                                    >
+                                        <Icon name="pen" class="w-4 h-4 opacity-80" />
+                                    </button>
+                                </Tooltip>
+                            </div>
+                        {:else}
+                            <div class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444444] p-1 rounded-md shadow-sm animate-fadeIn">
+                                <button 
+                                    on:click={() => changePot(-1)}
+                                    class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
+                                    disabled={currentPot === -1}
+                                >
+                                    <span class="font-bold text-sm leading-none">-</span>
+                                </button>
+                                
+                                <span class="font-nums font-bold text-sm text-center dark:text-white uppercase tracking-wider">
+                                    {currentPot === -1 ? '' : `P${currentPot}`}
+                                </span>
+
+                                <button 
+                                    on:click={() => changePot(1)}
+                                    class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
+                                    disabled={currentPot === 5}
+                                >
+                                    <span class="font-bold text-sm leading-none">+</span>
+                                </button>
+
+                                <div class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+
+                                <button 
+                                    on:click={() => isEditingPot = false}
+                                    class="w-7 h-7 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors shadow-sm"
+                                    title="Save"
+                                >
+                                    <Icon name="save" class="w-3.5 h-3.5" />
+                                </button>
+                            </div>
+                        {/if}
+                    </div>
+                </div>
 
                 <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mt-2">
                     

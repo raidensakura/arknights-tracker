@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Từng bước thăng tiến",
     "springNoteWarmlyCrafted": "Thiệp Xuân Ấm Áp, Trao Gửi Yêu Thương",
     "fireWalkerTrialSignIn": "Đăng Nhập Dấu Chân Lửa",
-    "messagerExpressSignIn": "Đăng nhập Liên Lạc Viên Hỏa Tốc"
+    "messagerExpressSignIn": "Đăng nhập Liên Lạc Viên Hỏa Tốc",
+    "delverOfTheCryptic": "Người Khám Phá Bí Ẩn"
   },
   "mouths": {
     "january": "Tháng 1",
@@ -424,6 +425,7 @@
     "bonus_copy": "Quà Tặng Xu",
     "guaranteed": "Đảm bảo",
     "arms_offering": "Quà Tặng Vũ Khí",
+    "editPotential": "Sửa tiềm năng",
     "featured_guarantee": "Đảm bảo"
   },
   "bioValues": {

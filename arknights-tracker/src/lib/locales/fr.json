@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Étapes vers un succès succulent",
     "springNoteWarmlyCrafted": "Un message printanier, chaleureux et conçu avec soin",
     "fireWalkerTrialSignIn": "Connexion - Piste des marchefeux",
-    "messagerExpressSignIn": "Connexion - Messager rapide"
+    "messagerExpressSignIn": "Connexion - Messager rapide",
+    "delverOfTheCryptic": "Exploration du mystère"
   },
   "mouths": {
     "january": "Janvier",
@@ -424,6 +425,7 @@
     "bonus_copy": "Jeton symbolique",
     "guaranteed": "Garanti",
     "arms_offering": "Offrande d'armes",
+    "editPotential": "Modifier le potentiel",
     "featured_guarantee": "Garanti"
   },
   "bioValues": {

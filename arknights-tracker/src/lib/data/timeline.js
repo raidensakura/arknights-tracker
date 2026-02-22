@@ -89,7 +89,7 @@ export const rawEvents = [
     id: "ev6-v1.0",
     title: "events.glitteringLifeAtWuling",
     startTime: "2026-02-07 12:00:00",
-    endTime: "2026-02-28 04:00:00",
+    endTime: "2026-02-24 04:00:00",
     gameversion: "global",
     timezone: "UTC+8",
     icon: "ev6-v1.0.jpg",
@@ -103,7 +103,7 @@ export const rawEvents = [
     id: "ev7-v1.0",
     title: "events.carlysFairytaleOfTheValley",
     startTime: "2026-02-07 12:00:00",
-    endTime: "2026-02-28 04:00:00",
+    endTime: "2026-02-24 04:00:00",
     gameversion: "global",
     timezone: "UTC+8",
     icon: "ev7-v1.0.jpg",
@@ -195,6 +195,20 @@ export const rawEvents = [
     color: "#A91717",
     layer: 11,
     type: "web",
+    iconPosition: 52
+  },
+  {
+    id: "ev14-v1.0",
+    title: "events.delverOfTheCryptic",
+    startTime: "2026-02-24 12:00:00",
+    endTime: "2026-03-16 11:59:59",
+    gameversion: "global",
+    timezone: "UTC+8",
+    icon: "ev14-v1.0.jpg",
+    url: "https://x.com/AKEndfield/status/2025442931310530601?s=20",
+    color: "#359abe",
+    layer: 7,
+    type: "inGame",
     iconPosition: 52
   }
 ];

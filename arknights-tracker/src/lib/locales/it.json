@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "I passi verso il dolce successo",
     "springNoteWarmlyCrafted": "Un biglietto d'auguri realizzato con amore",
     "fireWalkerTrialSignIn": "Accesso Scia incandescente",
-    "messagerExpressSignIn": "Accesso Consegna espressa"
+    "messagerExpressSignIn": "Accesso Consegna espressa",
+    "delverOfTheCryptic": "Esploratore dell'Enigmatico"
   },
   "mouths": {
     "january": "Gennaio",
@@ -424,6 +425,7 @@
     "bonus_copy": "Tributo gettone",
     "guaranteed": "Garantito",
     "arms_offering": "Offerta armi",
+    "editPotential": "Modifica potenziale",
     "featured_guarantee": "Garantito"
   },
   "bioValues": {

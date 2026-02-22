@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "Langkah Menuju Kesuksesan Manis",
     "springNoteWarmlyCrafted": "Sentuhan Musim Semi, Dibuat dengan Hangat",
     "fireWalkerTrialSignIn": "Sign In Jejak si Pengembara Api",
-    "messagerExpressSignIn": "Sign In Kurir Kilat"
+    "messagerExpressSignIn": "Sign In Kurir Kilat",
+    "delverOfTheCryptic": "Penggali Teka-Teki"
   },
   "mouths": {
     "january": "Januari",
@@ -424,6 +425,7 @@
     "bonus_copy": "Persembahan Token",
     "guaranteed": "Jaminan",
     "arms_offering": "Penawaran Senjata",
+    "editPotential": "Edit Potensi",
     "featured_guarantee": "Jaminan"
   },
   "bioValues": {

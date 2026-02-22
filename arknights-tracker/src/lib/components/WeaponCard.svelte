@@ -57,7 +57,7 @@
                 <Images
                     id={weapon.id}
                     variant="weapon-icon"
-                    className="w-full h-full object-contain drop-shadow-md"
+                    className="w-full h-full object-contain drop-shadow-md blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu"
                     alt={weapon.name}
                 />
             </div>

@@ -304,7 +304,8 @@
     "stepsToSweetSuccess": "เจริญก้าวหน้ายิ่ง ๆ ขึ้นไป",
     "springNoteWarmlyCrafted": "จดหมาย​ฤดูใบไม้ผลิ​ ​สร้าง​ด้วยใจ",
     "fireWalkerTrialSignIn": "ลงชื่อ​เส้นทาง​ผู้เดิน​บน​เปลวเพลิง",
-    "messagerExpressSignIn": "ลงชื่อ​ผู้ส่งสาร​ด่วน"
+    "messagerExpressSignIn": "ลงชื่อ​ผู้ส่งสาร​ด่วน",
+    "delverOfTheCryptic": "ผู้สำรวจปริศนา"
   },
   "mouths": {
     "january": "มกราคม",
@@ -424,6 +425,7 @@
     "bonus_copy": "บรรณาการ​โท​เคน",
     "guaranteed": "การันตี",
     "arms_offering": "ข้อเสนอ​อาวุธ",
+    "editPotential": "แก้ไขศักยภาพ",
     "featured_guarantee": "การันตี"
   },
   "bioValues": {
