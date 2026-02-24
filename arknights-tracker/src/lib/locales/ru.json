@@ -307,7 +307,8 @@
     "springNoteWarmlyCrafted": "Доброе весеннее послание",
     "fireWalkerTrialSignIn": "Вход «Тропа огнестранника»",
     "messagerExpressSignIn": "Вход «Быстрый гонец»",
-    "delverOfTheCryptic": "Исследование загадок"
+    "delverOfTheCryptic": "Исследование загадок",
+    "spectralSplendorTrialSignIn": "Вход «Призрачное величие»"
   },
   "mouths": {
     "january": "Январь",
@@ -429,7 +430,8 @@
     "guaranteed": "Гарантированно",
     "arms_offering": "Пополнение арсенала",
     "editPotential": "Изменить потенциалы",
-    "featured_guarantee": "Гарантированно"
+    "featured_guarantee": "Гарантированно",
+    "reset": "Сбросить значение потенциалов"
   },
   "bioValues": {
     "Unknown": "Неизвестно",

@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Uma Nota de Primavera Feita com Carinho",
     "fireWalkerTrialSignIn": "Login Andarilho de Fogo",
     "messagerExpressSignIn": "Login Expresso Mensageiro",
-    "delverOfTheCryptic": "Explorador do Enigmático"
+    "delverOfTheCryptic": "Explorador do Enigmático",
+    "spectralSplendorTrialSignIn": "Login Esplendor Espectral"
   },
   "mouths": {
     "january": "Janeiro",
@@ -426,7 +427,8 @@
     "guaranteed": "Garantido",
     "arms_offering": "Oferta de Armas",
     "editPotential": "Editar Potencial",
-    "featured_guarantee": "Garantido"
+    "featured_guarantee": "Garantido",
+    "reset": "Redefinir valor de potencial, o cálculo será baseado no histórico de pulls atual"
   },
   "bioValues": {
     "Unknown": "Desconhecido",

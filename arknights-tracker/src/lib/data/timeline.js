@@ -58,6 +58,20 @@ export const rawEvents = [
     iconPosition: 20
   },
   {
+    id: "ev3.2-v1.0",
+    title: "events.spectralSplendorTrialSignIn",
+    startTime: "2026-02-24 12:00:00",
+    endTime: "2026-03-16 11:59:59",
+    gameversion: "global",
+    timezone: "UTC+8",
+    icon: "ev15-v1.0.jpg",
+    url: "",
+    color: "#ec1c95",
+    layer: 3,
+    type: "inGame",
+    iconPosition: 20
+  },
+  {
     id: "ev4-v1.0",
     title: "events.etchspaceSalvage",
     startTime: "2026-01-22 03:00:00",

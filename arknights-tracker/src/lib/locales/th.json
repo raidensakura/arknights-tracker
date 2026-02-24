@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "จดหมาย​ฤดูใบไม้ผลิ​ ​สร้าง​ด้วยใจ",
     "fireWalkerTrialSignIn": "ลงชื่อ​เส้นทาง​ผู้เดิน​บน​เปลวเพลิง",
     "messagerExpressSignIn": "ลงชื่อ​ผู้ส่งสาร​ด่วน",
-    "delverOfTheCryptic": "ผู้สำรวจปริศนา"
+    "delverOfTheCryptic": "ผู้สำรวจปริศนา",
+    "spectralSplendorTrialSignIn": "ลงชื่อ​ความงดงาม​ของ​ภูติผีปีศาจ"
   },
   "mouths": {
     "january": "มกราคม",
@@ -426,7 +427,8 @@
     "guaranteed": "การันตี",
     "arms_offering": "ข้อเสนอ​อาวุธ",
     "editPotential": "แก้ไขศักยภาพ",
-    "featured_guarantee": "การันตี"
+    "featured_guarantee": "การันตี",
+    "reset": "รีเซ็ตค่าศักยภาพ การคำนวณจะอิงจากประวัติการสุ่มที่แท้จริง"
   },
   "bioValues": {
     "Unknown": "ไม่ทราบ",

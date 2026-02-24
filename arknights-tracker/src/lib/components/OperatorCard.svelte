@@ -33,7 +33,7 @@
     const { selectedId } = accountStore;
     $: currentAccountId = $selectedId;
     $: isAlwaysOwned = operator.id === "endministrator1" || operator.id === "endministrator2";
-    $: basePot = gachaPulls > 0 ? Math.min(5, gachaPulls - 1) : (isAlwaysOwned ? 0 : -1);
+    $: basePot = gachaPulls > 0 ? gachaPulls - 1 : (isAlwaysOwned ? 0 : -1);
     
     $: accountPots = $manualPotentials[currentAccountId] || {};
     $: currentPot = accountPots[operator.id] !== undefined 
@@ -44,7 +44,7 @@
     $: actualPulls = manualPot !== undefined ? manualPot + 1 : gachaPulls; 
     $: hasOperator = currentPot >= 0;
     $: constCount = hasOperator ? currentPot : 0;
-    $: isMaxPot = constCount === 5;
+    $: isMaxPot = constCount >= 5;
 
     const potPaths = [
         "M35.3769 14.521L43.8763 14.4792L10.06 39.0583L2.11523 38.4865L35.3769 14.521Z",
@@ -192,25 +192,27 @@
                 </div>
 
                 {#if hasOperator}
-                    <div class="absolute top-1 right-1.5 z-20 pointer-events-none drop-shadow-md shadow-black">
-                        <svg 
-                            width={variant === 'small' ? '18' : '34'} 
-                            height={variant === 'small' ? '18' : '34'} 
-                            viewBox="0 0 68 66" 
-                            fill="none" 
-                            class="transition-all  duration-300 {isMaxPot ? 'drop-shadow-[0_0_8px_rgba(254,222,40,0.8)]' : 'drop-shadow-sm'}"
-                        >
-                            {#each potPaths as d, i}
-                                {@const isActive = i < constCount}
-                                <path 
-                                    {d} 
-                                    fill={isActive ? "#FEDE28" : "black"} 
-                                    stroke={isMaxPot ? "white" : (isActive ? "#E5D32B" : "white")} 
-                                    stroke-width="1.5"
-                                    class="transition-colors duration-300"
-                                />
-                            {/each}
-                        </svg>
+                    <div class="absolute top-1 right-1.5 z-20 pointer-events-auto drop-shadow-md blur-[0.2px] shadow-black">
+                        <Tooltip text={`P${currentPot}`} class="">
+                            <svg 
+                                width={variant === 'small' ? '18' : '34'} 
+                                height={variant === 'small' ? '18' : '34'} 
+                                viewBox="0 0 68 66" 
+                                fill="none" 
+                                class="transition-all  duration-300 {isMaxPot ? 'drop-shadow-[0_0_8px_rgba(254,222,40,0.8)]' : 'drop-shadow-sm'}"
+                            >
+                                {#each potPaths as d, i}
+                                    {@const isActive = i < constCount}
+                                    <path 
+                                        {d} 
+                                        fill={isActive ? "#FEDE28" : "black"} 
+                                        stroke={isMaxPot ? "white" : (isActive ? "#E5D32B" : "white")} 
+                                        stroke-width="1.5"
+                                        class="transition-colors duration-300"
+                                    />
+                                {/each}
+                            </svg>
+                        </Tooltip>
                     </div>
                 {/if}
             {/if}

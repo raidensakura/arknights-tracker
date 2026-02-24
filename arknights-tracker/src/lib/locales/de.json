@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Eine Frühlingsbotschaft von Herzen",
     "fireWalkerTrialSignIn": "Feuerläuferpfad-Anmeldung",
     "messagerExpressSignIn": "oten-Express-Anmeldung",
-    "delverOfTheCryptic": "Erforschung kryptischer Nachrichten"
+    "delverOfTheCryptic": "Erforschung kryptischer Nachrichten",
+    "spectralSplendorTrialSignIn": "Geisterhafter-Glanz-Anmeldung"
   },
   "mouths": {
     "january": "Januar",
@@ -426,7 +427,8 @@
     "guaranteed": "Garantiert",
     "arms_offering": "Waffenangebot",
     "featured_guarantee": "Garantiert",
-    "editPotential": "Potenzial bearbeiten"
+    "editPotential": "Potenzial bearbeiten",
+    "reset": "Potenzialwert zurücksetzen, die Berechnung basiert auf dem tatsächlichen Ziehungsverlauf"
   },
   "bioValues": {
     "Unknown": "Unbekannt",

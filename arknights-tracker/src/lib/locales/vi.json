@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Thiệp Xuân Ấm Áp, Trao Gửi Yêu Thương",
     "fireWalkerTrialSignIn": "Đăng Nhập Dấu Chân Lửa",
     "messagerExpressSignIn": "Đăng nhập Liên Lạc Viên Hỏa Tốc",
-    "delverOfTheCryptic": "Người Khám Phá Bí Ẩn"
+    "delverOfTheCryptic": "Người Khám Phá Bí Ẩn",
+    "spectralSplendorTrialSignIn": "Đăng Nhập Rực Rỡ Quang Phổ"
   },
   "mouths": {
     "january": "Tháng 1",
@@ -426,7 +427,8 @@
     "guaranteed": "Đảm bảo",
     "arms_offering": "Quà Tặng Vũ Khí",
     "editPotential": "Sửa tiềm năng",
-    "featured_guarantee": "Đảm bảo"
+    "featured_guarantee": "Đảm bảo",
+    "reset": "Đặt lại giá trị tiềm năng, tính toán sẽ dựa trên lịch sử gacha thực tế"
   },
   "bioValues": {
     "Unknown": "Không rõ",

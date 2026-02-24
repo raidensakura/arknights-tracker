@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "A Spring Note, Warmly Crafted",
     "fireWalkerTrialSignIn": "Firewalker's Trail Sign-In",
     "messagerExpressSignIn": "Messenger Express Sign-In",
-    "delverOfTheCryptic": "Delver of the Cryptic"
+    "delverOfTheCryptic": "Delver of the Cryptic",
+    "spectralSplendorTrialSignIn": "Spectral Splendor Sign-In"
   },
   "mouths": {
     "january": "January",
@@ -426,7 +427,8 @@
     "guaranteed": "Guaranteed",
     "arms_offering": "Arms Offering",
     "editPotential": "Edit Potential",
-    "featured_guarantee": "Guaranteed"
+    "featured_guarantee": "Guaranteed",
+    "reset": "Reset potential value"
   },
   "bioValues": {
     "Unknown": "Unknown",

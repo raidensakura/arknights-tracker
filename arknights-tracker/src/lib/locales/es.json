@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Una nota primaveral elaborada con cariño",
     "fireWalkerTrialSignIn": "Inicio de sesión de Sendero del caminante de fuego",
     "messagerExpressSignIn": "Inicio de sesión de Mensajera exprés",
-    "delverOfTheCryptic": "Explorador de lo críptico"
+    "delverOfTheCryptic": "Explorador de lo críptico",
+    "spectralSplendorTrialSignIn": "Inicio de sesión de Esplendor espectral"
   },
   "mouths": {
     "january": "Enero",
@@ -426,7 +427,8 @@
     "guaranteed": "Garantizado",
     "arms_offering": "Ofrenda de armas",
     "editPotential": "Editar potencial",
-    "featured_guarantee": "Garantizado"
+    "featured_guarantee": "Garantizado",
+    "reset": "Restablecer valor de potencial, el cálculo se basará en el historial real de tiradas"
   },
   "bioValues": {
     "Unknown": "Desconocido",

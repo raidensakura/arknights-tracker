@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "春待つ便り",
     "fireWalkerTrialSignIn": "不滅の残火スタンプ",
     "messagerExpressSignIn": "爛漫の使者スタンプ",
-    "delverOfTheCryptic": "密境の探索者"
+    "delverOfTheCryptic": "密境の探索者",
+    "spectralSplendorTrialSignIn": "異彩煌々スタンプ"
   },
   "mouths": {
     "january": "1月",
@@ -426,7 +427,8 @@
     "guaranteed": "確定",
     "arms_offering": "武庫・特典",
     "editPotential": "潜在を編集",
-    "featured_guarantee": "確定"
+    "featured_guarantee": "確定",
+    "reset": "潜在をリセットします。計算は実際のガチャ履歴に基づきます"
   },
   "bioValues": {
     "Unknown": "不明",

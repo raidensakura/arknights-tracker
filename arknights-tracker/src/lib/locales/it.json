@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Un biglietto d'auguri realizzato con amore",
     "fireWalkerTrialSignIn": "Accesso Scia incandescente",
     "messagerExpressSignIn": "Accesso Consegna espressa",
-    "delverOfTheCryptic": "Esploratore dell'Enigmatico"
+    "delverOfTheCryptic": "Esploratore dell'Enigmatico",
+    "spectralSplendorTrialSignIn": "Accesso Splendore spettrale"
   },
   "mouths": {
     "january": "Gennaio",
@@ -426,7 +427,8 @@
     "guaranteed": "Garantito",
     "arms_offering": "Offerta armi",
     "editPotential": "Modifica potenziale",
-    "featured_guarantee": "Garantito"
+    "featured_guarantee": "Garantito",
+    "reset": "Ripristina il valore del potenziale, il calcolo si baserà sulla cronologia reale dei pull"
   },
   "bioValues": {
     "Unknown": "Sconosciuto",

@@ -2270,5 +2270,16 @@
 <path d="M7.5 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667V7.5M7.5 2.5H15.8333C16.2754 2.5 16.6993 2.67559 17.0118 2.98816C17.3244 3.30072 17.5 3.72464 17.5 4.16667V7.5M7.5 2.5V17.5M2.5 7.5V15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H7.5M2.5 7.5H17.5M17.5 7.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 
+{:else if name == "refresh"}
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_2018_80912" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="20" height="19">
+<path d="M18 10H22V3H2V22H22V12H18V10Z" fill="currentColor"/>
+</mask>
+<g mask="url(#mask0_2018_80912)">
+<circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+</g>
+<path d="M14 10H21V3L14 10Z" fill="currentColor"/>
+</svg>
+
 
 {/if}

@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "Un message printanier, chaleureux et conçu avec soin",
     "fireWalkerTrialSignIn": "Connexion - Piste des marchefeux",
     "messagerExpressSignIn": "Connexion - Messager rapide",
-    "delverOfTheCryptic": "Exploration du mystère"
+    "delverOfTheCryptic": "Exploration du mystère",
+    "spectralSplendorTrialSignIn": "Connexion - Splendeur spectrale"
   },
   "mouths": {
     "january": "Janvier",
@@ -426,7 +427,8 @@
     "guaranteed": "Garanti",
     "arms_offering": "Offrande d'armes",
     "editPotential": "Modifier le potentiel",
-    "featured_guarantee": "Garanti"
+    "featured_guarantee": "Garanti",
+    "reset": "Réinitialiser le potentiel, le calcul sera basé sur l'historique réel des tirages"
   },
   "bioValues": {
     "Unknown": "Inconnu",

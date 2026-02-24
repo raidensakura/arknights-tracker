@@ -230,23 +230,27 @@
       </h3>
 
       {#if timelineData.length > 0}
-        <div class="flex-grow relative w-full flex flex-col overflow-hidden">
-          <!-- Ось Y -->
+        <div class="flex-grow relative w-full flex flex-col mt-4">
+          
           <div
-            class="absolute left-0 top-8 bottom-[90px] w-8 flex flex-col-reverse justify-between z-10 bg-transparent dark:border-[#7A7A7A] border-r border-gray-100 pointer-events-none"
+            class="absolute left-0 top-0 bottom-[90px] w-8 z-10 bg-transparent dark:border-[#7A7A7A] border-r border-gray-100 pointer-events-none"
           >
-            {#each yTicks as tick}
-              <div
-                class="text-xs text-gray-400 dark:text-[#E0E0E0] font-nums pr-2 flex items-center justify-end h-0 relative"
-              >
-                <span class="absolute -top-1.5">{tick}</span>
-              </div>
-            {/each}
+            <div class="relative w-full h-full">
+              {#each yTicks as tick}
+                <div
+                  class="absolute left-0 right-0 flex items-center justify-end pr-2 h-0"
+                  style="bottom: {(tick / maxBarValue) * 100}%;"
+                >
+                  <span class="absolute transform -translate-y-1/2 text-xs text-gray-400 dark:text-[#E0E0E0] font-nums">
+                    {tick}
+                  </span>
+                </div>
+              {/each}
+            </div>
           </div>
 
-          <!-- График (скролл) -->
           <div
-            class="ml-8 h-full overflow-x-auto overflow-y-hidden custom-scrollbar pt-2 relative"
+            class="ml-8 h-full overflow-x-auto overflow-y-hidden custom-scrollbar relative"
           >
             <div class="h-full min-w-max relative flex flex-col pr-4">
               <!-- Столбцы -->

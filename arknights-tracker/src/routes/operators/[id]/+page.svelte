@@ -35,6 +35,56 @@
     };
 
     let isEditingPot = false;
+    let draftPot = 0;
+
+    function startEditing() {
+        draftPot = currentPot;
+        isEditingPot = true;
+    }
+
+    function changeDraft(delta) {
+        let newPot = draftPot + delta;
+        const minPot = isAlwaysOwned ? 0 : -1;
+        
+        if (newPot < minPot) newPot = minPot; 
+        if (newPot > 9999) newPot = 9999;
+        
+        draftPot = newPot;
+    }
+
+    function savePot() {
+        const activeId = currentAccountId;
+        manualPotentials.update(pots => {
+            const currentAccPots = pots[activeId] || {};
+            return { 
+                ...pots, 
+                [activeId]: {
+                    ...currentAccPots,
+                    [id]: draftPot
+                }
+            };
+        });
+        isEditingPot = false;
+    }
+
+    function cancelEdit() {
+        isEditingPot = false;
+    }
+
+    function resetPot() {
+        const activeId = currentAccountId;
+        manualPotentials.update(pots => {
+            const currentAccPots = pots[activeId] || {};
+            const newAccPots = { ...currentAccPots };
+            delete newAccPots[id];
+            
+            return { 
+                ...pots, 
+                [activeId]: newAccPots
+            };
+        });
+        isEditingPot = false;
+    }
 
     const { selectedId } = accountStore;
 
@@ -56,7 +106,7 @@
 
     $: currentAccountId = $selectedId;
     $: isAlwaysOwned = id === "endministrator1" || id === "endministrator2";
-    $: basePot = gachaPulls > 0 ? Math.min(5, gachaPulls - 1) : (isAlwaysOwned ? 0 : -1);
+    $: basePot = gachaPulls > 0 ? gachaPulls - 1 : (isAlwaysOwned ? 0 : -1);
     $: accountPots = $manualPotentials[currentAccountId] || {};
     $: currentPot = accountPots[id] !== undefined 
         ? (isAlwaysOwned ? Math.max(0, accountPots[id]) : accountPots[id]) 
@@ -70,7 +120,7 @@
         const minPot = isAlwaysOwned ? 0 : -1;
         
         if (newPot < minPot) newPot = minPot; 
-        if (newPot > 5) newPot = 5;
+        if (newPot > 9999) newPot = 9999; 
         
         const activeId = currentAccountId;
 
@@ -465,7 +515,7 @@
                                 
                                 <Tooltip text={$t("stats.editPotential") || "Edit Potential"}>
                                     <button 
-                                        on:click={() => isEditingPot = true}
+                                        on:click={startEditing}
                                         class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#383838] text-gray-600 dark:text-gray-300 shadow-sm border border-gray-200 dark:border-[#444444] hover:bg-gray-50 dark:hover:bg-[#444] hover:border-gray-300 dark:hover:border-[#555] transition-all"
                                     >
                                         <Icon name="pen" class="w-4 h-4 opacity-80" />
@@ -474,35 +524,58 @@
                             </div>
                         {:else}
                             <div class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444444] p-1 rounded-md shadow-sm animate-fadeIn">
+                                
+                                {#if accountPots[id] !== undefined}
+                                    <Tooltip text={$t("stats.reset") || "Reset"}>
+                                        <button 
+                                            on:click={resetPot}
+                                            class="w-7 h-7 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors"
+                                        >
+                                            <Icon name="refresh" class="w-4 h-4" /> 
+                                        </button>
+                                    </Tooltip>
+                                    <div class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+                                {/if}
+
                                 <button 
-                                    on:click={() => changePot(-1)}
+                                    on:click={() => changeDraft(-1)}
                                     class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
-                                    disabled={currentPot === -1}
+                                    disabled={draftPot === (isAlwaysOwned ? 0 : -1)}
                                 >
                                     <span class="font-bold text-sm leading-none">-</span>
                                 </button>
                                 
-                                <span class="font-nums font-bold text-sm text-center dark:text-white uppercase tracking-wider">
-                                    {currentPot === -1 ? '' : `P${currentPot}`}
+                                <span class="font-nums font-bold text-sm px-1 text-center dark:text-white uppercase tracking-wider">
+                                    {draftPot === -1 ? '' : `P${draftPot}`}
                                 </span>
 
                                 <button 
-                                    on:click={() => changePot(1)}
+                                    on:click={() => changeDraft(1)}
                                     class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
-                                    disabled={currentPot === 5}
+                                    disabled={draftPot >= 999}
                                 >
                                     <span class="font-bold text-sm leading-none">+</span>
                                 </button>
 
                                 <div class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"></div>
 
-                                <button 
-                                    on:click={() => isEditingPot = false}
-                                    class="w-7 h-7 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors shadow-sm"
-                                    title="Save"
-                                >
-                                    <Icon name="save" class="w-3.5 h-3.5" />
-                                </button>
+                                <Tooltip text={$t("settings.account.cancel") || "Cancel"}>
+                                    <button 
+                                        on:click={cancelEdit}
+                                        class="w-7 h-7 rounded text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] flex items-center justify-center transition-colors shadow-sm"
+                                    >
+                                        <Icon name="close" class="w-4 h-4" />
+                                    </button>
+                                </Tooltip>
+
+                                <Tooltip text={$t("settings.account.save") || "Save"}>
+                                    <button 
+                                        on:click={savePot}
+                                        class="w-7 h-7 ml-1 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors shadow-sm"
+                                    >
+                                        <Icon name="save" class="w-3.5 h-3.5" />
+                                    </button>
+                                </Tooltip>
                             </div>
                         {/if}
                     </div>

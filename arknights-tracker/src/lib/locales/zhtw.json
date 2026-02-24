@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "暖箋賀春",
     "fireWalkerTrialSignIn": "行火留燼簽到",
     "messagerExpressSignIn": "靈動信使簽到",
-    "delverOfTheCryptic": "密境行者"
+    "delverOfTheCryptic": "密境行者",
+    "spectralSplendorTrialSignIn": "異彩斑斕簽到"
   },
   "mouths": {
     "january": "一月",
@@ -426,7 +427,8 @@
     "guaranteed": "必出",
     "arms_offering": "武庫贈禮",
     "editPotential": "編輯潛能",
-    "featured_guarantee": "必出"
+    "featured_guarantee": "必出",
+    "reset": "重置潛能值，將根據實際抽卡歷史重新計算"
   },
   "bioValues": {
     "Unknown": "未知",

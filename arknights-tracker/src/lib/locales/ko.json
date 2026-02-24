@@ -305,7 +305,8 @@
     "springNoteWarmlyCrafted": "따뜻한 봄의 인사",
     "fireWalkerTrialSignIn": "불꽃의 여운 출석 체크",
     "messagerExpressSignIn": "날렵한 전달자 출석 체크",
-    "delverOfTheCryptic": "숨겨진 구역의 여행자"
+    "delverOfTheCryptic": "숨겨진 구역의 여행자",
+    "spectralSplendorTrialSignIn": "색채의 향연 출석 체크"
   },
   "mouths": {
     "january": "1월",
@@ -426,7 +427,8 @@
     "guaranteed": "확정",
     "arms_offering": "무기고의 선물",
     "editPotential": "잠재력 편집",
-    "featured_guarantee": "확정"
+    "featured_guarantee": "확정",
+    "reset": "잠재력 값을 초기화합니다. 실제 뽑기 기록을 바탕으로 다시 계산됩니다"
   },
   "bioValues": {
     "Unknown": "알 수 없음",
