@@ -230,7 +230,7 @@ export const banners = [
     showOnMain: true
   },
   {
-    id: "weponbox_1_0_4",
+    id: "weponbox_1_0_2",
     name: "Graffiti Issue",
     type: "weapon",
     startTime: "2026-02-24 12:00:00",
@@ -240,8 +240,8 @@ export const banners = [
     featured5: [],
     isServerTime: true, 
     timezone: "UTC+8",
-    icon: "weapon_banner_03.jpg",
-    miniIcon: "weapon_banner_03.jpg",
+    icon: "weponbox_1_0_2.png",
+    miniIcon: "weponbox_1_0_2.png",
     url: "",
     layer: 15,
     color: "#b336a2",
