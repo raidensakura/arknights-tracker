@@ -316,7 +316,7 @@
         class="bg-white p-8 md:p-12 rounded-xl dark:bg-[#383838] dark:border-[#444444] shadow-sm border border-gray-100 relative min-h-[400px]"
     >
         <div
-            class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-8 overflow-x-auto"
+            class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-8 overflow-x-auto custom-tab-scroll"
         >
             {#each [{ id: "pc", label: $t("import.tab_pc") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
                 <button
@@ -375,13 +375,14 @@
                 </div>
             {:else if platformTab === "android"}
                 <div
-                    class="mb-8 p-4 bg-amber-50 dark:bg-amber-900/40 border border-amber-200 dark:border-amber-900 rounded-lg flex items-start gap-3"
+                    class="mb-8 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-3 transition-colors"
                 >
-                    <div class="text-amber-900 dark:text-amber-500 mt-0.5">
+                    <div class="text-red-500 dark:text-red-400 mt-0.5 flex-shrink-0">
                         <Icon name="info" style="width: 20px; height: 20px;" />
                     </div>
+                    
                     <div
-                        class="text-sm text-amber-900 dark:text-amber-500 leading-relaxed"
+                        class="text-sm text-red-900 dark:text-red-100 leading-relaxed font-medium"
                     >
                         {@html $t("import.android_note")}
                     </div>
@@ -609,10 +610,10 @@
                                         style="width: 16px; height: 16px; color: green;"
                                     />
                                 {:else}
-                                    <Icon
+                                    <div class="bg-gray-50/90 dark:bg-[#343434]/80 p-1 rounded-lg"><Icon
                                         name="link"
                                         style="width: 16px; height: 16px;"
-                                    />
+                                    /></div>
                                 {/if}
                             </div>
                         </div>
@@ -640,7 +641,7 @@
                                 >
                             </div>
                         {:else}
-                            <div class="grid gap-3">
+                            <div class="grid gap-3 pb-3">
                                 {#each savedTokens as token, i}
                                     <div
                                         class="group relative flex items-center justify-between p-4 bg-white border border-gray-200 dark:bg-[#343434] dark:border-[#444444] hover:border-[#FFE145] hover:border-[#FFE145] hover:shadow-sm transition-all text-left rounded-md overflow-hidden"
@@ -742,7 +743,7 @@
                                 </div>
                             </label>
                             {#if isSaveTokenEnabled}
-                                <div class="pl-8 mb-6 relative">
+                                <div class="pl-8 mb-3 relative">
                                     <input
                                         type="text"
                                         bind:value={tokenName}
@@ -799,15 +800,15 @@
                         </span>
                     </label>
 
-                    <div class="w-fit mt-4">
+                    <div class="w-fit mt-4 {isLoading ? 'opacity-60 cursor-not-allowed' : ''}">
                         <Button
                             variant="yellow"
-                            onClick={handleUrlImport}
+                            onClick={() => { if (!isLoading) handleUrlImport(); }}
                             disabled={isLoading}
                         >
                             <div
                                 slot="icon"
-                                class="text-gray-500 dark:text-gray-800"
+                                class="text-gray-800 dark:text-gray-800 {isLoading ? 'pointer-events-none' : ''}"
                             >
                                 {#if isLoading}
                                     <Icon
@@ -821,12 +822,15 @@
                                     />
                                 {/if}
                             </div>
-                            <span
+                            <span class={isLoading ? 'pointer-events-none' : ''}
                                 >{isLoading
                                     ? $t("import.importing") || "Scanning..."
                                     : $t("page.importBtn")}</span
                             >
                         </Button>
+                        {#if isLoading}
+                            <div class="absolute inset-0 z-10"></div>
+                        {/if}
                     </div>
                 </div>
             </div>
@@ -916,7 +920,7 @@
                                     <div slot="icon">
                                         <Icon
                                             name="save"
-                                            style="width: 20px; height: 20px; stroke: white;"
+                                            class="w-4 h-4 text-white"
                                         />
                                     </div>
                                     {$t("buttons.saveBtn") || "Save"}
@@ -929,3 +933,37 @@
         </div>
     </div>
 </div>
+<style>
+    .custom-tab-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+    }
+    :global(.dark) .custom-tab-scroll {
+        scrollbar-color: #525252 transparent;
+    }
+
+    .custom-tab-scroll::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .custom-tab-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .custom-tab-scroll::-webkit-scrollbar-thumb {
+        background-color: #e2e8f0;
+        border-radius: 10px;
+    }
+    
+    .custom-tab-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: #cbd5e1;
+    }
+
+    :global(.dark) .custom-tab-scroll::-webkit-scrollbar-thumb {
+        background-color: #404040;
+    }
+    
+    :global(.dark) .custom-tab-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: #525252;
+    }
+</style>

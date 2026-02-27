@@ -1,9 +1,11 @@
 <script>
     import "../app.css";
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import { pullData } from "$lib/stores/pulls";
     import { accountStore } from "$lib/stores/accounts";
+    import { syncStatus, user, initAuth, checkSync } from "$lib/stores/cloudStore";
     import { t } from "$lib/i18n";
+    import { fly } from "svelte/transition";
     import { page } from "$app/stores";
     import { fade } from "svelte/transition";
     import { isDarkMode } from "$lib/stores/theme";
@@ -15,12 +17,47 @@
     import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
 
     let isMobileMenuOpen = false;
-    let isCollapsed = browser ? localStorage.getItem("sidebarCollapsed") === "true" : false;
+    let isCollapsed = browser
+        ? localStorage.getItem("sidebarCollapsed") === "true"
+        : false;
     let ready = false;
+
+    let showSyncToast = false;
+    let toastTimeout;
+    let prevStatus = null;
+
+    $: {
+        if (prevStatus !== "synced" && $syncStatus === "synced" && prevStatus !== null) {
+            showSyncToast = true;
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                showSyncToast = false;
+            }, 5000); 
+        }
+        prevStatus = $syncStatus;
+    }
+
+    function handleVisibilityChange() {
+        if (typeof document !== "undefined" && document.visibilityState === "visible" && $user && $syncStatus !== "checking") {
+            checkSync($user);
+        }
+    }
 
     onMount(() => {
         if (browser) {
-            setTimeout(() => { ready = true; }, 100);
+            setTimeout(() => {
+                ready = true;
+            }, 100);
+
+            initAuth();
+            
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+        }
+    });
+
+    onDestroy(() => {
+        if (browser) {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         }
     });
 
@@ -40,11 +77,14 @@
         isCollapsed = collapsed;
         if (browser) {
             localStorage.setItem("sidebarCollapsed", String(collapsed));
-            document.documentElement.style.setProperty('--sb-w', collapsed ? '5rem' : '16rem');
+            document.documentElement.style.setProperty(
+                "--sb-w",
+                collapsed ? "5rem" : "16rem",
+            );
             if (collapsed) {
-                document.documentElement.classList.add('sidebar-closed');
+                document.documentElement.classList.add("sidebar-closed");
             } else {
-                document.documentElement.classList.remove('sidebar-closed');
+                document.documentElement.classList.remove("sidebar-closed");
             }
         }
     }
@@ -100,17 +140,17 @@
         href="/android-chrome-512x512.png"
     />
     <script>
-        let w = '16rem';
+        let w = "16rem";
         let isCol = false;
         try {
-            if (localStorage.getItem('sidebarCollapsed') === 'true') {
-                w = '5rem';
+            if (localStorage.getItem("sidebarCollapsed") === "true") {
+                w = "5rem";
                 isCol = true;
             }
-        } catch(e){}
-        document.documentElement.style.setProperty('--sb-w', w);
-        if (isCol) document.documentElement.classList.add('sidebar-closed');
-        else document.documentElement.classList.remove('sidebar-closed');
+        } catch (e) {}
+        document.documentElement.style.setProperty("--sb-w", w);
+        if (isCol) document.documentElement.classList.add("sidebar-closed");
+        else document.documentElement.classList.remove("sidebar-closed");
     </script>
 </svelte:head>
 
@@ -161,7 +201,7 @@
             ? 'translate-x-0 w-64'
             : '-translate-x-full md:translate-x-0'}
             
-            md:w-[var(--sb-w)] 
+            md:w-[var(--sb-w)]
         "
     >
         <div class="flex-1 overflow-y-auto overflow-x-hidden">
@@ -242,9 +282,10 @@
                             
                             {visuallyCollapsed ? 'px-0 justify-center' : 'px-3'}
 
-                            {isCurrent(item.path) && (item.path === '/' ? $page.url.pathname === '/' : true)
-                                ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
-                                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
+                            {isCurrent(item.path) &&
+                        (item.path === '/' ? $page.url.pathname === '/' : true)
+                            ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
+                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
                         "
                         title={visuallyCollapsed ? $t(item.label) : ""}
                     >
@@ -289,13 +330,13 @@
 
         <div class="w-full mt-auto mb-4 flex flex-col items-center gap-6 px-4">
             {#if !visuallyCollapsed}
-            <div class="w-full flex justify-center flex-col gap-6">
-                <div class="w-full flex justify-center">
-                    <ThemeSwitch />
-                </div>
-                <div class="w-full">
-                    <LanguageSelect />
-                </div>
+                <div class="w-full flex justify-center flex-col gap-6">
+                    <div class="w-full flex justify-center">
+                        <ThemeSwitch />
+                    </div>
+                    <div class="w-full">
+                        <LanguageSelect />
+                    </div>
                 </div>
             {:else}
                 <button
@@ -331,9 +372,9 @@
                     {/if}
                 </button>
 
-                <button 
-                    on:click={() => setSidebarState(false)} 
-                    class="w-10 h-10 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-colors" 
+                <button
+                    on:click={() => setSidebarState(false)}
+                    class="w-10 h-10 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-colors"
                     title="Change Language"
                 >
                     <Icons name="globe" style="width:22px; height:22px;" />
@@ -342,9 +383,37 @@
         </div>
     </aside>
 
+    {#if showSyncToast}
+        <div
+            transition:fly={{ y: 50, duration: 400 }}
+            class="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#444444] shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-xl px-4 py-3 pointer-events-none"
+        >
+            <div
+                class="flex-shrink-0 bg-green-50 dark:bg-green-900/30 p-1.5 rounded-full"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-green-500"
+                >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <span class="text-sm font-bold text-gray-800 dark:text-[#E0E0E0]">
+                {$t("settings.cloud.sync_toast")}
+            </span>
+        </div>
+    {/if}
+
     <main
         class="
-            w-full p-4 md:p-8 relative z-0 
+            w-full p-4 md:p-8 relative z-0
             ml-0
             {ready ? 'transition-all duration-300 ease-in-out' : ''}
             

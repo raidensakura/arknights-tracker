@@ -561,6 +561,7 @@
     },
     "cloud": {
       "title": "雲端同步",
+      "sync_toast": "資料同步成功",
       "description": "Goyfield 與 Google 同步以儲存您的尋訪記錄。如果停用同步，清除快取或重新安裝瀏覽器將刪除所有資料。Goyfield 只能存取其自己的檔案。",
       "btn": "使用 Google 登入",
       "connected": "已連線",
