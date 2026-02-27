@@ -692,8 +692,22 @@ function calculateMath(pulls, categoryId, serverId = '3') {
 
             let currentFeaturedList = [];
             if (isGenericCalculation) {
-                const foundConfig = findBannerConfigByTime(p.time, categoryId, offset);
-                if (foundConfig) currentFeaturedList = foundConfig.featured6 || [];
+                const time = new Date(p.time).getTime();
+                const possibleBanners = BANNERS.filter(b => {
+                    const start = parseDateWithServer(b.startTime, offset).getTime();
+                    const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
+                    return time >= start && time <= end;
+                });
+
+                let bestBanner = possibleBanners.find(b => 
+                    b.featured6 && b.featured6.map(f => normalize(f)).includes(itemName)
+                );
+
+                if (!bestBanner) {
+                    bestBanner = findBannerConfigByTime(p.time, categoryId, offset);
+                }
+
+                if (bestBanner) currentFeaturedList = bestBanner.featured6 || [];
             } else {
                 currentFeaturedList = specificBannerConfig.featured6 || [];
             }
