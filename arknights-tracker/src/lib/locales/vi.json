@@ -260,8 +260,10 @@
     "new": "MỚI"
   },
   "status": {
-    "won": "Trúng rate (50/50)",
-    "lost": "Lệch rate (50/50)",
+    "won": "Thắng 50:50",
+    "wonWeapon": "Thắng 25:75",
+    "lost": "Thua 50:50",
+    "lostWeapon": "Thua 25:75",
     "guaranteed": "Đảm bảo",
     "active": "Hoạt động",
     "ended": "Đã kết thúc",

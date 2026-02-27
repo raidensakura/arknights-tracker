@@ -260,8 +260,10 @@
     "new": "NEW"
   },
   "status": {
-    "won": "UP命中 (50:50)",
-    "lost": "歪了 (Lost 50:50)",
+    "won": "勝出 50:50",
+    "wonWeapon": "勝出 25:75",
+    "lost": "失敗 50:50",
+    "lostWeapon": "失敗 25:75",
     "guaranteed": "大保底",
     "active": "進行中",
     "ended": "已結束",

@@ -260,8 +260,10 @@
     "new": "NEW"
   },
   "status": {
-    "won": "PickUp勝利",
-    "lost": "すり抜け",
+    "won": "勝利 50:50",
+    "wonWeapon": "勝利 25:75",
+    "lost": "敗北 50:50",
+    "lostWeapon": "敗北 25:75",
     "guaranteed": "確定",
     "active": "開催中",
     "ended": "終了",

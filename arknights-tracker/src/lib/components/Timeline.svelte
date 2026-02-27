@@ -122,13 +122,7 @@
         separatorLines = lines;
     }
 
-    $: contentHeight = Math.max(
-        (maxLayerIndex + 1) * (ROW_HEIGHT + GAP_HEIGHT) +
-            HEADER_HEIGHT_PX +
-            EVENT_TOP_OFFSET +
-            50,
-        500,
-    );
+    $: contentHeight = (maxLayerIndex + 1) * (ROW_HEIGHT + GAP_HEIGHT) + HEADER_HEIGHT_PX + EVENT_TOP_OFFSET + 8;
 
     function handleClickOutside(event) {
         if (!showTimezoneMenu) return;
@@ -168,8 +162,8 @@
     const GAP_HEIGHT = 8;
     const HEADER_HEIGHT_PX = 80;
     const EVENT_TOP_OFFSET = 2;
-    $: isOverflowing = contentHeight > (innerHeight * 0.8);
-    $: TIMELINE_HEIGHT = isOverflowing ? "99%" : "85%";
+    
+    $: TIMELINE_HEIGHT = `clamp(70%, ${contentHeight}px, 99%)`;
 
     let innerHeight;
 
@@ -264,21 +258,32 @@
         let isDown = false;
         let startX;
         let startY;
-        let scrollLeft;
-        let scrollTop;
+        let scrollLeftStart;
+        let scrollTopStart;
+        let rafId;
 
         node.style.cursor = 'grab';
         node.style.userSelect = 'none';
 
         const mouseDownHandler = (e) => {
+            if (e.button === 1) {
+                e.preventDefault();
+                return;
+            }
+            if (e.button !== 0) return;
             if (e.target.closest('button') || e.target.closest('a')) return;
-            
+
+            isScrollAnimating = false;
+            targetScrollLeft = null;
+
             isDown = true;
             node.style.cursor = 'grabbing';
             startX = e.pageX - node.offsetLeft;
             startY = e.pageY - node.offsetTop;
-            scrollLeft = node.scrollLeft;
-            scrollTop = node.scrollTop;
+            scrollLeftStart = node.scrollLeft;
+            scrollTopStart = node.scrollTop;
+
+            if (rafId) cancelAnimationFrame(rafId);
         };
 
         const mouseLeaveHandler = () => {
@@ -294,15 +299,22 @@
         const mouseMoveHandler = (e) => {
             if (!isDown) return;
             e.preventDefault();
-            const x = e.pageX - node.offsetLeft;
-            const y = e.pageY - node.offsetTop;
-            const walkX = (x - startX);
-            const walkY = (y - startY);
-            node.scrollLeft = scrollLeft - walkX;
-            node.scrollTop = scrollTop - walkY;
+            
+            if (rafId) cancelAnimationFrame(rafId);
+            
+            rafId = requestAnimationFrame(() => {
+                const x = e.pageX - node.offsetLeft;
+                const y = e.pageY - node.offsetTop;
+                
+                const walkX = (x - startX) * 1.5; 
+                const walkY = (y - startY) * 1.5;
+                
+                node.scrollLeft = scrollLeftStart - walkX;
+                node.scrollTop = scrollTopStart - walkY;
+                targetScrollLeft = node.scrollLeft;
+            });
         };
 
-        // Вешаем слушатели
         node.addEventListener('mousedown', mouseDownHandler);
         node.addEventListener('mouseleave', mouseLeaveHandler);
         node.addEventListener('mouseup', mouseUpHandler);
@@ -310,7 +322,7 @@
 
         return {
             destroy() {
-                // Очищаем слушатели при удалении компонента
+                if (rafId) cancelAnimationFrame(rafId);
                 node.removeEventListener('mousedown', mouseDownHandler);
                 node.removeEventListener('mouseleave', mouseLeaveHandler);
                 node.removeEventListener('mouseup', mouseUpHandler);
@@ -326,12 +338,48 @@
         }
     }
 
+    let targetScrollLeft = null;
+    let isScrollAnimating = false;
+
     function handleWheel(e) {
         if (e.shiftKey) return;
         if (e.deltaY !== 0) {
             e.preventDefault();
-            bodyContainer.scrollLeft += e.deltaY;
+
+            if (targetScrollLeft === null) {
+                targetScrollLeft = bodyContainer.scrollLeft;
+            }
+
+            targetScrollLeft += e.deltaY * 1;
+
+            const maxScroll = bodyContainer.scrollWidth - bodyContainer.clientWidth;
+            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScroll));
+
+            if (!isScrollAnimating) {
+                isScrollAnimating = true;
+                requestAnimationFrame(smoothWheelScroll);
+            }
         }
+    }
+
+    function smoothWheelScroll() {
+        if (!bodyContainer || targetScrollLeft === null) {
+            isScrollAnimating = false;
+            return;
+        }
+
+        const distance = targetScrollLeft - bodyContainer.scrollLeft;
+
+        if (Math.abs(distance) < 1) {
+            bodyContainer.scrollLeft = targetScrollLeft;
+            targetScrollLeft = null;
+            isScrollAnimating = false;
+            return;
+        }
+
+        bodyContainer.scrollLeft += distance * 0.15;
+
+        requestAnimationFrame(smoothWheelScroll);
     }
 
     onMount(() => {
@@ -571,10 +619,10 @@
             class="relative min-h-full"
             style="width: {totalWidth}px; height: {contentHeight}px;"
         >
-            <div class="absolute inset-0 top-0 pointer-events-none z-0 flex">
+            <div class="absolute left-0 right-0 top-5 bottom-0 pointer-events-none z-0 flex overflow-hidden">
                 {#each days as day}
                     <div
-                        class="border-l mt-5 border-gray-300/40 dark:border-[#3F3F3F] h-full flex-shrink-0"
+                        class="border-l border-gray-300/40 dark:border-[#3F3F3F] h-full flex-shrink-0"
                         style="width: {DAY_WIDTH}px;"
                     ></div>
                 {/each}

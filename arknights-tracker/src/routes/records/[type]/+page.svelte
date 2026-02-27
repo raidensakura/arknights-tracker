@@ -834,7 +834,7 @@
                                         {/if}
 
                                         <div
-                                            class="grid gap-2 items-center px-4 py-2 text-sm border-b border-gray-50 last:border-0 hover:bg-gray-50 transition relative pl-6"
+                                            class="grid gap-2 items-center px-4 py-1.5 text-sm border-b border-gray-50 last:border-0 hover:bg-gray-50 transition relative pl-6"
                                             style="grid-template-columns: 40px 40px minmax(140px, 1fr) 60px 130px 80px; background: {getRowBackground(
                                                 row.rarity,
                                             )}"
@@ -919,7 +919,7 @@
                                                         {#if row.status === "won"}
                                                             {#if !bannerType.includes("standard") && !bannerType.includes("new")}
                                                                 <Tooltip
-                                                                    textKey="status.won"
+                                                                    textKey={isWeaponType ? "status.wonWeapon" : "status.won"}
                                                                 >
                                                                     <Icon
                                                                         name="star"
@@ -929,7 +929,7 @@
                                                             {/if}
                                                         {:else if row.status === "lost"}
                                                             <Tooltip
-                                                                textKey="status.lost"
+                                                                textKey={isWeaponType ? "status.lostWeapon" : "status.lost"}
                                                             >
                                                                 <Icon
                                                                     name="lost"

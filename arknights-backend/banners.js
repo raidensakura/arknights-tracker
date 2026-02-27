@@ -38,7 +38,7 @@ const BANNERS = [
     name: "Hues Of Passion",
     type: "special",
     startTime: "2026-02-24 12:00:00",
-    endTime: "2026-03-16 11:59:59",
+    endTime: "2026-03-11 09:00:00",
     featured6: ["yvonne"],
   },
   {
@@ -46,7 +46,7 @@ const BANNERS = [
     name: "Smelting Forge Issue",
     type: "weapon",
     startTime: "2026-01-22 03:00:00",
-    endTime: "2026-03-16 11:59:59",
+    endTime: "2026-03-11 09:00:00",
     featured6: ["forgebornScathe"],
   },
   {
@@ -94,15 +94,15 @@ const BANNERS = [
     name: "Express Delivery Issue",
     type: "weapon",
     startTime: "2026-02-07 12:00:00",
-    endTime: "2026-03-16 11:59:59",
+    endTime: "2026-04-05 11:59:59",
     featured6: ["deliveryGuaranteed"],
   },
   {
-    id: "weponbox_1_0_4",
+    id: "weponbox_1_0_2",
     name: "Graffiti Issue",
     type: "weapon",
     startTime: "2026-02-24 12:00:00",
-    endTime: "2026-03-16 11:59:59",
+    endTime: "2026-04-25 11:59:59",
     featured6: ["artzyTyrannical"],
   }
 ];

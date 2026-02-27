@@ -260,8 +260,10 @@
     "new": "BARU"
   },
   "status": {
-    "won": "Menang 50/50",
-    "lost": "Kalah 50/50",
+    "won": "Menang 50:50",
+    "wonWeapon": "Menang 25:75",
+    "lost": "Kalah 50:50",
+    "lostWeapon": "Kalah 25:75",
     "guaranteed": "Jaminan",
     "active": "Aktif",
     "ended": "Berakhir",

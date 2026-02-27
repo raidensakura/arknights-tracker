@@ -260,8 +260,10 @@
     "new": "NEW"
   },
   "status": {
-    "won": "50/50 승리",
-    "lost": "픽뚫 (50/50 패배)",
+    "won": "승리 50:50",
+    "wonWeapon": "승리 25:75",
+    "lost": "패배 50:50",
+    "lostWeapon": "패배 25:75",
     "guaranteed": "확정",
     "active": "진행 중",
     "ended": "종료됨",

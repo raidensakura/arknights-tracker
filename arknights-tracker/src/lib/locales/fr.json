@@ -260,8 +260,10 @@
     "new": "NOUVEAU"
   },
   "status": {
-    "won": "50/50 Gagné",
-    "lost": "50/50 Perdu",
+    "won": "Gagné 50:50",
+    "wonWeapon": "Gagné 25:75",
+    "lost": "Perdu 50:50",
+    "lostWeapon": "Perdu 25:75",
     "guaranteed": "Garanti",
     "active": "Actif",
     "ended": "Terminé",
