@@ -692,19 +692,28 @@ function calculateMath(pulls, categoryId, serverId = '3') {
 
             let currentFeaturedList = [];
             if (isGenericCalculation) {
-                const time = new Date(p.time).getTime();
-                const possibleBanners = BANNERS.filter(b => {
+                const timeMs = new Date(p.time).getTime();
+                
+                const candidates = BANNERS.filter(b => {
                     const start = parseDateWithServer(b.startTime, offset).getTime();
                     const end = b.endTime ? parseDateWithServer(b.endTime, offset).getTime() : Infinity;
-                    return time >= start && time <= end;
+                    if (timeMs < start || timeMs > end) return false;
+
+                    if (categoryId === 'weap-standard') return b.type === 'weapon' && (b.id.includes('constant') || b.id.includes('standard'));
+                    if (categoryId === 'weap-special') return b.type === 'weapon' && !b.id.includes('constant') && !b.id.includes('standard');
+                    if (categoryId === 'special') return b.type === 'special';
+                    if (categoryId === 'standard') return b.type === 'standard';
+                    if (categoryId === 'new-player') return b.type === 'new-player';
+                    return false;
                 });
 
-                let bestBanner = possibleBanners.find(b => 
-                    b.featured6 && b.featured6.map(f => normalize(f)).includes(itemName)
+                let bestBanner = candidates.find(b => 
+                    b.featured6 && b.featured6.some(f => normalize(f) === itemName)
                 );
 
-                if (!bestBanner) {
-                    bestBanner = findBannerConfigByTime(p.time, categoryId, offset);
+                if (!bestBanner && candidates.length > 0) {
+                    candidates.sort((a, b) => parseDateWithServer(b.startTime, offset).getTime() - parseDateWithServer(a.startTime, offset).getTime());
+                    bestBanner = candidates[0];
                 }
 
                 if (bestBanner) currentFeaturedList = bestBanner.featured6 || [];
