@@ -306,7 +306,6 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     const pullsByBanner = {};
     const offset = getServerOffset(serverId);
 
-    // --- ЭТАП 1: Подготовка данных ---
     allPulls.forEach(p => {
         let pullTimeMs = 0;
         if (p.gachaTs) pullTimeMs = Number(p.gachaTs);
@@ -323,12 +322,10 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         pullsByBanner[specificBannerId].push(pullWithCorrectTime);
     });
 
-    // --- ЭТАП 2: Обновление КОНКРЕТНЫХ баннеров (для Глобала и Истории) ---
     for (const [bannerId, rawPulls] of Object.entries(pullsByBanner)) {
 
         const { stats, enrichedPulls } = calculateMath(rawPulls, bannerId, serverId);
 
-        // --- Глобальная статистика (Дельта логика) ---
         const oldUserStat = await prisma.userBannerStat.findUnique({
             where: { uid_bannerId: { uid, bannerId } }
         });
@@ -372,14 +369,12 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
             });
         }
 
-        // Графики
         const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
         const newGlobalPulls = enrichedPulls.filter(p => p.time > lastTime);
         if (newGlobalPulls.length > 0) {
             await processGlobalGraphsOnly(bannerId, newGlobalPulls);
         }
 
-        // Запись UserBannerStat (Specific ID)
         const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time;
 
         await prisma.userBannerStat.upsert({
@@ -408,8 +403,6 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
             }
         });
     }
-
-    // --- ЭТАП 3: Обновление ОБЩИХ категорий (ДЛЯ РЕЙТИНГА) ---
 
     console.log(`--- Updating Generic Categories for Rankings (${uid}) ---`);
 
@@ -689,8 +682,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             if (!isFreePull) {
                 count6++;
                 sumPity6 += currentPity6;
-                console.log(`   [6* PAID] ${p.name} | Pity: ${currentPity6} | Total6: ${count6} | Avg: ${(sumPity6/count6).toFixed(1)}`);
-                
+                console.log(`   [6* PAID] ${p.name} | Pity: ${currentPity6} | Total6: ${count6} | Avg: ${(sumPity6 / count6).toFixed(1)}`);
+
                 currentPity6 = 0;
                 currentPity5 = 0;
             } else {
@@ -706,6 +699,11 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             }
 
             const isFeatured = currentFeaturedList.map(n => normalize(n)).includes(itemName);
+
+            if (categoryId === 'weponbox_1_0_2' && p.rarity === 6) {
+                console.log(`[DEBUG 120] Item from game: "${itemName}"`);
+                console.log(`[DEBUG 120] Featured in config:`, currentFeaturedList.map(n => normalize(n)));
+            }
 
             if (!isFreePull) {
                 if (isFeatured) {

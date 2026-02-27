@@ -103,7 +103,7 @@ const BANNERS = [
     type: "weapon",
     startTime: "2026-02-24 12:00:00",
     endTime: "2026-04-25 11:59:59",
-    featured6: ["artzyTyrannical"],
+    featured6: ["artzyTyrannical", "Artzy Tyrannical"],
   }
 ];
 
