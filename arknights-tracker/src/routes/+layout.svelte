@@ -3,7 +3,7 @@
     import { onMount, onDestroy } from "svelte";
     import { pullData } from "$lib/stores/pulls";
     import { accountStore } from "$lib/stores/accounts";
-    import { syncStatus, user, initAuth, checkSync } from "$lib/stores/cloudStore";
+    import { syncStatus, user, initAuth, checkSync, justSynced } from "$lib/stores/cloudStore";
     import { t } from "$lib/i18n";
     import { fly } from "svelte/transition";
     import { page } from "$app/stores";
@@ -11,10 +11,12 @@
     import { isDarkMode } from "$lib/stores/theme";
     import { browser } from "$app/environment";
     import { currentLocale } from "$lib/stores/locale";
+
     import CookieConsent from "$lib/components/CookieConsent.svelte";
     import LanguageSelect from "$lib/components/LanguageSelect.svelte";
     import Icons from "$lib/components/Icons.svelte";
     import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
+    import SyncModal from "$lib/components/SyncModal.svelte";
 
     let isMobileMenuOpen = false;
     let isCollapsed = browser
@@ -26,21 +28,13 @@
     let toastTimeout;
     let prevStatus = null;
 
-    $: {
-        if (prevStatus !== "synced" && $syncStatus === "synced" && prevStatus !== null) {
-            showSyncToast = true;
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                showSyncToast = false;
-            }, 5000); 
-        }
-        prevStatus = $syncStatus;
-    }
-
-    function handleVisibilityChange() {
-        if (typeof document !== "undefined" && document.visibilityState === "visible" && $user && $syncStatus !== "checking") {
-            checkSync($user);
-        }
+    $: if ($justSynced) {
+        showSyncToast = true;
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            showSyncToast = false;
+            justSynced.set(false);
+        }, 5000); 
     }
 
     onMount(() => {
@@ -50,14 +44,11 @@
             }, 100);
 
             initAuth();
-            
-            document.addEventListener("visibilitychange", handleVisibilityChange);
-        }
-    });
 
-    onDestroy(() => {
-        if (browser) {
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            if (sessionStorage.getItem("show_sync_toast")) {
+                sessionStorage.removeItem("show_sync_toast");
+                justSynced.set(true);
+            }
         }
     });
 
@@ -153,6 +144,10 @@
         else document.documentElement.classList.remove("sidebar-closed");
     </script>
 </svelte:head>
+
+{#if $user}
+    <SyncModal />
+{/if}
 
 <div class="flex min-h-screen bg-[#F9F9F9] dark:bg-[#2C2C2C]">
     {#if isMobileMenuOpen}

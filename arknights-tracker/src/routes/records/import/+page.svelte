@@ -1,13 +1,14 @@
 <script>
     import { onMount } from "svelte";
-    import { get } from "svelte/store"; 
+    import { user, checkSync } from "$lib/stores/cloudStore";
+    import { get } from "svelte/store";
     import { t } from "$lib/i18n";
     import { goto } from "$app/navigation";
     import { pullData } from "$lib/stores/pulls";
     import { parseGachaLog } from "$lib/utils/importUtils";
     import { currentUid } from "$lib/stores/auth";
     import { accountStore } from "$lib/stores/accounts";
-    import { API_BASE } from "$lib/api"; 
+    import { API_BASE } from "$lib/api";
 
     import Button from "$lib/components/Button.svelte";
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
@@ -41,7 +42,9 @@
         try {
             const raw = localStorage.getItem("ark_saved_tokens");
             if (raw) savedTokens = JSON.parse(raw);
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function saveTokenToStorage(name, url) {
@@ -51,11 +54,14 @@
             const newList = [newToken, ...savedTokens];
             localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
             savedTokens = newList;
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function deleteToken(index) {
-        if (!confirm($t("import.delete_confirm") || "Delete this saved token?")) return;
+        if (!confirm($t("import.delete_confirm") || "Delete this saved token?"))
+            return;
         const newList = [...savedTokens];
         newList.splice(index, 1);
         savedTokens = newList;
@@ -72,27 +78,44 @@
 
     function handleInputProcessing(e) {
         const rawValue = e.target.value;
-        errorMsg = ""; isInputError = false;
-        if (!rawValue) { urlInput = ""; realImportUrl = ""; return; }
-        if (rawValue.trim().startsWith("http")) { urlInput = rawValue; realImportUrl = rawValue; return; }
+        errorMsg = "";
+        isInputError = false;
+        if (!rawValue) {
+            urlInput = "";
+            realImportUrl = "";
+            return;
+        }
+        if (rawValue.trim().startsWith("http")) {
+            urlInput = rawValue;
+            realImportUrl = rawValue;
+            return;
+        }
         let cleanToken = rawValue.trim();
         if (cleanToken.includes("token")) {
             try {
                 const jsonMatch = cleanToken.match(/"token"\s*:\s*"([^"]+)"/);
                 if (jsonMatch && jsonMatch[1]) cleanToken = jsonMatch[1];
                 else {
-                    if (cleanToken.startsWith("'") || cleanToken.startsWith('"')) cleanToken = cleanToken.slice(1, -1);
+                    if (
+                        cleanToken.startsWith("'") ||
+                        cleanToken.startsWith('"')
+                    )
+                        cleanToken = cleanToken.slice(1, -1);
                     const obj = JSON.parse(cleanToken);
                     if (obj.token) cleanToken = obj.token;
                 }
             } catch (err) {
-                cleanToken = cleanToken.replace(/^{"token":"/, "").replace(/"}$/, "");
+                cleanToken = cleanToken
+                    .replace(/^{"token":"/, "")
+                    .replace(/"}$/, "");
             }
         }
         if (!cleanToken) return;
         const encodedToken = encodeURIComponent(cleanToken);
-        const baseUrl = "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
-        const tail = "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
+        const baseUrl =
+            "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+        const tail =
+            "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
         realImportUrl = baseUrl + encodedToken + tail;
         urlInput = cleanToken;
         e.target.value = cleanToken;
@@ -109,45 +132,46 @@
             return;
         }
         if (isSaveTokenEnabled && !tokenName.trim()) {
-             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
-             if (!alreadyExists) {
+            const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
+            if (!alreadyExists) {
                 isInputError = true;
-                errorMsg = $t("import.error_token_name") || "Token name required";
+                errorMsg =
+                    $t("import.error_token_name") || "Token name required";
                 return;
-             }
+            }
         }
 
         isLoading = true;
         pendingData = null;
-        
+
         previewReport = {
             status: "loading",
             totalAdded: 0,
-            addedCount: {}
+            addedCount: {},
         };
 
         try {
             const response = await fetch(`${API_BASE}/import`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ rawUrl: urlToSend })
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rawUrl: urlToSend }),
             });
 
             if (!response.ok && response.status !== 429) {
-                 throw new Error(`HTTP Error ${response.status}`);
+                throw new Error(`HTTP Error ${response.status}`);
             }
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            let buffer = '';
+            let buffer = "";
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
 
                 buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split('\n');
-                buffer = lines.pop(); 
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
 
                 for (const line of lines) {
                     if (!line.trim()) continue;
@@ -155,28 +179,27 @@
                         const msg = JSON.parse(line);
 
                         console.log("Stream received:", msg);
-                        
-                        if (msg.type === 'progress') {
+
+                        if (msg.type === "progress") {
                             const { poolId, count } = msg;
                             console.log(`Live Import: ${poolId} +${count}`);
 
-                            const currentPoolCount = previewReport.addedCount[poolId] || 0;
+                            const currentPoolCount =
+                                previewReport.addedCount[poolId] || 0;
                             previewReport.totalAdded += count;
-                            
+
                             previewReport.addedCount = {
                                 ...previewReport.addedCount,
-                                [poolId]: currentPoolCount + count
+                                [poolId]: currentPoolCount + count,
                             };
-                            
-                            previewReport = previewReport; 
-                            
-                            await new Promise(r => setTimeout(r, 0));
-                        } 
-                        else if (msg.type === 'complete') {
+
+                            previewReport = previewReport;
+
+                            await new Promise((r) => setTimeout(r, 0));
+                        } else if (msg.type === "complete") {
                             console.log("Import Complete!");
                             await handleImportComplete(msg.data, urlToSend);
-                        } 
-                        else if (msg.type === 'error') {
+                        } else if (msg.type === "error") {
                             throw new Error(msg.message);
                         }
                     } catch (e) {
@@ -201,11 +224,11 @@
         if (importedUid) {
             const accounts = get(accountStore.accounts);
             const selectedId = get(accountStore.selectedId);
-            const currentAcc = accounts.find(a => a.id === selectedId);
+            const currentAcc = accounts.find((a) => a.id === selectedId);
 
             const currentPullData = get(pullData);
             let hasPulls = false;
-            
+
             if (currentPullData) {
                 for (const key of Object.keys(currentPullData)) {
                     if (currentPullData[key]?.pulls?.length > 0) {
@@ -215,32 +238,44 @@
                 }
             }
 
-            const isUidMatch = currentAcc && String(currentAcc.serverUid) === String(importedUid);
+            const isUidMatch =
+                currentAcc &&
+                String(currentAcc.serverUid) === String(importedUid);
 
-            const shortUid = importedUid.length > 4 ? importedUid.slice(-4) : importedUid;
+            const shortUid =
+                importedUid.length > 4 ? importedUid.slice(-4) : importedUid;
             const newSmartName = `Account ${shortUid}`;
 
             if (!hasPulls || isUidMatch) {
                 if (accountStore.updateAccount && currentAcc) {
-                    const shouldRename = currentAcc.name === 'Main Account' || 
-                                         currentAcc.name.startsWith('Account') || 
-                                         currentAcc.name.startsWith('Doctor');
-                    
-                    const nameToSet = shouldRename ? newSmartName : currentAcc.name;
+                    const shouldRename =
+                        currentAcc.name === "Main Account" ||
+                        currentAcc.name.startsWith("Account") ||
+                        currentAcc.name.startsWith("Doctor");
 
-                    accountStore.updateAccount(currentAcc.id, { 
-                        uid: importedUid, 
+                    const nameToSet = shouldRename
+                        ? newSmartName
+                        : currentAcc.name;
+
+                    accountStore.updateAccount(currentAcc.id, {
+                        uid: importedUid,
                         serverId: backendServerId,
-                        name: nameToSet
+                        name: nameToSet,
                     });
                 }
             } else {
-                const existingAccount = accounts.find(a => String(a.serverUid) === String(importedUid));
+                const existingAccount = accounts.find(
+                    (a) => String(a.serverUid) === String(importedUid),
+                );
 
                 if (existingAccount) {
                     accountStore.selectAccount(existingAccount.id);
                 } else {
-                    accountStore.addAccount(importedUid, newSmartName, backendServerId);
+                    accountStore.addAccount(
+                        importedUid,
+                        newSmartName,
+                        backendServerId,
+                    );
                 }
             }
         }
@@ -253,8 +288,12 @@
         const cleanPulls = parseGachaLog(rawData);
         pendingData = cleanPulls;
 
-        const report = await pullData.smartImport(cleanPulls, backendServerId, false);
-        previewReport = report; 
+        const report = await pullData.smartImport(
+            cleanPulls,
+            backendServerId,
+            false,
+        );
+        previewReport = report;
     }
 
     async function confirmSave() {
@@ -263,12 +302,12 @@
         try {
             const accounts = get(accountStore.accounts);
             const selectedId = get(accountStore.selectedId);
-            
-            const currentAcc = accounts.find(a => a.id === selectedId);
-            const sId = currentAcc?.serverId || '3';
+
+            const currentAcc = accounts.find((a) => a.id === selectedId);
+            const sId = currentAcc?.serverId || "3";
 
             await pullData.smartImport(pendingData, sId, true);
-            
+
             goto("/records");
         } catch (err) {
             console.error(err);
@@ -377,10 +416,12 @@
                 <div
                     class="mb-8 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-3 transition-colors"
                 >
-                    <div class="text-red-500 dark:text-red-400 mt-0.5 flex-shrink-0">
+                    <div
+                        class="text-red-500 dark:text-red-400 mt-0.5 flex-shrink-0"
+                    >
                         <Icon name="info" style="width: 20px; height: 20px;" />
                     </div>
-                    
+
                     <div
                         class="text-sm text-red-900 dark:text-red-100 leading-relaxed font-medium"
                     >
@@ -610,10 +651,14 @@
                                         style="width: 16px; height: 16px; color: green;"
                                     />
                                 {:else}
-                                    <div class="bg-gray-50/90 dark:bg-[#343434]/80 p-1 rounded-lg"><Icon
-                                        name="link"
-                                        style="width: 16px; height: 16px;"
-                                    /></div>
+                                    <div
+                                        class="bg-gray-50/90 dark:bg-[#343434]/80 p-1 rounded-lg"
+                                    >
+                                        <Icon
+                                            name="link"
+                                            style="width: 16px; height: 16px;"
+                                        />
+                                    </div>
                                 {/if}
                             </div>
                         </div>
@@ -800,20 +845,22 @@
                         </span>
                     </label>
 
-                    <div class="w-fit mt-4 {isLoading ? 'opacity-60 cursor-not-allowed' : ''}">
+                    <div class="w-fit mt-4 {isLoading ? 'opacity-60 pointer-events-none cursor-not-allowed' : ''}">
                         <Button
                             variant="yellow"
-                            onClick={() => { if (!isLoading) handleUrlImport(); }}
+                            onClick={() => {
+                                if (!isLoading) handleUrlImport();
+                            }}
                             disabled={isLoading}
                         >
                             <div
                                 slot="icon"
-                                class="text-gray-800 dark:text-gray-800 {isLoading ? 'pointer-events-none' : ''}"
+                                class="text-gray-800 dark:text-gray-800"
                             >
                                 {#if isLoading}
                                     <Icon
                                         name="loading"
-                                        class="w-4 h-4 animate-spin "
+                                        class="w-4 h-4 animate-spin"
                                     />
                                 {:else}
                                     <Icon
@@ -822,15 +869,12 @@
                                     />
                                 {/if}
                             </div>
-                            <span class={isLoading ? 'pointer-events-none' : ''}
-                                >{isLoading
+                            <span>
+                                {isLoading
                                     ? $t("import.importing") || "Scanning..."
-                                    : $t("page.importBtn")}</span
-                            >
+                                    : $t("page.importBtn")}
+                            </span>
                         </Button>
-                        {#if isLoading}
-                            <div class="absolute inset-0 z-10"></div>
-                        {/if}
                     </div>
                 </div>
             </div>
@@ -907,7 +951,8 @@
 
                             {#if isLoading && Object.keys(previewReport.addedCount).length === 0}
                                 <div class="text-sm text-gray-500 italic ml-2">
-                                    {$t("import.waiting_response") || "Waiting for response..."}
+                                    {$t("import.waiting_response") ||
+                                        "Waiting for response..."}
                                 </div>
                             {/if}
                         </div>
@@ -933,6 +978,7 @@
         </div>
     </div>
 </div>
+
 <style>
     .custom-tab-scroll {
         scrollbar-width: thin;
@@ -945,16 +991,16 @@
     .custom-tab-scroll::-webkit-scrollbar {
         height: 4px;
     }
-    
+
     .custom-tab-scroll::-webkit-scrollbar-track {
         background: transparent;
     }
-    
+
     .custom-tab-scroll::-webkit-scrollbar-thumb {
         background-color: #e2e8f0;
         border-radius: 10px;
     }
-    
+
     .custom-tab-scroll::-webkit-scrollbar-thumb:hover {
         background-color: #cbd5e1;
     }
@@ -962,7 +1008,7 @@
     :global(.dark) .custom-tab-scroll::-webkit-scrollbar-thumb {
         background-color: #404040;
     }
-    
+
     :global(.dark) .custom-tab-scroll::-webkit-scrollbar-thumb:hover {
         background-color: #525252;
     }

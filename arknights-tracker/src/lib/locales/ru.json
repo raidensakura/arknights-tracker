@@ -3,7 +3,7 @@
   "seo": {
     "title": "Goyfield - Трекер круток для Arknights Endfield",
     "description": "Отслеживайте свою историю круток в Arknights Endfield. Просматривайте статистику, считайте гарант и анализируйте свою удачу.",
-    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники, Гойфилд мое, Гойфилд, Goyfield"
+    "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Гойфилд мое, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники, Гойфилд, Goyfield"
   },
   "sidebar": {
     "home": "Главная",
@@ -291,7 +291,8 @@
     "records": "Записи о найме",
     "events": "Лента событий",
     "settings": "Настройки",
-    "operators": "Оперативники"
+    "operators": "Оперативники",
+    "weapons": "Оружия"
   },
   "events": {
     "voyage_to_the_stars": "Путешествие к звездам",

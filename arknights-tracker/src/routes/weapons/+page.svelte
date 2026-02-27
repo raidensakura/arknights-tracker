@@ -1,12 +1,10 @@
 <script>
     import { t } from "$lib/i18n";
-    // Убедись, что путь к файлу с данными оружия правильный!
     import { weapons } from "$lib/data/weapons.js"; 
     import WeaponCard from "$lib/components/WeaponCard.svelte";
     import DataToolbar from "$lib/components/DataToolbar.svelte";
     import Icon from "$lib/components/Icons.svelte";
 
-    // Преобразуем объект weapons в массив и фильтруем пустые
     const allWeapons = Object.values(weapons || {}).filter(
         (wp) => wp && wp.id,
     );
@@ -15,7 +13,6 @@
     let sortDirection = "desc";
     let searchQuery = "";
     
-    // Фильтры для оружия. Замени 'weaponType' на те, которые реально есть в твоей базе
     let filters = {
         rarity: [6, 5, 4, 3, 2, 1],
         weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon", "bow", "pistol"], 
@@ -36,8 +33,6 @@
                 filters.rarity.length === 0 ||
                 filters.rarity.includes(wp.rarity);
                 
-            // Фильтрация по типу оружия
-            // Проверь, как у тебя в базе называется поле типа: wp.weapon или wp.type?
             const matchesWeapon =
                 filters.weapon.length === 0 || 
                 filters.weapon.some(

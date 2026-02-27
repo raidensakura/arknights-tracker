@@ -8,6 +8,7 @@ import { accountStore } from "$lib/stores/accounts";
 export const user = writable(null);
 export const syncStatus = writable("idle"); 
 export const cloudDataBuffer = writable(null);
+export const justSynced = writable(false);
 
 function countAllLocalPulls() {
     if (typeof window === 'undefined') return 0;
@@ -95,6 +96,11 @@ export async function checkSync(currentUser, freshSnapshot = null) {
 
             console.log(`📊 Check: Local(${localTotal}) vs Cloud(${cloudTotal}).`);
 
+            if (localTotal === 0 && cloudTotal === 0) {
+                syncStatus.set("synced");
+                return;
+            }
+
             if (localTotal === cloudTotal) {
                 if (localLastUpdated === 0 && cloudLastUpdated > 0) localStorage.setItem("ark_last_sync", cloudLastUpdated.toString());
                 syncStatus.set("synced");
@@ -150,6 +156,7 @@ export function applyCloudData() {
         localStorage.setItem("ark_last_sync", buffer.timestamp.toString());
         syncStatus.set("synced");
         cloudDataBuffer.set(null);
+        sessionStorage.setItem("show_sync_toast", "true");
         window.location.reload(); 
     } catch (e) { console.error("Restore failed", e); }
 }
@@ -218,6 +225,7 @@ export async function uploadLocalData(freshSnapshot = null) {
         });
 
         localStorage.setItem("ark_last_sync", Date.now().toString());
+        justSynced.set(true);
         syncStatus.set("synced");
         if (analytics) logEvent(analytics, 'sync_upload', { total: totalPulls });
 
