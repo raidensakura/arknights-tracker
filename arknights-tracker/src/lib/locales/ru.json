@@ -292,7 +292,7 @@
     "events": "Лента событий",
     "settings": "Настройки",
     "operators": "Оперативники",
-    "weapons": "Оружия"
+    "weapons": "Оружие"
   },
   "events": {
     "voyage_to_the_stars": "Путешествие к звездам",
@@ -394,7 +394,8 @@
     "desc": "Убыв.",
     "asc": "Возр.",
     "search": "Поиск...",
-    "reset": "Сбросить"
+    "reset": "Сбросить",
+    "type": "Тип"
   },
   "menu": {
     "about": "Обзор",
@@ -405,7 +406,8 @@
     "files": "Файлы",
     "audio": "Аудио",
     "indicators": "Показатели",
-    "baseSkills": "Базовые навыки"
+    "baseSkills": "Базовые навыки",
+    "description": "Описание"
   },
   "bio": {
     "faction": "Фракция",

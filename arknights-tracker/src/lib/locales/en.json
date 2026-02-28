@@ -289,7 +289,8 @@
     "records": "Records",
     "events": "Timeline",
     "settings": "Settings",
-    "operators": "Operators"
+    "operators": "Operators",
+    "weapons": "Weapons"
   },
   "events": {
     "voyage_to_the_stars": "Voyage to the Stars",
@@ -390,7 +391,8 @@
     "desc": "Desc.",
     "asc": "Asc.",
     "search": "Search...",
-    "reset": "Reset"
+    "reset": "Reset",
+    "type": "Type"
   },
   "menu": {
     "about": "About",
@@ -401,7 +403,8 @@
     "files": "Files",
     "audio": "Audio",
     "indicators": "Indicators",
-    "baseSkills": "Factory Skills"
+    "baseSkills": "Factory Skills",
+    "description": "Description"
   },
   "bio": {
     "faction": "Faction",

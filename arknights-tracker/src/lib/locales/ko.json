@@ -289,7 +289,8 @@
     "records": "기록",
     "events": "이벤트",
     "settings": "설정",
-    "operators": "오퍼레이터"
+    "operators": "오퍼레이터",
+    "weapons": "무기"
   },
   "events": {
     "voyage_to_the_stars": "별을 향한 항해",
@@ -390,7 +391,8 @@
     "desc": "내림차순",
     "asc": "오름차순",
     "search": "검색...",
-    "reset": "초기화"
+    "reset": "초기화",
+    "type": "유형"
   },
   "menu": {
     "about": "정보",
@@ -401,7 +403,8 @@
     "files": "파일",
     "audio": "음성",
     "indicators": "지표",
-    "baseSkills": "기지 스킬"
+    "baseSkills": "기지 스킬",
+    "description": "설명"
   },
   "bio": {
     "faction": "진영",

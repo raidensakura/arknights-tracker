@@ -1,4 +1,3 @@
-<!-- src/routes/operators/+page.svelte -->
 <script>
     import { goto } from "$app/navigation";
     import { t } from "$lib/i18n";
@@ -14,16 +13,10 @@
     let sortField = "rarity";
     let sortDirection = "desc";
     let searchQuery = "";
+    
     let filters = {
         rarity: [6, 5, 4],
-        class: [
-            "guard",
-            "vanguard",
-            "caster",
-            "defender",
-            "supporter",
-            "striker",
-        ],
+        class: ["guard", "vanguard", "caster", "defender", "supporter", "striker"],
         element: ["cryo", "physical", "nature", "heat", "electric"],
         weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
     };
@@ -38,45 +31,34 @@
                 ($t(`characters.${op.id}`) || "").toLowerCase().includes(query);
 
             if (!matchesSearch) return false;
-            const matchesRarity =
-                filters.rarity.length === 0 ||
-                filters.rarity.includes(op.rarity);
-            const matchesClass =
-                filters.class.length === 0 ||
-                filters.class.some(
-                    (c) => c.toLowerCase() === op.class?.toLowerCase(),
-                );
-            const matchesElement =
-                filters.element.length === 0 ||
-                filters.element.some(
-                    (e) => e.toLowerCase() === op.element?.toLowerCase(),
-                );
-            const matchesWeapon =
-                filters.weapon.length === 0 ||
-                filters.weapon.some(
-                    (e) => e.toLowerCase() === op.weapon?.toLowerCase(),
-                );
+            
+            const matchesRarity = filters.rarity.length === 0 || filters.rarity.includes(op.rarity);
+            const matchesClass = filters.class.length === 0 || filters.class.some((c) => c.toLowerCase() === op.class?.toLowerCase());
+            const matchesElement = filters.element.length === 0 || filters.element.some((e) => e.toLowerCase() === op.element?.toLowerCase());
+            
+            const matchesWeapon = filters.weapon.length === 0 || (op.weapon && filters.weapon.some((w) => w.toLowerCase() === op.weapon.toLowerCase()));
 
-            return (
-                matchesRarity && matchesClass && matchesElement && matchesWeapon
-            );
+            return matchesRarity && matchesClass && matchesElement && matchesWeapon;
         })
         .sort((a, b) => {
-            let valA = a[sortField];
-            let valB = b[sortField];
+            let valA = sortField === "weapon" ? a.weapon : a[sortField];
+            let valB = sortField === "weapon" ? b.weapon : b[sortField];
+            
             if (sortField === "rarity") {
                 return sortDirection === "asc" ? valA - valB : valB - valA;
             }
+            
             if (!valA) valA = "";
             if (!valB) valB = "";
 
             return sortDirection === "asc"
-                ? valA.localeCompare(valB)
-                : valB.localeCompare(valA);
+                ? String(valA).localeCompare(String(valB))
+                : String(valB).localeCompare(String(valA));
         });
 </script>
 
 <div class="max-w-[100%] max-h-[100%] justify-start min-h-screen">
+
     <div class="flex items-center gap-4 mb-8">
         <h2
             class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex items-start gap-0 md:flex-row md:items-center md:gap-3"

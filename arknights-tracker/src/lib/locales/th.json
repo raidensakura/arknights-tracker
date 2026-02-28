@@ -289,7 +289,8 @@
     "records": "บันทึก",
     "events": "กิจกรรม",
     "settings": "การตั้งค่า",
-    "operators": "โอเปอเรเตอร์"
+    "operators": "โอเปอเรเตอร์",
+    "weapons": "อาวุธ"
   },
   "events": {
     "voyage_to_the_stars": "การเดินทางสู่ดวงดาว",
@@ -390,7 +391,8 @@
     "desc": "มากไปน้อย",
     "asc": "น้อยไปมาก",
     "search": "ค้นหา...",
-    "reset": "รีเซ็ต"
+    "reset": "รีเซ็ต",
+    "type": "ประเภท"
   },
   "menu": {
     "about": "เกี่ยวกับ",
@@ -401,7 +403,8 @@
     "files": "ไฟล์",
     "audio": "เสียง",
     "indicators": "ตัวชี้วัด",
-    "baseSkills": "สกิลฐาน"
+    "baseSkills": "สกิลฐาน",
+    "description": "คำอธิบาย"
   },
   "bio": {
     "faction": "สังกัด",

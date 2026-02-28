@@ -289,7 +289,8 @@
     "records": "Riwayat",
     "events": "Event",
     "settings": "Pengaturan",
-    "operators": "Operator"
+    "operators": "Operator",
+    "weapons": "Senjata"
   },
   "events": {
     "voyage_to_the_stars": "Voyage to the Stars",
@@ -390,7 +391,8 @@
     "desc": "Menurun",
     "asc": "Naik",
     "search": "Cari...",
-    "reset": "Reset"
+    "reset": "Reset",
+    "type": "Tipe"
   },
   "menu": {
     "about": "Tentang",
@@ -401,7 +403,8 @@
     "files": "File",
     "audio": "Audio",
     "indicators": "Indikator",
-    "baseSkills": "Skill Pabrik"
+    "baseSkills": "Skill Pabrik",
+    "description": "Deskripsi"
   },
   "bio": {
     "faction": "Faksi",

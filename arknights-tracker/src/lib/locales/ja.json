@@ -289,7 +289,8 @@
     "records": "履歴",
     "events": "イベント",
     "settings": "設定",
-    "operators": "オペレーター"
+    "operators": "オペレーター",
+    "weapons": "武器"
   },
   "events": {
     "voyage_to_the_stars": "星々への航海",
@@ -390,7 +391,8 @@
     "desc": "降順",
     "asc": "昇順",
     "search": "検索...",
-    "reset": "リセット"
+    "reset": "リセット",
+    "type": "タイプ"
   },
   "menu": {
     "about": "概要",
@@ -401,7 +403,8 @@
     "files": "ファイル",
     "audio": "ボイス",
     "indicators": "指標",
-    "baseSkills": "基地スキル"
+    "baseSkills": "基地スキル",
+    "description": "説明"
   },
   "bio": {
     "faction": "陣営",

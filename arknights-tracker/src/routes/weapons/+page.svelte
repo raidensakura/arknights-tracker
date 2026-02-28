@@ -6,26 +6,31 @@
     import Icon from "$lib/components/Icons.svelte";
 
     const allWeapons = Object.values(weapons || {}).filter(
-        (wp) => wp && wp.id,
+        (wp) => wp && wp.id
     );
+    
 
     let sortField = "rarity";
     let sortDirection = "desc";
     let searchQuery = "";
     
     let filters = {
-        rarity: [6, 5, 4, 3, 2, 1],
-        weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon", "bow", "pistol"], 
+        rarity: [6, 5, 4, 3],
+        type: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"], 
     };
 
     $: filteredWeapons = allWeapons
         .filter((wp) => {
-            const query = searchQuery.toLowerCase();
+            const query = searchQuery.toLowerCase().trim();
+            const locName = ($t(`weaponsList.${wp.id}`) || "").toLowerCase();
+            const baseName = (wp.name || "").toLowerCase();
+            const idName = wp.id.toLowerCase();
+
             const matchesSearch =
                 !query ||
-                wp.name?.toLowerCase().includes(query) ||
-                (wp.id && wp.id.toLowerCase().includes(query)) ||
-                ($t(`weaponsList.${wp.id}`) || "").toLowerCase().includes(query);
+                baseName.includes(query) ||
+                locName.includes(query) ||
+                idName.includes(query);
 
             if (!matchesSearch) return false;
             
@@ -33,17 +38,16 @@
                 filters.rarity.length === 0 ||
                 filters.rarity.includes(wp.rarity);
                 
-            const matchesWeapon =
-                filters.weapon.length === 0 || 
-                filters.weapon.some(
-                    (w) => w.toLowerCase() === (wp.weapon || wp.type)?.toLowerCase(),
-                );
+            const wpType = wp.type || wp.weapon;
+            const matchesType =
+                filters.type.length === 0 || 
+                (wpType && filters.type.some(w => w.toLowerCase() === wpType.toLowerCase()));
 
-            return matchesRarity && matchesWeapon;
+            return matchesRarity && matchesType;
         })
         .sort((a, b) => {
-            let valA = a[sortField];
-            let valB = b[sortField];
+            let valA = sortField === "type" ? (a.type || a.weapon) : a[sortField];
+            let valB = sortField === "type" ? (b.type || b.weapon) : b[sortField];
             
             if (sortField === "rarity") {
                 return sortDirection === "asc" ? valA - valB : valB - valA;
@@ -58,13 +62,13 @@
         });
 </script>
 
-<div class="max-w-[100%] max-h-[100%] justify-start min-h-screen p-4 md:p-8">
+<div class="max-w-[100%] max-h-[100%] justify-start min-h-screen">
+    
     <div class="flex items-center gap-4 mb-8">
         <h2 class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex flex-col items-start gap-0 md:flex-row md:items-center md:gap-3">
             <span class="text-3xl md:text-5xl tracking-wide">
                 {$t("pages.weapons") || "Weapons"}
             </span>
-
             <span class="text-gray-400 text-xl md:pl-3 md:text-3xl font-normal">
                 / {filteredWeapons.length}
             </span>
@@ -91,9 +95,9 @@
         </div>
 
         {#if filteredWeapons.length === 0}
-            <div class="text-center py-20 text-gray-400 italic flex flex-col items-center justify-center">
-                <Icon name="noData" class="w-8 h-8 mb-2 opacity-50" />
-                <p class="text-sm">
+            <div class="text-center py-20 text-gray-400 italic flex flex-col items-center justify-center bg-gray-50 dark:bg-[#2C2C2C] rounded-2xl border border-dashed border-gray-200 dark:border-[#444]">
+                <Icon name="noData" class="w-10 h-10 mb-3 opacity-30" />
+                <p class="text-sm font-medium">
                     {$t("emptyState.noData") || "No weapons found"}
                 </p>
             </div>

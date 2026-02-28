@@ -289,7 +289,8 @@
     "records": "記錄",
     "events": "活動",
     "settings": "設定",
-    "operators": "幹員"
+    "operators": "幹員",
+    "weapons": "武器"
   },
   "events": {
     "voyage_to_the_stars": "星際之旅",
@@ -390,7 +391,8 @@
     "desc": "降序",
     "asc": "升序",
     "search": "搜尋...",
-    "reset": "重置"
+    "reset": "重置",
+    "type": "類型"
   },
   "menu": {
     "about": "關於",
@@ -401,7 +403,8 @@
     "files": "檔案",
     "audio": "語音",
     "indicators": "指標",
-    "baseSkills": "基建技能"
+    "baseSkills": "基建技能",
+    "description": "描述"
   },
   "bio": {
     "faction": "陣營",

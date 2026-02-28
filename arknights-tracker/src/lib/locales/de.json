@@ -289,7 +289,8 @@
     "records": "Verlauf",
     "events": "Events",
     "settings": "Einstellungen",
-    "operators": "Operator"
+    "operators": "Operator",
+    "weapons": "Waffen"
   },
   "events": {
     "voyage_to_the_stars": "Reise zu den Sternen",
@@ -390,7 +391,8 @@
     "desc": "Abst.",
     "asc": "Aufst.",
     "search": "Suchen...",
-    "reset": "Zurücksetzen"
+    "reset": "Zurücksetzen",
+    "type": "Typ"
   },
   "menu": {
     "about": "Über",
@@ -401,7 +403,8 @@
     "files": "Akten",
     "audio": "Audio",
     "indicators": "Indikatoren",
-    "baseSkills": "Basisfähigkeiten"
+    "baseSkills": "Basisfähigkeiten",
+    "description": "Beschreibung"
   },
   "bio": {
     "faction": "Fraktion",

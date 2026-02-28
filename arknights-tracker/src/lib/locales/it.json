@@ -289,7 +289,8 @@
     "records": "Registro",
     "events": "Eventi",
     "settings": "Impostazioni",
-    "operators": "Operatori"
+    "operators": "Operatori",
+    "weapons": "Armi"
   },
   "events": {
     "voyage_to_the_stars": "Viaggio verso le Stelle",
@@ -390,7 +391,8 @@
     "desc": "Decr.",
     "asc": "Cresc.",
     "search": "Cerca...",
-    "reset": "Reset"
+    "reset": "Reset",
+    "type": "Tipo"
   },
   "menu": {
     "about": "Info",
@@ -401,7 +403,8 @@
     "files": "File",
     "audio": "Audio",
     "indicators": "Indicatori",
-    "baseSkills": "Abilità Base"
+    "baseSkills": "Abilità Base",
+    "description": "Descrizione"
   },
   "bio": {
     "faction": "Fazione",

@@ -289,7 +289,8 @@
     "records": "Historique",
     "events": "Événements",
     "settings": "Paramètres",
-    "operators": "Opérateurs"
+    "operators": "Opérateurs",
+    "weapons": "Armes"
   },
   "events": {
     "voyage_to_the_stars": "Voyage vers les Étoiles",
@@ -390,7 +391,8 @@
     "desc": "Décr.",
     "asc": "Crois.",
     "search": "Rechercher...",
-    "reset": "RàZ"
+    "reset": "RàZ",
+    "type": "Type"
   },
   "menu": {
     "about": "À propos",
@@ -401,7 +403,8 @@
     "files": "Fichiers",
     "audio": "Audio",
     "indicators": "Indicateurs",
-    "baseSkills": "Compétences Base"
+    "baseSkills": "Compétences Base",
+    "description": "Description"
   },
   "bio": {
     "faction": "Faction",
