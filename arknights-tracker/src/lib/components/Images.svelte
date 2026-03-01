@@ -14,25 +14,38 @@
     $: src = getImagePath(rawId, variant);
 
     let hasError = false;
-
     let isVisible = false;
-    let allowTransition = false;
 
-    function setupImage(imgNode) {
-        if (imgNode.complete) {
+    function imageHandler(node, currentSrc) {
+        function handleLoad() {
             isVisible = true;
-            allowTransition = false; 
-        } else {
-            allowTransition = true;
-            imgNode.onload = () => {
-                isVisible = true;
-            };
+            hasError = false;
         }
-    }
 
-    function handleError(e) {
-        isVisible = true;
-        hasError = true;
+        function handleErr() {
+            isVisible = true;
+            hasError = true;
+        }
+
+        node.addEventListener('load', handleLoad);
+        node.addEventListener('error', handleErr);
+
+        if (node.complete && node.naturalWidth > 0) {
+            handleLoad();
+        }
+
+        return {
+            update(newSrc) {
+                if (newSrc !== currentSrc) {
+                    isVisible = false;
+                    hasError = false;
+                }
+            },
+            destroy() {
+                node.removeEventListener('load', handleLoad);
+                node.removeEventListener('error', handleErr);
+            }
+        };
     }
 
     $: sizeStyle = typeof size === 'number' ? `width: ${size}px; height: ${size}px;` : `width: ${size}; height: ${size};`;
@@ -54,17 +67,14 @@
         {/if}
     </div>
 {:else}
-    {#key src}
-        <img
-            use:setupImage
-            {src}
-            alt={alt || rawId}
-            loading="lazy"
-            decoding="async"
-            draggable="false"
-            class="{className} object-cover antialiased {allowTransition ? 'transition-opacity duration-200' : ''} {isVisible ? 'opacity-100' : 'opacity-0'}"
-            style="{smoothImageStyles} {sizeStyle} {style}"
-            on:error={handleError}
-        />
-    {/key}
+    <img
+        {src}
+        use:imageHandler={src}
+        alt={alt || rawId}
+        loading="lazy"
+        decoding="async"
+        draggable="false"
+        class="{className} object-cover antialiased transition-opacity duration-300 pointer-events-none select-none {isVisible ? 'opacity-100' : 'opacity-0'}"
+        style="{smoothImageStyles} {sizeStyle} {style}"
+    />
 {/if}

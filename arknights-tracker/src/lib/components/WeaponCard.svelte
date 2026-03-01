@@ -35,12 +35,6 @@
             ? `relative flex flex-col cursor-pointer select-none group flex-shrink-0 ${className || "w-[80px] h-[80px]"}`
             : `relative flex flex-col cursor-pointer select-none group flex-shrink-0 ${className || "w-[100px] h-[100px]"}`;
 
-    function handleClick() {
-        if (weapon?.id) {
-            goto(`/weapons/${weapon.id}`);
-        }
-    }
-
     $: gachaPulls = (() => {
         if (!$pullData) return 0;
         let count = 0;
@@ -80,14 +74,11 @@
 </script>
 
 {#if weapon && weapon.id}
-    <div
-        class={rootClass}
+    <a
+        href={`/weapons/${weapon.id}`}
+        class="{rootClass} block no-underline focus:outline-none focus:ring-2 focus:ring-[#F9B90C] rounded-[6px]"
         on:mouseenter={() => (isHovered = true)}
         on:mouseleave={() => (isHovered = false)}
-        role="button"
-        tabindex="0"
-        on:click={handleClick}
-        on:keydown={(e) => e.key === "Enter" && handleClick()}
     >
         <div
             class="absolute inset-0 border-[2px] border-white rounded-[6px] z-50 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100"
@@ -114,9 +105,9 @@
             </div>
 
             {#if safeWeaponType && variant !== 'small'}
-                <div class="absolute top-1 left-1 z-20 pointer-events-auto filter drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)]">
+                <div class="absolute top-1 left-1 z-20 pointer-events-auto filter">
                     <Tooltip text={$t(`weapons.${safeWeaponType}`) || safeWeaponType}>
-                        <div class="bg-[#1A1A1A] rounded-[4px] border border-white/10 flex items-center justify-center shadow-inner
+                        <div class="bg-[#1A1A1A] rounded-[4px] flex items-center justify-center shadow-inner
                             {variant === 'small' ? 'w-4 h-4 p-0.5' : 'w-5 h-5 p-0.5'}">
                             <Icon name={safeWeaponType} class="w-full h-full text-white/90" />
                         </div>
@@ -185,5 +176,5 @@
                 style:background-color={rarityColor}
             ></div>
         </div>
-    </div>
+    </a>
 {/if}

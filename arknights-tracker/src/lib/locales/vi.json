@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Đăng Nhập Dấu Chân Lửa",
     "messagerExpressSignIn": "Đăng nhập Liên Lạc Viên Hỏa Tốc",
     "delverOfTheCryptic": "Người Khám Phá Bí Ẩn",
-    "spectralSplendorTrialSignIn": "Đăng Nhập Rực Rỡ Quang Phổ"
+    "spectralSplendorTrialSignIn": "Đăng Nhập Rực Rỡ Quang Phổ",
+    "sanityDiscount": "Giảm Giá Tỉnh Táo"
   },
   "mouths": {
     "january": "Tháng 1",
@@ -392,7 +393,8 @@
     "asc": "Tăng dần",
     "search": "Tìm kiếm...",
     "reset": "Đặt lại",
-    "type": "Loại"
+    "type": "Loại",
+    "ownedOnly": "Chỉ hiển thị đã sở hữu"
   },
   "menu": {
     "about": "Giới thiệu",

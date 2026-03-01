@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "불꽃의 여운 출석 체크",
     "messagerExpressSignIn": "날렵한 전달자 출석 체크",
     "delverOfTheCryptic": "숨겨진 구역의 여행자",
-    "spectralSplendorTrialSignIn": "색채의 향연 출석 체크"
+    "spectralSplendorTrialSignIn": "색채의 향연 출석 체크",
+    "sanityDiscount": "이성 소모 감소"
   },
   "mouths": {
     "january": "1월",
@@ -392,7 +393,8 @@
     "asc": "오름차순",
     "search": "검색...",
     "reset": "초기화",
-    "type": "유형"
+    "type": "유형",
+    "ownedOnly": "보유 중인 것만"
   },
   "menu": {
     "about": "정보",

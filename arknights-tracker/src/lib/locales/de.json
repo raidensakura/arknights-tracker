@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Feuerläuferpfad-Anmeldung",
     "messagerExpressSignIn": "oten-Express-Anmeldung",
     "delverOfTheCryptic": "Erforschung kryptischer Nachrichten",
-    "spectralSplendorTrialSignIn": "Geisterhafter-Glanz-Anmeldung"
+    "spectralSplendorTrialSignIn": "Geisterhafter-Glanz-Anmeldung",
+    "sanityDiscount": "Verstandssenkung"
   },
   "mouths": {
     "january": "Januar",
@@ -392,7 +393,8 @@
     "asc": "Aufst.",
     "search": "Suchen...",
     "reset": "Zurücksetzen",
-    "type": "Typ"
+    "type": "Typ",
+    "ownedOnly": "Nur im Besitz"
   },
   "menu": {
     "about": "Über",

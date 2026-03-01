@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Accesso Scia incandescente",
     "messagerExpressSignIn": "Accesso Consegna espressa",
     "delverOfTheCryptic": "Esploratore dell'Enigmatico",
-    "spectralSplendorTrialSignIn": "Accesso Splendore spettrale"
+    "spectralSplendorTrialSignIn": "Accesso Splendore spettrale",
+    "sanityDiscount": "Sconto Lucidità"
   },
   "mouths": {
     "january": "Gennaio",
@@ -392,7 +393,8 @@
     "asc": "Cresc.",
     "search": "Cerca...",
     "reset": "Reset",
-    "type": "Tipo"
+    "type": "Tipo",
+    "ownedOnly": "Solo posseduti"
   },
   "menu": {
     "about": "Info",

@@ -8,9 +8,8 @@ const extractIds = (list) => {
     return list.map(item => (typeof item === 'string' ? item : item.id));
 };
 
-const CURRENCY_IDS = extractIds(currencies);
-const PROGRESSION_IDS = extractIds(progression);
-
+const CURRENCY_IDS = new Set(extractIds(currencies));
+const PROGRESSION_IDS = new Set(extractIds(progression));
 
 export function normalizeId(str) {
     if (!str) return "";
@@ -30,11 +29,11 @@ export function getImagePath(idOrName, variant = 'operator-icon') {
             return `/images/operators/splash/${withExt(name)}`;
         
         case 'item':
-            if (CURRENCY_IDS.includes(name)) {
+            if (CURRENCY_IDS.has(name)) {
                 return `/images/items/currencies/${withExt(name)}`;
             }
 
-            if (PROGRESSION_IDS.includes(name)) {
+            if (PROGRESSION_IDS.has(name)) {
                 return `/images/items/progression/${withExt(name)}`;
             }
 

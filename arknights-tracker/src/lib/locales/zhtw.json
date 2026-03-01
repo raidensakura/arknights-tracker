@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "行火留燼簽到",
     "messagerExpressSignIn": "靈動信使簽到",
     "delverOfTheCryptic": "密境行者",
-    "spectralSplendorTrialSignIn": "異彩斑斕簽到"
+    "spectralSplendorTrialSignIn": "異彩斑斕簽到",
+    "sanityDiscount": "理智減耗"
   },
   "mouths": {
     "january": "一月",
@@ -392,7 +393,8 @@
     "asc": "升序",
     "search": "搜尋...",
     "reset": "重置",
-    "type": "類型"
+    "type": "類型",
+    "ownedOnly": "僅顯示已擁有"
   },
   "menu": {
     "about": "關於",

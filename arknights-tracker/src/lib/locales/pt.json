@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Login Andarilho de Fogo",
     "messagerExpressSignIn": "Login Expresso Mensageiro",
     "delverOfTheCryptic": "Explorador do Enigmático",
-    "spectralSplendorTrialSignIn": "Login Esplendor Espectral"
+    "spectralSplendorTrialSignIn": "Login Esplendor Espectral",
+    "sanityDiscount": "Desconto de Sanidade"
   },
   "mouths": {
     "january": "Janeiro",
@@ -392,7 +393,8 @@
     "asc": "Cresc.",
     "search": "Buscar...",
     "reset": "Redefinir",
-    "type": "Tipo"
+    "type": "Tipo",
+    "ownedOnly": "Apenas obtidos"
   },
   "menu": {
     "about": "Sobre",

@@ -6,6 +6,7 @@
     export let sortField = "rarity";
     export let sortDirection = "desc";
     export let searchQuery = "";
+    export let showOwnedOnly = false; // <-- НОВАЯ ПЕРЕМЕННАЯ
 
     $: filterOptions = {
         rarity: mode === "weapons" ? [6, 5, 4, 3] : [6, 5, 4],
@@ -86,8 +87,8 @@
     }
 
     $: isFilterActive = mode === "weapons" 
-        ? (filters.rarity?.length !== filterOptions.rarity.length || filters.type?.length !== filterOptions.type.length)
-        : (filters.rarity?.length !== filterOptions.rarity.length || filters.class?.length !== filterOptions.class.length || filters.element?.length !== filterOptions.element.length || filters.weapon?.length !== filterOptions.weapon.length);
+        ? (filters.rarity?.length !== filterOptions.rarity.length || filters.type?.length !== filterOptions.type.length || showOwnedOnly)
+        : (filters.rarity?.length !== filterOptions.rarity.length || filters.class?.length !== filterOptions.class.length || filters.element?.length !== filterOptions.element.length || filters.weapon?.length !== filterOptions.weapon.length || showOwnedOnly);
 
     function resetFilters() {
         if (mode === "weapons") {
@@ -103,12 +104,17 @@
                 weapon: [...filterOptions.weapon],
             };
         }
+        showOwnedOnly = false; // <-- СБРАСЫВАЕМ И СВИТЧ ТОЖЕ
         isFilterOpen = false;
     }
 
     function closeAll() {
         isSortDropdownOpen = false;
         isFilterOpen = false;
+    }
+
+    function toggleOwnedOnly() {
+        showOwnedOnly = !showOwnedOnly;
     }
 </script>
 
@@ -176,6 +182,22 @@
                 on:click|stopPropagation
                 on:keydown|stopPropagation
             >
+                <div class="flex items-center justify-between border-b border-gray-200 dark:border-[#444444] pb-4">
+                    <span class="text-sm font-bold dark:text-[#E0E0E0] text-gray-800">
+                        {$t("sort.ownedOnly") || "Owned Only"}
+                    </span>
+                    <button 
+                        type="button" 
+                        role="switch" 
+                        aria-label="Owned switch"
+                        aria-checked={showOwnedOnly}
+                        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none {showOwnedOnly ? 'bg-[#F9B90C]' : 'bg-gray-200 dark:bg-[#555]'}"
+                        on:click={toggleOwnedOnly}
+                    >
+                        <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {showOwnedOnly ? 'translate-x-6' : 'translate-x-1'} shadow-sm"></span>
+                    </button>
+                </div>
+
                 <div>
                     <button type="button" class="text-sm dark:text-[#E0E0E0] font-bold text-gray-800 mb-2 hover:opacity-70" on:click={() => toggleFilterGroup("rarity")}>
                         {$t("sort.rarity") || "Rarity"}

@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Inicio de sesión de Sendero del caminante de fuego",
     "messagerExpressSignIn": "Inicio de sesión de Mensajera exprés",
     "delverOfTheCryptic": "Explorador de lo críptico",
-    "spectralSplendorTrialSignIn": "Inicio de sesión de Esplendor espectral"
+    "spectralSplendorTrialSignIn": "Inicio de sesión de Esplendor espectral",
+    "sanityDiscount": "Descuento de cordura"
   },
   "mouths": {
     "january": "Enero",
@@ -392,7 +393,8 @@
     "asc": "Asc.",
     "search": "Buscar...",
     "reset": "Restablecer",
-    "type": "Tipo"
+    "type": "Tipo",
+    "ownedOnly": "Solo obtenidos"
   },
   "menu": {
     "about": "Acerca de",

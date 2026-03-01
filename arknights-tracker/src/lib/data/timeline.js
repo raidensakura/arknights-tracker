@@ -224,5 +224,19 @@ export const rawEvents = [
     layer: 7,
     type: "inGame",
     iconPosition: 52
+  },
+  {
+    id: "ev16-v1.0",
+    title: "events.sanityDiscount",
+    startTime: "2026-03-02 12:00:00",
+    endTime: "2026-03-11 17:00:00",
+    gameversion: "global",
+    timezone: "UTC+8",
+    icon: "ev16-v1.0.jpg",
+    url: "https://x.com/AKEndfield/status/2027957003105042885?s=20",
+    color: "#d4cc2f",
+    layer: 8,
+    type: "inGame",
+    iconPosition: 40
   }
 ];

@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Connexion - Piste des marchefeux",
     "messagerExpressSignIn": "Connexion - Messager rapide",
     "delverOfTheCryptic": "Exploration du mystère",
-    "spectralSplendorTrialSignIn": "Connexion - Splendeur spectrale"
+    "spectralSplendorTrialSignIn": "Connexion - Splendeur spectrale",
+    "sanityDiscount": "Remise de lucidité"
   },
   "mouths": {
     "january": "Janvier",
@@ -392,7 +393,8 @@
     "asc": "Crois.",
     "search": "Rechercher...",
     "reset": "RàZ",
-    "type": "Type"
+    "type": "Type",
+    "ownedOnly": "Seulement possédés"
   },
   "menu": {
     "about": "À propos",

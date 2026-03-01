@@ -170,8 +170,8 @@
     let now = new Date();
     let timerInterval;
 
-    const startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const endDate = new Date(now.getFullYear(), now.getMonth() + 4, 0);
+    const startDate = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+    const endDate = new Date(now.getFullYear(), now.getMonth() + 3, 0);
 
     let days = [];
     let tempDate = new Date(startDate);
@@ -732,10 +732,10 @@
                                     ></div>
 
                                     <div
-                                        class="flex flex-col justify-center min-w-0"
+                                        class="flex flex-col justify-center min-w-0 drop-shadow-2xl"
                                     >
                                         <span
-                                            class="text-white font-bold text-sm leading-tight truncate drop-shadow-md"
+                                            class="text-white font-bold text-sm leading-tight truncate drop-shadow-2xl"
                                         >
                                             {getEventName(event)}
                                         </span>

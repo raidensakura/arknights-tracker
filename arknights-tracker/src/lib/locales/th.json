@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "ลงชื่อ​เส้นทาง​ผู้เดิน​บน​เปลวเพลิง",
     "messagerExpressSignIn": "ลงชื่อ​ผู้ส่งสาร​ด่วน",
     "delverOfTheCryptic": "ผู้สำรวจปริศนา",
-    "spectralSplendorTrialSignIn": "ลงชื่อ​ความงดงาม​ของ​ภูติผีปีศาจ"
+    "spectralSplendorTrialSignIn": "ลงชื่อ​ความงดงาม​ของ​ภูติผีปีศาจ",
+    "sanityDiscount": "ส่วนลด​ค่า​สติ"
   },
   "mouths": {
     "january": "มกราคม",
@@ -392,7 +393,8 @@
     "asc": "น้อยไปมาก",
     "search": "ค้นหา...",
     "reset": "รีเซ็ต",
-    "type": "ประเภท"
+    "type": "ประเภท",
+    "ownedOnly": "เฉพาะที่มีอยู่"
   },
   "menu": {
     "about": "เกี่ยวกับ",

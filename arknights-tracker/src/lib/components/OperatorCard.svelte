@@ -74,12 +74,6 @@
         }
     }
 
-    function handleClick() {
-        if (operator?.id) {
-            goto(`/operators/${operator.id}`);
-        }
-    }
-
     $: cornerSize = variant === "small" ? "w-2 h-2" : "w-3 h-3";
     $: borderW = variant === "small" ? "2px" : "4px"; 
     $: rootClass = variant === "small"
@@ -91,12 +85,11 @@
 </script>
 
 {#if operator && operator.id}
-    <div
-        class={rootClass}
-        role="button"
-        tabindex="0"
-        on:click={handleClick}
-        on:keydown={(e) => e.key === "Enter" && handleClick()}
+    <a
+        href={`/operators/${operator.id}`}
+        class="{rootClass} block no-underline focus:outline-none focus:ring-2 focus:ring-[#F9B90C] rounded-[6px]"
+        on:mouseenter={() => (isHovered = true)}
+        on:mouseleave={() => (isHovered = false)}
     >
         {#if variant !== "small"}
             <div class="absolute -inset-[3px] z-40 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100">
@@ -241,5 +234,5 @@
                 </div>
             {/if}
         </div>
-    </div>
+    </a>
 {/if}

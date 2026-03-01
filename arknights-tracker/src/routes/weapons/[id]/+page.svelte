@@ -21,47 +21,65 @@
     }
 
     const localeModules = {
-        en: import.meta.glob("$lib/locales/en/weapons.json", { eager: true }),
-        ru: import.meta.glob("$lib/locales/ru/weapons.json", { eager: true }),
-        de: import.meta.glob("$lib/locales/de/weapons.json", { eager: true }),
-        es: import.meta.glob("$lib/locales/es/weapons.json", { eager: true }),
-        fr: import.meta.glob("$lib/locales/fr/weapons.json", { eager: true }),
-        id: import.meta.glob("$lib/locales/id/weapons.json", { eager: true }),
-        it: import.meta.glob("$lib/locales/it/weapons.json", { eager: true }),
-        ja: import.meta.glob("$lib/locales/ja/weapons.json", { eager: true }),
-        ko: import.meta.glob("$lib/locales/ko/weapons.json", { eager: true }),
-        pt: import.meta.glob("$lib/locales/pt/weapons.json", { eager: true }),
-        th: import.meta.glob("$lib/locales/th/weapons.json", { eager: true }),
-        vi: import.meta.glob("$lib/locales/vi/weapons.json", { eager: true }),
-        zhcn: import.meta.glob("$lib/locales/zhcn/weapons.json", { eager: true }),
-        zhtw: import.meta.glob("$lib/locales/zhtw/weapons.json", { eager: true })
+        en: import.meta.glob("/src/lib/locales/en/weapons.json"),
+        ru: import.meta.glob("/src/lib/locales/ru/weapons.json"),
+        de: import.meta.glob("/src/lib/locales/de/weapons.json"),
+        es: import.meta.glob("/src/lib/locales/es/weapons.json"),
+        fr: import.meta.glob("/src/lib/locales/fr/weapons.json"),
+        id: import.meta.glob("/src/lib/locales/id/weapons.json"),
+        it: import.meta.glob("/src/lib/locales/it/weapons.json"),
+        ja: import.meta.glob("/src/lib/locales/ja/weapons.json"),
+        ko: import.meta.glob("/src/lib/locales/ko/weapons.json"),
+        pt: import.meta.glob("/src/lib/locales/pt/weapons.json"),
+        th: import.meta.glob("/src/lib/locales/th/weapons.json"),
+        vi: import.meta.glob("/src/lib/locales/vi/weapons.json"),
+        zhcn: import.meta.glob("/src/lib/locales/zhcn/weapons.json"),
+        zhtw: import.meta.glob("/src/lib/locales/zhtw/weapons.json")
     };
+
+    const dataModules = import.meta.glob("/src/lib/data/weaponsData/*.json");
 
     $: id = $page.params.id;
     $: weaponBase = Object.values(weapons).find((w) => w.id === id) || { rarity: 5, type: "sword" };
 
-    const dataModules = import.meta.glob("/src/lib/data/weaponsData/*.json", { eager: true });
-    $: weaponData = (() => {
-        if (!id) return {};
-        const foundKey = Object.keys(dataModules).find((k) => k.endsWith(`/${id}.json`));
-        return foundKey ? (dataModules[foundKey].default || dataModules[foundKey]) : {};
-    })();
+    let weaponData = {};
+    let weaponLocale = {};
 
-    $: weaponLocale = (() => {
-        const lang = $currentLocale || "en"; 
-        const path = `/src/lib/locales/${lang}/weapons.json`;
-        const modules = localeModules[lang] || localeModules["en"];
-        let data = modules[path]?.default?.[id];
+    $: loadWeaponData(id, $currentLocale);
+
+    async function loadWeaponData(targetId, lang) {
+        if (!targetId) return;
         
-        if (!data && lang !== "en") {
-            const fallbackPath = `/src/lib/locales/en/weapons.json`;
-            data = localeModules["en"]?.[fallbackPath]?.default?.[id];
+        lang = lang || "en";
+
+        const dataPath = `/src/lib/data/weaponsData/${targetId}.json`;
+        if (dataModules[dataPath]) {
+            const mod = await dataModules[dataPath]();
+            weaponData = mod.default || mod;
+        } else {
+            console.warn(`Weapon data not found for ID: ${targetId}`);
+            weaponData = {};
         }
-        return data || {};
-    })();
+        const localePath = `/src/lib/locales/${lang}/weapons.json`;
+        const fallbackPath = `/src/lib/locales/en/weapons.json`;
+        
+        let localeLoader = localeModules[lang]?.[localePath];
+        
+        if (!localeLoader && lang !== "en") {
+            localeLoader = localeModules["en"]?.[fallbackPath];
+        }
+
+        if (localeLoader) {
+            const mod = await localeLoader();
+            const allWeaponsLocale = mod.default || mod;
+            weaponLocale = allWeaponsLocale[targetId] || {};
+        } else {
+            weaponLocale = {};
+        }
+    }
 
     $: weaponName = tOrFallback(`weaponsList.${id}`, weaponLocale.name || id);
-    $: safeWeaponType = weaponBase?.type || "sword";
+    $: safeWeaponType = weaponBase?.weapon || "sword";
     $: weaponTypeLabel = tOrFallback(`weapons.${safeWeaponType}`, safeWeaponType);
 
     const { selectedId } = accountStore;
@@ -327,7 +345,7 @@
         
         <div class="col-span-1 xl:col-span-7 bg-white dark:bg-[#2b2b2b] rounded-3xl flex flex-col overflow-hidden border border-gray-200 dark:border-[#444] transition-colors">
             
-            <div class="relative h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]">
+            <div class="relative min-h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]">
                 <div class="absolute inset-0 z-0 pointer-events-none card-gradient" style="--rarity-color: {rarityColor};"></div>
                 
                 <div class="absolute right-[0px] top-1/2 -translate-y-1/2 w-[300px] h-[300px] pt-10 z-10 pointer-events-none">
@@ -339,13 +357,13 @@
                     />
                 </div>
                 
-                <div class="relative z-20 flex flex-col justify-between h-full w-[65%]">
+                <div class="relative z-20 flex flex-col gap-4 h-full w-[65%]">
                     <div class="flex items-center flex-wrap gap-x-4 gap-y-2">
                         <h1 class="font-sdk text-3xl md:text-4xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-none shrink drop-shadow-sm">
                             {weaponName}
                         </h1>
 
-                        <div class="flex items-center shrink-0 self-center mt-1">
+                        <div class="flex items-center shrink-0 self-center">
                             {#if !isEditingPot}
                                 <div class="flex items-center gap-3">
                                     {#if isOwned}
@@ -404,7 +422,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 mt-2">
+                    <div class="flex items-center gap-4">
                         <Tooltip text={weaponTypeLabel}>
                             <div class="w-9 h-9 rounded bg-[#21272C] flex items-center justify-center shadow-sm">
                                 <Icon name={safeWeaponType} class="w-6 h-6 text-white" />
@@ -418,62 +436,67 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3 mt-2">
-                        <div class="w-9 h-9 rounded bg-[#8F8F8F] flex items-center justify-center">
+                    <div class="flex items-center gap-3 mt-auto">
+                        <div class="w-9 h-9 rounded bg-[#8F8F8F] flex items-center justify-center shadow-sm">
                             <Icon name="atk" class="w-5 h-5 text-white" />
                         </div>
                         <span class="text-[15px] font-bold text-[#21272C] dark:text-[#E4E4E4]">{tOrFallback("stats.baseAtk", "Базовая АТК")}</span>
-                        <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-2">{baseAtk}</span>
+                        <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-2 drop-shadow-sm">{baseAtk}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="px-6 pt-5 bg-gray-50 dark:bg-[#383838] flex items-center gap-4 border-t border-gray-200 dark:border-[#444] transition-colors">
+            <div class="px-6 py-5 bg-white dark:bg-[#383838] flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-4 border-t border-gray-200 dark:border-[#444] transition-colors">
                 
-                <div class="bg-gray-200 dark:bg-[#4A4A4A] w-[75px] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0">
-                    <span class="text-[28px] font-bold text-[#21272C] dark:text-white font-nums leading-none">{level}</span>
-                    <span class="text-[11px] font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest">LV.</span>
+                <div class="flex items-center gap-4 shrink-0 w-full md:w-auto justify-between md:justify-start">
+                    <div class="bg-gray-200 dark:bg-[#4A4A4A] w-[75px] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0">
+                        <span class="text-[28px] font-bold text-[#21272C] dark:text-white font-nums leading-none">{level}</span>
+                        <span class="text-[11px] font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest">LV.</span>
+                    </div>
+
+                    <div class="relative pot-dropdown-container">
+                        <button 
+                            on:click={() => isPotDropdownOpen = !isPotDropdownOpen}
+                            class="flex h-[40px] items-center gap-3 bg-white dark:bg-[#4A4A4A] text-[13px] font-bold rounded-md px-3 py-1.5 outline-none border border-gray-200 dark:border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-[#555] transition-colors shadow-sm"
+                        >
+                            <span class="font-medium text-gray-500 dark:text-gray-300 font-sans">{tOrFallback("menu.potentials", "Потенциал")}</span>
+                            <span class="font-medium text-[#21272C] dark:text-white">{previewPot}</span>
+                            <Icon name="arrowDown" class="pt-0.5 w-3 h-3 text-[#21272C] dark:text-white transition-transform {isPotDropdownOpen ? 'rotate-180' : ''}" />
+                        </button>
+
+                        {#if isPotDropdownOpen}
+                            <div class="absolute top-full right-0 md:left-0 mt-1 w-full min-w-[120px] bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#444] rounded-md shadow-[0_8px_20px_rgba(0,0,0,0.3)] overflow-hidden z-[60] animate-fadeIn">
+                                {#each Array(6) as _, i}
+                                    <button 
+                                        class="w-full text-left px-3 py-2 text-[13px] font-bold font-nums transition-colors hover:bg-gray-100 dark:hover:bg-[#4A4A4A] {previewPot === i ? 'bg-gray-50 dark:bg-[#383838] text-[#F9B90C]' : 'text-gray-700 dark:text-[#E4E4E4]'}"
+                                        on:click={() => { previewPot = i; isPotDropdownOpen = false; }}
+                                    >
+                                        {i}
+                                    </button>
+                                {/each}
+                            </div>
+                        {/if}
+                    </div>
                 </div>
 
-                <div class="relative pot-dropdown-container">
+                <div class="flex items-center gap-4 w-full flex-1">
+                    <div class="flex-1 relative flex items-center md:px-4">
+                        <input
+                            type="range" min="1" max={maxLevel} step="1"
+                            bind:value={level}
+                            class="w-full custom-slider outline-none"
+                        />
+                    </div>
+
                     <button 
-                        on:click={() => isPotDropdownOpen = !isPotDropdownOpen}
-                        class="flex h-[40px] items-center gap-3 bg-white dark:bg-[#4A4A4A] text-[13px] font-bold rounded-md px-3 py-1.5 outline-none border border-gray-200 dark:border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-[#555] transition-colors shadow-sm"
+                        on:click={() => (showStatsTable = true)}
+                        class="shrink-0 flex items-center gap-1.5 bg-gray-200 dark:bg-[#4A4A4A] hover:bg-gray-300 dark:hover:bg-[#555] px-4 py-2 rounded-md text-[13px] text-[#21272C] dark:text-gray-200 font-medium transition-colors shadow-sm"
                     >
-                        <span class="font-medium text-gray-500 dark:text-gray-300 font-sans">{tOrFallback("menu.potentials", "Потенциал")}</span>
-                        <span class="font-nums text-[#21272C] dark:text-white">{previewPot}</span>
-                        <Icon name="arrowDown" class="w-3 h-3 text-gray-400 transition-transform {isPotDropdownOpen ? 'rotate-180' : ''}" />
+                        <Icon name="table" class="w-4 h-4" />
+                        <span>{tOrFallback("stats.table", "Таблица")}</span>
                     </button>
-
-                    {#if isPotDropdownOpen}
-                        <div class="absolute top-full left-0 mt-1 w-full bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#444] rounded-md shadow-[0_8px_20px_rgba(0,0,0,0.3)] overflow-hidden z-[60] animate-fadeIn">
-                            {#each Array(6) as _, i}
-                                <button 
-                                    class="w-full text-left px-3 py-2 text-[13px] font-bold font-nums transition-colors hover:bg-gray-100 dark:hover:bg-[#4A4A4A] {previewPot === i ? 'bg-gray-50 dark:bg-[#383838] text-[#F9B90C]' : 'text-gray-700 dark:text-[#E4E4E4]'}"
-                                    on:click={() => { previewPot = i; isPotDropdownOpen = false; }}
-                                >
-                                    {i}
-                                </button>
-                            {/each}
-                        </div>
-                    {/if}
                 </div>
 
-                <div class="flex-1 relative flex items-center px-4">
-                    <input
-                        type="range" min="1" max={maxLevel} step="1"
-                        bind:value={level}
-                        class="w-full custom-slider outline-none"
-                    />
-                </div>
-
-                <button 
-                    on:click={() => (showStatsTable = true)}
-                    class="shrink-0 flex items-center gap-1.5 bg-gray-200 dark:bg-[#4A4A4A] hover:bg-gray-300 dark:hover:bg-[#555] px-4 py-2 rounded-md text-[13px] text-[#21272C] dark:text-gray-200 font-medium transition-colors shadow-sm"
-                >
-                    <Icon name="table" class="w-4 h-4" />
-                    <span>{tOrFallback("stats.table", "Таблица")}</span>
-                </button>
             </div>
 
             <div class="p-6 flex flex-col gap-3 bg-white dark:bg-[#383838] transition-colors">

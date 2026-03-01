@@ -311,7 +311,8 @@
     "fireWalkerTrialSignIn": "Вход «Тропа огнестранника»",
     "messagerExpressSignIn": "Вход «Быстрый гонец»",
     "delverOfTheCryptic": "Исследование загадок",
-    "spectralSplendorTrialSignIn": "Вход «Призрачное величие»"
+    "spectralSplendorTrialSignIn": "Вход «Призрачное величие»",
+    "sanityDiscount": "Сниженный расход психики"
   },
   "mouths": {
     "january": "Январь",
@@ -395,7 +396,8 @@
     "asc": "Возр.",
     "search": "Поиск...",
     "reset": "Сбросить",
-    "type": "Тип"
+    "type": "Тип",
+    "ownedOnly": "Только имеющиеся"
   },
   "menu": {
     "about": "Обзор",

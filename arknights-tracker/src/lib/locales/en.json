@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Firewalker's Trail Sign-In",
     "messagerExpressSignIn": "Messenger Express Sign-In",
     "delverOfTheCryptic": "Delver of the Cryptic",
-    "spectralSplendorTrialSignIn": "Spectral Splendor Sign-In"
+    "spectralSplendorTrialSignIn": "Spectral Splendor Sign-In",
+    "sanityDiscount": "Sanity Discount"
   },
   "mouths": {
     "january": "January",
@@ -392,7 +393,8 @@
     "asc": "Asc.",
     "search": "Search...",
     "reset": "Reset",
-    "type": "Type"
+    "type": "Type",
+    "ownedOnly": "Owned Only"
   },
   "menu": {
     "about": "About",

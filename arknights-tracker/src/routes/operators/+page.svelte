@@ -2,6 +2,10 @@
     import { goto } from "$app/navigation";
     import { t } from "$lib/i18n";
     import { characters } from "$lib/data/characters.js";
+    import { pullData } from "$lib/stores/pulls";
+    import { manualPotentials } from "$lib/stores/potentials";
+    import { accountStore } from "$lib/stores/accounts";
+
     import OperatorCard from "$lib/components/OperatorCard.svelte";
     import DataToolbar from "$lib/components/DataToolbar.svelte";
     import Icon from "$lib/components/Icons.svelte";
@@ -13,6 +17,7 @@
     let sortField = "rarity";
     let sortDirection = "desc";
     let searchQuery = "";
+    let showOwnedOnly = false;
     
     let filters = {
         rarity: [6, 5, 4],
@@ -21,21 +26,53 @@
         weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
     };
 
+    const { selectedId } = accountStore;
+
     $: filteredOperators = allOperators
         .filter((op) => {
+            if (showOwnedOnly) {
+                const isEndmin = op.id === "endministrator1" || op.id === "endministrator2";
+                let isOwned = isEndmin;
+
+                if (!isOwned) {
+                    const activeId = $selectedId;
+                    const manualPots = $manualPotentials[activeId] || {};
+                    
+                    let pullsCount = 0;
+                    if ($pullData) {
+                        Object.values($pullData).forEach(banner => {
+                            const pulls = banner?.pulls || [];
+                            pullsCount += pulls.filter(p => 
+                                p.id === op.id || 
+                                p.name === op.id || 
+                                p.itemId === op.id || 
+                                (p.name && op.name && p.name.toLowerCase() === op.name.toLowerCase())
+                            ).length;
+                        });
+                    }
+                    
+                    const basePot = pullsCount > 0 ? pullsCount - 1 : -1;
+                    const finalPot = manualPots[op.id] !== undefined ? manualPots[op.id] : basePot;
+                    isOwned = finalPot >= 0;
+                }
+
+                if (!isOwned) return false;
+            }
+
+            const locName = ($t(`characters.${op.id}`) || "").toLowerCase();
             const query = searchQuery.toLowerCase();
+            
             const matchesSearch =
                 !query ||
                 op.name.toLowerCase().includes(query) ||
                 (op.id && op.id.toLowerCase().includes(query)) ||
-                ($t(`characters.${op.id}`) || "").toLowerCase().includes(query);
+                locName.includes(query);
 
             if (!matchesSearch) return false;
             
             const matchesRarity = filters.rarity.length === 0 || filters.rarity.includes(op.rarity);
             const matchesClass = filters.class.length === 0 || filters.class.some((c) => c.toLowerCase() === op.class?.toLowerCase());
             const matchesElement = filters.element.length === 0 || filters.element.some((e) => e.toLowerCase() === op.element?.toLowerCase());
-            
             const matchesWeapon = filters.weapon.length === 0 || (op.weapon && filters.weapon.some((w) => w.toLowerCase() === op.weapon.toLowerCase()));
 
             return matchesRarity && matchesClass && matchesElement && matchesWeapon;
@@ -47,7 +84,6 @@
             if (sortField === "rarity") {
                 return sortDirection === "asc" ? valA - valB : valB - valA;
             }
-            
             if (!valA) valA = "";
             if (!valB) valB = "";
 
@@ -55,22 +91,33 @@
                 ? String(valA).localeCompare(String(valB))
                 : String(valB).localeCompare(String(valA));
         });
+
+    let displayLimit = 40;
+    $: if (searchQuery !== undefined || filters || sortField || sortDirection || showOwnedOnly) {
+        displayLimit = 40;
+    }
+    $: displayedOperators = filteredOperators.slice(0, displayLimit);
+
+    function infiniteScroll(node) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && displayLimit < filteredOperators.length) {
+                displayLimit += 40; 
+            }
+        }, { rootMargin: "400px" });
+        observer.observe(node);
+        return { destroy() { observer.disconnect(); } };
+    }
 </script>
 
 <div class="max-w-[100%] max-h-[100%] justify-start min-h-screen">
 
-    <div class="flex items-center gap-4 mb-8">
-        <h2
-            class="font-sdk text-[#21272C] dark:text-[#FDFDFD] flex items-start gap-0 md:flex-row md:items-center md:gap-3"
-        >
-            <span class="text-3xl md:text-5xl tracking-wide">
-                {$t("pages.operators") || "Operators"}
-            </span>
-
-            <span class="text-gray-400 text-xl pl-3 md:text-3xl font-normal">
-                / {filteredOperators.length}
-            </span>
+    <div class="flex items-baseline flex-wrap gap-2 md:gap-3 mb-8 font-sdk">
+        <h2 class="text-3xl md:text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD]">
+            {$t("pages.operators") || "Operators"}
         </h2>
+        <span class="text-gray-400 text-xl md:text-3xl font-normal">
+            / {filteredOperators.length}
+        </span>
     </div>
 
     <div class="w-full xl:w-[70%] mb-4">
@@ -79,6 +126,7 @@
             bind:sortDirection
             bind:searchQuery
             bind:filters
+            bind:showOwnedOnly
         />
     </div>
 

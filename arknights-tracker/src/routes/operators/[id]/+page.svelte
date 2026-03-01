@@ -18,22 +18,68 @@
     import TalentCard from "$lib/components/TalentCard.svelte";
 
     const localeModules = {
-        de: import.meta.glob("$lib/locales/de/characters/*.json", { eager: true }),
-        en: import.meta.glob("$lib/locales/en/characters/*.json", { eager: true }),
-        es: import.meta.glob("$lib/locales/es/characters/*.json", { eager: true }),
-        fr: import.meta.glob("$lib/locales/fr/characters/*.json", { eager: true }),
-        id: import.meta.glob("$lib/locales/id/characters/*.json", { eager: true }),
-        it: import.meta.glob("$lib/locales/it/characters/*.json", { eager: true }),
-        ja: import.meta.glob("$lib/locales/ja/characters/*.json", { eager: true }),
-        ko: import.meta.glob("$lib/locales/ko/characters/*.json", { eager: true }),
-        pt: import.meta.glob("$lib/locales/pt/characters/*.json", { eager: true }),
-        ru: import.meta.glob("$lib/locales/ru/characters/*.json", { eager: true }),
-        th: import.meta.glob("$lib/locales/th/characters/*.json", { eager: true }),
-        vi: import.meta.glob("$lib/locales/vi/characters/*.json", { eager: true }),
-        zhcn: import.meta.glob("$lib/locales/zhcn/characters/*.json", { eager: true }),
-        zhtw: import.meta.glob("$lib/locales/zhtw/characters/*.json", { eager: true })
+        de: import.meta.glob("/src/lib/locales/de/characters/*.json"),
+        en: import.meta.glob("/src/lib/locales/en/characters/*.json"),
+        es: import.meta.glob("/src/lib/locales/es/characters/*.json"),
+        fr: import.meta.glob("/src/lib/locales/fr/characters/*.json"),
+        id: import.meta.glob("/src/lib/locales/id/characters/*.json"),
+        it: import.meta.glob("/src/lib/locales/it/characters/*.json"),
+        ja: import.meta.glob("/src/lib/locales/ja/characters/*.json"),
+        ko: import.meta.glob("/src/lib/locales/ko/characters/*.json"),
+        pt: import.meta.glob("/src/lib/locales/pt/characters/*.json"),
+        ru: import.meta.glob("/src/lib/locales/ru/characters/*.json"),
+        th: import.meta.glob("/src/lib/locales/th/characters/*.json"),
+        vi: import.meta.glob("/src/lib/locales/vi/characters/*.json"),
+        zhcn: import.meta.glob("/src/lib/locales/zhcn/characters/*.json"),
+        zhtw: import.meta.glob("/src/lib/locales/zhtw/characters/*.json")
     };
 
+    const dataModules = import.meta.glob("/src/lib/data/charactersData/*.json");
+
+    $: id = $page.params.id;
+    $: char = Object.values(characters).find((c) => c.id === id) || {};
+
+    let charLocale = {};
+    let charDetails = {};
+
+    $: loadCharacterData(id, $currentLocale);
+
+    async function loadCharacterData(targetId, lang) {
+        if (!targetId) return;
+        
+        lang = lang || "en";
+
+        const dataPath = `/src/lib/data/charactersData/${targetId}.json`;
+        if (dataModules[dataPath]) {
+            const mod = await dataModules[dataPath]();
+            charDetails = mod.default || mod;
+        } else {
+            console.warn(`Character data not found for ID: ${targetId}`);
+            charDetails = {};
+        }
+
+        const localePath = `/src/lib/locales/${lang}/characters/${targetId}.json`;
+        const fallbackPath = `/src/lib/locales/en/characters/${targetId}.json`;
+        
+        let localeLoader = localeModules[lang]?.[localePath];
+        
+        if (!localeLoader && lang !== "en") {
+            localeLoader = localeModules["en"]?.[fallbackPath];
+        }
+
+        if (localeLoader) {
+            const mod = await localeLoader();
+            charLocale = mod.default || mod;
+        } else {
+            charLocale = {};
+        }
+    }
+
+    $: skillsLocale = charLocale.skills || {};
+    $: baseInfoLocale = charLocale.baseInfo || {};
+    $: skillsValuesData = charDetails.skills || {};
+    $: charMaterials = charDetails.materials || {};
+    
     let isEditingPot = false;
     let draftPot = 0;
 
@@ -136,51 +182,9 @@
         });
     }
 
-    $: id = $page.params.id;
-    $: char = Object.values(characters).find((c) => c.id === id) || {};
-
-    $: charLocale = (() => {
-        const lang = $currentLocale || "en"; 
-        const path = `/src/lib/locales/${lang}/characters/${id}.json`;
-        const modules = localeModules[lang] || localeModules["en"];
-        let data = modules[path]?.default;
-        if (!data && lang !== "en") {
-            const fallbackPath = `/src/lib/locales/en/characters/${id}.json`;
-            data = localeModules["en"][fallbackPath]?.default;
-        }
-
-        return data || {};
-    })();
-
-    $: skillsLocale = charLocale.skills || {};
-    $: baseInfoLocale = charLocale.baseInfo || {};
-
-    const dataModules = import.meta.glob(
-        "/src/lib/data/charactersData/*.json",
-        {
-            eager: true,
-        },
-    );
-
-    $: charDetails = (() => {
-        if (!id) return {};
-        const foundKey = Object.keys(dataModules).find((k) =>
-            k.endsWith(`/${id}.json`),
-        );
-        const mod = foundKey ? dataModules[foundKey] : null;
-        if (mod) {
-            return mod.default || mod;
-        }
-        console.warn(`Character data not found for ID: ${id}`);
-        return {};
-    })();
-
-    $: skillsValuesData = charDetails.skills || {};
     const skillKeys = ["basicAttack", "battleSkill", "comboSkill", "ultimate"];
 
     $: itemsDb = [...(progression || []), ...(currencies || [])];
-
-    $: charMaterials = charDetails.materials || {};
 
     function getSkillMaterials(materials, skillKey) {
         if (!materials) return {};
@@ -237,27 +241,18 @@
     function calculateStat(statArray, currentLvl) {
         if (!statArray || statArray.length === 0) return "0";
 
-        // Если у нас полный массив статов (длинный)
         if (statArray.length > 10) {
-            // Базовый индекс (1 лвл = 0 индекс)
             let index = currentLvl - 1;
-            
-            // Сдвигаем индекс из-за дублей (возвышений).
-            // Используем '>', чтобы на ровном 20 уровне показывать стату ДО возвышения,
-            // а на 21 уровне уже перепрыгивать через дубликат на правильную стату.
             if (currentLvl > 20) index += 1;
             if (currentLvl > 40) index += 1;
             if (currentLvl > 60) index += 1;
             if (currentLvl > 80) index += 1;
-            
-            // Защита от выхода за пределы массива
             if (index >= statArray.length) {
                 index = statArray.length - 1;
             }
             
             return Math.round(parseFloat(statArray[index]));
         } 
-        // Обратная совместимость: если массив старый (только [min, max] значения)
         else {
             const min = parseFloat(statArray[0]);
             const max = parseFloat(statArray[statArray.length - 1]);

@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "不滅の残火スタンプ",
     "messagerExpressSignIn": "爛漫の使者スタンプ",
     "delverOfTheCryptic": "密境の探索者",
-    "spectralSplendorTrialSignIn": "異彩煌々スタンプ"
+    "spectralSplendorTrialSignIn": "異彩煌々スタンプ",
+    "sanityDiscount": "理性消費軽減"
   },
   "mouths": {
     "january": "1月",
@@ -392,7 +393,8 @@
     "asc": "昇順",
     "search": "検索...",
     "reset": "リセット",
-    "type": "タイプ"
+    "type": "タイプ",
+    "ownedOnly": "所持のみ"
   },
   "menu": {
     "about": "概要",

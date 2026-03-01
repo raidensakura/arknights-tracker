@@ -2398,4 +2398,20 @@
             fill="currentColor"
         />
     </svg>
+{:else if name == "arrowDown"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        width="20"
+        height="11"
+        viewBox="0 0 20 11"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M18.6641 0.75L9.66406 8.75L0.664063 0.749999"
+            stroke="currentColor"
+            stroke-width="2"
+        />
+    </svg>
 {/if}

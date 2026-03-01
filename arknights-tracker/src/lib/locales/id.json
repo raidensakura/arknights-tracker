@@ -309,7 +309,8 @@
     "fireWalkerTrialSignIn": "Sign In Jejak si Pengembara Api",
     "messagerExpressSignIn": "Sign In Kurir Kilat",
     "delverOfTheCryptic": "Penggali Teka-Teki",
-    "spectralSplendorTrialSignIn": "Sign In Keindahan Tontonan"
+    "spectralSplendorTrialSignIn": "Sign In Keindahan Tontonan",
+    "sanityDiscount": "Diskon Sanity"
   },
   "mouths": {
     "january": "Januari",
@@ -392,7 +393,8 @@
     "asc": "Naik",
     "search": "Cari...",
     "reset": "Reset",
-    "type": "Tipe"
+    "type": "Tipe",
+    "ownedOnly": "Hanya yang Dimiliki"
   },
   "menu": {
     "about": "Tentang",
