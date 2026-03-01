@@ -236,12 +236,38 @@
 
     function calculateStat(statArray, currentLvl) {
         if (!statArray || statArray.length === 0) return "0";
-        const min = parseFloat(statArray[0]);
-        const max = parseFloat(statArray[statArray.length - 1]);
-        if (currentLvl === 1) return Math.round(min);
-        if (currentLvl === maxLevel) return Math.round(max);
-        const percent = (currentLvl - 1) / (maxLevel - 1);
-        return Math.round(min + (max - min) * percent);
+
+        // Если у нас полный массив статов (длинный)
+        if (statArray.length > 10) {
+            // Базовый индекс (1 лвл = 0 индекс)
+            let index = currentLvl - 1;
+            
+            // Сдвигаем индекс из-за дублей (возвышений).
+            // Используем '>', чтобы на ровном 20 уровне показывать стату ДО возвышения,
+            // а на 21 уровне уже перепрыгивать через дубликат на правильную стату.
+            if (currentLvl > 20) index += 1;
+            if (currentLvl > 40) index += 1;
+            if (currentLvl > 60) index += 1;
+            if (currentLvl > 80) index += 1;
+            
+            // Защита от выхода за пределы массива
+            if (index >= statArray.length) {
+                index = statArray.length - 1;
+            }
+            
+            return Math.round(parseFloat(statArray[index]));
+        } 
+        // Обратная совместимость: если массив старый (только [min, max] значения)
+        else {
+            const min = parseFloat(statArray[0]);
+            const max = parseFloat(statArray[statArray.length - 1]);
+            
+            if (currentLvl === 1) return Math.round(min);
+            if (currentLvl === maxLevel) return Math.round(max);
+            
+            const percent = (currentLvl - 1) / (maxLevel - 1);
+            return Math.round(min + (max - min) * percent);
+        }
     }
 
     function getAttrStyles(attrName) {

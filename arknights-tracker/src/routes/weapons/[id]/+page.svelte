@@ -498,6 +498,9 @@
                                     <div class="flex gap-[4px] bg-gray-100 dark:bg-[#2b2b2b] px-3 py-1.5 rounded-full border border-gray-200 dark:border-[#444]">
                                         {#each Array(9) as _, i}
                                             <button 
+                                                type="button"
+                                                aria-label="Set level {i + 1}"
+                                                title="Level {i + 1}"
                                                 class="w-[8px] h-[13px] rounded-[4px] transform -skew-x-[25deg] border-[1.5px] transition-all duration-200 cursor-pointer outline-none hover:scale-110 hover:brightness-125 focus:ring-1 focus:ring-[#F9B90C]
                                                 {i < state.rank ? 'bg-[#21272C] border-[#21272C] dark:bg-white dark:border-white shadow-sm' :
                                                  i < state.upper ? 'bg-gray-300 border-gray-300 dark:bg-[#555] dark:border-[#555]' :
