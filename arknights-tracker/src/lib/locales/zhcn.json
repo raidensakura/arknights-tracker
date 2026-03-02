@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "导入寻访记录",
+    "delete_token_title": "删除 Token",
     "importing": "导入中...",
     "waiting_response": "等待响应中...",
     "instruction": "粘贴从游戏中获取的查询历史链接：",

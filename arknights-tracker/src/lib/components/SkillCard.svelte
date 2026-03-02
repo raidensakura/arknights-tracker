@@ -137,6 +137,33 @@
             },
         );
     }
+
+    let isTableCopied = false;
+
+    async function copySkillTable() {
+        const headers = [$t("stats.level") || "Level", ...Array.from({ length: 12 }, (_, i) => i + 1)];
+        let textData = headers.join("\t") + "\n";
+
+        for (const key of multiplierKeys) {
+            const rowLabel = (skillData[skillKey] && skillData[skillKey][key]) || skillData[key] || key.replace(/([A-Z])/g, " $1").trim();
+            
+            const row = [rowLabel];
+            for (let i = 1; i <= 12; i++) {
+                row.push(getValue(key, i));
+            }
+            textData += row.join("\t") + "\n";
+        }
+
+        try {
+            await navigator.clipboard.writeText(textData);
+            isTableCopied = true;
+            setTimeout(() => {
+                isTableCopied = false;
+            }, 2000);
+        } catch (err) {
+            console.error("Failed to copy", err);
+        }
+    }
 </script>
 
 <svelte:window on:mouseup={stopDrag} on:mousemove={handleGlobalMouseMove} />
@@ -338,17 +365,43 @@
             {/if}
         </div>
 
-        <div class="flex justify-start">
+        <div class="flex justify-start items-center gap-3">
             <Button
                 variant="roundSmall"
                 onClick={() => (isTableMode = !isTableMode)}
                 active={isTableMode}
                 className={isTableMode
-                    ? "!text-white !border-[#21272C] ring-2 ring-[#FDFD1F] dark:ring-[#FDFD1F]"
+                    ? "!border-[#21272C] ring-2 ring-[#FDFD1F] dark:ring-[#FDFD1F]"
                     : ""}
             >
                 {$t("stats.table") || "Table"}
             </Button>
+
+            {#if isTableMode}
+                <button
+                    on:click={copySkillTable}
+                    class="flex items-center justify-center gap-2 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-[#444444] dark:hover:bg-[#555] rounded-md transition-colors text-gray-700 dark:text-[#E4E4E4] text-sm font-bold border border-gray-200 dark:border-transparent shrink-0 shadow-sm animate-fadeIn"
+                >
+                    {#if isTableCopied}
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#FACC15"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="animate-fadeIn"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    {:else}
+                        <Icon name="copy" class="w-4 h-4" />
+                    {/if}
+                    <span>{$t("common.copy") || "Copy"}</span>
+                </button>
+            {/if}
         </div>
 
         <div class="bg-[#F0F2F4] rounded-xl p-4 dark:bg-[#343434] flex gap-4 overflow-x-auto materials-scroll pb-3 md:justify-center justify-start mt-4 w-full snap-x">

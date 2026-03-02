@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Importer l'Historique de Recrutement",
+    "delete_token_title": "Supprimer le token",
     "importing": "Importation...",
     "waiting_response": "En attente de réponse...",
     "instruction": "Collez l'URL de l'historique de recherche obtenu dans le jeu :",

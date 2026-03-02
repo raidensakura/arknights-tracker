@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Nhập Hồ sơ Chiêu mộ",
+    "delete_token_title": "Xóa Token",
     "importing": "Đang nhập...",
     "waiting_response": "Đang chờ phản hồi...",
     "instruction": "Dán URL từ lịch sử tìm kiếm lấy trong game:",

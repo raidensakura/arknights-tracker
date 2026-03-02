@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "発掘履歴のインポート",
+    "delete_token_title": "トークンの削除",
     "importing": "インポート中...",
     "waiting_response": "応答を待っています...",
     "instruction": "ゲーム内で取得した履歴ページのURLを貼り付けてください：",

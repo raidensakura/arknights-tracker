@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Importar Historial de Reclutamiento",
+    "delete_token_title": "Eliminar token",
     "importing": "Importando...",
     "waiting_response": "Esperando respuesta...",
     "instruction": "Pega la URL del historial de búsqueda obtenido en el juego:",

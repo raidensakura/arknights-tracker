@@ -14,6 +14,7 @@
     import PowershellBlock from "$lib/components/PowershellBlock.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Icon from "$lib/components/Icons.svelte";
+    import ConfirmationModal from "$lib/components/ConfirmationModal.svelte";
 
     let platformTab = "pc";
     let urlInput = "";
@@ -57,6 +58,31 @@
         } catch (e) {
             console.error(e);
         }
+    }
+
+    let isDeleteModalOpen = false;
+    let tokenToDeleteIndex = null;
+
+    function requestDeleteToken(index) {
+        tokenToDeleteIndex = index;
+        isDeleteModalOpen = true;
+    }
+
+    function confirmDeleteToken() {
+        if (tokenToDeleteIndex === null) return;
+
+        const newList = [...savedTokens];
+        newList.splice(tokenToDeleteIndex, 1);
+        savedTokens = newList;
+        localStorage.setItem("ark_saved_tokens", JSON.stringify(newList));
+
+        isDeleteModalOpen = false;
+        tokenToDeleteIndex = null;
+    }
+
+    function cancelDeleteToken() {
+        isDeleteModalOpen = false;
+        tokenToDeleteIndex = null;
     }
 
     function deleteToken(index) {
@@ -207,7 +233,6 @@
                     }
                 }
             }
-
         } catch (err) {
             console.error("Import Error:", err);
             errorMsg = err.message || "Unknown Error";
@@ -725,7 +750,7 @@
                                                 type="button"
                                                 class="w-8 h-8 flex items-center justify-center text-gray-300 hover:text-white hover:bg-red-500 rounded transition-colors pointer-events-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500"
                                                 on:click|stopPropagation={() =>
-                                                    deleteToken(i)}
+                                                    requestDeleteToken(i)}
                                             >
                                                 <Icon
                                                     name="close"
@@ -845,7 +870,11 @@
                         </span>
                     </label>
 
-                    <div class="w-fit mt-4 {isLoading ? 'opacity-60 pointer-events-none cursor-not-allowed' : ''}">
+                    <div
+                        class="w-fit mt-4 {isLoading
+                            ? 'opacity-60 pointer-events-none cursor-not-allowed'
+                            : ''}"
+                    >
                         <Button
                             variant="yellow"
                             onClick={() => {
@@ -1013,3 +1042,12 @@
         background-color: #525252;
     }
 </style>
+<ConfirmationModal
+    isOpen={isDeleteModalOpen}
+    title={$t("import.delete_token_title") || "Delete Token"}
+    description={$t("import.delete_confirm") || "Are you sure you want to delete this saved token?"}
+    confirmText={$t("settings.account.delete") || "Delete"}
+    isDestructive={true}
+    on:confirm={confirmDeleteToken}
+    on:close={cancelDeleteToken}
+/>

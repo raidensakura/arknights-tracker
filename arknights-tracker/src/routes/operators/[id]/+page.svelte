@@ -265,14 +265,14 @@
         }
     }
 
-    function getAttrStyles(attrName) {
-        if (attrName === charStats.mainAttribute) {
+    function getAttrStyles(attrName, mainAttr, secAttr) {
+        if (attrName === mainAttr) {
             return {
                 bg: "bg-[#FFEE00]",
                 icon: "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]",
             };
         }
-        if (attrName === charStats.secondaryAttribute) {
+        if (attrName === secAttr) {
             return {
                 bg: "bg-[#3B3B3B]",
                 icon: "text-white",
@@ -776,7 +776,7 @@
 
                     <div class="flex flex-col gap-3 px-1">
                         {#each ["str", "agi", "int", "will"] as attr}
-                            {@const styles = getAttrStyles(attr)}
+                            {@const styles = getAttrStyles(attr, charStats.mainAttribute, charStats.secondaryAttribute)}
                             {@const isMain = attr === charStats.mainAttribute}
 
                             <div

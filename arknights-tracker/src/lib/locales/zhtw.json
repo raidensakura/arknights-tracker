@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "匯入尋訪記錄",
+    "delete_token_title": "刪除 Token",
     "importing": "匯入中...",
     "waiting_response": "等待回應中...",
     "instruction": "貼上從遊戲中獲取的查詢歷史連結：",

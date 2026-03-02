@@ -178,6 +178,7 @@
 
     $: isSimpleType =
         selectedType === "standard" || selectedType === "new-player";
+    $: isBeginner = selectedType === "new-player";
     $: isWeaponCategory =
         selectedType.toLowerCase().includes("weap") ||
         selectedType === "weapon";
@@ -591,7 +592,7 @@
                         >
                     </div>
 
-                    {#if !isWeaponCategory}
+                    {#if !isWeaponCategory && !isBeginner}
                         <div class="flex justify-between items-center text-sm">
                             <span class="text-gray-600 dark:text-[#E4E4E4]"
                                 >{$t("global.spent") || "Oroberyl Spent"}</span

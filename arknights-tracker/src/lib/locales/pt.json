@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Importar Histórico de Busca",
+    "delete_token_title": "Excluir token",
     "importing": "Importando...",
     "waiting_response": "Aguardando resposta...",
     "instruction": "Cole a URL do histórico de busca obtida no jogo:",

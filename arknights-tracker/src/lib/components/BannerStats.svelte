@@ -93,7 +93,8 @@
                 pity: typeof p.pity === "number" ? p.pity : "?",
                 name: p.name,
                 isWeapon: isWeaponItem,
-                isFree: p.isFree 
+                isFree: p.isFree,
+                isGuaranteed: p.isGuaranteed || p.status === "guaranteed"
             };
         });
 
@@ -252,60 +253,73 @@
                 >
             </h4>
 
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 overflow-visible justify-start">
                 {#each icons as icon}
-                    <Tooltip
-                        text={$t(
-                            icon.isWeapon
-                                ? `weaponsList.${icon.id}`
-                                : `characters.${icon.id}`,
-                        ) || icon.name}
-                    >
-                        <div
-                            class="relative w-12 h-12 rounded-full cursor-pointer shadow-sm hover:scale-110 transition-transform"
+                    <div class="relative inline-flex">
+                        <Tooltip
+                            text={$t(
+                                icon.isWeapon
+                                    ? `weaponsList.${icon.id}`
+                                    : `characters.${icon.id}`,
+                            ) || icon.name}
                         >
                             <div
-                                class="w-full h-full overflow-hidden bg-gradient-to-t from-[#591C00] to-[#CA774C] rounded-full border-2 {icon.isWeapon
-                                    ? `border-[#ff6600] ${getWeaponBg(6)}`
-                                    : 'border-[#ff6600] bg-gray-100'}"
+                                class="relative w-12 h-12 rounded-full cursor-pointer shadow-sm hover:scale-110 transition-transform"
                             >
-                                <Images
-                                    id={icon.id}
-                                    variant={icon.isWeapon
-                                        ? "weapon-icon"
-                                        : "operator-icon"}
-                                    size="100%"
-                                    alt={icon.name}
-                                    className={icon.isWeapon ? "scale-125" : ""}
-                                />
-                            </div>
+                                <div
+                                    class="w-full h-full overflow-hidden bg-gradient-to-t from-[#591C00] to-[#CA774C] rounded-full border-2 {icon.isWeapon
+                                        ? `border-[#ff6600] ${getWeaponBg(6)}`
+                                        : 'border-[#ff6600] bg-gray-100'}"
+                                >
+                                    <Images
+                                        id={icon.id}
+                                        variant={icon.isWeapon
+                                            ? "weapon-icon"
+                                            : "operator-icon"}
+                                        size="100%"
+                                        alt={icon.name}
+                                        className={icon.isWeapon ? "scale-125 transition-transform" : "transition-transform"}
+                                    />
+                                </div>
 
-                            {#if icon.isFree}
-                                <div
-                                    class="absolute -bottom-1 -right-1 bg-green-500 text-white font-bold rounded px-1 shadow-md z-20 pointer-events-none"
-                                    style="font-size: 0.65rem; min-width: 1.7rem; line-height: 1.2rem; text-align: center;"
-                                >
-                                    FREE
-                                </div>
-                            {:else}
-                                <div
-                                    class="absolute -bottom-1 -right-1 min-w-7 px-2 py-1 rounded font-nums leading-none font-bold shadow-lg pointer-events-none flex items-center justify-center"
-                                    style="font-size: 0.85rem; min-width: 1.7rem;"
-                                >
+                                {#if icon.isFree}
                                     <div
-                                        class="absolute inset-0 rounded opacity-90"
-                                        style="background-color: {getPityColor(
-                                            icon.pity,
-                                            icon.isWeapon,
-                                        )};"
-                                    ></div>
-                                    <span class="relative text-white z-10">
-                                        {icon.pity}
-                                    </span>
-                                </div>
-                            {/if}
-                        </div>
-                    </Tooltip>
+                                        class="absolute -bottom-1 -right-1 bg-green-500 text-white font-bold rounded px-1 shadow-md z-20 pointer-events-none"
+                                        style="font-size: 0.65rem; min-width: 1.7rem; line-height: 1.2rem; text-align: center;"
+                                    >
+                                        FREE
+                                    </div>
+                                {:else}
+                                    <div
+                                        class="absolute -bottom-1 -right-1 min-w-7 px-2 py-1 rounded font-nums leading-none font-bold shadow-lg pointer-events-none flex items-center justify-center"
+                                        style="font-size: 0.85rem; min-width: 1.7rem;"
+                                    >
+                                        <div
+                                            class="absolute inset-0 rounded opacity-90"
+                                            style="background-color: {getPityColor(
+                                                icon.pity,
+                                                icon.isWeapon,
+                                            )};"
+                                        ></div>
+                                        <span class="relative text-white z-10">
+                                            {icon.pity}
+                                        </span>
+                                    </div>
+                                {/if}
+                            </div>
+                        </Tooltip>
+
+                        {#if icon.isGuaranteed}
+                             <div class="absolute -top-0.5 -right-0.5 z-[50] pointer-events-auto">
+                                <Tooltip textKey="status.guaranteed">
+                                    <Icon
+                                        name="guaranteed"
+                                        class="w-5 h-5 stroke-[1.1px] text-[#D0926E] filter drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)] hover:scale-110 transition-transform"
+                                    />
+                                </Tooltip>
+                            </div>
+                        {/if}
+                    </div>
                 {/each}
             </div>
         </div>

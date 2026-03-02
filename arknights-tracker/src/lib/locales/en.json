@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Import Headhunting Records",
+    "delete_token_title": "Delete Token",
     "importing": "Importing...",
     "waiting_response": "Waiting for response...",
     "instruction": "Paste the URL from the search history obtained in the game:",

@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Rekrutierungsverlauf importieren",
+    "delete_token_title": "Token löschen",
     "importing": "Importieren...",
     "waiting_response": "Warten auf Antwort...",
     "instruction": "Füge die URL aus dem im Spiel abgerufenen Verlauf ein:",

@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Impor Catatan Headhunting",
+    "delete_token_title": "Hapus Token",
     "importing": "Mengimpor...",
     "waiting_response": "Menunggu respons...",
     "instruction": "Tempel URL dari riwayat pencarian yang didapat dari dalam game:",

@@ -106,6 +106,7 @@
   },
   "import": {
     "title": "Importa Registro Reclutamenti",
+    "delete_token_title": "Elimina token",
     "importing": "Importazione...",
     "waiting_response": "In attesa di risposta...",
     "instruction": "Incolla l'URL dalla cronologia di ricerca ottenuta nel gioco:",
