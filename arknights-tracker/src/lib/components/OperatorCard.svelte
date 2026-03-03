@@ -92,7 +92,7 @@
         on:mouseleave={() => (isHovered = false)}
     >
         {#if variant !== "small"}
-            <div class="absolute -inset-[3px] z-40 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100">
+            <div class="absolute -inset-[3px] z-30 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100">
                 <div class={`absolute top-0 left-0 ${cornerSize} border-[#FFF593] dark:border-[#FFD700] rounded-tl-md shadow-sm`} style={`border-top-width: ${borderW}; border-left-width: ${borderW};`}></div>
                 <div class={`absolute top-0 right-0 ${cornerSize} border-[#FFF593] dark:border-[#FFD700] rounded-tr-md shadow-sm`} style={`border-top-width: ${borderW}; border-right-width: ${borderW};`}></div>
                 <div class={`absolute bottom-0 left-0 ${cornerSize} border-[#FFF593] dark:border-[#FFD700] rounded-bl-md shadow-sm`} style={`border-bottom-width: ${borderW}; border-left-width: ${borderW};`}></div>

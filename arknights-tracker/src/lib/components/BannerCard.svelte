@@ -540,7 +540,7 @@
             </Tooltip>
 
             {#if icon.isGuaranteed}
-              <div class="absolute -top-0.5 -right-0.5 z-[50] pointer-events-auto">
+              <div class="absolute -top-0.5 -right-0.5 z-[40] pointer-events-auto">
                 <Tooltip textKey="status.guaranteed">
                   <Icon
                     name="guaranteed"

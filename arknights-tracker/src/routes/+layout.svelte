@@ -11,6 +11,7 @@
     import { isDarkMode } from "$lib/stores/theme";
     import { browser } from "$app/environment";
     import { currentLocale } from "$lib/stores/locale";
+    import { isI18nReady } from "$lib/i18n";
 
     import CookieConsent from "$lib/components/CookieConsent.svelte";
     import LanguageSelect from "$lib/components/LanguageSelect.svelte";
@@ -39,6 +40,12 @@
 
     onMount(() => {
         if (browser) {
+            isI18nReady.subscribe(isReady => {
+                if (isReady) {
+                    document.body.style.opacity = '1';
+                }
+            });
+
             setTimeout(() => {
                 ready = true;
             }, 100);
@@ -144,12 +151,12 @@
         else document.documentElement.classList.remove("sidebar-closed");
     </script>
 </svelte:head>
-
+{#if $isI18nReady}
 {#if $user}
     <SyncModal />
 {/if}
 
-<div class="flex min-h-screen bg-[#F9F9F9] dark:bg-[#2C2C2C]">
+<div class="flex min-h-screen bg-base">
     {#if isMobileMenuOpen}
         <button
             class="fixed inset-0 bg-black/60 z-[9999] md:hidden backdrop-blur-sm cursor-pointer w-full h-full border-none p-0 m-0 outline-none block"
@@ -422,3 +429,6 @@
         <CookieConsent />
     </main>
 </div>
+{:else}
+    <div class="min-h-screen w-full bg-[#F0F2F4] dark:bg-[#2a2a2a]"></div>
+{/if}

@@ -81,7 +81,7 @@
         on:mouseleave={() => (isHovered = false)}
     >
         <div
-            class="absolute inset-0 border-[2px] border-white rounded-[6px] z-50 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100"
+            class="absolute inset-0 border-[2px] border-white rounded-[6px] z-30 pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100"
         ></div>
 
         <div
