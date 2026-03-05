@@ -40,7 +40,7 @@ export const rawEvents = [
     url: "",
     color: "#EC1C4B",
     layer: 3,
-    type: "inGame",
+    type: "signIn",
     iconPosition: 20
   },
   {
@@ -54,7 +54,7 @@ export const rawEvents = [
     url: "",
     color: "#E2441C",
     layer: 3,
-    type: "inGame",
+    type: "signIn",
     iconPosition: 20
   },
   {
@@ -68,7 +68,7 @@ export const rawEvents = [
     url: "",
     color: "#ec1c95",
     layer: 3,
-    type: "inGame",
+    type: "signIn",
     iconPosition: 20
   },
   {
@@ -237,6 +237,20 @@ export const rawEvents = [
     color: "#d4cc2f",
     layer: 8,
     type: "inGame",
+    iconPosition: 40
+  },
+  {
+    id: "ev17-v1.0",
+    title: "events.qingboRising",
+    startTime: "2026-03-05 12:00:00",
+    endTime: "2026-03-11 17:00:00",
+    gameversion: "global",
+    timezone: "UTC+8",
+    icon: "ev17-v1.0.jpg",
+    url: "https://x.com/AKEndfield/status/2029029061427667303?s=20",
+    color: "#4f949a",
+    layer: 11,
+    type: "signIn",
     iconPosition: 40
   }
 ];

@@ -2442,4 +2442,25 @@
             </clipPath>
         </defs>
     </svg>
+{:else if name == "signIn"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        width="18"
+        height="24"
+        viewBox="0 0 18 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M8 21L16 21C16.5523 21 17 20.5523 17 20L17 4C17 3.44771 16.5523 3 16 3L8 3"
+            stroke="currentColor"
+            stroke-width="2"
+        />
+        <path
+            d="M8.74228e-07 12L12 12M12 12L7 7M12 12L7 17"
+            stroke="currentColor"
+            stroke-width="2"
+        />
+    </svg>
 {/if}

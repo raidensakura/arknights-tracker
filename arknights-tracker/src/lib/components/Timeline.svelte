@@ -122,7 +122,11 @@
         separatorLines = lines;
     }
 
-    $: contentHeight = (maxLayerIndex + 1) * (ROW_HEIGHT + GAP_HEIGHT) + HEADER_HEIGHT_PX + EVENT_TOP_OFFSET + 8;
+    $: contentHeight =
+        (maxLayerIndex + 1) * (ROW_HEIGHT + GAP_HEIGHT) +
+        HEADER_HEIGHT_PX +
+        EVENT_TOP_OFFSET +
+        8;
 
     function handleClickOutside(event) {
         if (!showTimezoneMenu) return;
@@ -162,7 +166,7 @@
     const GAP_HEIGHT = 8;
     const HEADER_HEIGHT_PX = 80;
     const EVENT_TOP_OFFSET = 2;
-    
+
     $: TIMELINE_HEIGHT = `clamp(70%, ${contentHeight}px, 99%)`;
 
     let innerHeight;
@@ -262,8 +266,8 @@
         let scrollTopStart;
         let rafId;
 
-        node.style.cursor = 'grab';
-        node.style.userSelect = 'none';
+        node.style.cursor = "grab";
+        node.style.userSelect = "none";
 
         const mouseDownHandler = (e) => {
             if (e.button === 1) {
@@ -271,13 +275,13 @@
                 return;
             }
             if (e.button !== 0) return;
-            if (e.target.closest('button') || e.target.closest('a')) return;
+            if (e.target.closest("button") || e.target.closest("a")) return;
 
             isScrollAnimating = false;
             targetScrollLeft = null;
 
             isDown = true;
-            node.style.cursor = 'grabbing';
+            node.style.cursor = "grabbing";
             startX = e.pageX - node.offsetLeft;
             startY = e.pageY - node.offsetTop;
             scrollLeftStart = node.scrollLeft;
@@ -288,46 +292,46 @@
 
         const mouseLeaveHandler = () => {
             isDown = false;
-            node.style.cursor = 'grab';
+            node.style.cursor = "grab";
         };
 
         const mouseUpHandler = () => {
             isDown = false;
-            node.style.cursor = 'grab';
+            node.style.cursor = "grab";
         };
 
         const mouseMoveHandler = (e) => {
             if (!isDown) return;
             e.preventDefault();
-            
+
             if (rafId) cancelAnimationFrame(rafId);
-            
+
             rafId = requestAnimationFrame(() => {
                 const x = e.pageX - node.offsetLeft;
                 const y = e.pageY - node.offsetTop;
-                
-                const walkX = (x - startX) * 1.5; 
+
+                const walkX = (x - startX) * 1.5;
                 const walkY = (y - startY) * 1.5;
-                
+
                 node.scrollLeft = scrollLeftStart - walkX;
                 node.scrollTop = scrollTopStart - walkY;
                 targetScrollLeft = node.scrollLeft;
             });
         };
 
-        node.addEventListener('mousedown', mouseDownHandler);
-        node.addEventListener('mouseleave', mouseLeaveHandler);
-        node.addEventListener('mouseup', mouseUpHandler);
-        node.addEventListener('mousemove', mouseMoveHandler);
+        node.addEventListener("mousedown", mouseDownHandler);
+        node.addEventListener("mouseleave", mouseLeaveHandler);
+        node.addEventListener("mouseup", mouseUpHandler);
+        node.addEventListener("mousemove", mouseMoveHandler);
 
         return {
             destroy() {
                 if (rafId) cancelAnimationFrame(rafId);
-                node.removeEventListener('mousedown', mouseDownHandler);
-                node.removeEventListener('mouseleave', mouseLeaveHandler);
-                node.removeEventListener('mouseup', mouseUpHandler);
-                node.removeEventListener('mousemove', mouseMoveHandler);
-            }
+                node.removeEventListener("mousedown", mouseDownHandler);
+                node.removeEventListener("mouseleave", mouseLeaveHandler);
+                node.removeEventListener("mouseup", mouseUpHandler);
+                node.removeEventListener("mousemove", mouseMoveHandler);
+            },
         };
     }
 
@@ -352,8 +356,12 @@
 
             targetScrollLeft += e.deltaY * 1;
 
-            const maxScroll = bodyContainer.scrollWidth - bodyContainer.clientWidth;
-            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScroll));
+            const maxScroll =
+                bodyContainer.scrollWidth - bodyContainer.clientWidth;
+            targetScrollLeft = Math.max(
+                0,
+                Math.min(targetScrollLeft, maxScroll),
+            );
 
             if (!isScrollAnimating) {
                 isScrollAnimating = true;
@@ -470,6 +478,10 @@
 
         if (event.type === "web") {
             return { icon: "link", label: "Web", bg: glassStyle };
+        }
+
+        if (event.type === "signIn") {
+            return { icon: "signIn", label: "Sign-In", bg: glassStyle };
         }
 
         if (
@@ -606,20 +618,19 @@
     <!-- 2. ТЕЛО (СЕТКА + ЛИНИЯ + СОБЫТИЯ) -->
     <div
         bind:this={bodyContainer}
-        
         use:dragScroll
-        
         on:scroll={handleScroll}
         on:wheel={handleWheel}
-        
-        class="overflow-x-auto overflow-y-auto custom-scrollbar flex-grow relative w-full outline-none" 
+        class="overflow-x-auto overflow-y-auto custom-scrollbar flex-grow relative w-full outline-none"
         style="scrollbar-gutter: stable;"
     >
         <div
             class="relative min-h-full"
             style="width: {totalWidth}px; height: {contentHeight}px;"
         >
-            <div class="absolute left-0 right-0 top-5 bottom-0 pointer-events-none z-0 flex overflow-hidden">
+            <div
+                class="absolute left-0 right-0 top-5 bottom-0 pointer-events-none z-0 flex overflow-hidden"
+            >
                 {#each days as day}
                     <div
                         class="border-l border-gray-300/40 dark:border-[#3F3F3F] h-full flex-shrink-0"
@@ -754,24 +765,40 @@
 
                         {#if now >= event.realStartTime && getRemainingTime(event.realEndTime, $t)}
                             <div
-                                class="absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap z-30 flex items-center"
+                                class="absolute right-2 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
                             >
-                                <span
-                                    class="text-xs font-bold text-green-600 dark:bg-white/85 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-green-200"
+                                <div
+                                    class="flex items-center gap-1.5 rounded px-2 py-0.5 shrink-0 shadow-sm border border-green-400/30 bg-black/50"
                                 >
-                                    {getRemainingTime(event.realEndTime, $t)}
-                                </span>
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wide text-green-300 shadow-sm"
+                                    >
+                                        {getRemainingTime(
+                                            event.realEndTime,
+                                            $t,
+                                        )}
+                                    </span>
+                                </div>
                             </div>
                         {/if}
+
                         {#if now < event.realStartTime && getTimeUntilStart(event.realStartTime, $t)}
                             <div
-                                class="absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap z-30 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto"
+                                class="absolute right-2 top-1/2 -translate-y-1/2 z-30 pointer-events-none
+        opacity-0 group-hover:opacity-100 transition-opacity"
                             >
-                                <span
-                                    class="text-xs font-bold text-blue-600 bg-white/80 px-2 py-1 rounded shadow-sm backdrop-blur-sm border border-blue-200"
+                                <div
+                                    class="flex items-center gap-1.5 rounded px-2 py-0.5 shrink-0 shadow-sm border border-blue-400/30 bg-black/50"
                                 >
-                                    {getTimeUntilStart(event.realStartTime, $t)}
-                                </span>
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wide text-blue-300 shadow-sm"
+                                    >
+                                        {getTimeUntilStart(
+                                            event.realStartTime,
+                                            $t,
+                                        )}
+                                    </span>
+                                </div>
                             </div>
                         {/if}
                     </div>
@@ -788,7 +815,7 @@
         scrollbar-width: auto;
         scrollbar-color: #a1a1aa transparent;
     }
-    
+
     .custom-scrollbar::-webkit-scrollbar {
         width: 14px;
         height: 14px;
@@ -808,7 +835,7 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background-color: #71717a;
     }
-    
+
     .custom-scrollbar::-webkit-scrollbar-corner {
         background: transparent;
     }
