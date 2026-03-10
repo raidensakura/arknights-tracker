@@ -449,7 +449,7 @@
                 </div>
             </div>
 
-            <div class="px-6 py-5 bg-white dark:bg-[#383838] flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-4 border-t border-gray-200 dark:border-[#444] transition-colors">
+            <div class="px-6 pt-5 bg-white dark:bg-[#383838] flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-4 border-t border-gray-200 dark:border-[#444] transition-colors">
                 
                 <div class="flex items-center gap-4 shrink-0 w-full md:w-auto justify-between md:justify-start">
                     <div class="bg-gray-200 dark:bg-[#4A4A4A] w-[75px] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0">
