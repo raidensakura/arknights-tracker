@@ -18,6 +18,7 @@
   let now = new Date();
   let timer;
   let currentServerId = "3";
+  let showServerTime = false;
 
   const allItems = [...currencies, ...progression];
 
@@ -71,10 +72,13 @@
 
   $: activeBanners = banners
     .filter((b) => {
-      const _ = currentServerId;
-      const start = parseWithServerOffset(b.startTime);
-      const end = b.endTime
-        ? parseWithServerOffset(b.endTime)
+      const isAsia = currentServerId === "2";
+      const startStr = isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
+      const endStr = isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
+
+      const start = parseWithServerOffset(startStr);
+      const end = endStr
+        ? parseWithServerOffset(endStr)
         : new Date(9999, 11, 31);
 
       const isTime = now >= start && now <= end;
@@ -110,22 +114,42 @@
 
   $: currentBannerTimeLeft = (() => {
     const b = activeBanners[currentBannerIndex];
-    if (!b || !b.endTime) return "";
-    return formatTimeLeft(b.endTime) || "";
+    if (!b) return "";
+    
+    const isAsia = currentServerId === "2";
+    const endStr = isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
+    
+    if (!endStr) return "";
+    return formatTimeLeft(endStr) || "";
   })();
 
-  $: activePromocodes = (() => {
-    const _ = currentServerId;
-    return promocodes.filter((p) => {
-      const end = parseWithServerOffset(p.endTime);
+  $: activePromocodes = promocodes.map((p) => {
+      const isAsia = currentServerId === "2";
+      return {
+          ...p,
+          displayEndTime: isAsia && p.endTimeAsia ? p.endTimeAsia : p.endTime
+      };
+  }).filter((p) => {
+      const end = parseWithServerOffset(p.displayEndTime);
       return now <= end;
-    });
-  })();
+  });
+
+  let useServerTime = false;
+
+  $: if (typeof localStorage !== "undefined") {
+    localStorage.setItem("useServerTime", useServerTime);
+  }
 
   function getFormattedDate(dateStr) {
     const end = parseWithServerOffset(dateStr);
     const dateOptions = { month: "short", day: "numeric" };
-    return end.toLocaleDateString($currentLocale, dateOptions);
+    
+    if (showServerTime) {
+      const timeZone = currentServerId === "2" ? "Asia/Shanghai" : "America/New_York";
+      return end.toLocaleString($currentLocale, { ...dateOptions, timeZone });
+    }
+    
+    return end.toLocaleString($currentLocale, dateOptions);
   }
 
   function getPromoTimeLabel(dateStr) {
@@ -160,7 +184,13 @@
     if (typeof localStorage !== "undefined") {
       const savedServer = localStorage.getItem("ark_server_id");
       if (savedServer) currentServerId = savedServer;
+
+      const savedTimePref = localStorage.getItem("show_server_time");
+      if (savedTimePref !== null) {
+        showServerTime = savedTimePref === "true";
+      }
     }
+    
     timer = setInterval(() => {
       now = new Date();
     }, 1000 * 60);
@@ -304,12 +334,12 @@
                   class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"
                 >
                   {$t("home.until")}
-                  {getFormattedDate(promo.endTime)}
+                  {getFormattedDate(promo.displayEndTime)}
                 </span>
                 <span
                   class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight"
                 >
-                  {getPromoTimeLabel(promo.endTime)}
+                  {getPromoTimeLabel(promo.displayEndTime)}
                 </span>
               </div>
             </div>
