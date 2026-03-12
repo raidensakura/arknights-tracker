@@ -115,7 +115,7 @@ const BANNERS = [
     endTime: "2026-03-29 11:59:59",
     startTimeAsia: "2026-03-12 12:00:00",
     endTimeAsia: "2026-03-29 11:59:59",
-    featured6: ["tantan", "Tan Tan"],
+    featured6: ["tangtang", "Tangtang"],
   },
   {
     id: "special_1_1_2",

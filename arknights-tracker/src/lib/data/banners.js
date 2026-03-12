@@ -259,7 +259,7 @@ export const banners = [
     startTimeAsia: "2026-03-12 12:00:00",
     endTimeAsia: "2026-03-29 11:59:59",
     gameVersion: "0.1.1",
-    featured6: ["tantan"],
+    featured6: ["tangtang"],
     featured5: [],
     isServerTime: true, 
     timezone: "UTC+8",

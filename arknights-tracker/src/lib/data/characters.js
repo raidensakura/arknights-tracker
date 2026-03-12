@@ -59,7 +59,7 @@ export const characters = {
     class: "striker",
     weapon: "handcannon",
     birthDate: "09-05",
-    isNew: true
+    isNew: false
   },
   gilberta: {
     id: "gilberta",
@@ -238,6 +238,27 @@ export const characters = {
     element: "nature",
     class: "caster",
     weapon: "handcannon",
-    birthDate: "21-06"
+    birthDate: "21-06",
+    isNew: false
+  },
+  tangtang: {
+    id: "tangtang",
+    name: "Tangtang",
+    rarity: 6,
+    element: "cryo",
+    class: "caster",
+    weapon: "handcannon",
+    birthDate: "21-06",
+    isNew: true
+  },
+  rossi: {
+    id: "rossi",
+    name: "Rossi",
+    rarity: 6,
+    element: "physical",
+    class: "guard",
+    weapon: "sword",
+    birthDate: "21-06",
+    isNew: true
   }
 };

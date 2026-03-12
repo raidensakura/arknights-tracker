@@ -32,7 +32,7 @@
     let timerInterval;
 
     //Maintanance
-    const maintenanceStartTime = new Date("2026-03-11T17:00:00-05:00").getTime();
+    //const maintenanceStartTime = new Date("2026-03-11T17:00:00-05:00").getTime();
 
     function checkMaintenanceStatus() {
         const now = Date.now();

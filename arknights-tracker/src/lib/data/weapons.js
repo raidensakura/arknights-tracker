@@ -258,7 +258,7 @@ export const weapons = {
     "name": "Artzy Tyrannical",
     "rarity": 6,
     "weapon": "handcannon",
-    "isNew": true
+    "isNew": false
   },
   "objRazorhorn": {
     "id": "objRazorhorn",
@@ -373,5 +373,19 @@ export const weapons = {
     "name": "Grand Vision",
     "rarity": 6,
     "weapon": "sword"
+  },
+  "brigandsCalling": {
+    "id": "brigandsCalling",
+    "name": "Brigand's Calling",
+    "rarity": 6,
+    "weapon": "handcannon",
+    "isNew": true
+  },
+  "lupineScarlet": {
+    "id": "lupineScarlet",
+    "name": "Lupine Scarlet",
+    "rarity": 6,
+    "weapon": "sword",
+    "isNew": true
   }
 };
