@@ -20,12 +20,12 @@ A functional pull tracker and global statistics database for Arknights: Endfield
 
 ---
 
-## Installing locally
+# Installing locally
 
 Since the game and the tracker receive regular updates, here is how you can get the code and keep it up to date.
 
 ### Downloading the project
-* **Via ZIP:** Click the green `Code` button at the top of this page and select `Download ZIP`. Extract the downloaded archive to any convenient folder on your computer.
+* Click the green `Code` button at the top of this page and select `Download ZIP`. Extract the downloaded archive to any convenient folder on your computer.
 
 ### Updating your local version
 * Download the new ZIP file using the `Code -> Download ZIP` button, delete your old project folder, and extract the new one in its place. (Your local pulls will not be deleted, as they are saved in your browser's local storage).
