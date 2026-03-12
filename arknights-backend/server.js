@@ -55,10 +55,10 @@ function getServerOffset(serverId) {
 function getBannerDates(banner, serverId) {
     if (!banner) return { startStr: null, endStr: null };
     const isAsia = String(serverId) === '2';
-    
+
     const startStr = (isAsia && banner.startTimeAsia) ? banner.startTimeAsia : banner.startTime;
     const endStr = (isAsia && banner.endTimeAsia) ? banner.endTimeAsia : banner.endTime;
-    
+
     return { startStr, endStr };
 }
 
@@ -78,6 +78,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function fetchGameData(token, lang, serverId, onProgress) {
     console.log(`\n--- Starting PARALLEL Scan on SERVER ID: ${serverId} ---`);
+    let isTokenInvalid = false;
 
     const fetchPool = async (poolType) => {
         let poolPulls = [];
@@ -113,10 +114,8 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 const result = response.data;
 
                 if (result.code !== 0) {
-                    if (result.code === 40100 || (result.msg && result.msg.toLowerCase().includes('token'))) {
-                        const err = new Error("Token is invalid or expired. Please generate a new link.");
-                        err.isTokenError = true;
-                        throw err;
+                    if (result.code === 40100) {
+                        isTokenInvalid = true;
                     }
                     hasMore = false;
                     break;
@@ -184,7 +183,7 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 await sleep(50);
 
             } catch (err) {
-                if (err.isTokenError) throw err; 
+                if (err.isTokenError) throw err;
                 console.error(`Error scanning ${poolLabel}: ${err.message}`);
                 hasMore = false;
             }
@@ -195,11 +194,14 @@ async function fetchGameData(token, lang, serverId, onProgress) {
     try {
         const results = await Promise.all(POOL_TYPES.map(type => fetchPool(type)));
         const allPulls = results.flat();
-        return allPulls;
+        
+        return { 
+            pulls: allPulls, 
+            isTokenInvalid: isTokenInvalid && allPulls.length === 0 
+        };
     } catch (e) {
-        if (e.isTokenError) throw e;
         console.error("Parallel fetch failed", e);
-        return [];
+        return { pulls: [], isTokenInvalid: false };
     }
 }
 
@@ -248,6 +250,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
         console.log(`\n--- New Import Request (Streaming) ---`);
 
         let allPulls = [];
+        let tokenWasInvalidAtLeastOnce = false;
 
         const progressCallback = (data) => {
             sendEvent(data);
@@ -255,18 +258,26 @@ app.post('/api/import', importLimiter, async (req, res) => {
 
         for (const serverId of serverCandidates) {
             console.log(`Checking Server ID: ${serverId}...`);
-            const pulls = await fetchGameData(token, lang, serverId, progressCallback);
+            const result = await fetchGameData(token, lang, serverId, progressCallback);
 
-            if (pulls.length > 0) {
+            if (result.pulls.length > 0) {
                 console.log(`✅ Data found on Server ID: ${serverId}`);
-                allPulls = pulls;
+                allPulls = result.pulls;
                 usedServerId = serverId;
                 break;
+            }
+            
+            if (result.isTokenInvalid) {
+                tokenWasInvalidAtLeastOnce = true;
             }
         }
 
         if (allPulls.length === 0) {
-            sendEvent({ type: 'error', message: "No pulls found or link expired" });
+            if (tokenWasInvalidAtLeastOnce) {
+                sendEvent({ type: 'error', message: "Token is invalid or expired. Please generate a new link." });
+            } else {
+                sendEvent({ type: 'error', message: "No pulls found or link expired" });
+            }
             return res.end();
         }
 
@@ -582,7 +593,7 @@ function parseDateWithServer(dateStr, offset) {
 function findBannerConfigByTime(timestamp, categoryContext, serverId) {
     const time = new Date(timestamp).getTime();
     const BUFFER = 12 * 60 * 60 * 1000;
-    
+
     const offset = getServerOffset(serverId);
 
     let targetType = null;
@@ -606,7 +617,7 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
 
     const candidates = BANNERS.filter(b => {
         const dates = getBannerDates(b, serverId);
-        
+
         const start = parseDateWithServer(dates.startStr, offset).getTime();
         const end = dates.endStr ? parseDateWithServer(dates.endStr, offset).getTime() : Infinity;
         if (time < (start - BUFFER) || time > (end + BUFFER)) return false;
@@ -648,7 +659,7 @@ function getDistinctBannerId(pull, serverId) {
     if (!genericIds.includes(rawId) && !rawId.startsWith('E_')) {
         return rawId;
     }
-    
+
     const foundBanner = findBannerConfigByTime(pull.time, rawId, serverId);
 
     if (foundBanner) return foundBanner.id;
@@ -716,10 +727,10 @@ function calculateMath(pulls, categoryId, serverId = '3') {
             let currentFeaturedList = [];
             if (isGenericCalculation) {
                 const timeMs = new Date(p.time).getTime();
-                
+
                 const candidates = BANNERS.filter(b => {
                     const dates = getBannerDates(b, serverId);
-                    
+
                     const start = parseDateWithServer(dates.startStr, offset).getTime();
                     const end = dates.endStr ? parseDateWithServer(dates.endStr, offset).getTime() : Infinity;
                     if (timeMs < start || timeMs > end) return false;
@@ -732,13 +743,13 @@ function calculateMath(pulls, categoryId, serverId = '3') {
                     return false;
                 });
 
-                let bestBanner = candidates.find(b => 
+                let bestBanner = candidates.find(b =>
                     b.featured6 && b.featured6.some(f => normalize(f) === itemName)
                 );
 
                 if (!bestBanner && candidates.length > 0) {
-                    candidates.sort((a, b) => 
-                        parseDateWithServer(getBannerDates(b, serverId).startStr, offset).getTime() - 
+                    candidates.sort((a, b) =>
+                        parseDateWithServer(getBannerDates(b, serverId).startStr, offset).getTime() -
                         parseDateWithServer(getBannerDates(a, serverId).startStr, offset).getTime()
                     );
                     bestBanner = candidates[0];
@@ -943,7 +954,7 @@ const ADMIN_SECRET = process.env.ADMIN_SECRET || 'super_secret_fallback_key_123'
 
 app.get('/api/admin/errors', async (req, res) => {
     const secret = process.env.ADMIN_SECRET;
-    
+
     if (!secret || req.headers['x-admin-secret'] !== secret) {
         return res.sendStatus(403);
     }
