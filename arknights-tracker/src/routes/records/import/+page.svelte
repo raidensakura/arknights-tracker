@@ -16,7 +16,7 @@
     import Icon from "$lib/components/Icons.svelte";
     import ConfirmationModal from "$lib/components/ConfirmationModal.svelte";
 
-    let platformTab = "pc";
+    let platformTab = "pc-web";
     let urlInput = "";
     let realImportUrl = "";
     let isLoading = false;
@@ -30,6 +30,7 @@
     let savedTokens = [];
     let isMaintenance = false;
     let timerInterval;
+    
 
     //Maintanance
     //const maintenanceStartTime = new Date("2026-03-11T17:00:00-05:00").getTime();
@@ -48,8 +49,7 @@
 
     const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
     const powerShellScript2 = `[regex]::Matches((Get-Content "$env:USERPROFILE\\AppData\\LocalLow\\Gryphline\\Endfield\\sdklogs\\HGWebview.log" -Raw), "https://ef-webview\\.gryphline\\.com[^\\s]+u8_token=[^\\s]+").Value[-1] | Set-Clipboard`;
-
-    onMount(() => {
+const browserBookmarklet = `javascript:(async()=>{try{let e=null;for(let[t,n]of Object.entries(sessionStorage))if(t.startsWith("APP_ROLE_U8_TOKEN:")){e=n.toString().split(":")[0];break}if(!e)throw new Error("Token not found. Please log in and refresh the page.");let t=\`https://ef-webview.gryphline.com/api/record/char?lang=ru-ru&pool_type=E_CharacterGachaPoolType_Beginner&token=\${encodeURIComponent(e)}&server_id=3\`;await navigator.clipboard.writeText(t),alert("Success! Link copied to clipboard.")}catch(e){alert("Error: "+e.message)}})();`;    onMount(() => {
         loadSavedTokens();
         checkMaintenanceStatus();
         timerInterval = setInterval(() => {
@@ -174,14 +174,12 @@
         isInputError = false;
         const urlToSend = realImportUrl || urlInput;
 
-        // 1. Проверка на пустое поле
         if (!urlToSend || !urlToSend.trim()) {
             isInputError = true;
             errorMsg = $t("import.error_empty") || "Link or Token is required";
             return;
         }
 
-        // 2. Проверка на имя токена
         if (isSaveTokenEnabled && !tokenName.trim()) {
             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
             if (!alreadyExists) {
@@ -191,7 +189,6 @@
             }
         }
 
-        // 3. Проверка на HTTPS (если это ссылка, а не голый токен)
         if (urlToSend.startsWith("http:") && !urlToSend.startsWith("https:")) {
             isInputError = true;
             errorMsg = $t("import.error_https") || "Only HTTPS links are allowed";
@@ -214,12 +211,10 @@
                 body: JSON.stringify({ rawUrl: urlToSend }),
             });
 
-            // 4. Обработка ошибки 429 (Лимит запросов)
             if (response.status === 429) {
                 throw new Error("RATE_LIMIT");
             }
             
-            // Обработка 502/500 ошибок (Упал бэкенд)
             if (response.status >= 500) {
                 throw new Error("NETWORK_ERROR");
             }
@@ -263,7 +258,6 @@
                             console.log("Import Complete!");
                             await handleImportComplete(msg.data, urlToSend);
                         } else if (msg.type === "error") {
-                            // 5. МАППИНГ ОШИБОК ОТ БЭКЕНДА В ПЕРЕВОДЫ
                             const backendMsg = msg.message || "";
                             
                             if (backendMsg.includes("Token is invalid")) {
@@ -279,12 +273,12 @@
                                 errorMsg = $t("import.error_format") || "Invalid URL/Token format";
                             } 
                             else {
-                                errorMsg = backendMsg; // На крайний случай оставляем оригинальный текст
+                                errorMsg = backendMsg;
                             }
 
                             previewReport = null;
                             isLoading = false;
-                            return; // Останавливаем выполнение
+                            return;
                         }
                     } catch (e) {
                         console.error("Stream parse error:", e);
@@ -294,7 +288,6 @@
         } catch (err) {
             console.error("Import Error:", err);
             
-            // 6. МАППИНГ СИСТЕМНЫХ ОШИБОК В ПЕРЕВОДЫ
             if (err.message === "RATE_LIMIT") {
                 errorMsg = $t("import.error_rate_limit") || "Too many requests. Please wait a minute.";
             } 
@@ -302,7 +295,6 @@
                 errorMsg = $t("import.error_network") || "Bad Gateway";
             } 
             else {
-                // Если произошла неведомая ошибка (например, прервался интернет)
                 errorMsg = $t("import.error_unknown") || "Unknown Error";
             }
             
@@ -454,7 +446,7 @@
         <div
             class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-8 overflow-x-auto custom-tab-scroll"
         >
-            {#each [{ id: "pc", label: $t("import.tab_pc") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
+            {#each [{ id: "pc-web", label: $t("import.tab_pc") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
                 <button
                     class="px-6 py-3 text-sm font-bold transition-all relative border-b-2 whitespace-nowrap
                     {platformTab === tab.id
@@ -523,7 +515,7 @@
                         </p>
                     </div>
 
-                    <div
+                    <!--<div
                         class="mb-5 text-sm text-gray-500 dark:text-[#999] bg-gray-50 dark:bg-[#2C2C2C] border-l-2 border-[#FACC15] p-3 rounded-r-lg"
                     >
                         <span
@@ -532,7 +524,7 @@
                         >
                         {@html $t("import.faq_security_desc3") ||
                             "Для запуска скриптов PowerShell <strong>не требуется</strong> запуск PowerShell с правами администратора."}
-                    </div>
+                    </div>-->
 
                     <div
                         class="bg-red-50 dark:bg-red-500/10 rounded-lg p-3 border border-red-100 dark:border-red-500/20"
@@ -659,120 +651,36 @@
                     </p>
                 </div>
             {:else}
-                <div
-                    class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10"
-                >
-                    <div
-                        class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
-                    >
-                        1
-                    </div>
-                    <p
-                        class="text-lg text-[#21272C] dark:text-[#E0E0E0] font-medium pt-1"
-                    >
-                        {$t("import.step1")}
-                    </p>
-                </div>
+                <div class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10">
+        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">1</div>
+        <div class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl">
+            {$t("import.pc_web_step1")} <a href="https://game.skport.com/endfield/sign-in" target="_blank" class="text-[#D0926E] underline">game.skport.com</a>
+        </div>
+    </div>
 
-                <div
-                    class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-8 pl-10"
-                >
-                    <div
-                        class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
-                    >
-                        2
-                    </div>
+    <div class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10">
+        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">2</div>
+        <div class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl mb-4">
+            {$t("import.pc_web_step2")}
+        </div>
+        <div class="max-w-4xl">
+            <PowershellBlock script={browserBookmarklet} />
+            <!--<p class="text-xs text-gray-400 mt-2 italic">{$t("import.pc_web_hint")}</p>-->
+        </div>
+    </div>
 
-                    {#if platformTab === "pc"}
-                        <div
-                            class="text-lg dark:text-[#E0E0E0] text-[#21272C] mb-4 pt-1 font-medium leading-relaxed"
-                        >
-                            {$t("import.step2_pre")}
-                            <span class="inline-block">
-                                <Tooltip
-                                    text={$t("import.ps_tooltip")}
-                                    class="justify-center"
-                                >
-                                    <span
-                                        class="font-bold text-black dark:text-[#E0E0E0] border-b-2 border-[#FFE145] hover:bg-[#FFE145] hover:dark:text-[#373737] transition-colors px-1"
-                                    >
-                                        {$t("import.step2_ps")}
-                                    </span>
-                                </Tooltip>
-                            </span>
-                            {$t("import.step2_post")}
-                        </div>
-                        <div class="mb-3 max-w-4xl">
-                            <PowershellBlock script={powerShellScript} />
-                        </div>
-                        <div class="text-right max-w-4xl mt-2">
-                            <a
-                                href="https://github.com/ivaqis/arknights-pull-url"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center gap-1.5 text-sm text-gray-400 dark:text-[#B7B6B3] hover:text-black hover:dark:text-[#E4E4E4] transition-colors group"
-                            >
-                                <span
-                                    class="underline decoration-gray-300 dark:decoration-[#B7B6B3] group-hover:decoration-black group-hover:dark:decoration-[#E4E4E4] group-hover:dark:text-[#E4E4E4] transition-all"
-                                >
-                                    {$t("import.script_details")}
-                                </span>
-                                <div
-                                    class="text-gray-400 dark:text-[#B7B6B3] group-hover:text-black group-hover:dark:dark:text-[#E4E4E4] transition-colors"
-                                >
-                                    <Icon
-                                        name="sendToLink"
-                                        style="width: 14px; height: 14px;"
-                                    />
-                                </div>
-                            </a>
-                        </div>
-                    {:else if platformTab === "pc2"}
-                        <div
-                            class="text-lg dark:text-[#E0E0E0] text-[#21272C] mb-4 pt-1 font-medium leading-relaxed"
-                        >
-                            {$t("import.step2_pre")}
-                            <span class="inline-block">
-                                <Tooltip
-                                    text={$t("import.ps_tooltip")}
-                                    class="justify-center"
-                                >
-                                    <span
-                                        class="font-bold text-black dark:text-[#E0E0E0] border-b-2 border-[#FFE145] hover:bg-[#FFE145] hover:dark:text-[#373737] transition-colors px-1"
-                                    >
-                                        {$t("import.step2_ps")}
-                                    </span>
-                                </Tooltip>
-                            </span>
-                            {$t("import.step2_post")}
-                        </div>
-                        <div class="max-w-4xl">
-                            <PowershellBlock script={powerShellScript2} />
-                        </div>
-                    {:else if platformTab === "pc-manual"}
-                        <div
-                            class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl"
-                        >
-                            {$t("import.manual_text_pre")}
-                            <span
-                                class="bg-gray-100 px-1.5 py-0.5 rounded dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] text-sm font-mono text-gray-600 border border-gray-200 select-all break-all whitespace-normal inline-block my-1"
-                                >%userprofile%\AppData\LocalLow\Gryphline\Endfield\sdklogs\HGWebview.log</span
-                            >
-                            {$t("import.manual_text_mid")}
-                            <span
-                                class="text-gray-500 italic break-all dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] whitespace-normal block my-2 bg-gray-50 p-2 rounded border border-gray-100 text-sm"
-                                >"https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=&lt;TOKEN&gt;&platform=Windows..."</span
-                            >
-                            {$t("import.manual_text_post")}
-                        </div>
-                    {/if}
-                </div>
+    <div class="relative border-l-2 border-transparent pl-10 pb-8">
+        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10">3</div>
+        <div class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl">
+            {$t("import.pc_web_step3")}
+        </div>
+    </div>
 
                 <div class="relative border-l-2 border-transparent pl-10">
                     <div
                         class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
                     >
-                        3
+                        4
                     </div>
                     <p
                         class="text-lg text-[#21272C] dark:text-[#E0E0E0] font-medium mb-4 pt-1"
