@@ -113,6 +113,11 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 const result = response.data;
 
                 if (result.code !== 0) {
+                    if (result.code === 40100 || (result.msg && result.msg.toLowerCase().includes('token'))) {
+                        const err = new Error("Token is invalid or expired. Please generate a new link.");
+                        err.isTokenError = true;
+                        throw err;
+                    }
                     hasMore = false;
                     break;
                 }
@@ -179,6 +184,7 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 await sleep(50);
 
             } catch (err) {
+                if (err.isTokenError) throw err; 
                 console.error(`Error scanning ${poolLabel}: ${err.message}`);
                 hasMore = false;
             }
@@ -191,6 +197,7 @@ async function fetchGameData(token, lang, serverId, onProgress) {
         const allPulls = results.flat();
         return allPulls;
     } catch (e) {
+        if (e.isTokenError) throw e;
         console.error("Parallel fetch failed", e);
         return [];
     }

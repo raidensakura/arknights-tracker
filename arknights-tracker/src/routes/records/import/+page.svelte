@@ -257,7 +257,13 @@
             }
         } catch (err) {
             console.error("Import Error:", err);
-            errorMsg = err.message || "Unknown Error";
+            
+            if (err.message && err.message.includes("Token is invalid")) {
+                errorMsg = $t("import.error_invalid_token") || "Токен недействителен или устарел. Пожалуйста, сгенерируйте новую ссылку.";
+            } else {
+                errorMsg = err.message || "Unknown Error";
+            }
+            
             previewReport = null;
         } finally {
             isLoading = false;
