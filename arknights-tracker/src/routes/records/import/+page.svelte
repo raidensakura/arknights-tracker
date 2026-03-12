@@ -230,10 +230,7 @@
 
                         if (msg.type === "progress") {
                             const { poolId, count } = msg;
-                            console.log(`Live Import: ${poolId} +${count}`);
-
-                            const currentPoolCount =
-                                previewReport.addedCount[poolId] || 0;
+                            const currentPoolCount = previewReport.addedCount[poolId] || 0;
                             previewReport.totalAdded += count;
 
                             previewReport.addedCount = {
@@ -242,13 +239,24 @@
                             };
 
                             previewReport = previewReport;
-
                             await new Promise((r) => setTimeout(r, 0));
+                            
                         } else if (msg.type === "complete") {
                             console.log("Import Complete!");
                             await handleImportComplete(msg.data, urlToSend);
+                            
                         } else if (msg.type === "error") {
-                            throw new Error(msg.message);
+                            // ОШИБКУ ОБРАБАТЫВАЕМ ПРЯМО ЗДЕСЬ
+                            if (msg.message && msg.message.includes("Token is invalid")) {
+                                errorMsg = $t("import.error_invalid_token") || "Токен недействителен или устарел. Пожалуйста, сгенерируйте новую ссылку.";
+                            } else {
+                                errorMsg = msg.message;
+                            }
+                            
+                            // Сбрасываем статус загрузки и выходим из функции
+                            previewReport = null;
+                            isLoading = false;
+                            return; 
                         }
                     } catch (e) {
                         console.error("Stream parse error:", e);
