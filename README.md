@@ -38,8 +38,8 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your computer.
 ### Method 1: Using the launch script (Windows only)
 1. Open the downloaded project folder.
 2. Double-click the `start.bat` file.
-3. It will automatically install the necessary modules, start both servers (and 2 console windows), and open the site in your browser at `http://localhost:5173`.
-*(Do not close the 2 console windows while using the site!)*
+3. It will automatically install the necessary modules, start both servers, and open the site in your browser at `http://localhost:5173`.
+*(Do not close the console window while using the site!)*
 
 ### Method 2: Manual launch
 
