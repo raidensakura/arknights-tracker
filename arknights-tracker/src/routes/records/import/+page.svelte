@@ -174,19 +174,28 @@
         isInputError = false;
         const urlToSend = realImportUrl || urlInput;
 
+        // 1. Проверка на пустое поле
         if (!urlToSend || !urlToSend.trim()) {
             isInputError = true;
             errorMsg = $t("import.error_empty") || "Link or Token is required";
             return;
         }
+
+        // 2. Проверка на имя токена
         if (isSaveTokenEnabled && !tokenName.trim()) {
             const alreadyExists = savedTokens.some((t) => t.url === urlToSend);
             if (!alreadyExists) {
                 isInputError = true;
-                errorMsg =
-                    $t("import.error_token_name") || "Token name required";
+                errorMsg = $t("import.error_token_name") || "Token name is required for saving";
                 return;
             }
+        }
+
+        // 3. Проверка на HTTPS (если это ссылка, а не голый токен)
+        if (urlToSend.startsWith("http:") && !urlToSend.startsWith("https:")) {
+            isInputError = true;
+            errorMsg = $t("import.error_https") || "Only HTTPS links are allowed";
+            return;
         }
 
         isLoading = true;
@@ -205,7 +214,17 @@
                 body: JSON.stringify({ rawUrl: urlToSend }),
             });
 
-            if (!response.ok && response.status !== 429) {
+            // 4. Обработка ошибки 429 (Лимит запросов)
+            if (response.status === 429) {
+                throw new Error("RATE_LIMIT");
+            }
+            
+            // Обработка 502/500 ошибок (Упал бэкенд)
+            if (response.status >= 500) {
+                throw new Error("NETWORK_ERROR");
+            }
+
+            if (!response.ok) {
                 throw new Error(`HTTP Error ${response.status}`);
             }
 
@@ -240,23 +259,32 @@
 
                             previewReport = previewReport;
                             await new Promise((r) => setTimeout(r, 0));
-                            
                         } else if (msg.type === "complete") {
                             console.log("Import Complete!");
                             await handleImportComplete(msg.data, urlToSend);
-                            
                         } else if (msg.type === "error") {
-                            // ОШИБКУ ОБРАБАТЫВАЕМ ПРЯМО ЗДЕСЬ
-                            if (msg.message && msg.message.includes("Token is invalid")) {
-                                errorMsg = $t("import.error_invalid_token") || "Токен недействителен или устарел. Пожалуйста, сгенерируйте новую ссылку.";
-                            } else {
-                                errorMsg = msg.message;
-                            }
+                            // 5. МАППИНГ ОШИБОК ОТ БЭКЕНДА В ПЕРЕВОДЫ
+                            const backendMsg = msg.message || "";
                             
-                            // Сбрасываем статус загрузки и выходим из функции
+                            if (backendMsg.includes("Token is invalid")) {
+                                errorMsg = $t("import.error_invalid_token") || "Token is invalid or expired.";
+                            } 
+                            else if (backendMsg.includes("Invalid domain")) {
+                                errorMsg = $t("import.error_domain") || "Invalid game link. Domain not supported";
+                            } 
+                            else if (backendMsg.includes("No pulls found") || backendMsg.includes("expired")) {
+                                errorMsg = $t("import.error_no_data") || "No pulls found or Link Expired";
+                            } 
+                            else if (backendMsg.includes("No token found")) {
+                                errorMsg = $t("import.error_format") || "Invalid URL/Token format";
+                            } 
+                            else {
+                                errorMsg = backendMsg; // На крайний случай оставляем оригинальный текст
+                            }
+
                             previewReport = null;
                             isLoading = false;
-                            return; 
+                            return; // Останавливаем выполнение
                         }
                     } catch (e) {
                         console.error("Stream parse error:", e);
@@ -266,10 +294,16 @@
         } catch (err) {
             console.error("Import Error:", err);
             
-            if (err.message && err.message.includes("Token is invalid")) {
-                errorMsg = $t("import.error_invalid_token") || "Токен недействителен или устарел. Пожалуйста, сгенерируйте новую ссылку.";
-            } else {
-                errorMsg = err.message || "Unknown Error";
+            // 6. МАППИНГ СИСТЕМНЫХ ОШИБОК В ПЕРЕВОДЫ
+            if (err.message === "RATE_LIMIT") {
+                errorMsg = $t("import.error_rate_limit") || "Too many requests. Please wait a minute.";
+            } 
+            else if (err.message === "NETWORK_ERROR" || err.message.includes("Failed to fetch")) {
+                errorMsg = $t("import.error_network") || "Bad Gateway";
+            } 
+            else {
+                // Если произошла неведомая ошибка (например, прервался интернет)
+                errorMsg = $t("import.error_unknown") || "Unknown Error";
             }
             
             previewReport = null;
