@@ -159,11 +159,14 @@
             }
         }
         if (!cleanToken) return;
-        const encodedToken = encodeURIComponent(cleanToken);
+
+        const encodedToken = encodeURIComponent(decodeURIComponent(cleanToken));
+
         const baseUrl =
             "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
         const tail =
             "&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=3";
+        
         realImportUrl = baseUrl + encodedToken + tail;
         urlInput = cleanToken;
         e.target.value = cleanToken;
