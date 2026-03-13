@@ -33,16 +33,23 @@ function generateStableUid(pulls) {
 
 const app = express();
 app.set('trust proxy', 1);
-let prisma;
+let prisma = null;
+
 if (process.env.DATABASE_URL) {
     try {
-        prisma = new PrismaClient();
-        console.log("Database connection initialized.");
+        const tempPrisma = new PrismaClient();
+        
+        if (tempPrisma.user && tempPrisma.userBannerStat && tempPrisma.importError && tempPrisma.globalBannerStats) {
+            prisma = tempPrisma;
+            console.log("Database connection initialized and all models found.");
+        } else {
+            console.log("Local mode: Prisma models are outdated or missing. Skipping DB completely.");
+        }
     } catch (e) {
         console.warn("Prisma Client failed to initialize:", e.message);
     }
 } else {
-    console.log("Running in Local Mode. Stats will not be saved.");
+    console.log("Running in Local Mode (No DATABASE_URL). Stats will not be saved.");
 }
 
 const PORT = 3001;
@@ -199,10 +206,10 @@ async function fetchGameData(token, lang, serverId, onProgress) {
     try {
         const results = await Promise.all(POOL_TYPES.map(type => fetchPool(type)));
         const allPulls = results.flat();
-        
-        return { 
-            pulls: allPulls, 
-            isTokenInvalid: isTokenInvalid && allPulls.length === 0 
+
+        return {
+            pulls: allPulls,
+            isTokenInvalid: isTokenInvalid && allPulls.length === 0
         };
     } catch (e) {
         console.error("Parallel fetch failed", e);
@@ -271,7 +278,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
                 usedServerId = serverId;
                 break;
             }
-            
+
             if (result.isTokenInvalid) {
                 tokenWasInvalidAtLeastOnce = true;
             }
@@ -292,7 +299,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
             return res.end();
         }
 
-        if (prisma) {
+        if (prisma && prisma.user) {
             await updateAggregatedStats(stableUid, allPulls, usedServerId);
         }
 
@@ -308,7 +315,9 @@ app.post('/api/import', importLimiter, async (req, res) => {
 
     } catch (error) {
         console.error("Critical Server Error:", error);
-        await logImportError(rawUrl, error, usedServerId);
+        if (prisma && prisma.user) {
+            await logImportError(rawUrl, error, usedServerId);
+        }
         sendEvent({ type: 'error', message: error.message || "Internal Server Error" });
         res.end();
     }
@@ -334,7 +343,7 @@ function mapPoolTypeToShort(longType) {
 }
 
 async function updateAggregatedStats(uid, allPulls, serverId) {
-    if (!prisma) return;
+    if (!prisma || !prisma.user) return;
     if (!allPulls.length) return;
 
     await prisma.user.upsert({ where: { uid }, update: {}, create: { uid } });
@@ -939,9 +948,8 @@ app.get('/api/rankings/data', async (req, res) => {
 });
 
 async function logImportError(url, errorObj, serverId = null) {
+    if (!prisma || !prisma.user) return;
     try {
-        if (!prisma) return;
-
         await prisma.importError.create({
             data: {
                 url: url || "No URL provided",

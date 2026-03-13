@@ -25,7 +25,11 @@ function compressDataForCloud(fullBackup) {
                         p: p.pity,
                         s: p.seqId,
                         g: p.gachaStatus,
-                        id: p.id
+                        id: p.id,
+                        pid: p.poolId,
+                        it: p.itemType,
+                        b: p.bannerId,
+                        f: p.isFree
                     }))
                 };
             }
@@ -185,11 +189,16 @@ export function applyCloudData() {
                         pulls: (content.pulls || []).map(p => ({
                             name: p.n,
                             time: new Date(p.t),
+                            timestamp: p.t,
                             rarity: p.r,
                             pity: p.p,
                             seqId: p.s,
                             gachaStatus: p.g,
-                            id: p.id
+                            id: p.id,
+                            poolId: p.pid,
+                            itemType: p.it,
+                            bannerId: p.b,
+                            isFree: p.f
                         })),
                         stats: {}
                     };

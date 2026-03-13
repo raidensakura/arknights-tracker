@@ -359,7 +359,7 @@ export const rawEvents = [
     color: "#0F2F48",
     layer: 3,
     type: "signIn",
-    iconPosition: 40
+    iconPosition: 15
   },
   {
     id: "ev12-v1.1",
