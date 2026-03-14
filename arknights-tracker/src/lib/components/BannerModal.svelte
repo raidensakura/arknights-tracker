@@ -470,7 +470,7 @@
                             >
                             <span
                                 class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
-                                >{realEnd ? formatTime(realEnd) : "∞"}</span
+                                >{banner.isPermanent || !realEnd ? "∞" : formatTime(realEnd)}</span
                             >
                         </div>
                     </div>
@@ -478,8 +478,15 @@
                     <div
                         class="p-3 bg-gray-50 rounded-xl border dark:border-[#444444] dark:bg-[#343434] border-gray-100 text-center"
                     >
-                        {#if !realEnd}
-                            <div class="text-gray-500 text-xs mb-0.5">
+                        {#if banner.isPermanent}
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
+                                {$t("systemNames.status")}
+                            </div>
+                            <div class="text-gray-500 dark:text-gray-400 font-bold font-nums text-lg leading-none uppercase tracking-wide">
+                                {$t("timer.permanent") || "Permanent"}
+                            </div>
+                        {:else if !realEnd}
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
                                 {$t("systemNames.status")}
                             </div>
                             <div
@@ -516,7 +523,7 @@
                                 {/if}
                             </div>
                         {:else if isEnded}
-                            <div class="text-gray-500 text-xs mb-0.5">
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
                                 {$t("status.ended") || "Ended"}
                             </div>
                             <div
@@ -525,7 +532,7 @@
                                 {$t("timer.days_ago", { n: timeData.days })}
                             </div>
                         {:else if isUpcoming}
-                            <div class="text-gray-500 text-xs mb-0.5">
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
                                 {$t("systemNames.startsIn")}
                             </div>
                             <div
