@@ -1,4 +1,4 @@
-﻿-- CreateTable
+-- CreateTable
 CREATE TABLE "User" (
     "uid" TEXT NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -87,4 +87,5 @@ CREATE INDEX "UserBannerStat_bannerId_sumPity6_idx" ON "UserBannerStat"("bannerI
 
 -- AddForeignKey
 ALTER TABLE "UserBannerStat" ADD CONSTRAINT "UserBannerStat_uid_fkey" FOREIGN KEY ("uid") REFERENCES "User"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;
+
 
