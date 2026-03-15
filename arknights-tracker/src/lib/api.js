@@ -1,8 +1,8 @@
 // src/lib/api.js
 
-export const API_BASE = import.meta.env.PROD 
-    ? '/api'
-    : 'http://localhost:3001/api';
+export const API_BASE =
+    import.meta.env.VITE_API_BASE ??
+    (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api');
 
 export async function fetchGlobalStats(uid, poolId) {
     try {
