@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: arknights
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d arknights"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./arknights-backend
+    ports:
+      - "3001:3001"
+    environment:
+      DB_PROVIDER: "postgres"
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/arknights?schema=public"
+      ADMIN_SECRET: "change_me"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./arknights-tracker
+    environment:
+      PUBLIC_API_BASE: "http://localhost:3001/api"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

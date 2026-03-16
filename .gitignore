@@ -4,5 +4,5 @@ node_modules/
 build/
 .svelte-kit/
 dist/
-prisma/*.db
-prisma/*.db-journal
+*.db
+*.db-journal

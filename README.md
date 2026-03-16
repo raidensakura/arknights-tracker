@@ -16,7 +16,7 @@ A functional pull tracker and global statistics database for Arknights: Endfield
 **Backend (`/arknights-backend`):**
 - [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
 - [Prisma ORM](https://www.prisma.io/)
-- [SQLite](https://www.sqlite.org/) (Local database for storing statistics)
+- [PostgreSQL](https://www.postgresql.org/) or [SQLite](https://www.sqlite.org/) (Database for storing statistics)
 
 ---
 
@@ -66,3 +66,33 @@ Now open your favorite browser and type the following into the address bar:
 **`http://localhost:5173`**
 
 When importing pulls, the site will automatically detect that you are running it locally and send the request to your own backend.
+
+---
+
+# Docker deployment
+
+This repo supports both PostgreSQL and SQLite deployments via separate compose files and provider-specific Prisma schemas/migrations.
+
+## PostgreSQL (recommended)
+```bash
+docker compose up --build
+```
+
+## SQLite
+```bash
+docker compose -f docker-compose.sqlite.yml up --build
+```
+
+## Database migrations
+Prisma uses provider-specific schemas and migrations:
+- PostgreSQL: `arknights-backend/prisma/postgres`
+- SQLite: `arknights-backend/prisma/sqlite`
+
+Helper scripts (run inside `arknights-backend`):
+```bash
+npm run generate:pg
+npm run migrate:pg
+
+npm run generate:sqlite
+npm run migrate:sqlite
+```
