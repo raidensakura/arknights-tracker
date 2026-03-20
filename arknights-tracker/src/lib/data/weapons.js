@@ -699,5 +699,16 @@ export const weapons = {
       "attr_icedam",
       "tactic"
     ]
+  },
+  "prominentEdge": {
+    "id": "prominentEdge",
+    "name": "Prominent Edge",
+    "rarity": 4,
+    "weapon": "sword",
+    "skills": [
+      "attr_str",
+      "attr_icedam",
+      "tactic"
+    ]
   }
 };

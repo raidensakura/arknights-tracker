@@ -626,7 +626,7 @@
                             >
                                 <Icon
                                     name={char.element}
-                                    class="w-7 h-7 text-white"
+                                    class="w-10 h-10 text-white"
                                 />
                             </div>
                         </Tooltip>

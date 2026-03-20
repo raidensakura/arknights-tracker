@@ -11,7 +11,7 @@ const defaultData = {
 };
 
 const nameFixes = {
-    "Prominent Edge": "Contingent Measure"
+    "Contingent Measure": "Prominent Edge",
 };
 
 function createPullStore() {
@@ -31,8 +31,8 @@ function createPullStore() {
                 data[key].pulls.forEach(p => {
                     if (p.time) p.time = new Date(p.time);
 
-                    if (p.name === "Prominent Edge") {
-                        p.name = "Contingent Measure";
+                    if (p.name === "Contingent Measure") {
+                        p.name = "Prominent Edge";
                     }
                 });
                 
