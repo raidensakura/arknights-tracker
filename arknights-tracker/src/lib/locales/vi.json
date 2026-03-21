@@ -921,6 +921,10 @@
     "partialMatch": "Phù hợp một phần",
     "minimalMatch": "Phù hợp tối thiểu",
     "attr2": "Thuộc tính 2",
-    "attr3": "Thuộc tính 3"
+    "attr3": "Thuộc tính 3",
+    "simultaneousFarming": "Cày cuốc Đồng thời (3/3)",
+    "ifLock": "Nếu khóa",
+    "addAttr1": "Thêm Thuộc tính 1",
+    "attrAlreadySelected": "Sẽ được cày cuốc đồng thời"
   }
 }

@@ -922,6 +922,10 @@
     "partialMatch": "Correspondance partielle",
     "minimalMatch": "Correspondance minimale",
     "attr2": "Attribut 2",
-    "attr3": "Attribut 3"
+    "attr3": "Attribut 3",
+    "simultaneousFarming": "Farm simultané (3/3)",
+    "ifLock": "Si vous verrouillez",
+    "addAttr1": "Ajouter l'Attribut 1",
+    "attrAlreadySelected": "Sera farmé simultanément"
   }
 }

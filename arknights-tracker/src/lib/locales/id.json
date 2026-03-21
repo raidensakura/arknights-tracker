@@ -922,6 +922,10 @@
     "partialMatch": "Cocok Sebagian",
     "minimalMatch": "Kecocokan Minimum",
     "attr2": "Atribut 2",
-    "attr3": "Atribut 3"
+    "attr3": "Atribut 3",
+    "simultaneousFarming": "Farming Bersamaan (3/3)",
+    "ifLock": "Jika Anda mengunci",
+    "addAttr1": "Tambahkan Atribut 1",
+    "attrAlreadySelected": "Akan difarming bersamaan"
   }
 }

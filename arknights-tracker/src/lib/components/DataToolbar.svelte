@@ -447,7 +447,7 @@
                 {/if}
 
                 <div class="pt-2 border-t border-gray-200 dark:border-[#444444] flex justify-end">
-                    <button type="button" class="text-xs font-bold dark:text-[#B7B6B3] text-gray-500 hover:text-red-500 uppercase tracking-wider transition-colors px-2 py-1" on:click={resetFilters}>
+                    <button type="button" class="text-xs font-bold dark:text-[#B7B6B3] hover:text-[#F9B90C] text-gray-500 hover:dark:text-[#F9B90C] hover:text-red-500 uppercase tracking-wider px-2 py-1" on:click={resetFilters}>
                         {$t("sort.reset") || "Reset filters"}
                     </button>
                 </div>

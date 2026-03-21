@@ -921,6 +921,10 @@
     "partialMatch": "部分匹配",
     "minimalMatch": "最低限度匹配",
     "attr2": "属性 2",
-    "attr3": "属性 3"
+    "attr3": "属性 3",
+    "simultaneousFarming": "同时刷取 (3/3)",
+    "ifLock": "如果锁定",
+    "addAttr1": "添加属性 1",
+    "attrAlreadySelected": "将同时刷取"
   }
 }

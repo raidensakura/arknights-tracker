@@ -922,6 +922,10 @@
     "partialMatch": "Teilweiser Treffer",
     "minimalMatch": "Minimaler Treffer",
     "attr2": "Attribut 2",
-    "attr3": "Attribut 3"
+    "attr3": "Attribut 3",
+    "simultaneousFarming": "Gleichzeitiges Farmen (3/3)",
+    "ifLock": "Wenn du sperrst",
+    "addAttr1": "Füge Attribut 1 hinzu",
+    "attrAlreadySelected": "Wird gleichzeitig gefarmt"
 }
 }

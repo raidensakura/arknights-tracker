@@ -356,6 +356,7 @@
         const selectedWeapons = Array.from(selectedIds).map(id => weaponsList.find(w => w.id === id)).filter(Boolean);
         const dungeonMap = {}; 
 
+        // 1. Собираем базовую информацию по данжам
         Object.values(essencesData).forEach(essence => {
             if (!essence.obtain || essence.obtain.length === 0) return;
             const eSkillIds = essence.skills.map(s => s.id);
@@ -401,6 +402,7 @@
             });
         });
 
+        // 2. Формируем результаты и СРАЗУ ищем советы для каждого данжа
         let results = Object.entries(dungeonMap).map(([dungeonId, weaponsMatched]) => {
             let hasPrimaryPerfect = false; 
             
@@ -420,20 +422,96 @@
 
             const perfectMatches = matchedList.filter(m => m.effectiveCount === 3).length;
 
+            // === ИЩЕМ СОВЕТЫ ОДНОВРЕМЕННОГО ФАРМА ===
+            const pWeapon = wishlist.primary;
+            let suggestionBlocks = [];
+            let totalSuggestionsCount = 0; // Счетчик найденных пушек для сортировки
+
+            if (pWeapon && weaponsMatched[pWeapon.id]) {
+                const dungeonEssences = Object.values(essencesData).filter(e => e.obtain && e.obtain.includes(dungeonId));
+                
+                let possibleLocks = pWeapon.skills.filter(s => attr2Skills.includes(s) || attr3Skills.includes(s));
+                let validLocks = possibleLocks.filter(lockStat => {
+                    return wishlist.secondary.every(sec => {
+                        let wAttr23 = sec.weapon.skills.filter(s => attr2Skills.includes(s) || attr3Skills.includes(s));
+                        return wAttr23.length === 0 || wAttr23.includes(lockStat);
+                    });
+                });
+
+                validLocks.forEach(lockStat => {
+                    let isAttr2 = attr2Skills.includes(lockStat);
+                    let block = { lock: lockStat, isAttr2, groups: {} };
+
+                    weaponsList.forEach(wp => {
+                        if (selectedIds.has(wp.id)) return;
+                        
+                        const wAttr23 = wp.skills.filter(s => attr2Skills.includes(s) || attr3Skills.includes(s));
+                        if (wAttr23.length > 0 && !wAttr23.includes(lockStat)) return;
+
+                        const can3_3 = dungeonEssences.some(essence => {
+                            const eSkillIds = essence.skills.map(s => s.id);
+                            return wp.skills.every(skill => eSkillIds.includes(skill));
+                        });
+
+                        if (can3_3) {
+                            const wAttr1 = wp.skills.find(s => attr1Skills.includes(s));
+                            if (!wAttr1) return;
+
+                            const isFree = wishlist.attr1.includes(wAttr1);
+                            
+                            if (isFree || wishlist.attr1.length < 3) {
+                                const groupKey = isFree ? 'FREE_GROUP' : wAttr1;
+                                if (!block.groups[groupKey]) {
+                                    block.groups[groupKey] = { isFree, weapons: [] };
+                                }
+                                block.groups[groupKey].weapons.push(wp);
+                            }
+                        }
+                    });
+
+                    if (Object.keys(block.groups).length > 0) {
+                        block.groupsList = Object.entries(block.groups).map(([key, data]) => {
+                            totalSuggestionsCount += data.weapons.length; // Плюсуем количество найденных пушек
+                            return {
+                                attr: key === 'FREE_GROUP' ? null : key,
+                                isFree: data.isFree,
+                                weapons: data.weapons.sort((a,b) => b.rarity - a.rarity).slice(0, 16) 
+                            };
+                        }).sort((a,b) => a.isFree === b.isFree ? 0 : (a.isFree ? -1 : 1));
+                        
+                        suggestionBlocks.push(block);
+                    }
+                });
+            }
+
             return {
                 dungeonId,
                 matchedList,
                 perfectMatches,
                 totalCovered: matchedList.length,
-                hasPrimaryPerfect 
+                hasPrimaryPerfect,
+                suggestionBlocks, // Сохраняем блоки
+                totalSuggestionsCount // Сохраняем счетчик для сортировки
             };
-        }).sort((a, b) => {
-            if (a.hasPrimaryPerfect && !b.hasPrimaryPerfect) return -1;
-            if (!a.hasPrimaryPerfect && b.hasPrimaryPerfect) return 1;
-            if (b.perfectMatches !== a.perfectMatches) return b.perfectMatches - a.perfectMatches;
-            return b.totalCovered - a.totalCovered;
         });
 
+        // 3. Сортируем результаты (теперь с учетом советов!)
+        results.sort((a, b) => {
+            // 1. Идеально ли подходит Главному оружию
+            if (a.hasPrimaryPerfect && !b.hasPrimaryPerfect) return -1;
+            if (!a.hasPrimaryPerfect && b.hasPrimaryPerfect) return 1;
+            
+            // 2. У кого больше идеальных попаданий (3/3) по выбранным пушкам
+            if (b.perfectMatches !== a.perfectMatches) return b.perfectMatches - a.perfectMatches;
+            
+            // 3. У кого больше хотя бы частичных попаданий по выбранным пушкам
+            if (b.totalCovered !== a.totalCovered) return b.totalCovered - a.totalCovered;
+            
+            // 4. НОВОЕ ПРАВИЛО: У кого больше дополнительных пушек для одновременного фарма
+            return b.totalSuggestionsCount - a.totalSuggestionsCount;
+        });
+
+        // Отдаем топ-3
         return results.slice(0, 3);
     }
 
@@ -454,14 +532,21 @@
     function getRegionColor(regionId) {
         return regionColors[regionId] || regionColors["default"];
     }
+
+    let collapsedSuggestions = {};
+
+    function toggleSuggestions(dungeonId) {
+        collapsedSuggestions[dungeonId] = !collapsedSuggestions[dungeonId];
+        collapsedSuggestions = { ...collapsedSuggestions };
+    }
 </script>
 
 <div class="max-w-[100%] min-h-screen flex flex-col xl:flex-row gap-8">
     
     <div class="w-full xl:w-[45%] flex flex-col xl:border-r border-gray-200 dark:border-[#333] xl:pr-8">
         
-        <div class="flex items-center justify-between mb-6 border-b border-gray-200 dark:border-[#333] pb-2 mt-2">
-            <div class="flex gap-4">
+        <div class="flex items-center justify-between mb-6 border-b border-gray-200 dark:border-[#333] mt-2">
+            <div class="flex gap-6">
                 <button
                     class="text-lg font-bold pb-2 border-b-2 transition-colors {activeTab === 'optimizer' ? 'border-[#F9B90C] text-[#21272C] dark:text-white' : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}"
                     on:click={() => (activeTab = "optimizer")}
@@ -477,11 +562,17 @@
             </div>
 
             {#if activeTab === 'optimizer' && selectedWeaponIds.size > 0}
-                <button class="text-xs font-bold text-gray-400 hover:text-[#F9B90C] transition-colors uppercase tracking-wider px-2 py-1" on:click={clearSelection}>
+                <button 
+                    class="text-xs font-bold text-gray-500 mb-2 dark:text-gray-400 border border-gray-300 dark:border-[#444444] rounded-full px-4 py-1.5 hover:text-[#F9B90C] hover:border-[#F9B90C] hover:bg-[#F9B90C]/40 transition-all uppercase tracking-wider" 
+                    on:click={clearSelection}
+                >
                     {$t("essencesPage.reset")}
                 </button>
             {:else if activeTab === 'inventory' && invSelectedCount > 0}
-                <button class="text-xs font-bold text-gray-400 hover:text-[#F9B90C] transition-colors uppercase tracking-wider px-2 py-1" on:click={clearInvFilters}>
+                <button 
+                    class="text-xs font-bold text-gray-500 mb-2 dark:text-gray-400 border border-gray-300 dark:border-[#444444] rounded-full px-4 py-1.5 hover:text-[#F9B90C] hover:border-[#F9B90C] hover:bg-[#F9B90C]/40 transition-all uppercase tracking-wider" 
+                    on:click={clearInvFilters}
+                >
                     {$t("essencesPage.reset")}
                 </button>
             {/if}
@@ -489,7 +580,7 @@
 
         {#if activeTab === "optimizer"}
             
-            <div class="mb-4">
+            <div>
                 <DataToolbar
                     bind:sortField
                     bind:sortDirection
@@ -517,13 +608,14 @@
                             isNew={wp.isNew}
                             asLink={false}
                             className="w-full h-full"
+                            hidePot={false}
                         />
 
                         {#if isSelected}
                             <div class="absolute inset-[-3px] border-[3px] border-[#F9B90C] rounded-[9px] z-30 pointer-events-none"></div>
 
                             <button
-                                class="absolute -top-2.5 -right-2.5 w-8 h-8 rounded-full flex items-center justify-center shadow-lg z-40 transition-colors border-2 {isPrimary ? 'bg-[#F9B90C] border-[#F9B90C] text-black' : 'bg-[#2A2A2A] border-[#444] text-gray-400 hover:bg-[#333] hover:text-white'}"
+                                class="absolute -top-2.5 -right-2.5 w-8 h-8 rounded-full flex items-center justify-center shadow-lg z-30 transition-colors border-2 {isPrimary ? 'bg-[#F9B90C] border-[#F9B90C] text-black' : 'bg-[#2A2A2A] border-[#444] text-gray-400 hover:bg-[#333] hover:text-white'}"
                                 on:click|preventDefault|stopPropagation={() => setPrimaryWeapon(wp.id)}
                                 title={isPrimary ? $t("essencesPage.primaryWeapon") : $t("essencesPage.makePrimary")}
                             >
@@ -555,7 +647,7 @@
                         {#each attr1Skills as skill}
                             <button 
                                 type="button" 
-                                class="h-[32px] px-2 pr-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr1 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
+                                class="h-[32px] px-2 pr-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr1 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
                                 on:click={() => setInvAttr(1, skill)}
                             >
                                 {#if skillIcons[skill]}
@@ -575,7 +667,7 @@
                         {#each attr2Skills as skill}
                             <button 
                                 type="button" 
-                                class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr2 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
+                                class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr2 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
                                 on:click={() => setInvAttr(2, skill)}
                             >
                                 {#if skillIcons[skill]}
@@ -601,7 +693,7 @@
                         {#each attr3Skills as skill}
                             <button 
                                 type="button" 
-                                class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr3 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
+                                class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {invAttr3 === skill ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]' : 'bg-white/50 dark:bg-[#383838]/50 border-gray-200 dark:border-[#444444] text-gray-700 dark:text-[#E0E0E0] hover:bg-white hover:dark:bg-[#424242]'}" 
                                 on:click={() => setInvAttr(3, skill)}
                             >
                                 {#if skillIcons[skill]}
@@ -675,7 +767,7 @@
                                 </div>
                                 <Button
                                     variant="roundSmall"
-                                    className="opacity-70 hover:opacity-100"
+                                    className="opacity-85 hover:opacity-100"
                                     color="gray"
                                     onClick={() => {
                                         const mapUrl = locData.url || locData.URL;
@@ -714,7 +806,7 @@
                                     {#if wishlistData.lockedAttr23}
                                         <div class="flex items-center gap-2">
                                             <span class="text-xs font-medium text-gray-700 dark:text-gray-300 w-[80px] shrink-0">
-                                                {$t("essencesPage.attr23")}:
+                                                {attr2Skills.includes(wishlistData.lockedAttr23) ? $t("essencesPage.attr2") : $t("essencesPage.attr3")}:
                                             </span>
                                             <div class="flex flex-wrap gap-1.5">
                                                 <div class="px-2 py-0.5 rounded text-[10px] font-bold border bg-[#00B4A8]/10 text-[#009288] dark:text-[#00B4A8] border-[#00B4A8]/30">
@@ -796,6 +888,82 @@
                                     </div>
                                 {/each}
                             </div>
+                            {#if dungeon.suggestionBlocks && dungeon.suggestionBlocks.length > 0}
+                                <div class="px-4 py-3 bg-[#F9B90C]/5 dark:bg-[#F9B90C]/[0.03] border-t border-[#F9B90C]/20 transition-all">
+                                    
+                                    <button 
+                                        type="button"
+                                        class="flex items-center justify-between w-full mb-2 cursor-pointer hover:opacity-80 transition-opacity outline-none"
+                                        on:click={() => toggleSuggestions(dungeon.dungeonId)}
+                                    >
+                                        <div class="flex items-center gap-2">
+                                            <Icon name="sparkles" class="w-4 h-4 text-[#F9B90C]" /> 
+                                            <span class="text-[11px] font-bold text-[#4ADE80] dark:text-[#4ADE80]">
+                                                {$t("essencesPage.simultaneousFarming")}
+                                            </span>
+                                        </div>
+                                        <svg 
+                                            class="w-4 h-4 text-[#F9B90C] transition-transform duration-300 {collapsedSuggestions[dungeon.dungeonId] ? 'rotate-180' : ''}" 
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        >
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                                        </svg>
+                                    </button>
+
+                                    {#if !collapsedSuggestions[dungeon.dungeonId]}
+                                        <div class="flex flex-col gap-4 mt-3">
+                                            {#each dungeon.suggestionBlocks as block}
+                                                <div class="flex flex-col gap-2">
+                                                    
+                                                    <div class="text-[11px] font-bold text-gray-600 dark:text-gray-400">
+                                                        {$t("essencesPage.ifLock")} {block.isAttr2 ? $t("essencesPage.attr2") : $t("essencesPage.attr3")}: 
+                                                        <span class="text-[#00B4A8] bg-[#00B4A8]/10 px-1.5 py-0.5 rounded ml-1 border border-[#00B4A8]/30">
+                                                            {$t(`skills.${block.lock}`) || block.lock}
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="flex flex-col gap-2">
+                                                        {#each block.groupsList as group}
+                                                            <div class="bg-white/50 dark:bg-[#252525]/50 rounded-lg p-2 border border-gray-100 dark:border-[#333]">
+                                                                
+                                                                <div class="flex items-center gap-1.5 mb-2">
+                                                                    {#if group.isFree}
+                                                                        <span class="text-[10px] font-bold text-[#4ADE80]">
+                                                                            {$t("essencesPage.attrAlreadySelected")}
+                                                                        </span>
+                                                                    {:else}
+                                                                        <span class="text-[10px] font-bold text-gray-500 dark:text-gray-400">
+                                                                            {$t("essencesPage.addAttr1")}:
+                                                                        </span>
+                                                                        <div class="px-1.5 py-0.5 rounded text-[10px] font-bold border bg-[#F9B90C]/10 text-[#d9a009] dark:text-[#F9B90C] border-[#F9B90C]/30">
+                                                                            {$t(`skills.${group.attr}`) || group.attr}
+                                                                        </div>
+                                                                    {/if}
+                                                                </div>
+
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    {#each group.weapons as wp}
+                                                                        <div class="flex items-center gap-1.5 bg-white dark:bg-[#1A1A1A] rounded p-1 border border-gray-200 dark:border-[#444] pr-2 shadow-sm transition-colors hover:border-[#F9B90C]">
+                                                                            <div class="w-7 h-7 rounded bg-gray-100 dark:bg-[#111] overflow-hidden flex-shrink-0">
+                                                                                <Images id={wp.id} variant="weapon-icon" className="w-full h-full object-contain p-0.5" />
+                                                                            </div>
+                                                                            <span class="text-[10px] font-bold text-gray-800 dark:text-[#E0E0E0] whitespace-nowrap">
+                                                                                {$t(`weaponsList.${wp.id}`) || wp.name}
+                                                                            </span>
+                                                                        </div>
+                                                                    {/each}
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        {/each}
+                                                    </div>
+
+                                                </div>
+                                            {/each}
+                                        </div>
+                                    {/if}
+                                    </div>
+                            {/if}
                         </div>
                     {/each}
                 </div>
@@ -858,7 +1026,7 @@
                                 <div class="w-2 h-6 bg-gray-400 rounded-full"></div>
                                 <h3 class="text-lg font-bold text-gray-500 dark:text-gray-400">{$t("essencesPage.minimalMatch")} (1/3)</h3>
                             </div>
-                            <div class="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-4 opacity-70">
+                            <div class="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-4">
                                 {#each invGroup1 as match (match.weapon.id)}
                                     <div class="w-full aspect-square relative rounded-[6px]">
                                         <WeaponCard weapon={match.weapon} isNew={match.weapon.isNew} asLink={true} className="w-full h-full" />

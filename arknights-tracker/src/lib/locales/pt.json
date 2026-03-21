@@ -922,6 +922,10 @@
     "partialMatch": "Combinação Parcial",
     "minimalMatch": "Combinação Mínima",
     "attr2": "Atributo 2",
-    "attr3": "Atributo 3"
+    "attr3": "Atributo 3",
+    "simultaneousFarming": "Farm Simultâneo (3/3)",
+    "ifLock": "Se você travar",
+    "addAttr1": "Adicionar Atributo 1",
+    "attrAlreadySelected": "Será farmado simultaneamente"
 }
 }

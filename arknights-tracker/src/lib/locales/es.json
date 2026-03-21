@@ -922,6 +922,10 @@
     "partialMatch": "Coincidencia parcial",
     "minimalMatch": "Coincidencia mínima",
     "attr2": "Atributo 2",
-    "attr3": "Atributo 3"
-}
+    "attr3": "Atributo 3",
+    "simultaneousFarming": "Farmeo simultáneo (3/3)",
+    "ifLock": "Si bloqueas",
+    "addAttr1": "Añade Atributo 1",
+    "attrAlreadySelected": "Se farmeará simultáneamente"
+  }
 }

@@ -922,6 +922,10 @@
     "partialMatch": "부분 일치",
     "minimalMatch": "최소 일치",
     "attr2": "속성 2",
-    "attr3": "속성 3"
+    "attr3": "속성 3",
+    "simultaneousFarming": "동시 파밍 (3/3)",
+    "ifLock": "고정할 경우",
+    "addAttr1": "속성 1 추가",
+    "attrAlreadySelected": "동시에 파밍됩니다"
 }
 }

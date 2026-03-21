@@ -922,6 +922,10 @@
     "partialMatch": "部分一致",
     "minimalMatch": "最小限の一致",
     "attr2": "属性 2",
-    "attr3": "属性 3"
+    "attr3": "属性 3",
+    "simultaneousFarming": "同時周回 (3/3)",
+    "ifLock": "固定する場合",
+    "addAttr1": "属性 1 を追加",
+    "attrAlreadySelected": "同時に周回できます"
 }
 }

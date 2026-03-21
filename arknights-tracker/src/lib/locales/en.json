@@ -964,6 +964,10 @@
     "partialMatch": "Partial Match",
     "minimalMatch": "Minimal Match",
     "attr2": "Attribute 2",
-    "attr3": "Attribute 3"
+    "attr3": "Attribute 3",
+    "simultaneousFarming": "Simultaneous Farming (3/3)",
+    "ifLock": "If you lock",
+    "addAttr1": "Add Attribute 1",
+    "attrAlreadySelected": "Will be farmed simultaneously"
   }
 }
