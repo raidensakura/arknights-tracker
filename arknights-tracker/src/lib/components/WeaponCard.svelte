@@ -113,6 +113,7 @@
     <svelte:element
         this={asLink ? "a" : "div"}
         href={asLink ? `/weapons/${weapon.id}` : undefined}
+        role={asLink ? "link" : "presentation"}
         class="{rootClass} no-underline focus:outline-none focus:ring-2 focus:ring-[#F9B90C] rounded-[6px]"
         on:mouseenter={() => (isHovered = true)}
         on:mouseleave={() => (isHovered = false)}

@@ -264,6 +264,7 @@
         if (rarity === 6) return "#F87C32"; 
         if (rarity === 5) return "#F9B90C"; 
         if (rarity === 4) return "#9253F1"; 
+        if (rarity === 3) return "#25B9F9"; 
         return "#888888"; 
     }
     $: rarityColor = getRarityColors(weaponBase.rarity);

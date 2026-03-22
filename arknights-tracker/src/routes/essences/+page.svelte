@@ -165,13 +165,24 @@
         .sort((a, b) => {
             let valA = sortField === "type" ? a.type || a.weapon : a[sortField];
             let valB = sortField === "type" ? b.type || b.weapon : b[sortField];
-            if (sortField === "rarity")
-                return sortDirection === "asc" ? valA - valB : valB - valA;
+            if (sortField === "rarity") {
+                let rarityDiff = sortDirection === "asc" ? valA - valB : valB - valA;
+                if (rarityDiff === 0) {
+                    let typeA = String(a.type || a.weapon || "");
+                    let typeB = String(b.type || b.weapon || "");
+                    return typeA.localeCompare(typeB);
+                }
+                return rarityDiff;
+            }
             if (!valA) valA = "";
             if (!valB) valB = "";
-            return sortDirection === "asc"
+            let compareResult = sortDirection === "asc"
                 ? String(valA).localeCompare(String(valB))
                 : String(valB).localeCompare(String(valA));
+            if (sortField === "type" && compareResult === 0) {
+                return (b.rarity || 0) - (a.rarity || 0); 
+            }
+            return compareResult;
         });
 
     let displayLimit = 40;
@@ -208,6 +219,14 @@
     let invAttr1 = null;
     let invAttr2 = null;
     let invAttr3 = null;
+
+    const rarityColors = {
+        6: "#F4700C", // Красный/Оранжевый
+        5: "#F9B90C", // Золотой
+        4: "#9253F1", // Фиолетовый
+        3: "#25B9F9", // Синий/Бирюзовый
+        2: "#8F8F8F" // Зеленый
+    };
 
     function setInvAttr(group, skillId) {
         if (group === 1) invAttr1 = invAttr1 === skillId ? null : skillId;
@@ -356,7 +375,6 @@
         const selectedWeapons = Array.from(selectedIds).map(id => weaponsList.find(w => w.id === id)).filter(Boolean);
         const dungeonMap = {}; 
 
-        // 1. Собираем базовую информацию по данжам
         Object.values(essencesData).forEach(essence => {
             if (!essence.obtain || essence.obtain.length === 0) return;
             const eSkillIds = essence.skills.map(s => s.id);
@@ -402,7 +420,6 @@
             });
         });
 
-        // 2. Формируем результаты и СРАЗУ ищем советы для каждого данжа
         let results = Object.entries(dungeonMap).map(([dungeonId, weaponsMatched]) => {
             let hasPrimaryPerfect = false; 
             
@@ -422,10 +439,9 @@
 
             const perfectMatches = matchedList.filter(m => m.effectiveCount === 3).length;
 
-            // === ИЩЕМ СОВЕТЫ ОДНОВРЕМЕННОГО ФАРМА ===
             const pWeapon = wishlist.primary;
             let suggestionBlocks = [];
-            let totalSuggestionsCount = 0; // Счетчик найденных пушек для сортировки
+            let totalSuggestionsCount = 0;
 
             if (pWeapon && weaponsMatched[pWeapon.id]) {
                 const dungeonEssences = Object.values(essencesData).filter(e => e.obtain && e.obtain.includes(dungeonId));
@@ -471,7 +487,7 @@
 
                     if (Object.keys(block.groups).length > 0) {
                         block.groupsList = Object.entries(block.groups).map(([key, data]) => {
-                            totalSuggestionsCount += data.weapons.length; // Плюсуем количество найденных пушек
+                            totalSuggestionsCount += data.weapons.length;
                             return {
                                 attr: key === 'FREE_GROUP' ? null : key,
                                 isFree: data.isFree,
@@ -490,28 +506,19 @@
                 perfectMatches,
                 totalCovered: matchedList.length,
                 hasPrimaryPerfect,
-                suggestionBlocks, // Сохраняем блоки
-                totalSuggestionsCount // Сохраняем счетчик для сортировки
+                suggestionBlocks,
+                totalSuggestionsCount
             };
         });
 
-        // 3. Сортируем результаты (теперь с учетом советов!)
         results.sort((a, b) => {
-            // 1. Идеально ли подходит Главному оружию
             if (a.hasPrimaryPerfect && !b.hasPrimaryPerfect) return -1;
             if (!a.hasPrimaryPerfect && b.hasPrimaryPerfect) return 1;
-            
-            // 2. У кого больше идеальных попаданий (3/3) по выбранным пушкам
             if (b.perfectMatches !== a.perfectMatches) return b.perfectMatches - a.perfectMatches;
-            
-            // 3. У кого больше хотя бы частичных попаданий по выбранным пушкам
             if (b.totalCovered !== a.totalCovered) return b.totalCovered - a.totalCovered;
-            
-            // 4. НОВОЕ ПРАВИЛО: У кого больше дополнительных пушек для одновременного фарма
             return b.totalSuggestionsCount - a.totalSuggestionsCount;
         });
 
-        // Отдаем топ-3
         return results.slice(0, 3);
     }
 
@@ -538,6 +545,79 @@
     function toggleSuggestions(dungeonId) {
         collapsedSuggestions[dungeonId] = !collapsedSuggestions[dungeonId];
         collapsedSuggestions = { ...collapsedSuggestions };
+    }
+
+    let dimmedWeaponIds = new Set();
+
+    $: {
+        let newDimmed = new Set();
+        if (selectedWeaponIds.size > 0) {
+            
+            let selectedWeaponsDungeons = [];
+            
+            Array.from(selectedWeaponIds).forEach(wpId => {
+                let dSet = new Set();
+                const wp = allWeapons.find(w => w.id === wpId);
+                if (wp) {
+                    Object.values(essences).forEach(ess => {
+                        if (!ess.obtain) return;
+                        const essSkillIds = ess.skills.map(s => s.id);
+                        if (wp.skills.every(s => essSkillIds.includes(s))) {
+                            ess.obtain.forEach(dId => dSet.add(dId));
+                        }
+                    });
+                }
+                selectedWeaponsDungeons.push(dSet);
+            });
+
+            let commonDungeons = new Set(selectedWeaponsDungeons[0] || []);
+            for (let i = 1; i < selectedWeaponsDungeons.length; i++) {
+                commonDungeons = new Set([...commonDungeons].filter(x => selectedWeaponsDungeons[i].has(x)));
+            }
+
+            allWeapons.forEach(wp => {
+                if (selectedWeaponIds.has(wp.id)) return; 
+                let hasConflict = false;
+                let wAttr23 = wp.skills.filter(s => attr2Skills.includes(s) || attr3Skills.includes(s));
+                if (selectedWeaponIds.size === 1) {
+                    const pWp = allWeapons.find(w => w.id === primaryWeaponId);
+                    const pAttr23 = pWp ? pWp.skills.filter(s => attr2Skills.includes(s) || attr3Skills.includes(s)) : [];
+                    if (wAttr23.length > 0 && pAttr23.length > 0 && !wAttr23.some(s => pAttr23.includes(s))) {
+                        hasConflict = true;
+                    }
+                } else {
+                    if (wAttr23.length > 0 && wishlistData.lockedAttr23 && !wAttr23.includes(wishlistData.lockedAttr23)) {
+                        hasConflict = true;
+                    }
+                }
+
+                let wAttr1 = wp.skills.filter(s => attr1Skills.includes(s));
+                wAttr1.forEach(s => {
+                    if (wishlistData.attr1.length >= 3 && !wishlistData.attr1.includes(s)) {
+                        hasConflict = true;
+                    }
+                });
+
+                let canFarm3_3 = false;
+                if (!hasConflict && commonDungeons.size > 0) {
+                    Object.values(essences).forEach(ess => {
+                        if (!ess.obtain || canFarm3_3) return;
+                        
+                        if (ess.obtain.some(dId => commonDungeons.has(dId))) {
+                            const essSkillIds = ess.skills.map(s => s.id);
+                            if (wp.skills.every(s => essSkillIds.includes(s))) {
+                                canFarm3_3 = true;
+                            }
+                        }
+                    });
+                }
+
+                if (hasConflict || !canFarm3_3) {
+                    newDimmed.add(wp.id);
+                }
+            });
+        }
+        dimmedWeaponIds = newDimmed;
     }
 </script>
 
@@ -599,7 +679,7 @@
                     <div
                         role="button"
                         tabindex="0"
-                        class="relative w-full h-full rounded-[6px] cursor-pointer text-left aspect-square"
+                        class="relative w-full h-full rounded-[6px] cursor-pointer text-left aspect-square transition-all duration-300 {dimmedWeaponIds.has(wp.id) ? 'opacity-40 grayscale-[60%]' : 'opacity-100 grayscale-0'}"
                         on:click|preventDefault|stopPropagation={() => toggleWeaponSelection(wp.id)}
                         on:keydown={(e) => e.key === "Enter" && toggleWeaponSelection(wp.id)}
                     >
@@ -631,7 +711,7 @@
             {/if}
 
             {#if filteredWeapons.length === 0}
-                <div class="text-center py-10 text-gray-400 italic flex flex-col items-center bg-gray-50 dark:bg-[#2C2C2C] rounded-2xl border border-dashed">
+                <div class="text-center py-10 text-gray-400 italic flex flex-col items-center bg-gray-50 dark:bg-[#2C2C2C] rounded-2xl border border-dashed dark:border-[#333]">
                     <Icon name="noData" class="w-8 h-8 mb-2 opacity-30" />
                     <p class="text-sm">{$t("emptyState.noData") || "No weapons found"}</p>
                 </div>
@@ -823,25 +903,29 @@
                                     {@const isPrimary = wishlistData.primary && wishlistData.primary.id === match.weapon.id}
                                     {@const secData = !isPrimary ? wishlistData.secondary.find(s => s.weapon.id === match.weapon.id) : null}
                                     
-                                    <div class="flex items-center gap-4 bg-gray-50 dark:bg-[#252525] rounded-lg p-3 {isPrimary ? 'border-[#F9B90C]' : match.effectiveCount === 3 ? 'border-[#4ADE80]' : 'border-gray-500'}">
+                                    <div class="flex items-center gap-3 bg-gray-50 dark:bg-[#252525] rounded-lg p-3">
                                         
-                                        <div class="relative w-12 h-12 flex-shrink-0">
-                                            <div class="w-full h-full rounded border border-gray-300 dark:border-[#333] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a] flex items-center justify-center shadow-sm">
+                                        <div class="relative w-12 h-12 flex-shrink-0 group/icon">
+                                            <a 
+                                                href={`/weapons/${match.weapon.id}`}
+                                                class="block w-full h-full rounded border border-gray-300 dark:border-[#333] border-b-[3px] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a] flex items-center justify-center shadow-sm transition-all duration-300 hover:ring-2 hover:ring-white dark:hover:ring-white hover:border-white"
+                                                style="border-bottom-color: {rarityColors[match.weapon.rarity] || '#B7B6B3'};"
+                                            >
                                                 <Images 
                                                     id={match.weapon.id} 
                                                     variant="weapon-icon" 
-                                                    className="w-full h-full pt-1 pr-0.5 object-contain drop-shadow-md blur-[0.3px] rotate-[0.01deg]" 
+                                                    className="w-full h-full pt-1 pr-0.5 object-contain drop-shadow-md blur-[0.3px] rotate-[0.01deg] transition-transform duration-300 group-hover/icon:scale-110" 
                                                     alt={match.weapon.name} 
                                                 />
-                                            </div>
+                                            </a>
                                             {#if isPrimary}
-                                                <div class="absolute -top-1.5 -right-1.5 bg-[#F9B90C] text-black w-5 h-5 rounded-full flex items-center justify-center shadow-md border-2 border-white dark:border-[#252525] z-10" title={$t("essencesPage.primaryWeapon")}>
+                                                <div class="absolute -top-1.5 -right-1.5 bg-[#F9B90C] text-black w-5 h-5 rounded-full flex items-center justify-center shadow-md border-2 border-white dark:border-[#252525] z-10 pointer-events-none" title={$t("essencesPage.primaryWeapon")}>
                                                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                                                 </div>
                                             {/if}
                                         </div>
                                         
-                                        <div class="flex flex-col gap-2">
+                                        <div class="flex flex-col gap-2 flex-1">
                                             <div class="text-sm font-bold text-gray-900 dark:text-[#E0E0E0]">
                                                 {$t(`weaponsList.${match.weapon.id}`) || match.weapon.name}
                                                 <span class="ml-1 {match.effectiveCount === 3 ? 'text-[#4ADE80]' : match.effectiveCount === 2 ? 'text-[#F9B90C]' : 'text-gray-500'}">
@@ -885,6 +969,18 @@
                                                 {/each}
                                             </div>
                                         </div>
+
+                                        <button
+                                            type="button"
+                                            class="w-7 h-7 rounded-md bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/30 flex-shrink-0 cursor-pointer ml-2"
+                                            title={$t("common.remove") || "Убрать"}
+                                            on:click|preventDefault|stopPropagation={() => toggleWeaponSelection(match.weapon.id)}
+                                        >
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                                            </svg>
+                                        </button>
+
                                     </div>
                                 {/each}
                             </div>
@@ -943,15 +1039,31 @@
 
                                                                 <div class="flex flex-wrap gap-2">
                                                                     {#each group.weapons as wp}
-                                                                        <div class="flex items-center gap-1.5 bg-white dark:bg-[#1A1A1A] rounded p-1 border border-gray-200 dark:border-[#444] pr-2 shadow-sm transition-colors hover:border-[#F9B90C]">
-                                                                            <div class="w-7 h-7 rounded bg-gray-100 dark:bg-[#111] overflow-hidden flex-shrink-0">
-                                                                                <Images id={wp.id} variant="weapon-icon" className="w-full h-full object-contain p-0.5" />
-                                                                            </div>
-                                                                            <span class="text-[10px] font-bold text-gray-800 dark:text-[#E0E0E0] whitespace-nowrap">
-                                                                                {$t(`weaponsList.${wp.id}`) || wp.name}
-                                                                            </span>
-                                                                        </div>
-                                                                    {/each}
+                                                                <div class="flex items-center gap-1.5 bg-white dark:bg-[#1A1A1A] rounded py-1 pl-1.5 pr-1.5 border border-gray-200 dark:border-[#444] shadow-sm transition-colors hover:border-[#F9B90C] group/weapon">
+                                                                    
+                                                                    <div class="w-1 h-6 rounded-full flex-shrink-0" style="background-color: {rarityColors[wp.rarity] || '#B7B6B3'};"></div>
+                                                                    
+                                                                    <div class="w-7 h-7 rounded bg-gray-100 dark:bg-[#111] overflow-hidden flex-shrink-0">
+                                                                        <Images id={wp.id} variant="weapon-icon" className="w-full h-full object-contain p-0.5" />
+                                                                    </div>
+                                                                    
+                                                                    <span class="text-[10px] font-bold text-gray-800 dark:text-[#E0E0E0] whitespace-nowrap pr-1">
+                                                                        {$t(`weaponsList.${wp.id}`) || wp.name}
+                                                                    </span>
+
+                                                                    <button
+                                                                        type="button"
+                                                                        class="ml-1 w-4 h-4 rounded-sm bg-[#4ADE80]/20 text-[#4ADE80] hover:bg-[#4ADE80] hover:text-white flex items-center justify-center transition-colors border border-[#4ADE80]/50 flex-shrink-0 cursor-pointer"
+                                                                        title={$t("common.add") || "Add"}
+                                                                        on:click|preventDefault|stopPropagation={() => toggleWeaponSelection(wp.id)}
+                                                                    >
+                                                                        <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                                                        </svg>
+                                                                    </button>
+
+                                                                </div>
+                                                            {/each}
                                                                 </div>
                                                                 
                                                             </div>
@@ -1035,10 +1147,8 @@
                             </div>
                         </div>
                     {/if}
-
                 </div>
             {/if}
-            
         {/if}
     </div>
 </div>

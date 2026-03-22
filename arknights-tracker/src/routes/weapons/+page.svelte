@@ -92,18 +92,26 @@
             return matchesRarity && matchesType && passesAttr1 && passesAttr2 && passesAttr3;
         })
         .sort((a, b) => {
-            let valA = sortField === "type" ? (a.type || a.weapon) : a[sortField];
-            let valB = sortField === "type" ? (b.type || b.weapon) : b[sortField];
-            
+            let valA = sortField === "type" ? a.type || a.weapon : a[sortField];
+            let valB = sortField === "type" ? b.type || b.weapon : b[sortField];
             if (sortField === "rarity") {
-                return sortDirection === "asc" ? valA - valB : valB - valA;
+                let rarityDiff = sortDirection === "asc" ? valA - valB : valB - valA;
+                if (rarityDiff === 0) {
+                    let typeA = String(a.type || a.weapon || "");
+                    let typeB = String(b.type || b.weapon || "");
+                    return typeA.localeCompare(typeB);
+                }
+                return rarityDiff;
             }
             if (!valA) valA = "";
             if (!valB) valB = "";
-
-            return sortDirection === "asc"
+            let compareResult = sortDirection === "asc"
                 ? String(valA).localeCompare(String(valB))
                 : String(valB).localeCompare(String(valA));
+            if (sortField === "type" && compareResult === 0) {
+                return (b.rarity || 0) - (a.rarity || 0); 
+            }
+            return compareResult;
         });
 
     let displayLimit = 40;

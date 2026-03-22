@@ -41,6 +41,7 @@
 
     let charLocale = {};
     let charDetails = {};
+    let copiedArtId = null;
 
     $: loadCharacterData(id, $currentLocale);
 
@@ -1197,25 +1198,66 @@
                                             )}
                                         </div>
 
-                                        <button
-                                            class="absolute top-3 right-3 z-20 flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
-                                            title="Скачать арт"
-                                            on:click|stopPropagation={() => {
-                                                const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
-                                                const link =
-                                                    document.createElement("a");
-                                                link.href = imageUrl;
-                                                link.download = `${id}_${realKey}.png`;
-                                                document.body.appendChild(link);
-                                                link.click();
-                                                document.body.removeChild(link);
-                                            }}
-                                        >
-                                            <Icon
-                                                name="import"
-                                                class="w-4 h-4 transition-transform group-hover/down:scale-110"
-                                            />
-                                        </button>
+                                        <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+                                            
+                                            <button
+                                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                                title="Copy image"
+                                                on:click|stopPropagation={async () => {
+                                                    try {
+                                                        const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
+                                                        const response = await fetch(imageUrl);
+                                                        const blob = await response.blob();
+                                                        await navigator.clipboard.write([
+                                                            new ClipboardItem({ [blob.type]: blob })
+                                                        ]);
+                                                        
+                                                        copiedArtId = realKey;
+                                                        
+                                                        setTimeout(() => {
+                                                            if (copiedArtId === realKey) copiedArtId = null;
+                                                        }, 2000);
+                                                    } catch (err) {
+                                                        console.error("Error copying:", err);
+                                                    }
+                                                }}
+                                            >
+                                                {#if copiedArtId === realKey}
+                                                    <svg
+                                                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
+                                                    >
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                {:else}
+                                                    <Icon
+                                                        name="copy"
+                                                        class="w-4 h-4 transition-transform group-hover/copy:scale-110"
+                                                    />
+                                                {/if}
+                                            </button>
+
+                                            <button
+                                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                                title="Dowanload Art"
+                                                on:click|stopPropagation={() => {
+                                                    const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
+                                                    const link = document.createElement("a");
+                                                    link.href = imageUrl;
+                                                    link.download = `${id}_${realKey}.png`;
+                                                    document.body.appendChild(link);
+                                                    link.click();
+                                                    document.body.removeChild(link);
+                                                }}
+                                            >
+                                                <Icon
+                                                    name="import"
+                                                    class="w-4 h-4 transition-transform group-hover/down:scale-110"
+                                                />
+                                            </button>
+                                            
+                                        </div>
                                     </div>
 
                                     <div
@@ -1266,6 +1308,101 @@
                                     </div>
                                 </div>
                             {/each}
+                            <div
+                                class="group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 bg-white/90 backdrop-blur-sm transition-all hover:shadow-2xl dark:bg-[#383838] dark:border-[#444444]"
+                            >
+                                <div
+                                    role="button"
+                                    tabindex="0"
+                                    class="relative w-full aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
+                                    on:click={() => (selectedArtId = `splash_${id}`)}
+                                    on:keydown={(e) =>
+                                        (e.key === "Enter" || e.key === " ") &&
+                                        (selectedArtId = `splash_${id}`)}
+                                >
+                                    <img
+                                        src={`/images/operators/splash/${id}.png`}
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        alt="Splash Art"
+                                        loading="lazy"
+                                        on:error={(e) => e.target.style.display = 'none'} 
+                                    />
+
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"></div>
+
+                                    <div class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none">
+                                        Splash
+                                    </div>
+
+                                    <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+                                        
+                                        <button
+                                            class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                            title="Copy image"
+                                            on:click|stopPropagation={async () => {
+                                                try {
+                                                    const imageUrl = `/images/operators/splash/${id}.png`;
+                                                    const response = await fetch(imageUrl);
+                                                    const blob = await response.blob();
+                                                    await navigator.clipboard.write([
+                                                        new ClipboardItem({ [blob.type]: blob })
+                                                    ]);
+                                                    
+                                                    copiedArtId = "splash";
+                                                    setTimeout(() => {
+                                                        if (copiedArtId === "splash") copiedArtId = null;
+                                                    }, 2000);
+                                                } catch (err) {
+                                                    console.error("Error copying:", err);
+                                                }
+                                            }}
+                                        >
+                                            {#if copiedArtId === "splash"}
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black">
+                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                </svg>
+                                            {:else}
+                                                <Icon name="copy" class="w-4 h-4 transition-transform group-hover/copy:scale-110" />
+                                            {/if}
+                                        </button>
+
+                                        <button
+                                            class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                            title="Download Art"
+                                            on:click|stopPropagation={() => {
+                                                const imageUrl = `/images/operators/splash/${id}.png`;
+                                                const link = document.createElement("a");
+                                                link.href = imageUrl;
+                                                link.download = `${id}_splash.png`;
+                                                document.body.appendChild(link);
+                                                link.click();
+                                                document.body.removeChild(link);
+                                            }}
+                                        >
+                                            <Icon name="import" class="w-4 h-4 transition-transform group-hover/down:scale-110" />
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col p-5 h-full dark:bg-[#383838] dark:border-[#444444]">
+                                    <div class="flex justify-between items-start gap-4 mb-3">
+                                        <h3 class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2">
+                                            Splash Art
+                                        </h3>
+                                    </div>
+                                    <p class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic">
+                                        </p>
+                                    <div class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]">
+                                        <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <span class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]">
+                                            Official
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {:else}
                         <div class="text-gray-500 text-center italic mt-10">
@@ -1452,17 +1589,26 @@
     >
         <div
             role="presentation"
-            class="relative max-w-full max-h-full flex items-center justify-center cursor-auto"
+            class="relative max-w-full max-h-[90vh] flex items-center justify-center cursor-auto"
             on:click|stopPropagation
             on:keydown|stopPropagation
         >
-            <Images
-                id={selectedArtId}
-                variant="operator-art"
-                className="max-w-full max-h-full object-contain rounded-lg drop-shadow-2xl select-none"
-            />
+            {#if selectedArtId.startsWith('splash_')}
+                <img
+                    src={`/images/operators/splash/${selectedArtId.replace('splash_', '')}.png`}
+                    class="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
+                    alt="Splash Art Full"
+                />
+            {:else}
+                <Images
+                    id={selectedArtId}
+                    variant="operator-art"
+                    className="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
+                />
+            {/if}
+
             <button
-                class="absolute top-0 right-0 md:top-4 md:right-4 p-3 bg-black/40 hover:bg-[#FFD800] text-white rounded-full transition-colors backdrop-blur-sm z-10"
+                class="absolute -top-4 -right-4 md:top-4 md:right-4 p-3 bg-black/40 hover:bg-[#FFD800] text-white hover:text-black rounded-full transition-colors backdrop-blur-sm z-10 shadow-lg"
                 on:click={() => (selectedArtId = null)}
             >
                 <Icon name="close" class="w-6 h-6" />

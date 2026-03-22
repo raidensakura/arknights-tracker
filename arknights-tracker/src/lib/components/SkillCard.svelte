@@ -100,7 +100,7 @@
         if (!valObj || !valObj.data) return "-";
         const idx = Math.min(lvl - 1, valObj.data.length - 1);
         let raw = valObj.data[idx];
-        if (valObj.dataType === "percent") return Math.round(raw * 100) + "%";
+        if (valObj.dataType === "percent") return parseFloat((raw * 100).toFixed(2)) + "%";
         return raw;
     }
     $: multiplierKeys = Object.keys(skillValues);
@@ -310,7 +310,7 @@
                                 {(skillData[skillKey] &&
                                     skillData[skillKey][key]) ||
                                     skillData[key] ||
-                                    key.replace(/([A-Z])/g, " $1").trim()}
+                                    key.replace(/([A-Z])/g, " $3").trim()}
                             </span>
                             <span class="font-nums font-bold text-[#21272C] dark:text-[#E4E4E4]">
                                 {getValue(key, level)}

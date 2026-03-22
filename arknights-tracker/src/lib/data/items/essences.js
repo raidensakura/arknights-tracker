@@ -20,9 +20,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0006_442": {
@@ -43,9 +41,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_claym_0003_663": {
@@ -67,9 +63,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_claym_0014_663": {
@@ -90,7 +84,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -113,8 +106,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -138,9 +129,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_claym_0004_663": {
@@ -162,9 +151,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0009_663": {
@@ -185,9 +172,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_test_004_663": {
@@ -209,8 +194,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -232,8 +215,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point03_7"
     ]
   },
@@ -278,8 +259,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point03_7"
     ]
   },
@@ -302,7 +281,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -327,8 +305,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_claym_0007_663": {
@@ -350,7 +327,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -373,9 +349,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -397,9 +371,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -421,7 +393,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
@@ -445,7 +416,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
@@ -470,7 +440,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -493,7 +462,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -532,9 +500,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_claym_0010_63": {
@@ -593,9 +559,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_claym_0011_442": {
@@ -618,8 +582,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0003_663": {
@@ -641,9 +604,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_claym_0011_663": {
@@ -666,8 +627,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0008_663": {
@@ -689,7 +649,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
     ]
@@ -728,7 +687,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -752,7 +710,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -775,7 +732,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -800,9 +756,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_claym_0014_442": {
@@ -823,7 +777,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -846,8 +799,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point03_7"
     ]
   },
@@ -870,8 +821,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point04_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_sword_0014_442": {
@@ -892,7 +842,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -915,8 +864,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point03_7"
     ]
   },
@@ -939,8 +886,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0001_663": {
@@ -962,8 +908,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0002_42": {
@@ -1000,7 +945,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -1038,8 +982,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point04_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_sword_0015_442": {
@@ -1060,7 +1003,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
     ]
@@ -1084,9 +1026,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0008_442": {
@@ -1130,9 +1070,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_sword_0007_663": {
@@ -1154,8 +1092,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_sword_0008_442": {
@@ -1176,7 +1113,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -1200,9 +1136,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_funnel_0004_663": {
@@ -1223,9 +1157,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0012_663": {
@@ -1248,8 +1180,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0005_442": {
@@ -1270,9 +1201,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_test_006_663": {
@@ -1317,9 +1246,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_lance_0006_663": {
@@ -1342,8 +1269,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0006_442": {
@@ -1366,7 +1292,6 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -1389,7 +1314,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point04_7"
     ]
   },
@@ -1413,7 +1337,6 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -1436,8 +1359,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_pistol_0011_442": {
@@ -1459,9 +1381,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_funnel_0007_663": {
@@ -1483,8 +1403,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0008_442": {
@@ -1506,7 +1425,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
     ]
@@ -1530,8 +1448,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_lance_0010_663": {
@@ -1552,7 +1469,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -1600,8 +1516,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_funnel_0010_442": {
@@ -1623,7 +1538,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -1646,7 +1560,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -1670,7 +1583,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -1717,8 +1629,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point04_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_funnel_0012_442": {
@@ -1740,7 +1651,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point04_7"
     ]
@@ -1778,7 +1688,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -1802,9 +1711,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_funnel_0013_663": {
@@ -1825,7 +1732,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -1849,7 +1755,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point04_7"
     ]
   },
@@ -1896,7 +1801,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point04_7"
     ]
   },
@@ -1956,9 +1860,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_lance_0003_442": {
@@ -1980,7 +1882,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -2003,7 +1904,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -2025,9 +1925,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_lance_0004_663": {
@@ -2048,9 +1946,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_lance_0008_442": {
@@ -2073,8 +1969,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_lance_0008_663": {
@@ -2097,8 +1992,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_lance_0009_42": {
@@ -2135,7 +2029,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
       "world_energy_point03_7"
     ]
   },
@@ -2158,8 +2051,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point04_7"
     ]
   },
   "gem_lance_0010_442": {
@@ -2180,7 +2072,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -2205,9 +2096,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_test_013_663": {
@@ -2228,7 +2117,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point05_7",
       "world_energy_point04_7"
     ]
@@ -2252,9 +2140,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_lance_0012_442": {
@@ -2275,7 +2161,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point03_7"
     ]
@@ -2298,7 +2183,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point03_7"
     ]
@@ -2361,8 +2245,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_pistol_0001_63": {
@@ -2399,9 +2282,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0002_663": {
@@ -2423,9 +2304,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_sword_0013_663": {
@@ -2446,7 +2325,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -2470,8 +2348,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
-      "world_energy_point04_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0004_442": {
@@ -2493,7 +2370,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point04_7"
     ]
   },
@@ -2516,7 +2392,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -2539,7 +2414,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
       "world_energy_point03_7"
     ]
   },
@@ -2561,9 +2435,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_sword_0009_442": {
@@ -2607,7 +2479,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point03_7"
     ]
@@ -2678,9 +2549,7 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point02_7"
     ]
   },
   "gem_pistol_0010_442": {
@@ -2703,7 +2572,6 @@ export const essences = {
     "obtain": [
       "world_energy_point05_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -2725,7 +2593,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -2751,7 +2618,6 @@ export const essences = {
     "obtain": [
       "world_energy_point05_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -2788,7 +2654,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
@@ -2813,8 +2678,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_sword_0009_663": {
@@ -2858,7 +2722,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -2882,7 +2745,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -2927,7 +2789,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -2950,7 +2811,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point02_7",
       "world_energy_point04_7",
       "world_energy_point03_7"
     ]
@@ -2973,8 +2833,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
-      "world_energy_point02_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
     ]
@@ -2997,7 +2855,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point05_7",
       "world_energy_point06_7",
       "world_energy_point03_7"
     ]
@@ -3044,7 +2901,6 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point05_7",
-      "world_energy_point06_7",
       "world_energy_point03_7"
     ]
   },
@@ -3090,8 +2946,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point04_7"
     ]
   },
   "gem_sword_0018_663": {
@@ -3113,8 +2968,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point04_7"
     ]
   },
   "gem_sword_0019_442": {
@@ -3183,8 +3037,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point04_7",
-      "world_energy_point03_7"
+      "world_energy_point04_7"
     ]
   },
   "gem_sword_0022_442": {
@@ -3207,7 +3060,6 @@ export const essences = {
     "obtain": [
       "world_energy_point05_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -3231,7 +3083,6 @@ export const essences = {
     "obtain": [
       "world_energy_point05_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
       "world_energy_point04_7"
     ]
   },
@@ -3254,8 +3105,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point01_7",
-      "world_energy_point05_7",
-      "world_energy_point03_7"
+      "world_energy_point05_7"
     ]
   },
   "gem_test_003_663": {
@@ -3276,7 +3126,6 @@ export const essences = {
       }
     ],
     "obtain": [
-      "world_energy_point01_7",
       "world_energy_point02_7",
       "world_energy_point04_7"
     ]
@@ -3300,8 +3149,7 @@ export const essences = {
     ],
     "obtain": [
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_test_008_663": {
@@ -3347,8 +3195,7 @@ export const essences = {
     "obtain": [
       "world_energy_point05_7",
       "world_energy_point02_7",
-      "world_energy_point06_7",
-      "world_energy_point04_7"
+      "world_energy_point06_7"
     ]
   },
   "gem_test_011_663": {
@@ -3371,8 +3218,7 @@ export const essences = {
     "obtain": [
       "world_energy_point01_7",
       "world_energy_point05_7",
-      "world_energy_point06_7",
-      "world_energy_point03_7"
+      "world_energy_point06_7"
     ]
   }
 };

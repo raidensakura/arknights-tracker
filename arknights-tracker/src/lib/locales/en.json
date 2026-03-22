@@ -968,6 +968,6 @@
     "simultaneousFarming": "Simultaneous Farming (3/3)",
     "ifLock": "If you lock",
     "addAttr1": "Add Attribute 1",
-    "attrAlreadySelected": "Will be farmed simultaneously"
+    "attrAlreadySelected": "Will be farmed simultaneously:"
   }
 }

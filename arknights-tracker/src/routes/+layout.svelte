@@ -48,6 +48,14 @@
         }, 5000);
     }
 
+    $: if (browser) {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+
     onMount(() => {
         if (browser) {
             isI18nReady.subscribe((isReady) => {
@@ -114,6 +122,8 @@
             localStorage.setItem("theme", "light");
         }
     }
+
+    
 </script>
 
 <svelte:head>
@@ -610,7 +620,10 @@
                     <div
                         class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl relative"
                         on:click|stopPropagation
+                        on:keydown|stopPropagation
                         role="dialog"
+                        aria-modal="true"
+                        tabindex="-1"
                     >
                         <button
                             class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 dark:hover:text-white transition-colors"
