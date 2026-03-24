@@ -1209,7 +1209,7 @@
                                         >
                                             <a
                                                 href={`/weapons/${match.weapon.id}`}
-                                                class="block w-full h-full rounded border border-gray-300 dark:border-[#333] border-b-[3px] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a] flex items-center justify-center shadow-sm transition-all duration-300 hover:ring-2 hover:ring-white dark:hover:ring-white hover:border-white"
+                                                class="block w-full h-full rounded border border-gray-300 dark:border-[#333] border-b-[3px] scale-110 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a] flex items-center justify-center shadow-sm transition-all duration-300 hover:ring-2 hover:ring-white dark:hover:ring-white hover:border-white"
                                                 style="border-bottom-color: {rarityColors[
                                                     match.weapon.rarity
                                                 ] || '#B7B6B3'};"
@@ -1217,7 +1217,7 @@
                                                 <Images
                                                     id={match.weapon.id}
                                                     variant="weapon-icon"
-                                                    className="w-full h-full pt-1 pr-0.5 object-contain drop-shadow-md blur-[0.3px] rotate-[0.01deg] transition-transform duration-300 group-hover/icon:scale-110"
+                                                    className="w-full h-full scale-110 pt-1 pr-0.5 object-contain drop-shadow-md rotate-[0.01deg] transition-transform duration-300 group-hover/icon:scale-110"
                                                     alt={match.weapon.name}
                                                 />
                                             </a>
@@ -1240,7 +1240,7 @@
                                             {/if}
                                         </div>
 
-                                        <div class="flex flex-col gap-2 flex-1">
+                                        <div class="flex flex-col flex-1">
                                             <div
                                                 class="text-sm font-bold text-gray-900 dark:text-[#E0E0E0]"
                                             >
@@ -1470,64 +1470,37 @@
                                                                     class="flex flex-wrap gap-2"
                                                                 >
                                                                     {#each group.weapons as wp}
-                                                                        <div
-                                                                            class="flex items-center gap-1.5 bg-white dark:bg-[#1A1A1A] rounded py-1 pl-1.5 pr-1.5 border border-gray-200 dark:border-[#444] shadow-sm transition-colors hover:border-[#F9B90C] group/weapon"
-                                                                        >
-                                                                            <div
-                                                                                class="w-1 h-6 rounded-full flex-shrink-0"
-                                                                                style="background-color: {rarityColors[
-                                                                                    wp
-                                                                                        .rarity
-                                                                                ] ||
-                                                                                    '#B7B6B3'};"
-                                                                            ></div>
+                                                                        <div 
+                                                                    class="group/weapon relative flex items-center justify-between bg-white dark:bg-[#1A1A1A] rounded-[6px] border border-gray-200 dark:border-[#444] shadow-sm transition-all hover:border-[#F9B90C] overflow-hidden pr-1.5"
+                                                                    style="min-height: 36px;"
+                                                                >
+                                                                    
+                                                                    <div class="relative w-10 h-full flex items-center justify-center dark:border-[#333] bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a] flex-shrink-0" style="border-left: 3px solid {rarityColors[wp.rarity] || '#B7B6B3'};">
+                                                                        
+                                                                        <Images 
+                                                                            id={wp.id} 
+                                                                            variant="weapon-icon" 
+                                                                            className="w-[90%] h-[90%] object-contain drop-shadow-sm scale-110" 
+                                                                        />
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                    <span class="text-[11px] font-bold text-gray-800 dark:text-[#E0E0E0] whitespace-nowrap px-2 flex-1 truncate">
+                                                                        {$t(`weaponsList.${wp.id}`) || wp.name}
+                                                                    </span>
 
-                                                                            <div
-                                                                                class="w-7 h-7 rounded bg-gray-100 dark:bg-[#111] overflow-hidden flex-shrink-0"
-                                                                            >
-                                                                                <Images
-                                                                                    id={wp.id}
-                                                                                    variant="weapon-icon"
-                                                                                    className="w-full h-full object-contain p-0.5"
-                                                                                />
-                                                                            </div>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="w-5 h-5 rounded-md bg-[#4ADE80]/10 text-[#4ADE80] hover:bg-[#4ADE80] hover:text-white flex items-center justify-center transition-colors border border-[#4ADE80]/30 flex-shrink-0 cursor-pointer"
+                                                                        title={$t("common.add") || "Add"}
+                                                                        on:click|preventDefault|stopPropagation={() => toggleWeaponSelection(wp.id)}
+                                                                    >
+                                                                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                                                        </svg>
+                                                                    </button>
 
-                                                                            <span
-                                                                                class="text-[10px] font-bold text-gray-800 dark:text-[#E0E0E0] whitespace-nowrap pr-1"
-                                                                            >
-                                                                                {$t(
-                                                                                    `weaponsList.${wp.id}`,
-                                                                                ) ||
-                                                                                    wp.name}
-                                                                            </span>
-
-                                                                            <button
-                                                                                type="button"
-                                                                                class="ml-1 w-4 h-4 rounded-sm bg-[#4ADE80]/20 text-[#4ADE80] hover:bg-[#4ADE80] hover:text-white flex items-center justify-center transition-colors border border-[#4ADE80]/50 flex-shrink-0 cursor-pointer"
-                                                                                title={$t(
-                                                                                    "common.add",
-                                                                                ) ||
-                                                                                    "Add"}
-                                                                                on:click|preventDefault|stopPropagation={() =>
-                                                                                    toggleWeaponSelection(
-                                                                                        wp.id,
-                                                                                    )}
-                                                                            >
-                                                                                <svg
-                                                                                    class="w-2.5 h-2.5"
-                                                                                    fill="none"
-                                                                                    viewBox="0 0 24 24"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="3"
-                                                                                >
-                                                                                    <path
-                                                                                        stroke-linecap="round"
-                                                                                        stroke-linejoin="round"
-                                                                                        d="M12 4v16m8-8H4"
-                                                                                    />
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
+                                                                </div>
                                                                     {/each}
                                                                 </div>
                                                             </div>

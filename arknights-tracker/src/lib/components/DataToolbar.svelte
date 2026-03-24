@@ -153,7 +153,14 @@
     }
 
     function toggleFilterGroup(groupKey) {
-        filters = { ...filters, [groupKey]: [] };
+        const allOptions = filterOptions[groupKey];
+        const currentSelected = filters[groupKey] || [];
+
+        if (currentSelected.length === allOptions.length) {
+            filters = { ...filters, [groupKey]: [] };
+        } else {
+            filters = { ...filters, [groupKey]: [...allOptions] };
+        }
     }
 
     function toggleFilterItem(groupKey, value) {
