@@ -1037,7 +1037,7 @@
                                     style="color: {rColor};"
                                 />
                                 <h3
-                                    class="text-sm font-bold text-gray-900 dark:text-white"
+                                    class="text-md font-bold text-gray-900 dark:text-white"
                                 >
                                     {$t(`energyPoints.${dungeon.dungeonId}`) ||
                                         dungeon.dungeonId}
@@ -1072,7 +1072,7 @@
                                     </div>
                                     <div>
                                         <div
-                                            class="text-sm font-bold text-gray-900 dark:text-[#E0E0E0]"
+                                            class="text-md font-bold text-gray-900 dark:text-[#E0E0E0]"
                                         >
                                             {firstEnemyId
                                                 ? $t(
@@ -1132,7 +1132,7 @@
                                 class="px-4 py-3 bg-gray-50/50 dark:bg-[#202020] border-b border-gray-200 dark:border-[#333]"
                             >
                                 <div
-                                    class="text-[10px] font-bold text-gray-500 mb-2"
+                                    class="text-[11px] font-bold text-gray-500 mb-2"
                                 >
                                     {$t("essencesPage.requiredToSelect")}
                                 </div>
@@ -1146,7 +1146,7 @@
                                         <div class="flex flex-wrap gap-1.5">
                                             {#each wishlistData.attr1 as stat}
                                                 <div
-                                                    class="px-2 py-0.5 rounded text-[10px] font-bold border bg-[#F9B90C]/10 text-[#d9a009] dark:text-[#F9B90C] border-[#F9B90C]/30"
+                                                    class="px-2 py-0.5 rounded text-[11px] font-bold border bg-[#F9B90C]/10 text-[#d9a009] dark:text-[#F9B90C] border-[#F9B90C]/30"
                                                 >
                                                     {$t(`skills.${stat}`) ||
                                                         stat}
@@ -1154,7 +1154,7 @@
                                             {/each}
                                             {#each Array(Math.max(0, 3 - wishlistData.attr1.length)) as _}
                                                 <div
-                                                    class="px-2 py-0.5 rounded text-[10px] font-bold border border-dashed border-gray-400 text-gray-500 dark:text-gray-400 bg-transparent"
+                                                    class="px-2 py-0.5 rounded text-[11px] font-bold border border-dashed border-gray-400 text-gray-500 dark:text-gray-400 bg-transparent"
                                                 >
                                                     {$t("essencesPage.anyAttr")}
                                                 </div>
@@ -1174,7 +1174,7 @@
                                             </span>
                                             <div class="flex flex-wrap gap-1.5">
                                                 <div
-                                                    class="px-2 py-0.5 rounded text-[10px] font-bold border bg-[#00B4A8]/10 text-[#009288] dark:text-[#00B4A8] border-[#00B4A8]/30"
+                                                    class="px-2 py-0.5 rounded text-[11px] font-bold border bg-[#00B4A8]/10 text-[#009288] dark:text-[#00B4A8] border-[#00B4A8]/30"
                                                 >
                                                     {$t(
                                                         `skills.${wishlistData.lockedAttr23}`,
@@ -1293,7 +1293,7 @@
                                                             )}
                                                         >
                                                             <div
-                                                                class="px-2 py-0.5 rounded text-[10px] font-bold border bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30"
+                                                                class="px-2 py-0.5 rounded text-[11px] font-bold border bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30"
                                                             >
                                                                 {$t(
                                                                     `skills.${skillId}`,
@@ -1310,7 +1310,7 @@
                                                             )}
                                                         >
                                                             <div
-                                                                class="px-2 py-0.5 rounded text-[10px] font-bold border bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30"
+                                                                class="px-2 py-0.5 rounded text-[11px] font-bold border bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30"
                                                             >
                                                                 {$t(
                                                                     `skills.${skillId}`,
@@ -1319,7 +1319,7 @@
                                                         </Tooltip>
                                                     {:else}
                                                         <div
-                                                            class="px-2 py-0.5 rounded text-[10px] font-bold border bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-[#4ADE80] border-green-300 dark:border-green-800"
+                                                            class="px-2 py-0.5 rounded text-[11px] font-bold border bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-[#4ADE80] border-green-300 dark:border-green-800"
                                                         >
                                                             {$t(
                                                                 `skills.${skillId}`,
@@ -1375,7 +1375,7 @@
                                                 class="w-4 h-4 text-[#F9B90C]"
                                             />
                                             <span
-                                                class="text-[11px] font-bold text-[#4ADE80] dark:text-[#4ADE80]"
+                                                class="text-[12px] font-bold text-[#4ADE80] dark:text-[#4ADE80]"
                                             >
                                                 {$t(
                                                     "essencesPage.simultaneousFarming",
@@ -1421,7 +1421,7 @@
                                                                   "essencesPage.attr3",
                                                               )}:
                                                         <span
-                                                            class="text-[#00B4A8] bg-[#00B4A8]/10 px-1.5 py-0.5 rounded ml-1 border border-[#00B4A8]/30"
+                                                            class="text-[#00B4A8] bg-[#00B4A8]/10 px-1.5 text-[11px] py-0.5 rounded ml-1 border border-[#00B4A8]/30"
                                                         >
                                                             {$t(
                                                                 `skills.${block.lock}`,
@@ -1441,7 +1441,7 @@
                                                                 >
                                                                     {#if group.isFree}
                                                                         <span
-                                                                            class="text-[10px] font-bold text-[#4ADE80]"
+                                                                            class="text-[11px] font-bold text-[#4ADE80]"
                                                                         >
                                                                             {$t(
                                                                                 "essencesPage.attrAlreadySelected",
@@ -1449,14 +1449,14 @@
                                                                         </span>
                                                                     {:else}
                                                                         <span
-                                                                            class="text-[10px] font-bold text-gray-500 dark:text-gray-400"
+                                                                            class="text-[11px] font-bold text-gray-500 dark:text-gray-400"
                                                                         >
                                                                             {$t(
                                                                                 "essencesPage.addAttr1",
                                                                             )}:
                                                                         </span>
                                                                         <div
-                                                                            class="px-1.5 py-0.5 rounded text-[10px] font-bold border bg-[#F9B90C]/10 text-[#d9a009] dark:text-[#F9B90C] border-[#F9B90C]/30"
+                                                                            class="px-1.5 py-0.5 rounded text-[11px] font-bold border bg-[#F9B90C]/10 text-[#d9a009] dark:text-[#F9B90C] border-[#F9B90C]/30"
                                                                         >
                                                                             {$t(
                                                                                 `skills.${group.attr}`,
