@@ -478,14 +478,7 @@
                     <div
                         class="p-3 bg-gray-50 rounded-xl border dark:border-[#444444] dark:bg-[#343434] border-gray-100 text-center"
                     >
-                        {#if banner.isPermanent}
-                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
-                                {$t("systemNames.status")}
-                            </div>
-                            <div class="text-gray-500 dark:text-gray-400 font-bold font-nums text-lg leading-none uppercase tracking-wide">
-                                {$t("timer.permanent") || "Permanent"}
-                            </div>
-                        {:else if !realEnd}
+                        {#if !realEnd}
                             <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
                                 {$t("systemNames.status")}
                             </div>
@@ -495,6 +488,38 @@
                                 {$t("timer.ongoing_active", {
                                     n: timeData.days,
                                 })}
+                            </div>
+                        {:else if isUpcoming}
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
+                                {$t("systemNames.startsIn")}
+                            </div>
+                            <div
+                                class="text-blue-600 dark:text-blue-500 font-bold font-nums text-lg leading-none"
+                            >
+                                {#if timeData.days > 0}
+                                    {$t("timer.starts_in_d_h", {
+                                        d: timeData.days,
+                                        h: timeData.hours,
+                                    }) ||
+                                        `${timeData.days}d ${timeData.hours}h`}
+                                {:else if timeData.hours > 0}
+                                    {$t("timer.starts_in_h_m", {
+                                        h: timeData.hours,
+                                        m: timeData.minutes,
+                                    }) ||
+                                        `${timeData.hours}h ${timeData.minutes}m`}
+                                {:else}
+                                    {$t("timer.starts_in_m", {
+                                        m: timeData.minutes,
+                                    }) || `${timeData.minutes}m`}
+                                {/if}
+                            </div>
+                        {:else if banner.isPermanent}
+                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
+                                {$t("systemNames.status")}
+                            </div>
+                            <div class="text-gray-500 dark:text-gray-400 font-bold font-nums text-lg leading-none uppercase tracking-wide">
+                                {$t("timer.permanent") || "Permanent"}
                             </div>
                         {:else if isActive}
                             <div
@@ -530,31 +555,6 @@
                                 class="text-gray-400 font-bold font-nums text-base leading-none"
                             >
                                 {$t("timer.days_ago", { n: timeData.days })}
-                            </div>
-                        {:else if isUpcoming}
-                            <div class="text-gray-500 dark:text-[#B7B6B3] text-xs mb-0.5">
-                                {$t("systemNames.startsIn")}
-                            </div>
-                            <div
-                                class="text-blue-600 dark:text-blue-500 font-bold font-nums text-lg leading-none"
-                            >
-                                {#if timeData.days > 0}
-                                    {$t("timer.starts_in_d_h", {
-                                        d: timeData.days,
-                                        h: timeData.hours,
-                                    }) ||
-                                        `${timeData.days}d ${timeData.hours}h`}
-                                {:else if timeData.hours > 0}
-                                    {$t("timer.starts_in_h_m", {
-                                        h: timeData.hours,
-                                        m: timeData.minutes,
-                                    }) ||
-                                        `${timeData.hours}h ${timeData.minutes}m`}
-                                {:else}
-                                    {$t("timer.starts_in_m", {
-                                        m: timeData.minutes,
-                                    }) || `${timeData.minutes}m`}
-                                {/if}
                             </div>
                         {/if}
                     </div>

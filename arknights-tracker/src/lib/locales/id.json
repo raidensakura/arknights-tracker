@@ -417,7 +417,8 @@
     "audio": "Audio",
     "indicators": "Indikator",
     "baseSkills": "Skill Pabrik",
-    "description": "Deskripsi"
+    "description": "Deskripsi",
+    "images": "Gambar"
   },
   "bio": {
     "faction": "Faksi",

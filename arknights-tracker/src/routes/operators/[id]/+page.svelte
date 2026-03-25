@@ -1322,7 +1322,7 @@
                                 >
                                     <img
                                         src={`/images/operators/splash/${id}.png`}
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        class="w-full h-full object-cover"
                                         alt="Splash Art"
                                         loading="lazy"
                                         on:error={(e) => e.target.style.display = 'none'} 

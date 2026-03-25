@@ -441,7 +441,8 @@
     "audio": "Аудио",
     "indicators": "Показатели",
     "baseSkills": "Базовые навыки",
-    "description": "Описание"
+    "description": "Описание",
+    "images": "Изображения"
   },
   "bio": {
     "faction": "Фракция",

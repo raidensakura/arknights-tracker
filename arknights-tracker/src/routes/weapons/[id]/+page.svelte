@@ -44,6 +44,8 @@
 
     let weaponData = {};
     let weaponLocale = {};
+    let copiedImageId = null;
+    let selectedImageVariant = null;
 
     $: loadWeaponData(id, $currentLocale);
 
@@ -577,6 +579,136 @@
 
             <div class="bg-white dark:bg-[#2b2b2b] p-6 rounded-3xl border border-gray-200 dark:border-[#444] flex flex-col gap-4 transition-colors">
                 <h2 class="text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-sdk border-b border-gray-100 dark:border-[#444] pb-3">
+                    {tOrFallback("menu.images", "Images")}
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 items-start">
+                    
+                    <div class="relative group flex flex-col bg-[#111] dark:bg-[#1a1a1a] rounded-2xl overflow-hidden border border-gray-800 dark:border-[#333]">
+                        <div 
+                            role="button" 
+                            tabindex="0"
+                            class="relative w-full aspect-square flex items-center justify-center group-hover:bg-black/10 p-8 cursor-zoom-in outline-none focus:bg-white/5 transition-colors"
+                            on:click={() => (selectedImageVariant = 'weapon-icon')}
+                            on:keydown={(e) => (e.key === "Enter" || e.key === " ") && (selectedImageVariant = 'weapon-icon')}
+                        >
+                            <Images
+                                id={id}
+                                variant="weapon-icon"
+                                className="w-full h-full object-contain drop-shadow-2xl"
+                                alt="{weaponName} Icon"
+                            />
+                        </div>
+                        
+                        <div class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full pointer-events-none">
+                            Icon
+                        </div>
+                        
+                        <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+                            <button
+                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                title="Copy image"
+                                on:click|stopPropagation={async () => {
+                                    try {
+                                        const imageUrl = `/images/weapons/${id}.png`; 
+                                        const response = await fetch(imageUrl);
+                                        const blob = await response.blob();
+                                        await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+                                        
+                                        copiedImageId = "icon";
+                                        setTimeout(() => { if (copiedImageId === "icon") copiedImageId = null; }, 2000);
+                                    } catch (err) { console.error("Error copying:", err); }
+                                }}
+                            >
+                                {#if copiedImageId === "icon"}
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                {:else}
+                                    <Icon name="copy" class="w-4 h-4 transition-transform group-hover/copy:scale-110" />
+                                {/if}
+                            </button>
+
+                            <button
+                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                title="Download Art"
+                                on:click|stopPropagation={() => {
+                                    const link = document.createElement("a");
+                                    link.href = `/images/weapons/${id}.png`;
+                                    link.download = `${id}_icon.png`;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}
+                            >
+                                <Icon name="import" class="w-4 h-4 transition-transform group-hover/down:scale-110" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative group flex flex-col bg-[#111] dark:bg-[#1a1a1a] rounded-2xl overflow-hidden border border-gray-800 dark:border-[#333]">
+                        <div 
+                            role="button" 
+                            tabindex="0"
+                            class="relative w-full aspect-square flex items-center group-hover:bg-black/10 justify-center p-4 cursor-zoom-in outline-none focus:bg-white/5 transition-colors"
+                            on:click={() => (selectedImageVariant = 'weapons-big')}
+                            on:keydown={(e) => (e.key === "Enter" || e.key === " ") && (selectedImageVariant = 'weapons-big')}
+                        >
+                            <Images
+                                id={id}
+                                variant="weapons-big"
+                                className="w-full h-full object-contain drop-shadow-2xl"
+                                alt="{weaponName} Full"
+                            />
+                        </div>
+
+                        <div class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full pointer-events-none">
+                            Full Art
+                        </div>
+                        
+                        <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+                            <button
+                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                title="Copy image"
+                                on:click|stopPropagation={async () => {
+                                    try {
+                                        const imageUrl = `/images/weaponsBig/${id}.png`; 
+                                        const response = await fetch(imageUrl);
+                                        const blob = await response.blob();
+                                        await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+                                        
+                                        copiedImageId = "big";
+                                        setTimeout(() => { if (copiedImageId === "big") copiedImageId = null; }, 2000);
+                                    } catch (err) { console.error("Error copying:", err); }
+                                }}
+                            >
+                                {#if copiedImageId === "big"}
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                {:else}
+                                    <Icon name="copy" class="w-4 h-4 transition-transform group-hover/copy:scale-110" />
+                                {/if}
+                            </button>
+
+                            <button
+                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                title="Download Art"
+                                on:click|stopPropagation={() => {
+                                    const link = document.createElement("a");
+                                    link.href = `/images/weaponsBig/${id}.png`;
+                                    link.download = `${id}_big.png`;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}
+                            >
+                                <Icon name="import" class="w-4 h-4 transition-transform group-hover/down:scale-110" />
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-[#2b2b2b] p-6 rounded-3xl border border-gray-200 dark:border-[#444] flex flex-col gap-4 transition-colors">
+                <h2 class="text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-sdk border-b border-gray-100 dark:border-[#444] pb-3">
                     {tOrFallback("menu.description", "Описание")}
                 </h2>
                 <div class="text-gray-700 dark:text-[#A0A0A0] whitespace-pre-wrap text-[14.5px] leading-relaxed">
@@ -639,6 +771,38 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+{/if}
+{#if selectedImageVariant}
+    <div
+        role="dialog"
+        aria-modal="true"
+        tabindex="-1"
+        class="md:ml-[var(--sb-w)] fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-10 animate-fadeIn outline-none cursor-zoom-out overflow-hidden"
+        on:click={() => (selectedImageVariant = null)}
+        on:keydown={(e) =>
+            (e.key === "Enter" || e.key === "Escape" || e.key === " ") && (selectedImageVariant = null)}
+    >
+        <div
+            role="presentation"
+            class="relative max-w-full max-h-[90vh] flex items-center justify-center cursor-auto"
+            on:click|stopPropagation
+            on:keydown|stopPropagation
+        >
+            <Images
+                id={id}
+                variant={selectedImageVariant}
+                className="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
+                alt="{weaponName} Full"
+            />
+
+            <button
+                class="absolute -top-4 -right-4 md:top-4 md:right-4 p-3 bg-black/40 hover:bg-[#FFD800] text-white hover:text-black rounded-full transition-colors backdrop-blur-sm z-10 shadow-lg"
+                on:click={() => (selectedImageVariant = null)}
+            >
+                <Icon name="close" class="w-6 h-6" />
+            </button>
         </div>
     </div>
 {/if}

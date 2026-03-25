@@ -417,7 +417,8 @@
     "audio": "Audio",
     "indicators": "Indikatoren",
     "baseSkills": "Basisfähigkeiten",
-    "description": "Beschreibung"
+    "description": "Beschreibung",
+    "images": "Bilder"
   },
   "bio": {
     "faction": "Fraktion",

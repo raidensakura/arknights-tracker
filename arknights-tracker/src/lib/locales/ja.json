@@ -417,7 +417,8 @@
     "audio": "ボイス",
     "indicators": "指標",
     "baseSkills": "基地スキル",
-    "description": "説明"
+    "description": "説明",
+    "images": "画像"
   },
   "bio": {
     "faction": "陣営",

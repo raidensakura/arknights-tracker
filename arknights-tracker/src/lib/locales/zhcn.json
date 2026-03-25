@@ -416,7 +416,8 @@
     "audio": "语音",
     "indicators": "指标",
     "baseSkills": "基建技能",
-    "description": "描述"
+    "description": "描述",
+    "images": "图片"
   },
   "bio": {
     "faction": "阵营",

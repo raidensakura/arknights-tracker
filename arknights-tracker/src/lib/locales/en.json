@@ -442,7 +442,8 @@
     "audio": "Audio",
     "indicators": "Indicators",
     "baseSkills": "Factory Skills",
-    "description": "Description"
+    "description": "Description",
+    "images": "Images"
   },
   "bio": {
     "faction": "Faction",

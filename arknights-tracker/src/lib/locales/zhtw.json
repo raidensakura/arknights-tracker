@@ -417,7 +417,8 @@
     "audio": "語音",
     "indicators": "指標",
     "baseSkills": "基建技能",
-    "description": "描述"
+    "description": "描述",
+    "images": "圖片"
   },
   "bio": {
     "faction": "陣營",

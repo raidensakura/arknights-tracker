@@ -416,7 +416,8 @@
     "audio": "เสียง",
     "indicators": "ตัวชี้วัด",
     "baseSkills": "สกิลฐาน",
-    "description": "คำอธิบาย"
+    "description": "คำอธิบาย",
+    "images": "รูปภาพ"
   },
   "bio": {
     "faction": "สังกัด",
