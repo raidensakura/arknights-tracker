@@ -648,16 +648,18 @@
                         <div 
                             role="button" 
                             tabindex="0"
-                            class="relative w-full aspect-square flex items-center group-hover:bg-black/10 justify-center p-4 cursor-zoom-in outline-none focus:bg-white/5 transition-colors"
+                            class="relative w-full h-[400px] aspect-square group-hover:bg-black/10 cursor-zoom-in outline-none focus:bg-white/5 transition-colors overflow-hidden"
                             on:click={() => (selectedImageVariant = 'weapons-big')}
                             on:keydown={(e) => (e.key === "Enter" || e.key === " ") && (selectedImageVariant = 'weapons-big')}
                         >
-                            <Images
-                                id={id}
-                                variant="weapons-big"
-                                className="w-full h-full object-contain drop-shadow-2xl"
-                                alt="{weaponName} Full"
-                            />
+                            <div class="absolute inset-4 flex items-center justify-center [&_img]:max-w-full [&_img]:max-h-full [&_img]:object-contain [&_img]:w-auto [&_img]:h-auto">
+                                <Images
+                                    id={id}
+                                    variant="weapons-big"
+                                    className="w-full h-full drop-shadow-2xl"
+                                    alt="{weaponName} Full"
+                                />
+                            </div>
                         </div>
 
                         <div class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full pointer-events-none">
