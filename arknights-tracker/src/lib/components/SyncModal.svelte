@@ -20,13 +20,17 @@
 
         accounts.forEach(acc => {
             if (acc.id === currentId && $pullData) {
-                ['standard', 'special', 'new-player'].forEach(cat => { if ($pullData[cat]?.pulls) total += $pullData[cat].pulls.length; });
+                Object.values($pullData).forEach(catData => { 
+                    if (catData?.pulls) total += catData.pulls.length; 
+                });
             } else {
                 const raw = localStorage.getItem(`ark_tracker_data_${acc.id}`);
                 if (raw) {
                     try {
                         const data = JSON.parse(raw);
-                        ['standard', 'special', 'new-player'].forEach(cat => { if (data[cat]?.pulls) total += data[cat].pulls.length; });
+                        Object.values(data).forEach(catData => { 
+                            if (catData?.pulls) total += catData.pulls.length; 
+                        });
                     } catch (e) {}
                 }
             }

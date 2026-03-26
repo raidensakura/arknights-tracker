@@ -74,7 +74,7 @@ export const locations = {
   "world_energy_point06_7": {
     "id": "world_energy_point06_7",
     "url": "https://opendfieldmap.org/?f=qgI&r=WL&s=WL_3&p=23300220007",
-    "region": "theBase",
+    "region": "wuling",
     "costStamina": 80,
     "enemyIds": [
       "eny_0054_hsmino",

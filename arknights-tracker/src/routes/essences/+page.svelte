@@ -623,6 +623,10 @@
                 return b.perfectMatches - a.perfectMatches;
             if (b.totalCovered !== a.totalCovered)
                 return b.totalCovered - a.totalCovered;
+            const isBaseA = locations[a.dungeonId]?.region === "theBase";
+            const isBaseB = locations[b.dungeonId]?.region === "theBase";
+            if (isBaseA && !isBaseB) return -1;
+            if (!isBaseA && isBaseB) return 1;
             return b.totalSuggestionsCount - a.totalSuggestionsCount;
         });
 
