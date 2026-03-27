@@ -519,13 +519,14 @@
         if (event.type === "protoPass") {
             return { icon: "protoPass", label: "Proto Pass", bg: glassStyle };
         }
-
         if (event.type === "web") {
             return { icon: "link", label: "Web", bg: glassStyle };
         }
-
         if (event.type === "signIn") {
             return { icon: "signIn", label: "Sign-In", bg: glassStyle };
+        }
+        if (event.type === "inGamePermanent") {
+            return { icon: "permanent", label: "Permanent Event", bg: glassStyle };
         }
 
         if (

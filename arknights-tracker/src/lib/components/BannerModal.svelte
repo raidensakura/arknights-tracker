@@ -610,6 +610,7 @@
                                     <WeaponCard
                                         weapon={item}
                                         variant="small"
+                                        hideDarkness={true}
                                         className="w-[80px] h-[80px]"
                                     />
                                 {:else}

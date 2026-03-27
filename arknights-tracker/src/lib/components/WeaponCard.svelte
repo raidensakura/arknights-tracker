@@ -15,8 +15,8 @@
     export let isNew = false;
     export let hideName = false;
     export let hidePot = true;
-    
-    export let asLink = true; 
+    export let hideDarkness = false;
+    export let asLink = true;
 
     $: safeWeaponType = weapon.type || weapon.weapon;
 
@@ -67,7 +67,7 @@
     $: currentPot =
         accountPots[weapon.id] !== undefined ? accountPots[weapon.id] : basePot;
 
-    $: hasWeapon = currentPot >= 0;
+    $: hasWeapon = currentPot >= 0 || hideDarkness == true;
     $: constCount = hasWeapon ? currentPot : 0;
     $: isMaxPot = constCount >= 5;
 

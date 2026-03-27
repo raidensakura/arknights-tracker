@@ -483,14 +483,15 @@
                                     weapon={{ ...resolved, rarity: 6 }}
                                     variant="small"
                                     hideName={true}
-                                    className="w-[70px] h-[70px] shadow-sm"
+                                    hideDarkness={true}
+                                    className="w-[70px] h-[70px] shadow-sm blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu"
                                 />
                             {:else}
                                 <OperatorCard
                                     operator={{ ...resolved, rarity: 6 }}
                                     variant="small"
                                     hideName={true}
-                                    className="w-[70px] h-[70px] shadow-sm"
+                                    className="w-[70px] h-[70px] shadow-sm blur-[0.35px] rotate-[0.01deg] backface-hidden transform-gpu"
                                 />
                             {/if}
                         </div>

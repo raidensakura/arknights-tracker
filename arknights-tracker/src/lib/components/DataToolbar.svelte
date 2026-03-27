@@ -152,15 +152,12 @@
         isSortDropdownOpen = false;
     }
 
-    function toggleFilterGroup(groupKey) {
-        const allOptions = filterOptions[groupKey];
-        const currentSelected = filters[groupKey] || [];
+    let dirtyGroups = {};
+    let manualMode = {};
 
-        if (currentSelected.length === allOptions.length) {
-            filters = { ...filters, [groupKey]: [] };
-        } else {
-            filters = { ...filters, [groupKey]: [...allOptions] };
-        }
+    function toggleFilterGroup(groupKey) {
+        filters = { ...filters, [groupKey]: [...filterOptions[groupKey]] };
+        manualMode = { ...manualMode, [groupKey]: false };
     }
 
     function toggleFilterItem(groupKey, value) {
@@ -168,17 +165,21 @@
         const allOptions = filterOptions[groupKey];
         let newSelected;
 
-        if (current.length === allOptions.length) {
+        if (current.length === allOptions.length && !manualMode[groupKey]) {
             newSelected = [value];
+            manualMode[groupKey] = true;
         } else {
             if (current.includes(value)) {
                 if (current.length === 1) {
                     newSelected = [...allOptions];
+                    manualMode[groupKey] = false;
                 } else {
                     newSelected = current.filter((v) => v !== value);
+                    manualMode[groupKey] = true;
                 }
             } else {
                 newSelected = [...current, value];
+                manualMode[groupKey] = true;
             }
         }
 
@@ -186,7 +187,10 @@
     }
 
     $: isSelected = (group, value) => {
-        return (filters[group] || []).includes(value);
+        const current = filters[group] || [];
+        const all = filterOptions[group];
+        if (current.length === all.length) return false;
+        return current.includes(value);
     };
 
     function clearSearch() {
@@ -196,18 +200,28 @@
     $: isFilterActive =
         mode === "weapons"
             ? filters.rarity?.length !== filterOptions.rarity.length ||
+              manualMode.rarity ||
               filters.type?.length !== filterOptions.type.length ||
+              manualMode.type ||
               filters.attr1?.length !== filterOptions.attr1.length ||
+              manualMode.attr1 ||
               filters.attr2?.length !== filterOptions.attr2.length ||
+              manualMode.attr2 ||
               filters.attr3?.length !== filterOptions.attr3.length ||
+              manualMode.attr3 ||
               showOwnedOnly
             : filters.rarity?.length !== filterOptions.rarity.length ||
+              manualMode.rarity ||
               filters.class?.length !== filterOptions.class.length ||
+              manualMode.class ||
               filters.element?.length !== filterOptions.element.length ||
+              manualMode.element ||
               filters.weapon?.length !== filterOptions.weapon.length ||
+              manualMode.weapon ||
               showOwnedOnly;
 
     function resetFilters() {
+        manualMode = {};
         if (mode === "weapons") {
             filters = {
                 rarity: [...filterOptions.rarity],
@@ -236,6 +250,22 @@
     function toggleOwnedOnly() {
         showOwnedOnly = !showOwnedOnly;
     }
+
+    $: getFilterClass = (group, value) => {
+        const current = filters[group] || [];
+        const isSel = current.includes(value);
+        const isManual = manualMode[group];
+
+        if (!isManual) {
+            return "bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a]";
+        }
+
+        if (isSel) {
+            return "bg-[#F9B90C]/20 border-[#F9B90C] text-gray-900 dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]";
+        }
+
+        return "bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878] hover:opacity-100 hover:bg-gray-50 hover:dark:bg-[#424242]";
+    };
 </script>
 
 <svelte:window on:click={closeAll} />
@@ -365,7 +395,7 @@
                     <div class="flex justify-end">
                         <button
                             type="button"
-                            class="text-xs font-bold text-gray-500 mb-2 dark:text-gray-400 border border-gray-300 dark:border-[#444444] rounded-full px-4 py-1.5 hover:text-[#F9B90C] hover:border-[#F9B90C] hover:bg-white hover:dark:bg-[#FFB200]/80 hover:dark:border-[#FFB200] hover:dark:text-[#E0E0E0] transition-all uppercase tracking-wider" 
+                            class="text-xs font-bold text-gray-500 mb-2 dark:text-gray-400 border border-gray-300 dark:border-[#444444] rounded-full px-4 py-1.5 hover:text-[#F9B90C] hover:border-[#F9B90C] hover:bg-white hover:dark:bg-[#FFB200]/80 hover:dark:border-[#FFB200] hover:dark:text-[#E0E0E0] transition-all uppercase tracking-wider"
                             on:click={resetFilters}
                         >
                             {$t("sort.reset") || "Reset filters"}
@@ -385,12 +415,10 @@
                         {#each filterOptions.rarity as rar}
                             <button
                                 type="button"
-                                class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {isSelected(
+                                class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                     'rarity',
                                     rar,
-                                )
-                                    ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                    : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                )}"
                                 on:click={() => toggleFilterItem("rarity", rar)}
                             >
                                 <span class="font-bold pointer-events-none"
@@ -418,12 +446,10 @@
                             {#each filterOptions.class as cls}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {getFilterClass(
                                         'class',
                                         cls,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("class", cls)}
                                 >
@@ -456,12 +482,10 @@
                             {#each filterOptions.element as elm}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'element',
                                         elm,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("element", elm)}
                                 >
@@ -496,12 +520,10 @@
                             {#each filterOptions.weapon as wep}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'weapon',
                                         wep,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("weapon", wep)}
                                 >
@@ -536,12 +558,10 @@
                             {#each filterOptions.type as wep}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'type',
                                         wep,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("type", wep)}
                                 >
@@ -574,12 +594,10 @@
                             {#each filterOptions.attr1 as skill}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-2 pr-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'attr1',
                                         skill,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("attr1", skill)}
                                 >
@@ -614,12 +632,10 @@
                             {#each filterOptions.attr2 as skill}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'attr2',
                                         skill,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("attr2", skill)}
                                 >
@@ -667,12 +683,10 @@
                             {#each filterOptions.attr3 as skill}
                                 <button
                                     type="button"
-                                    class="h-[32px] px-3 rounded flex items-center justify-center gap-1.5 border transition-all cursor-pointer {isSelected(
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(
                                         'attr3',
                                         skill,
-                                    )
-                                        ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444]'
-                                        : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878]'}"
+                                    )}"
                                     on:click={() =>
                                         toggleFilterItem("attr3", skill)}
                                 >

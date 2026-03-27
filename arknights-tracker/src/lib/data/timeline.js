@@ -11,7 +11,8 @@ export const rawEvents = [
     color: "#32312a",
     layer: 0,
     type: "web",
-    iconPosition: 30
+    iconPosition: 30,
+    version: "1.0"
   },
   {
     id: "ev2-v1.0",
@@ -23,7 +24,8 @@ export const rawEvents = [
     color: "#00BFFF",
     layer: 1,
     type: "web",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.0"
   },
   {
     id: "ev3-v1.0",
@@ -35,7 +37,8 @@ export const rawEvents = [
     color: "#EC1C4B",
     layer: 3,
     type: "signIn",
-    iconPosition: 20
+    iconPosition: 20,
+    version: "1.0"
   },
   {
     id: "ev3.1-v1.0",
@@ -47,7 +50,8 @@ export const rawEvents = [
     color: "#E2441C",
     layer: 3,
     type: "signIn",
-    iconPosition: 20
+    iconPosition: 20,
+    version: "1.0"
   },
   {
     id: "ev3.2-v1.0",
@@ -60,7 +64,8 @@ export const rawEvents = [
     color: "#ec1c95",
     layer: 3,
     type: "signIn",
-    iconPosition: 20
+    iconPosition: 20,
+    version: "1.0"
   },
   {
     id: "ev4-v1.0",
@@ -72,9 +77,10 @@ export const rawEvents = [
     url: "",
     color: "#680d15",
     layer: 4,
-    type: "inGame",
+    type: "inGamePermanent",
     iconPosition: 40,
-    isPermanent: true
+    isPermanent: true,
+    version: "1.0"
   },
   {
     id: "ev5-v1.0",
@@ -86,7 +92,8 @@ export const rawEvents = [
     color: "#e9d11c",
     layer: 2,
     type: "web",
-    iconPosition: 54
+    iconPosition: 54,
+    version: "1.0"
   },
   {
     id: "ev6-v1.0",
@@ -98,7 +105,8 @@ export const rawEvents = [
     color: "#A0D3D1",
     layer: 7,
     type: "inGame",
-    iconPosition: 53
+    iconPosition: 53,
+    version: "1.0"
   },
   {
     id: "ev7-v1.0",
@@ -110,7 +118,8 @@ export const rawEvents = [
     color: "#e2df12",
     layer: 8,
     type: "inGame",
-    iconPosition: 52
+    iconPosition: 52,
+    version: "1.0"
   },
   {
     id: "ev8-v1.0",
@@ -122,9 +131,10 @@ export const rawEvents = [
     url: "https://x.com/AKEndfield/status/2020799844705874051?s=20",
     color: "#1D1D1D",
     layer: 5,
-    type: "inGame",
+    type: "inGamePermanent",
     iconPosition: 52,
-    isPermanent: true
+    isPermanent: true,
+    version: "1.0"
   },
   {
     id: "ev9-v1.0",
@@ -136,9 +146,10 @@ export const rawEvents = [
     url: "https://x.com/AKEndfield/status/2020799844705874051?s=20",
     color: "#4b4b4b",
     layer: 6,
-    type: "inGame",
+    type: "inGamePermanent",
     iconPosition: 52,
-    isPermanent: true
+    isPermanent: true,
+    version: "1.0"
   },
   {
     id: "ev10-v1.0",
@@ -151,7 +162,8 @@ export const rawEvents = [
     color: "#dacb9f",
     layer: 16,
     type: "protoPass",
-    iconPosition: 22
+    iconPosition: 22,
+    version: "1.0"
   },
   {
     id: "ev11-v1.0",
@@ -163,7 +175,8 @@ export const rawEvents = [
     color: "#BB3707",
     layer: 9,
     type: "mailEvent",
-    iconPosition: 32
+    iconPosition: 32,
+    version: "1.0"
   },
   {
     id: "ev12-v1.0",
@@ -175,7 +188,8 @@ export const rawEvents = [
     color: "#F0C76C",
     layer: 10,
     type: "mailEvent",
-    iconPosition: 26
+    iconPosition: 26,
+    version: "1.0"
   },
   {
     id: "ev13-v1.0",
@@ -187,7 +201,8 @@ export const rawEvents = [
     color: "#A91717",
     layer: 11,
     type: "web",
-    iconPosition: 52
+    iconPosition: 52,
+    version: "1.0"
   },
   {
     id: "ev14-v1.0",
@@ -199,9 +214,10 @@ export const rawEvents = [
     url: "https://x.com/AKEndfield/status/2025442931310530601?s=20",
     color: "#359abe",
     layer: 7,
-    type: "inGame",
+    type: "inGamePermanent",
     iconPosition: 52,
-    isPermanent: true
+    isPermanent: true,
+    version: "1.0"
   },
   {
     id: "ev16-v1.0",
@@ -214,7 +230,8 @@ export const rawEvents = [
     color: "#d4cc2f",
     layer: 8,
     type: "inGame",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.0"
   },
   {
     id: "ev17-v1.0",
@@ -227,7 +244,8 @@ export const rawEvents = [
     color: "#4f949a",
     layer: 11,
     type: "signIn",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.0"
   },
   {
     id: "ev1-v1.1",
@@ -240,7 +258,8 @@ export const rawEvents = [
     color: "#4f949a",
     layer: 11,
     type: "inGame",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev2-v1.1",
@@ -252,7 +271,8 @@ export const rawEvents = [
     color: "#dfd332",
     layer: 10,
     type: "inGame",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev3-v1.1",
@@ -260,11 +280,12 @@ export const rawEvents = [
     startTime: "2026-03-29 12:00:00",
     endTime: "2026-04-19 04:00:00",
     icon: "ev3-v1.1.jpg",
-    url: "https://x.com/AKEndfield/status/2029044162058706986?s=20",
+    url: "https://x.com/AKEndfield/status/2037379083521208320?s=20",
     color: "#34D73C",
     layer: 9,
     type: "inGame",
-    iconPosition: 40
+    iconPosition: 47,
+    version: "1.1"
   },
   {
     id: "ev4-v1.1",
@@ -276,7 +297,8 @@ export const rawEvents = [
     color: "#404042",
     layer: 11,
     type: "inGame",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev5-v1.1",
@@ -288,7 +310,8 @@ export const rawEvents = [
     color: "#d4cc2f",
     layer: 7,
     type: "mailEvent",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev6-v1.1",
@@ -301,7 +324,8 @@ export const rawEvents = [
     color: "#d4cc2f",
     layer: 7,
     type: "mailEvent",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev7-v1.1",
@@ -309,12 +333,13 @@ export const rawEvents = [
     startTime: "2026-03-29 12:00:00",
     endTime: "2026-04-19 04:00:00",
     icon: "ev14-v1.0.jpg",
-    url: "https://x.com/AKEndfield/status/2025442931310530601?s=20",
+    url: "https://x.com/AKEndfield/status/2037469679325794779?s=20",
     color: "#359abe",
     layer: 8,
-    type: "inGame",
-    iconPosition: 52,
-    isPermanent: true
+    type: "inGamePermanent",
+    iconPosition: 46,
+    isPermanent: true,
+    version: "1.1"
   },
   {
     id: "ev8-v1.1",
@@ -322,11 +347,13 @@ export const rawEvents = [
     startTime: "2026-03-26 12:00:00",
     endTime: "2026-04-19 04:00:00",
     icon: "ev8-v1.0.jpg",
-    url: "https://x.com/AKEndfield/status/2030478615604056413?s=20",
+    url: "https://x.com/AKEndfield/status/2036639217401610474?s=20",
     color: "#1D1D1D",
     layer: 5,
-    type: "inGame",
-    iconPosition: 52
+    type: "inGamePermanent",
+    iconPosition: 52,
+    isPermanent: true,
+    version: "1.1"
   },
   {
     id: "ev9-v1.1",
@@ -334,11 +361,12 @@ export const rawEvents = [
     startTime: "2026-03-26 12:00:00",
     endTime: "2026-04-10 04:00:00",
     icon: "ev8-v1.0.jpg",
-    url: "https://x.com/AKEndfield/status/2030478615604056413?s=20",
+    url: "https://x.com/AKEndfield/status/2036639217401610474?s=20",
     color: "#4b4b4b",
     layer: 6,
     type: "inGame",
-    iconPosition: 52
+    iconPosition: 52,
+    version: "1.1"
   },
   {
     id: "ev10-v1.1",
@@ -350,9 +378,10 @@ export const rawEvents = [
     url: "https://x.com/AKEndfield/status/2030946699812762005?s=20",
     color: "#680d15",
     layer: 4,
-    type: "inGame",
+    type: "inGamePermanent",
     iconPosition: 40,
-    isPermanent: true
+    isPermanent: true,
+    version: "1.1"
   },
   {
     id: "ev11-v1.1",
@@ -366,7 +395,8 @@ export const rawEvents = [
     color: "#0F2F48",
     layer: 3,
     type: "signIn",
-    iconPosition: 15
+    iconPosition: 15,
+    version: "1.1"
   },
   {
     id: "ev12-v1.1",
@@ -378,7 +408,8 @@ export const rawEvents = [
     color: "#820815",
     layer: 3,
     type: "signIn",
-    iconPosition: 40
+    iconPosition: 40,
+    version: "1.1"
   },
   {
     id: "ev13-v1.1",
@@ -391,6 +422,7 @@ export const rawEvents = [
     color: "#3bc5c5",
     layer: 16,
     type: "protoPass",
-    iconPosition: 72
+    iconPosition: 72,
+    version: "1.1"
   }
 ];
