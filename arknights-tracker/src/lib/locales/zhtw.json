@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "屬性",
+    "coolDown": "冷卻",
     "mainAttr": "主屬性",
     "secAttr": "副屬性",
     "str": "力量",

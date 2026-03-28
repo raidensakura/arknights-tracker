@@ -452,6 +452,7 @@
   },
   "stats": {
     "attributes": "Attributes",
+    "coolDown": "Cooldown",
     "mainAttr": "Main Attribute",
     "secAttr": "Secondary Attribute",
     "str": "Strength",

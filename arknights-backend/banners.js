@@ -105,6 +105,7 @@ const BANNERS = [
     type: "weapon",
     startTime: "2026-02-24 12:00:00",
     endTime: "2026-04-16 17:00:00",
+    endTimeAsia: "2026-04-17 06:00:00",
     featured6: ["artzyTyrannical", "Artzy Tyrannical"],
   },
   {
@@ -123,6 +124,7 @@ const BANNERS = [
     type: "special",
     startTime: "2026-03-29 12:00:00",
     endTime: "2026-04-16 17:00:00",
+    endTimeAsia: "2026-04-17 06:00:00",
     featured6: ["rossi", "Rossi"],
   },
   {

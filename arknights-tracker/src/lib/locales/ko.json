@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "속성",
+    "coolDown": "쿨타임",
     "mainAttr": "주 속성",
     "secAttr": "보조 속성",
     "str": "근력",

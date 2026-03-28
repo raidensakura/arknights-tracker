@@ -9,6 +9,7 @@
     export let skillKey = "";
     export let skillData = {};
     export let skillValues = {};
+    export let blackboard = {};
     export let materialsData = {};
     export let weaponType = "";
     export let itemsDb = [];
@@ -22,7 +23,8 @@
         heat: "#FF613D",
     };
 
-    $: currentColor = elementColors[element] || "#5E5D5D";
+    $: currentElement = skillValues.elementType || element;
+    $: currentColor = elementColors[currentElement] || "#5E5D5D";
     $: isUltimate = skillKey === "ultimate";
 
     $: skillImageId = (() => {
@@ -58,17 +60,12 @@
 
     function handleGlobalMouseMove(e) {
         if (!isDragging || !sliderContainer) return;
-
         const rect = sliderContainer.getBoundingClientRect();
         const x = e.clientX - rect.left;
-
         const stepWidth = rect.width / 12;
-
         let newLevel = Math.ceil(x / stepWidth);
-
         if (newLevel < 1) newLevel = 1;
         if (newLevel > 12) newLevel = 12;
-
         level = newLevel;
     }
 
@@ -97,13 +94,77 @@
 
     function getValue(key, lvl) {
         const valObj = skillValues[key];
-        if (!valObj || !valObj.data) return "-";
-        const idx = Math.min(lvl - 1, valObj.data.length - 1);
-        let raw = valObj.data[idx];
+        if (!valObj) return "-";
+        
+        const rawArray = Array.isArray(valObj) ? valObj : valObj.data;
+        if (!rawArray || !Array.isArray(rawArray)) return "-";
+
+        const idx = Math.min(lvl - 1, rawArray.length - 1);
+        let raw = rawArray[idx];
+
         if (valObj.dataType === "percent") return parseFloat((raw * 100).toFixed(2)) + "%";
         return raw;
     }
-    $: multiplierKeys = Object.keys(skillValues);
+
+    $: parsedDescription = (() => {
+        if (!skillData || !skillData.description) return "";
+
+        let text = skillData.description;
+        text = text.replace(/\{(-?[a-zA-Z0-9_\.]+)(?::([^}]+))?\}/g, (match, rawKey, format) => {
+            const isNegative = rawKey.startsWith('-');
+            const cleanKey = isNegative ? rawKey.substring(1) : rawKey;
+            const lowerKey = cleanKey.toLowerCase();
+
+            let foundRaw = null;
+            if (skillValues) {
+                const fk = Object.keys(skillValues).find(k => k.toLowerCase() === lowerKey);
+                if (fk) foundRaw = skillValues[fk];
+            }
+            if (foundRaw === null || foundRaw === undefined) {
+                if (blackboard) {
+                    for (const subSkill of Object.values(blackboard)) {
+                        if (subSkill && typeof subSkill === 'object') {
+                            const fk = Object.keys(subSkill).find(k => k.toLowerCase() === lowerKey);
+                            if (fk) {
+                                foundRaw = subSkill[fk];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (foundRaw === null || foundRaw === undefined) return match;
+            let num = 0;
+            let isPercentData = false;
+            if (typeof foundRaw === 'object' && !Array.isArray(foundRaw) && Array.isArray(foundRaw.data)) {
+                const idx = Math.min(level - 1, foundRaw.data.length - 1);
+                num = parseFloat(foundRaw.data[idx]);
+                if (foundRaw.dataType === 'percent') isPercentData = true;
+            } else if (Array.isArray(foundRaw)) {
+                const idx = Math.min(level - 1, foundRaw.length - 1);
+                num = parseFloat(foundRaw[idx]);
+            } else {
+                num = parseFloat(foundRaw);
+            }
+            if (isNaN(num)) return match;
+            if (isNegative) num = -num;
+            let result = num;
+            if (format) {
+                if (format.includes('%')) result = Math.round(num * 100) + '%';
+                else if (format === '0') result = Math.round(num);
+                else if (format === '0.0') result = num.toFixed(1);
+                else result = parseFloat(num.toFixed(2));
+            } else {
+                if (isPercentData) result = parseFloat((num * 100).toFixed(2)) + '%';
+                else result = parseFloat(num.toFixed(2));
+            }
+
+            return `<span class="text-[#38BDF8] font-bold drop-shadow-sm">${result}</span>`;
+        });
+        return parseRichText(text);
+    })();
+
+    $: multiplierKeys = Object.keys(skillValues).filter(key => key !== 'elementType');
 
     function parseRichText(text) {
         if (!text) return "";
@@ -145,8 +206,19 @@
         let textData = headers.join("\t") + "\n";
 
         for (const key of multiplierKeys) {
-            const rowLabel = (skillData[skillKey] && skillData[skillKey][key]) || skillData[key] || key.replace(/([A-Z])/g, " $1").trim();
+            let rowLabel = key.replace(/([A-Z])/g, " $1").trim();
             
+            const translated = $t(`stats.${key}`);
+            if (translated && translated !== `stats.${key}`) {
+                rowLabel = translated;
+            }
+            
+            if (skillData[skillKey] && skillData[skillKey][key]) {
+                rowLabel = skillData[skillKey][key];
+            } else if (skillData[key]) {
+                rowLabel = skillData[key];
+            }
+
             const row = [rowLabel];
             for (let i = 1; i <= 12; i++) {
                 row.push(getValue(key, i));
@@ -164,6 +236,7 @@
             console.error("Failed to copy", err);
         }
     }
+    
 </script>
 
 <svelte:window on:mouseup={stopDrag} on:mousemove={handleGlobalMouseMove} />
@@ -198,7 +271,7 @@
                         ></div>
                     {/if}
 
-                    <div class="relative z-10 w-[70%] h-[70%] flex items-center justify-center">
+                    <div class="relative z-10 w-[85%] h-[85%] flex items-center justify-center">
                         <Images
                             id={skillImageId}
                             variant="skill-icon"
@@ -298,19 +371,20 @@
         </div>
 
         <div class="text-sm text-gray-700 dark:text-[#E4E4E4] leading-relaxed whitespace-pre-wrap mt-2">
-            {@html parseRichText(skillData.description) || "No description"}
+            {@html parsedDescription || "No description"}
         </div>
 
         <div class="pt-2">
             {#if !isTableMode}
                 <div class="flex flex-col gap-2">
                     {#each multiplierKeys as key}
+                        {@const translatedKey = $t(`stats.${key}`)}
                         <div class="flex justify-between items-center text-sm border-b border-gray-50 dark:border-[#444444]/70 pb-1 last:border-0">
                             <span class="font-bold text-gray-600 dark:text-[#E4E4E4]">
-                                {(skillData[skillKey] &&
-                                    skillData[skillKey][key]) ||
+                                {(skillData[skillKey] && skillData[skillKey][key]) ||
                                     skillData[key] ||
-                                    key.replace(/([A-Z])/g, " $3").trim()}
+                                    (translatedKey !== `stats.${key}` ? translatedKey : null) ||
+                                    key.replace(/([A-Z])/g, " $1").trim()}
                             </span>
                             <span class="font-nums font-bold text-[#21272C] dark:text-[#E4E4E4]">
                                 {getValue(key, level)}
@@ -340,11 +414,12 @@
                             </thead>
                             <tbody class="text-gray-700">
                                 {#each multiplierKeys as key}
+                                    {@const translatedKey = $t(`stats.${key}`)}
                                     <tr class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
                                         <td class="sticky left-0 z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
-                                            {(skillData[skillKey] &&
-                                                skillData[skillKey][key]) ||
+                                            {(skillData[skillKey] && skillData[skillKey][key]) ||
                                                 skillData[key] ||
+                                                (translatedKey !== `stats.${key}` ? translatedKey : null) ||
                                                 key.replace(/([A-Z])/g, " $1").trim()}
                                         </td>
                                         {#each Array(12) as _, i}

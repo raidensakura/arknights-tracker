@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "Atributos",
+    "coolDown": "Tempo de Recarga",
     "mainAttr": "Atributo Principal",
     "secAttr": "Atributo Secundário",
     "str": "Força",

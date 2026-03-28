@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "Atribut",
+    "coolDown": "Cooldown",
     "mainAttr": "Atribut Utama",
     "secAttr": "Atribut Sekunder",
     "str": "Kekuatan",

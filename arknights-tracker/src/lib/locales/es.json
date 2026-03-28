@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "Atributos",
+    "coolDown": "Tiempo de reutilización",
     "mainAttr": "Atributo Principal",
     "secAttr": "Atributo Secundario",
     "str": "Fuerza",

@@ -426,6 +426,7 @@
   },
   "stats": {
     "attributes": "Thuộc tính",
+    "coolDown": "Thời gian hồi chiêu",
     "mainAttr": "Thuộc tính Chính",
     "secAttr": "Thuộc tính Phụ",
     "str": "Sức mạnh",

@@ -427,6 +427,7 @@
   },
   "stats": {
     "attributes": "Attribute",
+    "coolDown": "Abklingzeit",
     "mainAttr": "Hauptattribut",
     "secAttr": "Sekundärattribut",
     "str": "Stärke",

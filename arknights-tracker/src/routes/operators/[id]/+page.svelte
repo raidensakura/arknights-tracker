@@ -914,6 +914,7 @@
                                     element={char.element}
                                     skillData={skillsLocale[key] || {}}
                                     skillValues={skillsValuesData[key]}
+                                    blackboard={charDetails.blackboard}
                                     weaponType={char.weapon}
                                     materialsData={getSkillMaterials(
                                         charMaterials,

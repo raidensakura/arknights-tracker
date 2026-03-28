@@ -426,6 +426,7 @@
   },
   "stats": {
     "attributes": "Attributi",
+    "coolDown": "Tempo di recupero",
     "mainAttr": "Attributo Principale",
     "secAttr": "Attributo Secondario",
     "str": "Forza",
