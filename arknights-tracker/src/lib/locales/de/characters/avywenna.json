@@ -132,7 +132,7 @@
       "name": "Sehr erfahren"
     },
     "potential5": {
-      "description": "Wenn zurückkehrende <@ba.key>Donnerlanzen</> oder <@ba.key>Donnerlanzen EX</> einen Gegner mit <#ba.pulsevul>Elektrik-Empfänglichkeit</> treffen, erhöht sich der SDN-Multiplikator auf das <@ba.vup>{atk_scale_lance:0.00}</>-Fache des ursprünglichen Werts.",
+      "description": "Wenn zurückkehrende <@ba.key>Donnerlanzen</> oder <@ba.key>Donnerlanzen EX</> einen Gegner mit <#ba.pulsevul>Elektrik-Empfänglichkeit</> treffen, erhöhen sich die SDN-Multiplikatoren auf das <@ba.vup>{potential_5_rate:0.00}</>-Fache des ursprünglichen Werts.",
       "name": "Zuckerbrot und Peitsche"
     }
   },

@@ -132,7 +132,7 @@
       "name": "Chevronnée"
     },
     "potential5": {
-      "description": "Quand les <@ba.key>lances de foudre</> ou <@ba.key>lances de foudre EX</> sur le retour touchent un ennemi <#ba.pulsevul>sensible à l'électricité</>, le multiplicateur de DÉG passe à <@ba.vup>{atk_scale_lance:0.00}</> fois sa valeur d'origine.",
+      "description": "Quand les <@ba.key>lances de foudre</> ou <@ba.key>lances de foudre EX</> sur le retour touchent un ennemi <#ba.pulsevul>sensible à l'électricité</>, les multiplicateurs de DÉG passent à <@ba.vup>{potential_5_rate:0.00}</> fois leur valeur d'origine.",
       "name": "Carotte et bâton pointu"
     }
   },

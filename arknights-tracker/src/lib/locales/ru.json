@@ -704,7 +704,8 @@
     "fluorite": "Флюорит",
     "ardelia": "Арделия",
     "tangtang": "Тантан",
-    "pogranichnik": "Пограничник"
+    "pogranichnik": "Пограничник",
+    "rossi": "Росси"
   },
   "weaponsList": {
     "industry01": "Индустрия 0.1",
@@ -771,7 +772,8 @@
     "neverRest": "Неустанность",
     "gloriousMemory": "Славное воспоминание",
     "objEdgeOfLightness": "OBJ Клинок света",
-    "finchaser30": "Водоплаволов 3.0"
+    "finchaser30": "Водоплаволов 3.0",
+    "lupineScarlet": "Волчий багрянец"
   },
   "cookies": {
     "title": "Мы используем куки",

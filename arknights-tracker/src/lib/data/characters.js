@@ -249,6 +249,16 @@ export const characters = {
     class: "caster",
     weapon: "handcannon",
     birthDate: "21-06",
+    isNew: false
+  },
+  rossi: {
+    id: "rossi",
+    name: "Rossi",
+    rarity: 6,
+    element: "physical",
+    class: "guard",
+    weapon: "sword",
+    birthDate: "",
     isNew: true
   }
 };

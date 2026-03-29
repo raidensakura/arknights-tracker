@@ -132,7 +132,7 @@
       "name": "経験豊富"
     },
     "potential5": {
-      "description": "回収した<@ba.key>雷槍</>と<@ba.key>強雷槍</>が<#ba.pulsevul>電磁脆弱</>状態の敵に命中するとき、ダメージ倍率が<@ba.vup>{atk_scale_lance:0.00}</>倍までアップする",
+      "description": "回収した<@ba.key>雷槍</>と<@ba.key>強雷槍</>が<#ba.pulsevul>電磁脆弱</>状態の敵に命中するとき、ダメージ倍率が<@ba.vup>{potential_5_rate:0.00}</>倍までアップする",
       "name": "人参とムチ"
     }
   },

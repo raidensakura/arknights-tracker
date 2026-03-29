@@ -132,7 +132,7 @@
       "name": "Dày Dạn Kinh Nghiệm"
     },
     "potential5": {
-      "description": "Khi <@ba.key>Thương Sấm Sét</> hoặc <@ba.key>Thương Sấm Sét Cường Hóa</> đánh trúng kẻ địch ở trạng thái <#ba.pulsevul>Dễ Bị Thương Điện</>, Hệ Số ST sẽ tăng <@ba.vup>{atk_scale_lance:0.00}</> lần so với ban đầu.",
+      "description": "Khi <@ba.key>Thương Sấm Sét</> hoặc <@ba.key>Thương Sấm Sét Cường Hóa</> đánh trúng kẻ địch ở trạng thái <#ba.pulsevul>Yếu Hóa Điện</>, Hệ Số ST sẽ tăng <@ba.vup>{potential_5_rate:0.00}</> lần so với ban đầu.",
       "name": "Thưởng Và Phạt Nặng"
     }
   },

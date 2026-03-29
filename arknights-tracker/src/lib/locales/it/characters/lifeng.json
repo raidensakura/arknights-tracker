@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Vacillamento ATT aggiuntivo"
       },
       "name": "Cuore inamovibile",
-      "description": ""
+      "description": "Sguinzaglia un avatar che esegue un colpo di Vajra l'Inamovibile. Il colpo infligge <@ba.pd>danni fisici</> e <#ba.knockdown>Abbattimento</> a tutti i nemici in un grande raggio d'azione e li spinge verso il centro dell'area. Dopo un po' di tempo, il colpo infligge nuovamente ingenti <@ba.pd>danni fisici</> e <#ba.knockdown>Abbattimento</> ai nemici ancora all'interno dell'area.\nSe l'abilità <#ba.consume>consuma</> un <#ba.combo>Concatenamento</>, sferra un altro colpo che infligge ulteriori <@ba.pd>danni fisici</>."
     },
     "indicator": {
       "levels": [

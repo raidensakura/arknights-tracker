@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Suy Sụp Tấn Công Bổ Sung"
       },
       "name": "Tâm Bất Biến",
-      "description": ""
+      "description": "Phóng dạng năng lực thi triển Đòn Đập Kim Cương Bất Động, gây <@ba.pd>ST Vật Lý</> và <#ba.knockdown>Quật Ngã</> tất cả kẻ địch trong vùng rộng (AOE), đồng thời kéo chúng về trung tâm AOE. Sau một hồi, kẻ địch trong AOE nhận thêm Đòn Đập gây <@ba.pd>ST Vật Lý</> lớn và bị <#ba.knockdown>Quật Ngã</> một lần nữa.\nNếu kỹ năng <#ba.consume>tiêu hao</> một <#ba.combo>Liên Kết</>, thì gây thêm một đòn <@ba.pd>ST Vật Lý</> lớn nữa."
     },
     "indicator": {
       "levels": [

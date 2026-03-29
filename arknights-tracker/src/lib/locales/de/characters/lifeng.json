@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Zusätzliches ANG-Taumeln"
       },
       "name": "Herz des Regungslosen",
-      "description": ""
+      "description": "Entfesselt einen Aspekt, der einen Unbeweglicher-Vajra-Schlag ausführt. Der Schlag fügt allen Gegnern in einem großen Wirkungsbereich <@ba.pd>Physischen SDN</> und <#ba.knockdown>Niederschlag</> zu und zieht dann alle Gegner in die Mitte des Bereichs. Nach einer Weile entfesselt der Schlag bei Gegnern im Wirkungsbereich erneut massiven <@ba.pd>Physischen SDN</> und <#ba.knockdown>Niederschlag</>.\nFalls die Fertigkeit eine <#ba.combo>Verbunden</>-Kumulierung <#ba.consume>verbraucht</>, wird ein weiterer Treffer ausgeführt, der massiven <@ba.pd>Physischen SDN</> verursacht."
     },
     "indicator": {
       "levels": [

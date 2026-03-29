@@ -132,7 +132,7 @@
       "name": "經驗老到"
     },
     "potential5": {
-      "description": "召回的<@ba.key>雷槍</>、<@ba.key>強雷槍</>命中處於<#ba.pulsevul>電磁脆弱</>狀態的敵人時，傷害倍率提升至原本的<@ba.vup>{atk_scale_lance:0.00}</>倍。",
+      "description": "召回的<@ba.key>雷槍</>、<@ba.key>強雷槍</>命中處於<#ba.pulsevul>電磁脆弱</>狀態的敵人時，傷害倍率提升至原本的<@ba.vup>{potential_5_rate:0.00}</>倍。",
       "name": "恩威並施"
     }
   },

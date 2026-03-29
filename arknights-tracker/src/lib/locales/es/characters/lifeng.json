@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Tambaleo de ATQ adicional"
       },
       "name": "Corazón inmóvil",
-      "description": ""
+      "description": "Desata un avatar que realiza un golpe Vajra inmóvil. El golpe inflige <@ba.pd>DAÑ físico</> y aplica <#ba.knockdown>Derribar</> a todos los enemigos en un área de efecto amplia (AE) y los atrae hacia el centro del AE. Después de un momento, el avatar realiza otro golpe que inflige <@ba.pd>DAÑ físico</> masivo y aplica <#ba.knockdown>Derribar</> de nuevo a los enemigos que sigan en el AE.\nSi la habilidad <#ba.consume>consume</> un <#ba.combo>Enlace</>, inflige un golpe adicional de <@ba.pd>DAÑ físico</> masivo."
     },
     "indicator": {
       "levels": [

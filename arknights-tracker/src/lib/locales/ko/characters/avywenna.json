@@ -132,7 +132,7 @@
       "name": "숙련자의 여유"
     },
     "potential5": {
-      "description": "회수한 <@ba.key>썬더랜스</> 및 <@ba.key>강력한 썬더랜스</>가 <#ba.pulsevul>전기 취약</> 상태의 적을 명중했을 때, 피해 배율이 기존의 <@ba.vup>{atk_scale_lance:0.00}</>배로 증가합니다.",
+      "description": "회수한 <@ba.key>썬더랜스</> 및 <@ba.key>강력한 썬더랜스</>가 <#ba.pulsevul>전기 취약</> 상태의 적을 명중했을 때, 피해 배율이 기존의 <@ba.vup>{potential_5_rate:0.00}</>배로 증가합니다.",
       "name": "회유와 위압"
     }
   },

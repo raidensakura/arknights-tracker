@@ -2375,8 +2375,7 @@
             "costvalue": 0.85
         },
         "potential5": {
-            "atk_scale_lance": 1.15,
-            "atk_scale_lance_ult": 1.15
+            "potential_5_rate": 1.15
         }
     }
 }

@@ -6,15 +6,11 @@
     ],
     "behaviourHateTags": [],
     "behaviourUnavailableTags": [],
-    "blocTag": "Tập Đoàn Endfield",
-    "expertTags": [
-      "???"
-    ],
+    "blocTag": "",
+    "expertTags": [],
     "giftPreferTags": [],
-    "hobbyTags": [
-      "???"
-    ],
-    "raceTag": "Không Tiết Lộ"
+    "hobbyTags": [],
+    "raceTag": ""
   },
   "skills": {
     "basicAttack": {
@@ -36,7 +32,7 @@
         "stagger": "Suy Sụp"
       },
       "name": "Chuỗi Kiến Tạo",
-      "description": "Một vụ nổ mạnh mẽ của <@ba.key>Tinh Thể Originium</> tấn công kẻ địch trong phạm vi ảnh hưởng. Gây <@ba.pd>ST Vật Lý</> và áp dụng hiệu ứng <#ba.crush>Nghiền</>."
+      "description": "Một vụ nổ mạnh mẽ của Thuật Pháp Originium tấn công kẻ địch trong phạm vi ảnh hưởng. Gây <@ba.pd>ST Vật Lý</> và áp dụng hiệu ứng <#ba.crush>Nghiền</>."
     },
     "comboSkill": {
       "comboSkill": {
@@ -46,7 +42,7 @@
         "sealDurationS": "Thời Gian Phong Ấn (giây)"
       },
       "name": "Chuỗi Phong Ấn",
-      "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên khác trong đội gây ST bằng KN liên hoàn. \nLao tới bên cạnh kẻ địch để gây <@ba.pd>ST Vật Lý</> và gắn <@ba.key>Tinh Thể Originium</> để tạm thời phong ấn chúng. Áp dụng <#ba.physicalstatus>Trạng Thái Vật Lý</> hoặc <#ba.noguard>Trừ Giáp</> lên kẻ địch bị phong ấn sẽ phá vỡ <@ba.key>Tinh Thể Originium</> và gây thêm <@ba.pd>ST Vật Lý</>."
+      "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên khác trong đội gây ST bằng KN liên hoàn. \nLao tới bên cạnh kẻ địch để gây <@ba.pd>ST Vật Lý</> và gắn <#ba.originium>Tinh Thể Originium</> để tạm thời phong ấn chúng. Áp dụng <#ba.physicalstatus>Trạng Thái Vật Lý</> hoặc <#ba.noguard>Trừ Giáp</> lên kẻ địch bị phong ấn sẽ <#ba.consume>tiêu hao</> <#ba.originium>Tinh Thể Originium</> và gây thêm <@ba.pd>ST Vật Lý</>."
     },
     "ultimate": {
       "ultimate": {
@@ -55,7 +51,7 @@
         "stagger": "Suy Sụp"
       },
       "name": "Chuỗi Oanh Kích",
-      "description": "Bắn phá mặt đất bằng <@ba.key>Tinh Thể Originium</>, gây lượng lớn <@ba.pd>ST Vật Lý</> lên tất cả kẻ địch trong khu vực hình quạt. Nếu kẻ địch có <@ba.key>Tinh Thể Originium</> trên người, kỹ năng này sẽ phá vỡ <@ba.key>Tinh Thể Originium</> và gây thêm 1 đòn <@ba.pd>ST Vật Lý</>."
+      "description": "Bắn phá mặt đất bằng Thuật Pháp Originium, gây <@ba.pd>ST Vật Lý</> cực lớn lên tất cả kẻ địch trong khu vực hình quạt. Nếu kẻ địch có <#ba.originium>Tinh Thể Originium</> trên người, kỹ năng này <#ba.consume>tiêu thụ</> <#ba.originium>Tinh Thể Originium</> và gây thêm 1 đòn <@ba.pd>ST Vật Lý</>."
     },
     "indicator": {
       "levels": [
@@ -68,15 +64,15 @@
     },
     "talent1": {
       "levels": [
-        "Đánh trúng tối thiểu 2 mục tiêu bằng KN chiến đấu hoặc Tuyệt Kỹ sẽ rút ngắn thời gian hồi chiêu KN liên hoàn {0,0:0.0} giây.",
-        "Đánh trúng tối thiểu 2 mục tiêu bằng KN chiến đấu hoặc Tuyệt Kỹ sẽ rút ngắn thời gian hồi chiêu KN liên hoàn {0,0:0.0} giây."
+        "Khi <#ba.originium>Tinh Thể Originium</> gắn trên kẻ địch bị <#ba.consume>tiêu hao</>, Endministrator nhận Tấn Công <@ba.vup>+{atk_up:0%}</> trong {duration:0} giây. Hiệu ứng này không thể cộng dồn.",
+        "Khi <#ba.originium>Tinh Thể Originium</> gắn trên kẻ địch bị <#ba.consume>tiêu hao</>, Endministrator nhận Tấn Công <@ba.vup>+{atk_up:0%}</> trong {duration:0} giây. Hiệu ứng này không thể cộng dồn."
       ],
       "name": "Hủy Hoại Tinh Chất"
     },
     "talent2": {
       "levels": [
-        "Kẻ địch bị phong ấn bởi <#ba.originium>tinh thể Originium</> nhận thêm <@ba.vup>{0,0:0%}</> ST Vật Lý.",
-        "Kẻ địch bị phong ấn bởi <#ba.originium>tinh thể Originium</> nhận thêm <@ba.vup>{0,0:0%}</> ST Vật Lý."
+        "Kẻ địch bị gắn <#ba.originium>Tinh Thể Originium</> sẽ có ST Vật Lý Nhận Vào <@ba.vup>+{dmg:0%}</>.",
+        "Kẻ địch bị gắn <#ba.originium>Tinh Thể Originium</> sẽ có ST Vật Lý Nhận Vào <@ba.vup>+{dmg:0%}</>."
       ],
       "name": "Đóng Băng Không Gian Thực"
     },
@@ -88,31 +84,27 @@
       "levels": [],
       "name": ""
     },
-    "files": {
-      "main": "<@profile.key>TÊN MÃ: Endministrator \nGIỚI TÍNH: ■■ \nXÁC THỰC: ■■ \nNGÀY SINH: ■■ \nCHỦNG TỘC: ■■ \n\nBạn không nhớ gì cả. \nKý ức của bạn vỡ vụn, như những giấc mơ bị nghiền nát thành tro bụi, tan biến ngay khi vừa chạm tới. \nĐôi khi nó khiến bạn bồn chồn, đôi khi bất an, nhưng nó lại cho bạn một khoảnh khắc yên tĩnh để hít thở và suy ngẫm. \nTuy nhiên, phần lớn thời gian, bạn chẳng có dịp để nghi ngờ. Bạn chỉ biết tin tưởng những gì trước mắt và tiếp tục. \nCó lẽ bạn đã cất giữ quá khứ của mình ở một nơi nào đó, dù chỉ là trong chốc lát... \n...và vì vậy, bạn chẳng nhớ được gì. </>",
-      "humanResources": "<@profile.key>Bạn đã sống qua toàn bộ lịch sử của Talos-II...</>",
-      "file1": "<@profile.key>Nhưng... bạn sẽ nghĩ gì về tương lai của nó?</>"
-    }
+    "files": {}
   },
   "potentials": {
     "potential1": {
-      "description": "",
+      "description": "KN chiến đấu <@ba.key>Chuỗi Kiến Tạo</> được cải thiện: <#ba.consume>Tiêu hao</> <#ba.originium>Tinh Thể Originium</> <#ba.return>để hồi</> <@ba.vup>{atb_return:0}</> KN.",
       "name": "Thức Tỉnh Cuối Cùng"
     },
     "potential2": {
-      "description": "",
+      "description": "Thiên Phú <@ba.key>Hủy Hoại Tinh Chất</> được cải thiện: Khi Endministrator nhận buff Tấn Công, các cán viên đồng minh khác sẽ nhận một nửa hiệu ứng buff Tấn Công này.",
       "name": "Phản Chiếu Uy Quyền"
     },
     "potential3": {
-      "description": "",
+      "description": "???",
       "name": "???"
     },
     "potential4": {
-      "description": "",
+      "description": "???",
       "name": "???"
     },
     "potential5": {
-      "description": "",
+      "description": "???",
       "name": "???"
     }
   },

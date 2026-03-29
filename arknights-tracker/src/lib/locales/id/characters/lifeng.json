@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Tambahan ATK Stagger"
       },
       "name": "Heart of the Unmoving",
-      "description": ""
+      "description": "Melepaskan aspek yang akan melancarkan Immovable Vajra Slam sehingga akan menimbulkan <@ba.pd>Physical DMG</> dan <#ba.knockdown>Knock Down</> kepada semua musuh dalam area efek (AOE) yang besar, dan musuh akan ditarik ke arah tengah AOE. Setelah beberapa saat, Slam itu akan melepaskan satu hantaman lagi yang akan menimbulkan <@ba.pd>Physical DMG</> sangat besar dan mengakibatkan <#ba.knockdown>Knock Down</> lagi kepada musuh yang masih berada di dalam AOE.\nJika skill <#ba.consume>memakai</> <#ba.combo>Link</>, <@ba.pd>Physical DMG</> sangat besar akan ditimbulkan lagi."
     },
     "indicator": {
       "levels": [

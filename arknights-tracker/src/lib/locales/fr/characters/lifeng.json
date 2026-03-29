@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Déséquilibre après l'ATQ supplémentaire"
       },
       "name": "Cœur inébranlable",
-      "description": ""
+      "description": "Invoque une forme qui lance une frappe Vajra immuable. Cette frappe inflige des <@ba.pd>DÉG physiques</> et applique <#ba.knockdown>Renversement</> à tous les ennemis dans une large zone d'effet, puis attire les ennemis vers le centre de cette zone. Au bout d'un moment, la frappe s'abat une nouvelle fois pour infliger de lourds <@ba.pd>DÉG physiques</> et appliquer un nouveau <#ba.knockdown>Renversement</> aux ennemis présents dans cette zone.\nSi la compétence <#ba.consume>consomme</> un <#ba.combo>Lien</>, la frappe s'abat encore une fois pour infliger de lourds <@ba.pd>DÉG physiques</>."
     },
     "indicator": {
       "levels": [

@@ -132,7 +132,7 @@
       "name": "Very Experienced"
     },
     "potential5": {
-      "description": "When returning <@ba.key>Thunderlances</> or <@ba.key>Thunderlances EX</> hit an <#ba.pulsevul>Electric Susceptible</> enemy, DMG multiplier is increased to <@ba.vup>{atk_scale_lance:0.00}</> times the original.",
+      "description": "When returning <@ba.key>Thunderlances</> or <@ba.key>Thunderlances EX</> hit an <#ba.pulsevul>Electric Susceptible</> enemy, the DMG multipliers are increased to <@ba.vup>{potential_5_rate:0.00}</> times the original.",
       "name": "Carrot and Sharp Stick"
     }
   },

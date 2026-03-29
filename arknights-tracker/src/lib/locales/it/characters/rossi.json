@@ -1,0 +1,161 @@
+{
+  "baseInfo": {
+    "tags": [
+      "Sospensione",
+      "Critico",
+      "Abilità offensiva"
+    ],
+    "behaviourHateTags": [
+      "Tecnologia"
+    ],
+    "behaviourUnavailableTags": [
+      "Introversione (SOLO SISTEMA, non visibile nel gioco)"
+    ],
+    "blocTag": "Endfield Industries",
+    "expertTags": [
+      "Analisi della situazione",
+      "Saggezza di strada"
+    ],
+    "giftPreferTags": [
+      "Scelta dei mercanti di Wuling"
+    ],
+    "hobbyTags": [
+      "Natura",
+      "Sport"
+    ],
+    "raceTag": "Lupo"
+  },
+  "skills": {
+    "basicAttack": {
+      "basicAttack": {
+        "batkSeq1Multiplier": "Moltiplicatore SEQ ATTB 1",
+        "batkSeq2Multiplier": "Moltiplicatore SEQ ATTB 2",
+        "batkSeq3Multiplier": "Moltiplicatore SEQ ATTB 3",
+        "batkSeq4Multiplier": "Moltiplicatore SEQ ATTB 4",
+        "batkSeq5Multiplier": "Moltiplicatore SEQ ATTB 5",
+        "finisherAtkMultiplier": "Moltiplicatore ATT mossa letale",
+        "diveAtkMultiplier": "Moltiplicatore ATT dall'alto"
+      },
+      "name": "Ferinità incontenibile",
+      "description": "ATTACCO BASE: \nsequenza di massimo cinque attacchi che infliggono <@ba.pd>danni fisici</>. Quando controlli l'operatore, il <#ba.lastcombo>colpo finale</> infligge anche <@ba.poise>{poise:0}</> di Vacillamento. \n\nATTACCO DALL'ALTO: \ngli attacchi base eseguiti a mezz'aria diventano attacchi dall'alto che infliggono <@ba.pd>danni fisici</> ai nemici nelle vicinanze. \n\nMOSSA LETALE: \ngli attacchi base eseguiti vicino a un nemico Vacillante diventano mosse letali che infliggono ingenti <@ba.pd>danni fisici</> e ripristinano parzialmente i PA."
+    },
+    "battleSkill": {
+      "battleSkill": {
+        "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
+        "seq1Stagger": "Vacillamento SEQ 1",
+        "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
+        "seq2Stagger": "Vacillamento SEQ 2"
+      },
+      "name": "Ombra cremisi",
+      "description": "Si lancia alla carica contro il bersaglio per infliggere <@ba.pd>danni fisici</> e applicare <#ba.airborne>Sospensione</>.\nSe il bersaglio ha già uno o più accumuli di <#ba.noguard>Vulnerabilità</>, l'abilità scatena anche un <@ba.key>Balzo di lupo</> sul bersaglio che infligge <@ba.fire>danni da fuoco</>."
+    },
+    "comboSkill": {
+      "comboSkill": {
+        "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
+        "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
+        "bonusDmgMultiplierPerInflictionStack": "Moltiplicatore danni bonus per accumulo di Afflizione",
+        "seq2Stagger": "Vacillamento SEQ 2",
+        "criticalRateBoost": "Potenziamento probabilità di critico",
+        "criticalDmgBoost": "Potenziamento danni critici",
+        "buffDurationS": "Durata potenziamento (s)"
+      },
+      "name": "Momento dell'ombra ardente",
+      "description": "ATTIVAZIONE COMBO: quando un nemico ha sia <#ba.noguard>Vulnerabilità</> sia accumuli di <#ba.spellinflict>Afflizione da Arti</>.\nL'abilità combo di Rossi ha due sequenze consecutive. SEQUENZA COMBO 1: infligge <@ba.pd>danni fisici</> al bersaglio.\nSEQUENZA COMBO 2: <#ba.consume>consuma</> tutti gli accumuli di <#ba.spellinflict>Afflizione da Arti</> del bersaglio, infligge <@ba.pd>danni fisici</> in base al numero di accumuli di Afflizione da Arti <#ba.consume>consumati</>, applica 1 unità di <#ba.airborne>Sospensione</> e potenzia le probabilità di critico e i danni critici inflitti di Rossi contemporaneamente.\nEseguire la SEQUENZA COMBO 2 con <@ba.key>tempismo perfetto</> applica un ulteriore accumulo di <#ba.noguard>Vulnerabilità</>."
+    },
+    "ultimate": {
+      "ultimate": {
+        "stabAttackTotalDmgMultiplier": "Moltiplicatore danni totali pugnalata",
+        "seq1SlashDmgMultiplier": "Moltiplicatore danni fendente SEQ 1",
+        "seq2SlashDmgMultiplier": "Moltiplicatore danni fendente SEQ 2",
+        "stagger": "Vacillamento",
+        "criticalDmgBoost": "Potenziamento danni critici"
+      },
+      "name": "Agguato \"Artiglio affilato\"",
+      "description": "Rossi fa svolazzare il mantello e scatena una raffica di colpi che infliggono rapidamente una serie di <@ba.fire>danni da fuoco</> al bersaglio, quindi esegue una sequenza di due attacchi con il suo pugnale, infliggendo ingenti <@ba.fire>danni da fuoco</> e applicando <#ba.fireinflict>Afflizione da fuoco</>.\n<@ba.info>Se l'abilità mette a segno un colpo critico, infligge danni critici maggiori.</>"
+    },
+    "indicator": {
+      "levels": [
+        "Agilità operatore +10.",
+        "Agilità operatore +15.",
+        "Agilità operatore +15.",
+        "Agilità operatore +20."
+      ],
+      "name": "Destrezza"
+    },
+    "talent1": {
+      "levels": [
+        "Abilità di combattimento migliorata: dopo che <@ba.key>Balzi di lupo</> infligge danni, Rossi applica <#ba.rossi>Marchio dell'artiglio affilato</> al bersaglio per <@ba.vup>{duration_bleed:0}</> s. Questo effetto non si accumula.\nPer tutta la durata di <#ba.rossi>Marchio dell'artiglio affilato</>, il bersaglio subisce <@ba.pd>danni fisici</> pari a un <@ba.vup>{atk_scale_bleed:0%}</> dell'ATT di Rossi al secondo e <@ba.vup>+{damage_up:0%}</> di <@ba.pd>danni fisici</> e <@ba.fire>danni da fuoco</>.",
+        "Abilità di combattimento migliorata: dopo che <@ba.key>Balzi di lupo</> infligge danni, Rossi applica <#ba.rossi>Marchio dell'artiglio affilato</> al bersaglio per <@ba.vup>{duration_bleed:0}</> s. Questo effetto non si accumula.\nPer tutta la durata di <#ba.rossi>Marchio dell'artiglio affilato</>, il bersaglio subisce <@ba.pd>danni fisici</> pari a un <@ba.vup>{atk_scale_bleed:0%}</> dell'ATT di Rossi al secondo e <@ba.vup>+{damage_up:0%}</> di <@ba.pd>danni fisici</> e <@ba.fire>danni da fuoco</>."
+      ],
+      "name": "Morsi e graffi"
+    },
+    "talent2": {
+      "levels": [
+        "Quando l'abilità di Rossi infligge danni critici a un nemico con il <#ba.rossi>Marchio dell'artiglio affilato</>, attiva un altro colpo che infligge <@ba.fire>danni da fuoco</> pari a un <@ba.vup>{bleed_critical_damage_scale:0%}</> dell'ATT di Rossi e ripristina PS a Rossi pari a <@ba.heal>(Intelletto x {heal_scale:0.00})</>. Se il bersaglio è anche affetto da <#ba.burning>Combustione</>, i danni e il ripristino dei PS aumentano a <@ba.vup>{talent2_burning_damage_scale:0.0}</> volte.",
+        "Quando l'abilità di Rossi infligge danni critici a un nemico con il <#ba.rossi>Marchio dell'artiglio affilato</>, attiva un altro colpo che infligge <@ba.fire>danni da fuoco</> pari a un <@ba.vup>{bleed_critical_damage_scale:0%}</> dell'ATT di Rossi e ripristina PS a Rossi pari a <@ba.heal>(Intelletto x {heal_scale:0.00})</>. Se il bersaglio è anche affetto da <#ba.burning>Combustione</>, i danni e il ripristino dei PS aumentano a <@ba.vup>{talent2_burning_damage_scale:0.0}</> volte."
+      ],
+      "name": "Furore incontenibile"
+    },
+    "baseSkill1": {
+      "levels": [
+        "Assegna alla sala di ricevimento per rallentare il calo dell'umore di tutti gli operatori al suo interno del 14%.",
+        "Assegna alla sala di ricevimento per rallentare il calo dell'umore di tutti gli operatori al suo interno del 18%."
+      ],
+      "name": "Galateo del clan"
+    },
+    "baseSkill2": {
+      "levels": [
+        "Assegna alla sala di ricevimento per aumentare del 20% l'efficienza di raccolta indizi degli operatori.",
+        "Assegna alla sala di ricevimento per aumentare del 30% l'efficienza di raccolta indizi degli operatori."
+      ],
+      "name": "Profumo di caccia"
+    },
+    "files": {
+      "main": "<@profile.key>NOME IN CODICE: Rossi\nGENERE: F\nAFFILIAZIONE: Branco\nDATA DI NASCITA: 10 marzo\nRAZZA: Lupo\n[STATO ORIPATIA]\nI referti medici confermano la positività all'Oripatia (infetta).\n\n[RISULTATI DELL'ESAME FISICO]\nFORZA FISICA: Normale\nABILITÀ DI COMBATTIMENTO: Normali\nACUME TATTICO: Eccellente\nASSIMILAZIONE DELLE ARTI DI ORIGINIUM: Eccellente</>",
+      "humanResources": "<@profile.key>L'operatrice Rossi, il cui nome completo è Rossina Wulfperl Luppino, fa parte di un clan di Fenditerra noto come il Branco. In qualità di portavoce del clan, ha avviato un rapporto di collaborazione con la Endfield Industries e ora lavora nella Divisione tecnologica specializzata.\n\nDate le condizioni particolari dell'operatore Wulfgard, la collaborazione fra la Endfield Industries e il Branco si concentra sostanzialmente sull'operatrice Rossi.\nRossi non risiede stabilmente sulla Dijiang. Trascorre la maggior parte del proprio tempo con il Branco, occupandosi degli affari del clan, ma localizzarla è piuttosto semplice, a differenza di Wulfgard. Inoltre, lei partecipa di buon grado ad alcuni dei programmi di addestramento della Endfield Industries. La valutazione di Lil' Dodge indica quanto segue: \"Acume tattico eccezionale. Possiede un notevole carisma, leadership e talento nel comandare le forze sul campo di battaglia.\"\nL'operatrice Rossi è più vicina allo stereotipo di un tipico membro del Branco: devota alla famiglia, rispettosa del codice, deferente verso i suoi anziani. Durante il suo primissimo giorno a bordo della Dijiang, ha fatto visita a quasi ogni persona degna di nota, tra operatori e responsabili di dipartimento. I suoi modi di fare cortesi e coscienziosi hanno fatto una buona impressione su gran parte dell'equipaggio.\nTuttavia, in combattimento mostra un lato di sé completamente diverso: in battaglia Rossi è lucida e spietata.\n— Martin Marvin Malen, assistente alle risorse umane, Endfield Industries</>",
+      "file1": "<@profile.key>Osservazioni di Rossi\nNonno Rozzan\nNonno Rozzan cammina sempre in silenzio. Davvero strano... È così alto, eppure i suoi passi sono leggeri, come se camminasse su un tappeto spesso. Non sbaglia quasi mai. Non importa dove io mi nasconda, lui riesce sempre a trovarmi.\nOgni volta che vedo nonno Rozzan maneggiare la sua pistola, sembra che il tempo... si fermi. Anche il rumore del suo respiro scompare. Quando finalmente abbassa l'arma, ormai ho perso la cognizione del tempo. Non l'ho mai visto premere il grilletto: si limita a pulire la canna con un panno, poi rimette la pistola nella sua custodia. Fine dell'addestramento. Ho provato a imitarlo qualche volta, ma... non riesco a restare in quella posizione tanto a lungo.\n...\nCatello\nCatello è sempre di fretta. Vorrei proprio sapere che ha da fare. Per quanto riguarda i suoi metodi... sono così semplici da risultare fastidiosi. Esercitazioni di forza noiose da morire, qualche allenamento con bersagli mobili o veri e propri combattimenti dal vivo... Che noia. Non si impara un bel niente così. Non ci andrò più!\n...\nSorella Arclight\nArclight riesce a muoversi su ripide pareti rocciose in un lampo. È una semplice questione di velocità? Gliel'ho chiesto e mi ha risposto che ci vogliono delle Arti... Ah, e poi medita durante l'addestramento. Dice che la aiuta a sgombrare la mente, a eliminare qualsiasi distrazione. Uff... Restare immobile per tutto quel tempo è troppo difficile.\n...\nEndministrator\nL'Endmin si adegua sempre al ritmo del resto della squadra, così da non lasciare nessuno indietro. Tutta un'altra cosa rispetto a Catello! L'addestramento dell'Endmin si concentra soprattutto sulla manipolazione dell'Originium e sul trasformare le rocce in armi affilate. Com'è possibile fare una cosa del genere? Solo l'Endmin ne è capace, credo. È inutile provarci...</>",
+      "file2": "<@profile.key>Età adulta? Nel Branco, ognuno ha il suo rito di passaggio. Per alcuni, si tratta di portare a termine una caccia da soli; per altri, chiudere una trattativa delicata.\nIl Branco non sembra preoccuparsi degli errori dei giovani. Per mettere alla prova i piccoli lupi, delegano responsabilità importanti. È un'abitudine che fuori dal Branco sembrerà follia.\nPer quanto riguarda Rossina... Caccia e trattative? Per lei, sono la quotidianità. A differenza dei suoi coetanei, ha dimostrato un talento precoce.\nEcco perché il Branco aveva organizzato una prova speciale per lei.\nHanno portato Rossina in un villaggio abbandonato, in compagnia di cinque sfortunati banditi. Ognuno di quei fuorilegge era un disperato, pronto ad accaparrarsi qualsiasi misero mezzo di sopravvivenza lasciato dagli altri: aspettavano solo l'occasione giusta per pugnalare il resto del gruppo alle spalle.\nI cinque si tenevano sotto controllo a vicenda e nessuno osava fare la prima mossa, ma... se quel delicato equilibrio fosse stato spezzato...\nIl primo compito di Rossina era semplice: sopravvivere ai banditi. E non solo. In quel luogo, gli attacchi delle belve erano frequenti. A volte si trattava di un predatore solitario, a volte di un intero gruppo.\nI Lupi Anziani l'avevano abbandonata senza pensarci due volte. Sembravano non curarsi di lei e delle sue possibilità di sopravvivenza in un ambiente simile.\nQuando ritornarono al villaggio due settimane dopo, ciò che videro li lasciò sbigottiti.\nIntorno al villaggio era stata costruita una recinzione. I cinque banditi e Rossina avevano stabilito dei turni di guardia, in caso di attacchi da parte degli animali. Nei giorni senza incursioni, parte del gruppo andava a caccia, mentre gli altri raccoglievano acqua potabile. Si erano trasformati in una vera e propria squadra.\nPrima, quegli uomini si guardavano con sospetto. Nessuno sa come Rossina li abbia convinti a collaborare sotto il suo comando. Stando alle sue parole, lei ha solo \"fatto capire loro che quello era l'unico modo per sopravvivere\".\nVale la pena sottolineare che anche Catello ha affrontato la stessa prova, ma... lui ha trascorso alcuni giorni uccidendo tutte le bestie nella zona, ha lasciato cibo a sufficienza ed è sgattaiolato via senza che nessuno se ne accorgesse, per poi tornare solo al termine della prova.\n— Trascrizione di un'intervista con Marco Wulfhowl Luppino, membro del Branco</>",
+      "file3": "<@profile.key>\"Il Branco ha scelto un'innocua cuccioletta come portavoce? Il vecchio Rozzan e gli altri hanno tirato le cuoia, per caso?\"\nRossi lanciò un'occhiata a Erik, che era scoppiato in una risata insieme al suo gruppo, e perse immediatamente qualsiasi interesse nei confronti di quel leader, il \"Cannone delle terre selvagge\".\nEra la prima volta che Rossi si occupava degli... \"affari\" del clan. La settimana prima, Erik aveva intercettato un convoglio di merci destinato alla famiglia Luppino. Per rispetto del Branco, non avevano osato toccare i corrieri, ma una parte considerevole del carico era sparita. Catello in quel periodo non era con il clan, perciò Rossi si offrì volontaria, smaniosa di dimostrare il suo valore con questa particolare \"trattativa\".\nIn quel momento, però, Rossi cominciò a pentirsi della sua decisione. Il viaggio si era rivelato ancora meno interessante di una battuta di caccia vicino a casa. Il cosiddetto \"Cannone delle terre selvagge\" stava muovendo il corpo gonfio e voluminoso, battendo la mano sul tavolo. Da quando era entrata, non aveva fatto altro che provocarla.\nLa vera forza è discreta, inflessibile e non dà mai segni di cedimento: Rossi aveva imparato questa lezione nel clan. Nessuno, nemmeno Rozzan o i Lupi Anziani, si era mai vantato della propria violenza in maniera tanto rozza.\n\"Nonno Rozzan mi ha detto che questi sono affari. Dal mio punto di vista, ogni trattativa ha una parte che ci guadagna e una che ci perde.\"\nRossi setacciò la tenda con lo sguardo. Alle narici le giunse l'odore di polvere da sparo e lei individuò il punto in cui avevano piazzato gli esplosivi. La quantità era trascurabile. Il loro obiettivo non era ucciderla, evidentemente. Una lupa viva era molto più utile.\n\"Al Branco non dispiace se i nostri soci in affari si tengono una fetta del guadagno, ma io purtroppo non ho ancora superato il mio rito di passaggio, dunque non sono ufficialmente un membro del Branco. E io voglio solo profitti. Le perdite non fanno per me.\"\n\"Sembra che il Branco non abbia intenzione di sedersi a parlare con calma, eh?\"\nNegli occhi di Erik balenò un lampo. I banditi intorno si fecero seri; alcuni posando già le mani sulle armi.\nDue armati di spada, due di ascia e, forse, vari artisti in attesa fuori dalla tenda. A giudicare da come si sono posizionati all'interno, sarà difficile farli fuori in fretta. Quindi...\nDopo aver valutato la situazione, Rossi si mise a giocherellare con una forchetta sul tavolo, in attesa del momento migliore.\n\"Ascolta. È dal primo giorno che ho messo piede in questo maledetto posto che qualcuno mi riempie la testa di chiacchiere inutili: non posso fare questo, non posso uccidere quello, devo seguire le regole, il Codice del Branco.\"\nErik si faceva sempre più agitato. Fissò intensamente quella ragazza che si era presentata da sola. Tutti questi preparativi erano stati pensati per Rozzan del Branco, e invece il vecchio aveva mandato questa mocciosa... Per Erik, si trattava di un insulto bello e buono.\n\"Il Codice? È scritto da chi è più grosso e potente!\"\nErik sollevò la sua pistola. Il Branco aveva a cuore i suoi. Prendere questa ragazza in ostaggio sarebbe stato molto più utile.\nIn un lampo, la forchetta volò verso Erik. Rossi si alzò di scatto e scomparve all'improvviso. Erik allontanò la posata e alzò l'arma per prendere la mira.\n\"Non ti muovere, fai il bravo.\"\nRossi gli premeva un pugnale contro la nuca.\nI banditi intorno a loro estrassero finalmente le armi, ma era troppo tardi. \n\"FERMI! NON VI AVVICINATE!\" urlò Erik, sentendo qualcosa di freddo pungergli la nuca.\n\"Stai sperando che arrivino a salvarvi gli artisti all'ingresso? Che strano, però... c'è troppo silenzio. Forse il mio clan ha fatto piazza pulita ancora prima di me. Cos'è che stavi dicendo? Oh, giusto... il Codice...\"\nLa punta gelida della lama sembrava premere ancora più in profondità.\n\"Ma tu riesci a capire cos'è il Codice del Branco?\" disse Rossi inguainando il pugnale.\nErik girò su sé stesso, infuriato. Tutti i suoi accurati preparativi mandati in fumo da una ragazzina? \"Ho consegnato la merce agli Spacca-Ossa. Prova a riprendertela, se hai il coraggio! Quando vi avranno fatto fuori, scriverò un nuovo Codice per questo territorio!\"\n\"Che hai detto?\"\nAlle sue spalle, la ragazza emanava un intento omicida che non aveva mai avvertito prima.\nErik non sapeva ancora quale sarebbe stato il prezzo da pagare per aver nominato gli Spacca-Ossa di fronte a questa ragazza, ma l'avrebbe scoperto. Molto presto.\n\nLanciando uno sguardo alla tenda distrutta, Rossi non riuscì a trattenere un sospiro.\n\"Che fatica fare affari.\"</>",
+      "file4": "<@profile.key>Tre rintocchi di campana. Una per una, le persone radunate lì si tolsero il cappello e si fecero avanti per appoggiare fiori freschi sulla bara gelida.\nQualcuno pianse piano, altri chinarono il capo in silenzio. Rozzan si guardò intorno, ma non trovò la familiare figura cremisi.\nNel feretro giaceva l'ultimo dei Lupi Anziani sopravvissuto all'incidente. Aveva trascorso il resto dei suoi giorni in preda al dolore. Sebbene la foschia degli Spacca-Ossa gli avesse devastato gli organi e le loro lame gli avessero perforato le membra, il Lupo Anziano aveva stretto a sé la giovane cucciola in fasce... finché non la consegnò fra le braccia di un altro ragazzo...\n\"Non è ancora arrivata...\"\nLe parole arrivarono all'orecchio di Rozzan. Fece un lento cenno, dopodiché affidò il resto della cerimonia a un altro Anziano.\nLui sapeva dove trovarla. Ogni volta che era arrabbiata, vagava per il campo di addestramento e restava lì fino a notte fonda.\nRozzan osservò la ragazza in silenzio. Anche lei lo aveva notato, ma nessuno dei due proferiva parola. Con un ultimo, violento affondo, piantò la spada nel manichino e cadde a terra. Chissà da quanto tempo si stava allenando qui.\n\"Non c'è più.\"\nRozzan si avvicinò a Rossi, mentre lei riprendeva fiato a terra, e le parlò con tono pacato e piatto.\n\"Lo so... Lo so...\"\nRossi tirò giù il cappuccio, fino a coprire gli occhi, ma la sua voce era inequivocabilmente rotta. Da quando era abbastanza grande da capire, aveva fatto visita al Vecchio Lupo ferito ogni settimana, mostrandogli come stesse crescendo sana e forte. Per lei, rappresentava l'ultimo filo rimasto che la collegava a quelle anime perse.\n\"Avresti dovuto essere lì. Lui ti avrebbe voluto lì.\"\n\"Ma... è colpa mia... Ha fatto tutto per...\"\nRozzan la aiutò ad alzarsi e la prese in spalla prima che potesse terminare la frase, poi la portò verso il cortile, dove si stava celebrando il funerale.\n\"Non ce la faccio a guardarlo... È stata tutta colpa mia... Non voglio...\"\nRossi colpiva e mordeva la spalla di Rozzan. Le sue unghie gli graffiarono la pelle, i denti affondarono nel braccio. Rozzan rimaneva impassibile. Continuò a camminare verso il funerale.\nPoco dopo, le forze di Rossi vennero meno. Crollò sulla schiena di Rozzan, le braccia penzolanti.\n\"Non sono diventata la lupa su cui il Branco può contare...\"\nRossi mormorò queste parole, non sapendo se stesse parlando a Rozzan o a qualcuno che non c'era più.\n\"Non ho mai imparato a cavarmela da sola. Non sono riuscita a guidare nessuno. Non ho mai fatto una cosa giusta... Non meritavo il loro sacrificio...\"\nRozzan si fermò. Ora il cortile era vuoto, restavano solo le ceneri di offerte bruciate e una bara solitaria. All'interno, l'Anziano giaceva in pace, ricoperto di fiori.\n\"Ogni volta che andavi a trovarlo, mi prendeva sempre da parte per parlare. Quel lupo non ricordava mai cosa mi diceva. Probabilmente l'età gli giocava brutti scherzi. Continuava a raccontare le stesse storie.\"\nRozzan fece scendere Rossi e appoggiò una mano sul bordo della bara, osservando il suo vecchio amico.\n\"Parlava sempre dei vecchi tempi, delle poche volte in cui abbiamo litigato. Ma i dettagli... cambiavano sempre. Un giorno era lui quello che aveva combinato un guaio, il giorno dopo ero io. La stessa storia veniva raccontata ogni volta in modo diverso. C'era solo una cosa che lui non cambiava mai.\"\nRozzan si avvicinò e scompigliò i capelli di Rossi.\n\"Ogni volta diceva che salvarti è stata la cosa migliore che avesse mai fatto.\"\nRossi abbassò la testa. Tolse il ciondolo pallido che aveva intorno al collo, quello che le aveva regalato l'Anziano, e lo mise tra i fiori.\nLa bara venne sigillata. La giovane lupa non pianse mai più.</>"
+    }
+  },
+  "potentials": {
+    "potential1": {
+      "description": "Abilità di combattimento <@ba.key>Ombra cremisi</> e abilità combo <@ba.key>Momento dell'ombra ardente</> migliorate: i moltiplicatori danni di queste abilità aumentano a <@ba.vup>{atk_scale_3:0.00}</> volte rispetto all'originale.\nAnche <@ba.key>Balzi di lupo</> dell'abilità di combattimento <#ba.return>ripristina</> <@ba.vup>{atb_return:0}</> PA dopo aver colpito un nemico.",
+      "name": "Fonte di ammirazione"
+    },
+    "potential2": {
+      "description": "Agilità <@ba.vup>+{Agi:0}</>, probabilità di critico <@ba.vup>+{CriticalRate:0%}</>.",
+      "name": "Verso l'eccellenza"
+    },
+    "potential3": {
+      "description": "Talento <@ba.key>Furore incontenibile</> migliorato: all'attivazione, garantisce <@ba.vup>+{bleed_critical_damage_scale:0%}</> di moltiplicatore danni base e ripristina PS pari a <@ba.vup>(Intelletto × {heal_scale:0.00})</>.",
+      "name": "Doveri irrinunciabili"
+    },
+    "potential4": {
+      "description": "Abilità suprema <@ba.key>Agguato \"Artiglio affilato\"</> migliorata: <@ba.vup>-{1-costvalue:0%}</> al costo di energia suprema.",
+      "name": "Desiderio innocente"
+    },
+    "potential5": {
+      "description": "Abilità suprema <@ba.key>Agguato \"Artiglio affilato\"</> migliorata: il moltiplicatore danni aumenta a <@ba.vup>{potential_5_damage_scale:0.0}</> volte rispetto all'originale, con <@ba.vup>+{potential_5_critical_damage:0%}</> di danni critici inflitti.",
+      "name": "Meta leggendaria"
+    }
+  },
+  "arts": {
+    "potential1": {
+      "name": "Piccola perla preziosa",
+      "author": "Yukuso",
+      "description": "Un germoglio accudito con amore è sbocciato tra mani premurose, trasformando il nutrimento ricevuto in una corazza solida e un cuore incorruttibile."
+    },
+    "potential3": {
+      "name": "Futuro illimitato",
+      "author": "Whitebear",
+      "description": "Una regina... una guerriera... una stella del cinema! Se potessi scegliere, mi piacerebbe tanto essere tutte queste cose! Ehm... è solo un desiderio."
+    },
+    "potential5": {
+      "name": "Un mondo sulla punta della penna",
+      "author": "Yukuso",
+      "description": "Sulle tele sono state impresse storie e leggende. Anche il castello del sogno di stanotte e il cucciolo di lupo che ha scacciato il disastro."
+    }
+  }
+}

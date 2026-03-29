@@ -23,17 +23,6 @@ export const weapons = {
       "tactic"
     ]
   },
-  "longRoad": {
-    "id": "longRoad",
-    "name": "Long Road",
-    "rarity": 4,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_str",
-      "attr_magicdam",
-      "combo"
-    ]
-  },
   "formerFinery": {
     "id": "formerFinery",
     "name": "Former Finery",
@@ -56,28 +45,6 @@ export const weapons = {
       "heal"
     ]
   },
-  "opusEtchFigure": {
-    "id": "opusEtchFigure",
-    "name": "Opus: Etch Figure",
-    "rarity": 6,
-    "weapon": "artsUnit",
-    "skills": [
-      "attr_will",
-      "attr_naturaldam",
-      "tactic"
-    ]
-  },
-  "chivalricVirtues": {
-    "id": "chivalricVirtues",
-    "name": "Chivalric Virtues",
-    "rarity": 6,
-    "weapon": "artsUnit",
-    "skills": [
-      "attr_will",
-      "attr_hp",
-      "heal"
-    ]
-  },
   "sunderedPrince": {
     "id": "sunderedPrince",
     "name": "Sundered Prince",
@@ -87,16 +54,6 @@ export const weapons = {
       "attr_str",
       "attr_crirate",
       "smash"
-    ]
-  },
-  "peco5": {
-    "id": "peco5",
-    "name": "Peco 5",
-    "rarity": 3,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_main",
-      "force"
     ]
   },
   "quencher": {
@@ -164,17 +121,6 @@ export const weapons = {
       "break"
     ]
   },
-  "howlingGuard": {
-    "id": "howlingGuard",
-    "name": "Howling Guard",
-    "rarity": 4,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_wisd",
-      "attr_atk",
-      "tactic"
-    ]
-  },
   "objHeavyBurden": {
     "id": "objHeavyBurden",
     "name": "OBJ Heavy Burden",
@@ -186,28 +132,6 @@ export const weapons = {
       "keyword"
     ]
   },
-  "wedge": {
-    "id": "wedge",
-    "name": "Wedge",
-    "rarity": 6,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_main",
-      "attr_crirate",
-      "magabn"
-    ]
-  },
-  "objVelocitous": {
-    "id": "objVelocitous",
-    "name": "OBJ Velocitous",
-    "rarity": 5,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_agi",
-      "attr_usp",
-      "burst"
-    ]
-  },
   "hypernovaAuto": {
     "id": "hypernovaAuto",
     "name": "Hypernova Auto",
@@ -217,16 +141,6 @@ export const weapons = {
       "attr_wisd",
       "attr_magicdam",
       "spirit"
-    ]
-  },
-  "tarr11": {
-    "id": "tarr11",
-    "name": "Tarr 11",
-    "rarity": 3,
-    "weapon": "sword",
-    "skills": [
-      "attr_main",
-      "force"
     ]
   },
   "jiminy12": {
@@ -261,17 +175,6 @@ export const weapons = {
       "magabn"
     ]
   },
-  "pathfindersBeacon": {
-    "id": "pathfindersBeacon",
-    "name": "Pathfinder's Beacon",
-    "rarity": 4,
-    "weapon": "polearm",
-    "skills": [
-      "attr_agi",
-      "attr_atk",
-      "spirit"
-    ]
-  },
   "stanzaOfMemorials": {
     "id": "stanzaOfMemorials",
     "name": "Stanza of Memorials",
@@ -283,15 +186,15 @@ export const weapons = {
       "ult"
     ]
   },
-  "objRazorhorn": {
-    "id": "objRazorhorn",
-    "name": "OBJ Razorhorn",
-    "rarity": 5,
-    "weapon": "polearm",
+  "opusEtchFigure": {
+    "id": "opusEtchFigure",
+    "name": "Opus: Etch Figure",
+    "rarity": 6,
+    "weapon": "artsUnit",
     "skills": [
       "attr_will",
-      "attr_phydam",
-      "magabn"
+      "attr_naturaldam",
+      "tactic"
     ]
   },
   "monaihe": {
@@ -305,17 +208,6 @@ export const weapons = {
       "spirit"
     ]
   },
-  "deliveryGuaranteed": {
-    "id": "deliveryGuaranteed",
-    "name": "Delivery Guaranteed",
-    "rarity": 6,
-    "weapon": "artsUnit",
-    "skills": [
-      "attr_will",
-      "attr_usp",
-      "combo"
-    ]
-  },
   "detonationUnit": {
     "id": "detonationUnit",
     "name": "Detonation Unit",
@@ -327,17 +219,6 @@ export const weapons = {
       "burst"
     ]
   },
-  "freedomToProselytize": {
-    "id": "freedomToProselytize",
-    "name": "Freedom to Proselytize",
-    "rarity": 5,
-    "weapon": "artsUnit",
-    "skills": [
-      "attr_will",
-      "attr_heal",
-      "heal"
-    ]
-  },
   "oblivion": {
     "id": "oblivion",
     "name": "Oblivion",
@@ -347,6 +228,39 @@ export const weapons = {
       "attr_wisd",
       "attr_magicdam",
       "ult"
+    ]
+  },
+  "chivalricVirtues": {
+    "id": "chivalricVirtues",
+    "name": "Chivalric Virtues",
+    "rarity": 6,
+    "weapon": "artsUnit",
+    "skills": [
+      "attr_will",
+      "attr_hp",
+      "heal"
+    ]
+  },
+  "deliveryGuaranteed": {
+    "id": "deliveryGuaranteed",
+    "name": "Delivery Guaranteed",
+    "rarity": 6,
+    "weapon": "artsUnit",
+    "skills": [
+      "attr_will",
+      "attr_usp",
+      "combo"
+    ]
+  },
+  "freedomToProselytize": {
+    "id": "freedomToProselytize",
+    "name": "Freedom to Proselytize",
+    "rarity": 5,
+    "weapon": "artsUnit",
+    "skills": [
+      "attr_will",
+      "attr_heal",
+      "heal"
     ]
   },
   "dreamsOfTheStarryBeach": {
@@ -369,6 +283,17 @@ export const weapons = {
       "attr_wisd",
       "attr_physpell",
       "combo"
+    ]
+  },
+  "pathfindersBeacon": {
+    "id": "pathfindersBeacon",
+    "name": "Pathfinder's Beacon",
+    "rarity": 4,
+    "weapon": "polearm",
+    "skills": [
+      "attr_agi",
+      "attr_atk",
+      "spirit"
     ]
   },
   "chimericJustice": {
@@ -425,39 +350,6 @@ export const weapons = {
       "phyabn"
     ]
   },
-  "opusTheLiving": {
-    "id": "opusTheLiving",
-    "name": "Opus: The Living",
-    "rarity": 5,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_agi",
-      "attr_magicdam",
-      "magabn"
-    ]
-  },
-  "artzyTyrannical": {
-    "id": "artzyTyrannical",
-    "name": "Artzy Tyrannical",
-    "rarity": 6,
-    "weapon": "handcannon",
-    "skills": [
-      "attr_wisd",
-      "attr_crirate",
-      "crit"
-    ]
-  },
-  "twelveQuestions": {
-    "id": "twelveQuestions",
-    "name": "Twelve Questions",
-    "rarity": 5,
-    "weapon": "sword",
-    "skills": [
-      "attr_agi",
-      "attr_atk",
-      "magabn"
-    ]
-  },
   "jet": {
     "id": "jet",
     "name": "JET",
@@ -480,15 +372,47 @@ export const weapons = {
       "keyword"
     ]
   },
-  "grandVision": {
-    "id": "grandVision",
-    "name": "Grand Vision",
-    "rarity": 6,
-    "weapon": "sword",
+  "objRazorhorn": {
+    "id": "objRazorhorn",
+    "name": "OBJ Razorhorn",
+    "rarity": 5,
+    "weapon": "polearm",
     "skills": [
-      "attr_agi",
-      "attr_atk",
+      "attr_will",
+      "attr_phydam",
       "magabn"
+    ]
+  },
+  "peco5": {
+    "id": "peco5",
+    "name": "Peco 5",
+    "rarity": 3,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_main",
+      "force"
+    ]
+  },
+  "howlingGuard": {
+    "id": "howlingGuard",
+    "name": "Howling Guard",
+    "rarity": 4,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_wisd",
+      "attr_atk",
+      "tactic"
+    ]
+  },
+  "longRoad": {
+    "id": "longRoad",
+    "name": "Long Road",
+    "rarity": 4,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_str",
+      "attr_magicdam",
+      "combo"
     ]
   },
   "rationalFarewell": {
@@ -513,6 +437,17 @@ export const weapons = {
       "magabn"
     ]
   },
+  "opusTheLiving": {
+    "id": "opusTheLiving",
+    "name": "Opus: The Living",
+    "rarity": 5,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_agi",
+      "attr_magicdam",
+      "magabn"
+    ]
+  },
   "homeLonging": {
     "id": "homeLonging",
     "name": "Home Longing",
@@ -524,15 +459,15 @@ export const weapons = {
       "tactic"
     ]
   },
-  "brigandsCalling": {
-    "id": "brigandsCalling",
-    "name": "Brigand's Calling",
+  "wedge": {
+    "id": "wedge",
+    "name": "Wedge",
     "rarity": 6,
     "weapon": "handcannon",
     "skills": [
-      "attr_agi",
-      "attr_atk",
-      "burst"
+      "attr_main",
+      "attr_crirate",
+      "magabn"
     ]
   },
   "clannibal": {
@@ -546,15 +481,47 @@ export const weapons = {
       "magabn"
     ]
   },
-  "thermiteCutter": {
-    "id": "thermiteCutter",
-    "name": "Thermite Cutter",
+  "artzyTyrannical": {
+    "id": "artzyTyrannical",
+    "name": "Artzy Tyrannical",
     "rarity": 6,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_wisd",
+      "attr_crirate",
+      "crit"
+    ]
+  },
+  "brigandsCalling": {
+    "id": "brigandsCalling",
+    "name": "Brigand's Calling",
+    "rarity": 6,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_agi",
+      "attr_atk",
+      "burst"
+    ]
+  },
+  "objVelocitous": {
+    "id": "objVelocitous",
+    "name": "OBJ Velocitous",
+    "rarity": 5,
+    "weapon": "handcannon",
+    "skills": [
+      "attr_agi",
+      "attr_usp",
+      "burst"
+    ]
+  },
+  "tarr11": {
+    "id": "tarr11",
+    "name": "Tarr 11",
+    "rarity": 3,
     "weapon": "sword",
     "skills": [
-      "attr_will",
-      "attr_atk",
-      "tacafter"
+      "attr_main",
+      "force"
     ]
   },
   "sunderingSteel": {
@@ -590,6 +557,17 @@ export const weapons = {
       "spirit"
     ]
   },
+  "prominentEdge": {
+    "id": "prominentEdge",
+    "name": "Prominent Edge",
+    "rarity": 4,
+    "weapon": "sword",
+    "skills": [
+      "attr_agi",
+      "attr_phydam",
+      "tactic"
+    ]
+  },
   "waveTide": {
     "id": "waveTide",
     "name": "Wave Tide",
@@ -621,6 +599,17 @@ export const weapons = {
       "attr_main",
       "attr_crirate",
       "ult"
+    ]
+  },
+  "thermiteCutter": {
+    "id": "thermiteCutter",
+    "name": "Thermite Cutter",
+    "rarity": 6,
+    "weapon": "sword",
+    "skills": [
+      "attr_will",
+      "attr_atk",
+      "tacafter"
     ]
   },
   "eminentRepute": {
@@ -678,6 +667,17 @@ export const weapons = {
       "ult"
     ]
   },
+  "twelveQuestions": {
+    "id": "twelveQuestions",
+    "name": "Twelve Questions",
+    "rarity": 5,
+    "weapon": "sword",
+    "skills": [
+      "attr_agi",
+      "attr_atk",
+      "magabn"
+    ]
+  },
   "objEdgeOfLightness": {
     "id": "objEdgeOfLightness",
     "name": "OBJ Edge of Lightness",
@@ -700,15 +700,26 @@ export const weapons = {
       "tactic"
     ]
   },
-  "prominentEdge": {
-    "id": "prominentEdge",
-    "name": "Prominent Edge",
-    "rarity": 4,
+  "grandVision": {
+    "id": "grandVision",
+    "name": "Grand Vision",
+    "rarity": 6,
     "weapon": "sword",
     "skills": [
-      "attr_str",
-      "attr_icedam",
-      "tactic"
+      "attr_agi",
+      "attr_atk",
+      "magabn"
+    ]
+  },
+  "lupineScarlet": {
+    "id": "lupineScarlet",
+    "name": "Lupine Scarlet",
+    "rarity": 6,
+    "weapon": "sword",
+    "skills": [
+      "attr_agi",
+      "attr_crirate",
+      "crit"
     ]
   }
 };

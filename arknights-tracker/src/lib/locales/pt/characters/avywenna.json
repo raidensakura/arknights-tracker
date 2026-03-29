@@ -132,7 +132,7 @@
       "name": "Muito Experiente"
     },
     "potential5": {
-      "description": "Quando <@ba.key>Lanças do Trovão</> ou <@ba.key>Lanças do Trovão EX</> que estão voltando atingem um inimigo com <#ba.pulsevul>Suscetibilidade Elétrica</>, o multiplicador DNO é aumentado para <@ba.vup>{atk_scale_lance:0.00}</> vezes o original.",
+      "description": "Quando <@ba.key>Lanças do Trovão</> ou <@ba.key>Lanças do Trovão EX</> que estão voltando atingem um inimigo com <#ba.pulsevul>Suscetibilidade Elétrica</>, os multiplicadores do DNO sao aimentados <@ba.vup>{potential_5_rate:0.00}</> vezes o original.",
       "name": "Cenoura e Espeto Afiado"
     }
   },

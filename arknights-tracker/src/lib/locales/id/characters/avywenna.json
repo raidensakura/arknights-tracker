@@ -132,7 +132,7 @@
       "name": "Very Experienced"
     },
     "potential5": {
-      "description": "Jika <@ba.key>Thunderlance</> atau <@ba.key>Thunderlance EX</> yang kembali berhasil menghantam musuh yang sedang terkena <#ba.pulsevul>Electric Susceptible</>, pengganda DMG akan meningkat hingga <@ba.vup>{atk_scale_lance:0.00}</> kali nilai aslinya.",
+      "description": "Jika <@ba.key>Thunderlance</> atau <@ba.key>Thunderlance EX</> yang kembali berhasil menghantam musuh yang sedang terkena <#ba.pulsevul>Electric Susceptible</>, pengganda DMG akan meningkat hingga <@ba.vup>{potential_5_rate:0.00}</> kali nilai aslinya.",
       "name": "Carrot and Sharp Stick"
     }
   },

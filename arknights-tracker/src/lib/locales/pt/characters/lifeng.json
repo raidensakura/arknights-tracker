@@ -70,7 +70,7 @@
         "additionalAtkStagger": "Desorientação ATQ Adicional"
       },
       "name": "Coração Inabalável",
-      "description": ""
+      "description": "Desfere um aspecto que executa um Golpe Vajra Imóvel. O golpe causa <@ba.pd>DNO Físico</> e aplica <#ba.knockdown>Derrubar</> em todos os inimigos em uma grande área de efeito (ADE) e puxa os inimigos em direção ao centro da ADE. Após um tempo, o Golpe desferirá mais um ataque que causa <@ba.pd>DNO Físico</> significativo e aplica mais uma instância de <#ba.knockdown>Derrubar</> aos inimigos ainda na ADE.\nSe a habilidade <#ba.consume>consumir</> uma <#ba.combo>Conexão</>, causa mais um acerto que causa <@ba.pd>DNO Físico</> significativo."
     },
     "indicator": {
       "levels": [

@@ -132,7 +132,7 @@
       "name": "Muy experimentada"
     },
     "potential5": {
-      "description": "Cuando <@ba.key>Lanzatruenos</> o <@ba.key>Lanzatruenos EX</> golpean a un enemigo con <#ba.pulsevul>Susceptible a la electricidad</>, el multiplicador de DAÑ aumenta <@ba.vup>{atk_scale_lance:0.00}</> veces el original.",
+      "description": "Cuando las <@ba.key>Lanzatruenos</> que regresan o las <@ba.key>Lanzatruenos EX</> golpean a un enemigo <#ba.pulsevul>susceptible a la electricidad</>, el multiplicador de DAÑ aumenta <@ba.vup>{potential_5_rate:0.00}</> veces el original.",
       "name": "Zanahoria y palo afilado"
     }
   },
