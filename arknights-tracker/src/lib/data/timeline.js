@@ -409,7 +409,7 @@ export const rawEvents = [
     color: "#820815",
     layer: 3,
     type: "signIn",
-    iconPosition: 40,
+    iconPosition: 20,
     version: "1.1"
   },
   {
