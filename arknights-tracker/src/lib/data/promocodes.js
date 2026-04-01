@@ -42,7 +42,7 @@ export const promocodes = [
         ],
         startTime: "2024-01-22 00:00:00",
         condition: null,
-        endTime: "2026-03-16 11:59:59",
+        endTime: null,
         url: null
     },
     {
@@ -54,7 +54,7 @@ export const promocodes = [
         ],
         startTime: "2024-01-22 00:00:00",
         condition: "home.conditions.onlyPc",
-        endTime: "2026-03-16 11:59:59",
+        endTime: null,
         url: null
     }
 ];

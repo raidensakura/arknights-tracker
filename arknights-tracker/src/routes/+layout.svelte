@@ -459,7 +459,7 @@
             </div>
 
             {#if $page.url.pathname !== "/"}
-                <footer class="mt-20 w-full max-w-[1600px] pb-4">
+                <footer class="mt-20 w-full max-w-[1600px] z-10 pb-4">
                     <div class="flex items-center gap-3 mb-8">
                         <div
                             class="w-[2px] h-7 bg-gray-400 dark:bg-gray-300 rounded-full"

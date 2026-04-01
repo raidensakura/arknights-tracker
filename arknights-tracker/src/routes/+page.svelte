@@ -328,19 +328,26 @@
               </div>
 
               <div
-                class="w-auto text-right shrink-0 pl-2 flex flex-col justify-center"
+                class="w-auto text-right shrink-0 pl-2 flex flex-col items-end justify-center"
               >
-                <span
-                  class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"
-                >
-                  {$t("home.until")}
-                  {getFormattedDate(promo.displayEndTime)}
-                </span>
-                <span
-                  class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight"
-                >
-                  {getPromoTimeLabel(promo.displayEndTime)}
-                </span>
+                {#if promo.displayEndTime === null}
+                  <Tooltip text={$t("timer.permanent")}>
+                    <div class="flex items-center justify-center p-1 text-gray-700 hover:text-[#FACC15] dark:text-gray-300 hover:dark:text-[#FACC15]">
+                      <Icon name="permanent" class="w-4 h-4" />
+                    </div>
+                  </Tooltip>
+                {:else}
+                  <span
+                    class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"
+                  >
+                    {$t("home.until")} {getFormattedDate(promo.displayEndTime)}
+                  </span>
+                  <span
+                    class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight"
+                  >
+                    {getPromoTimeLabel(promo.displayEndTime)}
+                  </span>
+                {/if}
               </div>
             </div>
           {/each}

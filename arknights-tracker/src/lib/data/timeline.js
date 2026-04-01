@@ -426,5 +426,18 @@ export const rawEvents = [
     type: "protoPass",
     iconPosition: 72,
     version: "1.1"
+  },
+  {
+    id: "ev14-v1.1",
+    title: "events.journeyOfTheLongEar",
+    startTime: "2026-04-01 12:00:00",
+    endTime: "2026-04-08 04:00:00",
+    icon: "ev14-v1.1.jpg",
+    url: "https://x.com/AKEndfield/status/2039192116967141460?s=20",
+    color: "#67a0e7",
+    layer: 7,
+    type: "inGame",
+    iconPosition: 15,
+    version: "1.1"
   }
 ];
