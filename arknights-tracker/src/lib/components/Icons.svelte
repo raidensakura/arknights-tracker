@@ -316,7 +316,7 @@
             fill="currentColor"
         />
     </svg>
-{:else if name === "main"}
+{:else if name === "mainPage"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -1294,43 +1294,39 @@
     <svg
         class={$$props.class}
         style={$$props.style}
-        width="21"
-        height="23"
         viewBox="0 0 21 23"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M0 0H4V6H0V0Z" fill="white" />
-        <path d="M6 0H10V6H6V0Z" fill="white" />
-        <path d="M12 0H16V11H12V0Z" fill="white" />
+        <path d="M0 0H4V6H0V0Z" fill="currentColor" />
+        <path d="M6 0H10V6H6V0Z" fill="currentColor" />
+        <path d="M12 0H16V11H12V0Z" fill="currentColor" />
         <path
             fill-rule="evenodd"
             clip-rule="evenodd"
             d="M5 11.5H10V8H0V19L5.5 22.5H16.5L21 19V14H14.5V18L10 14H5V11.5Z"
-            fill="white"
+            fill="currentColor"
         />
-        <path d="M17 0H21V11H17V0Z" fill="white" />
+        <path d="M17 0H21V11H17V0Z" fill="currentColor" />
     </svg>
 {:else if name == "agi"}
     <svg
         class={$$props.class}
         style={$$props.style}
-        width="23"
-        height="22"
         viewBox="0 0 23 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
         <path
             d="M17.5 0C14.1667 3.33333 7.4 10 7 10L7.5 11.5L17 21.5H21.5L23 19.5L18 14.5V10.5L23 5.5L17.5 0Z"
-            fill="white"
+            fill="currentColor"
         />
-        <path d="M12 0.5H0V3.5H8.5L12 0.5Z" fill="white" />
-        <path d="M5.5 6.5H0V9.5H2.5L5.5 6.5Z" fill="white" />
-        <path d="M4 12.5H0V15.5H6.5L4 12.5Z" fill="white" />
-        <path d="M0 21.5V18.5H10L13 21.5H0Z" fill="white" />
+        <path d="M12 0.5H0V3.5H8.5L12 0.5Z" fill="currentColor" />
+        <path d="M5.5 6.5H0V9.5H2.5L5.5 6.5Z" fill="currentColor" />
+        <path d="M4 12.5H0V15.5H6.5L4 12.5Z" fill="currentColor" />
+        <path d="M0 21.5V18.5H10L13 21.5H0Z" fill="currentColor" />
     </svg>
-{:else if name == "int"}
+{:else if name == "int" || name == "wisd"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -1340,21 +1336,30 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M9.5 21L12.5 22V25H9.5V21Z" fill="white" />
-        <path d="M7.5 21.1244L0.5 23V19.2487L7.5 21.1244Z" fill="white" />
+        <path d="M9.5 21L12.5 22V25H9.5V21Z" fill="currentColor" />
+        <path
+            d="M7.5 21.1244L0.5 23V19.2487L7.5 21.1244Z"
+            fill="currentColor"
+        />
         <path
             d="M0.5 6V19.2487M0.5 19.2487V23L7.5 21.1244L0.5 19.2487Z"
-            stroke="white"
+            stroke="currentColor"
         />
-        <path d="M18.5 21.1244L25.5 23V19.2487L18.5 21.1244Z" fill="white" />
+        <path
+            d="M18.5 21.1244L25.5 23V19.2487L18.5 21.1244Z"
+            fill="currentColor"
+        />
         <path
             d="M25.5 6V19.2487M25.5 19.2487V23L18.5 21.1244L25.5 19.2487Z"
-            stroke="white"
+            stroke="currentColor"
         />
-        <path d="M10.5 10.5L13 8L15.5 10.5L13 13L10.5 10.5Z" fill="white" />
+        <path
+            d="M10.5 10.5L13 8L15.5 10.5L13 13L10.5 10.5Z"
+            fill="currentColor"
+        />
         <path
             d="M23 17.5L13 20.1797L3 17.5V0L13 2.67969L23 0V17.5ZM8.5 10.5L13 15L17.5 10.5L13 6L8.5 10.5Z"
-            fill="white"
+            fill="currentColor"
         />
     </svg>
 {:else if name == "will"}
@@ -1369,11 +1374,11 @@
     >
         <path
             d="M0 4V10H2V13H0V18.5L5 23.5H9V14.5L7.5 15H2.5V13.4019H6L7.5 13L9 11.5V7H6V4.5H9V0H4L0 4Z"
-            fill="white"
+            fill="currentColor"
         />
         <path
             d="M14 23.5H10.5V19.5H13.5V16.5H10.5V12.5L13 10H16.5V8.5H12.5L10.5 10.5V0H16.5L20 3.5V10.5H17.5V13H20V17.5L14 23.5Z"
-            fill="white"
+            fill="currentColor"
         />
     </svg>
 {:else if name == "hp"}
@@ -1388,34 +1393,128 @@
     >
         <path
             d="M15.333 8H23V16H15.333V24H7.66699V16H15.333L7.66699 8V16H0V8H7.66699V0H15.333V8Z"
-            fill="white"
+            fill="currentColor"
         />
     </svg>
 {:else if name == "atk"}
     <svg
         class={$$props.class}
         style={$$props.style}
-        width="22"
-        height="22"
         viewBox="0 0 22 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
         <path
             d="M18.48 0C13.4933 5.11064 2.64 15.84 2.64 15.84L6.16 19.36L22 3.52V0H18.48Z"
-            fill="white"
+            fill="currentColor"
         />
         <path
             d="M2.64 17.6L9.61656e-07 20.24L1.76 22L4.4 19.36L2.64 17.6Z"
-            fill="white"
+            fill="currentColor"
         />
         <path
             d="M1.53873e-07 3.52C5.11064 8.50667 15.84 19.36 15.84 19.36L19.36 15.84L3.52 5.62938e-07L0 7.16811e-07L1.53873e-07 3.52Z"
-            fill="white"
+            fill="currentColor"
         />
         <path
             d="M17.6 19.36L20.24 22L22 20.24L19.36 17.6L17.6 19.36Z"
-            fill="white"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "physicaldamageincrease"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 14 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M7.40526 2.1833C8.0679 1.51972 8.70364 0.871951 9.3536 0.238789C9.46701 0.12831 9.63923 0.0147239 9.78615 0.0122269C10.8951 -0.00661998 12.0045 0.00193894 13.1591 0.00193894C13.1745 0.145277 13.2007 0.277115 13.2011 0.409037C13.2045 1.46375 13.2143 2.51871 13.1928 3.57299C13.1889 3.76114 13.0952 3.99116 12.9648 4.12644C11.0517 6.11071 9.12528 8.08218 7.19444 10.0645C7.89499 10.7942 8.58309 11.5109 9.33166 12.2907C9.13267 12.3141 9.04189 12.3339 8.95109 12.334C7.71657 12.3362 6.48194 12.3441 5.24768 12.3264C5.06707 12.3238 4.84044 12.2439 4.71608 12.119C3.62162 11.0206 2.54358 9.90574 1.46699 8.78965C1.3605 8.67926 1.22478 8.52914 1.22314 8.39598C1.20551 6.96915 1.21217 5.54201 1.21217 3.97484C1.58551 4.32768 1.88136 4.59207 2.15946 4.87396C2.5076 5.22685 2.84673 5.58909 3.17894 5.95705C3.3772 6.17665 3.52862 6.22835 3.7662 5.97679C4.96232 4.71021 6.1758 3.46002 7.40526 2.1833Z"
+            fill="currentColor"
+        />
+        <path
+            d="M0.981761 11.0142C1.512 10.4303 1.51234 10.43 2.04334 10.9689C2.32324 11.253 2.59314 11.5477 2.88378 11.8202C3.08514 12.0091 3.05516 12.1338 2.86834 12.3225C1.94318 13.2568 1.03342 14.2063 0.0488435 15.222C0.0271897 15.0329 0.00421129 14.9235 0.00379004 14.8139C0.000806625 14.0383 0.00720614 13.2627 0.000168304 12.4872C-0.00247936 12.1954 0.0231277 11.9503 0.293051 11.7454C0.548037 11.5518 0.74074 11.2762 0.981761 11.0142Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "attrdamagetobrokenunitincrease"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 13 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect
+            x="0.941406"
+            y="9.69531"
+            width="12.3247"
+            height="2.69032"
+            transform="rotate(-45 0.941406 9.69531)"
+            fill="currentColor"
+        />
+        <path
+            d="M0 3.60156L3.60352 -0.0019532L4.26758 0.662109L4.26758 4.26563L0.664062 4.26562L0 3.60156Z"
+            fill="currentColor"
+        />
+        <path
+            d="M12.2188 8.875L8.82617 12.2676L8.19551 11.6369L8.18066 8.22949L11.5881 8.24434L12.2188 8.875Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "ultimateskillefficiency"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M19 0C29.4934 0 38 8.50659 38 19C38 29.4934 29.4934 38 19 38C8.50659 38 0 29.4934 0 19C0 8.50659 8.50659 0 19 0ZM19 3.16667C10.2555 3.16667 3.16667 10.2555 3.16667 19C3.16667 27.7445 10.2555 34.8333 19 34.8333C27.7445 34.8333 34.8333 27.7445 34.8333 19C34.8333 10.2555 27.7445 3.16667 19 3.16667Z"
+            fill="currentColor"
+        />
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M19 7.38889C25.4126 7.38889 30.6111 12.5874 30.6111 19C30.6111 25.4126 25.4126 30.6111 19 30.6111C12.5874 30.6111 7.38889 25.4126 7.38889 19C7.38889 12.5874 12.5874 7.38889 19 7.38889ZM19 13.7222C16.0852 13.7222 13.7222 16.0852 13.7222 19C13.7222 21.9148 16.0852 24.2778 19 24.2778C21.9148 24.2778 24.2778 21.9148 24.2778 19C24.2778 16.0852 21.9148 13.7222 19 13.7222Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "normalattackdamageincrease"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 47 47"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect
+            y="42.9844"
+            width="13.2859"
+            height="5"
+            transform="rotate(-45 0 42.9844)"
+            fill="currentColor"
+        />
+        <path
+            d="M7 29.5938L31.6563 4.9375L41.5273 4.9375L41.5273 14.8086L16.8711 39.4648L7 29.5938Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "def"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 14 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M14 14.5L7 20L0 14.5V0H14V14.5ZM2 14.5H12L2 4.5V14.5Z"
+            fill="currentColor"
         />
     </svg>
 {:else if name == "telegram"}
@@ -2599,7 +2698,7 @@
             </clipPath>
         </defs>
     </svg>
-{:else if name == "crirate"}
+{:else if name == "crirate" || name === "criticalrate"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -2609,14 +2708,14 @@
     >
         <path
             d="M24 12H2L12.5 22.5V46L24 34.5H45.5L35 24V1L24 12Z"
-            fill="white"
+            fill="currentColor"
         />
-        <path d="M37.5 11V20.5L47 11H37.5Z" fill="white" />
-        <path d="M34.5 37L25 37L34.5 46.5L34.5 37Z" fill="white" />
-        <path d="M9.5 34.5L9.5 25L0 34.5L9.5 34.5Z" fill="white" />
-        <path d="M12 9.5L21.5 9.5L12 0L12 9.5Z" fill="white" />
+        <path d="M37.5 11V20.5L47 11H37.5Z" fill="currentColor" />
+        <path d="M34.5 37L25 37L34.5 46.5L34.5 37Z" fill="currentColor" />
+        <path d="M9.5 34.5L9.5 25L0 34.5L9.5 34.5Z" fill="currentColor" />
+        <path d="M12 9.5L21.5 9.5L12 0L12 9.5Z" fill="currentColor" />
     </svg>
-{:else if name == "usp"}
+{:else if name == "usp" || name == "ultimatespgainscalar"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -2626,10 +2725,54 @@
     >
         <path
             d="M32.5 13L21.5 24L32.5 35V48.5H0V35L11 24L0 13V0H32.5V13ZM9 37.5H23L16 30.5L9 37.5Z"
-            fill="white"
+            fill="currentColor"
         />
     </svg>
-{:else if name == "heal"}
+{:else if name == "comboskillefficiency"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 38 29"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M17.5674 3.05371L6.61523 14.0059L13.7695 21.1602L24.7217 10.208L27.6152 13.1016L13.1016 27.6152L0 14.5137L14.5137 0L17.5674 3.05371Z"
+            fill="currentColor"
+        />
+        <path
+            d="M19.877 24.4473L30.8691 13.4551L24.5176 7.10351L13.5254 18.0957L10.0234 14.5937L24.5156 0.101561L37.6172 13.2031L23.125 27.6953L19.877 24.4473Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "alldamagetakenscalar" || name == "crystandpulsedamageincrease" || name == "spelldamageincrease" || name == "allskilldamageincrease" || name == "sub" || name == "main" || name == "fireandnaturaldamageincrease"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 50 50"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <circle cx="25" cy="25" r="10" fill="currentColor" />
+    </svg>
+{:else if name == "normalskillefficiency"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 37 37"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M17.5 0C27.165 0 35 7.83502 35 17.5C35 27.165 27.165 35 17.5 35C7.83502 35 0 27.165 0 17.5C0 7.83502 7.83502 0 17.5 0ZM17.5 2.91667C9.44585 2.91667 2.91667 9.44585 2.91667 17.5C2.91667 25.5542 9.44585 32.0833 17.5 32.0833C25.5542 32.0833 32.0833 25.5542 32.0833 17.5C32.0833 9.44585 25.5542 2.91667 17.5 2.91667Z"
+            fill="currentColor"
+        />
+        <path
+            d="M26.7686 25.0811C24.5727 27.7619 21.2377 29.4736 17.502 29.4736C13.766 29.4736 10.4302 27.7622 8.23438 25.0811L17.502 17.5L26.7686 25.0811Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "heal" || name == "healoutputincrease"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -2637,14 +2780,14 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <rect x="18" width="13" height="48" fill="white" />
+        <rect x="18" width="13" height="48" fill="currentColor" />
         <rect
             x="41.5703"
             y="6"
             width="13"
             height="48"
             transform="rotate(60 41.5703 6)"
-            fill="white"
+            fill="currentColor"
         />
         <rect
             x="48.0703"
@@ -2652,10 +2795,10 @@
             width="13"
             height="48"
             transform="rotate(120 48.0703 30)"
-            fill="white"
+            fill="currentColor"
         />
     </svg>
-{:else if name == "magicdam"}
+{:else if name == "magicdam" || name == "originiumarts"}
     <svg
         class={$$props.class}
         style={$$props.style}
@@ -2760,6 +2903,75 @@
         />
         <path
             d="M32 10C32 15.1853 28.0533 19.4474 23 19.9492V15.915C25.8376 15.4388 28 12.9729 28 10H32ZM22 4C18.6863 4 16 6.68629 16 10H12C12 4.47715 16.4772 0 22 0V4ZM23 0.0498047C27.7244 0.51889 31.4811 4.27562 31.9502 9H27.915C27.4934 6.48771 25.5123 4.50554 23 4.08398V0.0498047Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "body"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 50 53"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M0 19L6 28.5L11 6H8L0 19Z" fill="currentColor" />
+        <path d="M49.5 19L43.5 28.5L38.5 6H41.5L49.5 19Z" fill="currentColor" />
+        <path
+            d="M34.5 3.5332V16.6572L39 27.7617L40.5098 43H38.5V47H40.9053L41.5 53H8L8.59473 47H28.5V43H8.99023L10.5 27.7617L15 16.6572V3.5332L18.5 0H31L34.5 3.5332ZM29.5 48H36.5V42H29.5V48Z"
+            fill="currentColor"
+        />
+        <rect x="2.5" y="40" width="5" height="10" fill="currentColor" />
+        <path
+            d="M11.9524 16.5239L12.3838 19.0859L9.94937 18.1785L11.9524 16.5239Z"
+            fill="currentColor"
+        />
+        <path
+            d="M37.907 16.5239L37.4755 19.0859L39.91 18.1785L37.907 16.5239Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "hand"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 56 54"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M55.5 17.5L36 33L35.5 37L21.5 54L0.5 45.5L0 40L4.5 35.5V23L22 18.5L37.5 0L55.5 17.5ZM36 24L22 21.5L13 24L12.5 28.5L6.5 34.5L26 44L31.5 36L34 30.5L43.5 22.5L41 20L36 24ZM25.5 19.5C25.9 19.5 32.6667 21.1667 36 22L39.5 18.5L32.5 11L25.5 19.5Z"
+            fill="currentColor"
+        />
+        <path
+            d="M35.6024 15.9939L36.9761 20.5857L32.1168 19.2837L35.6024 15.9939Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "edc"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 55 54"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect
+            y="42.1328"
+            width="7.41885"
+            height="16.7869"
+            transform="rotate(-45 0 42.1328)"
+            fill="currentColor"
+        />
+        <rect
+            x="37.3047"
+            y="5.24219"
+            width="7.41885"
+            height="16.4919"
+            transform="rotate(-45 37.3047 5.24219)"
+            fill="currentColor"
+        />
+        <path
+            d="M35.834 28.1387V35.6904L21.3662 50.1582L4.1875 32.9785L18.8271 18.3389H26.0342L35.834 28.1387ZM50.4619 21.0625L37.834 33.6904V27.3115L37.541 27.0186L27.1553 16.6318L26.8623 16.3389H20.8271L33.2832 3.88281L50.4619 21.0625ZM22.9326 31.3682L29.4512 31.5908L22.709 24.8496L22.9326 31.3682Z"
             fill="currentColor"
         />
     </svg>

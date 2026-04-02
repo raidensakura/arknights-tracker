@@ -231,128 +231,125 @@
       </div>
 
       <div class="overflow-y-auto custom-scrollbar flex-1 p-2">
-        {#if activePromocodes.length === 0}
-          <div
-            class="flex flex-col items-center justify-center py-12 text-gray-400 dark:text-[#7A7A7A]"
-          >
-            <div class="mb-3 opacity-60">
-              <Icon name="noData" className="w-10 h-10" />
-            </div>
-
-            <div class="text-sm font-medium">
-              {$t("home.noActiveCodes")}
-            </div>
-          </div>
-        {:else}
-          {#each activePromocodes as promo}
-            <div
-              class="flex items-center gap-2 py-3 px-2 border-gray-100 dark:border-[#444444] last:border-0 hover:bg-gray-50 hover:dark:bg-[#343434] transition-colors rounded-lg group"
-            >
-              <div class="w-1/3 pr-2 min-w-0">
-                <div class="flex items-center gap-2">
-                  <div class="min-w-0 shrink-1 truncate">
-                    {#if promo.url}
-                      <a
-                        href={promo.url}
-                        target="_blank"
-                        class="block font-mono font-bold text-[#21272C] hover:text-[#FACC15] transition-colors truncate underline decoration-gray-300 underline-offset-2 hover:decoration-[#FACC15]"
-                        title="Open Link"
-                      >
-                        {promo.code}
-                      </a>
-                    {:else}
-                      <span
-                        class="block font-mono font-bold text-[#21272C] dark:text-[#FDFDFD] truncate select-all"
-                      >
-                        {promo.code}
-                      </span>
-                    {/if}
-                  </div>
-
-                  <button
-                    on:click={() => copyCode(promo.code)}
-                    class="flex items-center justify-center p-1.5 rounded-md hover:bg-gray-200 hover:dark:bg-[#373737] text-gray-400 hover:text-[#21272C] hover:dark:text-[#B7B6B3] transition-colors shrink-0"
-                  >
-                    {#if copiedCode === promo.code}
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#FACC15"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="text-green-500"
-                      >
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                    {:else}
-                      <Icon name="copy" className="w-3.5 h-3.5" />
-                    {/if}
-                  </button>
-
-                  {#if promo.condition}
-                    <Tooltip text={$t(promo.condition)}>
-                      <div
-                        class="text-[#FACC15] hover:text-yellow-600 transition-colors flex items-center justify-center p-1"
-                      >
-                        <Icon name="info" className="w-3 h-3" />
-                      </div>
-                    </Tooltip>
-                  {/if}
-                </div>
-              </div>
-
-              <div class="flex-1 flex flex-wrap gap-2 items-center min-w-0">
-                {#each sortRewards(promo.rewards) as reward}
-                  <Tooltip text={$t(`items.${reward.id}`)}>
-                    <div
-                      class="flex items-center rounded-full px-2 py-0.5 border transition-colors {getRarityStyle(
-                        reward.id,
-                      )}"
-                    >
-                      <span class="text-xs font-bold mr-1">
-                        {reward.count}
-                      </span>
-
-                      <Images
-                        id={reward.id}
-                        variant="item"
-                        size={20}
-                        className="object-contain"
-                      />
-                    </div>
-                  </Tooltip>
-                {/each}
-              </div>
-
-              <div
-                class="w-auto text-right shrink-0 pl-2 flex flex-col items-end justify-center"
-              >
-                {#if promo.displayEndTime === null}
-                  <Tooltip text={$t("timer.permanent")}>
-                    <div class="flex items-center justify-center p-1 text-gray-700 hover:text-[#FACC15] dark:text-gray-300 hover:dark:text-[#FACC15]">
-                      <Icon name="permanent" class="w-4 h-4" />
-                    </div>
-                  </Tooltip>
-                {:else}
-                  <span
-                    class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"
-                  >
-                    {$t("home.until")} {getFormattedDate(promo.displayEndTime)}
-                  </span>
-                  <span
-                    class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight"
-                  >
-                    {getPromoTimeLabel(promo.displayEndTime)}
-                  </span>
-                {/if}
-              </div>
-            </div>
-          {/each}
-        {/if}
+  {#if activePromocodes.length === 0}
+    <div class="flex flex-col items-center justify-center py-12 text-gray-400 dark:text-[#7A7A7A]">
+      <div class="mb-3 opacity-60">
+        <Icon name="noData" class="w-10 h-10" />
       </div>
+
+      <div class="text-sm font-medium">
+        {$t("home.noActiveCodes")}
+      </div>
+    </div>
+  {:else}
+    {#each activePromocodes as promo}
+      <div
+        class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 py-3 px-3 border-gray-100 dark:border-[#444444] last:border-0 hover:bg-gray-50 hover:dark:bg-[#343434] transition-colors rounded-lg group"
+      >
+        <div class="w-full md:w-auto md:max-w-[50%] shrink-0">
+          <div class="flex items-center gap-2">
+            
+            <div class="min-w-0 shrink-1">
+              {#if promo.url}
+                <a
+                  href={promo.url}
+                  target="_blank"
+                  class="block font-mono font-bold text-[#21272C] hover:text-[#FACC15] transition-colors whitespace-nowrap underline decoration-gray-300 underline-offset-2 hover:decoration-[#FACC15]"
+                  title="Open Link"
+                >
+                  {promo.code}
+                </a>
+              {:else}
+                <span
+                  class="block font-mono font-bold text-[#21272C] dark:text-[#FDFDFD] whitespace-nowrap select-all"
+                >
+                  {promo.code}
+                </span>
+              {/if}
+            </div>
+
+            <button
+              on:click={() => copyCode(promo.code)}
+              class="flex items-center justify-center p-1.5 rounded-md hover:bg-gray-200 hover:dark:bg-[#373737] text-gray-400 hover:text-[#21272C] hover:dark:text-[#B7B6B3] transition-colors shrink-0"
+            >
+              {#if copiedCode === promo.code}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FACC15"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-green-500"
+                >
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              {:else}
+                <Icon name="copy" class="w-3.5 h-3.5" />
+              {/if}
+            </button>
+
+            {#if promo.condition}
+              <Tooltip text={$t(promo.condition)}>
+                <div class="text-[#FACC15] hover:text-yellow-600 transition-colors flex items-center justify-center p-1 shrink-0">
+                  <Icon name="info" class="w-3 h-3" />
+                </div>
+              </Tooltip>
+            {/if}
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-wrap gap-2 items-center min-w-0 py-1 md:py-0">
+          {#each sortRewards(promo.rewards) as reward}
+            <Tooltip text={$t(`items.${reward.id}`)}>
+              <div
+                class="flex items-center rounded-full px-2 py-0.5 border transition-colors {getRarityStyle(
+                  reward.id,
+                )}"
+              >
+                <span class="text-xs font-bold mr-1">
+                  {reward.count}
+                </span>
+
+                <Images
+                  id={reward.id}
+                  variant="item"
+                  size={20}
+                  className="object-contain"
+                />
+              </div>
+            </Tooltip>
+          {/each}
+        </div>
+
+        <div
+          class="w-full md:w-auto text-left md:text-right shrink-0 md:pl-2 flex flex-row md:flex-col items-center md:items-end justify-start md:justify-center gap-2 md:gap-0 mt-1 md:mt-0"
+        >
+          {#if promo.displayEndTime === null}
+            <Tooltip text={$t("timer.permanent")}>
+              <div class="flex items-center justify-center p-1 text-gray-700 hover:text-[#FACC15] hover:dark:text-[#FACC15] dark:text-gray-300 transition-colors">
+                <Icon name="permanent" class="w-4 h-4" />
+              </div>
+            </Tooltip>
+          {:else}
+            <span
+              class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"
+            >
+              {$t("home.until")} {getFormattedDate(promo.displayEndTime)}
+            </span>
+            <span
+              class="text-[10px] font-medium text-gray-400 dark:text-[#9CA3AF] whitespace-nowrap leading-tight"
+            >
+              {getPromoTimeLabel(promo.displayEndTime)}
+            </span>
+          {/if}
+        </div>
+      </div>
+    {/each}
+  {/if}
+</div>
     </div>
 
     <div class="lg:col-span-7 flex flex-col gap-4">

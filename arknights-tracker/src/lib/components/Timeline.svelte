@@ -768,10 +768,10 @@
                                     ></div>
 
                                     <div
-                                        class="flex flex-col justify-center min-w-0 drop-shadow-2xl"
+                                        class="flex flex-col justify-center min-w-0"
                                     >
                                         <span
-                                            class="text-white font-bold text-sm leading-tight truncate drop-shadow-2xl"
+                                            class="text-white font-bold text-sm leading-tight truncate"
                                         >
                                             {getEventName(event)}
                                         </span>

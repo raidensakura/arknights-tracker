@@ -1,22 +1,18 @@
 <script>
   import { t } from "$lib/i18n";
   import { onDestroy, tick } from "svelte";
-  import { browser } from "$app/environment"; // <--- 1. Импортируем флаг
+  import { browser } from "$app/environment";
 
   export let text = "";
   export let textKey = "";
-  
-  // Добавляем класс, чтобы можно было центрировать (из предыдущего ответа)
   let className = "";
   export { className as class };
 
   let open = false;
   let triggerEl;
   let tooltipEl;
-
   let top = 0;
   let left = 0;
-
   let raf = 0;
 
   $: tooltipText = textKey ? $t(textKey) : text;
@@ -24,7 +20,6 @@
   function updatePos() {
     if (!triggerEl) return;
     const r = triggerEl.getBoundingClientRect();
-
     left = Math.round(r.left + r.width / 2);
     top = Math.round(r.top);
   }
@@ -39,7 +34,6 @@
   }
 
   function stopFollow() {
-    // requestAnimationFrame тоже есть только в браузере, лучше проверить
     if (browser && raf) {
         cancelAnimationFrame(raf);
     }
@@ -47,29 +41,22 @@
   }
 
   async function show() {
-    // События мыши срабатывают только в браузере, но проверка не помешает
     if (!browser) return; 
-
     open = true;
     await tick();
-
     if (tooltipEl && tooltipEl.parentNode !== document.body) {
       document.body.appendChild(tooltipEl);
     }
-
     updatePos();
     startFollow();
-
     window.addEventListener("scroll", updatePos, true);
     window.addEventListener("resize", updatePos);
   }
 
   function hide() {
     if (!browser) return;
-
     open = false;
     stopFollow();
-
     window.removeEventListener("scroll", updatePos, true);
     window.removeEventListener("resize", updatePos);
   }
@@ -99,7 +86,7 @@
 {#if open && tooltipText}
   <span
     bind:this={tooltipEl}
-    class="fixed px-3 py-1.5 bg-gray-900 dark:bg-[#1E1E1E] text-white text-xs rounded-lg shadow-xl
+    class="fixed px-3 py-1.5 bg-gray-900 dark:bg-[#1E1E1E]  text-white text-xs rounded-lg shadow-xl
            pointer-events-none whitespace-nowrap z-[9999]"
     style="left: {left}px; top: {top}px; transform: translate(-50%, calc(-100% - 8px));"
   >

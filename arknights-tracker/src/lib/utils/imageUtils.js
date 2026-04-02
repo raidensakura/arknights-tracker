@@ -63,6 +63,9 @@ export function getImagePath(idOrName, variant = 'operator-icon') {
         case 'weapons-big':
             return `/images/weaponsBig/${withExt(name)}`;
 
+        case 'equipment':
+            return `/images/equipment/${withExt(name)}`;
+
         case 'attribute-icon':
             return `/images/operators/attributes/${withExt(name)}`;
             
