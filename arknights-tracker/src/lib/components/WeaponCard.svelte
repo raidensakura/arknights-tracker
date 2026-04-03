@@ -158,7 +158,10 @@
             ></div>
 
             <div
-                class="absolute inset-0 bottom-[6px] flex items-center justify-center z-0"
+                class="absolute inset-0 flex items-center justify-center z-0 {hideRarity
+                    ? ''
+                    : 'bottom-[6px]'
+                }"
             >
                 <Images
                     id={weapon.id}

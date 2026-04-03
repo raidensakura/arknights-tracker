@@ -1,5 +1,18 @@
 import { writable } from 'svelte/store';
 
+function createPersistentStore(key, startValue) {
+    const isBrowser = typeof window !== 'undefined';
+    const storedValue = isBrowser ? localStorage.getItem(key) : null;
+    const initial = storedValue !== null ? JSON.parse(storedValue) : startValue;
+    const store = writable(initial);
+    if (isBrowser) {
+        store.subscribe(value => {
+            localStorage.setItem(key, JSON.stringify(value));
+        });
+    }
+    return store;
+}
+
 const attr1Skills = ["attr_agi", "attr_str", "attr_will", "attr_wisd", "attr_main"];
 const attr2Skills = [
     "attr_atk", "attr_firedam", "attr_crirate", "attr_heal", "attr_hp", 
@@ -42,6 +55,7 @@ const initialManualMode = {
 export const equipmentFilters = writable({ ...initialEquipmentFilters });
 export const equipmentManual = writable({ ...initialManualMode });
 export const equipmentSearch = writable("");
+export const equipmentGroupMode = createPersistentStore('equipmentGroupMode', true);
 
 export const weaponFilters = writable({ ...initialWeaponFilters });
 export const weaponManual = writable({ ...initialManualMode });

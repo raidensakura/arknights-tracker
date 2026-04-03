@@ -2975,4 +2975,32 @@
             fill="currentColor"
         />
     </svg>
+{:else if name == "list"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4 18C4.55228 18 5 18.4477 5 19C5 19.5523 4.55228 20 4 20C3.44772 20 3 19.5523 3 19C3 18.4477 3.44772 18 4 18ZM10 18H20C20.5523 18 21 18.4477 21 19C21 19.5523 20.5523 20 20 20H10C9.44772 20 9 19.5523 9 19C9 18.4477 9.44772 18 10 18ZM4 11C4.55228 11 5 11.4477 5 12C5 12.5523 4.55228 13 4 13C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11ZM10 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H10C9.44772 13 9 12.5523 9 12C9 11.4477 9.44772 11 10 11ZM4 4C4.55228 4 5 4.44772 5 5C5 5.55228 4.55228 6 4 6C3.44772 6 3 5.55228 3 5C3 4.44772 3.44772 4 4 4ZM10 4H20C20.5523 4 21 4.44772 21 5C21 5.55228 20.5523 6 20 6H10C9.44772 6 9 5.55228 9 5C9 4.44772 9.44772 4 10 4Z"
+            stroke="currentColor"
+            stroke-width="2"
+        />
+    </svg>
+{:else if name == "grid"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M20 14V20H14V14H20ZM10 14V20H4V14H10ZM20 4V10H14V4H20ZM10 4V10H4V4H10Z"
+            stroke="currentColor"
+            stroke-width="2"
+        />
+    </svg>
 {/if}

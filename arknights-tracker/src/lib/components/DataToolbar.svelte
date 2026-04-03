@@ -9,6 +9,7 @@
     export let showOwnedOnly = false;
     export let availablePacks = [];
     export let availableStats = [];
+    export let groupMode = true;
 
     const skillIcons = {
         attr_atk: "atk",
@@ -74,7 +75,7 @@
         "smash",
     ];
 
-    const hardcodedStats = ["Def","Str","Agi","MaxHp","Wisd","Will","Atk","CriticalRate","AllDamageTakenScalar","NormalSkillEfficiency","ComboSkillEfficiency","PhysicalDamageIncrease","HealOutputIncrease","CrystAndPulseDamageIncrease","SpellDamageIncrease","UltimateSpGainScalar","UltimateSkillEfficiency","AllSkillDamageIncrease","AttrDamageToBrokenUnitIncrease","Sub","OriginiumArts","NormalAttackDamageIncrease","FireAndNaturalDamageIncrease","Main"]
+    const hardcodedStats = ["Def","Str","Agi","Wisd","Will","Atk","CriticalRate","UltimateSpGainScalar","OriginiumArts","Sub","Main","NormalSkillEfficiency","ComboSkillEfficiency","UltimateSkillEfficiency","SpellDamageIncrease","AllSkillDamageIncrease","PhysicalDamageIncrease","AttrDamageToBrokenUnitIncrease","NormalAttackDamageIncrease","CrystAndPulseDamageIncrease","FireAndNaturalDamageIncrease","MaxHp","AllDamageTakenScalar","HealOutputIncrease"]
     $: filterOptions = {
         rarity: mode === "equipment" ? [5, 4, 3, 2, 1] : mode === "weapons" ? [6, 5, 4, 3] : [6, 5, 4],
         class: ["guard", "vanguard", "caster", "defender", "supporter", "striker"],
@@ -267,6 +268,13 @@
 
         return "bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878] hover:opacity-100 hover:bg-gray-50 hover:dark:bg-[#424242]";
     };
+
+    $: statGroups = mode === "equipment" && filterOptions.stats ? [
+        filterOptions.stats.slice(0, 10),
+        filterOptions.stats.slice(10, 15),
+        filterOptions.stats.slice(15, 20),
+        filterOptions.stats.slice(20)
+    ] : [];
 </script>
 
 <svelte:window on:click={closeAll} />
@@ -538,15 +546,22 @@
                         <button type="button" class="text-sm dark:text-[#E0E0E0] font-bold text-gray-800 mb-2 hover:opacity-70" on:click={() => toggleFilterGroup("stats")}>
                             {$t("sort.stats") || "Attributes"}
                         </button>
-                        <div class="flex flex-wrap gap-2">
-                            {#each filterOptions.stats as stat}
-                                {@const statIcon = stat.toLowerCase() === 'maxhp' ? 'hp' : stat.toLowerCase()}
-                                <button type="button" class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass('stats', stat)}" on:click={() => toggleFilterItem("stats", stat)}>
-                                    <div class="w-5 h-5 bg-[#2A2A2A] border border-[#3A3A3A] rounded-[4px] flex items-center justify-center pointer-events-none">
-                                        <Icon name={statIcon} class="w-3 h-3 text-white pointer-events-none" />
-                                    </div>
-                                    <span class="text-xs font-bold pointer-events-none">{$t(`equipSkills.${stat}`) || stat}</span>
-                                </button>
+                        
+                        <div class="flex flex-col gap-2.5">
+                            {#each statGroups as group, index}
+                                <div class="flex flex-wrap gap-2 {index < statGroups.length - 1 ? 'pb-2.5 border-b border-gray-200/60 dark:border-[#444]/50' : ''}">
+                                    
+                                    {#each group as stat}
+                                        {@const statIcon = stat.toLowerCase() === 'maxhp' ? 'hp' : stat.toLowerCase()}
+                                        <button type="button" class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass('stats', stat)}" on:click={() => toggleFilterItem("stats", stat)}>
+                                            <div class="w-5 h-5 bg-[#2A2A2A] border border-[#3A3A3A] rounded-[4px] flex items-center justify-center pointer-events-none">
+                                                <Icon name={statIcon} class="w-3 h-3 text-white pointer-events-none" />
+                                            </div>
+                                            <span class="text-xs font-bold pointer-events-none">{$t(`equipSkills.${stat}`) || stat}</span>
+                                        </button>
+                                    {/each}
+
+                                </div>
                             {/each}
                         </div>
                     </div>
@@ -568,6 +583,7 @@
     </div>
 
     <div class="flex-grow max-w-[400px] relative">
+    <div class="relative flex-grow">
         <div
             class="absolute left-3 top-1/2 -translate-y-1/2 dark:text-[#E0E0E0] text-gray-500 pointer-events-none"
         >
@@ -611,5 +627,23 @@
                 >
             </button>
         {/if}
+        </div>
+
     </div>
+            {#if mode === "equipment"}
+            <button
+                type="button"
+                class="h-[40px] w-[40px] flex shrink-0 items-center justify-center rounded-full transition-colors cursor-pointer {groupMode ? 'bg-[#F9B90C] text-black hover:bg-[#E5AA0B] dark:bg-[#F9B90C] dark:text-black dark:hover:bg-[#E5AA0B]' : 'bg-gray-200 text-gray-400 hover:bg-gray-300 dark:bg-[#383838] dark:text-[#787878] dark:border-[#444444] dark:border hover:dark:bg-[#373737]'}"
+                on:click={() => groupMode = !groupMode}
+                title="Toggle Grouping"
+            >
+                <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    {#if groupMode}
+                        <Icon name="list" />
+                    {:else}
+                        <Icon name="grid" />
+                    {/if}
+                </svg>
+            </button>
+        {/if}
 </div>
