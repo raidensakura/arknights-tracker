@@ -465,14 +465,7 @@
     "reset": "Réinitialiser le potentiel, le calcul sera basé sur l'historique réel des tirages"
   },
   "bioValues": {
-    "Unknown": "Inconnu",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31 Mars"
-  },
-  "tags": {
-    "electricInfliction": "Infliger Électrique",
-    "electrify": "Électriser"
+    "Unknown": "Inconnu"
   },
   "weapons": {
     "sword": "Épée",

@@ -465,14 +465,7 @@
     "reset": "潜在をリセットします。計算は実際のガチャ履歴に基づきます"
   },
   "bioValues": {
-    "Unknown": "不明",
-    "endfieldInd": "エンドフィールド工業",
-    "perro": "ペッロー",
-    "31-03": "3月31日"
-  },
-  "tags": {
-    "electricInfliction": "帯電付与",
-    "electrify": "帯電"
+    "Unknown": "不明"
   },
   "weapons": {
     "sword": "片手剣",

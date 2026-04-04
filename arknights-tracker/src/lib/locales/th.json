@@ -464,14 +464,7 @@
     "reset": "รีเซ็ตค่าศักยภาพ การคำนวณจะอิงจากประวัติการสุ่มที่แท้จริง"
   },
   "bioValues": {
-    "Unknown": "ไม่ทราบ",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31 มีนาคม"
-  },
-  "tags": {
-    "electricInfliction": "สร้างสถานะไฟฟ้า",
-    "electrify": "ช็อตไฟฟ้า"
+    "Unknown": "ไม่ทราบ"
   },
   "weapons": {
     "sword": "ดาบ",

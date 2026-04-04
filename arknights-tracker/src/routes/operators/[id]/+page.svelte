@@ -17,6 +17,19 @@
     import Images from "$lib/components/Images.svelte";
     import TalentCard from "$lib/components/TalentCard.svelte";
 
+    function formatBirthDate(raw, lang) {
+        if (typeof raw !== 'string' || !/^\d{1,2}-\d{1,2}$/.test(raw)) return null;
+        const [day, month] = raw.split('-');
+        const date = new Date(2000, parseInt(month) - 1, parseInt(day));
+        const langMap = { 'zhcn': 'zh-CN', 'zhtw': 'zh-TW' };
+        const safeLang = langMap[lang?.toLowerCase()] || lang || 'en';
+        try {
+            return new Intl.DateTimeFormat(safeLang, { month: 'long', day: 'numeric' }).format(date);
+        } catch (e) {
+            return null; 
+        }
+    }
+
     const localeModules = {
         de: import.meta.glob("/src/lib/locales/de/characters/*.json"),
         en: import.meta.glob("/src/lib/locales/en/characters/*.json"),
@@ -682,31 +695,33 @@
                     {/if}
                 </div>
 
-                <div class="flex flex-col gap-2 mt-3 w-fit">
-                    {#each [{ label: "bio.faction", localizedVal: baseInfoLocale.blocTag, rawVal: char.faction }, { label: "bio.race", localizedVal: baseInfoLocale.raceTag, rawVal: char.race }, { label: "bio.birth", localizedVal: null, rawVal: char.birthDate }] as item}
-                        <div
-                            class="flex items-stretch h-[32px] rounded-lg overflow-hidden shadow-sm text-sm w-full"
-                        >
-                            <div
-                                class="bg-[#333] text-white px-4 flex items-center justify-center font-bold whitespace-nowrap min-w-[120px]"
-                            >
+                <div class="flex flex-col items-start gap-2 mt-3 w-fit">
+                    
+                    {#each [
+                        { label: "bio.faction", localizedVal: baseInfoLocale.blocTag, rawVal: char.faction }, 
+                        { label: "bio.race", localizedVal: baseInfoLocale.raceTag, rawVal: char.race }, 
+                        { label: "bio.birth", type: "date", localizedVal: null, rawVal: char.birthDate }
+                    ] as item}
+                        
+                        <div class="flex items-stretch h-[32px] rounded-lg overflow-hidden shadow-sm text-sm">
+                            
+                            <div class="bg-[#333] text-white px-4 flex items-center justify-center font-bold whitespace-nowrap min-w-[120px]">
                                 {$t(item.label) || item.label}
                             </div>
-                            <div
-                                class="bg-[#E5E5E5] text-[#333] px-4 flex items-center font-medium whitespace-nowrap min-w-[150px] w-full flex-grow"
-                            >
+                            
+                            <div class="bg-[#E5E5E5] text-[#333] px-4 flex items-center font-medium whitespace-nowrap">
                                 {#if item.localizedVal}
                                     {item.localizedVal}
+                                {:else if item.type === "date" && formatBirthDate(item.rawVal, $currentLocale)}
+                                    {formatBirthDate(item.rawVal, $currentLocale)}
                                 {:else}
-                                    {$t(
-                                        `bioValues.${item.rawVal || "Unknown"}`,
-                                    ) ||
-                                        item.rawVal ||
-                                        "-"}
+                                    {$t(`bioValues.${item.rawVal || "Unknown"}`) || item.rawVal || "-"}
                                 {/if}
                             </div>
+                            
                         </div>
                     {/each}
+                    
                 </div>
             </div>
 

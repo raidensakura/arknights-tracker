@@ -364,12 +364,13 @@
                 </div>
                 
                 <div class="relative z-20 flex flex-col gap-4 h-full w-[65%]">
-                    <div class="flex items-center flex-wrap gap-x-4 gap-y-2">
-                        <h1 class="font-sdk text-3xl md:text-4xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-none shrink drop-shadow-sm">
+                    <div class="flex items-start gap-3 max-w-full">
+                        
+                        <h1 class="font-sdk text-3xl md:text-4xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight shrink drop-shadow-sm break-words">
                             {weaponName}
                         </h1>
 
-                        <div class="flex items-center shrink-0 self-center">
+                        <div class="flex items-center shrink-0 mt-1">
                             {#if !isEditingPot}
                                 <div class="flex items-center gap-3">
                                     {#if isOwned}

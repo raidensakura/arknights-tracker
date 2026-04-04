@@ -465,14 +465,7 @@
     "reset": "Restablecer valor de potencial, el cálculo se basará en el historial real de tiradas"
   },
   "bioValues": {
-    "Unknown": "Desconocido",
-    "endfieldInd": "Industrias Endfield",
-    "perro": "Perro",
-    "31-03": "31 de Marzo"
-  },
-  "tags": {
-    "electricInfliction": "Infligir Electricidad",
-    "electrify": "Electrificar"
+    "Unknown": "Desconocido"
   },
   "weapons": {
     "sword": "Espada",

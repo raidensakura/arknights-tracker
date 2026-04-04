@@ -465,14 +465,7 @@
     "reset": "Setel ulang nilai potensi, perhitungan akan didasarkan pada riwayat tarikan aktual"
   },
   "bioValues": {
-    "Unknown": "Tidak Diketahui",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31 Maret"
-  },
-  "tags": {
-    "electricInfliction": "Electric Infliction",
-    "electrify": "Electrify"
+    "Unknown": "Tidak Diketahui"
   },
   "weapons": {
     "sword": "Pedang",

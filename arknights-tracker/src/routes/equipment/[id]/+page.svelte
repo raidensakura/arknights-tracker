@@ -767,7 +767,7 @@
                                                 </span>
 
                                                 <div
-                                                    class="flex items-center gap-2 mt-0.5 flex-wrap"
+                                                    class="flex items-center gap-1.5 mt-0.5 flex-wrap"
                                                 >
                                                     {#if match.isRecommended}
                                                         <span
@@ -804,7 +804,7 @@
 
                                                     {#if match.id === id}
                                                         <span
-                                                            class="px-1.5 py-[2px] rounded bg-[#26BAFB]/10 border border-[#26BAFB]/20 text-[#26BAFB] text-[9px] font-bold uppercase tracking-wider leading-none shadow-sm"
+                                                            class="px-1.5 py-[2px] rounded bg-[#26BAFB]/10 border border-[#26BAFB]/20 text-[#26BAFB] text-[9px] font-bold uppercase leading-none shadow-sm"
                                                         >
                                                             {tOrFallback(
                                                                 "common.same",

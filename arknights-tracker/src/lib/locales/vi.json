@@ -464,14 +464,7 @@
     "reset": "Đặt lại giá trị tiềm năng, tính toán sẽ dựa trên lịch sử gacha thực tế"
   },
   "bioValues": {
-    "Unknown": "Không rõ",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31 tháng 3"
-  },
-  "tags": {
-    "electricInfliction": "Gây nhiễm điện",
-    "electrify": "Nhiễm điện"
+    "Unknown": "Không rõ"
   },
   "weapons": {
     "sword": "Kiếm",

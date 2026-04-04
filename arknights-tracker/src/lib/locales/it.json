@@ -464,14 +464,7 @@
     "reset": "Ripristina il valore del potenziale, il calcolo si baserà sulla cronologia reale dei pull"
   },
   "bioValues": {
-    "Unknown": "Sconosciuto",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31 Marzo"
-  },
-  "tags": {
-    "electricInfliction": "Inflizione Elettrica",
-    "electrify": "Elettrificare"
+    "Unknown": "Sconosciuto"
   },
   "weapons": {
     "sword": "Spada",

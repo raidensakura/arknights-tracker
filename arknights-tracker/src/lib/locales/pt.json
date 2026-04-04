@@ -465,14 +465,7 @@
     "reset": "Redefinir valor de potencial, o cálculo será baseado no histórico de pulls atual"
   },
   "bioValues": {
-    "Unknown": "Desconhecido",
-    "endfieldInd": "Indústrias Endfield",
-    "perro": "Perro",
-    "31-03": "31 de Março"
-  },
-  "tags": {
-    "electricInfliction": "Infligir Eletricidade",
-    "electrify": "Eletrificar"
+    "Unknown": "Desconhecido"
   },
   "weapons": {
     "sword": "Espada",

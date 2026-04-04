@@ -465,14 +465,7 @@
     "reset": "잠재력 값을 초기화합니다. 실제 뽑기 기록을 바탕으로 다시 계산됩니다"
   },
   "bioValues": {
-    "Unknown": "알 수 없음",
-    "endfieldInd": "엔드필드 공업",
-    "perro": "페로",
-    "31-03": "3월 31일"
-  },
-  "tags": {
-    "electricInfliction": "감전 부여",
-    "electrify": "감전"
+    "Unknown": "알 수 없음"
   },
   "weapons": {
     "sword": "한손검",

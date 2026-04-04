@@ -464,14 +464,7 @@
     "reset": "重置潜能值，将根据实际抽卡历史重新计算"
   },
   "bioValues": {
-    "Unknown": "未知",
-    "endfieldInd": "终末地工业",
-    "perro": "佩洛",
-    "31-03": "3月31日"
-  },
-  "tags": {
-    "electricInfliction": "感电施加",
-    "electrify": "感电"
+    "Unknown": "未知"
   },
   "weapons": {
     "sword": "单手剑",

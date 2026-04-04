@@ -28,7 +28,7 @@ export const characters = {
     element: "electric",
     class: "caster",
     weapon: "artsUnit",
-    birthDate: "31-03",
+    birthDate: "10-03",
     isNew: false
   },
   chenQianyu: {
@@ -258,7 +258,7 @@ export const characters = {
     element: "physical",
     class: "guard",
     weapon: "sword",
-    birthDate: "",
+    birthDate: "10-03",
     isNew: true
   }
 };

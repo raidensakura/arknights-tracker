@@ -488,14 +488,7 @@
     "reset": "Сбросить значение потенциалов"
   },
   "bioValues": {
-    "Unknown": "Неизвестно",
-    "endfieldInd": "Компания Endfield",
-    "perro": "Перро",
-    "31-03": "31 марта"
-  },
-  "tags": {
-    "electricInfliction": "Электрическое поражение",
-    "electrify": "Электрификация"
+    "Unknown": "Неизвестно"
   },
   "weapons": {
     "sword": "Меч",

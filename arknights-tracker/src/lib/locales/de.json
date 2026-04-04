@@ -465,14 +465,7 @@
     "reset": "Potenzialwert zurücksetzen, die Berechnung basiert auf dem tatsächlichen Ziehungsverlauf"
   },
   "bioValues": {
-    "Unknown": "Unbekannt",
-    "endfieldInd": "Endfield Industries",
-    "perro": "Perro",
-    "31-03": "31. März"
-  },
-  "tags": {
-    "electricInfliction": "Elektro-Zufügung",
-    "electrify": "Elektrisieren"
+    "Unknown": "Unbekannt"
   },
   "weapons": {
     "sword": "Schwert",
