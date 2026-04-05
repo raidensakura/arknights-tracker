@@ -367,15 +367,21 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         pullsByBanner[specificBannerId].push(pullWithCorrectTime);
     });
 
+    const newPullKeys = new Set();
     for (const [bannerId, rawPulls] of Object.entries(pullsByBanner)) {
 
         const oldUserStat = await prisma.userBannerStat.findUnique({
             where: { uid_bannerId: { uid, bannerId } }
         });
         const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
+
         const { enrichedPulls } = calculateMath(rawPulls, bannerId, serverId);
+
         const newPulls = enrichedPulls.filter(p => p.time > lastTime);
         if (newPulls.length === 0) continue;
+
+        newPulls.forEach(p => newPullKeys.add(p.seqId || String(p.time)));
+
         let d_totalPulls = newPulls.length;
         let d_total6 = 0, d_total5 = 0, d_sumPity6 = 0, d_sumPity5 = 0, d_won5050 = 0, d_total5050 = 0;
 
@@ -465,14 +471,9 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     for (const [genId, pulls] of Object.entries(pullsByGeneric)) {
         if (!pulls.length) continue;
 
-        const oldUserStat = await prisma.userBannerStat.findUnique({
-            where: { uid_bannerId: { uid, bannerId: genId } }
-        });
-        const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
-
         const { enrichedPulls } = calculateMath(pulls, genId, serverId);
         
-        const newPulls = enrichedPulls.filter(p => p.time > lastTime);
+        const newPulls = enrichedPulls.filter(p => newPullKeys.has(p.seqId || String(p.time)));
         if (newPulls.length === 0) continue;
 
         let d_totalPulls = newPulls.length;
@@ -551,6 +552,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
         });
         console.log(`   -> RANKING [ALL]: Added ${overallStats.totalPulls} new pulls`);
     }
+
     console.log(`[Stats] Sync Complete for ${uid}`);
 }
 
