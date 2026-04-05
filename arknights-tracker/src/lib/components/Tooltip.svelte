@@ -5,6 +5,7 @@
 
   export let text = "";
   export let textKey = "";
+  
   let className = "";
   export { className as class };
 
@@ -13,59 +14,69 @@
   let tooltipEl;
   let top = 0;
   let left = 0;
-  let raf = 0;
+  let arrowLeft = 50; 
+  let isFlipped = false; 
+  let isTicking = false; 
 
   $: tooltipText = textKey ? $t(textKey) : text;
 
   function updatePos() {
-    if (!triggerEl) return;
-    const r = triggerEl.getBoundingClientRect();
-    left = Math.round(r.left + r.width / 2);
-    top = Math.round(r.top);
-  }
+    if (!triggerEl || !tooltipEl) return;
 
-  function startFollow() {
-    const loop = () => {
-      if (!open) return;
-      updatePos();
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-  }
+    const tRect = triggerEl.getBoundingClientRect();
+    const tipRect = tooltipEl.getBoundingClientRect();
 
-  function stopFollow() {
-    if (browser && raf) {
-        cancelAnimationFrame(raf);
+    let desiredTop = tRect.top - tipRect.height - 8;
+    isFlipped = false;
+
+    if (desiredTop < 10) {
+        desiredTop = tRect.bottom + 8;
+        isFlipped = true;
     }
-    raf = 0;
+
+    let desiredLeft = tRect.left + (tRect.width / 2) - (tipRect.width / 2);
+    let maxLeft = window.innerWidth - tipRect.width - 10;
+    left = Math.max(10, Math.min(desiredLeft, maxLeft));
+    top = desiredTop;
+
+    let triggerCenter = tRect.left + tRect.width / 2;
+    let calculatedArrowLeft = triggerCenter - left;
+    arrowLeft = Math.max(12, Math.min(calculatedArrowLeft, tipRect.width - 12));
+  }
+
+  function onScrollOrResize() {
+    if (!isTicking) {
+      requestAnimationFrame(() => {
+        updatePos();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
   }
 
   async function show() {
     if (!browser) return; 
     open = true;
-    await tick();
+    await tick(); 
     if (tooltipEl && tooltipEl.parentNode !== document.body) {
       document.body.appendChild(tooltipEl);
     }
     updatePos();
-    startFollow();
-    window.addEventListener("scroll", updatePos, true);
-    window.addEventListener("resize", updatePos);
+    window.addEventListener("scroll", onScrollOrResize, { capture: true, passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
   }
 
   function hide() {
     if (!browser) return;
     open = false;
-    stopFollow();
-    window.removeEventListener("scroll", updatePos, true);
-    window.removeEventListener("resize", updatePos);
+    window.removeEventListener("scroll", onScrollOrResize, { capture: true });
+    window.removeEventListener("resize", onScrollOrResize);
   }
 
   onDestroy(() => {
-    stopFollow();
     if (browser) {
-        window.removeEventListener("scroll", updatePos, true);
-        window.removeEventListener("resize", updatePos);
+        window.removeEventListener("scroll", onScrollOrResize, { capture: true });
+        window.removeEventListener("resize", onScrollOrResize);
     }
     tooltipEl?.remove();
   });
@@ -86,14 +97,22 @@
 {#if open && tooltipText}
   <span
     bind:this={tooltipEl}
-    class="fixed px-3 py-1.5 bg-gray-900 dark:bg-[#1E1E1E]  text-white text-xs rounded-lg shadow-xl
-           pointer-events-none whitespace-nowrap z-[9999]"
-    style="left: {left}px; top: {top}px; transform: translate(-50%, calc(-100% - 8px));"
+    class="fixed px-3 py-1.5 bg-gray-900 dark:bg-[#1E1E1E] text-white text-xs rounded-lg shadow-xl
+           pointer-events-none whitespace-nowrap z-[999999]"
+    style="left: {left}px; top: {top}px;"
   >
     {tooltipText}
-    <span
-      class="absolute dark:border-t-[#1E1E1E] top-full left-1/2 -translate-x-1/2 -mt-px
-             border-4 border-transparent border-t-gray-900"
-    ></span>
+    
+    {#if !isFlipped}
+        <span
+          class="absolute top-full -mt-px border-4 border-transparent border-t-gray-900 dark:border-t-[#1E1E1E]"
+          style="left: {arrowLeft}px; transform: translateX(-50%);"
+        ></span>
+    {:else}
+        <span
+          class="absolute bottom-full -mb-px border-4 border-transparent border-b-gray-900 dark:border-b-[#1E1E1E]"
+          style="left: {arrowLeft}px; transform: translateX(-50%);"
+        ></span>
+    {/if}
   </span>
 {/if}

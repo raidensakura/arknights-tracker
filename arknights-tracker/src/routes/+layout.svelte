@@ -228,7 +228,7 @@
         >
             <div class="flex-1 overflow-y-auto overflow-x-hidden">
                 <div
-                    class="mb-10 flex items-center min-h-[40px] px-4 {visuallyCollapsed
+                    class="mb-6 flex items-center min-h-[40px] px-4 {visuallyCollapsed
                         ? 'justify-center'
                         : 'justify-between'}"
                 >
@@ -297,7 +297,7 @@
                     </button>
                 </div>
 
-                <nav class="flex flex-col gap-4 px-3">
+                <nav class="flex flex-col gap-3 px-3">
                     {#each [{ path: "/", label: "sidebar.home", icon: "mainPage" }, { path: "/records", label: "sidebar.records", icon: "records" }, { path: "/operators", label: "sidebar.operators", icon: "operators" }, { path: "/weapons", label: "pages.weapons", icon: "weapons" }, { path: "/essences", label: "pages.essences", icon: "essence" }, { path: "/equipment", label: "pages.equipment", icon: "edc" }, { path: "/events", label: "sidebar.events", icon: "timeline" }, { path: "/settings", label: "sidebar.settings", icon: "settingsMenu" }] as item}
                         <a
                             href={item.path}
