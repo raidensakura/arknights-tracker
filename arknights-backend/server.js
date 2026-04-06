@@ -300,7 +300,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
         }
 
         if (prisma && prisma.user) {
-            await updateAggregatedStats(stableUid, allPulls, usedServerId);
+            await updateAggregatedStats(stableUid, allPulls, usedServerId, overwrite === true);
         }
 
         sendEvent({
