@@ -400,8 +400,17 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
 
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId } },
-                create: { uid, bannerId, ...stats, lastProcessedPullTime: BigInt(maxTimeInBatch) },
-                update: { ...stats, lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeInBatch) }
+                create: { 
+                    uid, bannerId, 
+                    totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, 
+                    total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050,
+                    lastProcessedPullTime: BigInt(maxTimeInBatch) 
+                },
+                update: { 
+                    totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, 
+                    total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050,
+                    lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeInBatch) 
+                }
             });
         } else {
             const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
@@ -411,37 +420,29 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
 
             newGlobalPulls.forEach(p => trulyNewPullIds.add(String(p.seqId || p.time)));
 
-            let newPullsCount = newGlobalPulls.length;
-            let new6 = 0, new5 = 0, newSumPity6 = 0, newSumPity5 = 0;
-            let newWon = 0, newTotal5050 = 0;
+            const startPity6 = (oldUserStat?.totalPulls || 0) - (oldUserStat?.sumPity6 || 0);
+            const startPity5 = (oldUserStat?.totalPulls || 0) - (oldUserStat?.sumPity5 || 0);
 
-            newGlobalPulls.forEach(p => {
-                const isFree = p.isFree === true;
-                if (p.rarity === 6) {
-                    if (!isFree) {
-                        new6++; newSumPity6 += p.pity;
-                        if (p.gachaStatus === "won") { newWon++; newTotal5050++; }
-                        else if (p.gachaStatus === "lost") { newTotal5050++; }
-                    }
-                } else if (p.rarity === 5) {
-                    if (!isFree) { new5++; newSumPity5 += p.pity; }
-                }
-            });
-
-            const newLost = newTotal5050 - newWon;
+            const { stats, enrichedPulls: newGlobalPullsWithPity } = calculateMath(newGlobalPulls, bannerId, serverId, startPity6, startPity5);
+            const newLost = stats.total5050 - stats.won5050;
+            const maxTimeInBatch = newGlobalPullsWithPity[newGlobalPullsWithPity.length - 1].time;
 
             await prisma.globalBannerStats.upsert({
                 where: { bannerId },
-                create: { bannerId, totalPulls: newPullsCount, total6: new6, total5: new5, limitedCount: newWon, lost5050: newLost, totalUsers: 1 },
-                update: { totalPulls: { increment: newPullsCount }, total6: { increment: new6 }, total5: { increment: new5 }, limitedCount: { increment: newWon }, lost5050: { increment: newLost }, totalUsers: { increment: d_users } }
+                create: { bannerId, totalPulls: stats.totalPulls, total6: stats.total6, total5: stats.total5, limitedCount: stats.won5050, lost5050: newLost, totalUsers: 1 },
+                update: { totalPulls: { increment: stats.totalPulls }, total6: { increment: stats.total6 }, total5: { increment: stats.total5 }, limitedCount: { increment: stats.won5050 }, lost5050: { increment: newLost }, totalUsers: { increment: d_users } }
             });
 
-            await processGlobalGraphsOnly(bannerId, newGlobalPulls);
+            await processGlobalGraphsOnly(bannerId, newGlobalPullsWithPity);
 
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId } },
-                create: { uid, bannerId, totalPulls: newPullsCount, total6: new6, sumPity6: newSumPity6, total5: new5, sumPity5: newSumPity5, won5050: newWon, total5050: newTotal5050, lastProcessedPullTime: BigInt(maxTimeInBatch) },
-                update: { totalPulls: { increment: newPullsCount }, total6: { increment: new6 }, sumPity6: { increment: newSumPity6 }, total5: { increment: new5 }, sumPity5: { increment: newSumPity5 }, won5050: { increment: newWon }, total5050: { increment: newTotal5050 }, lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeInBatch) }
+                create: { uid, bannerId, totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050, lastProcessedPullTime: BigInt(maxTimeInBatch) },
+                update: {
+                    totalPulls: { increment: stats.totalPulls }, total6: { increment: stats.total6 }, sumPity6: { increment: stats.sumPity6 },
+                    total5: { increment: stats.total5 }, sumPity5: { increment: stats.sumPity5 }, won5050: { increment: stats.won5050 }, total5050: { increment: stats.total5050 },
+                    lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeInBatch)
+                }
             });
         }
     }
@@ -463,10 +464,10 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
     for (const [genId, pulls] of Object.entries(pullsByGeneric)) {
         if (!pulls.length) continue;
 
-        const { stats, enrichedPulls } = calculateMath(pulls, genId, serverId);
-        const maxTimeGen = enrichedPulls[enrichedPulls.length - 1].time;
+        const oldUserStatGen = await prisma.userBannerStat.findUnique({ where: { uid_bannerId: { uid, bannerId: genId } } });
 
         if (overwrite) {
+            const { stats, enrichedPulls } = calculateMath(pulls, genId, serverId, 0, 0);
             if (genId !== 'new-player') {
                 overallStats.totalPulls += stats.totalPulls;
                 overallStats.total6 += stats.total6; overallStats.sumPity6 += stats.sumPity6;
@@ -474,46 +475,47 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
                 if (RATE_UP_CATEGORIES.includes(genId)) { overallStats.won5050 += stats.won5050; overallStats.total5050 += stats.total5050; }
             }
 
+            const maxTimeGen = enrichedPulls[enrichedPulls.length - 1].time;
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId: genId } },
-                create: { uid, bannerId: genId, ...stats, lastProcessedPullTime: BigInt(maxTimeGen) },
-                update: { ...stats, lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen) }
+                create: { 
+                    uid, bannerId: genId, 
+                    totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, 
+                    total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050,
+                    lastProcessedPullTime: BigInt(maxTimeGen) 
+                },
+                update: { 
+                    totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, 
+                    total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050,
+                    lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen) 
+                }
             });
             console.log(`   -> Ranked Category [${genId}]: Overwritten +${stats.totalPulls} pulls`);
         } else {
-            const targetPulls = enrichedPulls.filter(p => trulyNewPullIds.has(String(p.seqId || p.time)));
-            if (targetPulls.length === 0) continue;
-
-            let pullsCount = targetPulls.length;
-            let c6 = 0, c5 = 0, sumPity6 = 0, sumPity5 = 0;
-            let won = 0, total5050 = 0;
-
-            targetPulls.forEach(p => {
-                const isFree = p.isFree === true;
-                if (p.rarity === 6) {
-                    if (!isFree) {
-                        c6++; sumPity6 += p.pity;
-                        if (p.gachaStatus === "won") { won++; total5050++; }
-                        else if (p.gachaStatus === "lost") { total5050++; }
-                    }
-                } else if (p.rarity === 5) {
-                    if (!isFree) { c5++; sumPity5 += p.pity; }
-                }
-            });
+            const newGenPullsRaw = pulls.filter(p => trulyNewPullIds.has(String(p.seqId || p.time)));
+            if (newGenPullsRaw.length === 0) continue;
+            const startPity6 = (oldUserStatGen?.totalPulls || 0) - (oldUserStatGen?.sumPity6 || 0);
+            const startPity5 = (oldUserStatGen?.totalPulls || 0) - (oldUserStatGen?.sumPity5 || 0);
+            const { stats, enrichedPulls: newGenPulls } = calculateMath(newGenPullsRaw, genId, serverId, startPity6, startPity5);
 
             if (genId !== 'new-player') {
-                overallStats.totalPulls += pullsCount;
-                overallStats.total6 += c6; overallStats.sumPity6 += sumPity6;
-                overallStats.total5 += c5; overallStats.sumPity5 += sumPity5;
-                if (RATE_UP_CATEGORIES.includes(genId)) { overallStats.won5050 += won; overallStats.total5050 += total5050; }
+                overallStats.totalPulls += stats.totalPulls;
+                overallStats.total6 += stats.total6; overallStats.sumPity6 += stats.sumPity6;
+                overallStats.total5 += stats.total5; overallStats.sumPity5 += stats.sumPity5;
+                if (RATE_UP_CATEGORIES.includes(genId)) { overallStats.won5050 += stats.won5050; overallStats.total5050 += stats.total5050; }
             }
 
+            const maxTimeGen = newGenPulls[newGenPulls.length - 1].time;
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId: genId } },
-                create: { uid, bannerId: genId, totalPulls: pullsCount, total6: c6, sumPity6: sumPity6, total5: c5, sumPity5: sumPity5, won5050: won, total5050: total5050, lastProcessedPullTime: BigInt(maxTimeGen) },
-                update: { totalPulls: { increment: pullsCount }, total6: { increment: c6 }, sumPity6: { increment: sumPity6 }, total5: { increment: c5 }, sumPity5: { increment: sumPity5 }, won5050: { increment: won }, total5050: { increment: total5050 }, lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen) }
+                create: { uid, bannerId: genId, totalPulls: stats.totalPulls, total6: stats.total6, sumPity6: stats.sumPity6, total5: stats.total5, sumPity5: stats.sumPity5, won5050: stats.won5050, total5050: stats.total5050, lastProcessedPullTime: BigInt(maxTimeGen) },
+                update: {
+                    totalPulls: { increment: stats.totalPulls }, total6: { increment: stats.total6 }, sumPity6: { increment: stats.sumPity6 },
+                    total5: { increment: stats.total5 }, sumPity5: { increment: stats.sumPity5 }, won5050: { increment: stats.won5050 }, total5050: { increment: stats.total5050 },
+                    lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen)
+                }
             });
-            console.log(`   -> Ranked Category [${genId}]: Incremented +${pullsCount} pulls`);
+            console.log(`   -> Ranked Category [${genId}]: Incremented +${stats.totalPulls} pulls`);
         }
     }
 
@@ -528,7 +530,11 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId: 'all' } },
                 create: { uid, bannerId: 'all', ...overallStats, lastProcessedPullTime: 0 },
-                update: { totalPulls: { increment: overallStats.totalPulls }, total6: { increment: overallStats.total6 }, sumPity6: { increment: overallStats.sumPity6 }, total5: { increment: overallStats.total5 }, sumPity5: { increment: overallStats.sumPity5 }, won5050: { increment: overallStats.won5050 }, total5050: { increment: overallStats.total5050 }, lastUpdate: new Date() }
+                update: {
+                    totalPulls: { increment: overallStats.totalPulls }, total6: { increment: overallStats.total6 }, sumPity6: { increment: overallStats.sumPity6 },
+                    total5: { increment: overallStats.total5 }, sumPity5: { increment: overallStats.sumPity5 }, won5050: { increment: overallStats.won5050 }, total5050: { increment: overallStats.total5050 },
+                    lastUpdate: new Date()
+                }
             });
         }
         console.log(`   -> RANKING [ALL]: ${overwrite ? 'Overwritten' : 'Incremented'} by ${overallStats.totalPulls}`);
