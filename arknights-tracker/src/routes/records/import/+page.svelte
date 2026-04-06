@@ -950,8 +950,36 @@
                                         {/if}
                                     </div>
                                 </label>
-                                <label class="flex items-start gap-3 select-none group cursor-pointer w-fit mt-3">
-                            <div class="relative flex items-center mt-0.5">
+                                
+                                {#if isSaveTokenEnabled}
+                                    <div class="pl-8 mb-3 relative">
+                                        <input
+                                            type="text"
+                                            bind:value={tokenName}
+                                            placeholder={$t(
+                                                "import.token_name_placeholder",
+                                            )}
+                                            class="w-full md:w-2/3 p-2.5 bg-gray-50 dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] border border-gray-200 focus:bg-white focus:border-[#FFE145] focus:dark:border-[#FFE145] rounded-md text-sm outline-none text-[#21272C] transition-all
+                    {isInputError &&
+                                            (errorMsg ===
+                                                $t('import.error_token_name') ||
+                                                errorMsg ===
+                                                    'Token name is required for saving.')
+                                                ? '!border-red-500 bg-red-50'
+                                                : ''}"
+                                        />
+
+                                        {#if isInputError && (errorMsg === $t("import.error_token_name") || errorMsg === "Token name is required for saving.")}
+                                            <div
+                                                class="absolute -bottom-5 left-8 text-red-600 text-xs font-bold px-1 rounded animate-in fade-in slide-in-from-top-1"
+                                            >
+                                                {errorMsg}
+                                            </div>
+                                        {/if}
+                                    </div>
+                                {/if}
+                                <label class="flex items-start gap-3 select-none group cursor-pointer w-fit mt-1">
+                            <div class="relative flex items-center">
                                 <input
                                     type="checkbox"
                                     bind:checked={isOverwriteEnabled}
@@ -982,33 +1010,6 @@
                                 {/if}
                             </div>
                         </label>
-                                {#if isSaveTokenEnabled}
-                                    <div class="pl-8 mb-3 relative">
-                                        <input
-                                            type="text"
-                                            bind:value={tokenName}
-                                            placeholder={$t(
-                                                "import.token_name_placeholder",
-                                            )}
-                                            class="w-full md:w-2/3 p-2.5 bg-gray-50 dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] border border-gray-200 focus:bg-white focus:border-[#FFE145] focus:dark:border-[#FFE145] rounded-md text-sm outline-none text-[#21272C] transition-all
-                    {isInputError &&
-                                            (errorMsg ===
-                                                $t('import.error_token_name') ||
-                                                errorMsg ===
-                                                    'Token name is required for saving.')
-                                                ? '!border-red-500 bg-red-50'
-                                                : ''}"
-                                        />
-
-                                        {#if isInputError && (errorMsg === $t("import.error_token_name") || errorMsg === "Token name is required for saving.")}
-                                            <div
-                                                class="absolute -bottom-5 left-8 text-red-600 text-xs font-bold px-1 rounded animate-in fade-in slide-in-from-top-1"
-                                            >
-                                                {errorMsg}
-                                            </div>
-                                        {/if}
-                                    </div>
-                                {/if}
                             </div>
                         {/if}
 
