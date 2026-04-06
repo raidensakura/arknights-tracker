@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "헤드헌팅 기록 가져오기",
+    "overwriteStats": "통계 덮어쓰기",
+    "overwriteDesc": "통계가 중복되었거나 잘못된 숫자가 표시되는 경우에만 이 옵션을 사용하세요. 시스템이 게임 데이터베이스에서 전체 기록을 엄격하게 다시 계산합니다.",
     "delete_token_title": "토큰 삭제",
     "importing": "가져오는 중...",
     "waiting_response": "응답 대기 중...",

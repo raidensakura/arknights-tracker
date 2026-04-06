@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "Importar Histórico de Busca",
+    "overwriteStats": "Sobrescrever estatísticas",
+    "overwriteDesc": "Use esta opção apenas se suas estatísticas estiverem duplicadas ou mostrando números incorretos. O sistema recalculará rigorosamente todo o seu histórico a partir da base de dados do jogo.",
     "delete_token_title": "Excluir token",
     "importing": "Importando...",
     "waiting_response": "Aguardando resposta...",

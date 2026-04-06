@@ -24,6 +24,7 @@
     let pendingData = null;
     let errorMsg = "";
     let isGlobalStatsEnabled = true;
+    let isOverwriteEnabled = false;
     let activeTab = "new";
     let selectedServer = "3";
     let isSaveTokenEnabled = false;
@@ -218,7 +219,7 @@
             const response = await fetch(`${API_BASE}/import`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ rawUrl: urlToSend }),
+                body: JSON.stringify({ rawUrl: urlToSend, overwrite: isOverwriteEnabled }), 
             });
 
             if (response.status === 429) {
@@ -935,6 +936,38 @@
                                         {/if}
                                     </div>
                                 </label>
+                                <label class="flex items-start gap-3 select-none group cursor-pointer w-fit mt-3">
+                            <div class="relative flex items-center mt-0.5">
+                                <input
+                                    type="checkbox"
+                                    bind:checked={isOverwriteEnabled}
+                                    class="peer w-5 h-5 cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white checked:border-red-500 checked:bg-red-500 transition-all"
+                                />
+                                <svg
+                                    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-gray-600 dark:text-[#E0E0E0] group-hover:text-black group-hover:dark:text-[#FDFDFD] transition-colors cursor-pointer font-medium text-sm {isOverwriteEnabled ? 'text-red-600 dark:text-red-400 font-bold' : ''}"
+                                >
+                                    {$t("import.overwriteStats") || "Перезаписать статистику (сброс багов)"}
+                                </span>
+                                {#if isOverwriteEnabled}
+                                    <div class="text-gray-400 dark:text-gray-500 text-xs mt-1 max-w-md leading-relaxed">
+                                        {$t("import.overwriteDesc") || "Используй эту опцию, только если твоя статистика задвоилась или показывает неверные цифры. Система жестко пересчитает всю твою историю из базы игры."}
+                                    </div>
+                                {/if}
+                            </div>
+                        </label>
                                 {#if isSaveTokenEnabled}
                                     <div class="pl-8 mb-3 relative">
                                         <input

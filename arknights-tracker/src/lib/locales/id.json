@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "Impor Catatan Headhunting",
+    "overwriteStats": "Timpa Statistik",
+    "overwriteDesc": "Gunakan opsi ini hanya jika statistik Anda berlipat ganda atau menunjukkan angka yang salah. Sistem akan menghitung ulang seluruh riwayat Anda secara ketat dari database game.",
     "delete_token_title": "Hapus Token",
     "importing": "Mengimpor...",
     "waiting_response": "Menunggu respons...",

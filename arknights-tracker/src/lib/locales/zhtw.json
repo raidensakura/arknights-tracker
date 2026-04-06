@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "匯入尋訪記錄",
+    "overwriteStats": "覆蓋統計數據",
+    "overwriteDesc": "僅當您的統計數據加倍或顯示不正確的數字時才使用此選項。系統將從遊戲數據庫中嚴格重新計算您的完整記錄。",
     "delete_token_title": "刪除 Token",
     "importing": "匯入中...",
     "waiting_response": "等待回應中...",

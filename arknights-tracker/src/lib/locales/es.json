@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "Importar Historial de Reclutamiento",
+    "overwriteStats": "Sobrescribir estadísticas",
+    "overwriteDesc": "Usa esta opción solo si tus estadísticas se han duplicado o muestran números incorrectos. El sistema recalculará estrictamente todo tu historial desde la base de datos del juego.",
     "delete_token_title": "Eliminar token",
     "importing": "Importando...",
     "waiting_response": "Esperando respuesta...",

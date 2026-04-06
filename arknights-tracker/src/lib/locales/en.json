@@ -134,6 +134,8 @@
   },
   "import": {
     "title": "Import Headhunting Records",
+    "overwriteStats": "Overwrite Stats",
+    "overwriteDesc": "Use this option only if your stats are doubled or showing incorrect numbers. The system will strictly recalculate your entire history from the game database.",
     "delete_token_title": "Delete Token",
     "importing": "Importing...",
     "waiting_response": "Waiting for response...",

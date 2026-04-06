@@ -118,6 +118,8 @@
   },
   "import": {
     "title": "Importa Registro Reclutamenti",
+    "overwriteStats": "Sovrascrivi le statistiche",
+    "overwriteDesc": "Usa questa opzione solo se le tue statistiche sono raddoppiate o mostrano numeri errati. Il sistema ricalcolerà rigorosamente l'intera cronologia dal database di gioco.",
     "delete_token_title": "Elimina token",
     "importing": "Importazione...",
     "waiting_response": "In attesa di risposta...",
