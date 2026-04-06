@@ -118,8 +118,8 @@
   },
   "import": {
     "title": "Rekrutierungsverlauf importieren",
-    "overwriteStats": "Statistiken überschreiben",
-    "overwriteDesc": "Verwende diese Option nur, wenn deine Statistiken verdoppelt oder falsche Zahlen angezeigt werden. Das System wird deine gesamte Historie strikt anhand der Spieldatenbank neu berechnen.",
+    "overwriteStats": "Ranking-Statistiken überschreiben",
+"overwriteDesc": "Verwende diese Option nur, wenn deine Ranking-Statistiken verdoppelt sind oder falsche Zahlen anzeigen. Das System wird dein Ranking basierend auf der lokalen Ziehungshistorie strikt neu berechnen.",
     "delete_token_title": "Token löschen",
     "importing": "Importieren...",
     "waiting_response": "Warten auf Antwort...",

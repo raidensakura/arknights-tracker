@@ -118,8 +118,8 @@
   },
   "import": {
     "title": "导入寻访记录",
-    "overwriteStats": "覆盖统计数据",
-    "overwriteDesc": "仅当您的统计数据加倍或显示不正确的数字时才使用此选项。系统将从游戏数据库中严格重新计算您的完整记录。",
+    "overwriteStats": "覆盖排行统计数据",
+    "overwriteDesc": "仅当您的排行统计数据加倍或显示不正确的数字时才使用此选项。系统将根据本地抽卡历史记录严格重新计算您的排行。",
     "delete_token_title": "删除 Token",
     "importing": "导入中...",
     "waiting_response": "等待响应中...",

@@ -134,8 +134,8 @@
   },
   "import": {
     "title": "Import Headhunting Records",
-    "overwriteStats": "Overwrite Stats",
-    "overwriteDesc": "Use this option only if your stats are doubled or showing incorrect numbers. The system will strictly recalculate your rating from the current pull history.",
+    "overwriteStats": "Overwrite Rating Stats",
+    "overwriteDesc": "Use this option only if your rating stats are doubled or showing incorrect numbers. The system will strictly recalculate your rating from the local pull history.",
     "delete_token_title": "Delete Token",
     "importing": "Importing...",
     "waiting_response": "Waiting for response...",

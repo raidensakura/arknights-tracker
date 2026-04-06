@@ -300,8 +300,9 @@
             bannerType.includes("weap") || bannerType.includes("wepon");
         const hardPityLimit = isWeapon ? 80 : 120;
         
-        let processed = sorted.map((pull) => {
+        let processed = sorted.map((pull, i) => {
             const p = { ...pull };
+            p.pullNumber = i + 1;
             const banner = getBannerForPull(p.time, bannerType);
             const bid = banner ? banner.id : "other";
 
@@ -866,7 +867,7 @@
                                             <div
                                                 class="font-nums text-gray-400 dark:text-[#B7B6B3] text-xs text-center justify-center flex items-center"
                                             >
-                                                {totalCount - index}
+                                                {row.pullNumber}
                                             </div>
 
                                             <div

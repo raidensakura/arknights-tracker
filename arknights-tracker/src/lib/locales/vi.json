@@ -118,8 +118,8 @@
   },
   "import": {
     "title": "Nhập Hồ sơ Chiêu mộ",
-    "overwriteStats": "Ghi đè Thống kê",
-    "overwriteDesc": "Chỉ sử dụng tùy chọn này nếu số liệu thống kê của bạn bị nhân đôi hoặc hiển thị các con số không chính xác. Hệ thống sẽ tính toán lại toàn bộ lịch sử của bạn từ cơ sở dữ liệu trò chơi.",
+    "overwriteStats": "Ghi đè Thống kê Xếp hạng",
+    "overwriteDesc": "Chỉ sử dụng tùy chọn này nếu thống kê xếp hạng của bạn bị nhân đôi hoặc hiển thị các con số không chính xác. Hệ thống sẽ tính toán lại bảng xếp hạng của bạn một cách chính xác từ lịch sử gacha cục bộ.",
     "delete_token_title": "Xóa Token",
     "importing": "Đang nhập...",
     "waiting_response": "Đang chờ phản hồi...",
