@@ -411,11 +411,25 @@
         try {
             const accounts = get(accountStore.accounts);
             const selectedId = get(accountStore.selectedId);
-
             const currentAcc = accounts.find((a) => a.id === selectedId);
             const sId = currentAcc?.serverId || "3";
+            const uid = currentAcc?.serverUid;
 
             await pullData.smartImport(pendingData, sId, true);
+
+            if (isOverwriteEnabled && uid) {
+                const currentLocalData = get(pullData);
+                let allLocalPulls = [];
+                Object.values(currentLocalData).forEach(cat => {
+                    if (cat.pulls) allLocalPulls.push(...cat.pulls);
+                });
+
+                await fetch(`${API_BASE}/sync-history`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uid, serverId: sId, pulls: allLocalPulls })
+                });
+            }
 
             goto("/records");
         } catch (err) {
