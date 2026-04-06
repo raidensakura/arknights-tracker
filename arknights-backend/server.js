@@ -350,6 +350,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
 
     const pullsByBanner = {};
     const offset = getServerOffset(serverId);
+    const newlyAddedPullKeys = new Set();
 
     allPulls.forEach(p => {
         let pullTimeMs = 0;
@@ -377,7 +378,7 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
 
         const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
         const newGlobalPulls = enrichedPulls.filter(p => p.time > lastTime);
-
+        newGlobalPulls.forEach(p => newlyAddedPullKeys.add(p.seqId || p.time));
         let newPullsCount = newGlobalPulls.length;
         let new6 = 0, new5 = 0, newSumPity6 = 0, newSumPity5 = 0;
         let newWon = 0, newTotal5050 = 0;
@@ -491,13 +492,8 @@ async function updateAggregatedStats(uid, allPulls, serverId) {
     for (const [genId, pulls] of Object.entries(pullsByGeneric)) {
         if (!pulls.length) continue;
 
-        const oldUserStatGen = await prisma.userBannerStat.findUnique({
-            where: { uid_bannerId: { uid, bannerId: genId } }
-        });
-        const lastTimeGen = Number(oldUserStatGen?.lastProcessedPullTime || 0);
-
         const { stats, enrichedPulls } = calculateMath(pulls, genId, serverId);
-        const newGenPulls = enrichedPulls.filter(p => p.time > lastTimeGen);
+        const newGenPulls = enrichedPulls.filter(p => newlyAddedPullKeys.has(p.seqId || p.time));
 
         let newPullsCount = newGenPulls.length;
         let new6 = 0, new5 = 0, newSumPity6 = 0, newSumPity5 = 0;
