@@ -323,6 +323,24 @@ app.post('/api/import', importLimiter, async (req, res) => {
     }
 });
 
+app.post('/api/sync-history', async (req, res) => {
+    const { uid, serverId, pulls } = req.body;
+    
+    if (!uid || !pulls || !Array.isArray(pulls)) {
+        return res.status(400).json({ type: 'error', message: "Invalid data format" });
+    }
+
+    try {
+        console.log(`\n[SYNC] 📥 Frontend sent history (${pulls.length} pulls) for UID: ${uid}`);
+        await updateAggregatedStats(uid, pulls, serverId, true);
+        console.log(`[SYNC] ✅ History for ${uid} succesfully synced with backend.`);
+        res.json({ type: 'complete', message: "Sync successful" });
+    } catch (error) {
+        console.error("[SYNC] ❌ Critical Sync Error:", error);
+        res.status(500).json({ type: 'error', message: error.message || "Internal Server Error" });
+    }
+});
+
 function mapPoolTypeToShort(longType) {
     if (!longType) return 'unknown';
     if (longType.includes('Character')) {
@@ -675,7 +693,7 @@ function getDistinctBannerId(pull, serverId) {
     return `gen_${rawId}_${d.getFullYear()}_${d.getMonth()}_w${Math.floor(d.getDate() / 7)}`;
 }
 
-function calculateMath(pulls, categoryId, serverId = '3') {
+function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startPity5 = 0) {
     pulls.sort((a, b) => {
         const tDiff = new Date(a.time).getTime() - new Date(b.time).getTime();
         if (tDiff !== 0) return tDiff;
@@ -697,8 +715,8 @@ function calculateMath(pulls, categoryId, serverId = '3') {
     let sumPity6 = 0, sumPity5 = 0;
     let won5050 = 0, total5050 = 0;
 
-    let currentPity6 = 0;
-    let currentPity5 = 0;
+    let currentPity6 = startPity6;
+    let currentPity5 = startPity5;
     let rateUpCounter = 0;
 
     const offset = getServerOffset(serverId);
