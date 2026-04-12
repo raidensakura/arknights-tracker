@@ -439,5 +439,19 @@ export const rawEvents = [
     type: "inGame",
     iconPosition: 15,
     version: "1.1"
+  },
+  {
+    id: "ev15-v1.1",
+    title: "events.risingTideOfWuling",
+    startTime: "2026-04-12 12:00:00",
+    endTime: "2026-04-16 17:00:00",
+    endTimeAsia: "2026-04-17 06:00:00",
+    icon: "ev15-v1.1.jpg",
+    url: "https://x.com/AKEndfield/status/2043177290859712849?s=20",
+    color: "#99b7db",
+    layer: 6,
+    type: "signIn",
+    iconPosition: 50,
+    version: "1.1"
   }
-];
+];  

@@ -356,10 +356,10 @@
             </div>
 
             <div
-                class="w-full mt-auto mb-4 flex flex-col items-center gap-6 px-4"
+                class="w-full mt-auto mb-1 flex flex-col items-center gap-6 px-4"
             >
                 {#if !visuallyCollapsed}
-                    <div class="w-full flex justify-center flex-col gap-6">
+                    <div class="w-full flex justify-center flex-col pt-2 gap-4">
                         <div class="w-full flex justify-center">
                             <ThemeSwitch />
                         </div>

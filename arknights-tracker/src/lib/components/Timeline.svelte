@@ -39,9 +39,10 @@
         const isAsia = currentServerId === "2";
 
         const mappedEvents = rawEvents.map((e) => {
-            const startStr = isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
+            const startStr =
+                isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
             const endStr = isAsia && e.endTimeAsia ? e.endTimeAsia : e.endTime;
-            
+
             return {
                 ...e,
                 originalType: e.type,
@@ -53,12 +54,15 @@
 
         const mappedBanners = banners
             .filter((b) => {
-                const endStr = isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
+                const endStr =
+                    isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
                 return endStr !== null;
             })
             .map((b) => {
-                const startStr = isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
-                const endStr = isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
+                const startStr =
+                    isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
+                const endStr =
+                    isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
 
                 return {
                     ...b,
@@ -261,9 +265,9 @@
         let adjustedDate = date;
 
         if (timezoneKey === "server") {
-            const shiftedMs = date.getTime() + (serverOffset * 3600000);
+            const shiftedMs = date.getTime() + serverOffset * 3600000;
             adjustedDate = new Date(shiftedMs);
-            
+
             const dd = String(adjustedDate.getUTCDate()).padStart(2, "0");
             const dayKey = adjustedDate
                 .toLocaleString("en-US", { weekday: "short", timeZone: "UTC" })
@@ -427,12 +431,12 @@
     onMount(() => {
         if (browser) {
             currentServerId = localStorage.getItem("ark_server_id") || "3";
-            
+
             const savedTimePref = localStorage.getItem("show_server_time");
             if (savedTimePref !== null) {
                 showServerTime = savedTimePref === "true";
             }
-            
+
             setTimeout(() => {
                 if (bodyContainer) {
                     bodyContainer.scrollLeft = currentTimeX - 300;
@@ -446,7 +450,7 @@
             timerInterval = setInterval(() => {
                 now = new Date();
             }, 1000);
-            
+
             document.addEventListener("click", handleClickOutside);
         }
     });
@@ -526,7 +530,11 @@
             return { icon: "signIn", label: "Sign-In", bg: glassStyle };
         }
         if (event.type === "inGamePermanent") {
-            return { icon: "permanent", label: "Permanent Event", bg: glassStyle };
+            return {
+                icon: "permanent",
+                label: "Permanent Event",
+                bg: glassStyle,
+            };
         }
 
         if (
@@ -554,6 +562,10 @@
             label: "Limited Event",
             bg: glassStyle,
         };
+    }
+    function isShortEvent(event) {
+        if (!event.realEndTime || !event.realStartTime) return false;
+        return (event.realEndTime - event.realStartTime) / 86400000 < 5;
     }
 </script>
 
@@ -744,9 +756,8 @@
                             <div
                                 class="relative z-20 h-full w-full pointer-events-none"
                             >
-                                <div
-                                    class="sticky left-0 inline-flex items-center gap-2 px-3 h-full max-w-full pointer-events-auto"
-                                >
+
+                                <div class="sticky left-0 inline-flex items-center {isShortEvent(event) ? 'gap-1.5 px-2' : 'gap-2 px-3'} h-full max-w-full pointer-events-auto">
                                     {#if badge}
                                         <div
                                             class="flex items-center gap-1.5 rounded px-1.5 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}"
@@ -755,26 +766,33 @@
                                                 name={badge.icon}
                                                 class="w-3.5 h-3.5"
                                             />
-                                            <span
-                                                class="text-[10px] font-bold uppercase tracking-wide opacity-90"
-                                            >
-                                                {badge.label}
-                                            </span>
+                                            
+                                                <span
+                                                    class="text-[10px] font-bold uppercase tracking-wide opacity-90"
+                                                >
+                                                    {badge.label}
+                                                </span>
+                                            
                                         </div>
                                     {/if}
 
-                                    <div
-                                        class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"
-                                    ></div>
+                                    {#if !isShortEvent(event)}
+                                        <div
+                                            class="h-6 w-[2px] bg-white/60 shrink-0 opacity-50"
+                                        ></div>
+                                    {/if}
 
                                     <div
                                         class="flex flex-col justify-center min-w-0"
                                     >
-                                        <span
-                                            class="text-white font-bold text-sm leading-tight truncate"
-                                        >
-                                            {getEventName(event)}
-                                        </span>
+                                        {#if !isShortEvent(event)}
+                                            <span
+                                                class="text-white font-bold text-sm leading-tight truncate"
+                                            >
+                                                {getEventName(event)}
+                                            </span>
+                                        
+                                        
                                         <span
                                             class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
                                         >
@@ -783,38 +801,61 @@
                                                 `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
                                             )}
                                         </span>
+                                        {/if}
                                     </div>
                                 </div>
                             </div>
                         </button>
 
                         {#if now < event.realStartTime && getTimeUntilStart(event.realStartTime, $t)}
-                                <div class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none transition-opacity">
-                                    <div class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-blue-400/30 bg-black/50">
-                                        <span class="text-[10px] font-bold uppercase tracking-wide text-blue-300 shadow-sm">
-                                            {getTimeUntilStart(event.realStartTime, $t)}
-                                        </span>
-                                    </div>
+                            <div
+                                class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none transition-opacity"
+                            >
+                                <div
+                                    class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-blue-400/30 bg-black/50"
+                                >
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wide text-blue-300 shadow-sm"
+                                    >
+                                        {getTimeUntilStart(
+                                            event.realStartTime,
+                                            $t,
+                                        )}
+                                    </span>
                                 </div>
-                                
-                            {:else if event.isPermanent}
-                                <div class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none">
-                                    <div class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-gray-400/30 bg-black/50">
-                                        <span class="text-[10px] font-bold uppercase tracking-wide text-gray-300 shadow-sm">
-                                            {$t("timer.permanent") || "Permanent"}
-                                        </span>
-                                    </div>
+                            </div>
+                        {:else if event.isPermanent}
+                            <div
+                                class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+                            >
+                                <div
+                                    class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-gray-400/30 bg-black/50"
+                                >
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wide text-gray-300 shadow-sm"
+                                    >
+                                        {$t("timer.permanent") || "Permanent"}
+                                    </span>
                                 </div>
-                                
-                            {:else if now >= event.realStartTime && getRemainingTime(event.realEndTime, $t)}
-                                <div class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none">
-                                    <div class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-green-400/30 bg-black/50">
-                                        <span class="text-[10px] font-bold uppercase tracking-wide text-green-300 shadow-sm">
-                                            {getRemainingTime(event.realEndTime, $t)}
-                                        </span>
-                                    </div>
+                            </div>
+                        {:else if now >= event.realStartTime && getRemainingTime(event.realEndTime, $t)}
+                            <div
+                                class="absolute right-1 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+                            >
+                                <div
+                                    class="flex items-center gap-1.5 rounded px-1 py-0.5 shrink-0 shadow-sm border border-green-400/30 bg-black/50"
+                                >
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wide text-green-300 shadow-sm"
+                                    >
+                                        {getRemainingTime(
+                                            event.realEndTime,
+                                            $t,
+                                        )}
+                                    </span>
                                 </div>
-                            {/if}
+                            </div>
+                        {/if}
                     </div>
                 {/each}
             </div>

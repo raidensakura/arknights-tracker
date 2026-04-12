@@ -214,7 +214,7 @@
         {/if}
       {:else}
         <div
-          class="w-40 h-40 rounded-full  border-4 border-gray-100 bg-gray-50 flex items-center justify-center relative z-10"
+          class="w-40 h-40 rounded-full border-4 border-gray-100 dark:border-[#404040] bg-gray-50 dark:bg-[#393939] flex items-center justify-center relative z-10"
         >
           <span class="text-xs text-gray-400 flex flex-col items-center">
             <Icon name="noData" class="w-4 h-4" />
