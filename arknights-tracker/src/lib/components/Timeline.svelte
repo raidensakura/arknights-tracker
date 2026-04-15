@@ -10,6 +10,9 @@
     import BannerModal from "$lib/components/BannerModal.svelte";
     import Images from "$lib/components/Images.svelte";
 
+    export let lastVersion = null;
+    export let currentVersion = null;
+
     let currentServerId = "3";
 
     $: serverOffset = currentServerId === "2" ? 8 : -5;
@@ -37,20 +40,60 @@
 
     $: allEvents = (() => {
         const isAsia = currentServerId === "2";
-
-        const mappedEvents = rawEvents.map((e) => {
-            const startStr =
-                isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
-            const endStr = isAsia && e.endTimeAsia ? e.endTimeAsia : e.endTime;
-
-            return {
-                ...e,
-                originalType: e.type,
-                type: e.type || "ingame",
-                realStartTime: parseServerDate(startStr),
-                realEndTime: endStr ? parseServerDate(endStr) : null,
-            };
+        const allAvailableVersions = [...new Set([...rawEvents, ...banners].map(e => String(e.version)).filter(v => v !== 'undefined' && v !== 'null'))];
+        allAvailableVersions.sort((a, b) => {
+            const pa = a.split('.').map(Number);
+            const pb = b.split('.').map(Number);
+            for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+                const va = pa[i] || 0;
+                const vb = pb[i] || 0;
+                if (va !== vb) return va - vb;
+            }
+            return 0;
         });
+
+        let activeVersions = [];
+        if (lastVersion && currentVersion) {
+            activeVersions = [String(lastVersion), String(currentVersion)];
+        } else {
+            const len = allAvailableVersions.length;
+            if (len >= 2) {
+                activeVersions = [allAvailableVersions[len - 2], allAvailableVersions[len - 1]];
+            } else if (len === 1) {
+                activeVersions = [allAvailableVersions[0]];
+            }
+        }
+
+        let extendedVersionsForWeapons = [...activeVersions];
+        const earliestIdx = allAvailableVersions.indexOf(activeVersions[0]);
+        if (earliestIdx > 0) {
+            extendedVersionsForWeapons.push(allAvailableVersions[earliestIdx - 1]);
+        }
+
+        const filterByVersion = (item) => {
+            if (!item.version) return true;
+            
+            const isWeap = item.originalType === 'weapon' || item.type === 'weapon' || (item.id && item.id.includes('weap'));
+            const allowedVersions = isWeap ? extendedVersionsForWeapons : activeVersions;
+            
+            return allowedVersions.includes(String(item.version));
+        };
+
+        const mappedEvents = rawEvents
+            .filter(filterByVersion)
+            .map((e) => {
+                const startStr =
+                    isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
+                const endStr = isAsia && e.endTimeAsia ? e.endTimeAsia : e.endTime;
+
+                return {
+                    ...e,
+                    originalType: e.type,
+                    type: e.type || "ingame",
+                    realStartTime: parseServerDate(startStr),
+                    realEndTime: endStr ? parseServerDate(endStr) : null,
+                };
+            });
 
         const mappedBanners = banners
             .filter((b) => {
@@ -58,6 +101,7 @@
                     isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
                 return endStr !== null;
             })
+            .filter(filterByVersion)
             .map((b) => {
                 const startStr =
                     isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
