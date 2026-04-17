@@ -226,7 +226,7 @@
         return new Date(utc + 3600000 * targetOffset);
     }
 
-    const DAY_WIDTH = 30;
+    const DAY_WIDTH = 32;
     const ROW_HEIGHT = 40;
     const GAP_HEIGHT = 8;
     const HEADER_HEIGHT_PX = 80;

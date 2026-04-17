@@ -266,7 +266,7 @@ export const characters = {
     name: "Zhuang Fangyi",
     rarity: 6,
     element: "electric",
-    class: "vanguard",
+    class: "striker",
     weapon: "artsUnit",
     birthDate: "07-08",
     isNew: true
