@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Multiplicateur d'ATQ-B SÉQ 4 améliorée"
       },
       "name": "Crépuscule",
-      "description": "Laevatain invoque son Sviga Lævi et devient l'opératrice contrôlée.\nPendant un certain temps, ses attaques de base (ATQ-B) sont améliorées et le Sviga Lævi frappe de concert avec Laevatain. Chaque attaque inflige alors des <@ba.fire>DÉG thermiques</>. La séquence 3 d'ATQ-B applique également une <#ba.fireinflict>altération thermique</>."
+      "description": "Laevatain invoque son Sviga Lævi et devient l'opératrice contrôlée. \nPendant un certain temps, ses attaques de base (ATQ-B) sont améliorées et le Sviga Lævi frappe de concert avec Laevatain. Chaque attaque inflige alors des <@ba.fire>DÉG thermiques</>. La séquence 3 d'ATQ-B applique également une <#ba.fireinflict>altération thermique</>.\n<@ba.info>Utiliser sa compétence de combat, Feu couvant, ou sa compétence de combo, Ébullition, ne raccourcit pas la durée de l'ultime, Crépuscule.</>"
     },
     "indicator": {
       "levels": [

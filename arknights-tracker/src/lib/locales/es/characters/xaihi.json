@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Prueba de estrés",
       "description": "ACTIVADOR DE COMBO: Cuando el <@ba.key>Cristal auxiliar</> agota sus tratamientos de PV. \nCarga rápidamente el <@ba.key>Cristal auxiliar</> y lo lanza al enemigo para infligir <@ba.cryst>DAÑ criogénico</> e <#ba.crystinflict>Imposición criogénica</>."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "Habilidad de combo <@ba.key>Prueba de estrés</> mejorada: Golpear a un enemigo con <#ba.crystinflict>Imposición criogénica</> o <#ba.frozen>Solidificación</> también hace que reciba <@ba.cryst>DAÑ criogénico infligido</> <@ba.vup>+{cryst_up:0%}</> durante <@ba.vup>{duration:0}</> s. Este efecto no se puede acumular.",
-        "Habilidad de combo <@ba.key>Prueba de estrés</> mejorada: Golpear a un enemigo con <#ba.crystinflict>Imposición criogénica</> o <#ba.frozen>Solidificación</> también hace que reciba <@ba.cryst>DAÑ criogénico infligido</> <@ba.vup>+{cryst_up:0%}</> durante <@ba.vup>{duration:0}</> s. Este efecto no se puede acumular."
+        "Habilidad de combo <@ba.key>Prueba de estrés</> mejorada: Golpear a un enemigo con <#ba.crystinflict>Imposición criogénica</> o <#ba.frozen>Solidificación</> también hace sufrir al enemigo <@ba.cryst>DAÑ criogénico recibido</> <@ba.vup>+{cryst_up:0%}</> durante <@ba.vup>{duration:0}</> s. Este efecto no se puede acumular.",
+        "Habilidad de combo <@ba.key>Prueba de estrés</> mejorada: Golpear a un enemigo con <#ba.crystinflict>Imposición criogénica</> o <#ba.frozen>Solidificación</> también hace sufrir al enemigo <@ba.cryst>DAÑ criogénico recibido</> <@ba.vup>+{cryst_up:0%}</> durante <@ba.vup>{duration:0}</> s. Este efecto no se puede acumular."
       ],
       "name": "Proceso de ejecución"
     },

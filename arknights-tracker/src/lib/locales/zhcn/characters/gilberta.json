@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "秘杖·矩阵位移",
       "description": "当有敌人被施加<#ba.spellstatus>法术异常</>时可以发动。\n短暂施法后使目标及附近敌人全部受到重力牵引，对其造成<@ba.natur>自然伤害</>并强制造成<#ba.airborne>击飞</>。"

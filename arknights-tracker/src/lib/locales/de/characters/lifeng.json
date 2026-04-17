@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "SEQ-1-SDN-Multiplikator",
         "seq2DmgMultiplier": "SEQ-2-SDN-Multiplikator",
         "seq2Stagger": "SEQ 2 – Taumeln",
-        "comboDurationS": "Kombodauer (Sek.)"
+        "comboDurationS": "Kombodauer (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Aspekt des Zorns",
       "description": "KOMBOAUSLÖSER: Wenn der gesteuerte Operator einen <#ba.lastcombo>Abschlussangriff</> auf einen Gegner mit <#ba.physicalvul>Physisch-Empfänglichkeit</> oder <#ba.fracture>Brechen</> durchführt. \nEntfesselt einen Aspekt, der einen Speerstoß ausführt, der <@ba.pd>Physischen SDN</> verursacht und <#ba.combo>Verbunden</> gewährt."

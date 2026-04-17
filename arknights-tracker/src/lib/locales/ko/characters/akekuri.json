@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "단계별 피해 배율",
         "staggerPerSeq": "단계별 불균형치",
-        "spRecoveryPerSeq": "단계별 스킬 게이지 회복"
+        "spRecoveryPerSeq": "단계별 스킬 게이지 회복",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "섬광 돌진",
       "description": "불균형 상태 혹은 <#ba.poiseknot>불균형 지점</>에 도달한 적이 있을 때 사용할 수 있습니다.\n2번 연속 찌르기를 사용하여 각 공격마다 <@ba.pd>물리 피해</>를 주고 일정량의 스킬 게이지를 회복합니다."

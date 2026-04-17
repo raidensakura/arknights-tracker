@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "傷害倍率",
         "stagger": "失衡值",
-        "thunderlanceDurationS": "雷槍存在時間（秒）"
+        "thunderlanceDurationS": "雷槍存在時間（秒）",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "雷槍·掣擊",
       "description": "主控幹員對處於<#ba.pulseinflict>電磁附著</>或<#ba.conduct>導電</>狀態的目標<#ba.lastcombo>重擊</>後可以發動。\n躍起並向目標投擲出3支<@ba.key>雷槍</>，並對前方範圍內的敵人造成1次<@ba.pulse>電磁傷害</>。"

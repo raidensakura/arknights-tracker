@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
         "stagger": "Desorientação",
-        "crushDmgBonus": "Bônus DNO Esmagar"
+        "crushDmgBonus": "Bônus DNO Esmagar",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "MAIS PIMENTA!",
       "description": "ACIONADOR DO COMBO: Quando um inimigo atinge 4 acúmulos de <#ba.noguard>Vulnerabilidade</>. \nBalança o wok no inimigo para causar <@ba.pd>DNO Físico</> significativo e <#ba.crush>Esmagar</>. <#ba.crush>Esmagar</> também causa mais DNO."

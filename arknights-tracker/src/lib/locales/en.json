@@ -673,7 +673,25 @@
     "aerospaceMaterialIi": "Aerospace Material II",
     "lightXircon": "Light Xircon",
     "xircon": "Xircon",
-    "xiranite": "Xiranite"
+    "xiranite": "Xiranite",
+    "hetoniteBottle": "Hetonite Bottle",
+    "heavyXiranite": "Heavy Xiranite",
+    "experimentalXiraniteBottle": "Experimental Xiranite Bottle",
+    "experimentalXiranitePart": "Experimental Xiranite Part",
+    "experimentalHeavyXiraniteBottle": "Experimental Heavy Xiranite Bottle",
+    "experimentalHeavyXiranitePart": "Experimental Heavy Xiranite Part",
+    "xiraniteJadeGourd": "Xiranite Jade Gourd",
+    "experimentalXiranHueAtomizer": "Experimental Xiran-Hue Atomizer",
+    "xiraniteGourd": "Xiranite Gourd",
+    "echoingDust": "Echoing Dust",
+    "cupriumSolution": "Cuprium Solution",
+    "hetonite": "Hetonite",
+    "hetonitePart": "Hetonite Part",
+    "howlerbeastBraid": "Howlerbeast Braid",
+    "hetoniteComponent": "Hetonite Component",
+    "hetoniteSolution": "Hetonite Solution",
+    "precipitationAcid": "Precipitation Acid",
+    "liquidHeavyXiranite": "Liquid Heavy Xiranite"
   },
   "common": {
     "copy": "Copy",
@@ -833,7 +851,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Industry 0.1",
@@ -901,7 +920,9 @@
     "gloriousMemory": "Glorious Memory",
     "objEdgeOfLightness": "OBJ Edge of Lightness",
     "finchaser30": "Finchaser 3.0",
-    "lupineScarlet": "Lupine Scarlet"
+    "lupineScarlet": "Lupine Scarlet",
+    "loneBarge": "Lone Barge",
+    "flickersInTheMist": "Flickers in the Mist"
   },
   "cookies": {
     "title": "We use cookies",
@@ -984,7 +1005,21 @@
     "world_energy_point05_5": "Severe Energy Alluvium: Wuling City",
     "world_energy_point05_6": "Severe Energy Alluvium: Wuling City",
     "world_energy_point06_2": "Energy Alluvium: Qingbo Stockade",
-    "world_energy_point06_3": "Energy Alluvium: Qingbo Stockade"
+    "world_energy_point06_3": "Energy Alluvium: Qingbo Stockade",
+    "world_energy_point07_5": "Severe Energy Alluvium: Marker Stone",
+    "world_energy_point07_7": "Severe Energy Alluvium: Marker Stone",
+    "world_energy_point07_6": "Severe Energy Alluvium: Marker Stone",
+    "world_energy_point08_5": "Severe Energy Alluvium: Test Area",
+    "world_energy_point08_4": "Severe Energy Alluvium: Test Area",
+    "world_energy_point08_7": "Severe Energy Alluvium: Test Area",
+    "world_energy_point07_1": "Energy Alluvium: Marker Stone",
+    "world_energy_point07_2": "Energy Alluvium: Marker Stone",
+    "world_energy_point08_1": "Energy Alluvium: Test Area",
+    "world_energy_point07_3": "Energy Alluvium: Marker Stone",
+    "world_energy_point07_4": "Severe Energy Alluvium: Marker Stone",
+    "world_energy_point08_3": "Energy Alluvium: Test Area",
+    "world_energy_point08_2": "Energy Alluvium: Test Area",
+    "world_energy_point08_6": "Severe Energy Alluvium: Test Area"
   },
   "enemies": {
     "eny_0007_mimicw": "Tunneling Nidwyrm",
@@ -1054,7 +1089,11 @@
     "eny_0096_hsmob2": "Highway Reaver",
     "eny_0097_hsmino2": "Cloud Obliterator",
     "eny_0103_hshunt2": "Sweeping Wind",
-    "eny_0107_wgshoal2": "Tidewalker δ"
+    "eny_0107_wgshoal2": "Tidewalker δ",
+    "eny_0078_nefarp1": "Nefarith, \"Bonekrusher\"",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, \"Conqueror\"",
+    "eny_0082_hsbear": "Skydrummer"
   },
   "essencesPage": {
     "optimizer": "Farming Optimizer",
@@ -1285,7 +1324,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Eternal Xiranite Power Core T1",
     "item_equip_t4_suit_usp02_edc_03": "Eternal Xiranite Auxiliary Arm",
     "item_equip_t4_suit_usp02_hand_01": "Eternal Xiranite Gloves",
-    "item_equip_t4_suit_usp02_hand_02": "Eternal Xiranite Gloves T1"
+    "item_equip_t4_suit_usp02_hand_02": "Eternal Xiranite Gloves T1",
+    "item_equip_t4_suit_atb01_edc_06": "Frontiers Extra O2 Tube T1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Xiranflow Gloves",
+    "item_equip_t4_suit_attri01_hand_03": "Bonekrusha Gloves",
+    "item_equip_t4_suit_atb01_hand_03": "Frontiers Fiber Gloves T1",
+    "item_equip_t4_suit_phy01_edc_04": "Swordmancer Dagger",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Qingbo Cask",
+    "item_equip_t4_suit_attri01_edc_02": "Bonekrusha Figurine T2",
+    "item_equip_t4_suit_phy01_body_03": "Swordmancer Heavy Armor T1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Qingbo Heavy Armor",
+    "item_equip_t4_suit_combo_cd01_body_02": "Qingbo Light Armor",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Qingbo Positioning Kit",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Qingbo Bamboo Cutter",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Qingbo Gauntlets",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Qingbo Gloves",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Xiranflow Baton",
+    "item_equip_t4_suit_expend_spell01_body_02": "Xiranflow Light Armor",
+    "item_equip_t4_suit_phy01_hand_03": "Swordmancer TAC Gauntlets T1"
   },
   "packs": {
     "none": "Non-Set",
@@ -1331,7 +1387,9 @@
     "suit_usp02": "Eternal Xiranite",
     "suit_will01": "Mordvolt Resistant",
     "suit_wisd01": "Mordvolt Insulation",
-    "suit_wisdwill01": "AIC Light"
+    "suit_wisdwill01": "AIC Light",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Xiranflow"
   },
   "equipmentTypes": {
     "body": "Armor",

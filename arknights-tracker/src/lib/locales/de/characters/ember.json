@@ -50,7 +50,8 @@
         "dmgMultiplier": "SDN-Multiplikator",
         "stagger": "Taumeln",
         "baseTreatment": "Grundbehandlung",
-        "treatmentIncreasePerWill": "Behandlungssteigerung pro Wille"
+        "treatmentIncreasePerWill": "Behandlungssteigerung pro Wille",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Frontlinien-Unterstützung",
       "description": "KOMBOAUSLÖSER: Der gesteuerte Operator wird angegriffen. \nSpringt zum Ziel und führt einen schweren Schlag aus, der <@ba.pd>Physischen SDN</> und <#ba.knockdown>Niederschlag</> verursacht und gleichzeitig eine LP-Behandlung beim gesteuerten Operator durchführt. Die Wirksamkeit der LP-Behandlung erhöht sich mit dem Wille-Attribut."

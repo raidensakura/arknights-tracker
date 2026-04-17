@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "Hệ Số ST Chuỗi Công 1",
+        "seq1UltimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ Chuỗi Công 1",
         "seq2DmgMultiplier": "Hệ Số ST Chuỗi Công 2",
         "bonusDmgMultiplierPerInflictionStack": "Hệ Số ST Cộng Thêm/Tầng Nhiễm",
         "seq2Stagger": "Suy Sụp Chuỗi Công 2",
         "criticalRateBoost": "Tăng Cường Tỷ Lệ Bạo Kích",
         "criticalDmgBoost": "Tăng Cường ST Bạo Kích",
-        "buffDurationS": "Hiệu Lực Buff (giây)"
+        "buffDurationS": "Hiệu Lực Buff (giây)",
+        "seq2UltimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ Chuỗi Công 2"
       },
       "name": "Khoảnh Khắc Liệt Ảnh",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi kẻ địch trúng cả tầng <#ba.noguard>Trừ Giáp</> và <#ba.spellinflict>Nhiễm Thuật Pháp</>.\nKN liên hoàn của Rossi sẽ có 2 chuỗi đòn liên tiếp. CHUỖI LIÊN HOÀN 1 gây <@ba.pd>ST Vật Lý</> lên mục tiêu.\nCHUỖI LIÊN HOÀN 2 <#ba.consume>giải trừ</> hết số tầng <#ba.spellinflict>Nhiễm Thuật Pháp</> cho mục tiêu, gây <@ba.pd>ST Vật Lý</> tương ứng với số tầng Nhiễm Thuật Pháp <#ba.consume>đã giải trừ</>, gây 1 lần <#ba.airborne>Hất Tung</>, đồng thời cùng lúc buff Tỷ Lệ Bạo Kích và ST Bạo Kích của Rossi.\nNếu thi triển CHUỖI LIÊN HOÀN 2 bằng cách <@ba.key>căn chuẩn</> thì áp dụng thêm 1 tầng <#ba.noguard>Trừ Giáp</>."
@@ -138,7 +140,7 @@
     },
     "potential5": {
       "description": "Tuyệt Kỹ <@ba.key>Lợi Trảo Tập Kích</> được cải thiện: Hệ Số ST tăng gấp <@ba.vup>{potential_5_damage_scale:0.0}</> lần so với ban đầu; ST Bạo Kích được <@ba.vup>+{potential_5_critical_damage:0%}</>.",
-      "name": "Điểm Đến Huyền Thoại"
+      "name": "Đích Đến Truyền Thuyết"
     }
   },
   "arts": {

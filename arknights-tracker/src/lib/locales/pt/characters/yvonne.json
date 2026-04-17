@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "Multiplicador DNO Energia",
         "explosionDmgMultiplier": "Multiplicador DNO Explosão",
         "explosionStagger": "Desorientação por Explosão",
+        "ultimateEnergyGain": "Ganho de Energia Suprema",
         "additionalUltimateEnergyGain": "Ganho de Energia Suprema Adicional"
       },
       "name": "Congelador Ultrarrápido υ37",

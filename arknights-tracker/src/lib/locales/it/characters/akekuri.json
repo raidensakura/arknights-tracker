@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "Moltiplicatore danni per SEQ",
         "staggerPerSeq": "Vacillamento per SEQ",
-        "spRecoveryPerSeq": "Recupero PA per SEQ"
+        "spRecoveryPerSeq": "Recupero PA per SEQ",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Bagliore e scintillio",
       "description": "ATTIVAZIONE COMBO: quando il nemico diventa Vacillante o raggiunge un <#ba.poiseknot>nodo di Vacillamento</>. \nEsegue uno scatto all'indietro seguito da due sequenze di affondo, ciascuna delle quali infligge <@ba.pd>danni fisici</> e ripristina parzialmente i PA."

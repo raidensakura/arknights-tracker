@@ -53,7 +53,8 @@
         "stagger": "Déséquilibre",
         "baseShield": "Bouclier de base",
         "shieldIncreasePerDefense": "Augmentation du bouclier par Défense",
-        "shieldDurationS": "Durée de bouclier (s)"
+        "shieldDurationS": "Durée de bouclier (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Suppression providentielle",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi commence à charger une compétence ou lorsque l'opérateur contrôlé est attaqué alors que ses PV sont inférieurs à {trigger_hp_ratio:0%}.\nUn puissant coup de poing descendant qui inflige des <@ba.pd>DÉG physiques</> à l'ennemi tout en octroyant des <#ba.shield>boucliers</> à soi-même et à un autre coéquipier (l'opérateur contrôlé est prioritaire).\nLa DÉF peut augmenter davantage les points de bouclier."

@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
         "stagger": "Desorientação",
-        "thunderlanceDurationS": "Duração da Lança do Trovão (s)"
+        "thunderlanceDurationS": "Duração da Lança do Trovão (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Lança do Trovão: Golpe",
       "description": "ACIONADOR DO COMBO: Quando o operador controlado aplica um <#ba.lastcombo>Golpe Final</> em um alvo com <#ba.pulseinflict>Inflição Elétrica</> ou <#ba.conduct>Eletrificação</> ativa. \nSalta no meio do ar e arremessa 3 <@ba.key>Lanças do Trovão</> no alvo. Em seguida, causa 1 acerto de <@ba.pulse>DNO Elétrico</> aos inimigos na área de efeito."
@@ -132,7 +133,7 @@
       "name": "Muito Experiente"
     },
     "potential5": {
-      "description": "Quando <@ba.key>Lanças do Trovão</> ou <@ba.key>Lanças do Trovão EX</> que estão voltando atingem um inimigo com <#ba.pulsevul>Suscetibilidade Elétrica</>, os multiplicadores do DNO sao aimentados <@ba.vup>{potential_5_rate:0.00}</> vezes o original.",
+      "description": "Quando <@ba.key>Lanças do Trovão</> ou <@ba.key>Lanças do Trovão EX</> que estão voltando atingem um inimigo com <#ba.pulsevul>Suscetibilidade Elétrica</>, os multiplicadores DNO são aumentados para <@ba.vup>{potential_5_rate:0.00}</> vezes o original.",
       "name": "Cenoura e Espeto Afiado"
     }
   },

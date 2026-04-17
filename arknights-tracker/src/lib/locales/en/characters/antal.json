@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "EMP Test Site",
       "description": "COMBO TRIGGER: When an enemy with active <@ba.key>Focus</> suffers a <#ba.physicalstatus>Physical Status</> or <#ba.spellinflict>Arts Infliction</>. \nTriggers 1 energy explosion on the enemy that deals <@ba.pulse>Electric DMG</> and applies another stack of the same <#ba.physicalstatus>Physical Status</> or <#ba.spellinflict>Arts Infliction</>."

@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
         "spRecovery": "스킬 게이지 회복",
-        "stagger": "불균형치"
+        "stagger": "불균형치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "천둥의 울림",
       "description": "적이 <#ba.conduct>감전</> 상태거나, <#ba.conduct>감전</> 상태를 <#ba.consume>소모</>한 후, 사용할 수 있습니다.\n적의 옆으로 순간 이동해 연속으로 베기 공격을 하여 <@ba.pd>물리 피해</>를 주고 일정량의 스킬 게이지를 회복합니다."

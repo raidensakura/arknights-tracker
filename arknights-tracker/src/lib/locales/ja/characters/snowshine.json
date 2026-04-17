@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "基礎持続回復量",
         "treatmentOverTimeIncreasePerWill": "意志1ごとの持続回復値UP",
         "treatmentOverTimeIntervalS": "持続回復間隔（秒）",
-        "durationS": "持続時間（秒）"
+        "durationS": "持続時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "極地救援",
       "description": "操作中のオペレーターが攻撃を受け、HPが{trigger_hp_ratio:0%}未満になると発動可能。\nスノーシャインはそのオペレーターに救援アシスタントを投げ、命中するときに周囲のオペレーターを大きく<@ba.heal>回復</>させる。さらに一定時間、範囲内のオペレーターを継続的に<@ba.heal>治療</>する。\n回復量は意志の値に応じて追加でアップする。"

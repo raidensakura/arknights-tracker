@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "エネルギー放出ダメージ倍率",
         "explosionDmgMultiplier": "爆発ダメージ倍率",
         "explosionStagger": "爆発ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量",
         "additionalUltimateEnergyGain": "必殺チャージ追加回復量"
       },
       "name": "アイスちゃん・υ37",

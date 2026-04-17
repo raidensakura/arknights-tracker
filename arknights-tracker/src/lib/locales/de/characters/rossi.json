@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "SEQ-1-SDN-Multiplikator",
+        "seq1UltimateEnergyGain": "SEQ 1 – Ultimative-Energie-Erhalt",
         "seq2DmgMultiplier": "SEQ-2-SDN-Multiplikator",
         "bonusDmgMultiplierPerInflictionStack": "Bonus-SDN-Multiplikator pro Zufügungskumulierung",
         "seq2Stagger": "SEQ 2 – Taumeln",
         "criticalRateBoost": "Kritische-Rate-Boost",
         "criticalDmgBoost": "Kritischer-SDN-Boost",
-        "buffDurationS": "Buffdauer (Sek.)"
+        "buffDurationS": "Buffdauer (Sek.)",
+        "seq2UltimateEnergyGain": "SEQ 2 – Ultimative-Energie-Erhalt"
       },
       "name": "Augenblick des flammenden Schattens",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner sowohl mit <#ba.noguard>Anfälligkeit</> als auch mit <#ba.spellinflict>Technikkumulierung</> belegt ist.\nRossis Kombofertigkeit hat 2 aufeinanderfolgende Sequenzen. KOMBOSEQUENZ 1 fügt dem Ziel <@ba.pd>Physischen SDN</> zu.\nKOMBOSEQUENZ 2 <#ba.consume>verbraucht</> alle <#ba.spellinflict>Technikkumulierungen</> des Ziels, fügt ihm basierend auf der Anzahl der <#ba.consume>verbrauchten</> Technikkumulierungen <@ba.pd>Physischen SDN</> zu, fügt 1 Kumulierung <#ba.airborne>Anheben</> zu und gewährt gleichzeitig einen Buff auf Rossis Kritische Rate und ihren Verursachten Kritischen Schaden.\nWenn KOMBOSEQUENZ 2 mit <@ba.key>perfektem Timing</> ausgeführt wird, bewirkt sie 1 weitere Kumulierung <#ba.noguard>Anfälligkeit</>."

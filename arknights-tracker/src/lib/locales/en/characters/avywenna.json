@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
         "stagger": "Stagger",
-        "thunderlanceDurationS": "Thunderlance Duration (s)"
+        "thunderlanceDurationS": "Thunderlance Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Thunderlance: Strike",
       "description": "COMBO TRIGGER: When controlled operator performs a <#ba.lastcombo>Final Strike</> on a target with active <#ba.pulseinflict>Electric Infliction</> or <#ba.conduct>Electrification</>. \nLeaps into mid-air and throws 3 <@ba.key>Thunderlances</> at the target, then deals 1 hit of <@ba.pulse>Electric DMG</> to enemies in the area of effect."

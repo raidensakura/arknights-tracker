@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
         "stagger": "Taumeln",
-        "whirlpoolDurationS": "Dauer: Strudel (Sek.)"
+        "whirlpoolDurationS": "Dauer: Strudel (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "FLUSS, ZU MIR!",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner mit <#ba.crystinflict>Kryo</> belegt ist oder ihm <#ba.spellburst>Technikexplosion-SDN</> zugefügt wird.\nTangtang verschießt einen mächtigen Strahl, der alle Gegner in seinem Pfad durchdringt, ihnen <@ba.cryst>Kryo-SDN</> zufügt und einen <@ba.key>Strudel</> erzeugt.\n<@ba.info>Es können bis zu 2 Strudel gleichzeitig auf dem Schlachtfeld existieren.</>"

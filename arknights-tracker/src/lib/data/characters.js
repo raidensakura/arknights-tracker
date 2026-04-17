@@ -259,6 +259,16 @@ export const characters = {
     class: "guard",
     weapon: "sword",
     birthDate: "10-03",
+    isNew: false
+  },
+  zhuangfy: {
+    id: "zhuangfy",
+    name: "Zhuang Fangyi",
+    rarity: 6,
+    element: "electric",
+    class: "vanguard",
+    weapon: "artsUnit",
+    birthDate: "07-08",
     isNew: true
   }
 };

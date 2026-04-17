@@ -53,7 +53,8 @@
         "stagger": "Desorientação",
         "baseShield": "Escudo Base",
         "shieldIncreasePerDefense": "Aumento do Escudo por Defesa",
-        "shieldDurationS": "Duração do Escudo (s)"
+        "shieldDurationS": "Duração do Escudo (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Supressão Rápida",
       "description": "ACIONADOR DO COMBO: Quando um inimigo começa a carregar uma habilidade ou quando o operador controlado é atacado e cai abaixo de {trigger_hp_ratio:0%} de PV. \nUm poderoso soco para baixo que causa <@ba.pd>DNO Físico</> ao inimigo, enquanto concede <#ba.shield>escudos</> a si mesmo e a outro membro da equipe (priorizado pelo operador controlado).\nDEF pode aumentar ainda mais os pontos de Escudo."

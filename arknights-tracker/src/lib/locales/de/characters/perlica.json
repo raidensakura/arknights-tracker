@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
         "stagger": "Taumeln",
-        "electrifyDurationS": "Dauer: Elektrifizieren (Sek.)"
+        "electrifyDurationS": "Dauer: Elektrifizieren (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Sofortprotokoll: Kette",
       "description": "KOMBOAUSLÖSER: Wenn der gesteuerte Operator einen <#ba.lastcombo>Abschlussangriff</> auf einen beliebigen Gegner ausführt. \nEntfesselt gespeicherte elektromagnetische Energie, um das Ziel zu bombardieren, <@ba.pulse>Elektrischen SDN</> zu verursachen und es vorübergehend mit <#ba.conduct>Elektrifizierung</> zu belegen."

@@ -51,7 +51,8 @@
         "dmgMultiplier": "Hệ Số ST",
         "explosionDmgMultiplier": "Hệ Số ST Nổ",
         "stagger": "Suy Sụp",
-        "corrodeDurationS": "Thời Gian Hiệu Lực Ăn Mòn (giây)"
+        "corrodeDurationS": "Thời Gian Hiệu Lực Ăn Mòn (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Cột Bộc Phát",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên đang điều khiển tung <#ba.lastcombo>Đòn Dứt Điểm</> vào kẻ địch đang <@ba.key>không có</> điểm cộng dồn <#ba.noguard>Trừ Giáp</> hoặc <#ba.spellinflict>Nhiễm Thuật Pháp</> nào. \nBắn một Đám Mây Núi Lửa tự dẫn vào mục tiêu, gây <@ba.natur>ST Tự Nhiên</> khi áp sát. Đám Mây Núi Lửa phát nổ trễ, gây một nửa <@ba.natur>ST Tự Nhiên</> và cưỡng bức gây <#ba.corrupt>Ăn Mòn</> tạm thời lên kẻ địch lân cận."
@@ -124,7 +125,7 @@
       "name": "Bùng Nổ Dữ Dội"
     },
     "potential4": {
-      "description": "Tuyệt Kỹ <@ba.key>Tiệc Len</> được cải thiện: Tiêu hao Năng Lượng Tuyệt Kỹ <@ba.vup>-{1-costvalue:0%}</>.",
+      "description": "Tuyệt Kỹ <@ba.key>Tiệc Len</> được cải thiện: Mức Năng Lượng Tuyệt Kỹ cần dùng <@ba.vup>-{1-costvalue:0%}</>.",
       "name": "Hoa Nở Trên Đá"
     },
     "potential5": {

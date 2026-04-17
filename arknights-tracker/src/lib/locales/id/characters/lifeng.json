@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Pengganda SEQ 1 DMG",
         "seq2DmgMultiplier": "Pengganda SEQ 2 DMG",
         "seq2Stagger": "SEQ 2 Stagger",
-        "comboDurationS": "Durasi Kombo (dtk)"
+        "comboDurationS": "Durasi Kombo (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Aspect of Wrath",
       "description": "PEMICU KOMBO: Saat operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> kepada satu musuh yang terkena <#ba.physicalvul>Physical Susceptibility</> atau <#ba.fracture>Breach</>. \nMengeluarkan aspek yang akan menusukkan tombak sehingga akan menimbulkan <@ba.pd>Physical DMG</> sangat besar dan memberikan <#ba.combo>Link</>."

@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "1段目ダメージ倍率",
         "seq2DmgMultiplier": "2段目ダメージ倍率",
         "seq2Stagger": "2段目ブレイク値",
-        "comboDurationS": "リンク持続時間（秒）"
+        "comboDurationS": "リンク持続時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "忿怒形",
       "description": "<#ba.physicalvul>物理脆弱</>または<#ba.fracture>破砕</>状態の敵が、操作中のオペレーターの<#ba.lastcombo>重攻撃</>を受けると発動可能。\n化身を放ち、槍で突き刺す。<@ba.pd>物理ダメージ</>を与え、<#ba.combo>リンク</>状態を獲得する。"

@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Multiplicador ATQB SEC 4 mejorado"
       },
       "name": "Crepúsculo",
-      "description": "Laevatain llama a su Sviga Lævi y se convierte en la operadora controlada. \nDurante un tiempo, sus ataques básicos (ATQB) se mejoran y la Sviga Lævi golpea junto con Laevatain, infligiendo <@ba.fire>DAÑ por calor</> con cada ataque. La secuencia 3 de ATQB también aplica <#ba.fireinflict>Imp. de cal.</>."
+      "description": "Laevatain llama a su Sviga Lævi y se convierte en la operadora controlada. \nDurante un tiempo, sus ataques básicos (ATQB) se mejoran y la Sviga Lævi golpea junto con Laevatain, infligiendo <@ba.fire>DAÑ por calor</> con cada ataque. La secuencia 3 de ATQB también aplica <#ba.fireinflict>Imposición de calor</>.\n<@ba.info>Lanzar la habilidad de batalla, Fuego humeante, o la habilidad de combo, Hervir, no acorta la duración de la máxima, Crepúsculo.</>"
     },
     "indicator": {
       "levels": [

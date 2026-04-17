@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Site d'essais d'IEM",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi doté d'une <@ba.key>Concentration</> active subit un <#ba.physicalstatus>statut physique</> ou une <#ba.spellinflict>altération des Arts</>. \nDéclenche 1 explosion d'énergie sur l'ennemi, qui lui inflige des <@ba.pulse>DÉG électriques</> et applique un cumul supplémentaire du même <#ba.physicalstatus>statut physique</> ou de la même <#ba.spellinflict>altération des Arts</>."

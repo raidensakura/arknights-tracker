@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Multiplicador DNO Contra Inimigos Solidificados",
         "stagger": "Desorientação",
         "physicalSusceptibilityMultiplier": "Multiplicador de Suscetibilidade Física",
-        "physicalSusceptibilityDuration": "Duração da Suscetibilidade Física"
+        "physicalSusceptibilityDuration": "Duração da Suscetibilidade Física",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Distorção",
       "description": "ACIONADOR DO COMBO: Quando um inimigo sofre <#ba.frozen>Solidificação</>. \nMove-se rapidamente para o lado do inimigo para causar <@ba.pd>DNO Físico</> e <#ba.airborne>Levantar</> à força inimigos em uma pequena área. Se a habilidade atingir um alvo com <#ba.frozen>Solidificação</>, a habilidade causará DNO adicional e aplicará <#ba.physicalvul>Suscetibilidade Física</>."

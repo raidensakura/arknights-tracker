@@ -134,7 +134,7 @@
   "import": {
     "title": "Импорт записей о найме",
     "overwriteStats": "Перезаписать статистику рейтинга",
-"overwriteDesc": "Используйте эту опцию, только если ваша статистика рейтинга задвоилась или показывает неверные цифры. Система жестко пересчитает ваш рейтинг на основе локальной истории круток.",
+    "overwriteDesc": "Используйте эту опцию, только если ваша статистика рейтинга задвоилась или показывает неверные цифры. Система жестко пересчитает ваш рейтинг на основе локальной истории круток.",
     "delete_token_title": "Удаление токена",
     "waiting_response": "Ожидание ответа...",
     "importing": "Импортирование...",
@@ -672,7 +672,25 @@
     "aerospaceMaterialIi": "Аэрокосмический материал II",
     "lightXircon": "Легкий ксиркон",
     "xircon": "Ксиркон",
-    "xiranite": "Ксиранит"
+    "xiranite": "Ксиранит",
+    "hetoniteBottle": "Гетонитовая бутылка",
+    "heavyXiranite": "Тяжелый ксиранит",
+    "experimentalXiraniteBottle": "Экспериментальная ксиранитовая бутылка",
+    "experimentalXiranitePart": "Экспериментальная ксиранитовая деталь",
+    "experimentalHeavyXiraniteBottle": "Экспериментальная тяжелая ксиранитовая бутылка",
+    "experimentalHeavyXiranitePart": "Экспериментальная тяжелая ксиранитовая деталь",
+    "xiraniteJadeGourd": "Нефритовая фляга с ксиранитом",
+    "experimentalXiranHueAtomizer": "Экспериментальный ксиранитовый распылитель",
+    "xiraniteGourd": "Тыквенная фляга с ксиранитом",
+    "echoingDust": "Пыль памяти",
+    "cupriumSolution": "Раствор куприя",
+    "hetonite": "Гетонит",
+    "hetonitePart": "Гетонитовая деталь",
+    "howlerbeastBraid": "Косичка воющего зверя",
+    "hetoniteComponent": "Гетонитовый компонент",
+    "hetoniteSolution": "Раствор гетонита",
+    "precipitationAcid": "Осадочная кислота",
+    "liquidHeavyXiranite": "Жидкий тяжелый ксиранит"
   },
   "common": {
     "copy": "Копировать",
@@ -835,7 +853,8 @@
     "ardelia": "Арделия",
     "tangtang": "Тантан",
     "pogranichnik": "Пограничник",
-    "rossi": "Росси"
+    "rossi": "Росси",
+    "zhuangfy": "Чжуан Фанъи"
   },
   "weaponsList": {
     "industry01": "Индустрия 0.1",
@@ -903,7 +922,9 @@
     "gloriousMemory": "Славное воспоминание",
     "objEdgeOfLightness": "OBJ Клинок света",
     "finchaser30": "Водоплаволов 3.0",
-    "lupineScarlet": "Волчий багрянец"
+    "lupineScarlet": "Волчий багрянец",
+    "loneBarge": "Одинокая ладья",
+    "flickersInTheMist": "Всполохи в тумане"
   },
   "cookies": {
     "title": "Мы используем куки",
@@ -986,7 +1007,21 @@
     "world_energy_point05_5": "Сильный аллювий энергии: Улин",
     "world_energy_point05_6": "Сильный аллювий энергии: Улин",
     "world_energy_point06_2": "Аллювий энергии: лагерь Циньбо",
-    "world_energy_point06_3": "Аллювий энергии: лагерь Циньбо"
+    "world_energy_point06_3": "Аллювий энергии: лагерь Циньбо",
+    "world_energy_point07_5": "Сильный аллювий энергии: Межевой камень",
+    "world_energy_point07_7": "Сильный аллювий энергии: Межевой камень",
+    "world_energy_point07_6": "Сильный аллювий энергии: Межевой камень",
+    "world_energy_point08_5": "Сильный аллювий энергии: область испытаний",
+    "world_energy_point08_4": "Сильный аллювий энергии: область испытаний",
+    "world_energy_point08_7": "Сильный аллювий энергии: область испытаний",
+    "world_energy_point07_1": "Аллювий энергии: Межевой камень",
+    "world_energy_point07_2": "Аллювий энергии: Межевой камень",
+    "world_energy_point08_1": "Аллювий энергии: область испытаний",
+    "world_energy_point07_3": "Аллювий энергии: Межевой камень",
+    "world_energy_point07_4": "Сильный аллювий энергии: Межевой камень",
+    "world_energy_point08_3": "Аллювий энергии: область испытаний",
+    "world_energy_point08_2": "Аллювий энергии: область испытаний",
+    "world_energy_point08_6": "Сильный аллювий энергии: область испытаний"
   },
   "enemies": {
     "eny_0007_mimicw": "Роющий нидвурм",
@@ -1056,7 +1091,11 @@
     "eny_0096_hsmob2": "Дорожный разбойник",
     "eny_0097_hsmino2": "Облачный истребитель",
     "eny_0103_hshunt2": "Сметающий ветер",
-    "eny_0107_wgshoal2": "Волноход δ"
+    "eny_0107_wgshoal2": "Волноход δ",
+    "eny_0078_nefarp1": "Неферит «Костолом»",
+    "eny_0095_ethillu": "Эфирлюзия",
+    "eny_0079_nefarp2": "Неферит «Завоевательница»",
+    "eny_0082_hsbear": "Небесный барабанщик"
   },
   "essencesPage": {
     "optimizer": "Оптимизатор фарма",
@@ -1287,7 +1326,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Энергетическое ядро «Вечный ксиранит» К1",
     "item_equip_t4_suit_usp02_edc_03": "Манипулятор «Вечный ксиранит»",
     "item_equip_t4_suit_usp02_hand_01": "Перчатки «Вечный ксиранит»",
-    "item_equip_t4_suit_usp02_hand_02": "Перчатки «Вечный ксиранит» К1"
+    "item_equip_t4_suit_usp02_hand_02": "Перчатки «Вечный ксиранит» К1",
+    "item_equip_t4_suit_atb01_edc_06": "Улучшенная кислородная трубка «Колонист» К1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Перчатки «Ксиранад»",
+    "item_equip_t4_suit_attri01_hand_03": "Костоломские перчатки",
+    "item_equip_t4_suit_atb01_hand_03": "Волоконные перчатки «Колонист» К1",
+    "item_equip_t4_suit_phy01_edc_04": "Кинжал «Мастер меча»",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Емкость «Циньбо»",
+    "item_equip_t4_suit_attri01_edc_02": "Костоломская фигурка К2",
+    "item_equip_t4_suit_phy01_body_03": "Тяжелая броня «Мастер меча» К1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Тяжелая броня «Циньбо»",
+    "item_equip_t4_suit_combo_cd01_body_02": "Легкая броня «Циньбо»",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Локатор «Циньбо»",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Бамбуковый клинок «Циньбо»",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Рукавицы «Циньбо»",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Перчатки «Циньбо»",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Дубинка «Ксиранад»",
+    "item_equip_t4_suit_expend_spell01_body_02": "Легкая броня «Ксиранад»",
+    "item_equip_t4_suit_phy01_hand_03": "Тактические рукавицы «Мастер меча» К1"
   },
   "packs": {
     "none": "Некомплектное",
@@ -1333,7 +1389,9 @@
     "suit_usp02": "Вечный ксиранит",
     "suit_will01": "Резистентный «Мортвольт»",
     "suit_wisd01": "Изолированный «Мортвольт»",
-    "suit_wisdwill01": "Легкий АПК"
+    "suit_wisdwill01": "Легкий АПК",
+    "suit_combo_cd01": "Циньбо",
+    "suit_expend_spell01": "Ксиранад"
   },
   "equipmentTypes": {
     "body": "Броня",

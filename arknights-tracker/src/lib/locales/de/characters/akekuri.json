@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "SDN-Multiplikator pro SEQ",
         "staggerPerSeq": "Taumeln pro SEQ",
-        "spRecoveryPerSeq": "FP-Wiederherstellung pro SEQ"
+        "spRecoveryPerSeq": "FP-Wiederherstellung pro SEQ",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Blitz und Flitz",
       "description": "KOMBOAUSLÖSER: Wenn sich ein Gegner im Taumelnd-Zustand befindet oder ein <#ba.poiseknot>Taumel-Knoten</> getroffen wird. \nSprintet nach vorn und wieder zurück und führt dabei 2 Stoßsequenzen aus, die jeweils <@ba.pd>Physischen SDN</> verursachen und einige FP wiederherstellen."

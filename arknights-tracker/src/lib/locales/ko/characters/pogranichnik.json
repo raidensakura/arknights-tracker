@@ -63,7 +63,8 @@
         "seq3SpRecovery": "제3단계 스킬 게이지 회복",
         "enhancedSeq3DmgMultiplier": "제3단계 피해 배율 강화",
         "enhancedSeq3Stagger": "제3단계 불균형치 강화",
-        "enhancedSeq3SpRecovery": "제3단계 스킬 게이지 회복 강화"
+        "enhancedSeq3SpRecovery": "제3단계 스킬 게이지 회복 강화",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "보름달 참격",
       "description": "적이 <#ba.crush>강타</> 혹은 <#ba.fracture>갑옷 파괴</> 피해로 인해 <#ba.noguard>방어 불능</> 스택 수치를 <#ba.consume>소모</>한 후 사용할 수 있습니다.\n<#ba.consume>소모</>한 최대 <#ba.noguard>방어 불능</> 스택 수치에 따라, 적에게 동일 단계의 베기 공격(최대 3단계)을 하여 <@ba.pd>물리 피해</>를 주고, 일정량의 스킬 게이지를 회복하며 베기 공격마다 주는 피해와 스킬 게이지 회복 효과가 증가합니다.\n<@ba.info>만약 방어 불능 4스택을 소모할 경우, 3단계 베기 공격이 강화됩니다.</>"

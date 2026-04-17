@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
         "stagger": "Vacillamento",
-        "crushDmgBonus": "Bonus ai danni da Distruzione"
+        "crushDmgBonus": "Bonus ai danni da Distruzione",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "PIÙ SPEZIE!",
       "description": "ATTIVAZIONE COMBO: quando un nemico raggiunge 4 accumuli di <#ba.noguard>Vulnerabilità</>. \nColpisce il nemico con il wok, infliggendo ingenti <@ba.pd>danni fisici</> e applicando <#ba.crush>Distruzione</>. Questa <#ba.crush>Distruzione</> infligge danni maggiori."

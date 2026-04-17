@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Multiplicador de DAÑ SEC 1",
         "seq2DmgMultiplier": "Multiplicador de DAÑ SEC 2",
         "seq2Stagger": "Tambaleo de SEC 2",
-        "comboDurationS": "Duración de combo (s)"
+        "comboDurationS": "Duración de combo (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Aspecto de ira",
       "description": "ACTIVADOR DE COMBO: Cuando el operador controlado realiza un <#ba.lastcombo>Golpe final</> sobre un enemigo con <#ba.physicalvul>Susceptibilidad física</> o <#ba.fracture>Brecha</>. \nDesata un aspecto que ejecuta una estocada de lanza para infligir <@ba.pd>DAÑ físico</> y otorga <#ba.combo>Enlace</>."

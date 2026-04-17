@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Moltiplicatore SEQ ATTB 4 amplificato"
       },
       "name": "Crepuscolo",
-      "description": "Laevatain evoca il suo Sviga Lævi e diventa l'operatore controllato. \nPer un certo periodo di tempo, i suoi attacchi base (ATTB) vengono potenziati e lo Sviga Lævi attacca insieme a Laevatain, infliggendo <@ba.fire>danni da fuoco</>. La sequenza di attacchi base 3 applica anche <#ba.fireinflict>Afflizione da fuoco</>."
+      "description": "Laevatain evoca il suo Sviga Lævi e diventa l'operatore controllato. \nPer un certo periodo di tempo, i suoi attacchi base (ATTB) vengono potenziati e lo Sviga Lævi attacca insieme a Laevatain, infliggendo <@ba.fire>danni da fuoco</>. La sequenza di attacchi base 3 applica anche <#ba.fireinflict>Afflizione da fuoco</>.\n<@ba.info>Usare l'abilità di combattimento Fuoco quiescente o l'abilità combo Ribollire non accorcia la durata dell'abilità suprema Crepuscolo.</>"
     },
     "indicator": {
       "levels": [

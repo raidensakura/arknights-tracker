@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
-        "stagger": "불균형치"
+        "stagger": "불균형치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "특별 보너스",
       "description": "적에게 <#ba.crystinflict>냉기 부착</> 혹은 <#ba.naturalinflict>자연 부착</> 2스택 또는 그 이상이 쌓였을 때 사용할 수 있습니다.\n목표한 적을 사격해 특수한 폭발을 일으키고, <@ba.natur>자연 피해</>를 주며 <#ba.spellinflict>아츠 부착</> 상태를 부여합니다."

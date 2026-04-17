@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
         "stagger": "Suy Sụp",
-        "thunderlanceDurationS": "Thời Gian Hiệu Lực Của Thương Sấm Sét (giây)"
+        "thunderlanceDurationS": "Thời Gian Hiệu Lực Của Thương Sấm Sét (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Thương Sấm Sét-Đột Kích",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên đang điều khiển <#ba.lastcombo>Đòn Dứt Điểm</> lên mục tiêu đang <#ba.pulseinflict>Nhiễm Điện</> hoặc bị <#ba.conduct>Điện Hóa</>. \nNhảy lên không trung và ném 3 <@ba.key>Thương Sấm Sét</> vào mục tiêu, gây 1 đòn <@ba.pulse>ST Điện</> lên kẻ địch trong phạm vi ảnh hưởng."
@@ -132,7 +133,7 @@
       "name": "Dày Dạn Kinh Nghiệm"
     },
     "potential5": {
-      "description": "Khi <@ba.key>Thương Sấm Sét</> hoặc <@ba.key>Thương Sấm Sét Cường Hóa</> đánh trúng kẻ địch ở trạng thái <#ba.pulsevul>Yếu Hóa Điện</>, Hệ Số ST sẽ tăng <@ba.vup>{potential_5_rate:0.00}</> lần so với ban đầu.",
+      "description": "Khi <@ba.key>Thương Sấm Sét</> hoặc <@ba.key>Thương Sấm Sét Cường Hóa</> đánh trúng kẻ địch ở trạng thái <#ba.pulsevul>Yếu Hóa Điện</>, hệ số ST sẽ tăng <@ba.vup>{potential_5_rate:0.00}</> lần so với ban đầu.",
       "name": "Thưởng Và Phạt Nặng"
     }
   },

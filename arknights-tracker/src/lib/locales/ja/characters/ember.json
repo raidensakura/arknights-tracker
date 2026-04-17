@@ -50,7 +50,8 @@
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
         "baseTreatment": "基礎回復値",
-        "treatmentIncreasePerWill": "意志1ごとの回復値UP"
+        "treatmentIncreasePerWill": "意志1ごとの回復値UP",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "前線支援",
       "description": "操作中のオペレーターが攻撃を受けると発動可能。\n敵に向かって跳び上がり、重い打撃を放つ。<@ba.pd>物理ダメージ</>と<#ba.knockdown>転倒</>効果を与える。操作中のオペレーターのHPを回復し、回復量は意志の値に応じて追加でアップする。"

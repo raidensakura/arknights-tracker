@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
         "stagger": "Déséquilibre",
-        "crushDmgBonus": "Bonus de DÉG de Broyage"
+        "crushDmgBonus": "Bonus de DÉG de Broyage",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "PLUS ÉPICÉ !",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi atteint 4 cumuls de <#ba.noguard>Vulnérabilité</>.\nFrappe avec son wok pour infliger de lourds <@ba.pd>DÉG physiques</> et <#ba.crush>broyer</> l'ennemi. Ce <#ba.crush>Broyage</> inflige également davantage de DÉG."

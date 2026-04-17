@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
         "stagger": "Stagger",
-        "thunderlanceDurationS": "Durasi Thunderlance (dtk)"
+        "thunderlanceDurationS": "Durasi Thunderlance (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Thunderlance: Strike",
       "description": "PEMICU KOMBO: Saat operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> kepada target yang sedang terkena <#ba.pulseinflict>Elec Inflict</> atau <#ba.conduct>Electrification</>. \nMelompat ke udara dan melemparkan 3 <@ba.key>Thunderlance</> kepada target, lalu menimbulkan 1 hantaman <@ba.pulse>Electric DMG</> kepada musuh dalam area efek."

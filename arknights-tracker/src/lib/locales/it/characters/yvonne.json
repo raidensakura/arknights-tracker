@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "Moltiplicatore danni Energia",
         "explosionDmgMultiplier": "Moltiplicatore danni Esplosione",
         "explosionStagger": "Vacillamento Esplosione",
+        "ultimateEnergyGain": "Incremento energia suprema",
         "additionalUltimateEnergyGain": "Incremento energia suprema aggiuntivo"
       },
       "name": "Congelamento rapido υ37",

@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "Multiplicador de DAÑ de energía",
         "explosionDmgMultiplier": "Multiplicador de DAÑ Explosión",
         "explosionStagger": "Tambaleo por Explosión",
+        "ultimateEnergyGain": "Ganancia de Energía máxima",
         "additionalUltimateEnergyGain": "Ganancia adicional de Energía máxima"
       },
       "name": "Supercongelador υ37",

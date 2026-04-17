@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Moltiplicatore danni amplificato",
         "spRecovery": "Recupero PA",
         "bonusSpRecovery": "Recupero PA bonus",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Pesca a trivellazione",
       "description": "ATTIVAZIONE COMBO: quando le <#ba.spellstatus>Reazione delle Arti</> o i <#ba.originium>cristalli di Originium</> di un bersaglio vicino vengono <#ba.consume>consumati</>. \nApre una buca da pesca sotto al nemico che infligge <@ba.pd>danni fisici</> e ripristina parzialmente i PA. L'abilità ha una probabilità di pescare una <@ba.key>pinna rara</> che aumenta notevolmente i danni inflitti e ripristina ulteriori PA."

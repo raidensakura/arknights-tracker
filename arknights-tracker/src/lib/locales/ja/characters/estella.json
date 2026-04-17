@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "凍結状態の敵へのダメージ倍率",
         "stagger": "ブレイク値",
         "physicalSusceptibilityMultiplier": "物理脆弱倍率",
-        "physicalSusceptibilityDuration": "物理脆弱持続時間"
+        "physicalSusceptibilityDuration": "物理脆弱持続時間",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "ディストーション",
       "description": "敵が<#ba.frozen>凍結</>状態になったときに発動可能。\nすばやく敵の近くに移動し、一定範囲内の敵に<@ba.pd>物理ダメージ</>を与え、強制的に<#ba.airborne>浮遊</>させる。<#ba.frozen>凍結</>状態の敵に命中した場合、追加でダメージを与え、<#ba.physicalvul>物理脆弱</>を付与する。"

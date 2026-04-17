@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
         "stagger": "Desorientação",
-        "whirlpoolDurationS": "Duração (s) do Redemoinho"
+        "whirlpoolDurationS": "Duração (s) do Redemoinho",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "DEIXE O RIO COMIGO!",
       "description": "ACIONADOR DO COMBO: Ao aplicar <#ba.crystinflict>Inflição Crio</> ou causar <#ba.spellburst>DNO Explosão de Artes</> a um inimigo. \nTangtang libera um poderoso jato que penetra todos os inimigos em seu caminho, causa <@ba.cryst>DNO Crio</> a eles e cria um <@ba.key>Redemoinho</>.\n<@ba.info>Podem existir até 2 Redemoinhos no campo de batalha a qualquer momento.</>"

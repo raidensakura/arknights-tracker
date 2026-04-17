@@ -50,7 +50,8 @@
         "dmgMultiplier": "Pengganda DMG",
         "stagger": "Stagger",
         "baseTreatment": "Treatment Dasar",
-        "treatmentIncreasePerWill": "Peningkatan Treatment per Will"
+        "treatmentIncreasePerWill": "Peningkatan Treatment per Will",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Frontline Support",
       "description": "PEMICU KOMBO: Saat operator terkontrol diserang. \nMelompat ke arah musuh tertarget dan melancarkan bantingan keras yang akan menimbulkan <@ba.pd>Physical DMG</> dan <#ba.knockdown>Knock Down</> sekaligus memberikan HP treatment kepada operator terkontrol. Atribut Will akan meningkatkan jumlah HP treatment."

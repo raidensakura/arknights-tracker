@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "SDN-Multiplikator gegen erstarrte Gegner",
         "stagger": "Taumeln",
         "physicalSusceptibilityMultiplier": "Multiplikator für Physisch-Empfänglichkeit",
-        "physicalSusceptibilityDuration": "Dauer der Physisch-Empfänglichkeit"
+        "physicalSusceptibilityDuration": "Dauer der Physisch-Empfänglichkeit",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Verzerrung",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner mit <#ba.frozen>Erstarrung</> belegt wird. \nBewegt sich schnell zum betreffenden Gegner, fügt <@ba.pd>Physischen SDN</> zu und <#ba.airborne>hebt</> Gegner in einem kleinen Bereich <#ba.airborne>an</>. Wenn die Fertigkeit einen Gegner mit <#ba.frozen>Erstarrung</> trifft, verursacht er zusätzlichen SDN und belegt den Gegner mit <#ba.physicalvul>Physisch-Empfänglichkeit</>."

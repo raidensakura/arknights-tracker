@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Trượng Phép Thuật-Dịch Chuyển Ma Trận",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi áp dụng <#ba.spellstatus>Phản Ứng Thuật Pháp</> lên kẻ địch. \nNhanh chóng thi triển Thuật Pháp tạo ra lực hút, gây <@ba.natur>ST Tự Nhiên</> và buộc <#ba.airborne>Hất Tung</> mục tiêu cùng các kẻ địch xung quanh."

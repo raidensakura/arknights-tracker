@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Cadeaux offerts",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est victime de 2 cumuls ou plus d'<#ba.crystinflict>altération cryogénique</> ou <#ba.naturalinflict>naturelle</>.\nTire sur l'ennemi ciblé pour déclencher une explosion spéciale qui inflige des <@ba.natur>DÉG naturels</> et applique une autre <#ba.spellinflict>altération des Arts</> de l'élément dont souffre déjà l'ennemi."

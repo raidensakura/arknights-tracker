@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Splittergranate β",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner mit einer <#ba.spellinflict>Technikkumulierung</> belegt wird. \nWirft eine Splittergranate an die Position des Ziels, die explodiert und Gegnern in der Nähe <@ba.fire>Hitze-SDN</> zufügt und sie mit <#ba.fireinflict>Hitze</> belegt."

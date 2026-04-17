@@ -51,7 +51,8 @@
         "dmgMultiplier": "Multiplicador de DAÑ",
         "explosionDmgMultiplier": "Multiplicador de DAÑ Explosión",
         "stagger": "Tambaleo",
-        "corrodeDurationS": "Duración de Corroer (s)"
+        "corrodeDurationS": "Duración de Corroer (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Columna de erupción",
       "description": "ACTIVADOR DE COMBO: Cuando el operador controlado realiza un <#ba.lastcombo>Golpe final</> sobre un enemigo <@ba.key>sin</> acumulaciones de <#ba.noguard>Vulnerabilidad</> ni <#ba.spellinflict>Imposición de artes</>. \nLanza una Nube volcánica teledirigida a un enemigo objetivo que inflige <@ba.natur>DAÑ por naturaleza</> al estar lo bastante cerca. La Nube volcánica explota tras un breve lapso, infligiendo la mitad del <@ba.natur>DAÑ por naturaleza</> y aplicando <#ba.corrupt>Corrosión</> forzada temporal a los enemigos cercanos."

@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "免费赠礼",
       "description": "当敌人进入2层及以上<#ba.crystinflict>寒冷附着</>或<#ba.naturalinflict>自然附着</>时可以发动。\n射击目标敌人，引发一次特殊爆炸，造成<@ba.natur>自然伤害</>并施加该<#ba.spellinflict>法术附着</>。"

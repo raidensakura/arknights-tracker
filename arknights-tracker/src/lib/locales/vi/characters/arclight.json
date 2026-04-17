@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
         "spRecovery": "Hồi Điểm KN",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Tiếng Sấm Dồn",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi một kẻ địch phải chịu <#ba.conduct>Điện Hóa</> hoặc sau khi <#ba.conduct>Điện Hóa</> của kẻ địch bị <#ba.consume>tiêu hao</>. \nDịch chuyển tức thời về phía kẻ địch và tung ra một loạt đòn chém, gây <@ba.pd>ST Vật Lý</> và hồi một phần Điểm KN."

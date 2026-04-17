@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Moltiplicatore danni contro nemici Solidificati",
         "stagger": "Vacillamento",
         "physicalSusceptibilityMultiplier": "Moltiplicatore Suscettibilità fisica",
-        "physicalSusceptibilityDuration": "Durata Suscettibilità fisica"
+        "physicalSusceptibilityDuration": "Durata Suscettibilità fisica",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Distorsione",
       "description": "ATTIVAZIONE COMBO: quando un nemico subisce <#ba.frozen>Solidificazione</>. \nSi sposta rapidamente al fianco del nemico per infliggere <@ba.pd>danni fisici</> e usa forzatamente <#ba.airborne>Sospensione</> contro i nemici in una piccola area. Se l'abilità colpisce un bersaglio con <#ba.frozen>Solidificazione</>, infligge danni aggiuntivi e applica <#ba.physicalvul>Suscettibilità fisica</>."

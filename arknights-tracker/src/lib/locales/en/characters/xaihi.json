@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Stress Testing",
       "description": "COMBO TRIGGER: When the <@ba.key>Auxiliary Crystal</> uses up its HP treatments. \nQuickly charges up the <@ba.key>Auxiliary Crystal</> and launches it at the enemy to deal <@ba.cryst>Cryo DMG</> and <#ba.crystinflict>Cryo Infliction</>."

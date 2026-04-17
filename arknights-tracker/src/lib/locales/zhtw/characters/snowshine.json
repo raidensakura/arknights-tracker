@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "持續治療基礎值",
         "treatmentOverTimeIncreasePerWill": "每點意志增加的持續治療值",
         "treatmentOverTimeIntervalS": "持續治療間隔（秒）",
-        "durationS": "持續時間（秒）"
+        "durationS": "持續時間（秒）",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "極地救援",
       "description": "當主控幹員受到攻擊後，如果生命值低於{trigger_hp_ratio:0%}可以發動。\n晝雪對其丟出雪地救援助理，觸碰到目標時立即大量<@ba.heal>治療</>附近的幹員，並在接下來一段時間內對範圍內的幹員持續提供<@ba.heal>治療</>。\n意志可以額外提高治療量。"

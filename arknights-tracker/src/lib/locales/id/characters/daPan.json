@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
         "stagger": "Stagger",
-        "crushDmgBonus": "Bonus Crush DMG"
+        "crushDmgBonus": "Bonus Crush DMG",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "MORE SPICE!",
       "description": "PEMICU KOMBO: Saat tumpukan <#ba.noguard>Vulnerability</> pada musuh mencapai 4 tumpuk. \nMengayunkan wajan ke arah musuh sehingga akan menimbulkan <@ba.pd>Physical DMG</> sangat besar dan <#ba.crush>Crush</>. Efek <#ba.crush>Crush</> ini juga menimbulkan DMG lebih besar."

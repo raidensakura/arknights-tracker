@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Multiplicador de DAÑ contra enemigos Solidificados",
         "stagger": "Tambaleo",
         "physicalSusceptibilityMultiplier": "Multiplicador de Suscep. fís.",
-        "physicalSusceptibilityDuration": "Duración de Suscep. fís."
+        "physicalSusceptibilityDuration": "Duración de Suscep. fís.",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Distorsión",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo sufre <#ba.frozen>Solidificación</>. \nSe mueve rápidamente al lado del enemigo para infligir <@ba.pd>DAÑ físico</> y forzar <#ba.airborne>Levantar</> a los enemigos en un área pequeña. Si la habilidad impacta a un objetivo con <#ba.frozen>Solidificación</>, la habilidad inflige DAÑ adicional y aplica <#ba.physicalvul>Suscep. fís.</>."

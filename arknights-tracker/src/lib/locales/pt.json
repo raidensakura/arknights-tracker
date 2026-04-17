@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "Material Aeroespacial II",
     "lightXircon": "Xircônio Leve",
     "xircon": "Xircônio",
-    "xiranite": "Xiranita"
+    "xiranite": "Xiranita",
+    "hetoniteBottle": "Garrafa de Hetonita",
+    "heavyXiranite": "Xiranita Pesada",
+    "experimentalXiraniteBottle": "Garrafa de Xiranita Experimental",
+    "experimentalXiranitePart": "Peça de Xiranita Experimental",
+    "experimentalHeavyXiraniteBottle": "Garrafa de Xiranita Pesada Experimental",
+    "experimentalHeavyXiranitePart": "Peça de Xiranita Pesada Experimental",
+    "xiraniteJadeGourd": "Cabaça de Jade de Xiranita",
+    "experimentalXiranHueAtomizer": "Atomizador Experimental Xiran-Hue",
+    "xiraniteGourd": "Cabaça de Xiranita",
+    "echoingDust": "Poeira Ecoante",
+    "cupriumSolution": "Solução de Cuprium",
+    "hetonite": "Hetonita",
+    "hetonitePart": "Peça de Hetonita",
+    "howlerbeastBraid": "Trança de Bugio",
+    "hetoniteComponent": "Componente de Hetonita",
+    "hetoniteSolution": "Solução de Hetonita",
+    "precipitationAcid": "Ácido de Precipitação",
+    "liquidHeavyXiranite": "Xiranita Pesada Líquida"
   },
   "common": {
     "copy": "Copiar",
@@ -808,7 +826,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Indústria 0.1",
@@ -876,7 +895,9 @@
     "gloriousMemory": "Memória Gloriosa",
     "objEdgeOfLightness": "OBJ Fio da Leveza",
     "finchaser30": "Caça-Barbatanas 3.0",
-    "lupineScarlet": "Lobo Escarlate"
+    "lupineScarlet": "Lobo Escarlate",
+    "loneBarge": "Barcaça Solitária",
+    "flickersInTheMist": "Brilhos na Névoa"
   },
   "cookies": {
     "title": "Usamos cookies",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "Aluvião de Energia Severo: Cidade de Wuling",
     "world_energy_point05_6": "Aluvião de Energia Severo: Cidade de Wuling",
     "world_energy_point06_2": "Aluvião de Energia: Paliçada de Qingbo",
-    "world_energy_point06_3": "Aluvião de Energia: Paliçada de Qingbo"
+    "world_energy_point06_3": "Aluvião de Energia: Paliçada de Qingbo",
+    "world_energy_point07_5": "Aluvião de Energia Severo: Pedra de Marcação",
+    "world_energy_point07_7": "Aluvião de Energia Severo: Pedra de Marcação",
+    "world_energy_point07_6": "Aluvião de Energia Severo: Pedra de Marcação",
+    "world_energy_point08_5": "Aluvião de Energia Severo: Área de Teste",
+    "world_energy_point08_4": "Aluvião de Energia Severo: Área de Teste",
+    "world_energy_point08_7": "Aluvião de Energia Severo: Área de Teste",
+    "world_energy_point07_1": "Aluvião de Energia: Pedra de Marcação",
+    "world_energy_point07_2": "Aluvião de Energia: Pedra de Marcação",
+    "world_energy_point08_1": "Aluvião de Energia: Área de Testes",
+    "world_energy_point07_3": "Aluvião de Energia: Pedra de Marcação",
+    "world_energy_point07_4": "Aluvião de Energia Severo: Pedra de Marcação",
+    "world_energy_point08_3": "Aluvião de Energia: Área de Testes",
+    "world_energy_point08_2": "Aluvião de Energia: Área de Testes",
+    "world_energy_point08_6": "Aluvião de Energia Severo: Área de Teste"
   },
   "enemies": {
     "eny_0007_mimicw": "Verminídeo Escavador de Túneis",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "Salteador das Estradas",
     "eny_0097_hsmino2": "Obliterador de Nuvens",
     "eny_0103_hshunt2": "Vento Forte",
-    "eny_0107_wgshoal2": "Andarilho da Maré δ"
+    "eny_0107_wgshoal2": "Andarilho da Maré δ",
+    "eny_0078_nefarp1": "Nefarith, \"Quebra-Ossos\"",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, \"Conquistadora\"",
+    "eny_0082_hsbear": "Retumbador Celeste"
   },
   "essencesPage": {
     "optimizer": "Otimizador de Farm",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Núcleo de Energia de Xiranita Eterna T1",
     "item_equip_t4_suit_usp02_edc_03": "Braço Auxiliar de Xiranita Eterna",
     "item_equip_t4_suit_usp02_hand_01": "Luvas de Xiranita Eterna",
-    "item_equip_t4_suit_usp02_hand_02": "Luvas de Xiranita Eterna T1"
+    "item_equip_t4_suit_usp02_hand_02": "Luvas de Xiranita Eterna T1",
+    "item_equip_t4_suit_atb01_edc_06": "Tubo de O2 Extra Frontiers T1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Luvas do Fluxo de Xiranita",
+    "item_equip_t4_suit_attri01_hand_03": "Luvas de Quebra-Ossos",
+    "item_equip_t4_suit_atb01_hand_03": "Luvas de Fibra Frontiers T1",
+    "item_equip_t4_suit_phy01_edc_04": "Adaga do Espadeiro",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Tonel de Qingbo",
+    "item_equip_t4_suit_attri01_edc_02": "Boneco dos Quebra-Ossos T2",
+    "item_equip_t4_suit_phy01_body_03": "Armadura Pesada do Espadeiro T1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Armadura Pesada de Qingbo",
+    "item_equip_t4_suit_combo_cd01_body_02": "Armadura Leve de Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Kit de Posicionamento de Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Cortador de Bambu de Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Manoplas de Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Luvas de Qingbo",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Bastão do Fluxo de Xiranita",
+    "item_equip_t4_suit_expend_spell01_body_02": "Armadura Leve do Fluxo de Xiranita",
+    "item_equip_t4_suit_phy01_hand_03": "Manoplas Táticas do Espadeiro T1"
   },
   "packs": {
     "none": "Não Definido",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "Xiranita Eterna",
     "suit_will01": "Resistente de Mordvolt",
     "suit_wisd01": "Isolamento de Mordvolt",
-    "suit_wisdwill01": "Leve do CAI"
+    "suit_wisdwill01": "Leve do CAI",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Fluxo de Xiranita"
   },
   "equipmentTypes": {
     "body": "Armadura",

@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Báculo arcano: reubicación de la matriz",
       "description": "ACTIVADOR DE COMBO: Cuando se aplica una <#ba.spellstatus>Reacción a Artes</> a un enemigo. \nUn lanzamiento rápido de Artes que genera una atracción gravitacional, la cual inflige <@ba.natur>DAÑ por naturaleza</> y fuerza <#ba.airborne>Levantar</> del objetivo y de los enemigos cercanos."

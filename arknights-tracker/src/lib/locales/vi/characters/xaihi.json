@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Kiểm Tra Áp Lực",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi <@ba.key>Tinh Thể Phụ Trợ</> đã sử dụng hết lượng HP hồi. \nNạp nhanh năng lượng cho <@ba.key>Tinh Thể Phụ Trợ</> và phóng nó về phía kẻ địch, gây <@ba.cryst>ST Băng</> và <#ba.crystinflict>Nhiễm Băng</>."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "KN liên hoàn <@ba.key>Kiểm Tra Áp Lực</> được cải thiện: Đánh trúng một kẻ địch có <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.frozen>Đông Cứng</> cũng sẽ khiến kẻ địch chịu <@ba.cryst>ST Băng Gây Ra</> <@ba.vup>+{cryst_up:0%}</> trong <@ba.vup>{duration:0}</> giây. Hiệu ứng này không thể cộng dồn.",
-        "KN liên hoàn <@ba.key>Kiểm Tra Áp Lực</> được cải thiện: Đánh trúng một kẻ địch có <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.frozen>Đông Cứng</> cũng sẽ khiến kẻ địch chịu <@ba.cryst>ST Băng Gây Ra</> <@ba.vup>+{cryst_up:0%}</> trong <@ba.vup>{duration:0}</> giây. Hiệu ứng này không thể cộng dồn."
+        "KN liên hoàn <@ba.key>Kiểm Tra Áp Lực</> được cải thiện: Đánh trúng một kẻ địch bị <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.frozen>Đông Cứng</> cũng sẽ khiến kẻ địch chịu <@ba.cryst>ST Băng Gây Ra</> <@ba.vup>+{cryst_up:0%}</> trong <@ba.vup>{duration:0}</>giây. Hiệu ứng này không thể cộng dồn.",
+        "KN liên hoàn <@ba.key>Kiểm Tra Áp Lực</> được cải thiện: Đánh trúng một kẻ địch bị <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.frozen>Đông Cứng</> cũng sẽ khiến kẻ địch chịu <@ba.cryst>ST Băng Gây Ra</> <@ba.vup>+{cryst_up:0%}</> trong <@ba.vup>{duration:0}</>giây. Hiệu ứng này không thể cộng dồn."
       ],
       "name": "Quy Trình Xử Quyết"
     },

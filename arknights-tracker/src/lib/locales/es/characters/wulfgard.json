@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Granada de fragmentación·β",
       "description": "ACTIVADOR DE COMBO: Cuando se aplica una <#ba.spellinflict>Imposición de artes</> a un enemigo. \nLanza una granada de fragmentación a la ubicación del objetivo que explota al tocar el suelo, infligiendo <@ba.fire>DAÑ por calor</> y <#ba.fireinflict>Imp. de cal.</> a los enemigos cercanos."

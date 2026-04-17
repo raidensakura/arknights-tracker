@@ -63,7 +63,8 @@
         "seq3SpRecovery": "Pemulihan SEQ 3 SP",
         "enhancedSeq3DmgMultiplier": "Penambahan Pengganda SEQ 3 DMG",
         "enhancedSeq3Stagger": "Penambahan SEQ 3 Stagger",
-        "enhancedSeq3SpRecovery": "Penambahan Pemulihan SEQ 3 SP"
+        "enhancedSeq3SpRecovery": "Penambahan Pemulihan SEQ 3 SP",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Full Moon Slash",
       "description": "PEMICU KOMBO: Saat <#ba.crush>Crush</> atau <#ba.fracture>Breach</> <#ba.consume>memakai</> tumpukan <#ba.noguard>Vulnerability</> musuh. \nMelancarkan sejumlah tebasan (maks 3 kali) sesuai jumlah maksimum tumpukan <#ba.noguard>Vulnerability</> yang <#ba.consume>dipakai</> sehingga akan menimbulkan <@ba.pd>Physical DMG</> dan memulihkan sebagian SP. Setiap tebasan akan menimbulkan DMG lebih besar dan memberikan pemulihan SP yang lebih baik. \n<@ba.info>Jika 4 tumpuk Vulnerability dipakai, tebasan ke-3 akan diperkuat.</>"

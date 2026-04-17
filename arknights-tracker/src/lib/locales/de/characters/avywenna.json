@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
         "stagger": "Taumeln",
-        "thunderlanceDurationS": "Dauer: Donnerlanze (Sek.)"
+        "thunderlanceDurationS": "Dauer: Donnerlanze (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Donnerlanze: Schlag",
       "description": "KOMBOAUSLÖSER: Wenn der gesteuerte Operator den <#ba.lastcombo>Abschlussangriff</> auf ein Ziel mit aktiver <#ba.pulseinflict>Elektrik</> oder <#ba.conduct>Elektrifizierung</> durchführt. \nSpringt in die Luft, wirft 3 <@ba.key>Donnerlanzen</> auf das Ziel und fügt dann Gegnern im Wirkungsbereich 1 Treffer <@ba.pulse>Elektrischen SDN</> zu."

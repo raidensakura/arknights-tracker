@@ -51,7 +51,8 @@
         "dmgMultiplier": "傷害倍率",
         "explosionDmgMultiplier": "爆炸傷害倍率",
         "stagger": "失衡值",
-        "corrodeDurationS": "腐蝕持續時間（秒）"
+        "corrodeDurationS": "腐蝕持續時間（秒）",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "火山蘑菇雲",
       "description": "當主控幹員對<@ba.key>不處於</><#ba.noguard>破防</>或<#ba.spellinflict>法術附著</>狀態的敵人造成<#ba.lastcombo>重擊</>後可以發動。\n發射一團火山雲拋向目標敵人，到達目標身邊後對目標造成<@ba.natur>自然傷害</>。火山雲會跟蹤目標，短暫延遲後爆炸，對周圍其他敵人造成一半的<@ba.natur>自然傷害</>，並強制施加短暫的<#ba.corrupt>腐蝕</>。"
@@ -124,7 +125,7 @@
       "name": "爆炸式噴發"
     },
     "potential4": {
-      "description": "終結技<@ba.key>毛茸茸派對</>所需的終結技能量能量<@ba.vup>-{1-costvalue:0%}</>。",
+      "description": "終結技<@ba.key>毛茸茸派對</>所需的終結技能量<@ba.vup>-{1-costvalue:0%}</>。",
       "name": "岩中花朵"
     },
     "potential5": {

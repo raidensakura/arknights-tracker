@@ -50,7 +50,8 @@
         "dmgMultiplier": "Multiplicateur de DÉG",
         "stagger": "Déséquilibre",
         "baseTreatment": "Soins de base",
-        "treatmentIncreasePerWill": "Augmentation des soins par Volonté"
+        "treatmentIncreasePerWill": "Augmentation des soins par Volonté",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Soutien du front",
       "description": "DÉCLENCHEMENT DE COMBO : lorsque l'opérateur que vous contrôlez est attaqué.\nBondit sur l'ennemi ciblé, et libère un puissant écrasement qui inflige des <@ba.pd>DÉG physiques</> et le <#ba.knockdown>renverse</> tout en restaurant des PV de l'opérateur contrôlé. Le trait Volonté augmente la quantité de PV soignés."

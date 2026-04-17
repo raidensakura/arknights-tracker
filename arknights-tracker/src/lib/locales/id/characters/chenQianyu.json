@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "Pengganda DMG"
+        "dmgMultiplier": "Pengganda DMG",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Soar to the Stars",
       "description": "PEMICU KOMBO: Saat musuh terkena <#ba.noguard>Vulnerable</>. \nSlashing Dash yang melewati musuh tertarget dan menimbulkan <@ba.pd>Physical DMG</> dan <#ba.airborne>Lift</> kepada semua musuh di sepanjang jalan."

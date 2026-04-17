@@ -68,7 +68,7 @@
         "seq3DmgMultiplier": "Hệ Số ST Chuỗi Công 3",
         "seq3Stagger": "Suy Sụp Chuỗi Công 3"
       },
-      "name": "Dịch Vụ Tuần Tra",
+      "name": "Lễ Canh Thức",
       "description": "Last Rite thi triển giáp băng bao quanh mình, tạo lưỡi liềm băng chém 3 nhát và miễn nhiễm mọi ST trong thời gian trạng thái này có hiệu lực. \nMỗi nhát chém gây <@ba.cryst>ST Băng</> cực lớn. \n<@ba.info>Last Rite chỉ có thể nhận Năng Lượng Tuyệt Kỹ từ KN chiến đấu và KN liên hoàn của chính cô.</>"
     },
     "indicator": {
@@ -89,8 +89,8 @@
     },
     "talent2": {
       "levels": [
-        "Tuyệt Kỹ <@ba.key>Dịch Vụ Tuần Tra</> được cải thiện: Khi Tuyệt Kỹ gây ST lên một kẻ địch đang có <#ba.crystvul>Yếu Hóa Băng</>, hiệu ứng <#ba.crystvul>Yếu Hóa Băng</> sẽ gấp <@ba.vup>{rate:0.0}</> lần so với ban đầu.",
-        "Tuyệt Kỹ <@ba.key>Dịch Vụ Tuần Tra</> được cải thiện: Khi Tuyệt Kỹ gây ST lên một kẻ địch đang có <#ba.crystvul>Yếu Hóa Băng</>, hiệu ứng <#ba.crystvul>Yếu Hóa Băng</> sẽ gấp <@ba.vup>{rate:0.0}</> lần so với ban đầu."
+        "Tuyệt Kỹ <@ba.key>Lễ Canh Thức</> được cải thiện: Khi Tuyệt Kỹ gây ST lên một kẻ địch đang có <#ba.crystvul>Yếu Hóa Băng</>, hiệu ứng <#ba.crystvul>Yếu Hóa Băng</> sẽ gấp <@ba.vup>{rate:0.0}</> lần so với ban đầu.",
+        "Tuyệt Kỹ <@ba.key>Lễ Canh Thức</> được cải thiện: Khi Tuyệt Kỹ gây ST lên một kẻ địch đang có <#ba.crystvul>Yếu Hóa Băng</>, hiệu ứng <#ba.crystvul>Yếu Hóa Băng</> sẽ gấp <@ba.vup>{rate:0.0}</> lần so với ban đầu."
       ],
       "name": "Cực Lạnh Giòn Hóa"
     },
@@ -127,11 +127,11 @@
       "name": "Vũ Khí Tuyệt Đối Băng Giá"
     },
     "potential3": {
-      "description": "KN liên hoàn <@ba.key>Kẻ Nuốt Chửng Mùa Đông</> và Tuyệt Kỹ <@ba.key>Dịch Vụ Tuần Tra</> được cải thiện: Hệ Số ST tăng <@ba.vup>{atk_scale2:0.00}</> lần so với ban đầu.",
+      "description": "KN liên hoàn <@ba.key>Kẻ Nuốt Chửng Mùa Đông</> và Tuyệt Kỹ <@ba.key>Lễ Canh Thức</> được cải thiện: Hệ Số ST tăng <@ba.vup>{atk_scale2:0.00}</> lần so với ban đầu.",
       "name": "Chúa Tể Mùa Đông"
     },
     "potential4": {
-      "description": "Tuyệt kỹ <@ba.key>Dịch Vụ Tuần Tra</> được cải thiện: Tiêu hao Năng Lượng Tuyệt Kỹ <@ba.vup>-{1-costvalue:0%}</>.",
+      "description": "Tuyệt kỹ <@ba.key>Lễ Canh Thức</> được cải thiện: Tiêu hao Năng Lượng Tuyệt Kỹ <@ba.vup>-{1-costvalue:0%}</>.",
       "name": "Thức Tỉnh Chân Thành"
     },
     "potential5": {

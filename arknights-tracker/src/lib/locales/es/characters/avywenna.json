@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
         "stagger": "Tambaleo",
-        "thunderlanceDurationS": "Duración (s) de Lanzatrueno"
+        "thunderlanceDurationS": "Duración (s) de Lanzatrueno",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Lanzatrueno: ataque",
       "description": "ACTIVADOR DE COMBO: Cuando el operador controlado realiza un <#ba.lastcombo>Golpe final</> sobre un objetivo con <#ba.pulseinflict>Imposición eléctrica</> activa o <#ba.conduct>Electrificación</>. \nSalta al aire y lanza 3 <@ba.key>Lanzatrueno</> al objetivo, luego inflige 1 golpe de <@ba.pulse>DAÑ eléctrico</> a los enemigos en el área de efecto."
@@ -132,7 +133,7 @@
       "name": "Muy experimentada"
     },
     "potential5": {
-      "description": "Cuando las <@ba.key>Lanzatruenos</> que regresan o las <@ba.key>Lanzatruenos EX</> golpean a un enemigo <#ba.pulsevul>susceptible a la electricidad</>, el multiplicador de DAÑ aumenta <@ba.vup>{potential_5_rate:0.00}</> veces el original.",
+      "description": "Cuando regresan los <@ba.key>Lanzatruenos</> o los <@ba.key>Lanzatruenos EX</> golpean a un enemigo <#ba.pulsevul>Susceptible a la electricidad</>, los multiplicadores de DAÑ aumentan <@ba.vup>{potential_5_rate:0.00}</> veces el original.",
       "name": "Zanahoria y palo afilado"
     }
   },

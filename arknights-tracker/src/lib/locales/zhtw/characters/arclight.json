@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "傷害倍率",
         "spRecovery": "回復技力",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "鳴雷",
       "description": "當有敵人進入<#ba.conduct>導電</>狀態或<#ba.conduct>導電</>狀態被<#ba.consume>消耗</>後可以發動。\n瞬閃至敵人身邊進行多次斬擊，造成<@ba.pd>物理傷害</>，並回復一定技力。"

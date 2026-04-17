@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
-        "whirlpoolDurationS": "湍水持続時間（秒）"
+        "whirlpoolDurationS": "湍水持続時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "川よ、俺様に従え！",
       "description": "敵が<#ba.crystinflict>寒冷付着</>または<#ba.spellburst>アーツ爆発</>のダメージを受けたときに発動可能。\n激流を放ち、前方の敵を貫いて<@ba.cryst>寒冷ダメージ</>を与え、<@ba.key>湍水</>を1カ所生成する。\n<@ba.info>同時に存在できる湍水は2カ所まで。</>"

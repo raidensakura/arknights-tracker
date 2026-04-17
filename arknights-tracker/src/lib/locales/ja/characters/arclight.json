@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
         "spRecovery": "SP回復量",
-        "stagger": "ブレイク値"
+        "stagger": "ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "雷鳴",
       "description": "敵が<#ba.conduct>感電</>状態になるか<#ba.conduct>感電</>状態が<#ba.consume>消費</>されると発動可能。\n敵の近くに瞬間移動して複数回斬撃を放ち、<@ba.pd>物理ダメージ</>を与え、SPを一定量回復する。"

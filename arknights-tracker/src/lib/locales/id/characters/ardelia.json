@@ -51,7 +51,8 @@
         "dmgMultiplier": "Pengganda DMG",
         "explosionDmgMultiplier": "Pengganda DMG Ledakan",
         "stagger": "Stagger",
-        "corrodeDurationS": "Durasi Corrode (dtk)"
+        "corrodeDurationS": "Durasi Corrode (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Eruption Column",
       "description": "PEMICU KOMBO: Saat operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> kepada musuh yang <@ba.key>tidak</> terkena tumpukan <#ba.noguard>Vulnerability</> atau <#ba.spellinflict>Arts Infliction</>. \nAwan Vulkanis pelacak akan diluncurkan ke arah musuh tertarget sehingga akan menimbulkan <@ba.natur>Nature DMG</> saat cukup dekat dengan target. Awan Vulkanis akan meledak setelah beberapa saat dan menimbulkan setengah <@ba.natur>Nature DMG</> serta secara paksa mengakibatkan <#ba.corrupt>Corrosion</> untuk sementara kepada musuh di sekitar."

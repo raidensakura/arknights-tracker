@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
         "stagger": "Tambaleo",
-        "electrifyDurationS": "Duración Electrificación (s)"
+        "electrifyDurationS": "Duración Electrificación (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Protocolo instantáneo: cadena",
       "description": "ACTIVADOR DE COMBO: Cuando el operador controlado realiza un <#ba.lastcombo>Golpe final</> sobre cualquier enemigo. \nLibera la energía electromagnética almacenada para bombardear al objetivo, infligiendo <@ba.pulse>DAÑ eléctrico</> e imponiendo <#ba.conduct>Electrificación</> forzada temporal."

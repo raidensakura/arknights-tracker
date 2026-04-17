@@ -51,7 +51,8 @@
         "dmgMultiplier": "伤害倍率",
         "explosionDmgMultiplier": "爆炸伤害倍率",
         "stagger": "失衡值",
-        "corrodeDurationS": "腐蚀持续时间（秒）"
+        "corrodeDurationS": "腐蚀持续时间（秒）",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "火山蘑菇云",
       "description": "当主控干员对<@ba.key>不处于</><#ba.noguard>破防</>或<#ba.spellinflict>法术附着</>状态的敌人造成<#ba.lastcombo>重击</>后可以发动。\n发射一团火山云抛向目标敌人，到达目标身边后对目标造成<@ba.natur>自然伤害</>。火山云会跟踪目标，短暂延迟后爆炸，对周围其他敌人造成一半的<@ba.natur>自然伤害</>，并强制施加短暂的<#ba.corrupt>腐蚀</>。"
@@ -124,7 +125,7 @@
       "name": "爆炸式喷发"
     },
     "potential4": {
-      "description": "终结技<@ba.key>毛茸茸派对</>所需的终结技能量能量<@ba.vup>-{1-costvalue:0%}</>。",
+      "description": "终结技<@ba.key>毛茸茸派对</>所需的终结技能量<@ba.vup>-{1-costvalue:0%}</>。",
       "name": "岩中花朵"
     },
     "potential5": {

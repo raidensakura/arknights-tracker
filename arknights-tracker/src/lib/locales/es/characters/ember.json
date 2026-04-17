@@ -50,7 +50,8 @@
         "dmgMultiplier": "Multiplicador de DAÑ",
         "stagger": "Tambaleo",
         "baseTreatment": "Tratamiento base",
-        "treatmentIncreasePerWill": "Incremento de tratamiento por Voluntad"
+        "treatmentIncreasePerWill": "Incremento de tratamiento por Voluntad",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Apoyo en primera línea",
       "description": "ACTIVADOR DE COMBO: Cuando el operador controlado es atacado. \nSalta hacia el enemigo objetivo y desata un golpe pesado que inflige <@ba.pd>DAÑ físico</> y <#ba.knockdown>Derribar</> mientras otorga tratamiento de PV al operador controlado. El atributo de Voluntad aumenta la cantidad de tratamiento de PV."

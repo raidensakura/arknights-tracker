@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Mise à l'épreuve",
       "description": "DÉCLENCHEMENT DE COMBO : lorsque le <@ba.key>cristal auxiliaire</> a épuisé ses soins. \nCharge rapidement le <@ba.key>cristal auxiliaire</> et le projette sur l'ennemi pour lui infliger des <@ba.cryst>DÉG cryogéniques</> et appliquer une <#ba.crystinflict>altération cryogénique</>."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "Renforce la compétence de combo <@ba.key>Mise à l'épreuve</> : toucher un ennemi victime d'une <#ba.crystinflict>altération cryogénique</> ou une <#ba.frozen>Solidification</> augmente également les <@ba.cryst>DÉG cryogéniques</> subis par l'ennemi de <@ba.vup>{cryst_up:0%}</> pendant <@ba.vup>{duration:0}</> s. L'effet ne peut pas être cumulé.",
-        "Renforce la compétence de combo <@ba.key>Mise à l'épreuve</> : toucher un ennemi victime d'une <#ba.crystinflict>altération cryogénique</> ou une <#ba.frozen>Solidification</> augmente également les <@ba.cryst>DÉG cryogéniques</> subis par l'ennemi de <@ba.vup>{cryst_up:0%}</> pendant <@ba.vup>{duration:0}</> s. L'effet ne peut pas être cumulé."
+        "Renforce la compétence de combo <@ba.key>Mise à l'épreuve</> : toucher un ennemi victime d'une <#ba.crystinflict>altération cryogénique</> ou une <#ba.frozen>Solidification</> augmente également les <@ba.cryst>DÉG cryogéniques</> subis par l'ennemi de <@ba.vup>{cryst_up:0%}</> pendant <@ba.vup>{duration:0}</> s. L'effet ne peut pas être cumulé.",
+        "Renforce la compétence de combo <@ba.key>Mise à l'épreuve</> : toucher un ennemi victime d'une <#ba.crystinflict>altération cryogénique</> ou une <#ba.frozen>Solidification</> augmente également les <@ba.cryst>DÉG cryogéniques</> subis par l'ennemi de <@ba.vup>{cryst_up:0%}</> pendant <@ba.vup>{duration:0}</> s. L'effet ne peut pas être cumulé."
       ],
       "name": "Lancement du processus"
     },

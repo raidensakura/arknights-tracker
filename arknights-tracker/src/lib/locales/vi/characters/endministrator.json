@@ -39,7 +39,8 @@
         "dmgMultiplier": "Hệ Số ST",
         "crystalShatteringDmgMultiplier": "Hệ Số ST Pha Lê Tan Vỡ",
         "stagger": "Suy Sụp",
-        "sealDurationS": "Thời Gian Phong Ấn (giây)"
+        "sealDurationS": "Thời Gian Phong Ấn (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Chuỗi Phong Ấn",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên khác trong đội gây ST bằng KN liên hoàn. \nLao tới bên cạnh kẻ địch để gây <@ba.pd>ST Vật Lý</> và gắn <#ba.originium>Tinh Thể Originium</> để tạm thời phong ấn chúng. Áp dụng <#ba.physicalstatus>Trạng Thái Vật Lý</> hoặc <#ba.noguard>Trừ Giáp</> lên kẻ địch bị phong ấn sẽ <#ba.consume>tiêu hao</> <#ba.originium>Tinh Thể Originium</> và gây thêm <@ba.pd>ST Vật Lý</>."
@@ -96,8 +97,8 @@
       "name": "Phản Chiếu Uy Quyền"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "Tuyệt Kỹ <@ba.key>Chuỗi Oanh Kích</> được cải thiện: Sau khi <#ba.consume>giải trừ</> <#ba.originium>Tinh Thể Originium</>, Endministrator nhận <@ba.vup>{usp:0}</> Năng Lượng Tuyệt Kỹ.\n<@ba.info>Hiệu ứng này không chịu ảnh hưởng từ các hiệu ứng cộng thêm khác.</>",
+      "name": "Người Hướng Dẫn"
     },
     "potential4": {
       "description": "???",

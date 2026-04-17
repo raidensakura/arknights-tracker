@@ -63,7 +63,8 @@
         "seq3SpRecovery": "Rec. de PH de SEC 3",
         "enhancedSeq3DmgMultiplier": "Multiplicador de DAÑ de SEC 3 mejorado",
         "enhancedSeq3Stagger": "Tambaleo de SEC 3 mejorada",
-        "enhancedSeq3SpRecovery": "Rec. de PH de SEC 3 mejorada"
+        "enhancedSeq3SpRecovery": "Rec. de PH de SEC 3 mejorada",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Corte de luna llena",
       "description": "ACTIVADOR DE COMBO: Cuando <#ba.crush>Triturar</> o <#ba.fracture>Brecha</> <#ba.consume>consume</> acumulación(es) de <#ba.noguard>Vulnerabilidad</> del enemigo. \nRealiza una cantidad de secuencias de cortes (hasta 3) según el número máximo de acumulaciones de <#ba.noguard>Vulnerabilidad</> <#ba.consume>consumidas</>, infligiendo <@ba.pd>DAÑ físico</> y recuperando algo de PH. Cada tajo inflige más DAÑ y otorga mejor recuperación de PH. \n<@ba.info>Consumir 4 acumulaciones de Vulnerabilidad mejora la tercera secuencia de tajos.</>"

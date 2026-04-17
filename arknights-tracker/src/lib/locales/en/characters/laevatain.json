@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Enhanced BATK SEQ 4 Multiplier"
       },
       "name": "Twilight",
-      "description": "Laevatain summons her Sviga Lævi and becomes the controlled operator. \nFor a certain duration, her basic attacks (BATK) are enhanced and the Sviga Lævi strikes together with Laevatain, with each attack dealing <@ba.fire>Heat DMG</>. BATK sequence 3 also applies <#ba.fireinflict>Heat Infliction</>."
+      "description": "Laevatain summons her Sviga Lævi and becomes the controlled operator. \nFor a certain duration, her basic attacks (BATK) are enhanced and the Sviga Lævi strikes together with Laevatain, with each attack dealing <@ba.fire>Heat DMG</>. BATK sequence 3 also applies <#ba.fireinflict>Heat Infliction</>.\n<@ba.info>Casting the battle skill, Smouldering Fire, or the combo skill, Seethe, does not shorten the duration of the ultimate, Twilight.</>"
     },
     "indicator": {
       "levels": [

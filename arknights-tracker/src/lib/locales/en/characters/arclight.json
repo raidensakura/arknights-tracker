@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
         "spRecovery": "SP Recovery",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Peal of Thunder",
       "description": "COMBO TRIGGER: When an enemy suffers <#ba.conduct>Electrification</> or after an enemy's <#ba.conduct>Electrification</> is <#ba.consume>consumed</>. \nBlinks to the enemy's side to unleash a flurry of slashes that deals <@ba.pd>Physical DMG</> and recovers some SP."

@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
         "stagger": "불균형치",
-        "electrifyDurationS": "감전 시간(초)"
+        "electrifyDurationS": "감전 시간(초)",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "실시간 프로토콜 · 연쇄 섬광",
       "description": "메인 컨트롤 오퍼레이터가 적에게 <#ba.lastcombo>강력한 일격</> 피해를 준 다음 사용할 수 있습니다.\n누적된 전기 에너지를 방출해 목표를 강타하며 <@ba.pulse>전기 피해</>를 주고, 짧은 강제 <#ba.conduct>감전</> 상태를 부여합니다."

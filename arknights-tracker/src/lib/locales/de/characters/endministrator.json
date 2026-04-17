@@ -39,7 +39,8 @@
         "dmgMultiplier": "SDN-Multiplikator",
         "crystalShatteringDmgMultiplier": "SDN-Multiplikator bei Kristallzersplitterung",
         "stagger": "Taumeln",
-        "sealDurationS": "Siegeldauer (Sek.)"
+        "sealDurationS": "Siegeldauer (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Siegel-Sequenz",
       "description": "KOMBOAUSLÖSER: Wenn ein anderer Operator im Team SDN mit Kombofertigkeiten verursacht. \nStürmt an die Seite des Gegners, um <@ba.pd>Physischen SDN</> zu verursachen und ihn mit <#ba.originium>Originium-Kristallen</> zu versehen, durch die er temporär versiegelt wird. Wenn dem versiegelten Gegner ein <#ba.physicalstatus>Physischer Zustand</> oder <#ba.noguard>Anfälligkeit</> zugefügt wird, werden die <#ba.originium>Originium-Kristalle</> <#ba.consume>verbraucht</> und es wird zusätzlicher <@ba.pd>Physischer SDN</> verursacht."
@@ -96,8 +97,8 @@
       "name": "Reflexion der Autorität"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "Ultimative Fertigkeit <@ba.key>Bombardement-Sequenz</> verbessert: Nach dem <#ba.consume>Verbrauch</> von <#ba.originium>Originium-Kristallen</> erhält der Endministrator <@ba.vup>{usp:0}</> Ultimative Energie.\n<@ba.info>Dieser Effekt profitiert nicht von anderen Boni.</>",
+      "name": "Der Leitstern"
     },
     "potential4": {
       "description": "???",

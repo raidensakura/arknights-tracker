@@ -342,7 +342,7 @@ export const banners = [
     startTimeAsia: "2026-04-17 12:00:00",
     endTime: "2026-05-22 11:59:59",
     version: "1.2",
-    featured6: ["zhuang"],
+    featured6: ["zhuangfy"],
     featured5: [],
     isServerTime: true, 
     timezone: "UTC+8",

@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Pengganda DMG terhadap Musuh yang Terkena Solidified",
         "stagger": "Stagger",
         "physicalSusceptibilityMultiplier": "Pengganda Physical Susceptibility",
-        "physicalSusceptibilityDuration": "Durasi Physical Susceptibility"
+        "physicalSusceptibilityDuration": "Durasi Physical Susceptibility",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Distortion",
       "description": "PEMICU KOMBO: Saat musuh terkena <#ba.frozen>Solidification</>. \nBerpindah cepat ke samping musuh dan menimbulkan <@ba.pd>Physical DMG</> serta secara paksa mengakibatkan <#ba.airborne>Lift</> kepada musuh di area kecil. Jika mengenai target yang sedang terkena <#ba.frozen>Solidification</>, skill ini akan menimbulkan DMG tambahan dan mengakibatkan <#ba.physicalvul>Physical Susceptibility</>."

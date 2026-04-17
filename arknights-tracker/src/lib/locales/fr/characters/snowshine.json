@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Soins de base continus",
         "treatmentOverTimeIncreasePerWill": "Augmentation des soins continus par Volonté",
         "treatmentOverTimeIntervalS": "Intervalle de soins continus (s)",
-        "durationS": "Durée (s)"
+        "durationS": "Durée (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Sauvetage polaire",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un opérateur que vous contrôlez est attaqué et que ses PV sont inférieurs à {trigger_hp_ratio:0%}. \nSnowshine lance un assistant R&S de champ de neige sur l'opérateur contrôlé. À son contact, l'assistant octroie immédiatement d'énormes <@ba.heal>soins</> aux opérateurs à proximité ainsi que des <@ba.heal>soins</> en continu aux opérateurs dans la zone d'effet. \nLe trait Volonté augmente la quantité de PV soignés."

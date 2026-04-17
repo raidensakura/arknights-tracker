@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Free Giveaway",
       "description": "PEMICU KOMBO: Saat musuh terkena 2 tumpuk <#ba.crystinflict>Cryo Infliction</> atau <#ba.naturalinflict>Nature Infliction</> atau lebih. \nMenembak musuh tertarget untuk memicu ledakan spesial sehingga akan menimbulkan <@ba.natur>Nature DMG</> dan mengakibatkan <#ba.spellinflict>Arts Infliction</> lagi dari elemen yang sudah ada pada musuh."

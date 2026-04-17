@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Frag Grenade·β",
       "description": "COMBO TRIGGER: When an <#ba.spellinflict>Arts Infliction</> is applied to an enemy. \nThrows a frag grenade at the target's location that explodes upon hitting the ground, dealing <@ba.fire>Heat DMG</> and <#ba.fireinflict>Heat Infliction</> to nearby enemies."

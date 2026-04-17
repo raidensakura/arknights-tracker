@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
-        "thunderlanceDurationS": "雷槍存在時間（秒）"
+        "thunderlanceDurationS": "雷槍の存在する時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "雷槍・閃撃",
       "description": "操作中のオペレーターが<#ba.pulseinflict>電磁付着</>または<#ba.conduct>感電</>状態の敵に<#ba.lastcombo>重攻撃</>を与えると発動可能。\nジャンプしながら敵に3本の<@ba.key>雷槍</>を投げ、範囲内の敵に1回<@ba.pulse>電磁ダメージ</>を与える。"
@@ -63,7 +64,7 @@
       "ultimate": {
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
-        "thunderlanceExDurationS": "強雷槍存在時間（秒）"
+        "thunderlanceExDurationS": "強雷槍の存在する時間（秒）"
       },
       "name": "雷槍・決震",
       "description": "目標エリアに<@ba.key>強雷槍</>を投げ、周囲の敵に高い<@ba.pulse>電磁ダメージ</>を与える。"

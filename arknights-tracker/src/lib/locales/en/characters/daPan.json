@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
         "stagger": "Stagger",
-        "crushDmgBonus": "Crush DMG Bonus"
+        "crushDmgBonus": "Crush DMG Bonus",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "MORE SPICE!",
       "description": "COMBO TRIGGER: When an enemy reaches 4 stacks of <#ba.noguard>Vulnerability</>. \nSwings the wok at the enemy to deal massive <@ba.pd>Physical DMG</> and <#ba.crush>Crush</>. This <#ba.crush>Crush</> also deals more DMG."

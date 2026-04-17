@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "能量伤害倍率",
         "explosionDmgMultiplier": "爆炸伤害倍率",
         "explosionStagger": "爆炸失衡值",
+        "ultimateEnergyGain": "获得终结技能量",
         "additionalUltimateEnergyGain": "额外获得终结技能量"
       },
       "name": "速冻仔·υ37",

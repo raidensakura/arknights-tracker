@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Limite di resistenza",
       "description": "ATTIVAZIONE COMBO: quando il <@ba.key>cristallo ausiliario</> esaurisce la Cura PS. \nCarica velocemente il <@ba.key>cristallo ausiliario</> e lo lancia al nemico per infliggere <@ba.cryst>danni da ghiaccio</> e <#ba.crystinflict>Afflizione da ghiaccio</>."

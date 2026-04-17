@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Penambahan Pengganda BATK SEQ 4"
       },
       "name": "Twilight",
-      "description": "Laevatain akan memanggil Sviga Lævi dan menjadi operator terkontrol. \nSelama durasi tertentu, serangan dasarnya (BATK) akan diperkuat dan Sviga Lævi akan menyerang serentak bersama Laevatain. Setiap serangan akan menimbulkan <@ba.fire>Heat DMG</>. Tahap 3 BATK juga akan mengakibatkan <#ba.fireinflict>Heat Infliction</>."
+      "description": "Laevatain akan memanggil Sviga Lævi dan menjadi operator terkontrol. \nSelama durasi tertentu, serangan dasarnya (BATK) akan diperkuat dan Sviga Lævi akan menyerang serentak bersama Laevatain. Setiap serangan akan menimbulkan <@ba.fire>Heat DMG</>. Tahap 3 BATK juga akan mengakibatkan <#ba.fireinflict>Heat Infliction</>.\n<@ba.info>Penggunaan skill tarungnya (Smouldering Fire) atau skill kombonya (Seethe) tidak akan mengurangi durasi ultimate-nya (Twilight).</>"
     },
     "indicator": {
       "levels": [

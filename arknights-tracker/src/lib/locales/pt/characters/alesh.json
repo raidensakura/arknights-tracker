@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Multiplicador DNO Aprimorado",
         "spRecovery": "Recuperação de PH",
         "bonusSpRecovery": "Recuperação de PH Bônus",
-        "stagger": "Desorientação"
+        "stagger": "Desorientação",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Pesca com Broca",
       "description": "ACIONADOR DO COMBO: Quando a <#ba.spellstatus>Reação de Artes</> ou os <#ba.originium>Cristais de Originium</> de um alvo próximo são <#ba.consume>consumidos</>. \nAbre um buraco de pesca embaixo do inimigo que causa <@ba.pd>DNO Físico</> e recupera PH. A habilidade tem uma chance de fisgar uma <@ba.key>Barbatana Rara</> que aumenta consideravelmente o DNO causado e recupera um pouco mais de PH."

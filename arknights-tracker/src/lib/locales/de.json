@@ -119,7 +119,7 @@
   "import": {
     "title": "Rekrutierungsverlauf importieren",
     "overwriteStats": "Ranking-Statistiken überschreiben",
-"overwriteDesc": "Verwende diese Option nur, wenn deine Ranking-Statistiken verdoppelt sind oder falsche Zahlen anzeigen. Das System wird dein Ranking basierend auf der lokalen Ziehungshistorie strikt neu berechnen.",
+    "overwriteDesc": "Verwende diese Option nur, wenn deine Ranking-Statistiken verdoppelt sind oder falsche Zahlen anzeigen. Das System wird dein Ranking basierend auf der lokalen Ziehungshistorie strikt neu berechnen.",
     "delete_token_title": "Token löschen",
     "importing": "Importieren...",
     "waiting_response": "Warten auf Antwort...",
@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "Luftfahrtmaterial II",
     "lightXircon": "Leichtes Xircon",
     "xircon": "Xircon",
-    "xiranite": "Xiranit"
+    "xiranite": "Xiranit",
+    "hetoniteBottle": "Hetonit-Flasche",
+    "heavyXiranite": "Schweres Xiranit",
+    "experimentalXiraniteBottle": "Experimentelle Xiranit-Flasche",
+    "experimentalXiranitePart": "Experimentelles Xiranit-Teil",
+    "experimentalHeavyXiraniteBottle": "Experimentelle Schwere Xiranit-Flasche",
+    "experimentalHeavyXiranitePart": "Experimentelles Schweres Xiranit-Teil",
+    "xiraniteJadeGourd": "Xiranit-Jadekalebasse",
+    "experimentalXiranHueAtomizer": "Experimenteller Xiranit-farbener Zerstäuber",
+    "xiraniteGourd": "Xiranit-Kalebasse",
+    "echoingDust": "Echo-Staub",
+    "cupriumSolution": "Cuprium-Lösung",
+    "hetonite": "Hetonit",
+    "hetonitePart": "Hetonit-Teil",
+    "howlerbeastBraid": "Heulerbestiengeflecht",
+    "hetoniteComponent": "Hetonit-Komponente",
+    "hetoniteSolution": "Hetonit-Lösung",
+    "precipitationAcid": "Niederschlagssäure",
+    "liquidHeavyXiranite": "Flüssiges Schweres Xiranit"
   },
   "common": {
     "copy": "Kopieren",
@@ -808,7 +826,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangFangyi": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Industrie 0.1",
@@ -876,7 +895,9 @@
     "gloriousMemory": "Glorreiche Erinnerung",
     "objEdgeOfLightness": "OBJ Ende der Leichtigkeit",
     "finchaser30": "Flösslerjäger 3.0",
-    "lupineScarlet": "Scharlachroter Wolf"
+    "lupineScarlet": "Scharlachroter Wolf",
+    "loneBarge": "Einsame Barke",
+    "flickersInTheMist": "Schimmer im Nebel"
   },
   "cookies": {
     "title": "Wir verwenden Cookies",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "Schweres Energie-Alluvium: Wuling City",
     "world_energy_point05_6": "Schweres Energie-Alluvium: Wuling City",
     "world_energy_point06_2": "Energie-Alluvium: Qingbo-Palisade",
-    "world_energy_point06_3": "Energie-Alluvium: Qingbo-Palisade"
+    "world_energy_point06_3": "Energie-Alluvium: Qingbo-Palisade",
+    "world_energy_point07_5": "Schweres Energie-Alluvium: Grenzstein",
+    "world_energy_point07_7": "Schweres Energie-Alluvium: Grenzstein",
+    "world_energy_point07_6": "Schweres Energie-Alluvium: Grenzstein",
+    "world_energy_point08_5": "Schweres Energie-Alluvium: Testzone",
+    "world_energy_point08_4": "Schweres Energie-Alluvium: Testzone",
+    "world_energy_point08_7": "Schweres Energie-Alluvium: Testzone",
+    "world_energy_point07_1": "Energie-Alluvium: Grenzstein",
+    "world_energy_point07_2": "Energie-Alluvium: Grenzstein",
+    "world_energy_point08_1": "Energie-Alluvium: Testzone",
+    "world_energy_point07_3": "Energie-Alluvium: Grenzstein",
+    "world_energy_point07_4": "Schweres Energie-Alluvium: Grenzstein",
+    "world_energy_point08_3": "Energie-Alluvium: Testzone",
+    "world_energy_point08_2": "Energie-Alluvium: Testzone",
+    "world_energy_point08_6": "Schweres Energie-Alluvium: Testzone"
   },
   "enemies": {
     "eny_0007_mimicw": "Tunnel-Nidwurm",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "Wegelagerer",
     "eny_0097_hsmino2": "Wolkenvernichter",
     "eny_0103_hshunt2": "Peitschender Wind",
-    "eny_0107_wgshoal2": "Gezeitenwanderer δ"
+    "eny_0107_wgshoal2": "Gezeitenwanderer δ",
+    "eny_0078_nefarp1": "Nefarith, „Knochenbrecherin“",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, „Eroberin“",
+    "eny_0082_hsbear": "Himmelstrommler"
   },
   "essencesPage": {
     "optimizer": "Farming-Optimierer",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Ewiges-Xiranit-Energiekern S1",
     "item_equip_t4_suit_usp02_edc_03": "Ewiges-Xiranit-Hilfsarm",
     "item_equip_t4_suit_usp02_hand_01": "Ewiges-Xiranit-Handschuhe",
-    "item_equip_t4_suit_usp02_hand_02": "Ewiges-Xiranit-Handschuhe S1"
+    "item_equip_t4_suit_usp02_hand_02": "Ewiges-Xiranit-Handschuhe S1",
+    "item_equip_t4_suit_atb01_edc_06": "Verbesserter Grenzgebiet-Sauerstoffzylinder S1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Xiranfluss-Handschuhe",
+    "item_equip_t4_suit_attri01_hand_03": "Knochenbrecha-Handschuhe",
+    "item_equip_t4_suit_atb01_hand_03": "Grenzgebiet-Faserhandschuhe S1",
+    "item_equip_t4_suit_phy01_edc_04": "Schwertkämpfer-Dolch",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Qingbo-Fass",
+    "item_equip_t4_suit_attri01_edc_02": "Knochenbrecha-Figur S2",
+    "item_equip_t4_suit_phy01_body_03": "Schwere Schwertkämpfer-Rüstung S1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Schwere Qingbo-Rüstung",
+    "item_equip_t4_suit_combo_cd01_body_02": "Leichte Qingbo-Rüstung",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Qingbo-Positionsbestimmungskit",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Qingbo-Bambusschneider",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Qingbo-Fingerhandschuhe",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Qingbo-Handschuhe",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Xiranfluss-Schlagstock",
+    "item_equip_t4_suit_expend_spell01_body_02": "Leichte Xiranfluss-Rüstung",
+    "item_equip_t4_suit_phy01_hand_03": "Taktische Schwertkämpfer-Fingerhandschuhe S1"
   },
   "packs": {
     "none": "Ohne Set",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "Ewiges Xiranit",
     "suit_will01": "Mordvolt-Schutz",
     "suit_wisd01": "Mordvolt-Isolierung",
-    "suit_wisdwill01": "AIK (Leicht)"
+    "suit_wisdwill01": "AIK (Leicht)",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Xiranfluss"
   },
   "equipmentTypes": {
     "body": "Rüstung",

@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Enhanced DMG Multiplier",
         "spRecovery": "SP Recovery",
         "bonusSpRecovery": "Bonus SP Recovery",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Auger Angling",
       "description": "COMBO TRIGGER: When the <#ba.spellstatus>Arts Reaction</> or <#ba.originium>Originium Crystals</> of a nearby target is <#ba.consume>consumed</>. \nOpens an angling hole beneath the enemy that deals <@ba.pd>Physical DMG</> and recovers some SP. The skill has a chance to hook a <@ba.key>Rare Fin</> that greatly increases the DMG dealt and recovers some more SP."

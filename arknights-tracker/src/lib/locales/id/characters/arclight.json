@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
         "spRecovery": "Pemulihan SP",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Peal of Thunder",
       "description": "PEMICU KOMBO: Saat musuh terkena <#ba.conduct>Electrification</> atau setelah <#ba.conduct>Electrification</> musuh <#ba.consume>dipakai</>. \nMemelesat ke samping musuh untuk melepaskan serangkaian tebasan sehingga akan menimbulkan <@ba.pd>Physical DMG</> dan memulihkan sebagian SP."

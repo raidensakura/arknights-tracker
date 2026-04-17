@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
         "stagger": "Déséquilibre",
-        "whirlpoolDurationS": "Durée de tourbillon (s)"
+        "whirlpoolDurationS": "Durée de tourbillon (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "RIVIÈRE, VIENS À MOI !",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est victime d'une <#ba.crystinflict>altération cryogénique</> ou qu'il subit des <#ba.spellburst>DÉG d'explosion des Arts</>.\nTangtang libère un jet d'eau puissant qui transperce tous les ennemis sur son passage en leur infligeant des <@ba.cryst>DÉG cryogéniques</> et crée un <@ba.key>tourbillon</>.\n<@ba.info>Jusqu'à 2 tourbillons peuvent coexister sur le champ de bataille.</>"

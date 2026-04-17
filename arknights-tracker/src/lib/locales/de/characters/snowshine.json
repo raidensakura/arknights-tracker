@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Kontinuierliche Grundbehandlung",
         "treatmentOverTimeIncreasePerWill": "Behandlungssteigerung über Zeit pro Wille",
         "treatmentOverTimeIntervalS": "Zeitintervall für Kontinuierliche Behandlung (Sek.)",
-        "durationS": "Dauer (Sek.)"
+        "durationS": "Dauer (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Polarrettung",
       "description": "KOMBOAUSLÖSER: Wenn der gesteuerte Operator angegriffen wird und auf weniger als {trigger_hp_ratio:0%} LP fällt. \nSnowshine wirft einen Schneefeld-R-Team-Assistenten zum gesteuerten Operator. Bei Kontakt bewirkt der Assistent bei nahen Operatoren sofort eine umfangreiche <@ba.heal>LP-Behandlung</> und bei Operatoren im Wirkungsbereich eine kontinuierliche <@ba.heal>LP-Behandlung</>. \nDie Wirksamkeit der LP-Behandlung erhöht sich durch das Wille-Attribut."

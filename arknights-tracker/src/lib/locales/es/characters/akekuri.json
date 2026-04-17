@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "Multiplicador de DAÑ por SEC",
         "staggerPerSeq": "Tambaleo por SEC",
-        "spRecoveryPerSeq": "Rec. de PH por SEC"
+        "spRecoveryPerSeq": "Rec. de PH por SEC",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Rayo y ráfaga",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo está Tambaleado o golpea un <#ba.poiseknot>Nodo de tambaleo</>. \nRealiza un desplazamiento de regreso con 2 secuencias de estocadas; cada secuencia inflige <@ba.pd>DAÑ físico</> y recupera algunos PH."

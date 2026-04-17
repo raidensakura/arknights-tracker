@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Hệ Số ST Đối Với Kẻ Địch Dính Đông Cứng",
         "stagger": "Suy Sụp",
         "physicalSusceptibilityMultiplier": "Hệ Số Nhân Yếu Hóa Vật Lý",
-        "physicalSusceptibilityDuration": "Thời Gian Hiệu Lực Yếu Hóa Vật Lý"
+        "physicalSusceptibilityDuration": "Thời Gian Hiệu Lực Yếu Hóa Vật Lý",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Nhiễu Dạng",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi kẻ địch chịu <#ba.frozen>Đông Cứng</>. \nLướt áp sát mục tiêu gây <@ba.pd>ST Vật Lý</> và cưỡng bức <#ba.airborne>Hất Tung</> kẻ địch trong một vùng nhỏ. Nếu đánh trúng mục tiêu đang có <#ba.frozen>Đông Cứng</>, kỹ năng gây thêm ST và áp dụng hiệu ứng <#ba.physicalvul>Yếu Hóa Vật Lý</>."

@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
         "stagger": "Stagger",
-        "whirlpoolDurationS": "Durasi Pusaran Air (dtk)"
+        "whirlpoolDurationS": "Durasi Pusaran Air (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "RIVER, TO ME!",
       "description": "PEMICU KOMBO: Saat mengakibatkan <#ba.crystinflict>Cryo Infliction</> atau menimbulkan <#ba.spellburst>Arts Burst DMG</> kepada musuh.\nTangtang akan melepaskan arus semburan kuat yang akan menembus semua musuh di lintasannya sehingga akan menimbulkan <@ba.cryst>Cryo DMG</> kepada mereka dan memunculkan <@ba.key>Pusaran Air</>.\n<@ba.info>Maksimum 2 Pusaran Air bisa ada sekaligus di medan pertarungan.</>"

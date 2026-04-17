@@ -119,7 +119,7 @@
   "import": {
     "title": "Impor Catatan Headhunting",
     "overwriteStats": "Timpa Statistik Peringkat",
-"overwriteDesc": "Gunakan opsi ini hanya jika statistik peringkat Anda berlipat ganda atau menunjukkan angka yang salah. Sistem akan menghitung ulang peringkat Anda secara ketat dari riwayat tarikan lokal.",
+    "overwriteDesc": "Gunakan opsi ini hanya jika statistik peringkat Anda berlipat ganda atau menunjukkan angka yang salah. Sistem akan menghitung ulang peringkat Anda secara ketat dari riwayat tarikan lokal.",
     "delete_token_title": "Hapus Token",
     "importing": "Mengimpor...",
     "waiting_response": "Menunggu respons...",
@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "Material Antariksa II",
     "lightXircon": "Xircon Ringan",
     "xircon": "Xircon",
-    "xiranite": "Xiranite"
+    "xiranite": "Xiranite",
+    "hetoniteBottle": "Botol Hetonite",
+    "heavyXiranite": "Xiranite Berat",
+    "experimentalXiraniteBottle": "Botol Xiranite Eksperimental",
+    "experimentalXiranitePart": "Bagian Xiranite Eksperimental",
+    "experimentalHeavyXiraniteBottle": "Botol Xiranite Berat Eksperimental",
+    "experimentalHeavyXiranitePart": "Bagian Xiranite Berat Eksperimental",
+    "xiraniteJadeGourd": "Botol Cembung Giok Xiranite",
+    "experimentalXiranHueAtomizer": "Atomisator Xiranite Warna Eksperimental",
+    "xiraniteGourd": "Botol Cembung Xiranite",
+    "echoingDust": "Debu Bergema",
+    "cupriumSolution": "Larutan Cuprium",
+    "hetonite": "Hetonite",
+    "hetonitePart": "Bagian Hetonite",
+    "howlerbeastBraid": "Jalinan Bulu Howlerbeast",
+    "hetoniteComponent": "Komponen Hetonite",
+    "hetoniteSolution": "Larutan Hetonite",
+    "precipitationAcid": "Asam Peluruh",
+    "liquidHeavyXiranite": "Xiranite Berat Cair"
   },
   "common": {
     "copy": "Salin",
@@ -808,7 +826,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Industry 0.1",
@@ -876,7 +895,9 @@
     "gloriousMemory": "Glorious Memory",
     "objEdgeOfLightness": "OBJ Edge of Lightness",
     "finchaser30": "Finchaser 3.0",
-    "lupineScarlet": "Lupine Scarlet"
+    "lupineScarlet": "Lupine Scarlet",
+    "loneBarge": "Lone Barge",
+    "flickersInTheMist": "Flickers in the Mist"
   },
   "cookies": {
     "title": "Kami menggunakan cookie",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "Aluvium Energi Parah: Kota Wuling",
     "world_energy_point05_6": "Aluvium Energi Parah: Kota Wuling",
     "world_energy_point06_2": "Aluvium Energi: Kampung Benteng Qingbo",
-    "world_energy_point06_3": "Aluvium Energi: Kampung Benteng Qingbo"
+    "world_energy_point06_3": "Aluvium Energi: Kampung Benteng Qingbo",
+    "world_energy_point07_5": "Aluvium Energi Parah: Batu Penanda",
+    "world_energy_point07_7": "Aluvium Energi Parah: Batu Penanda",
+    "world_energy_point07_6": "Aluvium Energi Parah: Batu Penanda",
+    "world_energy_point08_5": "Aluvium Energi Parah: Area Uji Coba",
+    "world_energy_point08_4": "Aluvium Energi Parah: Area Uji Coba",
+    "world_energy_point08_7": "Aluvium Energi Parah: Area Uji Coba",
+    "world_energy_point07_1": "Aluvium Energi: Batu Penanda",
+    "world_energy_point07_2": "Aluvium Energi: Batu Penanda",
+    "world_energy_point08_1": "Aluvium Energi: Area Uji Coba",
+    "world_energy_point07_3": "Aluvium Energi: Batu Penanda",
+    "world_energy_point07_4": "Aluvium Energi Parah: Batu Penanda",
+    "world_energy_point08_3": "Aluvium Energi: Area Uji Coba",
+    "world_energy_point08_2": "Aluvium Energi: Area Uji Coba",
+    "world_energy_point08_6": "Aluvium Energi Parah: Area Uji Coba"
   },
   "enemies": {
     "eny_0007_mimicw": "Nidwyrm Penggali",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "Highway Reaver",
     "eny_0097_hsmino2": "Cloud Obliterator",
     "eny_0103_hshunt2": "Sweeping Wind",
-    "eny_0107_wgshoal2": "Tidewalker δ"
+    "eny_0107_wgshoal2": "Tidewalker δ",
+    "eny_0078_nefarp1": "Nefarith, “Bonekrusher”",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, “sang Penakluk”",
+    "eny_0082_hsbear": "Skydrummer"
   },
   "essencesPage": {
     "optimizer": "Pengoptimal Farming",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Inti Daya Eternal Xiranite T1",
     "item_equip_t4_suit_usp02_edc_03": "Lengan Bantuan Eternal Xiranite",
     "item_equip_t4_suit_usp02_hand_01": "Sarung Tangan Eternal Xiranite",
-    "item_equip_t4_suit_usp02_hand_02": "Sarung Tangan Eternal Xiranite T1"
+    "item_equip_t4_suit_usp02_hand_02": "Sarung Tangan Eternal Xiranite T1",
+    "item_equip_t4_suit_atb01_edc_06": "Tabung O2 Tambang Ekstra T1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Sarung Tangan Xiranflow",
+    "item_equip_t4_suit_attri01_hand_03": "Sarung Tangan Bonekrusha",
+    "item_equip_t4_suit_atb01_hand_03": "Sarung Tangan Serat Tambang T1",
+    "item_equip_t4_suit_phy01_edc_04": "Belati Swordmancer",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Tong Qingbo",
+    "item_equip_t4_suit_attri01_edc_02": "Figurin Bonekrusha T2",
+    "item_equip_t4_suit_phy01_body_03": "Armor Berat Swordmancer T1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Armor Berat Qingbo",
+    "item_equip_t4_suit_combo_cd01_body_02": "Armor Ringan Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Kit Deteksi Posisi Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Pisau Bambu Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Gauntlet Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Sarung Tangan Qingbo",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Pentungan Xiranflow",
+    "item_equip_t4_suit_expend_spell01_body_02": "Armor Ringan Xiranflow",
+    "item_equip_t4_suit_phy01_hand_03": "Gauntlet TAC Swordmancer T1"
   },
   "packs": {
     "none": "Nonset",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "Eternal Xiranite",
     "suit_will01": "Resistans Mordvolt",
     "suit_wisd01": "Insulasi Mordvolt",
-    "suit_wisdwill01": "AIC Ringan"
+    "suit_wisdwill01": "AIC Ringan",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Xiranflow"
   },
   "equipmentTypes": {
     "body": "Armor",

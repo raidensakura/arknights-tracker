@@ -63,9 +63,10 @@
         "seq3SpRecovery": "Hồi Điểm KN Chuỗi Công 3",
         "enhancedSeq3DmgMultiplier": "Hệ Số ST Chuỗi Công 3 Cường Hóa",
         "enhancedSeq3Stagger": "Suy Sụp Chuỗi Công 3 Cường Hóa",
-        "enhancedSeq3SpRecovery": "Hồi Điểm KN Chuỗi Công 3 Cường Hóa"
+        "enhancedSeq3SpRecovery": "Hồi Điểm KN Chuỗi Công 3 Cường Hóa",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
-      "name": "Trăng Tròn Trảm",
+      "name": "Mãn Nguyệt Trảm",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi <#ba.crush>Nghiền</> hoặc <#ba.fracture>Phá Giáp</> <#ba.consume>sẽ tiêu hao</> điểm cộng dồn <#ba.noguard>Trừ Giáp</> của kẻ địch. \nChém liên tiếp (tối đa 3 nhát) tùy theo số điểm cộng dồn <#ba.noguard>Trừ Giáp</> đã <#ba.consume>tiêu hao</>, gây <@ba.pd>ST Vật Lý</> và hồi một số Điểm KN. Mỗi nhát sau mạnh hơn và hồi Điểm KN nhiều hơn. \n<@ba.info>Tiêu hao 4 điểm cộng dồn Trừ Giáp sẽ cường hóa chuỗi nhát chém thứ 3.</>"
     },
     "ultimate": {
@@ -146,7 +147,7 @@
       "name": "Khiên Của Talos-II"
     },
     "potential5": {
-      "description": "KN liên hoàn <@ba.key>Trăng Tròn Trảm</> được cải thiện: Thời gian hồi chiêu là <@ba.vup>{coolDown:0}</> giây; Hồi Điểm KN tăng gấp <@ba.vup>{atb_ratio:0.0}</> lần so với ban đầu.",
+      "description": "KN liên hoàn <@ba.key>Mãn Nguyệt Trảm</> được cải thiện: Thời gian hồi chiêu là <@ba.vup>{coolDown:0}</> giây; Hồi Điểm KN tăng gấp <@ba.vup>{atb_ratio:0.0}</> lần so với ban đầu.",
       "name": "Thanh Kiếm Mới Rèn"
     }
   },

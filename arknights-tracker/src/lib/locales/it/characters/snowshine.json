@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Cura progressiva base",
         "treatmentOverTimeIncreasePerWill": "Aumento Cura progressiva basato su Volontà",
         "treatmentOverTimeIntervalS": "Intervallo Cura progressiva (s)",
-        "durationS": "Durata (s)"
+        "durationS": "Durata (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Soccorso polare",
       "description": "ATTIVAZIONE COMBO: dopo che l'operatore controllato viene attaccato e ha meno di un {trigger_hp_ratio:0%} di PS. \nSnowshine lancia un assistente della squadra di soccorso delle nevi all'operatore controllato. Al contatto con il bersaglio, l'assistente conferisce un'ingente quantità di <@ba.heal>Cura PS</> agli operatori vicini e <@ba.heal>Cura PS</> progressiva agli operatori nel raggio d'azione. \nL'attributo Volontà aumenta la quantità di PS ripristinati."

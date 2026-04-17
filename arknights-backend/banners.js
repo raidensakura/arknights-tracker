@@ -152,7 +152,7 @@ const BANNERS = [
     startTime: "2026-04-16 23:00:00",
     startTimeAsia: "2026-04-17 12:00:00",
     endTime: "2026-05-22 11:59:59",
-    featured6: ["zhuang", "Zhuang"],
+    featured6: ["zhuangfy", "Zhuangfy", "Zhuang Fangyi"],
   },
   {
     id: "weponbox_1_2_1",

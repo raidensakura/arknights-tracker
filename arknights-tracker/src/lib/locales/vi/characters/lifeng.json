@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Hệ Số ST Chuỗi Công 1",
         "seq2DmgMultiplier": "Hệ Số ST Chuỗi Công 2",
         "seq2Stagger": "Suy Sụp Chuỗi Công 2",
-        "comboDurationS": "Thời Gian Hiệu Lực Liên Hoàn (giây)"
+        "comboDurationS": "Thời Gian Hiệu Lực Liên Hoàn (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Phẫn Nộ Tánh",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên đang điều khiển tung <#ba.lastcombo>Đòn Dứt Điểm</> lên kẻ địch đang chịu hiệu ứng <#ba.physicalvul>Yếu Hóa Vật Lý</> hoặc <#ba.fracture>Phá Giáp</>. \nGiải phóng năng lượng tạo thành một cú đâm giáo gây <@ba.pd>ST Vật Lý</> và nhận được hiệu ứng <#ba.combo>Liên Kết</>."

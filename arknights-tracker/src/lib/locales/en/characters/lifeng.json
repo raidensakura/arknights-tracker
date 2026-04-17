@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "SEQ 1 DMG Multiplier",
         "seq2DmgMultiplier": "SEQ 2 DMG Multiplier",
         "seq2Stagger": "SEQ 2 Stagger",
-        "comboDurationS": "Combo Duration (s)"
+        "comboDurationS": "Combo Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Aspect of Wrath",
       "description": "COMBO TRIGGER: When the controlled operator performs a <#ba.lastcombo>Final Strike</> on an enemy with <#ba.physicalvul>Physical Susceptibility</> or <#ba.fracture>Breach</>. \nUnleashes an aspect that performs a spear thrust to deal <@ba.pd>Physical DMG</> and grants <#ba.combo>Link</>."

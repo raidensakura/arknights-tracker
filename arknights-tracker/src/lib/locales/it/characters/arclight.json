@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
         "spRecovery": "Recupero PA",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Fragore di tuono",
       "description": "ATTIVAZIONE COMBO: quando un nemico subisce <#ba.conduct>Elettrificazione</> o dopo che un'<#ba.conduct>Elettrificazione</> di un nemico viene <#ba.consume>consumata</>. \nSi teletrasporta accanto al nemico ed esegue una serie di sferzate che infliggono <@ba.pd>danni fisici</> e ripristinano parzialmente i PA."

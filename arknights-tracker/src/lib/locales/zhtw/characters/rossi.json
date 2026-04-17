@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "第一段傷害倍率",
+        "seq1UltimateEnergyGain": "第一段獲得終結技能量",
         "seq2DmgMultiplier": "第二段傷害倍率",
         "bonusDmgMultiplierPerInflictionStack": "消耗每層附著額外傷害倍率",
         "seq2Stagger": "第二段失衡值",
         "criticalRateBoost": "暴擊率提升",
         "criticalDmgBoost": "暴擊傷害提升",
-        "buffDurationS": "增益效果的持續時間（秒）"
+        "buffDurationS": "增益效果的持續時間（秒）",
+        "seq2UltimateEnergyGain": "第二段獲得終結技能量"
       },
       "name": "燎影時刻",
       "description": "當有敵人同時處於<#ba.noguard>破防</>和<#ba.spellinflict>法術附著</>狀態時可以發動。\n洛西的連攜技可連續發動兩次，第一次會對目標造成<@ba.pd>物理傷害</>。\n第二次將<#ba.consume>消耗</>目標全部的<#ba.spellinflict>法術附著</>，對其造成基於<#ba.consume>消耗</>層數的<@ba.pd>物理傷害</>並造成一次<#ba.airborne>擊飛</>，同時在一段時間內提升自身的暴擊率和暴擊傷害。\n當第二次連攜技<@ba.key>精準銜接</>時，可以額外施加1層<#ba.noguard>破防</>。"

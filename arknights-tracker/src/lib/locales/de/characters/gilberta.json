@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Arkanstab: Matrixverschiebung",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner mit einer <#ba.spellstatus>Technikreaktion</> belegt wird. \nEin schnelles Wirken der Technik, die einen Gravitationszug erzeugt, der dann <@ba.natur>Natur-SDN</> verursacht und das Ziel sowie nahe Gegner <#ba.airborne>anhebt</>."

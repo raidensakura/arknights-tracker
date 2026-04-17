@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Grenade à fragmentation β",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi souffre d'une <#ba.spellinflict>altération des Arts</>.\nLance une grenade à fragmentation à l'emplacement de la cible. La grenade explose en touchant le sol, infligeant des <@ba.fire>DÉG thermiques</> et appliquant une <#ba.fireinflict>altération thermique</> aux ennemis à proximité."

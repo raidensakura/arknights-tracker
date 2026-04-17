@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "对冻结敌人的伤害倍率",
         "stagger": "失衡值",
         "physicalSusceptibilityMultiplier": "物理脆弱倍率",
-        "physicalSusceptibilityDuration": "物理脆弱持续时间"
+        "physicalSusceptibilityDuration": "物理脆弱持续时间",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "失真",
       "description": "当有敌人进入<#ba.frozen>冻结</>状态时可以发动。\n迅速移动到敌人身边，对小范围内的敌人造成<@ba.pd>物理伤害</>并强制造成<#ba.airborne>击飞</>。如果命中处于<#ba.frozen>冻结</>状态的敌人，还会造成额外伤害并施加<#ba.physicalvul>物理脆弱</>。"

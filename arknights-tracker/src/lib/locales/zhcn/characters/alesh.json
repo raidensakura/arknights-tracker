@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "强化伤害倍率",
         "spRecovery": "技力恢复",
         "bonusSpRecovery": "额外技力恢复",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "凿孔底钓术",
       "description": "当附近目标的<#ba.spellstatus>法术异常</>或<#ba.originium>源石结晶</>被<#ba.consume>消耗</>时可以发动。\n在敌人脚下开洞垂钓，造成<@ba.pd>物理伤害</>，并恢复一定技力，有一定概率能钓出<@ba.key>珍鳞</>，大幅增加伤害并额外恢复技力。"

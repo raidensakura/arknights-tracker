@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
-        "stagger": "Desorientação"
+        "stagger": "Desorientação",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Sorteio Gratuito",
       "description": "ACIONADOR DO COMBO: Quando um inimigo tem 2 ou mais acúmulos de <#ba.crystinflict>Inflição Crio</> ou <#ba.naturalinflict>Inflição da Natureza</>. \nAtira no inimigo alvo para desencadear uma explosão especial que causa <@ba.natur>DNO Natureza</> e aplica outra <#ba.spellinflict>Inflição de Artes</> do elemento já existente no inimigo."

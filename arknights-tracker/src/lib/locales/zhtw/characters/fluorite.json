@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "傷害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "免費贈禮",
       "description": "當敵人進入2層及以上<#ba.crystinflict>寒冷附著</>或<#ba.naturalinflict>自然附著</>時可以發動。\n射擊目標敵人，引發一次特殊爆炸，造成<@ba.natur>自然傷害</>並施加該<#ba.spellinflict>法術附著</>。"

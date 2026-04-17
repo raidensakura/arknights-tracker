@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
         "stagger": "Suy Sụp",
-        "electrifyDurationS": "Thời Gian Hiệu Lực Điện Hóa (giây)"
+        "electrifyDurationS": "Thời Gian Hiệu Lực Điện Hóa (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Giao Thức Tức Thời: Chuỗi",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi cán viên đang điều khiển tung <#ba.lastcombo>Đòn Dứt Điểm</> vào bất kỳ kẻ địch nào. \nGiải phóng năng lượng điện từ tích trữ oanh tạc mục tiêu, gây <@ba.pulse>ST Điện</> và cưỡng bức gây hiệu ứng <#ba.conduct>Điện Hóa</> tạm thời."

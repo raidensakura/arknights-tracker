@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
-        "stagger": "ブレイク値"
+        "stagger": "ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "磁気嵐実験場",
       "description": "<@ba.key>フォーカス</>中の敵が<#ba.physicalstatus>物理異常</>または<#ba.spellinflict>アーツ付着</>状態になったときに発動可能。\n敵にエネルギー爆発を1回引き起こし、<@ba.pulse>電磁ダメージ</>を与える。さらに、<#ba.physicalstatus>物理異常</>または<#ba.spellinflict>アーツ付着</>を再度付与する。"

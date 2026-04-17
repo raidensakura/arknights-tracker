@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
-        "crushDmgBonus": "猛撃ダメージ追加UP"
+        "crushDmgBonus": "猛撃ダメージ追加UP",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "調味料！",
       "description": "敵の<#ba.noguard>クラッシュ</>段階が4になったときに発動可能。\n鍋を振り回して敵に高い<@ba.pd>物理ダメージ</>と<#ba.crush>猛撃</>を与える。この<#ba.crush>猛撃</>のダメージは追加でアップする。"

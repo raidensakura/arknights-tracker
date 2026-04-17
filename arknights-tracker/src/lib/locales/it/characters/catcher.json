@@ -53,7 +53,8 @@
         "stagger": "Vacillamento",
         "baseShield": "Scudo base",
         "shieldIncreasePerDefense": "Aumento scudo basato su Difesa",
-        "shieldDurationS": "Durata scudo (s)"
+        "shieldDurationS": "Durata scudo (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Soppressione tempestiva",
       "description": "ATTIVAZIONE COMBO: quando un nemico inizia a caricare un'abilità, o quando l'operatore controllato viene attaccato e i suoi PS scendono sotto un {trigger_hp_ratio:0%}. \nEsegue un potente pugno verso il basso che infligge <@ba.pd>danni fisici</> al nemico, conferendo <#ba.shield>scudi</> a sé e a un altro compagno di squadra (con priorità all'operatore controllato).\nLa DIF può aumentare ulteriormente i punti scudo."

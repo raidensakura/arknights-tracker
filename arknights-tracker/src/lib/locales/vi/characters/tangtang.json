@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
         "stagger": "Suy Sụp",
-        "whirlpoolDurationS": "Hiệu Lực Xoáy Nước (giây)"
+        "whirlpoolDurationS": "Hiệu Lực Xoáy Nước (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "DÒNG NƯỚC TRỢ SỨC",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi gây <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.spellburst>ST Bùng Nổ Thuật Pháp</> lên kẻ địch.\nTangtang phóng một luồng khí phản lực mạnh mẽ, xuyên qua mọi kẻ địch trên đường đi, gây <@ba.cryst>ST Băng</> và tạo ra một <@ba.key>Xoáy Nước</>.\n<@ba.info>Có thể tồn tại tối đa 2 Xoáy Nước trên chiến trường cùng lúc.</>"

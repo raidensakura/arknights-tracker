@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Stress Testing",
       "description": "PEMICU KOMBO: Saat <@ba.key>Kristal Bantuan</> memakai HP treatment hingga habis. \nKekuatan <@ba.key>Kristal Bantuan</> akan terisi dengan cepat, lalu dilontarkan ke arah musuh sehingga akan menimbulkan <@ba.cryst>Cryo DMG</> dan <#ba.crystinflict>Cryo Infliction</>."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "Skill kombo <@ba.key>Stress Testing</> meningkat: Jika berhasil menghantam musuh yang sedang terkena <#ba.crystinflict>Cryo Infliction</> atau <#ba.frozen>Solidification</>, skill ini juga akan menimbulkan <@ba.cryst>Cryo DMG Dealt</> <@ba.vup>+{cryst_up:0%}</> kepada musuh selama <@ba.vup>{duration:0}</> dtk. Efek ini tidak bisa ditumpuk.",
-        "Skill kombo <@ba.key>Stress Testing</> meningkat: Jika berhasil menghantam musuh yang sedang terkena <#ba.crystinflict>Cryo Infliction</> atau <#ba.frozen>Solidification</>, skill ini juga akan menimbulkan <@ba.cryst>Cryo DMG Dealt</> <@ba.vup>+{cryst_up:0%}</> kepada musuh selama <@ba.vup>{duration:0}</> dtk. Efek ini tidak bisa ditumpuk."
+        "Skill kombo <@ba.key>Stress Testing</> meningkat: Jika berhasil menghantam musuh yang sedang terkena <#ba.crystinflict>Cryo Infliction</> atau <#ba.frozen>Solidification</>, skill ini juga akan menimbulkan <@ba.cryst>Cryo DMG Taken</> <@ba.vup>+{cryst_up:0%}</> kepada musuh selama <@ba.vup>{duration:0}</> dtk. Efek ini tidak bisa ditumpuk.",
+        "Skill kombo <@ba.key>Stress Testing</> meningkat: Jika berhasil menghantam musuh yang sedang terkena <#ba.crystinflict>Cryo Infliction</> atau <#ba.frozen>Solidification</>, skill ini juga akan menimbulkan <@ba.cryst>Cryo DMG Taken</> <@ba.vup>+{cryst_up:0%}</> kepada musuh selama <@ba.vup>{duration:0}</> dtk. Efek ini tidak bisa ditumpuk."
       ],
       "name": "Execute Process"
     },

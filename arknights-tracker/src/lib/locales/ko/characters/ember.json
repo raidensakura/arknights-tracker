@@ -50,7 +50,8 @@
         "dmgMultiplier": "피해 배율",
         "stagger": "불균형치",
         "baseTreatment": "기초 치유 수치",
-        "treatmentIncreasePerWill": "의지 1포인트마다 증가하는 치유 수치"
+        "treatmentIncreasePerWill": "의지 1포인트마다 증가하는 치유 수치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "전선에서의 지원",
       "description": "메인 컨트롤 오퍼레이터가 공격을 받았을 때 사용할 수 있습니다.\n목표한 적을 향해 뛰어올라 힘차게 내리찍습니다. <@ba.pd>물리 피해</>를 주고 <#ba.knockdown>넘어뜨리기</> 피해를 주며, 메인 컨트롤 오퍼레이터를 치유합니다. 의지는 치유량을 추가로 증가시킵니다."

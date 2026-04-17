@@ -119,7 +119,7 @@
   "import": {
     "title": "Importer l'Historique de Recrutement",
     "overwriteStats": "Écraser les statistiques de classement",
-"overwriteDesc": "N'utilisez cette option que si vos statistiques de classement sont doublées ou affichent des chiffres incorrects. Le système recalculera strictement votre classement à partir de l'historique des tirages local.",
+    "overwriteDesc": "N'utilisez cette option que si vos statistiques de classement sont doublées ou affichent des chiffres incorrects. Le système recalculera strictement votre classement à partir de l'historique des tirages local.",
     "delete_token_title": "Supprimer le token",
     "importing": "Importation...",
     "waiting_response": "En attente de réponse...",
@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "Matériau aérospatial II",
     "lightXircon": "Xircon léger",
     "xircon": "Xircon",
-    "xiranite": "Xiranite"
+    "xiranite": "Xiranite",
+    "hetoniteBottle": "Bouteille en hétonite",
+    "heavyXiranite": "Xiranite lourde",
+    "experimentalXiraniteBottle": "Bouteille en xiranite expérimentale",
+    "experimentalXiranitePart": "Pièce en xiranite expérimentale",
+    "experimentalHeavyXiraniteBottle": "Bouteille en xiranite lourde expérimentale",
+    "experimentalHeavyXiranitePart": "Pièce en xiranite lourde expérimentale",
+    "xiraniteJadeGourd": "Gourde de jade en xiranite",
+    "experimentalXiranHueAtomizer": "Atomiseur Xiran-Hue expérimental",
+    "xiraniteGourd": "Gourde de xiranite",
+    "echoingDust": "Poussière résonnante",
+    "cupriumSolution": "Solution de cuprium",
+    "hetonite": "Hétonite",
+    "hetonitePart": "Pièce en hétonite",
+    "howlerbeastBraid": "Tresse de hurleur",
+    "hetoniteComponent": "Composant en hétonite",
+    "hetoniteSolution": "Solution d'hétonite",
+    "precipitationAcid": "Acide de précipitation",
+    "liquidHeavyXiranite": "Xiranite lourde liquide"
   },
   "common": {
     "copy": "Copier",
@@ -808,7 +826,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Industrie 0.1",
@@ -876,7 +895,9 @@
     "gloriousMemory": "Glorieux souvenir",
     "objEdgeOfLightness": "OBJ Frontières de la lumière",
     "finchaser30": "Chassailettes 3.0",
-    "lupineScarlet": "Lupin écarlate"
+    "lupineScarlet": "Lupin écarlate",
+    "loneBarge": "Barge solitaire",
+    "flickersInTheMist": "Faible lueur dans la brume"
   },
   "cookies": {
     "title": "Nous utilisons des cookies",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "Alluvion d'énergie intense : Ville de Wuling",
     "world_energy_point05_6": "Alluvion d'énergie intense : Ville de Wuling",
     "world_energy_point06_2": "Alluvion d'énergie : La palanque de Qingbo",
-    "world_energy_point06_3": "Alluvion d'énergie : La palanque de Qingbo"
+    "world_energy_point06_3": "Alluvion d'énergie : La palanque de Qingbo",
+    "world_energy_point07_5": "Alluvion d'énergie intense : Pierre de marquage",
+    "world_energy_point07_7": "Alluvion d'énergie intense : Pierre de marquage",
+    "world_energy_point07_6": "Alluvion d'énergie intense : Pierre de marquage",
+    "world_energy_point08_5": "Alluvion d'énergie intense : zone de test",
+    "world_energy_point08_4": "Alluvion d'énergie intense : zone de test",
+    "world_energy_point08_7": "Alluvion d'énergie intense : zone de test",
+    "world_energy_point07_1": "Alluvion d'énergie : Pierre de marquage",
+    "world_energy_point07_2": "Alluvion d'énergie : Pierre de marquage",
+    "world_energy_point08_1": "Alluvion d'énergie : zone de test",
+    "world_energy_point07_3": "Alluvion d'énergie : Pierre de marquage",
+    "world_energy_point07_4": "Alluvion d'énergie intense : Pierre de marquage",
+    "world_energy_point08_3": "Alluvion d'énergie : zone de test",
+    "world_energy_point08_2": "Alluvion d'énergie : zone de test",
+    "world_energy_point08_6": "Alluvion d'énergie intense : zone de test"
   },
   "enemies": {
     "eny_0007_mimicw": "Nidwyrm tunnelier",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "Saccageur des routes",
     "eny_0097_hsmino2": "Brise-nuées",
     "eny_0103_hshunt2": "Vent violent",
-    "eny_0107_wgshoal2": "Brise-marée δ"
+    "eny_0107_wgshoal2": "Brise-marée δ",
+    "eny_0078_nefarp1": "Nefarith, « Broyeuse d'os »",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, « Conquérante »",
+    "eny_0082_hsbear": "Frappeciel"
   },
   "essencesPage": {
     "optimizer": "Optimiseur de farm",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Noyau d'énergie en xiranite éternelle G1",
     "item_equip_t4_suit_usp02_edc_03": "Bras auxiliaire en xiranite éternelle",
     "item_equip_t4_suit_usp02_hand_01": "Gants en xiranite éternelle",
-    "item_equip_t4_suit_usp02_hand_02": "Gants en xiranite éternelle G1"
+    "item_equip_t4_suit_usp02_hand_02": "Gants en xiranite éternelle G1",
+    "item_equip_t4_suit_atb01_edc_06": "Tube à O2 supplémentaire des Confins G1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Gants à Xiranflux",
+    "item_equip_t4_suit_attri01_hand_03": "Gants de broyeur",
+    "item_equip_t4_suit_atb01_hand_03": "Gants en fibres des Confins G1",
+    "item_equip_t4_suit_phy01_edc_04": "Dague de spadamancien",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Tonneau de Qingbo",
+    "item_equip_t4_suit_attri01_edc_02": "Figurine de broyeur G2",
+    "item_equip_t4_suit_phy01_body_03": "Armure lourde de spadamancien G1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Armure lourde de Qingbo",
+    "item_equip_t4_suit_combo_cd01_body_02": "Armure légère de Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Kit de placement de Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Coupe-bambou de Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Gantelets de Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Gants de Qingbo",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Bâton à Xiranflux",
+    "item_equip_t4_suit_expend_spell01_body_02": "Armure légère à Xiranflux",
+    "item_equip_t4_suit_phy01_hand_03": "Gantelets TAC de spadamancien G1"
   },
   "packs": {
     "none": "Unique",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "Xiranite éternelle",
     "suit_will01": "Résistance de Mordvolt",
     "suit_wisd01": "Isolation de Mordvolt",
-    "suit_wisdwill01": "Équipement léger du GIA"
+    "suit_wisdwill01": "Équipement léger du GIA",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Xiranflux"
   },
   "equipmentTypes": {
     "body": "Armure",

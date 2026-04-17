@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "EMP Test Site",
       "description": "PEMICU KOMBO: Saat musuh yang sedang terkena <@ba.key>Focus</> terkena <#ba.physicalstatus>Status Fisik</> atau <#ba.spellinflict>Arts Infliction</>. \nMengaktifkan 1 ledakan energi kepada musuh yang akan menimbulkan <@ba.pulse>Electric DMG</> dan mengakibatkan tumpukan <#ba.physicalstatus>Status Fisik</> atau <#ba.spellinflict>Arts Infliction</> yang sama lagi."

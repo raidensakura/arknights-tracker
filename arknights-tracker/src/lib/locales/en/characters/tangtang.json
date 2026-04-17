@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
         "stagger": "Stagger",
-        "whirlpoolDurationS": "Whirlpool Duration (s)"
+        "whirlpoolDurationS": "Whirlpool Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "RIVER, TO ME!",
       "description": "COMBO TRIGGER: When applying <#ba.crystinflict>Cryo Infliction</> or dealing <#ba.spellburst>Arts Burst DMG</> to an enemy.\nTangtang unleashes a powerful jet stream that penetrates all enemies in its path, deals <@ba.cryst>Cryo DMG</> to them, and creates a <@ba.key>Whirlpool</>.\n<@ba.info>Up to 2 Whirlpools can exist in the battlefield at any time.</>"

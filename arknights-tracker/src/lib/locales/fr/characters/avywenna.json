@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
         "stagger": "Déséquilibre",
-        "thunderlanceDurationS": "Durée de la lance de foudre (s)"
+        "thunderlanceDurationS": "Durée de la lance de foudre (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Lance de foudre : Frappe",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un opérateur que vous contrôlez lance un <#ba.lastcombo>Coup final</> sur une cible victime d'une <#ba.pulseinflict>altération électrique</> ou de l'effet d'<#ba.conduct>Électrification</>. \nSaute à mi-hauteur et projette 3 <@ba.key>lances de foudre</> sur la cible, avant d'infliger 1 salve de <@ba.pulse>DÉG électriques</> aux ennemis dans la zone d'effet."
@@ -132,7 +133,7 @@
       "name": "Chevronnée"
     },
     "potential5": {
-      "description": "Quand les <@ba.key>lances de foudre</> ou <@ba.key>lances de foudre EX</> sur le retour touchent un ennemi <#ba.pulsevul>sensible à l'électricité</>, les multiplicateurs de DÉG passent à <@ba.vup>{potential_5_rate:0.00}</> fois leur valeur d'origine.",
+      "description": "Quand les <@ba.key>lances de foudre</> ou <@ba.key>lances de foudre EX</> sur le retour touchent un ennemi <#ba.pulsevul>sensible à l'électricité</>, les multiplicateurs de DÉG passent à <@ba.vup>{potential_5_rate:0.00}</> fois leur valeur d'origine.",
       "name": "Carotte et bâton pointu"
     }
   },

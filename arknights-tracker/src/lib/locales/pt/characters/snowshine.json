@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Tratamento Base ao Longo do Tempo",
         "treatmentOverTimeIncreasePerWill": "Aumento do Tratamento ao Longo do Tempo por Vontade",
         "treatmentOverTimeIntervalS": "Intervalo de Tratamento ao Longo do Tempo (s)",
-        "durationS": "Duração (s)"
+        "durationS": "Duração (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Resgate Polar",
       "description": "ACIONADOR DO COMBO: Após o operador controlado ser atacado e ficar com menos de {trigger_hp_ratio:0%} de PV. \nSnowshine arremessa um Assistente de BER do Campo de Neve no operador controlado. Ao atingir o alvo, o Assistente aplica um <@ba.heal>Tratamento de PV</> instantâneo e massivo aos operadores próximos, bem como um <@ba.heal>Tratamento de PV</> contínuo aos operadores na área de efeito. \nO atributo de Vontade aumenta a quantidade de tratamento de PV."

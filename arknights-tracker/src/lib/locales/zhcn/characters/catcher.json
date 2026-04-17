@@ -53,7 +53,8 @@
         "stagger": "失衡值",
         "baseShield": "基础值护盾",
         "shieldIncreasePerDefense": "每点防御力提升的护盾值",
-        "shieldDurationS": "护盾持续时间（秒）"
+        "shieldDurationS": "护盾持续时间（秒）",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "即时压制",
       "description": "当敌人开始蓄力，或主控干员受到攻击后生命值低于{trigger_hp_ratio:0%}可以发动。\n挥拳向前用力扣下，对敌人造成<@ba.pd>物理伤害</>，并使自身和另一名友方干员（主控干员优先）获得<#ba.shield>护盾</>。\n防御力可以额外提高护盾值。"

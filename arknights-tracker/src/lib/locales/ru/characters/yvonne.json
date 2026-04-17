@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "Множитель УРН энергии",
         "explosionDmgMultiplier": "Множитель УРН взрыва",
         "explosionStagger": "Ошеломление от взрыва",
+        "ultimateEnergyGain": "Накопление суперэнергии",
         "additionalUltimateEnergyGain": "Доп. накопление суперэнергии"
       },
       "name": "Скорозамораживатель υ37",

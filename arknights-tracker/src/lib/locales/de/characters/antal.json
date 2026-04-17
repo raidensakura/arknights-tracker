@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "EMP-Testgelände",
       "description": "KOMBOAUSLÖSER: Ein Gegner mit aktivem <@ba.key>Fokus</> erleidet einen <#ba.physicalstatus>Physischen Zustand</> oder eine <#ba.spellinflict>Technikkumulierung</>. \nLöst eine Energieexplosion aus, die dem Gegner <@ba.pulse>Elektrischen SDN</> zufügt und ihn mit einer weiteren Kumulierung desselben <#ba.physicalstatus>Physischen Zustands</> oder derselben <#ba.spellinflict>Technikkumulierung</> belegt."

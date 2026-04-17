@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Quà Miễn Phí",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi kẻ địch có từ 2 điểm cộng dồn <#ba.crystinflict>Nhiễm Băng</> hoặc <#ba.naturalinflict>Nhiễm Tự Nhiên</> trở lên. \nBắn vào mục tiêu để kích nổ đặc biệt gây <@ba.natur>ST Tự Nhiên</> và cộng thêm <#ba.spellinflict>Nhiễm Thuật Pháp</> cùng nguyên tố đang có trên mục tiêu."

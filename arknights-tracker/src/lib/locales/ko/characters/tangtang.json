@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
         "stagger": "불균형치",
-        "whirlpoolDurationS": "와류 지속 시간(초)"
+        "whirlpoolDurationS": "와류 지속 시간(초)",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "야, 강물! 도와줘!",
       "description": "적이 <#ba.crystinflict>냉기 부착</>을 부여받았거나 <#ba.spellburst>아츠 폭발</> 피해를 받았을 때 발동할 수 있습니다.\n강력한 물줄기를 방출해 전방의 적을 관통하며 <@ba.cryst>냉기 피해</>를 주고, <@ba.key>와류</> 하나를 생성합니다.\n<@ba.info>필드에는 최대 두 개의 와류만 존재할 수 있습니다.</>"

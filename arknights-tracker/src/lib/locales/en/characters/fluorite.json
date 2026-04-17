@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Free Giveaway",
       "description": "COMBO TRIGGER: When an enemy has 2 or more stacks of <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</>. \nShoots the target enemy to trigger a special explosion that deals <@ba.natur>Nature DMG</> and applies another <#ba.spellinflict>Arts Infliction</> of the element already on the enemy."

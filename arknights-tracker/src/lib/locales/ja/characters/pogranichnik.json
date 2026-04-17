@@ -63,7 +63,8 @@
         "seq3SpRecovery": "3段目のSP回復量",
         "enhancedSeq3DmgMultiplier": "強化3段目ダメージ倍率",
         "enhancedSeq3Stagger": "強化3段目ブレイク値",
-        "enhancedSeq3SpRecovery": "強化3段目のSP回復量"
+        "enhancedSeq3SpRecovery": "強化3段目のSP回復量",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "満月迎撃",
       "description": "敵が<#ba.crush>猛撃</>または<#ba.fracture>破砕</>によって<#ba.noguard>クラッシュ</>段階が<#ba.consume>消費</>されると発動可能。\n<#ba.consume>消費</>した最大<#ba.noguard>クラッシュ</>段階と同じ回数、敵に斬撃を放つ（最大3段）。斬撃ごとに<@ba.pd>物理ダメージ</>を与え、SPを一定量回復する。斬撃数が多いほど、ダメージとSP回復量がアップする。\n<@ba.info>4段階のクラッシュを消費した場合、3段目の斬撃が強化される。</>"

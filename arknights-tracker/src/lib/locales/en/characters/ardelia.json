@@ -51,7 +51,8 @@
         "dmgMultiplier": "DMG Multiplier",
         "explosionDmgMultiplier": "Explosion DMG Multiplier",
         "stagger": "Stagger",
-        "corrodeDurationS": "Corrode Duration (s)"
+        "corrodeDurationS": "Corrode Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Eruption Column",
       "description": "COMBO TRIGGER: When the controlled operator performs a <#ba.lastcombo>Final Strike</> on an enemy with <@ba.key>no</> stacks of <#ba.noguard>Vulnerability</> or <#ba.spellinflict>Arts Infliction</>. \nLaunches a homing Volcanic Cloud at a target enemy that deals <@ba.natur>Nature DMG</> when close enough to the target. The Volcanic Cloud explodes after a short delay, dealing half of the <@ba.natur>Nature DMG</> and forcibly applying temporary <#ba.corrupt>Corrosion</> to nearby enemies."

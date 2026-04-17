@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
-        "stagger": "Desorientação"
+        "stagger": "Desorientação",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Local de Teste de PEM",
       "description": "ACIONADOR DO COMBO: Quando um inimigo com <@ba.key>Foco</> ativo sofre um <#ba.physicalstatus>Status Físico</> ou uma <#ba.spellinflict>Inflição de Artes</>. \nAciona 1 explosão de energia no inimigo que causa <@ba.pulse>DNO Elétrico</> e aplica outro acúmulo do mesmo <#ba.physicalstatus>Status Físico</> ou <#ba.spellinflict>Inflição de Artes</>."

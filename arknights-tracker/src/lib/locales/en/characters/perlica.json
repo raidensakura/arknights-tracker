@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
         "stagger": "Stagger",
-        "electrifyDurationS": "Electrify Duration (s)"
+        "electrifyDurationS": "Electrify Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Instant Protocol: Chain",
       "description": "COMBO TRIGGER: When controlled operator performs a <#ba.lastcombo>Final Strike</> on any enemy. \nUnleashes stored electro-magnetic energy to bombard the target, dealing <@ba.pulse>Electric DMG</> and forcibly inflicting temporary <#ba.conduct>Electrification</>."

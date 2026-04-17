@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Sorteo gratuito",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo tiene 2 o más acumulaciones de <#ba.crystinflict>Imp. crio.</> o <#ba.naturalinflict>Imp. de nat.</>. \nDispara al enemigo objetivo para detonar una explosión especial que inflige <@ba.natur>DAÑ por naturaleza</> y aplica otra <#ba.spellinflict>Imposición de artes</> del elemento que ya afecta al enemigo."

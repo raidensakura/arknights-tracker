@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "Multiplicador DNO"
+        "dmgMultiplier": "Multiplicador DNO",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Voe até as Estrelas",
       "description": "ACIONADOR DO COMBO: Quando um inimigo se torna <#ba.noguard>Vulnerável</>. \nUm golpe cortante que atravessa o inimigo alvo e causa <@ba.pd>DNO Físico</> e <#ba.airborne>Levantar</> a todos os inimigos ao longo do caminho."

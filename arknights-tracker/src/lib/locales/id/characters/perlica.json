@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
         "stagger": "Stagger",
-        "electrifyDurationS": "Durasi Electrify (dtk)"
+        "electrifyDurationS": "Durasi Electrify (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Instant Protocol: Chain",
       "description": "PEMICU KOMBO: Saat operator terkontrol melancarkan <#ba.lastcombo>Final Strike</> kepada musuh mana pun. \nMelepaskan energi elektromagnetis yang tersimpan untuk membombardir target sehingga akan menimbulkan <@ba.pulse>Electric DMG</> dan mengakibatkan <#ba.conduct>Electrification</> secara paksa untuk sementara."

@@ -54,7 +54,8 @@
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
         "stagger": "Vacillamento",
-        "thunderlanceDurationS": "Durata Tuonolancia (s)"
+        "thunderlanceDurationS": "Durata Tuonolancia (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Tuonolancia: impatto",
       "description": "ATTIVAZIONE COMBO: quando l'operatore controllato esegue un <#ba.lastcombo>colpo finale</> su un bersaglio già sottoposto ad <#ba.pulseinflict>Afflizione da elettricità</> o <#ba.conduct>Elettrificazione</>. \nSalta a mezz'aria e lancia tre <@ba.key>Tuonolance</> al bersaglio, per poi sferrare un colpo che infligge <@ba.pulse>danni da elettricità</> ai nemici nell'area d'effetto."

@@ -53,7 +53,8 @@
         "stagger": "Taumeln",
         "baseShield": "Grund-Schild",
         "shieldIncreasePerDefense": "Schild-Steigerung pro Verteidigung",
-        "shieldDurationS": "Schilddauer (Sek.)"
+        "shieldDurationS": "Schilddauer (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Rechtzeitige Unterdrückung",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner beginnt, eine Fertigkeit aufzuladen, oder der gesteuerte Operator angegriffen wird und seine Gesundheit sinkt unter {trigger_hp_ratio:0%} LP. \nFührt einen mächtigen Schlag nach unten aus, der dem Gegner <@ba.pd>Physischen SDN</> zufügt, und gewährt sich selbst und einem anderen Teammitglied <#ba.shield>Schilde</> gewährt (der gesteuerte Operator erhält Priorität).\nDie Schildpunkte erhöhen sich mit dem VERT-Wert."

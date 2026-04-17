@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "第一段傷害倍率",
         "seq2DmgMultiplier": "第二段傷害倍率",
         "seq2Stagger": "第二段失衡值",
-        "comboDurationS": "連擊持續時間（秒）"
+        "comboDurationS": "連擊持續時間（秒）",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "忿怒相",
       "description": "當處於<#ba.physicalvul>物理脆弱</>或<#ba.fracture>碎甲</>狀態的敵人受到主控幹員<#ba.lastcombo>重擊</>後可以發動。\n施放身外身以長槍突刺，造成<@ba.pd>物理傷害</>，並且獲得<#ba.combo>連擊</>。"

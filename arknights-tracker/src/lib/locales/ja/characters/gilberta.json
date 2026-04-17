@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
-        "stagger": "ブレイク値"
+        "stagger": "ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "秘杖・マトリックス転移",
       "description": "敵が<#ba.spellstatus>アーツ異常</>になったときに発動可能。\n短時間のチャージ後、重力で目標および周囲の敵を引き寄せ、<@ba.natur>自然ダメージ</>を与え、強制的に<#ba.airborne>浮遊</>させる。"

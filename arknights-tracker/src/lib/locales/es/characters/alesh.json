@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Multiplicador de DAÑ potenciado",
         "spRecovery": "Rec. de PH",
         "bonusSpRecovery": "Recuperación adicional de PH",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Pesca con barrena",
       "description": "ACTIVADOR DE COMBO: Cuando la <#ba.spellstatus>Reacción a Artes</> o los <#ba.originium>Cristales de Originio</> de un objetivo cercano se <#ba.consume>consumen</>. \nAbre un agujero de pesca bajo el enemigo que inflige <@ba.pd>DAÑ físico</> y recupera algo de PH. La habilidad tiene probabilidad de enganchar una <@ba.key>Aleta rara</> que aumenta enormemente el DAÑ infligido y recupera algo más de PH."

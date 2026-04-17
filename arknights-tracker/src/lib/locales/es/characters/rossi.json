@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "Multiplicador de DAÑ SEC 1",
+        "seq1UltimateEnergyGain": "Ganancia de Energía máxima de SEC 1",
         "seq2DmgMultiplier": "Multiplicador de DAÑ SEC 2",
         "bonusDmgMultiplierPerInflictionStack": "Multiplicador de DAÑ adicional por Acumulación de imposición",
         "seq2Stagger": "Tambaleo de SEC 2",
         "criticalRateBoost": "Refuerzo Índice crítico",
         "criticalDmgBoost": "Refuerzo de DAÑ crítico",
-        "buffDurationS": "Duración de incremento (s)"
+        "buffDurationS": "Duración de incremento (s)",
+        "seq2UltimateEnergyGain": "Ganancia de Energía máxima de SEC 2"
       },
       "name": "Momento de sombra abrasadora",
       "description": "ACTIVACIÓN DE COMBO: Cuando un enemigo tiene acumulaciones de <#ba.noguard>Vulnerabilidad</> e <#ba.spellinflict>Imposición de artes</>.\nLa habilidad de combo de Rossi tiene 2 secuencias consecutivas. SECUENCIA DE COMBO 1 inflige <@ba.pd>DAÑ físico</> al objetivo.\nSECUENCIA DE COMBO 2 <#ba.consume>consume</> todas las acumulaciones de <#ba.spellinflict>Imposición de artes</> del objetivo, inflige <@ba.pd>DAÑ físico</> según la cantidad de acumulaciones de Imposición de artes <#ba.consume>consumidas</>, aplica 1 instancia de <#ba.airborne>Levantar</> y mejora el índice crítico y el DAÑ crítico infligido de Rossi al mismo tiempo.\nSi la SECUENCIA DE COMBO 2 se lanza <@ba.key>justo a tiempo</>, aplica 1 acumulación adicional de <#ba.noguard>Vulnerabilidad</>."
@@ -70,7 +72,7 @@
         "stagger": "Tambaleo",
         "criticalDmgBoost": "Refuerzo de DAÑ crítico"
       },
-      "name": "Emboscada de “Garrafilada”",
+      "name": "Emboscada “Filogarra”",
       "description": "Rossi agita su capa y desata una ráfaga de estocadas que inflige rápidamente varias secuencias de <@ba.fire>DAÑ por calor</> al objetivo. Luego realiza un ataque de corte de dos secuencias con su daga que inflige <@ba.fire>DAÑ por calor</> masivo y aplica <#ba.fireinflict>Imposición de calor</>.\n<@ba.info>Cuando esta habilidad logra un golpe crítico, inflige más DAÑ crítico.</>"
     },
     "indicator": {
@@ -133,7 +135,7 @@
       "name": "Deberes tangibles"
     },
     "potential4": {
-      "description": "Máxima <@ba.key>Emboscada de “Garrafilada”</> mejorada: costo de Energía máxima <@ba.vup>-{1-costvalue:0%}</>.",
+      "description": "Máxima <@ba.key>Emboscada “Filogarra”</> mejorada: costo de Energía máxima <@ba.vup>-{1-costvalue:0%}</>.",
       "name": "Deseo inocente"
     },
     "potential5": {

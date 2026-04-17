@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "Multiplicador de DAÑ"
+        "dmgMultiplier": "Multiplicador de DAÑ",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Remontar a las estrellas",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo se vuelve <#ba.noguard>Vulnerable</>. \nUn desplazamiento afilado que atraviesa al enemigo objetivo e inflige <@ba.pd>DAÑ físico</> y <#ba.airborne>Levantar</> a todos los enemigos en el trayecto."

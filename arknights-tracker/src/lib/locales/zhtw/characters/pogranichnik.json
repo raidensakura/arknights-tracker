@@ -63,7 +63,8 @@
         "seq3SpRecovery": "第三段技力回復",
         "enhancedSeq3DmgMultiplier": "強化第三段傷害倍率",
         "enhancedSeq3Stagger": "強化第三段失衡值",
-        "enhancedSeq3SpRecovery": "強化第三段技力回復"
+        "enhancedSeq3SpRecovery": "強化第三段技力回復",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "盈月邀擊",
       "description": "當有敵人被<#ba.crush>猛擊</>或者<#ba.fracture>碎甲</><#ba.consume>消耗</><#ba.noguard>破防</>層數後可以發動。\n根據<#ba.consume>消耗</>的最高<#ba.noguard>破防</>層數，對敵人進行相同段數的斬擊（最多3段），造成<@ba.pd>物理傷害</>並回復一定技力，每一擊的傷害和技力回復效果都更強。\n<@ba.info>若消耗4層破防，第3段斬擊將獲得強化。</>"

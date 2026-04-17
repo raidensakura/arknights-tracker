@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "고급 항공 건축 재료",
     "lightXircon": "경양정",
     "xircon": "양정",
-    "xiranite": "식양"
+    "xiranite": "식양",
+    "hetoniteBottle": "혁동 병",
+    "heavyXiranite": "중식양",
+    "experimentalXiraniteBottle": "실험용 식양 병",
+    "experimentalXiranitePart": "실험용 식양 부품",
+    "experimentalHeavyXiraniteBottle": "실험용 중식양 병",
+    "experimentalHeavyXiranitePart": "실험용 중식양 부품",
+    "xiraniteJadeGourd": "식양 옥 호리병",
+    "experimentalXiranHueAtomizer": "실험용 옥동 발산기",
+    "xiraniteGourd": "식양 호리병",
+    "echoingDust": "메아리의 먼지",
+    "cupriumSolution": "적동 용액",
+    "hetonite": "혁동 조각",
+    "hetonitePart": "혁동 부품",
+    "howlerbeastBraid": "하울러비스트의 털 묶음",
+    "hetoniteComponent": "혁동 장비 부품",
+    "hetoniteSolution": "혁동 용액",
+    "precipitationAcid": "산성 침적물",
+    "liquidHeavyXiranite": "액화 중식양"
   },
   "common": {
     "copy": "복사",
@@ -808,7 +826,8 @@
     "ardelia": "아델리아",
     "tangtang": "탕탕",
     "pogranichnik": "포그라니치니크",
-    "rossi": "로시"
+    "rossi": "로시",
+    "zhuangfy": "장방이"
   },
   "weaponsList": {
     "industry01": "공업 0.1",
@@ -876,7 +895,9 @@
     "gloriousMemory": "찬란했던 기억",
     "objEdgeOfLightness": "O.B.J. 엣지 오브 라이트",
     "finchaser30": "린수를 찾아서 3.0",
-    "lupineScarlet": "늑대의 혈흔"
+    "lupineScarlet": "늑대의 혈흔",
+    "loneBarge": "고독한 나룻배",
+    "flickersInTheMist": "안개 속 불빛"
   },
   "cookies": {
     "title": "쿠키 사용 안내",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "고위 에너지 응집점 · 무릉성",
     "world_energy_point05_6": "고위 에너지 응집점 · 무릉성",
     "world_energy_point06_2": "에너지 응집점 · 청파채",
-    "world_energy_point06_3": "에너지 응집점 · 청파채"
+    "world_energy_point06_3": "에너지 응집점 · 청파채",
+    "world_energy_point07_5": "고위 에너지 응집점 · 수돈",
+    "world_energy_point07_7": "고위 에너지 응집점 · 수돈",
+    "world_energy_point07_6": "고위 에너지 응집점 · 수돈",
+    "world_energy_point08_5": "고위 에너지 응집점 · 실험 구역",
+    "world_energy_point08_4": "고위 에너지 응집점 · 실험 구역",
+    "world_energy_point08_7": "고위 에너지 응집점 · 실험 구역",
+    "world_energy_point07_1": "에너지 응집점 · 수돈",
+    "world_energy_point07_2": "에너지 응집점 · 수돈",
+    "world_energy_point08_1": "에너지 응집점 · 실험 구역",
+    "world_energy_point07_3": "에너지 응집점 · 수돈",
+    "world_energy_point07_4": "고위 에너지 응집점 · 수돈",
+    "world_energy_point08_3": "에너지 응집점 · 실험 구역",
+    "world_energy_point08_2": "에너지 응집점 · 실험 구역",
+    "world_energy_point08_6": "고위 에너지 응집점 · 실험 구역"
   },
   "enemies": {
     "eny_0007_mimicw": "터널링 니드웜",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "막석명",
     "eny_0097_hsmino2": "개천장",
     "eny_0103_hshunt2": "과당풍",
-    "eny_0107_wgshoal2": "조류아겔로스 · δ"
+    "eny_0107_wgshoal2": "조류아겔로스 · δ",
+    "eny_0078_nefarp1": "'본 크러셔' 네파리스",
+    "eny_0095_ethillu": "잔영",
+    "eny_0079_nefarp2": "'정복자' 네파리스",
+    "eny_0082_hsbear": "천고"
   },
   "essencesPage": {
     "optimizer": "파밍 최적화",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "식양의 숨결 충전 코어 · I",
     "item_equip_t4_suit_usp02_edc_03": "식양의 숨결 보조 어깨",
     "item_equip_t4_suit_usp02_hand_01": "식양의 숨결 보호 장갑",
-    "item_equip_t4_suit_usp02_hand_02": "식양의 숨결 보호 장갑 · I"
+    "item_equip_t4_suit_usp02_hand_02": "식양의 숨결 보호 장갑 · I",
+    "item_equip_t4_suit_atb01_edc_06": "개척자 증량 산소 공급 장치 · I",
+    "item_equip_t4_suit_expend_spell01_hand_02": "식양의 흐름 보호 장갑",
+    "item_equip_t4_suit_attri01_hand_03": "본 크러셔 장갑",
+    "item_equip_t4_suit_atb01_hand_03": "개척자 섬유 장갑 · I",
+    "item_equip_t4_suit_phy01_edc_04": "검술사 단검",
+    "item_equip_t4_suit_combo_cd01_edc_03": "청파 물 항아리",
+    "item_equip_t4_suit_attri01_edc_02": "본 크러셔 조각상 · II",
+    "item_equip_t4_suit_phy01_body_03": "검술사 중장갑 · I",
+    "item_equip_t4_suit_combo_cd01_body_01": "청파 중갑",
+    "item_equip_t4_suit_combo_cd01_body_02": "청파 경갑",
+    "item_equip_t4_suit_combo_cd01_edc_01": "청파 위치 지정기",
+    "item_equip_t4_suit_combo_cd01_edc_02": "청파죽인",
+    "item_equip_t4_suit_combo_cd01_hand_01": "청파 금속 장갑",
+    "item_equip_t4_suit_combo_cd01_hand_02": "청파 보호 장갑",
+    "item_equip_t4_suit_expend_spell01_edc_02": "식양의 흐름 단봉",
+    "item_equip_t4_suit_expend_spell01_body_02": "식양의 흐름 경갑",
+    "item_equip_t4_suit_phy01_hand_03": "검술사 전술 금속 장갑 · I"
   },
   "packs": {
     "none": "세트 없음",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "식양의 숨결",
     "suit_will01": "침식 방호",
     "suit_wisd01": "침식 차단",
-    "suit_wisdwill01": "통합 경량형 모델"
+    "suit_wisdwill01": "통합 경량형 모델",
+    "suit_combo_cd01": "청파",
+    "suit_expend_spell01": "식양의 흐름"
   },
   "equipmentTypes": {
     "body": "방어구",

@@ -51,7 +51,8 @@
         "dmgMultiplier": "SDN-Multiplikator",
         "explosionDmgMultiplier": "Explosions-SDN-Multiplikator",
         "stagger": "Taumeln",
-        "corrodeDurationS": "Dauer: Korrodieren (Sek.)"
+        "corrodeDurationS": "Dauer: Korrodieren (Sek.)",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Eruptionssäule",
       "description": "KOMBOAUSLÖSER: Wenn der von dir gesteuerte Operator einen <#ba.lastcombo>Abschlussangriff</> gegen einen Gegner ausführt, der <@ba.key>nicht</> mit einer <#ba.noguard>Anfälligkeit-</> oder <#ba.spellinflict>Technikkumulierung</> belegt wurde. \nSchleudert eine Vulkanwolke auf den Zielgegner, die <@ba.natur>Natur-SDN</> verursacht. Die Wolke explodiert nach einer kurzen Verzögerung, fügt Gegnern in der Nähe die Hälfte des <@ba.natur>Natur-SDN</> zu und belegt sie vorübergehend mit <#ba.corrupt>Korrosion</>."

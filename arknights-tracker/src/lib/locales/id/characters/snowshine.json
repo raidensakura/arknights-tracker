@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Treatment Over Time Dasar",
         "treatmentOverTimeIncreasePerWill": "Peningkatan Treatment Over Time per Will",
         "treatmentOverTimeIntervalS": "Interval Treatment Over Time (dtk)",
-        "durationS": "Durasi (dtk)"
+        "durationS": "Durasi (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Polar Rescue",
       "description": "PEMICU KOMBO: Setelah operator terkontrol diserang dan HP-nya turun hingga kurang dari {trigger_hp_ratio:0%}. \nSnowshine akan melemparkan Asisten SAR Padang Salju ke arah operator terkontrol. Setelah membentur target, Asisten ini akan langsung memberikan <@ba.heal>HP Treatment</> dalam jumlah sangat besar kepada operator di sekitar serta <@ba.heal>HP Treatment</> terus-menerus kepada operator terkontrol di area efek. \nAtribut Will akan meningkatkan jumlah HP treatment."

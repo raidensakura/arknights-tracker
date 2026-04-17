@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
-        "stagger": "Desorientação"
+        "stagger": "Desorientação",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Granada de Fragmentação·β",
       "description": "ACIONADOR DO COMBO: Quando uma <#ba.spellinflict>Inflição de Artes</> é aplicada a um inimigo. \nArremessa uma granada de fragmentação no local do alvo que explode ao atingir o chão, causando <@ba.fire>DNO Térmico</> e <#ba.fireinflict>Inflição Térmica</> aos inimigos nas proximidades."

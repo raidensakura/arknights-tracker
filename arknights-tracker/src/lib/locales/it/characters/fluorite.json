@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Donazione",
       "description": "ATTIVAZIONE COMBO: quando un nemico ha due o più accumuli di <#ba.crystinflict>Afflizione da ghiaccio</> o <#ba.naturalinflict>Afflizione da natura</>. \nSpara al bersaglio nemico per innescare un'esplosione speciale che infligge <@ba.natur>danni da natura</> e applica un'altra <#ba.spellinflict>Afflizione da Arti</> dell'elemento già presente sul nemico."

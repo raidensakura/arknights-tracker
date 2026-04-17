@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Hệ Số Chuỗi Đòn Đánh Thường Cường Hóa 4"
       },
       "name": "Chạng Vạng",
-      "description": "Laevatain triệu hồi Sviga Lævi và trở thành cán viên đang điều khiển. \nTrong thời gian hiệu lực, Đòn Đánh Thường được cường hóa và Sviga Lævi tấn công đồng thời với Laevatain, mỗi đòn gây <@ba.fire>ST Nhiệt</>. Chuỗi Đòn Đánh Thường thứ 3 gây hiệu ứng <#ba.fireinflict>Nhiễm Nhiệt</>."
+      "description": "Laevatain triệu hồi Sviga Lævi và trở thành cán viên đang điều khiển. \nTrong thời gian hiệu lực, Đòn Đánh Thường được cường hóa và Sviga Lævi tấn công đồng thời với Laevatain, mỗi đòn gây <@ba.fire>ST Nhiệt</>. Chuỗi Đòn Đánh Thường thứ 3 gây hiệu ứng <#ba.fireinflict>Nhiễm Nhiệt</>.\n<@ba.info>Tung KN chiến đấu Lửa Âm Ỉ hoặc KN liên hoàn Sôi Sục sẽ không rút ngắn thời lượng của Tuyệt Kỹ Chạng Vạng.</>"
     },
     "indicator": {
       "levels": [

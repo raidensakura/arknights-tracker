@@ -39,7 +39,8 @@
         "dmgMultiplier": "Multiplicador DNO",
         "crystalShatteringDmgMultiplier": "Multiplicador DNO Fragmentação de Cristal",
         "stagger": "Desorientação",
-        "sealDurationS": "Duração do Selo (s)"
+        "sealDurationS": "Duração do Selo (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Sequência de Vedação",
       "description": "ACIONADOR DO COMBO: Quando outro operador na equipe causa DNO com combos de habilidades. \nCorre para o lado do inimigo para causar <@ba.pd>DNO Físico</> e anexar <#ba.originium>Cristais de Originium</> que selam os inimigos temporariamente. Aplicar <#ba.physicalstatus>Status Físico</> ou <#ba.noguard>Vulnerabilidade</> ao inimigo selado <#ba.consume>consome</> os <#ba.originium>Cristais de Originium</> e causa <@ba.pd>DNO Físico</> adicional."
@@ -96,8 +97,8 @@
       "name": "Reflexão da Autoridade"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "<@ba.key>Sequência de Bombardeio</> Suprema melhorada: após <#ba.consume>consumir</> <#ba.originium>Cristais de Originium</>, Endministrator ganha <@ba.vup>{usp:0}</> de Energia Suprema.\n<@ba.info>Esse efeito não se beneficia de outros bônus.</>",
+      "name": "A Guia"
     },
     "potential4": {
       "description": "???",

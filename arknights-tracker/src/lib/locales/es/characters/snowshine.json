@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Tratamiento base continuo",
         "treatmentOverTimeIncreasePerWill": "Incremento continuo de tratamiento por Voluntad",
         "treatmentOverTimeIntervalS": "Intervalo de tratamiento base continuo (s)",
-        "durationS": "Duración (s)"
+        "durationS": "Duración (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Rescate polar",
       "description": "ACTIVADOR DE COMBO: Después de que el operador controlado es atacado y cae por debajo de {trigger_hp_ratio:0%} PV. \nSnowshine lanza un Asistente de B&R en campos nevados al operador controlado. Al entrar en contacto con el objetivo, el Asistente proporciona un gran <@ba.heal>Tratamiento de PV</> instantáneo a los operadores cercanos, así como <@ba.heal>Tratamiento de PV</> continuo a los operadores en el área de efecto. \nEl atributo de Voluntad aumenta la cantidad de tratamiento de PV."

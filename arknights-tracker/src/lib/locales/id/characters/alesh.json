@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Penambahan Pengganda DMG",
         "spRecovery": "Pemulihan SP",
         "bonusSpRecovery": "Pemulihan SP Bonus",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Auger Angling",
       "description": "PEMICU KOMBO: Saat <#ba.spellstatus>Arts Reaction</> atau <#ba.originium>Kristal Originium</> target di sekitar sudah <#ba.consume>dipakai</>. \nMembuka lubang pancing di bawah musuh sehingga akan menimbulkan <@ba.pd>Physical DMG</> dan memulihkan sebagian SP. Skill ini punya peluang untuk mengail <@ba.key>Ikan Langka</> yang akan secara drastis meningkatkan DMG yang ditimbulkan dan memulihkan sejumlah SP lagi."

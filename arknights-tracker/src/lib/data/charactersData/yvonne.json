@@ -1869,6 +1869,23 @@
                     10.0
                 ]
             },
+            "ultimateEnergyGain": {
+                "dataType": "float",
+                "data": [
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0
+                ]
+            },
             "additionalUltimateEnergyGain": {
                 "dataType": "float",
                 "data": [

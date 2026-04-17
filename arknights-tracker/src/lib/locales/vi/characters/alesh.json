@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Hệ Số ST Cường Hóa",
         "spRecovery": "Hồi Điểm KN",
         "bonusSpRecovery": "Tăng Hồi Điểm KN",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Góc Khoan Auger",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi <#ba.spellstatus>Phản Ứng Thuật Pháp</> hoặc <#ba.originium>Tinh Thể Originium</> của mục tiêu gần đó bị <#ba.consume>tiêu hao</>. \nMở hố khoan ngay dưới kẻ địch, gây <@ba.pd>ST Vật Lý</> và hồi một phần KN. Kỹ năng có tỉ lệ \"câu\" được một <@ba.key>Cá Quý Hiếm</> giúp tăng mạnh ST gây ra và hồi thêm KN."

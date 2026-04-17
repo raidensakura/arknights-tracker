@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Verbesserter SDN-Multiplikator",
         "spRecovery": "FP-Wiederherstellung",
         "bonusSpRecovery": "Bonus-FP-Wiederherstellung",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Schneckenangeln",
       "description": "KOMBOAUSLÖSER: Wenn die <#ba.spellstatus>Technikreaktion</> oder die <#ba.originium>Originium-Kristalle</> eines Ziels in der Nähe <#ba.consume>verbraucht</> wird bzw. werden. \nÖffnet ein Angelloch unter dem Gegner, das <@ba.pd>Physischen SDN</> verursacht und einige FP wiederherstellt. Die Fertigkeit hat die Chance, einen <@ba.key>Seltenen Flössler</> zu fangen, der den verursachten SDN deutlich erhöht und noch mehr FP wiederherstellt."

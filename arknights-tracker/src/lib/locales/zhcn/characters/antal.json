@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "磁暴试验场",
       "description": "当被<@ba.key>聚焦</>的敌人进入<#ba.physicalstatus>物理异常</>或<#ba.spellinflict>法术附着</>状态时可以发动。\n在该敌人身上引发1次能量爆炸，造成<@ba.pulse>电磁伤害</>并再次对其施加该<#ba.physicalstatus>物理异常</>或<#ba.spellinflict>法术附着</>。"

@@ -39,7 +39,8 @@
         "dmgMultiplier": "Moltiplicatore danni",
         "crystalShatteringDmgMultiplier": "Moltiplicatore danni Infrangimento dei cristalli",
         "stagger": "Vacillamento",
-        "sealDurationS": "Durata sigillo (s)"
+        "sealDurationS": "Durata sigillo (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Sequenza sigillante",
       "description": "ATTIVAZIONE COMBO: quando un altro operatore nella squadra infligge danni con abilità combo. \nSi precipita accanto al nemico per infliggere <@ba.pd>danni fisici</> e applica <#ba.originium>cristalli di Originium</> che attivano un sigillo temporaneo. L'applicazione di uno <#ba.physicalstatus>stato fisico</> o di <#ba.noguard>Vulnerabilità</> al nemico sigillato <#ba.consume>consuma</> i <#ba.originium>cristalli di Originium</> infliggendo <@ba.pd>danni fisici</> aggiuntivi."
@@ -96,8 +97,8 @@
       "name": "Riflesso d'autorità"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "Abilità suprema <@ba.key>Sequenza di bombardamento</> migliorata: dopo aver <#ba.consume>consumato</> <#ba.originium>cristalli di Originium</>, l'Endministrator ottiene <@ba.vup>{usp:0}</> di energia suprema.\n<@ba.info>Questo effetto non beneficia di altri bonus.</>",
+      "name": "Guida"
     },
     "potential4": {
       "description": "???",

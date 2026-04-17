@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "Pengganda DMG per SEQ",
         "staggerPerSeq": "Stagger per SEQ",
-        "spRecoveryPerSeq": "Pemulihan SP per SEQ"
+        "spRecoveryPerSeq": "Pemulihan SP per SEQ",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Flash and Dash",
       "description": "PEMICU KOMBO: Saat musuh terkena Staggered atau mencapai <#ba.poiseknot>Nodus Stagger</>. \nMelejit kembali dengan 2 tahap tusukan, dan setiap tahapnya akan menimbulkan <@ba.pd>Physical DMG</> dan memulihkan sebagian SP."

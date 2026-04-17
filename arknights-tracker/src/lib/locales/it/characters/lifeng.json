@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
         "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
         "seq2Stagger": "Vacillamento SEQ 2",
-        "comboDurationS": "Durata combo (s)"
+        "comboDurationS": "Durata combo (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Furia dell'avatar",
       "description": "ATTIVAZIONE COMBO: quando l'operatore controllato sferra un <#ba.lastcombo>colpo finale</> contro un nemico con <#ba.physicalvul>Suscettibilità fisica</> o <#ba.fracture>Sfondamento</>. \nSguinzaglia un avatar che sferra una stoccata con la lancia per infliggere <@ba.pd>danni fisici</> e conferisce <#ba.combo>Concatenamento</>."

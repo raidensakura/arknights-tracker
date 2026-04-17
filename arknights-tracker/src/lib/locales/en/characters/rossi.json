@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "SEQ 1 DMG Multiplier",
+        "seq1UltimateEnergyGain": "SEQ 1 Ultimate Energy Gain",
         "seq2DmgMultiplier": "SEQ 2 DMG Multiplier",
         "bonusDmgMultiplierPerInflictionStack": "Bonus DMG Multiplier per Infliction Stack",
         "seq2Stagger": "SEQ 2 Stagger",
         "criticalRateBoost": "Critical Rate Boost",
         "criticalDmgBoost": "Critical DMG Boost",
-        "buffDurationS": "Buff Duration (s)"
+        "buffDurationS": "Buff Duration (s)",
+        "seq2UltimateEnergyGain": "SEQ 2 Ultimate Energy Gain"
       },
       "name": "Moment of Blazing Shadow",
       "description": "COMBO TRIGGER: When an enemy has both <#ba.noguard>Vulnerability</> and <#ba.spellinflict>Arts Infliction</> stacks.\nRossi's combo skill has 2 consecutive sequences. COMBO SEQUENCE 1 deals <@ba.pd>Physical DMG</> to the target.\nCOMBO SEQUENCE 2 <#ba.consume>consumes</> all <#ba.spellinflict>Arts Infliction</> stacks from the target, deals <@ba.pd>Physical DMG</> based on the number of Arts Infliction stacks <#ba.consume>consumed</>, applies 1 instance of <#ba.airborne>Lift</>, and buffs Rossi's Critical Rate and Critical DMG Dealt at the same time.\nIf COMBO SEQUENCE 2 is cast with <@ba.key>perfect timing</>, it applies 1 more stack of <#ba.noguard>Vulnerability</>."

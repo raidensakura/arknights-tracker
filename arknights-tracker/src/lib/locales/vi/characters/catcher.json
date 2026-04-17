@@ -53,7 +53,8 @@
         "stagger": "Suy Sụp",
         "baseShield": "Khiên Cơ Bản",
         "shieldIncreasePerDefense": "Tăng Khiên Theo Điểm Thủ",
-        "shieldDurationS": "Thời Gian Hiệu Lực Của Khiên (giây)"
+        "shieldDurationS": "Thời Gian Hiệu Lực Của Khiên (giây)",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Áp Chế Đúng Thời Điểm",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi kẻ địch bắt đầu tụ kỹ, hoặc khi cán viên đang điều khiển bị tấn công còn dưới {trigger_hp_ratio:0%} HP. \nTung cú đấm từ trên xuống gây <@ba.pd>ST Vật Lý</> cho kẻ địch, đồng thời tạo <#ba.shield>khiên</> bảo vệ cho bản thân và một đồng đội (ưu tiên cán viên đang điều khiển).\nPhòng Thủ tăng thêm lượng khiên nhận được."

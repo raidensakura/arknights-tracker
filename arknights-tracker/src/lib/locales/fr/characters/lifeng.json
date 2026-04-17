@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Multiplicateur de DÉG SÉQ 1",
         "seq2DmgMultiplier": "Multiplicateur de DÉG SÉQ 2",
         "seq2Stagger": "Déséquilibre de SÉQ 2",
-        "comboDurationS": "Durée de combo (s)"
+        "comboDurationS": "Durée de combo (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Forme de fureur",
       "description": "DÉCLENCHEMENT DE COMBO : lorsque l'opérateur contrôlé exécute un <#ba.lastcombo>Coup final</> sur un ennemi victime de <#ba.physicalvul>sensibilité physique</> ou de l'effet de <#ba.fracture>Brèche</>. \nInvoque une forme qui projette une lance infligeant des <@ba.pd>DÉG physiques</> et octroie un <#ba.combo>Lien</>."

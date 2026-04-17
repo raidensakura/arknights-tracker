@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
-        "stagger": "ブレイク値"
+        "stagger": "ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "特別サービス",
       "description": "敵の<#ba.crystinflict>寒冷付着</>または<#ba.naturalinflict>自然付着</>の付着段階が2以上になったときに発動可能。\n目標の敵に射撃を行い、特殊な爆発を引き起こす。敵に<@ba.natur>自然ダメージ</>を与え、対応属性の<#ba.spellinflict>アーツ付着</>を付与する。"

@@ -39,7 +39,8 @@
         "dmgMultiplier": "DMG Multiplier",
         "crystalShatteringDmgMultiplier": "Crystal Shattering DMG Multiplier",
         "stagger": "Stagger",
-        "sealDurationS": "Seal Duration (s)"
+        "sealDurationS": "Seal Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Sealing Sequence",
       "description": "COMBO TRIGGER: When another operator in the team deals DMG with combo skills. \nRushes to the enemy's side to deal <@ba.pd>Physical DMG</> and attach <#ba.originium>Originium Crystals</> that temporarily seal them. Applying <#ba.physicalstatus>Physical Status</> or <#ba.noguard>Vulnerability</> to the sealed enemy <#ba.consume>consumes</> the <#ba.originium>Originium Crystals</> and deals additional <@ba.pd>Physical DMG</>."
@@ -96,8 +97,8 @@
       "name": "Reflection of Authority"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "Ultimate <@ba.key>Bombardment Sequence</> improved: After <#ba.consume>consuming</> <#ba.originium>Originium Crystals</>, the Endministrator gains <@ba.vup>{usp:0}</> Ultimate Energy.\n<@ba.info>This effect does not benefit from other bonuses.</>",
+      "name": "The Guide"
     },
     "potential4": {
       "description": "???",

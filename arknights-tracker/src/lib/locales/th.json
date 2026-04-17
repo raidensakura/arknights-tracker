@@ -648,7 +648,25 @@
     "aerospaceMaterialIi": "วัสดุ​อวกาศ​ II",
     "lightXircon": "ไลท์​ ซิ​ร์​คอน",
     "xircon": "ซิ​ร์​คอน",
-    "xiranite": "ซี​เรน​ไนต์"
+    "xiranite": "ซี​เรน​ไนต์",
+    "hetoniteBottle": "ขวด​เฮ​โท​ไนต์",
+    "heavyXiranite": "ซี​เรน​ไนต์​หนัก",
+    "experimentalXiraniteBottle": "ขวด​ซี​เรน​ไนต์​ทดลอง",
+    "experimentalXiranitePart": "ชิ้นส่วน​ซี​เรน​ไนต์​ทดลอง",
+    "experimentalHeavyXiraniteBottle": "ขวด​ซี​เรน​ไนต์​หนัก​ทดลอง",
+    "experimentalHeavyXiranitePart": "ชิ้นส่วน​ซี​เรน​ไนต์​หนัก​ทดลอง",
+    "xiraniteJadeGourd": "ฝัก​หยก​ซี​เรน​ไนต์",
+    "experimentalXiranHueAtomizer": "เครื่อง​พ่น​ละออง​ซี​เรน​ฮิว​รุ่น​ทดลอง",
+    "xiraniteGourd": "ฝัก​ซี​เรน​ไนต์",
+    "echoingDust": "ฝุ่น​ก้องกังวาน",
+    "cupriumSolution": "สารละลาย​คู​เพ​รี​ยม",
+    "hetonite": "เฮ​โท​ไนต์",
+    "hetonitePart": "ชิ้นส่วน​เฮ​โท​ไนต์",
+    "howlerbeastBraid": "เปีย​อสูร​คำราม",
+    "hetoniteComponent": "ส่วนประกอบ​เฮ​โท​ไนต์",
+    "hetoniteSolution": "สารละลาย​เฮ​โท​ไนต์",
+    "precipitationAcid": "กรด​ตกตะกอน",
+    "liquidHeavyXiranite": "ซี​เรน​ไนต์​หนัก​แบบ​เหลว"
   },
   "common": {
     "copy": "คัดลอก",
@@ -807,7 +825,8 @@
     "ardelia": "อาร์​เด​เลีย",
     "tangtang": "ถัง​ถัง",
     "pogranichnik": "Pogranichnik",
-    "rossi": "รอส​ซี"
+    "rossi": "รอส​ซี",
+    "zhuangfy": "จวง​ฟาง​อี้"
   },
   "weaponsList": {
     "industry01": "อิน​ดัส​ทรี​ 0.1",
@@ -875,7 +894,9 @@
     "gloriousMemory": "ความทรงจำ​อัน​รุ่งโรจน์",
     "objEdgeOfLightness": "OBJ คม​แห่ง​แสง",
     "finchaser30": "ฟิน​เช​ส​เซอร์​ 3.0",
-    "lupineScarlet": "สีชา​ด​แห่ง​หมาป่า"
+    "lupineScarlet": "สีชา​ด​แห่ง​หมาป่า",
+    "loneBarge": "ตะลุย​เดี่ยว",
+    "flickersInTheMist": "แสง​ริบหรี่​ใน​ม่าน​หมอก"
   },
   "cookies": {
     "title": "เราใช้คุกกี้",
@@ -958,7 +979,21 @@
     "world_energy_point05_5": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เมือง​อู่​หลิง",
     "world_energy_point05_6": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เมือง​อู่​หลิง",
     "world_energy_point06_2": "อัล​ลู​เวีย​ม​พลังงาน​: ค่าย​ชิง​ป๋อ",
-    "world_energy_point06_3": "อัล​ลู​เวีย​ม​พลังงาน​: ค่าย​ชิง​ป๋อ"
+    "world_energy_point06_3": "อัล​ลู​เวีย​ม​พลังงาน​: ค่าย​ชิง​ป๋อ",
+    "world_energy_point07_5": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: หิน​นำทาง",
+    "world_energy_point07_7": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: หิน​นำทาง",
+    "world_energy_point07_6": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: หิน​นำทาง",
+    "world_energy_point08_5": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เขต​ทดสอบ",
+    "world_energy_point08_4": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เขต​ทดสอบ",
+    "world_energy_point08_7": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เขต​ทดสอบ",
+    "world_energy_point07_1": "อัล​ลู​เวีย​ม​พลังงาน​: หิน​นำทาง",
+    "world_energy_point07_2": "อัล​ลู​เวีย​ม​พลังงาน​: หิน​นำทาง",
+    "world_energy_point08_1": "อัล​ลู​เวีย​ม​พลังงาน​: เขต​ทดสอบ",
+    "world_energy_point07_3": "อัล​ลู​เวีย​ม​พลังงาน​: หิน​นำทาง",
+    "world_energy_point07_4": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: หิน​นำทาง",
+    "world_energy_point08_3": "อัล​ลู​เวีย​ม​พลังงาน​: เขต​ทดสอบ",
+    "world_energy_point08_2": "อัล​ลู​เวีย​ม​พลังงาน​: เขต​ทดสอบ",
+    "world_energy_point08_6": "อัล​ลู​เวีย​ม​พลังงาน​รุนแรง​: เขต​ทดสอบ"
   },
   "enemies": {
     "eny_0007_mimicw": "นิด​เ​วิ​ร์​ม​ใต้พิภพ",
@@ -1028,7 +1063,11 @@
     "eny_0096_hsmob2": "จอม​โจร​ทางหลวง",
     "eny_0097_hsmino2": "เครื่อง​ทำลาย​เมฆ",
     "eny_0103_hshunt2": "สายลม​กวาดล้าง",
-    "eny_0107_wgshoal2": "นัก​เดิน​ทะเล​ δ"
+    "eny_0107_wgshoal2": "นัก​เดิน​ทะเล​ δ",
+    "eny_0078_nefarp1": "เน​ฟา​ริธ​, \"โบน​ค​รัช​เชอร์​\"",
+    "eny_0095_ethillu": "เงา​มายา",
+    "eny_0079_nefarp2": "เน​ฟา​ริธ​, \"ผู้พิชิต​\"",
+    "eny_0082_hsbear": "มือ​กลอง​นภา"
   },
   "essencesPage": {
     "optimizer": "เครื่องมือเพิ่มประสิทธิภาพการฟาร์ม",
@@ -1259,7 +1298,24 @@
     "item_equip_t4_suit_usp02_edc_02": "แกน​พลังงาน​ซี​เรน​ไนต์​นิรันดร์​ T1",
     "item_equip_t4_suit_usp02_edc_03": "แขน​กล​เสริม​ซี​เรน​ไนต์​นิรันดร์",
     "item_equip_t4_suit_usp02_hand_01": "ถุงมือ​ซี​เรน​ไนต์​นิรันดร์",
-    "item_equip_t4_suit_usp02_hand_02": "ถุงมือ​ซี​เรน​ไนต์​นิรันดร์​ T1"
+    "item_equip_t4_suit_usp02_hand_02": "ถุงมือ​ซี​เรน​ไนต์​นิรันดร์​ T1",
+    "item_equip_t4_suit_atb01_edc_06": "หลอด​ออกซิเจน​เสริม​ชายแดน​ T1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "ถุงมือ​ซี​เรน​โฟลว์",
+    "item_equip_t4_suit_attri01_hand_03": "ถุงมือ​โบน​ค​รัช​ชา",
+    "item_equip_t4_suit_atb01_hand_03": "ถุงมือ​ไฟเบอร์​ชายแดน​ T1",
+    "item_equip_t4_suit_phy01_edc_04": "มีด​สั้น​นัก​ดาบ​เวท",
+    "item_equip_t4_suit_combo_cd01_edc_03": "กระบอก​น้ำ​ชิง​ป๋อ",
+    "item_equip_t4_suit_attri01_edc_02": "ฟิก​เกอร์​โบน​ค​รัช​ชา​ T2",
+    "item_equip_t4_suit_phy01_body_03": "เกราะ​หนัก​นัก​ดาบ​เวท​ T1",
+    "item_equip_t4_suit_combo_cd01_body_01": "เกราะ​หนัก​ชิง​ป๋อ",
+    "item_equip_t4_suit_combo_cd01_body_02": "เกราะ​เบา​ชิง​ป๋อ",
+    "item_equip_t4_suit_combo_cd01_edc_01": "ชุด​ระบุ​พิกัด​ชิง​ป๋อ",
+    "item_equip_t4_suit_combo_cd01_edc_02": "มีด​ไม้​ไผ่​ชิง​ป๋อ",
+    "item_equip_t4_suit_combo_cd01_hand_01": "เกราะ​มือ​ชิง​ป๋อ",
+    "item_equip_t4_suit_combo_cd01_hand_02": "ถุงมือ​ชิง​ป๋อ",
+    "item_equip_t4_suit_expend_spell01_edc_02": "กระบอง​ซี​เรน​โฟลว์",
+    "item_equip_t4_suit_expend_spell01_body_02": "เกราะ​เบา​ซี​เรน​โฟลว์",
+    "item_equip_t4_suit_phy01_hand_03": "ถุงมือ​เกราะ​ยุทธวิธี​นัก​ดาบ​เวท​ T1"
   },
   "packs": {
     "none": "ยัง​ไม่ได้​กำหนด",
@@ -1305,7 +1361,9 @@
     "suit_usp02": "ซี​เรน​ไนต์​นิรันดร์",
     "suit_will01": "ต้านทาน​มอร์​ด​โวลต์",
     "suit_wisd01": "ฉนวน​มอร์​ด​โวลต์",
-    "suit_wisdwill01": "AIC งาน​เบา"
+    "suit_wisdwill01": "AIC งาน​เบา",
+    "suit_combo_cd01": "ชิง​ป๋อ",
+    "suit_expend_spell01": "ซี​เรน​โฟลว์"
   },
   "equipmentTypes": {
     "body": "เกราะ",

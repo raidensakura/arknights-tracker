@@ -53,7 +53,8 @@
         "stagger": "Stagger",
         "baseShield": "Perisai Dasar",
         "shieldIncreasePerDefense": "Peningkatan Perisai per Pertahanan",
-        "shieldDurationS": "Durasi Perisai (dtk)"
+        "shieldDurationS": "Durasi Perisai (dtk)",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Timely Suppression",
       "description": "PEMICU KOMBO: Saat musuh mulai mengisi kekuatan skill, atau saat operator terkontrol diserang dan HP turun hingga kurang dari {trigger_hp_ratio:0%}. \nPukulan keras ke bawah yang menimbulkan <@ba.pd>Physical DMG</> akan dilancarkan kepada musuh, serta memberikan <#ba.shield>perisai</> kepada diri sendiri dan satu rekan tim lain (prioritas kepada operator terkontrol).\nDEF bisa makin meningkatkan poin Perisai."

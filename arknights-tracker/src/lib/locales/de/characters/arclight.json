@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
         "spRecovery": "FP-Wiederherstellung",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Donnerschlag",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner <#ba.conduct>Elektrifizierung</> erleidet oder nachdem ein aktiver <#ba.conduct>Elektrifizierungs</>-Zustand eines Gegners <#ba.consume>verbraucht</> wird. \nSpringt an die Seite des Gegners und führt eine Reihe von Hieben aus, die <@ba.pd>Physischen SDN</> verursachen und einige FP wiederherstellen."

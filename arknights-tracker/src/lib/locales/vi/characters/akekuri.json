@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "Hệ Số ST Mỗi Chuỗi Công",
         "staggerPerSeq": "Suy Sụp Theo Chuỗi Công",
-        "spRecoveryPerSeq": "Hồi Điểm KN Theo Chuỗi Công"
+        "spRecoveryPerSeq": "Hồi Điểm KN Theo Chuỗi Công",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Chớp Và Lướt",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi kẻ địch rơi vào trạng thái Suy Sụp hoặc chạm vào <#ba.poiseknot>Điểm Suy Sụp</>. \nLướt về sau rồi bật lại bằng 2 chuỗi đâm, mỗi chuỗi gây <@ba.pd>ST Vật Lý</> và hồi một phần Điểm KN."

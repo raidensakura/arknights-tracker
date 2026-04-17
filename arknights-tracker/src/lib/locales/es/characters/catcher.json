@@ -53,7 +53,8 @@
         "stagger": "Tambaleo",
         "baseShield": "Escudo base",
         "shieldIncreasePerDefense": "Incremento de escudo por Defensa",
-        "shieldDurationS": "Duración de escudo (s)"
+        "shieldDurationS": "Duración de escudo (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Supresión oportuna",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo empieza a cargar una habilidad, o cuando el operador controlado es atacado y cae por debajo de {trigger_hp_ratio:0%} PV. \nUn potente puñetazo descendente que inflige <@ba.pd>DAÑ físico</> al enemigo, a la vez que otorga <#ba.shield>escudos</> a sí mismo y a otro compañero de equipo (se prioriza al operador controlado).\nLa DEF puede aumentar aún más los puntos de escudo."

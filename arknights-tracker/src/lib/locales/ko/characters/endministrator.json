@@ -39,7 +39,8 @@
         "dmgMultiplier": "피해 배율",
         "crystalShatteringDmgMultiplier": "결정 파괴 피해 배율",
         "stagger": "불균형치",
-        "sealDurationS": "봉인 시간(초)"
+        "sealDurationS": "봉인 시간(초)",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "봉인 시퀀스",
       "description": "팀 내 다른 오퍼레이터의 연계 스킬이 피해를 줄 때 사용할 수 있습니다.\n적의 근처로 돌진하여 대상에게 <@ba.pd>물리 피해</>를 주고 <#ba.originium>오리지늄 결정</>을 부착하며 일정 시간 봉인합니다. <#ba.physicalstatus>물리 이상</> 효과 혹은 <#ba.noguard>방어 불능</> 상태를 부여하면 <#ba.originium>오리지늄 결정</>을 <#ba.consume>소모</>하고 추가 <@ba.pd>물리 피해</>를 줍니다."
@@ -96,8 +97,8 @@
       "name": "권능 반영"
     },
     "potential3": {
-      "description": "???",
-      "name": "???"
+      "description": "궁극기 <@ba.key>폭격 시퀀스</>가 <#ba.originium>오리지늄 결정</>을 <#ba.consume>소모</>한 후, <@ba.vup>{usp:0}</>포인트의 궁극기 에너지를 획득합니다.\n<@ba.info>해당 효과는 보너스를 받을 수 없습니다.</>",
+      "name": "길잡이"
     },
     "potential4": {
       "description": "???",

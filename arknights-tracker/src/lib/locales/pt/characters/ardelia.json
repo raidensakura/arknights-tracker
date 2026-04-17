@@ -51,7 +51,8 @@
         "dmgMultiplier": "Multiplicador DNO",
         "explosionDmgMultiplier": "Multiplicador DNO Explosão",
         "stagger": "Desorientação",
-        "corrodeDurationS": "Duração de Corroer (s)"
+        "corrodeDurationS": "Duração de Corroer (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Coluna da Erupção",
       "description": "ACIONADOR DO COMBO: Quando o operador controlado aplica um <#ba.lastcombo>Golpe Final</> em um inimigo <@ba.key>sem</> acúmulos de <#ba.noguard>Vulnerabilidade</> ou <#ba.spellinflict>Inflição de Artes</>. \nLança uma Nuvem Vulcânica teleguiada contra um inimigo alvo que causa <@ba.natur>DNO Natureza</> ao se aproximar o suficiente do alvo. A Nuvem Vulcânica explode após um curto período, causando metade do <@ba.natur>DNO Natureza</> e aplicando temporariamente o efeito de <#ba.corrupt>Corrosão</> à força a inimigos próximos."

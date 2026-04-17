@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
-        "stagger": "불균형치"
+        "stagger": "불균형치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "스트레스 테스트",
       "description": "<@ba.key>지원 결정체</>의 생명력 회복 횟수를 모두 소모했을 때 사용할 수 있습니다.\n짧게 차지하여 <@ba.key>지원 결정체</>를 적에게 투척해 <@ba.cryst>냉기 피해</>를 주고 <#ba.crystinflict>냉기 부착</> 상태를 부여합니다."

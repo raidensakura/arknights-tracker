@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
         "spRecovery": "恢复技力",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "鸣雷",
       "description": "当有敌人进入<#ba.conduct>导电</>状态或<#ba.conduct>导电</>状态被<#ba.consume>消耗</>后可以发动。\n瞬闪至敌人身边进行多次斩击，造成<@ba.pd>物理伤害</>，并恢复一定技力。"

@@ -55,7 +55,8 @@
         "seq1DmgMultiplier": "Multiplicador DNO SEQ 1",
         "seq2DmgMultiplier": "Multiplicador DNO SEQ 2",
         "seq2Stagger": "Desorientação SEQ 2",
-        "comboDurationS": "Duração do Combo (s)"
+        "comboDurationS": "Duração do Combo (s)",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Aspecto da Ira",
       "description": "ACIONADOR DO COMBO: Quando o operador controlado aplica um <#ba.lastcombo>Golpe Final</> em um inimigo com <#ba.physicalvul>Suscetibilidade Física</> ou <#ba.fracture>Romper</>. \nDesfere um aspecto que realiza um arremesso de lança para causar <@ba.pd>DNO Físico</> e concede <#ba.combo>Conexão</>."

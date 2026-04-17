@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Bâton arcanique : Déplacement de matrice",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'une <#ba.spellstatus>réaction aux Arts</> est appliquée à un ennemi. \nUn lancement rapide des Arts qui génère une force de gravité, qui inflige des <@ba.natur>DÉG naturels</> et <#ba.airborne>soulève</> la cible et les ennemis à proximité."

@@ -53,7 +53,8 @@
         "stagger": "ブレイク値",
         "baseShield": "シールド基礎値",
         "shieldIncreasePerDefense": "防御力1ごとのシールド値UP",
-        "shieldDurationS": "シールド持続時間（秒）"
+        "shieldDurationS": "シールド持続時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "即時制圧",
       "description": "敵がチャージを開始するか、操作中のオペレーターが攻撃を受けてHPが{trigger_hp_ratio:0%}未満になると発動可能。\n拳で前方を強く叩きつけ、敵に<@ba.pd>物理ダメージ</>を与える。同時に、自身と味方オペレーター1人（操作中のオペレーターを優先）に<#ba.shield>シールド</>を付与する。\nシールドの最大値は防御力に応じて追加でアップする。"

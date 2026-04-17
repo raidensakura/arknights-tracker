@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "SDN-Multiplikator"
+        "dmgMultiplier": "SDN-Multiplikator",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Flug zu den Sternen",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner <#ba.noguard>Anfällig</> erleidet. \nEin Schlitzersprint, der durch einen Gegner sprintet und allen Gegnern im Weg <@ba.pd>Physischen SDN</> zufügt und diese <#ba.airborne>Anhebt</>."

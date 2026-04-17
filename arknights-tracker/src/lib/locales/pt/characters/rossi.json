@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "Multiplicador DNO SEQ 1",
+        "seq1UltimateEnergyGain": "Ganho de Energia Suprema SEQ 1",
         "seq2DmgMultiplier": "Multiplicador DNO SEQ 2",
         "bonusDmgMultiplierPerInflictionStack": "Multiplicador DNO Bônus por Acúmulo de Inflição",
         "seq2Stagger": "Desorientação SEQ 2",
         "criticalRateBoost": "Potencialização de Taxa de Críticos",
         "criticalDmgBoost": "Potencialização de DNO Crítico",
-        "buffDurationS": "Duração (s) de Benefício"
+        "buffDurationS": "Duração (s) de Benefício",
+        "seq2UltimateEnergyGain": "Ganho de Energia Suprema SEQ 2"
       },
       "name": "Momento de Sombra Incandescente",
       "description": "ACIONADOR DO COMBO: Quando um inimigo tem acúmulos de <#ba.noguard>Vulnerabilidade</> e <#ba.spellinflict>Inflição de Artes</>.\nO combo de habilidades de Rossi tem 2 sequências consecutivas. A SEQUÊNCIA DE COMBO 1 causa <@ba.pd>DNO Físico</> ao alvo.\nA SEQUÊNCIA DE COMBO 2 <#ba.consume>consome</> todos os acúmulos de <#ba.spellinflict>Inflição de Artes</> do alvo, causa <@ba.pd>DNO Físico</> com base no número de pilhas de Inflição de Artes <#ba.consume>consumidas</>, aplica 1 instância de <#ba.airborne>Levantar</> e melhora ao mesmo tempo a Taxa de Críticos e o DNO Crítico Causado de Rossi.\nSe a SEQUÊNCIA DE COMBO 2 for lançada com <@ba.key>tempo perfeito</>, aplica mais 1 acúmulo de <#ba.noguard>Vulnerabilidade</>."

@@ -76,7 +76,7 @@
         "enhancedBatkSeq4Multiplier": "Verbesserter STD-ANG-SEQ-4-Multiplikator"
       },
       "name": "Abenddämmerung",
-      "description": "Laevatain beschwört ihr Sviga Lævi herauf und wird zum gesteuerten Operator. \nFür einen bestimmte Zeit sind ihre Standardangriff (STD-ANG) verbessert und das Sviga Lævi greift gemeinsam mit ihr an, wobei jeder Angriff <@ba.fire>Hitze-SDN</> verursacht. Die 3. STD-ANG-Sequenz verursacht außerdem <#ba.fireinflict>Hitze</>."
+      "description": "Laevatain beschwört ihr Sviga Lævi herauf und wird zum gesteuerten Operator. \nFür einen bestimmte Zeit sind ihre Standardangriff (STD-ANG) verbessert und das Sviga Lævi greift gemeinsam mit ihr an, wobei jeder Angriff <@ba.fire>Hitze-SDN</> verursacht. Die 3. STD-ANG-Sequenz verursacht außerdem <#ba.fireinflict>Hitze</>.\n<@ba.info>Die Wirkung der Kampffertigkeit „Schwelendes Feuer“ oder der Kombofertigkeit „Schäumende Wut“ verringert die Dauer der Ultimativen Fertigkeit „Abenddämmerung“ nicht.</>"
     },
     "indicator": {
       "levels": [

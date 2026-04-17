@@ -49,7 +49,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Gratis-Geschenk",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner über 2 oder mehr <#ba.crystinflict>Kryo</>- oder <#ba.naturalinflict>Natur-Kumulierungen</> verfügt. \nFührt einen Schuss auf den Gegner aus, um eine spezielle Explosion auszulösen, die <@ba.natur>Natur-SDN</> verursacht und diesem eine weitere <#ba.spellinflict>Technikkumulierung</> des Elements zufügt, mit dem er bereits belegt ist."

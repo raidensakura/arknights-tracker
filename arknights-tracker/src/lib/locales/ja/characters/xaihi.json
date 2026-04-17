@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
-        "stagger": "ブレイク値"
+        "stagger": "ブレイク値",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "ストレステスト",
       "description": "<@ba.key>サポートクリスタル</>によるHP回復の回数が0になると発動可能。\n短時間のチャージ後、<@ba.key>サポートクリスタル</>を敵に投げて<@ba.cryst>寒冷ダメージ</>を与え、<#ba.crystinflict>寒冷付着</>を付与する。"

@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "Moltiplicatore danni SEQ 1",
+        "seq1UltimateEnergyGain": "Incremento energia suprema SEQ 1",
         "seq2DmgMultiplier": "Moltiplicatore danni SEQ 2",
         "bonusDmgMultiplierPerInflictionStack": "Moltiplicatore danni bonus per accumulo di Afflizione",
         "seq2Stagger": "Vacillamento SEQ 2",
         "criticalRateBoost": "Potenziamento probabilità di critico",
         "criticalDmgBoost": "Potenziamento danni critici",
-        "buffDurationS": "Durata potenziamento (s)"
+        "buffDurationS": "Durata potenziamento (s)",
+        "seq2UltimateEnergyGain": "Incremento energia suprema SEQ 2"
       },
       "name": "Momento dell'ombra ardente",
       "description": "ATTIVAZIONE COMBO: quando un nemico ha sia <#ba.noguard>Vulnerabilità</> sia accumuli di <#ba.spellinflict>Afflizione da Arti</>.\nL'abilità combo di Rossi ha due sequenze consecutive. SEQUENZA COMBO 1: infligge <@ba.pd>danni fisici</> al bersaglio.\nSEQUENZA COMBO 2: <#ba.consume>consuma</> tutti gli accumuli di <#ba.spellinflict>Afflizione da Arti</> del bersaglio, infligge <@ba.pd>danni fisici</> in base al numero di accumuli di Afflizione da Arti <#ba.consume>consumati</>, applica 1 unità di <#ba.airborne>Sospensione</> e potenzia le probabilità di critico e i danni critici inflitti di Rossi contemporaneamente.\nEseguire la SEQUENZA COMBO 2 con <@ba.key>tempismo perfetto</> applica un ulteriore accumulo di <#ba.noguard>Vulnerabilità</>."

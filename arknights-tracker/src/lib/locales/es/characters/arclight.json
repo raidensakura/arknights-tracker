@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
         "spRecovery": "Rec. de PH",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Estruendo del trueno",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo sufre <#ba.conduct>Electrificación</> o después de que una <#ba.conduct>Electrificación</> es <#ba.consume>consumida</>. \nSe teletransporta al lado del enemigo para desatar una ráfaga de cortes que inflige <@ba.pd>DAÑ físico</> y recupera algunos PH."

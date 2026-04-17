@@ -51,7 +51,8 @@
         "dmgMultiplier": "Moltiplicatore danni",
         "explosionDmgMultiplier": "Moltiplicatore danni Esplosione",
         "stagger": "Vacillamento",
-        "corrodeDurationS": "Durata Corrosione (s)"
+        "corrodeDurationS": "Durata Corrosione (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Pilastro eruttivo",
       "description": "ATTIVAZIONE COMBO: quando l'operatore controllato esegue un <#ba.lastcombo>colpo finale</> su un nemico che <@ba.key>non</> ha accumuli di <#ba.noguard>Vulnerabilità</> o <#ba.spellinflict>Afflizione da Arti</>. \nLancia una nube vulcanica a ricerca contro un bersaglio nemico, infliggendo <@ba.natur>danni da natura</> quando è abbastanza vicina al bersaglio. La nube vulcanica esplode dopo un breve intervallo, infliggendo metà dei <@ba.natur>danni da natura</> e applicando forzatamente <#ba.corrupt>Corrosione</> temporanea ai nemici vicini."

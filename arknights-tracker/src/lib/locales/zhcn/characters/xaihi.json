@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "压力测试",
       "description": "当<@ba.key>支援晶体</>的生命回复次数耗尽后可以发动。\n短暂蓄力后将<@ba.key>支援晶体</>丢向敌人，造成<@ba.cryst>寒冷伤害</>并施加<#ba.crystinflict>寒冷附着</>。"

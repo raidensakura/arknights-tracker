@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "DMG Multiplier Against Solidified Enemies",
         "stagger": "Stagger",
         "physicalSusceptibilityMultiplier": "Physical Susceptibility Multiplier",
-        "physicalSusceptibilityDuration": "Physical Susceptibility Duration"
+        "physicalSusceptibilityDuration": "Physical Susceptibility Duration",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Distortion",
       "description": "COMBO TRIGGER: When an enemy suffers <#ba.frozen>Solidification</>. \nQuickly moves to the enemy's side to deal <@ba.pd>Physical DMG</> and forcibly <#ba.airborne>Lift</> enemies in a small area. If the skill hits a target with <#ba.frozen>Solidification</>, the skill deals additional DMG and applies <#ba.physicalvul>Physical Susceptibility</>."

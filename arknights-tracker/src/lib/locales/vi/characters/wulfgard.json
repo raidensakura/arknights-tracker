@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Hệ Số ST",
-        "stagger": "Suy Sụp"
+        "stagger": "Suy Sụp",
+        "ultimateEnergyGain": "Tăng Năng Lượng Tuyệt Kỹ"
       },
       "name": "Lựu Đạn Phá Mảnh·β",
       "description": "KÍCH HOẠT LIÊN HOÀN: Khi một kẻ địch phải chịu <#ba.spellinflict>Nhiễm Thuật Pháp</>. \nNém một quả lựu đạn phá mảnh đến vị trí của kẻ địch, lựu đạn sẽ phát nổ ngay khi chạm đất, gây <@ba.fire>ST Nhiệt</> và <#ba.fireinflict>Nhiễm Nhiệt</> lên kẻ địch lân cận."

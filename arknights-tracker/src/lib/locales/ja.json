@@ -649,7 +649,25 @@
     "aerospaceMaterialIi": "高級宇宙建材",
     "lightXircon": "軽壌晶",
     "xircon": "壌晶",
-    "xiranite": "息壌"
+    "xiranite": "息壌",
+    "hetoniteBottle": "緋銅ボトル",
+    "heavyXiranite": "重息壌",
+    "experimentalXiraniteBottle": "実験用息壌ボトル",
+    "experimentalXiranitePart": "実験用息壌部品",
+    "experimentalHeavyXiraniteBottle": "実験用重息壌ボトル",
+    "experimentalHeavyXiranitePart": "実験用重息壌部品",
+    "xiraniteJadeGourd": "息壌玉ひょうたん",
+    "experimentalXiranHueAtomizer": "実験用玉銅拡散装置",
+    "xiraniteGourd": "息壌ひょうたん",
+    "echoingDust": "回響の塵埃",
+    "cupriumSolution": "赤銅溶液",
+    "hetonite": "緋銅塊",
+    "hetonitePart": "緋銅部品",
+    "howlerbeastBraid": "咆獣のたてがみ",
+    "hetoniteComponent": "緋銅装備部品",
+    "hetoniteSolution": "緋銅溶液",
+    "precipitationAcid": "沈殿酸",
+    "liquidHeavyXiranite": "液化重息壌"
   },
   "common": {
     "copy": "コピー",
@@ -808,7 +826,8 @@
     "ardelia": "アルデリア",
     "tangtang": "タンタン",
     "pogranichnik": "ポグラニチニク",
-    "rossi": "ロッシ"
+    "rossi": "ロッシ",
+    "zhuangfy": "ゾアン・ファンイ"
   },
   "weaponsList": {
     "industry01": "工業零点一",
@@ -876,7 +895,9 @@
     "gloriousMemory": "栄光の記憶",
     "objEdgeOfLightness": "O.B.J.軽刃",
     "finchaser30": "フィンチェイサー3.0",
-    "lupineScarlet": "狼緋"
+    "lupineScarlet": "狼緋",
+    "loneBarge": "孤舟",
+    "flickersInTheMist": "朧光"
   },
   "cookies": {
     "title": "クッキーを使用しています",
@@ -959,7 +980,21 @@
     "world_energy_point05_5": "重度超域活性点・武陵城",
     "world_energy_point05_6": "重度超域活性点・武陵城",
     "world_energy_point06_2": "超域活性点・清波砦",
-    "world_energy_point06_3": "超域活性点・清波砦"
+    "world_energy_point06_3": "超域活性点・清波砦",
+    "world_energy_point07_5": "重度超域活性点・首礎",
+    "world_energy_point07_7": "重度超域活性点・首礎",
+    "world_energy_point07_6": "重度超域活性点・首礎",
+    "world_energy_point08_5": "重度超域活性点・実験区域",
+    "world_energy_point08_4": "重度超域活性点・実験区域",
+    "world_energy_point08_7": "重度超域活性点・実験区域",
+    "world_energy_point07_1": "超域活性点・首礎",
+    "world_energy_point07_2": "超域活性点・首礎",
+    "world_energy_point08_1": "超域活性点・実験区域",
+    "world_energy_point07_3": "超域活性点・首礎",
+    "world_energy_point07_4": "重度超域活性点・首礎",
+    "world_energy_point08_3": "超域活性点・実験区域",
+    "world_energy_point08_2": "超域活性点・実験区域",
+    "world_energy_point08_6": "重度超域活性点・実験区域"
   },
   "enemies": {
     "eny_0007_mimicw": "潜地蛟獣",
@@ -1029,7 +1064,11 @@
     "eny_0096_hsmob2": "不惜命",
     "eny_0097_hsmino2": "開天将",
     "eny_0103_hshunt2": "過堂風",
-    "eny_0107_wgshoal2": "潮進アンゲロスδ"
+    "eny_0107_wgshoal2": "潮進アンゲロスδ",
+    "eny_0078_nefarp1": "「ボーンクラッシャー」ネファリス",
+    "eny_0095_ethillu": "イーサルー",
+    "eny_0079_nefarp2": "「征服者」ネファリス",
+    "eny_0082_hsbear": "天鼓"
   },
   "essencesPage": {
     "optimizer": "育成オプティマイザー",
@@ -1260,7 +1299,24 @@
     "item_equip_t4_suit_usp02_edc_02": "流転蓄電装置Ⅰ",
     "item_equip_t4_suit_usp02_edc_03": "流転ロボットアーム",
     "item_equip_t4_suit_usp02_hand_01": "流転ガントレット",
-    "item_equip_t4_suit_usp02_hand_02": "流転ガントレットⅠ"
+    "item_equip_t4_suit_usp02_hand_02": "流転ガントレットⅠ",
+    "item_equip_t4_suit_atb01_edc_06": "パイオニアガス供給強化装置Ⅰ",
+    "item_equip_t4_suit_expend_spell01_hand_02": "壌流プロテクター",
+    "item_equip_t4_suit_attri01_hand_03": "骨砕のガントレット",
+    "item_equip_t4_suit_atb01_hand_03": "パイオニア繊維グローブⅠ",
+    "item_equip_t4_suit_phy01_edc_04": "宏山点剣短剣",
+    "item_equip_t4_suit_combo_cd01_edc_03": "清波水筒",
+    "item_equip_t4_suit_attri01_edc_02": "骨砕の小像Ⅱ",
+    "item_equip_t4_suit_phy01_body_03": "宏山点剣ヘビーアーマーⅠ",
+    "item_equip_t4_suit_combo_cd01_body_01": "清波重防具",
+    "item_equip_t4_suit_combo_cd01_body_02": "清波軽防具",
+    "item_equip_t4_suit_combo_cd01_edc_01": "清波探知器具",
+    "item_equip_t4_suit_combo_cd01_edc_02": "清波竹製短剣",
+    "item_equip_t4_suit_combo_cd01_hand_01": "清波ガントレット",
+    "item_equip_t4_suit_combo_cd01_hand_02": "清波プロテクター",
+    "item_equip_t4_suit_expend_spell01_edc_02": "壌流棍棒",
+    "item_equip_t4_suit_expend_spell01_body_02": "壌流軽防具",
+    "item_equip_t4_suit_phy01_hand_03": "宏山点剣ガントレットⅠ"
   },
   "packs": {
     "none": "セットなし",
@@ -1306,7 +1362,9 @@
     "suit_usp02": "流転",
     "suit_will01": "蝕電防護",
     "suit_wisd01": "蝕電遮断",
-    "suit_wisdwill01": "集成軽量"
+    "suit_wisdwill01": "集成軽量",
+    "suit_combo_cd01": "清波",
+    "suit_expend_spell01": "壌流"
   },
   "equipmentTypes": {
     "body": "胴",

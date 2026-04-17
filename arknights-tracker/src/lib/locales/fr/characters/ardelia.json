@@ -51,7 +51,8 @@
         "dmgMultiplier": "Multiplicateur de DÉG",
         "explosionDmgMultiplier": "Multiplicateur de DÉG d'explosion",
         "stagger": "Déséquilibre",
-        "corrodeDurationS": "Durée de Corrosion (s)"
+        "corrodeDurationS": "Durée de Corrosion (s)",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Colonne éruptive",
       "description": "DÉCLENCHEMENT DE COMBO : lorsque l'opérateur contrôlé exécute un <#ba.lastcombo>Coup final</> sur un ennemi sans <@ba.key>aucun</> cumul de <#ba.noguard>Vulnérabilité</> ou d'<#ba.spellinflict>altération des Arts</>. \nProjette un nuage volcanique autoguidé sur un ennemi ciblé, qui inflige des <@ba.natur>DÉG naturels</> lorsqu'il est assez proche de la cible. Le nuage volcanique explose après un court instant, infligeant la moitié des <@ba.natur>DÉG naturels</> et <#ba.corrupt>corrode</> temporairement les ennemis à proximité."

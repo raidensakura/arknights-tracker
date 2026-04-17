@@ -52,7 +52,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicateur de DÉG",
         "spRecovery": "Récupération de PC",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Fracas du tonnerre",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est <#ba.conduct>électrifié</> ou lorsque l'<#ba.conduct>Électrification</> d'un ennemi est <#ba.consume>consommée</>. \nApparaît instantanément près de l'ennemi pour déclencher une tempête d'entailles qui inflige des <@ba.pd>DÉG physiques</> et restaure quelques PC."

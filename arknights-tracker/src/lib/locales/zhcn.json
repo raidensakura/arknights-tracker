@@ -648,7 +648,25 @@
     "aerospaceMaterialIi": "高级航天建材",
     "lightXircon": "轻壤晶",
     "xircon": "壤晶",
-    "xiranite": "息壤"
+    "xiranite": "息壤",
+    "hetoniteBottle": "赫铜瓶",
+    "heavyXiranite": "重息壤",
+    "experimentalXiraniteBottle": "实验息壤瓶",
+    "experimentalXiranitePart": "实验息壤零件",
+    "experimentalHeavyXiraniteBottle": "实验重息壤瓶",
+    "experimentalHeavyXiranitePart": "实验重息壤零件",
+    "xiraniteJadeGourd": "息壤玉葫芦",
+    "experimentalXiranHueAtomizer": "实验玉铜发散器",
+    "xiraniteGourd": "息壤葫芦",
+    "echoingDust": "回响尘埃",
+    "cupriumSolution": "赤铜溶液",
+    "hetonite": "赫铜块",
+    "hetonitePart": "赫铜零件",
+    "howlerbeastBraid": "咆兽的辫束",
+    "hetoniteComponent": "赫铜装备原件",
+    "hetoniteSolution": "赫铜溶液",
+    "precipitationAcid": "沉积酸",
+    "liquidHeavyXiranite": "液化重息壤"
   },
   "common": {
     "copy": "复制",
@@ -807,7 +825,8 @@
     "ardelia": "艾尔黛拉",
     "tangtang": "汤汤",
     "pogranichnik": "骏卫",
-    "rossi": "洛茜"
+    "rossi": "洛茜",
+    "zhuangfy": "庄方宜"
   },
   "weaponsList": {
     "industry01": "工业零点一",
@@ -875,7 +894,9 @@
     "gloriousMemory": "光荣记忆",
     "objEdgeOfLightness": "O.B.J.轻芒",
     "finchaser30": "逐鳞3.0",
-    "lupineScarlet": "狼之绯"
+    "lupineScarlet": "狼之绯",
+    "loneBarge": "孤舟",
+    "flickersInTheMist": "雾中微光"
   },
   "cookies": {
     "title": "我们使用 Cookie",
@@ -958,7 +979,21 @@
     "world_energy_point05_5": "重度能量淤积点·武陵城",
     "world_energy_point05_6": "重度能量淤积点·武陵城",
     "world_energy_point06_2": "能量淤积点·清波寨",
-    "world_energy_point06_3": "能量淤积点·清波寨"
+    "world_energy_point06_3": "能量淤积点·清波寨",
+    "world_energy_point07_5": "重度能量淤积点·首墩",
+    "world_energy_point07_7": "重度能量淤积点·首墩",
+    "world_energy_point07_6": "重度能量淤积点·首墩",
+    "world_energy_point08_5": "重度能量淤积点·试验园区",
+    "world_energy_point08_4": "重度能量淤积点·试验园区",
+    "world_energy_point08_7": "重度能量淤积点·试验园区",
+    "world_energy_point07_1": "能量淤积点·首墩",
+    "world_energy_point07_2": "能量淤积点·首墩",
+    "world_energy_point08_1": "能量淤积点·试验园区",
+    "world_energy_point07_3": "能量淤积点·首墩",
+    "world_energy_point07_4": "重度能量淤积点·首墩",
+    "world_energy_point08_3": "能量淤积点·试验园区",
+    "world_energy_point08_2": "能量淤积点·试验园区",
+    "world_energy_point08_6": "重度能量淤积点·试验园区"
   },
   "enemies": {
     "eny_0007_mimicw": "潜地虬兽",
@@ -1028,7 +1063,11 @@
     "eny_0096_hsmob2": "莫惜命",
     "eny_0097_hsmino2": "开天将",
     "eny_0103_hshunt2": "过堂风",
-    "eny_0107_wgshoal2": "潮行天使δ"
+    "eny_0107_wgshoal2": "潮行天使δ",
+    "eny_0078_nefarp1": "聂菲斯，“碾骨”",
+    "eny_0095_ethillu": "表象",
+    "eny_0079_nefarp2": "聂菲斯，“征服者”",
+    "eny_0082_hsbear": "天鼓"
   },
   "essencesPage": {
     "optimizer": "刷取优化器",
@@ -1259,7 +1298,24 @@
     "item_equip_t4_suit_usp02_edc_02": "长息蓄电核·壹型",
     "item_equip_t4_suit_usp02_edc_03": "长息辅助臂",
     "item_equip_t4_suit_usp02_hand_01": "长息护手",
-    "item_equip_t4_suit_usp02_hand_02": "长息护手·壹型"
+    "item_equip_t4_suit_usp02_hand_02": "长息护手·壹型",
+    "item_equip_t4_suit_atb01_edc_06": "拓荒增量供氧栓·壹型",
+    "item_equip_t4_suit_expend_spell01_hand_02": "壤流护手",
+    "item_equip_t4_suit_attri01_hand_03": "碾骨手套",
+    "item_equip_t4_suit_atb01_hand_03": "拓荒纤维手套·壹型",
+    "item_equip_t4_suit_phy01_edc_04": "点剑短刃",
+    "item_equip_t4_suit_combo_cd01_edc_03": "清波水罐",
+    "item_equip_t4_suit_attri01_edc_02": "碾骨小雕像·贰型",
+    "item_equip_t4_suit_phy01_body_03": "点剑重装甲·壹型",
+    "item_equip_t4_suit_combo_cd01_body_01": "清波重甲",
+    "item_equip_t4_suit_combo_cd01_body_02": "清波轻甲",
+    "item_equip_t4_suit_combo_cd01_edc_01": "清波定位仪",
+    "item_equip_t4_suit_combo_cd01_edc_02": "清波竹刃",
+    "item_equip_t4_suit_combo_cd01_hand_01": "清波手甲",
+    "item_equip_t4_suit_combo_cd01_hand_02": "清波护手",
+    "item_equip_t4_suit_expend_spell01_edc_02": "壤流短棍",
+    "item_equip_t4_suit_expend_spell01_body_02": "壤流轻甲",
+    "item_equip_t4_suit_phy01_hand_03": "点剑战术手甲·壹型"
   },
   "packs": {
     "none": "无套组",
@@ -1305,7 +1361,9 @@
     "suit_usp02": "长息",
     "suit_will01": "蚀电防护",
     "suit_wisd01": "蚀电屏蔽",
-    "suit_wisdwill01": "集成轻型"
+    "suit_wisdwill01": "集成轻型",
+    "suit_combo_cd01": "清波",
+    "suit_expend_spell01": "壤流"
   },
   "equipmentTypes": {
     "body": "护甲",

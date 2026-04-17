@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Granata a frammentazione β",
       "description": "ATTIVAZIONE COMBO: quando viene applicata un'<#ba.spellinflict>Afflizione da Arti</> a un nemico. \nLancia verso il bersaglio una granata a frammentazione che esplode all'impatto col suolo, infliggendo <@ba.fire>danni da fuoco</> e <#ba.fireinflict>Afflizione da fuoco</> ai nemici vicini."

@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "DMG Multiplier per SEQ",
         "staggerPerSeq": "Stagger per SEQ",
-        "spRecoveryPerSeq": "SP Recovery per SEQ"
+        "spRecoveryPerSeq": "SP Recovery per SEQ",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Flash and Dash",
       "description": "COMBO TRIGGER: When an enemy becomes Staggered or hits a <#ba.poiseknot>Stagger Node</>. \nPerforms a returning dash with 2 thrust sequences, with each sequence dealing <@ba.pd>Physical DMG</> and recovering some SP."

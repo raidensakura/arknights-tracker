@@ -119,7 +119,7 @@
   "import": {
     "title": "Importa Registro Reclutamenti",
     "overwriteStats": "Sovrascrivi statistiche di ranking",
-"overwriteDesc": "Usa questa opzione solo se le tue statistiche di ranking sono raddoppiate o mostrano numeri errati. Il sistema ricalcolerà rigorosamente il tuo ranking dalla cronologia delle estrazioni locale.",
+    "overwriteDesc": "Usa questa opzione solo se le tue statistiche di ranking sono raddoppiate o mostrano numeri errati. Il sistema ricalcolerà rigorosamente il tuo ranking dalla cronologia delle estrazioni locale.",
     "delete_token_title": "Elimina token",
     "importing": "Importazione...",
     "waiting_response": "In attesa di risposta...",
@@ -648,7 +648,25 @@
     "aerospaceMaterialIi": "Materiali aerospaziali II",
     "lightXircon": "Xircone leggero",
     "xircon": "Xircone",
-    "xiranite": "Xiranite"
+    "xiranite": "Xiranite",
+    "hetoniteBottle": "Bottiglia di etonite",
+    "heavyXiranite": "Xiranite pesante",
+    "experimentalXiraniteBottle": "Bottiglia di xiranite sperimentale",
+    "experimentalXiranitePart": "Parte di xiranite sperimentale",
+    "experimentalHeavyXiraniteBottle": "Bottiglia di xiranite pesante sperimentale",
+    "experimentalHeavyXiranitePart": "Parte di xiranite pesante sperimentale",
+    "xiraniteJadeGourd": "Fiasco di giada e xiranite",
+    "experimentalXiranHueAtomizer": "Atomizzatore color xiranite sperimentale",
+    "xiraniteGourd": "Fiasco di xiranite",
+    "echoingDust": "Polvere echeggiante",
+    "cupriumSolution": "Soluzione di cuprium",
+    "hetonite": "Etonite",
+    "hetonitePart": "Parte di etonite",
+    "howlerbeastBraid": "Treccia di bestia urlatrice",
+    "hetoniteComponent": "Componente di etonite",
+    "hetoniteSolution": "Soluzione di etonite",
+    "precipitationAcid": "Acido per precipitazione",
+    "liquidHeavyXiranite": "Xiranite pesante liquida"
   },
   "common": {
     "copy": "Copia",
@@ -807,7 +825,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Industry 0.1",
@@ -875,7 +894,9 @@
     "gloriousMemory": "Ricordo glorioso",
     "objEdgeOfLightness": "Confine della leggerezza OBJ",
     "finchaser30": "Predatrice 3.0",
-    "lupineScarlet": "Lupino scarlatto"
+    "lupineScarlet": "Lupino scarlatto",
+    "loneBarge": "Chiatta solitaria",
+    "flickersInTheMist": "Scintille nella nebbia"
   },
   "cookies": {
     "title": "Utilizziamo i cookie",
@@ -958,7 +979,21 @@
     "world_energy_point05_5": "Sedimento energetico ostico: Wuling City",
     "world_energy_point05_6": "Sedimento energetico ostico: Wuling City",
     "world_energy_point06_2": "Sedimento energetico: Palizzata di Qingbo",
-    "world_energy_point06_3": "Sedimento energetico: Palizzata di Qingbo"
+    "world_energy_point06_3": "Sedimento energetico: Palizzata di Qingbo",
+    "world_energy_point07_5": "Sedimento energetico ostico: pietra di demarcazione",
+    "world_energy_point07_7": "Sedimento energetico ostico: pietra di demarcazione",
+    "world_energy_point07_6": "Sedimento energetico ostico: pietra di demarcazione",
+    "world_energy_point08_5": "Sedimento energetico ostico: Area dei test",
+    "world_energy_point08_4": "Sedimento energetico ostico: Area dei test",
+    "world_energy_point08_7": "Sedimento energetico ostico: Area dei test",
+    "world_energy_point07_1": "Sedimento energetico: pietra di demarcazione",
+    "world_energy_point07_2": "Sedimento energetico: pietra di demarcazione",
+    "world_energy_point08_1": "Sedimento energetico: Area dei test",
+    "world_energy_point07_3": "Sedimento energetico: pietra di demarcazione",
+    "world_energy_point07_4": "Sedimento energetico ostico: pietra di demarcazione",
+    "world_energy_point08_3": "Sedimento energetico: Area dei test",
+    "world_energy_point08_2": "Sedimento energetico: Area dei test",
+    "world_energy_point08_6": "Sedimento energetico ostico: Area dei test"
   },
   "enemies": {
     "eny_0007_mimicw": "Drago delle sabbie",
@@ -1028,7 +1063,11 @@
     "eny_0096_hsmob2": "Bandito di strada",
     "eny_0097_hsmino2": "Oblitera-nubi",
     "eny_0103_hshunt2": "Vento sferzante",
-    "eny_0107_wgshoal2": "Attraversamarea δ"
+    "eny_0107_wgshoal2": "Attraversamarea δ",
+    "eny_0078_nefarp1": "Nefarith, \"Spacca-Ossa\"",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, \"Conquistatrice\"",
+    "eny_0082_hsbear": "Batticielo"
   },
   "essencesPage": {
     "optimizer": "Ottimizzatore farming",
@@ -1259,7 +1298,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Nucleo energetico di xiranite eterna O1",
     "item_equip_t4_suit_usp02_edc_03": "Braccio secondario di xiranite eterna",
     "item_equip_t4_suit_usp02_hand_01": "Guanti di xiranite eterna",
-    "item_equip_t4_suit_usp02_hand_02": "Guanti di xiranite eterna O1"
+    "item_equip_t4_suit_usp02_hand_02": "Guanti di xiranite eterna O1",
+    "item_equip_t4_suit_atb01_edc_06": "Tubo di ossigeno extra della frontiera O1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Guanti Xiranflow",
+    "item_equip_t4_suit_attri01_hand_03": "Guanti da Maciulla-Ossa",
+    "item_equip_t4_suit_atb01_hand_03": "Guanti in fibra della frontiera O1",
+    "item_equip_t4_suit_phy01_edc_04": "Pugnale da spadamante",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Barile di Qingbo",
+    "item_equip_t4_suit_attri01_edc_02": "Effige da Maciulla-Ossa O2",
+    "item_equip_t4_suit_phy01_body_03": "Armatura pesante da spadamante O1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Armatura pesante di Qingbo",
+    "item_equip_t4_suit_combo_cd01_body_02": "Armatura leggera di Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Kit di localizzazione di Qingbo",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Tagliabambù di Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Coprimani di Qingbo",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Guanti di Qingbo",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Manganello Xiranflow",
+    "item_equip_t4_suit_expend_spell01_body_02": "Armatura leggera Xiranflow",
+    "item_equip_t4_suit_phy01_hand_03": "Coprimani tattici da spadamante O1"
   },
   "packs": {
     "none": "Senza set",
@@ -1305,7 +1361,9 @@
     "suit_usp02": "Xiranite eterna",
     "suit_will01": "Resistente Elettroshock",
     "suit_wisd01": "Isolante Elettroshock",
-    "suit_wisdwill01": "Leggera SIA"
+    "suit_wisdwill01": "Leggera SIA",
+    "suit_combo_cd01": "Qingbo",
+    "suit_expend_spell01": "Xiranflow"
   },
   "equipmentTypes": {
     "body": "Armatura",

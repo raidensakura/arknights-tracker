@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
-        "stagger": "불균형치"
+        "stagger": "불균형치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "자기 폭풍 실험장",
       "description": "<@ba.key>포커싱</> 당한 적이 <#ba.physicalstatus>물리 이상</> 효과 혹은 <#ba.spellinflict>아츠 부착</> 상태일 때 사용할 수 있습니다.\n해당 적에게 에너지 폭발 1회를 일으켜 <@ba.pulse>전기 피해</>를 주고, 다시 대상에게 해당 <#ba.physicalstatus>물리 이상</> 효과 혹은 <#ba.spellinflict>아츠 부착</> 상태를 부여합니다."

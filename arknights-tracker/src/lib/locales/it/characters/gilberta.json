@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Bastone arcano: distorsione quantica",
       "description": "ATTIVAZIONE COMBO: quando viene applicata una <#ba.spellstatus>Reazione delle Arti</> a un nemico. \nUn utilizzo rapido delle Arti che genera una trazione gravitazionale, la quale poi infligge <@ba.natur>danni da natura</> e applica <#ba.airborne>Sospensione forzata</> al bersaglio e ai nemici vicini."

@@ -52,15 +52,17 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "Multiplicateur de DÉG SÉQ 1",
+        "seq1UltimateEnergyGain": "Gain d'énergie d'ultime avec SÉQ 1",
         "seq2DmgMultiplier": "Multiplicateur de DÉG SÉQ 2",
         "bonusDmgMultiplierPerInflictionStack": "Multiplicateur de DÉG bonus par cumul d'altération",
         "seq2Stagger": "Déséquilibre de SÉQ 2",
         "criticalRateBoost": "Taux de coups critiques accru",
         "criticalDmgBoost": "DÉG critiques accrus",
-        "buffDurationS": "Durée de bonus (s)"
+        "buffDurationS": "Durée de bonus (s)",
+        "seq2UltimateEnergyGain": "Gain d'énergie d'ultime avec SÉQ 2"
       },
       "name": "Moment d'ombre ardente",
-      "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est victime à la fois de cumuls de <#ba.noguard>Vulnérabilité</> et d'<#ba.spellinflict>altération des Arts</>.\nLa compétence de combo de Rossi possède 2 séquences consécutives. SÉQ DE COMBO 1 : inflige des <@ba.pd>DÉG physiques</> à la cible.\nSÉQ DE COMBO 2 : <#ba.consume>consomme</> tous les cumuls d'<#ba.spellinflict>altération des Arts</> de la cible, lui inflige des <@ba.pd>DÉG physiques</> en fonction du nombre de cumuls d'altération des Arts <#ba.consume>consommés</>, applique <#ba.airborne>Soulèvement</> 1 fois et améliore à la fois le taux de coups critiques de Rossi et les DÉG critiques qu'elle inflige.\nLancer la SÉQ DE COMBO 2 selon un <@ba.key>timing parfait</> permet d'appliquer 1 cumul de <#ba.noguard>Vulnérabilité</> supplémentaire."
+      "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est victime à la fois de cumuls de <#ba.noguard>Vulnérabilité</> et d'<#ba.spellinflict>altération des Arts</>.\nLa compétence de combo de Rossi possède 2 séquences consécutives. SÉQ DE COMBO 1 : inflige des <@ba.pd>DÉG physiques</> à la cible.\nSÉQ DE COMBO 2 : <#ba.consume>consomme</> tous les cumuls d'<#ba.spellinflict>altération des Arts</> de la cible, lui inflige des <@ba.pd>DÉG physiques</> en fonction du nombre de cumuls d'altération des Arts <#ba.consume>consommés</>, applique <#ba.airborne>Soulèvement</> 1 fois et améliore à la fois le taux de coups critiques de Rossi et les DÉG critiques qu'elle inflige.\nLancer la SÉQ DE COMBO 2 selon un <@ba.key>timing parfait</> permet d'appliquer 1 cumul de <#ba.noguard>Vulnérabilité</> supplémentaire."
     },
     "ultimate": {
       "ultimate": {
@@ -121,7 +123,7 @@
   },
   "potentials": {
     "potential1": {
-      "description": "Renforce la compétence de combat <@ba.key>Ombre pourpre</> et la compétence de combo <@ba.key>Moment d'ombre ardente</> : les multiplicateurs de DÉG de ces compétences passent à <@ba.vup>{atk_scale_3:0.00}</> fois leur valeur d'origine.\nL'<@ba.key>Ambre du loup</> de la compétence de combat permet également de <#ba.return>récupérer</> <@ba.vup>{atb_return:0}</> PC après avoir touché l'ennemi.",
+      "description": "Renforce la compétence de combat <@ba.key>Ombre pourpre</> et la compétence de combo <@ba.key>Moment d'ombre ardente</> : les multiplicateurs de DÉG de ces compétences passent à <@ba.vup>{atk_scale_3:0.00}</> fois leur valeur d'origine.\nL'<@ba.key>Ambre du loup</> de la compétence de combat permet également de <#ba.return>récupérer</> <@ba.vup>{atb_return:0}</> PC après avoir touché l'ennemi.",
       "name": "Source d'admiration"
     },
     "potential2": {
@@ -137,7 +139,7 @@
       "name": "Souhait innocent"
     },
     "potential5": {
-      "description": "Renforce l'ultime <@ba.key>Embuscade « Griffe acérée »</> : les multiplicateurs de DÉG passent à <@ba.vup>{potential_5_damage_scale:0.0}</> fois leur valeur d'origine et les DÉG critiques infligés augmentent de <@ba.vup>{potential_5_critical_damage:0%}</>.",
+      "description": "Renforce l'ultime <@ba.key>Embuscade « Griffe acérée »</> : les multiplicateurs de DÉG passent à <@ba.vup>{potential_5_damage_scale:0.0}</> fois leur valeur d'origine et les DÉG critiques infligés augmentent de <@ba.vup>{potential_5_critical_damage:0%}</>.",
       "name": "Destination légendaire"
     }
   },

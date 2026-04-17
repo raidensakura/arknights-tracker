@@ -55,7 +55,8 @@
         "enhancedDmgMultiplier": "Multiplicateur de DÉG amélioré",
         "spRecovery": "Récupération de PC",
         "bonusSpRecovery": "Récupération de PC bonus",
-        "stagger": "Déséquilibre"
+        "stagger": "Déséquilibre",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Pêche foreuse",
       "description": "DÉCLENCHEMENT DE COMBO : lorsque la <#ba.spellstatus>réaction aux Arts</> ou les <#ba.originium>cristaux d'originium</> d'une cible à proximité sont <#ba.consume>consommés</>.\nOuvre un trou de pêche sous l'ennemi, qui lui inflige des <@ba.pd>DÉG physiques</> et permet de récupérer quelques PC. La compétence a une chance de ferrer une <@ba.key>ailette rare</> qui augmente grandement les DÉG infligés et permet de récupérer davantage de PC."

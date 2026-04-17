@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
-        "stagger": "Tambaleo"
+        "stagger": "Tambaleo",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Zona de pruebas EMP",
       "description": "ACTIVADOR DE COMBO: Cuando un enemigo con <@ba.key>enfoque activo</> sufre un <#ba.physicalstatus>Estado físico</> o <#ba.spellinflict>Imposición de artes</>. \nDesencadena una explosión de energía en el enemigo que inflige <@ba.pulse>DAÑ eléctrico</> y aplica una acumulación adicional del mismo <#ba.physicalstatus>Estado físico</> o <#ba.spellinflict>Imposición de artes</>."

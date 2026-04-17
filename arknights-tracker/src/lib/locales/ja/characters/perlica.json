@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "ダメージ倍率",
         "stagger": "ブレイク値",
-        "electrifyDurationS": "感電時間（秒）"
+        "electrifyDurationS": "感電時間（秒）",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "即時協約：閃光鎖",
       "description": "操作中のオペレーターが敵に<#ba.lastcombo>重攻撃</>を与えると発動可能。\n蓄積された電磁エネルギーを放出して敵を攻撃し、<@ba.pulse>電磁ダメージ</>を与え、強制的に短時間<#ba.conduct>感電</>状態にする。"

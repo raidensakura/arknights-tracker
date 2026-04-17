@@ -1521,7 +1521,7 @@
     },
     "skills": {
         "basicAttack": {
-            "elementType": "nature",
+            "elementType": "unknown",
             "batkSeq1Multiplier": {
                 "dataType": "percent",
                 "data": [
@@ -1626,7 +1626,7 @@
             }
         },
         "battleSkill": {
-            "elementType": "nature",
+            "elementType": "unknown",
             "dmgMultiplier": {
                 "dataType": "percent",
                 "data": [
@@ -1697,7 +1697,7 @@
             }
         },
         "comboSkill": {
-            "elementType": "nature",
+            "elementType": "unknown",
             "coolDown": {
                 "dataType": "float",
                 "data": [
@@ -1782,10 +1782,27 @@
                     7.0,
                     7.0
                 ]
+            },
+            "ultimateEnergyGain": {
+                "dataType": "float",
+                "data": [
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0,
+                    10.0
+                ]
             }
         },
         "ultimate": {
-            "elementType": "nature",
+            "elementType": "unknown",
             "coolDown": {
                 "dataType": "float",
                 "data": [

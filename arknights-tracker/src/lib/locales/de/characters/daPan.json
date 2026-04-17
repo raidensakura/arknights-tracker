@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
         "stagger": "Taumeln",
-        "crushDmgBonus": "SDN-Bonus: Zertrümmern"
+        "crushDmgBonus": "SDN-Bonus: Zertrümmern",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "MEHR GEWÜRZE!",
       "description": "KOMBOAUSLÖSER: Wenn ein Gegner vier <#ba.noguard>Anfälligkeit</>-Kumulierungen erreicht. \nSchwingt den Wok, um dem Gegner massiven <@ba.pd>Physischen SDN</> zuzufügen und ihn mit <#ba.crush>Zertrümmern</> zu belegen. Diese Instanz von <#ba.crush>Zertrümmern</> verursacht auch mehr SDN."

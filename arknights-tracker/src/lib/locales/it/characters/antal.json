@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
-        "stagger": "Vacillamento"
+        "stagger": "Vacillamento",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Area test EMP",
       "description": "ATTIVAZIONE COMBO: quando un nemico con <@ba.key>Concentrazione</> attiva subisce uno <#ba.physicalstatus>stato fisico</> o un'<#ba.spellinflict>Afflizione da Arti</>. \nAttiva 1 esplosione di energia sul nemico che infligge <@ba.pulse>danni da elettricità</> e applica un altro accumulo del medesimo <#ba.physicalstatus>stato fisico</> o <#ba.spellinflict>Afflizione da Arti</>."

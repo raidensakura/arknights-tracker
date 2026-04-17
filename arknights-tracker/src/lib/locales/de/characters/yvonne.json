@@ -58,7 +58,8 @@
         "energyDmgMultiplier": "SDN-Multiplikator bei Energie",
         "explosionDmgMultiplier": "Explosions-SDN-Multiplikator",
         "explosionStagger": "Explosions-Taumeln",
-        "additionalUltimateEnergyGain": "Zusätzlicher Ultimativer-Energieerhalt"
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt",
+        "additionalUltimateEnergyGain": "Zusätzlicher Ultimative-Energie-Erhalt"
       },
       "name": "Schockfroster υ37",
       "description": "KOMBOAUSLÖSER: Der von dir gesteuerte Operator führt einen <#ba.lastcombo>Abschlussangriff</> gegen einen mit <#ba.frozen>Erstarrung</> belegten Gegner aus. \nSetzt sofort Frost-Bytee neben dem Gegner ein. Solange er aktiv ist, setzt Frost-Bytee ständig Energie frei, um Gegner in der Nähe anzugreifen, ihnen <@ba.cryst>Kryo-SDN</> zuzufügen und sie zu sich zu <@ba.key>ziehen</>. Wenn der Einsatz von Frost-Bytee abläuft, explodiert er und belegt Gegner in der Nähe mit <#ba.frozen>Erstarrung</> und fügt ihnen <@ba.cryst>Kryo-SDN</> zu.\nWenn die Kombofertigkeit den Gegner erfolgreich getroffen hat, erhält Yvonne zusätzliche Ultimative Energie. Dieser Erhalt zusätzlicher Energie kann nur ein einziges Mal ausgelöst werden, auch wenn die Fertigkeit mehrere Gegner trifft."

@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "ダメージ倍率"
+        "dmgMultiplier": "ダメージ倍率",
+        "ultimateEnergyGain": "必殺チャージ回復量"
       },
       "name": "天河昇",
       "description": "敵が<#ba.noguard>クラッシュ</>状態になったときに発動可能。\n駆け抜けながら連続斬撃を行い、進路上のすべての敵に<@ba.pd>物理ダメージ</>と<#ba.airborne>浮遊</>効果を与える。"

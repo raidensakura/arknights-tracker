@@ -56,7 +56,8 @@
       "comboSkill": {
         "dmgMultiplier": "Multiplicador de DAÑ",
         "stagger": "Tambaleo",
-        "whirlpoolDurationS": "Duración de Remolino (s)"
+        "whirlpoolDurationS": "Duración de Remolino (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "¡RÍO, VEN A MÍ!",
       "description": "ACTIVADOR DE COMBO: Al aplicar <#ba.crystinflict>Imposición criogénica</> o infligir <#ba.spellburst>DAÑ por Ráfaga de artes</> a un enemigo.\nTangtang desata un potente chorro que atraviesa a todos los enemigos en su trayectoria, les inflige <@ba.cryst>DAÑ criogénico</> y crea un <@ba.key>Remolino</>.\n<@ba.info>Pueden existir hasta 2 Remolinos en el campo de batalla al mismo tiempo.</>"

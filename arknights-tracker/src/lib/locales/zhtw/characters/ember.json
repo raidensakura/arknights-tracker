@@ -50,7 +50,8 @@
         "dmgMultiplier": "傷害倍率",
         "stagger": "失衡值",
         "baseTreatment": "基礎治療值",
-        "treatmentIncreasePerWill": "每點意志增加的治療值"
+        "treatmentIncreasePerWill": "每點意志增加的治療值",
+        "ultimateEnergyGain": "獲得終結技能量"
       },
       "name": "前線援護",
       "description": "主控幹員受到攻擊後可以發動。\n向目標敵人跳起並重砸，造成<@ba.pd>物理傷害</>和<#ba.knockdown>倒地</>，同時治療主控幹員。意志可以額外提高治療量。"

@@ -58,6 +58,7 @@
         "energyDmgMultiplier": "Multiplicateur de DÉG d'énergie",
         "explosionDmgMultiplier": "Multiplicateur de DÉG d'explosion",
         "explosionStagger": "Déséquilibre par explosion",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime",
         "additionalUltimateEnergyGain": "Gain d'énergie d'ultime supplémentaire"
       },
       "name": "Surgélateur express υ37",

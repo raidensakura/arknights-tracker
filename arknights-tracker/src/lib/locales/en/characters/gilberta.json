@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "DMG Multiplier",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Arcane Staff: Matrix Displacement",
       "description": "COMBO TRIGGER: When an <#ba.spellstatus>Arts Reaction</> is applied to an enemy. \nA quick casting of the Arts that generates a gravity pull, which then deals <@ba.natur>Nature DMG</> and forcibly <#ba.airborne>Lifts</> the target and nearby enemies."

@@ -52,12 +52,14 @@
     "comboSkill": {
       "comboSkill": {
         "seq1DmgMultiplier": "1段目ダメージ倍率",
+        "seq1UltimateEnergyGain": "1段目の必殺チャージ回復量",
         "seq2DmgMultiplier": "2段目ダメージ倍率",
         "bonusDmgMultiplierPerInflictionStack": "付着消費1段階ごとの追加ダメージ倍率",
         "seq2Stagger": "2段目ブレイク値",
         "criticalRateBoost": "会心率UP",
         "criticalDmgBoost": "会心ダメージUP",
-        "buffDurationS": "ボーナス効果持続時間（秒）"
+        "buffDurationS": "ボーナス効果持続時間（秒）",
+        "seq2UltimateEnergyGain": "2段目の必殺チャージ回復量"
       },
       "name": "刹那の影",
       "description": "敵が<#ba.noguard>クラッシュ</>かつ<#ba.spellinflict>アーツ付着</>状態のときに発動可能。\nロッシの連携技は連続で2回発動できる。1回目は目標に<@ba.pd>物理ダメージ</>を与える。\n2回目は目標の<#ba.spellinflict>アーツ付着</>をすべて<#ba.consume>消費</>し、<#ba.consume>消費</>した段階数に応じてその目標に<@ba.pd>物理ダメージ</>と<#ba.airborne>浮遊</>効果を与える。同時に、一定時間自身の会心率と会心ダメージがアップする。\n2回目の連携技が<@ba.key>完璧連携</>となった場合、追加で目標に<#ba.noguard>クラッシュ</>を1段階付与する。"
@@ -84,7 +86,7 @@
     },
     "talent1": {
       "levels": [
-        "戦技による<@ba.key>狼の至宝</>でダメージを与えると、<@ba.vup>{duration_bleed:0}</>秒間目標に<#ba.rossi>染まる爪痕</>状態を付与する（重ね掛け不可）\n<#ba.rossi>染まる爪痕</>効果中、目標は1秒ごとにロッシの攻撃力<@ba.vup>{atk_scale_bleed:0%}</>分の<@ba.pd>物理ダメージ</>を受け、さらに受ける<@ba.pd>物理ダメージ</>と<@ba.fire>灼熱ダメージ</><@ba.vup>+{damage_up:0%}</>",
+        "戦技による<@ba.key>狼の至宝</>でダメージを与えると、<@ba.vup>{duration_bleed:0}</>秒間目標に<#ba.rossi>染まる爪痕</>状態を付与する（重ね掛け不可）\n<#ba.rossi>染まる爪痕</>が持続する間、目標は1秒ごとにロッシの攻撃力<@ba.vup>{atk_scale_bleed:0%}</>分の<@ba.pd>物理ダメージ</>を受け、さらに受ける<@ba.pd>物理ダメージ</>と<@ba.fire>灼熱ダメージ</><@ba.vup>+{damage_up:0%}</>",
         "戦技による<@ba.key>狼の至宝</>でダメージを与えると、<@ba.vup>{duration_bleed:0}</>秒間目標に<#ba.rossi>染まる爪痕</>状態を付与する（重ね掛け不可）\n<#ba.rossi>染まる爪痕</>が持続する間、目標は1秒ごとにロッシの攻撃力<@ba.vup>{atk_scale_bleed:0%}</>分の<@ba.pd>物理ダメージ</>を受け、さらに受ける<@ba.pd>物理ダメージ</>と<@ba.fire>灼熱ダメージ</><@ba.vup>+{damage_up:0%}</>"
       ],
       "name": "爪痕"

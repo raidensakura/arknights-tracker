@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "伤害倍率",
-        "stagger": "失衡值"
+        "stagger": "失衡值",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "爆裂手雷·β型",
       "description": "当有敌人被施加<#ba.spellinflict>法术附着</>时可以发动。\n向目标所在位置扔出一颗爆裂手雷，手雷落地后爆炸，对附近范围的敌人造成<@ba.fire>灼热伤害</>并施加<#ba.fireinflict>灼热附着</>。"

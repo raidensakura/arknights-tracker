@@ -52,7 +52,8 @@
         "baseTreatmentOverTime": "Base Treatment Over Time",
         "treatmentOverTimeIncreasePerWill": "Treatment Over Time Increase per Will",
         "treatmentOverTimeIntervalS": "Treatment Over Time Interval (s)",
-        "durationS": "Duration (s)"
+        "durationS": "Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Polar Rescue",
       "description": "COMBO TRIGGER: After controlled operator gets attacked and drops below {trigger_hp_ratio:0%} HP. \nSnowshine throws a Snowfield SAR Assistant at the controlled operator. Upon target contact, the Assistant gives massive instant <@ba.heal>HP Treatment</> to nearby operators as well as continuous <@ba.heal>HP Treatment</> to operators in the area of effect. \nThe attribute of Will increases the amount of HP treatment."

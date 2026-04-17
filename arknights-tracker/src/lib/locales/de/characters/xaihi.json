@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "SDN-Multiplikator",
-        "stagger": "Taumeln"
+        "stagger": "Taumeln",
+        "ultimateEnergyGain": "Ultimative-Energie-Erhalt"
       },
       "name": "Stresstest",
       "description": "KOMBOAUSLÖSER: Der <@ba.key>Hilfskristall</> verbraucht seine LP-Behandlungen. \nLädt den <@ba.key>Hilfskristall</> schnell auf und wirft ihn auf den Gegner, um <@ba.cryst>Kryo-SDN</> und <#ba.crystinflict>Kryo</> zu verursachen."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "Kombofertigkeit <@ba.key>Stresstest</> verbessert: Wird ein Gegner mit <#ba.crystinflict>Kryo</> oder <#ba.frozen>Erstarrung</> getroffen, erleidet er außerdem für <@ba.vup>{duration:0}</> Sek. <@ba.vup>+{cryst_up:0%}</> <@ba.cryst>Kryo-SDN</>. Dieser Effekt kann nicht kumuliert werden.",
-        "Kombofertigkeit <@ba.key>Stresstest</> verbessert: Wird ein Gegner mit <#ba.crystinflict>Kryo</> oder <#ba.frozen>Erstarrung</> getroffen, erleidet er außerdem für <@ba.vup>{duration:0}</> Sek. <@ba.vup>+{cryst_up:0%}</> <@ba.cryst>Kryo-SDN</>. Dieser Effekt kann nicht kumuliert werden."
+        "Kombofertigkeit <@ba.key>Stresstest</> verbessert: Wird ein Gegner mit <#ba.crystinflict>Kryo</> oder <#ba.frozen>Erstarrung</> getroffen, erleidet er außerdem für <@ba.vup>{duration:0}</> Sek. <@ba.cryst>erlittener Kryo-SDN</> <@ba.vup>+{cryst_up:0%}</>. Dieser Effekt kann nicht kumuliert werden.",
+        "Kombofertigkeit <@ba.key>Stresstest</> verbessert: Wird ein Gegner mit <#ba.crystinflict>Kryo</> oder <#ba.frozen>Erstarrung</> getroffen, erleidet er außerdem für <@ba.vup>{duration:0}</> Sek. <@ba.cryst>erlittener Kryo-SDN</> <@ba.vup>+{cryst_up:0%}</>. Dieser Effekt kann nicht kumuliert werden."
       ],
       "name": "Vorgang Ausführen"
     },

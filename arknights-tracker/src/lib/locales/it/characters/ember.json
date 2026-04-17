@@ -50,7 +50,8 @@
         "dmgMultiplier": "Moltiplicatore danni",
         "stagger": "Vacillamento",
         "baseTreatment": "Cura base",
-        "treatmentIncreasePerWill": "Aumento Cura basato su Volontà"
+        "treatmentIncreasePerWill": "Aumento Cura basato su Volontà",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Supporto in prima linea",
       "description": "ATTIVAZIONE COMBO: quando l'operatore che controlli viene attaccato. \nBalza accanto al bersaglio nemico e sferra un pesante colpo a terra che infligge <@ba.pd>danni fisici</> e <#ba.knockdown>Abbattimento</>, e conferisce Cura PS all'operatore che controlli. L'attributo Volontà aumenta la quantità di PS ripristinati."

@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
-        "stagger": "불균형치"
+        "stagger": "불균형치",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "폭렬 수류탄 · β형",
       "description": "<#ba.spellinflict>아츠 부착</> 상태를 부여한 적이 있을 때 사용할 수 있습니다.\n목표가 있는 위치로 땅에 떨어지면 폭발하는 폭렬 수류탄을 던집니다. 근처 범위 내의 적에게 <@ba.fire>열기 피해</>를 주고 <#ba.fireinflict>열기 부착</> 상태를 부여합니다."

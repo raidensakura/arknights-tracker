@@ -48,7 +48,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Arcane Staff: Matrix Displacement",
       "description": "PEMICU KOMBO: Saat mengakibatkan <#ba.spellstatus>Arts Reaction</> kepada musuh. \nMenggunakan Arts secara cepat yang akan menghasilkan tarikan gravitasi, lalu menimbulkan <@ba.natur>Nature DMG</> dan secara paksa mengakibatkan <#ba.airborne>Lift</> kepada target dan musuh di sekitar."
@@ -84,7 +85,7 @@
     "talent2": {
       "levels": [
         "Skill tarung <@ba.key>Arcane Staff: Gravity Mode</> dan skill kombo <@ba.key>Arcane Staff: Matrix Displacement</> meningkat: Jika skill kombo atau tahap terakhir dari skill tarung berhasil menghantam sedikitnya 2 musuh, HP akan pulih sebesar <@ba.heal>[{heal_const:0} + Intellect × {heal_scale:0.00}]</> untuk operator terkontrol. \n<@ba.info>Jika HP operator terkontrol sudah maks, HP rekan tim yang persentase HP-nya paling rendah akan dipulihkan.</>",
-        "Skill tarung <@ba.key>Arcane Staff: Gravity Mode</> dan skill kombo <@ba.key>Arcane Staff: Matrix Displacement</> meningkat: Jika skill kombo atau tahap terakhir dari skill tarung berhasil menghantam sedikitnya 2 musuh, HP akan pulih sebesar <@ba.heal>[{heal_const:0} + Intellect × {heal_scale:0.00}]</> untuk operator terkontrol. \nJika HP operator terkontrol sudah maks, HP rekan tim yang persentase HP-nya paling rendah akan dipulihkan.</>"
+        "Skill tarung <@ba.key>Arcane Staff: Gravity Mode</> dan skill kombo <@ba.key>Arcane Staff: Matrix Displacement</> meningkat: Jika skill kombo atau tahap terakhir dari skill tarung berhasil menghantam sedikitnya 2 musuh, HP akan pulih sebesar <@ba.heal>[{heal_const:0} + Intellect ×{heal_scale:0.00}]</> untuk operator terkontrol. \n<@ba.info>Jika HP operator terkontrol sudah maks, HP rekan tim yang persentase HP-nya paling rendah akan dipulihkan.</>"
       ],
       "name": "Late Reply"
     },

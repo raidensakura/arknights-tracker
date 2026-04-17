@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "DMG Multiplier"
+        "dmgMultiplier": "DMG Multiplier",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Soar to the Stars",
       "description": "COMBO TRIGGER: When an enemy becomes <#ba.noguard>Vulnerable</>. \nA slashing dash that passes through the target enemy and deals <@ba.pd>Physical DMG</> and <#ba.airborne>Lift</> to all enemies along the way."

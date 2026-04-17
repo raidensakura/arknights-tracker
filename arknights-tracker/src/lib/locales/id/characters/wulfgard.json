@@ -50,7 +50,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Pengganda DMG",
-        "stagger": "Stagger"
+        "stagger": "Stagger",
+        "ultimateEnergyGain": "Perolehan Energi Ultimate"
       },
       "name": "Frag Grenade·β",
       "description": "PEMICU KOMBO: Saat satu musuh terkena <#ba.spellinflict>Arts Infliction</>. \nMelemparkan granat api ke lokasi target. Granat akan meledak saat menghantam tanah sehingga akan menimbulkan <@ba.fire>Heat DMG</> dan <#ba.fireinflict>Heat Infliction</> kepada musuh di sekitar."

@@ -63,7 +63,8 @@
         "seq3SpRecovery": "Recuperação de PH SEQ 3",
         "enhancedSeq3DmgMultiplier": "Multiplicador DNO SEQ 3 Aperfeiçoado",
         "enhancedSeq3Stagger": "Desorientação SEQ 3 Aperfeiçoada",
-        "enhancedSeq3SpRecovery": "Recuperação de PH SEQ 3 Aperfeiçoada"
+        "enhancedSeq3SpRecovery": "Recuperação de PH SEQ 3 Aperfeiçoada",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Corte da Lua Cheia",
       "description": "ACIONADOR DO COMBO: Quando <#ba.crush>Esmagar</> ou <#ba.fracture>Romper</> <#ba.consume>consome</> os acúmulos de <#ba.noguard>Vulnerabilidade</> do inimigo. \nDesfere várias sequências de golpes cortantes (até 3) com base no número máximo de acúmulos de <#ba.noguard>Vulnerabilidade</> <#ba.consume>consumidos</>, causando <@ba.pd>DNO Físico</> e recuperando PH. Cada golpe cortante causa mais DNO e fornece uma recuperação de PH melhor. \n<@ba.info>Consumir 4 acúmulos de Vulnerável aprimora o 3º golpe cortante.</>"

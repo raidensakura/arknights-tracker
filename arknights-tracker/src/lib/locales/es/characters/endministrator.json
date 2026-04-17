@@ -39,7 +39,8 @@
         "dmgMultiplier": "Multiplicador de DAÑ",
         "crystalShatteringDmgMultiplier": "Multiplicador de DAÑ Quebrar cristales",
         "stagger": "Tambaleo",
-        "sealDurationS": "Duración Sello (s)"
+        "sealDurationS": "Duración Sello (s)",
+        "ultimateEnergyGain": "Ganancia de Energía máxima"
       },
       "name": "Secuencia de sellado",
       "description": "ACTIVADOR DE COMBO: Cuando otro operador del equipo inflige DAÑ con habilidades de combo. \nSe lanza hacia el enemigo para infligir <@ba.pd>DAÑ físico</> y adherir <#ba.originium>Cristales de Originio</> que lo sellan temporalmente. Aplicar un <#ba.physicalstatus>estado físico</> o <#ba.noguard>Vulnerabilidad</> al enemigo sellado <#ba.consume>consume</> los <#ba.originium>Cristales de Originio</> e inflige <@ba.pd>DAÑ físico</> adicional."
@@ -96,8 +97,8 @@
       "name": "Imagen de autoridad"
     },
     "potential3": {
-      "description": "???",
-      "name": "¿¿¿???"
+      "description": "Máxima <@ba.key>Secuencia de bombardeo</> mejorada: al <#ba.consume>consumir</> <#ba.originium>Cristales de Originio</>, Endministrator obtiene <@ba.vup>{usp:0}</> de Energía máxima.\n<@ba.info>Este efecto no se beneficia de otras bonificaciones.</>",
+      "name": "La Guía"
     },
     "potential4": {
       "description": "???",

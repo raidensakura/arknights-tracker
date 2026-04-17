@@ -648,7 +648,25 @@
     "aerospaceMaterialIi": "Vật Liệu Hàng Không Vũ Trụ II",
     "lightXircon": "Xircon Nhẹ",
     "xircon": "Xircon",
-    "xiranite": "Xiranite"
+    "xiranite": "Xiranite",
+    "hetoniteBottle": "Lọ Huyết Đồng",
+    "heavyXiranite": "Xiranite Nặng",
+    "experimentalXiraniteBottle": "Lọ Xiranite Thử Nghiệm",
+    "experimentalXiranitePart": "Mảnh Xiranite Thử Nghiệm",
+    "experimentalHeavyXiraniteBottle": "Lọ Xiranite Hạng Nặng Thử Nghiệm",
+    "experimentalHeavyXiranitePart": "Mảnh Xiranite Hạng Nặng Thử Nghiệm",
+    "xiraniteJadeGourd": "Quả Bầu Ngọc Xiranite",
+    "experimentalXiranHueAtomizer": "Máy Phun Sắc Xiran Thử Nghiệm",
+    "xiraniteGourd": "Quả Bầu Xiranite",
+    "echoingDust": "Bụi Vang Vọng",
+    "cupriumSolution": "Dung Dịch Đồng",
+    "hetonite": "Huyết Đồng",
+    "hetonitePart": "Mảnh Huyết Đồng",
+    "howlerbeastBraid": "Bím Tóc Quái Gầm Rú",
+    "hetoniteComponent": "Linh Kiện Huyết Đồng",
+    "hetoniteSolution": "Dung Dịch Huyết Đồng",
+    "precipitationAcid": "Axit Lắng Đọng",
+    "liquidHeavyXiranite": "Xiranite Nặng Hóa Lỏng"
   },
   "common": {
     "copy": "Sao chép",
@@ -807,7 +825,8 @@
     "ardelia": "Ardelia",
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
-    "rossi": "Rossi"
+    "rossi": "Rossi",
+    "zhuangfy": "Zhuang Fangyi"
   },
   "weaponsList": {
     "industry01": "Công Nghiệp 0.1",
@@ -875,7 +894,9 @@
     "gloriousMemory": "Ký Ức Huy Hoàng",
     "objEdgeOfLightness": "OBJ Bờ Rìa Ánh Sáng",
     "finchaser30": "Thợ Săn Cá 3.0",
-    "lupineScarlet": "Lupine Scarlet"
+    "lupineScarlet": "Lupine Scarlet",
+    "loneBarge": "Thuyền Đơn Độc",
+    "flickersInTheMist": "Đốm Sáng giữa Màn Sương"
   },
   "cookies": {
     "title": "Chúng tôi sử dụng cookie",
@@ -958,7 +979,21 @@
     "world_energy_point05_5": "Năng Lượng Bồi Tích Dữ Dội: Thành Phố Võ Lăng",
     "world_energy_point05_6": "Năng Lượng Bồi Tích Dữ Dội: Thành Phố Võ Lăng",
     "world_energy_point06_2": "Năng Lượng Bồi Tích: Trại Thanh Ba",
-    "world_energy_point06_3": "Năng Lượng Bồi Tích: Trại Thanh Ba"
+    "world_energy_point06_3": "Năng Lượng Bồi Tích: Trại Thanh Ba",
+    "world_energy_point07_5": "Năng Lượng Bồi Tích Dữ Dội: Đá Ranh Giới",
+    "world_energy_point07_7": "Năng Lượng Bồi Tích Dữ Dội: Đá Ranh Giới",
+    "world_energy_point07_6": "Năng Lượng Bồi Tích Dữ Dội: Đá Ranh Giới",
+    "world_energy_point08_5": "Năng Lượng Bồi Tích Dữ Dội: Khu Thử Nghiệm",
+    "world_energy_point08_4": "Năng Lượng Bồi Tích Dữ Dội: Khu Thử Nghiệm",
+    "world_energy_point08_7": "Năng Lượng Bồi Tích Dữ Dội: Khu Thử Nghiệm",
+    "world_energy_point07_1": "Năng Lượng Bồi Tích: Đá Ranh Giới",
+    "world_energy_point07_2": "Năng Lượng Bồi Tích: Đá Ranh Giới",
+    "world_energy_point08_1": "Năng Lượng Bồi Tích: Khu Thử Nghiệm",
+    "world_energy_point07_3": "Năng Lượng Bồi Tích: Đá Ranh Giới",
+    "world_energy_point07_4": "Năng Lượng Bồi Tích Dữ Dội: Đá Ranh Giới",
+    "world_energy_point08_3": "Năng Lượng Bồi Tích: Khu Thử Nghiệm",
+    "world_energy_point08_2": "Năng Lượng Bồi Tích: Khu Thử Nghiệm",
+    "world_energy_point08_6": "Năng Lượng Bồi Tích Dữ Dội: Khu Thử Nghiệm"
   },
   "enemies": {
     "eny_0007_mimicw": "Nidwyrm Đào Hầm",
@@ -1028,7 +1063,11 @@
     "eny_0096_hsmob2": "Kẻ Cướp Xa Lộ",
     "eny_0097_hsmino2": "Khai Thiên Tướng",
     "eny_0103_hshunt2": "Gió Quét",
-    "eny_0107_wgshoal2": "Kẻ Lướt Sóng δ"
+    "eny_0107_wgshoal2": "Kẻ Lướt Sóng δ",
+    "eny_0078_nefarp1": "Nefarith, \"Bonekrusher\"",
+    "eny_0095_ethillu": "Æthillu",
+    "eny_0079_nefarp2": "Nefarith, \"Kẻ Chinh Phục\"",
+    "eny_0082_hsbear": "Người Gõ Trống Trời"
   },
   "essencesPage": {
     "optimizer": "Tối ưu hóa Cày cuốc",
@@ -1259,7 +1298,24 @@
     "item_equip_t4_suit_usp02_edc_02": "Lõi Năng Lượng Xiranite Vĩnh Cửu T1",
     "item_equip_t4_suit_usp02_edc_03": "Giáp Phụ Xiranite Vĩnh Cửu",
     "item_equip_t4_suit_usp02_hand_01": "Găng Tay Xiranite Vĩnh Cửu",
-    "item_equip_t4_suit_usp02_hand_02": "Găng Tay Xiranite Vĩnh Cửu T1"
+    "item_equip_t4_suit_usp02_hand_02": "Găng Tay Xiranite Vĩnh Cửu T1",
+    "item_equip_t4_suit_atb01_edc_06": "Ống O2 Phụ Tiền Tuyến T1",
+    "item_equip_t4_suit_expend_spell01_hand_02": "Găng Xiranflow",
+    "item_equip_t4_suit_attri01_hand_03": "Găng Bonekrusha",
+    "item_equip_t4_suit_atb01_hand_03": "Găng Tay Sợi Tiền Tuyến T1",
+    "item_equip_t4_suit_phy01_edc_04": "Dao Găm Kiếm Sĩ",
+    "item_equip_t4_suit_combo_cd01_edc_03": "Thùng Rượu Thanh Ba",
+    "item_equip_t4_suit_attri01_edc_02": "Tượng Bonekrusha T2",
+    "item_equip_t4_suit_phy01_body_03": "Giáp Kiếm Sĩ Hạng Nặng T1",
+    "item_equip_t4_suit_combo_cd01_body_01": "Giáp Nặng Thanh Ba",
+    "item_equip_t4_suit_combo_cd01_body_02": "Giáp Nhẹ Thanh Ba",
+    "item_equip_t4_suit_combo_cd01_edc_01": "Bộ Định Vị Thanh Ba",
+    "item_equip_t4_suit_combo_cd01_edc_02": "Đao Tre Thanh Ba",
+    "item_equip_t4_suit_combo_cd01_hand_01": "Giáp Tay Thanh Ba",
+    "item_equip_t4_suit_combo_cd01_hand_02": "Găng Thanh Ba",
+    "item_equip_t4_suit_expend_spell01_edc_02": "Gậy Xiranflow",
+    "item_equip_t4_suit_expend_spell01_body_02": "Giáp Nhẹ Xiranflow",
+    "item_equip_t4_suit_phy01_hand_03": "Giáp Tay TAC Kiếm Sĩ T1"
   },
   "packs": {
     "none": "Không Theo Bộ",
@@ -1305,7 +1361,9 @@
     "suit_usp02": "Xiranite Vĩnh Cửu",
     "suit_will01": "Kháng Mordvolt",
     "suit_wisd01": "Cách Điện Mordvolt",
-    "suit_wisdwill01": "Khu Phức Hợp Nhẹ"
+    "suit_wisdwill01": "Khu Phức Hợp Nhẹ",
+    "suit_combo_cd01": "Thanh Ba",
+    "suit_expend_spell01": "Xiranflow"
   },
   "equipmentTypes": {
     "body": "Giáp",

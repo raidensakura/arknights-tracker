@@ -53,7 +53,8 @@
     "comboSkill": {
       "comboSkill": {
         "dmgMultiplier": "Multiplicador DNO",
-        "stagger": "Desorientação"
+        "stagger": "Desorientação",
+        "ultimateEnergyGain": "Ganho de Energia Suprema"
       },
       "name": "Teste de Estresse",
       "description": "ACIONADOR DO COMBO: Quando o <@ba.key>Cristal Auxiliar</> usa seus tratamentos de PV. \nCarrega rapidamente o <@ba.key>Cristal Auxiliar</> e o arremessa no inimigo para causar <@ba.cryst>DNO Crio</> e <#ba.crystinflict>Inflição Crio</>."
@@ -80,8 +81,8 @@
     },
     "talent1": {
       "levels": [
-        "Combo de habilidades <@ba.key>Teste de Estresse</> melhorado: atingir um inimigo com <#ba.crystinflict>Inflição Crio</> ou <#ba.frozen>Solidificação</> também faz com que o inimigo receba <@ba.cryst>DNO Crio Causado</> <@ba.vup>+ {cryst_up:0%}</> por <@ba.vup>{duration:0}</>s. Esse efeito não pode se acumular.",
-        "Combo de habilidades <@ba.key>Teste de Estresse</> melhorado: atingir um inimigo com <#ba.crystinflict>Inflição Crio</> ou <#ba.frozen>Solidificação</> também faz com que o inimigo receba <@ba.cryst>DNO Crio Causado</> <@ba.vup>+ {cryst_up:0%}</> por <@ba.vup>{duration:0}</>s. Esse efeito não pode se acumular."
+        "Combo de habilidades <@ba.key>Teste de Estresse</> melhorado: atingir um inimigo com <#ba.crystinflict>Inflição Crio</> ou <#ba.frozen>Solidificação</> também faz com que o inimigo sofra <@ba.cryst>DNO Crio Recebido</> <@ba.vup>+ {cryst_up:0%}</> por <@ba.vup>{duration:0}</> s. Esse efeito não pode se acumular.",
+        "Combo de habilidades <@ba.key>Teste de Estresse</> melhorado: atingir um inimigo com <#ba.crystinflict>Inflição Crio</> ou <#ba.frozen>Solidificação</> também faz com que o inimigo sofra <@ba.cryst>DNO Crio Recebido</> <@ba.vup>+ {cryst_up:0%}</> por <@ba.vup>{duration:0}</> s. Esse efeito não pode se acumular."
       ],
       "name": "Executar Processo"
     },

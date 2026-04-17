@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "每段伤害倍率",
         "staggerPerSeq": "每段失衡值",
-        "spRecoveryPerSeq": "每段恢复技力"
+        "spRecoveryPerSeq": "每段恢复技力",
+        "ultimateEnergyGain": "获得终结技能量"
       },
       "name": "快闪冲击",
       "description": "当有敌人失衡，或触发<#ba.poiseknot>失衡节点</>时可以发动。\n进行来回2段突刺，每段造成<@ba.pd>物理伤害</>，并恢复一定技力。"

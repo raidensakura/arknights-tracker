@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "Moltiplicatore danni",
         "stagger": "Vacillamento",
-        "electrifyDurationS": "Durata Elettrificazione (s)"
+        "electrifyDurationS": "Durata Elettrificazione (s)",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Protocollo istantaneo: concatenazione",
       "description": "ATTIVAZIONE COMBO: quando l'operatore che controlli esegue un <#ba.lastcombo>colpo finale</> su qualsiasi nemico. \nScatena l'energia elettromagnetica immagazzinata per bombardare il bersaglio, infliggendo <@ba.pulse>danni da elettricità</> e causando forzatamente <#ba.conduct>Elettrificazione</> temporanea."

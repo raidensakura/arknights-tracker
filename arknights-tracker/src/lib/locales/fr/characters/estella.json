@@ -52,7 +52,8 @@
         "dmgMultiplierAgainstSolidifiedEnemies": "Multiplicateur de DÉG contre les ennemis solidifiés",
         "stagger": "Déséquilibre",
         "physicalSusceptibilityMultiplier": "Multiplicateur de sensibilité physique",
-        "physicalSusceptibilityDuration": "Durée de sensibilité physique"
+        "physicalSusceptibilityDuration": "Durée de sensibilité physique",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Distorsion",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est <#ba.frozen>solidifié</>.\nPermet de se placer rapidement aux côtés de l'ennemi pour infliger des <@ba.pd>DÉG physiques</> et <#ba.airborne>soulever</> de force les ennemis dans une petite zone. Si la compétence touche une cible <#ba.frozen>solidifiée</>, elle inflige des DÉG supplémentaires et applique une <#ba.physicalvul>sensibilité physique</>."

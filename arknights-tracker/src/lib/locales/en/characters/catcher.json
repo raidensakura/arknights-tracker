@@ -53,7 +53,8 @@
         "stagger": "Stagger",
         "baseShield": "Base Shield",
         "shieldIncreasePerDefense": "Shield Increase per Defense",
-        "shieldDurationS": "Shield Duration (s)"
+        "shieldDurationS": "Shield Duration (s)",
+        "ultimateEnergyGain": "Ultimate Energy Gain"
       },
       "name": "Timely Suppression",
       "description": "COMBO TRIGGER: When an enemy starts charging up a skill, or when the controlled operator is attacked and falls below {trigger_hp_ratio:0%} HP. \nA powerful downward punch that deals <@ba.pd>Physical DMG</> to the enemy, while granting <#ba.shield>shields</> to self and another teammate (controlled operator prioritized).\nDEF can further increase Shield points."

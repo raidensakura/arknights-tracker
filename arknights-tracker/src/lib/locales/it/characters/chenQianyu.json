@@ -49,7 +49,8 @@
     },
     "comboSkill": {
       "comboSkill": {
-        "dmgMultiplier": "Moltiplicatore danni"
+        "dmgMultiplier": "Moltiplicatore danni",
+        "ultimateEnergyGain": "Incremento energia suprema"
       },
       "name": "Volo verso le stelle",
       "description": "ATTIVAZIONE COMBO: quando un nemico diventa <#ba.noguard>Vulnerabile</>. \nEsegue un attacco sferzante che attraversa il bersaglio nemico e infligge <@ba.pd>danni fisici</> e <#ba.airborne>Sospensione</> a tutti i nemici sul suo percorso."

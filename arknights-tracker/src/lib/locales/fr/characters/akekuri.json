@@ -48,7 +48,8 @@
       "comboSkill": {
         "dmgMultiplierPerSeq": "Multiplicateur de DÉG par SÉQ",
         "staggerPerSeq": "Déséquilibre par SÉQ",
-        "spRecoveryPerSeq": "Récupération de PC par SÉQ"
+        "spRecoveryPerSeq": "Récupération de PC par SÉQ",
+        "ultimateEnergyGain": "Gain d'énergie d'ultime"
       },
       "name": "Ruée éclair",
       "description": "DÉCLENCHEMENT DE COMBO : lorsqu'un ennemi est déséquilibré ou touche un <#ba.poiseknot>nœud de déséquilibre</>. \nPermet d'effectuer une ruée de contre avec 2 séquences de poussée. Chaque séquence inflige des <@ba.pd>DÉG physiques</> et restaure des PC."

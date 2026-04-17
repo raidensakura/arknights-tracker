@@ -49,7 +49,8 @@
       "comboSkill": {
         "dmgMultiplier": "피해 배율",
         "stagger": "불균형치",
-        "crushDmgBonus": "추가로 증가하는 강타 피해"
+        "crushDmgBonus": "추가로 증가하는 강타 피해",
+        "ultimateEnergyGain": "획득하는 궁극기 에너지"
       },
       "name": "조미료 뿌리기!",
       "description": "<#ba.noguard>방어 불능</> 4스택 중첩 상태인 적이 있을 때 사용할 수 있습니다.\n웍을 휘둘러 적에게 대량의 <@ba.pd>물리 피해</>를 주고 <#ba.crush>강타</>합니다. 이번 <#ba.crush>강타</>로 주는 피해는 조금 더 강합니다."
