@@ -697,10 +697,10 @@
                         >
                             {$t("import.pc_web_step1")}
                             <a
-                                href="https://game.skport.com/map/endfield?header=0&ctr_orientation=landscape&hg_media=skport&hg_link_campaign=toolshttps://game.skport.com/map/endfield?header=0&ctr_orientation=landscape&hg_media=skport&hg_link_campaign=tools"
+                                href="https://act.skport.com/endfield/recordBook"
                                 target="_blank"
                                 class="text-blue-600 underline"
-                                >game.skport.com/map</a
+                                >act.skport.com/endfield/recordBook</a
                             >
                         </div>
                     </div>
