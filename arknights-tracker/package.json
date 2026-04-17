@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "NODE_OPTIONS='--max-old-space-size=2048' vite build",
+		"build": "NODE_OPTIONS='--max-old-space-size=1536' vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''"
 	},
