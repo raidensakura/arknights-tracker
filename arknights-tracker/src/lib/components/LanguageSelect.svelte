@@ -46,7 +46,7 @@ bind:this={selectContainer}>
 {#if isOpen}
     <div
         transition:slide={{ duration: 200 }}
-        class="absolute bottom-full mb-2 w-full bg-[#2A2A2A] border border-gray-700 rounded-md overflow-hidden shadow-xl z-50 max-h-60 overflow-y-auto custom-scrollbar"
+        class="absolute bottom-full mb-2 w-full bg-[#2A2A2A] border border-gray-700 dark:border-[#303030] rounded-md overflow-hidden shadow-xl z-50 max-h-60 overflow-y-auto custom-scrollbar"
     >
         {#each languages as lang}
             <button

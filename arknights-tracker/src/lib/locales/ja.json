@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "グラフィティ発行",
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼緋",
+    "weponbox_1_2_1": "行舟・申請",
     "weaponbox_constant_1": "堅氷発行",
     "weaponbox_constant_2": "宇宙の声発行",
     "weaponbox_constant_3": "遠征発行",
@@ -326,7 +327,19 @@
     "etchspaceSalvageZone4": "歪エリア4",
     "gentlyFlowsQinbo": "清波の静流スタンプ",
     "journeyOfTheLongEar": "長耳獣の旅",
-    "pearlOfThePack": "狼群の宝スタンプ"
+    "pearlOfThePack": "狼群の宝スタンプ",
+    "subduerOfTheBlightedSea": "蝕海の鎮圧",
+    "wulingSuperChef": "物資配給・武陵シェフ",
+    "curiousUseOfXiranite": "息壌の可能性",
+    "AICSupportPalmTopSavior": "集成支援・小さな救いの星",
+    "etchspaceSalvageZone56": "歪エリア5&6",
+    "blitzOfVerdance": "春雷の息吹スタンプ",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "名を刻もう・記念撮影",
+    "etchingsOfOurCosmicDreamsSignIn": "名を刻もうスタンプ",
+    "pristineMonthlyPassTribute": "新・月パス特典",
+    "umbralMonumentTurbidityManifest": "濁流具現",
+    "monumentalEtchingCorruptingSurge": "記憶の痕・毒流"
   },
   "mouths": {
     "january": "1月",

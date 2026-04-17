@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "Edição Graffiti",
     "weponbox_1_1_1": "Convocação do Bandido",
     "weponbox_1_1_2": "Lobo Escarlate",
+    "weponbox_1_2_1": "Distribuição Jangada à Deriva",
     "weaponbox_constant_1": "Edição Gelo Sólido",
     "weaponbox_constant_2": "Edição Voz Cósmica",
     "weaponbox_constant_3": "Edição Expedição Distante",
@@ -326,7 +327,19 @@
     "etchspaceSalvageZone4": "Zona Aberrante 4",
     "gentlyFlowsQinbo": "Login em Fluxo Suave por Qingbo",
     "journeyOfTheLongEar": "A Jornada do Orelha Longa",
-    "pearlOfThePack": "Login Pérola da Matilha"
+    "pearlOfThePack": "Login Pérola da Matilha",
+    "subduerOfTheBlightedSea": "Conquista do Mar Contaminado",
+    "wulingSuperChef": "Suprimento: Superchef de Wuling",
+    "curiousUseOfXiranite": "Uso Curioso da Xiranita",
+    "AICSupportPalmTopSavior": "Apoio do CAI: Salvadora Portátil",
+    "etchspaceSalvageZone56": "Zona Aberrante 5&6",
+    "blitzOfVerdance": "Login em Tempestade Verdejante",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Fotografia: Gravuras dos Nossos Sonhos Cósmicos",
+    "etchingsOfOurCosmicDreamsSignIn": "Login em Gravuras dos Nossos Sonhos Cósmicos",
+    "pristineMonthlyPassTribute": "Tributo de Passe Mensal Imaculado",
+    "umbralMonumentTurbidityManifest": "Manifesto de Turbidez",
+    "monumentalEtchingCorruptingSurge": "Entalhe Monumental: Surto de Corrupção"
   },
   "mouths": {
     "january": "Janeiro",

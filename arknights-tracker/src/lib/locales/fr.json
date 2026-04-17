@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "Édition Graffiti",
     "weponbox_1_1_1": "L'appel du brigand",
     "weponbox_1_1_2": "Lupin écarlate",
+    "weponbox_1_2_1": "Tirage du radeau à la dérive",
     "weaponbox_constant_1": "Édition Glace Solide",
     "weaponbox_constant_2": "Édition Voix Cosmique",
     "weaponbox_constant_3": "Édition Expédition Lointaine",
@@ -326,7 +327,19 @@
     "etchspaceSalvageZone4": "Zone d'anomalie 4",
     "gentlyFlowsQinbo": "Connexion à Qingbo se la coule douce",
     "journeyOfTheLongEar": "Voyage du longauris",
-    "pearlOfThePack": "Connexion - Joyau de la Meute"
+    "pearlOfThePack": "Connexion - Joyau de la Meute",
+    "subduerOfTheBlightedSea": "Conquérant de la Marée gangrénée",
+    "wulingSuperChef": "Approvisionnement : Super Chef de Wuling",
+    "curiousUseOfXiranite": "Étrange façon d'utiliser de la xiranite",
+    "AICSupportPalmTopSavior": "Soutien du GIA : remède de poche",
+    "etchspaceSalvageZone56": "Zone d'anomalie 5&6",
+    "blitzOfVerdance": "Connexion - Raid verdoyant",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Instantané : Gravures de nos rêves cosmiques",
+    "etchingsOfOurCosmicDreamsSignIn": "Connexion - Gravures de nos rêves cosmiques",
+    "pristineMonthlyPassTribute": "Don du Pass mensuel immaculé",
+    "umbralMonumentTurbidityManifest": "Manifeste de la Turbidité",
+    "monumentalEtchingCorruptingSurge": "Gravure monumentale : vague de corruption"
   },
   "mouths": {
     "january": "Janvier",

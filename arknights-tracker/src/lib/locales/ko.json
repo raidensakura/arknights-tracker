@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "그래피티 발행",
     "weponbox_1_1_1": "반항",
     "weponbox_1_1_2": "늑대의 혈흔",
+    "weponbox_1_2_1": "항해 신청",
     "weaponbox_constant_1": "견빙 발행",
     "weaponbox_constant_2": "우주의 목소리 발행",
     "weaponbox_constant_3": "원정 발행",
@@ -326,7 +327,19 @@
     "etchspaceSalvageZone4": "수차 구역 4",
     "gentlyFlowsQinbo": "잔잔한 물결 출석 체크",
     "journeyOfTheLongEar": "큰 귀 토끼의 여정",
-    "pearlOfThePack": "울프팀의 진주 출석 체크"
+    "pearlOfThePack": "울프팀의 진주 출석 체크",
+    "subduerOfTheBlightedSea": "침식 조류 진압",
+    "wulingSuperChef": "물자 공급 · 무릉 특급 요리사",
+    "curiousUseOfXiranite": "다양한 식양 활용법",
+    "AICSupportPalmTopSavior": "통합 지원 · 내 손안의 구세주",
+    "etchspaceSalvageZone56": "수차 구역 5&6",
+    "blitzOfVerdance": "만물을 깨우는 봄의 천둥 출석 체크",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "우주에 새겨진 우리의 꿈 · 기념사진",
+    "etchingsOfOurCosmicDreamsSignIn": "우주에 새겨진 우리의 꿈 출석 체크",
+    "pristineMonthlyPassTribute": "리뉴얼 월정액 선물",
+    "umbralMonumentTurbidityManifest": "탁류 구현",
+    "monumentalEtchingCorruptingSurge": "기억의 흔적 · 불결한 흐름"
   },
   "mouths": {
     "january": "1월",

@@ -122,6 +122,7 @@
     "weponbox_1_0_2": "Артистичная Тиранка",
     "weponbox_1_1_1": "Призвание разбойника",
     "weponbox_1_1_2": "Волчий багрянец",
+    "weponbox_1_2_1": "Дрейфующий плот",
     "weaponbox_constant_1": "Крепкий лед",
     "weaponbox_constant_2": "Космический голос",
     "weaponbox_constant_3": "Дальняя экспедиция",
@@ -348,7 +349,19 @@
     "etchspaceSalvageZone4": "Вылазка в Гравирпространство «Зона отклонения 4»",
     "gentlyFlowsQinbo": "Тихие воды Циньбо: вход",
     "journeyOfTheLongEar": "Приключения длинноуха",
-    "pearlOfThePack": "Вход «Жемчуг Стаи»"
+    "pearlOfThePack": "Вход «Жемчуг Стаи»",
+    "subduerOfTheBlightedSea": "Укрощение моровых волн",
+    "wulingSuperChef": "Поставка: Супершеф Улина",
+    "curiousUseOfXiranite": "Причудливые пути ксиранита",
+    "AICSupportPalmTopSavior": "Поддержка АПК: Карманное спасение",
+    "etchspaceSalvageZone56": "Вылазка в Гравирпространство «Зона отклонения 5&6»",
+    "blitzOfVerdance": "Вход «Цветущий блиц»",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Впишем в историю наши космические мечты",
+    "etchingsOfOurCosmicDreamsSignIn": "Вход «Впишем в историю наши космические мечты»",
+    "pristineMonthlyPassTribute": "Первозданное подношение месячного пропуска",
+    "umbralMonumentTurbidityManifest": "Образ помутнения",
+    "monumentalEtchingCorruptingSurge": "Памятные знаки: Разрушающий прилив"
   },
   "mouths": {
     "january": "Январь",

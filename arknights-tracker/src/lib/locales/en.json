@@ -120,6 +120,7 @@
     "weponbox_1_0_2": "Graffiti Issue",
     "weponbox_1_1_1": "Brigand's Calling",
     "weponbox_1_1_2": "Lupine Scarlet",
+    "weponbox_1_2_1": "Drifting Raft Issue",
     "special_1_1_1": "River's Daughter",
     "weaponbox_constant_1": "Solid Ice Issue",
     "weaponbox_constant_2": "Cosmic Voice Issue",
@@ -349,7 +350,19 @@
     "gentlyFlowsQinbo": "Gently Flows Qinbo Sign-In",
     "pearlOfThePack": "Pearl of the Pack Sign-In",
     "journeyOfTheLongEar": "Journey of the Long-Ear",
-    "risingTideOfWuling": "Rising Tide of Wuling Sign-In"
+    "risingTideOfWuling": "Rising Tide of Wuling Sign-In",
+    "subduerOfTheBlightedSea": "Subduer of the Blighted Sea",
+    "wulingSuperChef": "Supply: Wuling Super Chef",
+    "curiousUseOfXiranite": "Curious Use of Xiranite",
+    "AICSupportPalmTopSavior": "AIC Support: Palm-Top Savior",
+    "etchspaceSalvageZone56": "Etchspace Salvage «Aberrant Zone 5&6»",
+    "blitzOfVerdance": "Blitz of Verdance Sign-In",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Snapshot: Etchings of Our Cosmic Dreams",
+    "etchingsOfOurCosmicDreamsSignIn": "Etchings of Our Cosmic Dreams Sign-In",
+    "pristineMonthlyPassTribute": "Pristine Monthly Pass Tribute",
+    "umbralMonumentTurbidityManifest": "Turbidity Manifest",
+    "monumentalEtchingCorruptingSurge": "Monumental Etching: Corrupting Surge"
   },
   "mouths": {
     "january": "January",

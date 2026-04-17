@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "Ấn phẩm Graffiti",
     "weponbox_1_1_1": "Tiếng Gọi Đạo Tặc",
     "weponbox_1_1_2": "Lupine Scarlet",
+    "weponbox_1_2_1": "Gói Chiếc Bè Trôi Dạt",
     "weaponbox_constant_1": "Ấn phẩm Băng Cứng",
     "weaponbox_constant_2": "Ấn phẩm Tiếng Vọng Vũ Trụ",
     "weaponbox_constant_3": "Ấn phẩm Viễn Chinh",
@@ -325,7 +326,19 @@
     "etchspaceSalvageZone4": "Khu Dị Thể 4",
     "gentlyFlowsQinbo": "Điểm Danh Thanh Ba Nước Chảy Mây Trôi",
     "journeyOfTheLongEar": "Hành Trình Của Tai Dài",
-    "pearlOfThePack": "Điểm Danh Viên Ngọc Tộc Sói"
+    "pearlOfThePack": "Điểm Danh Viên Ngọc Tộc Sói",
+    "subduerOfTheBlightedSea": "Kẻ Trấn Áp Biển Nhiễm Khuẩn",
+    "wulingSuperChef": "Tiếp Tế: Siêu Đầu Bếp Võ Lăng",
+    "curiousUseOfXiranite": "Ứng Dụng Dị Thường Của Xiranite",
+    "AICSupportPalmTopSavior": "Hỗ Trợ KPH: Cứu Tinh Lòng Bàn Tay",
+    "etchspaceSalvageZone56": "Khu Dị Thể 5&6",
+    "blitzOfVerdance": "Điểm Danh Cỏ Cây Oanh Toạc",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Ảnh Chụp Nhanh: Khắc Ghi Giấc Mơ Vũ Trụ",
+    "etchingsOfOurCosmicDreamsSignIn": "Điểm Danh Khắc Ghi Giấc Mơ Vũ Trụ",
+    "pristineMonthlyPassTribute": "Quà Tặng Thẻ Tháng Tinh Khôi",
+    "umbralMonumentTurbidityManifest": "Sương Đục Hiện Thể",
+    "monumentalEtchingCorruptingSurge": "Văn Khắc Kỷ Niệm: Triều Dâng Ma Hóa"
   },
   "mouths": {
     "january": "Tháng 1",

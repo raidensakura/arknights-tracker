@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "ฉบับกราฟฟิตี้",
     "weponbox_1_1_1": "เสียง​เพรียก​แห่ง​โจร",
     "weponbox_1_1_2": "สีชา​ด​แห่ง​หมาป่า",
+    "weponbox_1_2_1": "ตั๋ว​แพลอย​น้ำ",
     "weaponbox_constant_1": "ฉบับน้ำแข็งแกร่ง",
     "weaponbox_constant_2": "ฉบับเสียงแห่งจักรวาล",
     "weaponbox_constant_3": "ฉบับการเดินทางไกล",
@@ -325,7 +326,19 @@
     "etchspaceSalvageZone4": "เขต​ผิดเพี้ยน​ 4",
     "gentlyFlowsQinbo": "เข้าสู่ระบบ​ไหล​อย่าง​อ่อนโยน​ชิง​ป๋อ",
     "journeyOfTheLongEar": "การ​เดินทาง​ของ​เจ้า​หู​ยาว",
-    "pearlOfThePack": "ลงชื่อ​เข้า​ใช้​ ไข่มุก​แห่ง​เดอะ​แพ็ค"
+    "pearlOfThePack": "ลงชื่อ​เข้า​ใช้​ ไข่มุก​แห่ง​เดอะ​แพ็ค",
+    "subduerOfTheBlightedSea": "ผู้พิชิต​ทะเล​เสื่อมสลาย",
+    "wulingSuperChef": "เสบียง​: ซู​เปอร์​เชฟ​แห่ง​อู่​หลิง",
+    "curiousUseOfXiranite": "การ​ประยุกต์ใช้​ซี​เรน​ไนต์​อัน​น่าทึ่ง",
+    "AICSupportPalmTopSavior": "AIC สนับสนุน​: ผู้​กอบกู้​ใน​อุ้งมือ",
+    "etchspaceSalvageZone56": "เขต​ผิดเพี้ยน​ 5&6",
+    "blitzOfVerdance": "ลงชื่อ​เข้าสู่ระบบ​สายฟ้า​ปลุก​สรรพสิ่ง",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "ส​แน​ป​ช็อต​: การ​ฝัง​รอย​แห่ง​ความฝัน​ใน​จักรวาล​ของ​เรา",
+    "etchingsOfOurCosmicDreamsSignIn": "ลงชื่อ​เข้าสู่ระบบ​การ​ฝัง​รอย​แห่ง​ความฝัน​ใน​จักรวาล​ของ​เรา",
+    "pristineMonthlyPassTribute": "เครื่องบรรณาการ​บัตร​ผ่าน​รายเดือน​ระดับ​บริสุทธิ์​",
+    "umbralMonumentTurbidityManifest": "ภูต​สำแดง​สับสน",
+    "monumentalEtchingCorruptingSurge": "การแกะสลัก​อนุสรณ์​: กระแส​เสื่อมโทรม​ปะทุ"
   },
   "mouths": {
     "january": "มกราคม",

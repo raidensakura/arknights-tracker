@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "塗鴉刊",
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼之緋",
+    "weponbox_1_2_1": "行舟申領",
     "weaponbox_constant_1": "堅冰刊",
     "weaponbox_constant_2": "宙聲刊",
     "weaponbox_constant_3": "遠征刊",
@@ -326,7 +327,19 @@
     "etchspaceSalvageZone4": "像差區域4",
     "gentlyFlowsQinbo": "清波靜流簽到",
     "journeyOfTheLongEar": "長耳獸之旅",
-    "pearlOfThePack": "狼群瑰寶簽到"
+    "pearlOfThePack": "狼群瑰寶簽到",
+    "subduerOfTheBlightedSea": "鎮綏蝕海",
+    "wulingSuperChef": "物資供給·武陵特廚",
+    "curiousUseOfXiranite": "息壤妙用",
+    "AICSupportPalmTopSavior": "集成援助·掌中救星",
+    "etchspaceSalvageZone56": "像差區域5&6",
+    "blitzOfVerdance": "春雷醒物簽到",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "鐫宇銘星·留影",
+    "etchingsOfOurCosmicDreamsSignIn": "鐫宇銘星簽到",
+    "pristineMonthlyPassTribute": "煥新月卡贈禮",
+    "umbralMonumentTurbidityManifest": "濁流具現",
+    "monumentalEtchingCorruptingSurge": "豐碑留名·穢流"
   },
   "mouths": {
     "january": "一月",

@@ -105,6 +105,7 @@
     "weponbox_1_0_2": "Edizione Graffiti",
     "weponbox_1_1_1": "Vocazione da brigante",
     "weponbox_1_1_2": "Lupino scarlatto",
+    "weponbox_1_2_1": "Distribuzione Zattera alla deriva",
     "weaponbox_constant_1": "Edizione Ghiaccio Solido",
     "weaponbox_constant_2": "Edizione Voce Cosmica",
     "weaponbox_constant_3": "Edizione Spedizione Lontana",
@@ -325,7 +326,19 @@
     "etchspaceSalvageZone4": "Zona aberrante 4",
     "gentlyFlowsQinbo": "Accesso Il dolce fluire di Qingbo",
     "journeyOfTheLongEar": "Viaggio del lungorecchi",
-    "pearlOfThePack": "Accesso Perla del branco"
+    "pearlOfThePack": "Accesso Perla del branco",
+    "subduerOfTheBlightedSea": "Sottomissione del mare contaminato",
+    "wulingSuperChef": "Rifornimento: Super chef di Wuling",
+    "curiousUseOfXiranite": "Uso insolito di xiranite",
+    "AICSupportPalmTopSavior": "Supporto SIA: Salvavita portatile",
+    "etchspaceSalvageZone56": "Zona aberrante 5&6",
+    "blitzOfVerdance": "Accesso Lampo di verde",
+    "shimmeringMoment": "",
+    "etchingsOfOurCosmicDreams": "Istantanea: Incisione dei nostri sogni cosmici",
+    "etchingsOfOurCosmicDreamsSignIn": "Accesso Incisione dei nostri sogni cosmici",
+    "pristineMonthlyPassTribute": "Tributo Pass mensile immacolato",
+    "umbralMonumentTurbidityManifest": "Manifesto di torbidità",
+    "monumentalEtchingCorruptingSurge": "Incisione monumentale: Ondata corruttrice"
   },
   "mouths": {
     "january": "Gennaio",
