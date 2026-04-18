@@ -146,5 +146,53 @@ export const locations = {
       60,
       60
     ]
+  },
+  "world_energy_point07_7": {
+    "id": "world_energy_point07_7",
+    "url": "https://oem.re/?f=%7E1h&r=WL&s=WL_4&p=23400290001",
+    "region": "wuling",
+    "costStamina": 80,
+    "enemyIds": [
+      "eny_0090_wgabyss",
+      "eny_0107_wgshoal2_sluggish",
+      "eny_0089_wgreflec",
+      "eny_0106_wgthorns2",
+      "eny_0088_wgthorns",
+      "eny_0105_wgslime2",
+      "eny_0095_ethillu"
+    ],
+    "enemyLevels": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ]
+  },
+  "world_energy_point08_7": {
+    "id": "world_energy_point08_7",
+    "url": "https://oem.re/?f=%7E1h&r=WL&s=WL_5&p=23200120005",
+    "region": "wuling",
+    "costStamina": 80,
+    "enemyIds": [
+      "eny_0083_hstiger",
+      "eny_0082_hsbear",
+      "eny_0109_hshog2",
+      "eny_0093_hshog",
+      "eny_0108_slbomb2",
+      "eny_0092_slbomb",
+      "eny_0094_hsfly"
+    ],
+    "enemyLevels": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ]
   }
 };
