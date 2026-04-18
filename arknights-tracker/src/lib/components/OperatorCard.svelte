@@ -4,6 +4,8 @@
     import { pullData } from "$lib/stores/pulls";
     import { manualPotentials } from "$lib/stores/potentials";
     import { accountStore } from "$lib/stores/accounts";
+    import { disableDarkening } from "$lib/stores/settings";
+
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Images from "$lib/components/Images.svelte";
@@ -45,6 +47,16 @@
     $: hasOperator = currentPot >= 0;
     $: constCount = hasOperator ? currentPot : 0;
     $: isMaxPot = constCount >= 5;
+    $: isAccountEmpty = (() => {
+        if (!$pullData) return true;
+        for (const key in $pullData) {
+            if ($pullData[key]?.pulls?.length > 0) {
+                return false;
+            }
+        }
+        return true;
+    })();
+    $: shouldDarken = !hasOperator && variant === 'default' && !isAccountEmpty && !$disableDarkening;
 
     const potPaths = [
         "M35.3769 14.521L43.8763 14.4792L10.06 39.0583L2.11523 38.4865L35.3769 14.521Z",
@@ -119,7 +131,7 @@
                     variant="operator-preview"
                     size="100%"
                     alt={operator.name}
-                    className="w-full h-full object-cover transition-all duration-300 {!hasOperator && variant === 'default' ? 'brightness-50 grayscale-[50%]' : ''}"
+                    className="w-full h-full object-cover transition-all duration-300 {shouldDarken ? 'brightness-50 grayscale-[50%]' : ''}"
                 />
 
                 {#if variant === "small" && !hideName}

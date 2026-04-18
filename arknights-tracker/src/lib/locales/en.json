@@ -5,6 +5,9 @@
     "description": "Advanced Pull Tracker for Arknights: Endfield. Track your pull history, calculate pity counters, and predict your next guaranteed operator or weapon.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Аркнайтс Эндфилд, Аркнайтс, Трекер гачи, История круток, Оперативники, Гойфилд мое, Гойфилд, Goyfield"
   },
+  "hints": {
+    "editPotential": "To change weapon potentials, click the pencil icon."
+  },
   "privacy": {
     "title": "Privacy Policy",
     "analytics_title": "Privacy & Analytics",
@@ -147,7 +150,7 @@
     "step2_post": ", paste and hit Enter. The link will be copied automatically.",
     "ps_tooltip": "Press Win + R, type powershell, and hit Enter",
     "script_details": "More about the script",
-    "step3": "Paste the received link below",
+    "step3": "Paste the received link below.",
     "placeholder_url": "https://ef-webview.gryphline.com/...",
     "placeholder_token": "Paste Token here",
     "startBtn": "Start import",
@@ -159,7 +162,7 @@
       "success": "Data successfully imported!"
     },
     "faq_security_title": "FAQ: Account Security",
-    "faq_security_desc3": "Running the PowerShell scripts <strong>does not require</strong> running PowerShell as administrator.",
+    "faq_security_desc3": "Running the PowerShell scripts does not require running PowerShell as administrator.",
     "faq_q1": "Is it dangerous to use scripts?",
     "faq_q2": "Is Goyfield.moe dangerous?",
     "note": "Note",
@@ -193,6 +196,7 @@
     "delete_confirm": "Delete this token from memory?",
     "errHistoryEmpty": "The history is empty or the link is outdated. UID not found.",
     "tab_pc": "PC web",
+    "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC Manual",
     "tab_android": "Android",
@@ -204,7 +208,7 @@
     "tab_ios": "iOS",
     "wip": "Work in Progress",
     "manual_text_pre": "Go to file",
-    "manual_text_mid": " scroll to the very bottom and find a link like",
+    "manual_text_mid": " open it with Notepad, scroll to the very bottom and find a link like",
     "manual_text_post": "and copy it.",
     "android_note": "Apps like ByeByeDPI or active VPNs may interfere with log capturing. If logs are empty, try reinstalling VPN.",
     "android_s1": "Download <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> and <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> from GitHub.",
@@ -483,6 +487,7 @@
     "recommended": "Recommended",
     "artificing": "Gear Artificing",
     "coolDown": "Cooldown",
+    "costValue": "Ultimate Energy Cost",
     "mainAttr": "Main Attribute",
     "secAttr": "Secondary Attribute",
     "str": "Strength",
@@ -746,6 +751,8 @@
   },
   "settings": {
     "title": "Settings",
+    "other": "Other",
+    "disableDarkening": "Disable weapon and operator card darkening",
     "account": {
       "title": "Select Account",
       "add": "Add",

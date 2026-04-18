@@ -5,6 +5,9 @@
     "description": "Tracker dei desideri avanzato per Arknights: Endfield. Tieni traccia della tua cronologia estrazioni, calcola il pity e prevedi il prossimo operatore o arma garantita.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield Italia, Tracker Gacha, Cronologia Estrazioni, Operatori, Goyfield"
   },
+  "hints": {
+    "editPotential": "Per modificare i potenziali dell'arma, fai clic sull'icona della matita."
+  },
   "sidebar": {
     "home": "Home",
     "records": "Registro Reclutamenti",
@@ -143,7 +146,7 @@
       "success": "Dati importati con successo!"
     },
     "faq_security_title": "FAQ: Sicurezza dell'account",
-    "faq_security_desc3": "L'esecuzione degli script PowerShell <strong>non richiede</strong> privilegi di amministratore.",
+    "faq_security_desc3": "L'esecuzione degli script PowerShell non richiede l'avvio di PowerShell come amministratore.",
     "faq_q1": "È pericoloso usare gli script?",
     "faq_q2": "Goyfield.moe è pericoloso?",
     "note": "Nota",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "Lavori in corso",
     "manual_text_pre": "Vai al file",
-    "manual_text_mid": ", scorri fino in fondo e trova un link simile a",
+    "manual_text_mid": " aprilo con il Blocco note, scorri fino in fondo e trova un link simile a",
     "manual_text_post": "e copialo.",
     "android_note": "App come ByeByeDPI o VPN attive possono interferire con la cattura dei log. Se i log sono vuoti, prova a reinstallare la VPN.",
     "android_s1": "Scarica <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> e <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> da GitHub.",
@@ -458,6 +461,7 @@
     "recommended": "Consigliato",
     "artificing": "Artificio di equipaggiamenti",
     "coolDown": "Tempo di recupero",
+    "costValue": "Costo energia suprema",
     "mainAttr": "Attributo Principale",
     "secAttr": "Attributo Secondario",
     "str": "Forza",
@@ -720,6 +724,8 @@
   },
   "settings": {
     "title": "Impostazioni",
+    "other": "Altro",
+    "disableDarkening": "Disattiva oscuramento delle carte armi e operatori",
     "account": {
       "title": "Seleziona Account",
       "add": "Aggiungi",

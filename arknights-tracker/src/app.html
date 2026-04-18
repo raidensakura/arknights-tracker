@@ -21,7 +21,6 @@
             var lang = localStorage.getItem('user_locale');
             if (lang) {
                 document.documentElement.lang = lang;
-                
                 if (lang !== 'en') {
                     var style = document.createElement('style');
                     style.id = 'i18n-hide';
@@ -32,9 +31,78 @@
         } catch(e) {}
     </script>
     
+    <style>
+        #app-splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F0F2F4;
+            transition: opacity 0.5s ease-out;
+        }
+
+        html.dark #app-splash-screen {
+            background-color: #2a2a2a;
+        }
+
+        .splash-content {
+            position: relative;
+            display: inline-block;
+        }
+
+        .splash-image {
+            width: 230px;
+            max-width: 90vw;
+            height: auto;
+            display: block;
+        }
+
+        .spinner {
+            position: absolute;
+            top: 18%;
+            right: 12%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            color: #21272C;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
     %sveltekit.head%
 </head>
 <body data-sveltekit-preload-data="hover">
+   <div id="app-splash-screen">
+        <div class="splash-content">
+            
+            <img src="%sveltekit.assets%/images/loading.png" alt="Loading..." class="splash-image" />
+            
+            <svg
+                class="spinner"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M16.0013 2.66406V7.9974M16.0013 23.9974V29.3307M6.57464 6.57073L10.348 10.3441M21.6546 21.6507L25.428 25.4241M2.66797 15.9974H8.0013M24.0013 15.9974H29.3346M6.57464 25.4241L10.348 21.6507M21.6546 10.3441L25.428 6.57073"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+
+        </div>
+    </div>
+
     <div style="display: contents">%sveltekit.body%</div>
 </body>
 </html>

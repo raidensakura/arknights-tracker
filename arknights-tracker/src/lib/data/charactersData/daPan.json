@@ -1804,6 +1804,23 @@
                     15.0
                 ]
             },
+            "costValue": {
+                "dataType": "float",
+                "data": [
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0
+                ]
+            },
             "aerialFlurryDmgMultiplier": {
                 "dataType": "percent",
                 "data": [

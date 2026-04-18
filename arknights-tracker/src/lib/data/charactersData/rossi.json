@@ -1935,6 +1935,23 @@
                     10.0
                 ]
             },
+            "costValue": {
+                "dataType": "float",
+                "data": [
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0,
+                    110.0
+                ]
+            },
             "stabAttackTotalDmgMultiplier": {
                 "dataType": "percent",
                 "data": [

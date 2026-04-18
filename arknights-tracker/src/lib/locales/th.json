@@ -5,6 +5,9 @@
     "description": "เครื่องมือติดตามการอธิษฐานขั้นสูงสำหรับ Arknights: Endfield ติดตามประวัติการเฟ้นหา คำนวณนับถอยหลังการันตี (Pity) และคาดการณ์โอเปอเรเตอร์หรืออาวุธที่จะได้รับครั้งต่อไป",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield ไทย, ตัวติดตามกาชา, ประวัติการสุ่ม, โอเปอเรเตอร์, Goyfield"
   },
+  "hints": {
+    "editPotential": "หากต้องการเปลี่ยนศักยภาพของอาวุธ ให้คลิกที่ไอคอนดินสอ"
+  },
   "sidebar": {
     "home": "หน้าแรก",
     "records": "ประวัติการเฟ้นหา",
@@ -143,7 +146,7 @@
       "success": "นำเข้าข้อมูลสำเร็จ!"
     },
     "faq_security_title": "FAQ: ความปลอดภัยของบัญชี",
-    "faq_security_desc3": "การรันสคริปต์ PowerShell <strong>ไม่จำเป็น</strong> ต้องรันด้วยสิทธิ์ของผู้ดูแลระบบ (Administrator)",
+    "faq_security_desc3": "การรันสคริปต์ PowerShell ไม่จำเป็นต้องรันในฐานะผู้ดูแลระบบ",
     "faq_q1": "การใช้สคริปต์เป็นอันตรายหรือไม่?",
     "faq_q2": "Goyfield.moe เป็นอันตรายหรือไม่?",
     "note": "หมายเหตุ",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "กำลังพัฒนา",
     "manual_text_pre": "ไปที่ไฟล์",
-    "manual_text_mid": " เลื่อนลงไปด้านล่างสุดและหาลิงก์ที่ขึ้นต้นด้วย",
+    "manual_text_mid": " เปิดด้วย Notepad เลื่อนลงไปล่างสุด และค้นหาลิงก์ในรูปแบบ",
     "manual_text_post": "แล้วคัดลอกมา",
     "android_note": "แอปอย่าง ByeByeDPI หรือ VPN ที่เปิดอยู่อาจรบกวนการจับ Log หาก Log ว่างเปล่า ให้ลองติดตั้ง VPN ใหม่",
     "android_s1": "ดาวน์โหลด <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> และ <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> จาก GitHub",
@@ -458,6 +461,7 @@
     "recommended": "แนะนำ",
     "artificing": "การ​อาร์​ติ​ไฟ​ซ์​อุปกรณ์",
     "coolDown": "คูล​ดาวน์",
+    "costValue": "พลังงาน​ที่​ต้อง​ใช้กับ​อัล​ติ​เมท",
     "mainAttr": "ค่าสถานะหลัก",
     "secAttr": "ค่าสถานะรอง",
     "str": "ความแข็งแกร่ง",
@@ -720,6 +724,8 @@
   },
   "settings": {
     "title": "การตั้งค่า",
+    "other": "อื่นๆ",
+    "disableDarkening": "ปิดใช้งานการทำให้การ์ดอาวุธและโอเปอเรเตอร์มืดลง",
     "account": {
       "title": "เลือกบัญชี",
       "add": "เพิ่ม",

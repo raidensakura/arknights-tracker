@@ -5,6 +5,9 @@
     "description": "アークナイツ：エンドフィールド（Arknights: Endfield）の高度なガチャ履歴トラッカー。ガチャ履歴の追跡、天井カウントの計算、次回の確定オペレーターや武器の予測機能を提供します。",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, アークナイツ エンドフィールド, エンドフィールド, ガチャ履歴, ガチャ分析, オペレーター, Goyfield"
   },
+  "hints": {
+    "editPotential": "武器の潜在能力を変更するには、鉛筆アイコンをクリックしてください。"
+  },
   "sidebar": {
     "home": "ホーム",
     "records": "人材発掘",
@@ -143,7 +146,7 @@
       "success": "データのインポートに成功しました！"
     },
     "faq_security_title": "FAQ: アカウントのセキュリティ",
-    "faq_security_desc3": "PowerShellスクリプトを実行するのに、管理者権限でPowerShellを実行する<strong>必要はありません</strong>。",
+    "faq_security_desc3": "PowerShellスクリプトの実行に、管理者としてPowerShellを実行する必要はありません。",
     "faq_q1": "スクリプトを使用するのは危険ですか？",
     "faq_q2": "Goyfield.moeは危険ですか？",
     "note": "注記",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (ベータ)",
     "wip": "開発中",
     "manual_text_pre": "ファイル",
-    "manual_text_mid": "へ移動し、一番下までスクロールして、以下のようなリンクを探してください：",
+    "manual_text_mid": " メモ帳で開き、一番下までスクロールして次のようなリンクを見つけます",
     "manual_text_post": "そしてそれをコピーしてください。",
     "android_note": "ByeByeDPIのようなアプリやVPNはログ取得を妨害する可能性があります。ログが空の場合はVPNを再設定してみてください。",
     "android_s1": "GitHubから <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> と <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> をダウンロードしてください。",
@@ -459,6 +462,7 @@
     "recommended": "おすすめ",
     "artificing": "精密加工",
     "coolDown": "クールタイム",
+    "costValue": "必殺チャージ消費",
     "mainAttr": "メイン属性",
     "secAttr": "サブ属性",
     "str": "筋力",
@@ -721,6 +725,8 @@
   },
   "settings": {
     "title": "設定",
+    "other": "その他",
+    "disableDarkening": "武器とオペレーターカードの暗転を無効にする",
     "account": {
       "title": "アカウント選択",
       "add": "追加",

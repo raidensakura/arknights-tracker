@@ -4,6 +4,7 @@
     import { pullData } from "$lib/stores/pulls";
     import { manualPotentials } from "$lib/stores/potentials";
     import { accountStore } from "$lib/stores/accounts";
+    import { disableDarkening } from "$lib/stores/settings";
 
     import Images from "$lib/components/Images.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -99,6 +100,16 @@
     $: hasWeapon = currentPot >= 0 || hideDarkness == true;
     $: constCount = hasWeapon ? currentPot : 0;
     $: isMaxPot = constCount >= 5;
+    $: isAccountEmpty = (() => {
+        if (!$pullData) return true;
+        for (const key in $pullData) {
+            if ($pullData[key]?.pulls?.length > 0) {
+                return false;
+            }
+        }
+        return true;
+    })();
+    $: shouldDarken = !hasWeapon && !isEquipment && !isAccountEmpty && !$disableDarkening;
 
     const potPaths = [
         "M35.3769 14.521L43.8763 14.4792L10.06 39.0583L2.11523 38.4865L35.3769 14.521Z",
@@ -157,7 +168,7 @@
                 class="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a]"
             ></div>
 
-            <div
+           <div
                 class="absolute inset-0 flex items-center justify-center z-0 {hideRarity
                     ? ''
                     : 'bottom-[6px]'
@@ -166,8 +177,7 @@
                 <Images
                     id={weapon.id}
                     variant={imageVariant}
-                    className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300 {!hasWeapon &&
-                    !isEquipment
+                    className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300 {shouldDarken
                         ? 'brightness-50 grayscale-[50%]'
                         : ''}"
                     alt={weapon.name}

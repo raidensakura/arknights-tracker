@@ -10,6 +10,8 @@
     import { currentUid } from "$lib/stores/auth";
     import { fade } from "svelte/transition";
     import { onDestroy } from "svelte";
+    import { disableDarkening } from "$lib/stores/settings";
+
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -41,6 +43,10 @@
         if (analytics) {
             logEvent(analytics, "button_click");
         }
+    }
+
+    function toggleDarkening() {
+        disableDarkening.update((v) => !v);
     }
 
     import {
@@ -514,7 +520,9 @@
                     </svg>
                 </div>
                 <div>
-                    <span class="text-gray-600 dark:text-[#E0E0E0] group-hover:dark:text-[#FDFDFD] group-hover:text-black transition-colors cursor-pointer font-medium text-base">
+                    <span
+                        class="text-gray-600 dark:text-[#E0E0E0] group-hover:dark:text-[#FDFDFD] group-hover:text-black transition-colors cursor-pointer font-medium text-base"
+                    >
                         {$t("settings.server.show_server_time")}
                     </span>
                 </div>
@@ -811,7 +819,7 @@
         </div>
     </section>
 
-    <section class="mb-10 ml-2">
+    <section class="mb-4 ml-2">
         <h2
             class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4"
         >
@@ -844,6 +852,35 @@
                     Tribute
                 </Button>
             </a>
+        </div>
+    </section>
+    <section class="mb-10 ml-2">
+        <h2
+            class="font-sdk dark:text-[#FDFDFD] text-2xl font-bold text-[#21272C] mb-4"
+        >
+            {$t("settings.other")}
+        </h2>
+        <div class="flex items-center gap-3">
+        <button
+                type="button"
+                role="switch"
+                aria-label="switch"
+                aria-checked={$disableDarkening}
+                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none {$disableDarkening
+                    ? 'bg-[#F9B90C]'
+                    : 'bg-gray-200 dark:bg-[#555]'}"
+                on:click={toggleDarkening}
+            >
+                <span
+                    class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {$disableDarkening
+                        ? 'translate-x-6'
+                        : 'translate-x-1'} shadow-sm"
+                ></span>
+            </button>
+            <span class="text-sm font-bold dark:text-[#E0E0E0] text-gray-800">
+                {$t("settings.disableDarkening") || "Disable darkening"}
+            </span>
+            
         </div>
     </section>
 </div>

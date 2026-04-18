@@ -1539,7 +1539,7 @@
     },
     "skills": {
         "basicAttack": {
-            "elementType": "unknown",
+            "elementType": "nature",
             "batkSeq1Multiplier": {
                 "dataType": "percent",
                 "data": [
@@ -1644,7 +1644,7 @@
             }
         },
         "battleSkill": {
-            "elementType": "unknown",
+            "elementType": "nature",
             "gravityPullDmgMultiplier": {
                 "dataType": "percent",
                 "data": [
@@ -1698,7 +1698,7 @@
             }
         },
         "comboSkill": {
-            "elementType": "unknown",
+            "elementType": "nature",
             "coolDown": {
                 "dataType": "float",
                 "data": [
@@ -1769,7 +1769,7 @@
             }
         },
         "ultimate": {
-            "elementType": "unknown",
+            "elementType": "nature",
             "coolDown": {
                 "dataType": "float",
                 "data": [
@@ -1785,6 +1785,23 @@
                     20.0,
                     20.0,
                     20.0
+                ]
+            },
+            "costValue": {
+                "dataType": "float",
+                "data": [
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0,
+                    90.0
                 ]
             },
             "dmgMultiplier": {

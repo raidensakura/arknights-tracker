@@ -5,6 +5,9 @@
     "description": "Công cụ theo dõi điều ước nâng cao cho Arknights: Endfield. Theo dõi lịch sử chiêu mộ, tính toán bộ đếm bảo hiểm (pity) và dự đoán đặc vụ hoặc vũ khí đảm bảo tiếp theo.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield Việt Nam, Theo dõi Gacha, Lịch sử quay, Đặc vụ, Goyfield"
   },
+  "hints": {
+    "editPotential": "Để thay đổi tiềm năng vũ khí, hãy nhấp vào biểu tượng bút chì."
+  },
   "sidebar": {
     "home": "Trang chủ",
     "records": "Hồ sơ Chiêu mộ",
@@ -143,7 +146,7 @@
       "success": "Nhập dữ liệu thành công!"
     },
     "faq_security_title": "FAQ: Bảo mật tài khoản",
-    "faq_security_desc3": "Việc chạy các tập lệnh PowerShell <strong>không yêu cầu</strong> quyền quản trị viên.",
+    "faq_security_desc3": "Chạy các tệp lệnh PowerShell không yêu cầu chạy PowerShell dưới quyền quản trị viên.",
     "faq_q1": "Sử dụng tập lệnh có nguy hiểm không?",
     "faq_q2": "Goyfield.moe có nguy hiểm không?",
     "note": "Lưu ý",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "Đang phát triển",
     "manual_text_pre": "Đi tới tệp",
-    "manual_text_mid": ", cuộn xuống dưới cùng và tìm liên kết giống như",
+    "manual_text_mid": " mở nó bằng Notepad, cuộn xuống dưới cùng và tìm một liên kết giống như",
     "manual_text_post": "và sao chép nó.",
     "android_note": "Các ứng dụng như ByeByeDPI hoặc VPN đang bật có thể cản trở việc bắt log. Nếu log trống, hãy thử cài đặt lại VPN.",
     "android_s1": "Tải <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> và <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> từ GitHub.",
@@ -458,6 +461,7 @@
     "recommended": "Đề xuất",
     "artificing": "Chế Tác Trang Bị",
     "coolDown": "Thời gian hồi chiêu",
+    "costValue": "Phí Năng Lượng Tuyệt Kỹ",
     "mainAttr": "Thuộc tính Chính",
     "secAttr": "Thuộc tính Phụ",
     "str": "Sức mạnh",
@@ -720,6 +724,8 @@
   },
   "settings": {
     "title": "Cài đặt",
+    "other": "Khác",
+    "disableDarkening": "Tắt làm tối thẻ vũ khí và toán tử",
     "account": {
       "title": "Chọn Tài khoản",
       "add": "Thêm",

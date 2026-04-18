@@ -49,7 +49,7 @@
     let isInputError = false;
 
     const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
-    const powerShellScript2 = `[regex]::Matches((Get-Content "$env:USERPROFILE\\AppData\\LocalLow\\Gryphline\\Endfield\\sdklogs\\HGWebview.log" -Raw), "https://ef-webview\\.gryphline\\.com[^\\s]+u8_token=[^\\s]+").Value[-1] | Set-Clipboard`;
+    const powerShellScript2 = `$f=[System.IO.File]::Open("$env:LOCALAPPDATA\\PlatformProcess\\Cache\\data_1",3,1,3); $t=(New-Object System.IO.StreamReader($f,[System.Text.Encoding]::ASCII)).ReadToEnd(); $f.Close(); $m=[regex]::Matches($t,"u8_token=([^&\\s\\x00]+)"); if($m.Count){ $m[$m.Count-1].Groups[1].Value | Set-Clipboard }`;
     const browserBookmarklet = `javascript:(async()=>{try{let e=null;for(let[t,n]of Object.entries(sessionStorage))if(t.startsWith("APP_ROLE_U8_TOKEN:")){e=n.toString().split(":")[0];break}if(!e)throw new Error("Token not found. Please log in and refresh the page.");await navigator.clipboard.writeText(e),alert("Success! Token copied to clipboard.")}catch(e){alert("Error: "+e.message)}})();`;
     onMount(() => {
         loadSavedTokens();
@@ -168,8 +168,11 @@
 
     $: if (urlInput) {
         if (!urlInput.startsWith("http")) {
-            const encodedToken = encodeURIComponent(decodeURIComponent(urlInput));
-            const baseUrl = "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
+            const encodedToken = encodeURIComponent(
+                decodeURIComponent(urlInput),
+            );
+            const baseUrl =
+                "https://ef-webview.gryphline.com/page/gacha_weapon?pool_id=weaponbox_constant_2&u8_token=";
             const tail = `&platform=Android&channel=6&subChannel=6&lang=ru-ru&server=${selectedServer}`;
             realImportUrl = baseUrl + encodedToken + tail;
         } else {
@@ -219,7 +222,10 @@
             const response = await fetch(`${API_BASE}/import`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ rawUrl: urlToSend, overwrite: isOverwriteEnabled }), 
+                body: JSON.stringify({
+                    rawUrl: urlToSend,
+                    overwrite: isOverwriteEnabled,
+                }),
             });
 
             if (response.status === 429) {
@@ -420,23 +426,25 @@
             if (isOverwriteEnabled && uid) {
                 const currentLocalData = get(pullData);
                 let allLocalPulls = [];
-                
-                Object.values(currentLocalData).forEach(cat => {
+
+                Object.values(currentLocalData).forEach((cat) => {
                     if (cat.pulls && Array.isArray(cat.pulls)) {
                         allLocalPulls.push(...cat.pulls);
                     }
                 });
 
-                console.log(`Sending ${allLocalPulls.length} pulls on backend for syncing...`);
-                
+                console.log(
+                    `Sending ${allLocalPulls.length} pulls on backend for syncing...`,
+                );
+
                 await fetch(`${API_BASE}/sync-history`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        uid: uid, 
-                        serverId: sId, 
-                        pulls: allLocalPulls 
-                    })
+                    body: JSON.stringify({
+                        uid: uid,
+                        serverId: sId,
+                        pulls: allLocalPulls,
+                    }),
                 });
             }
 
@@ -488,22 +496,6 @@
             class="bg-white p-8 md:p-12 rounded-xl dark:bg-[#383838] dark:border-[#444444] shadow-sm border border-gray-100 relative min-h-[400px]"
         >
             <div
-                class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-8 overflow-x-auto custom-tab-scroll"
-            >
-                {#each [{ id: "pc-web", label: $t("import.tab_pc") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
-                    <button
-                        class="px-6 py-3 text-sm font-bold transition-all relative border-b-2 whitespace-nowrap
-                    {platformTab === tab.id
-                            ? 'text-[#21272C] border-[#FFE145] dark:text-[#FDFDFD]'
-                            : 'text-gray-400 hover:text-gray-600 border-transparent hover:bg-gray-50 hover:dark:bg-[#424242] dark:text-[#B7B6B3]'}"
-                        on:click={() => (platformTab = tab.id)}
-                    >
-                        {tab.label}
-                    </button>
-                {/each}
-            </div>
-
-            <div
                 class="bg-white dark:bg-[#343434] border border-gray-200 dark:border-[#444444] rounded-xl p-5 mb-3 shadow-sm"
             >
                 <div class="flex items-start gap-4">
@@ -544,20 +536,20 @@
                                 class="text-sm text-gray-600 dark:text-[#B7B6B3] leading-relaxed"
                             >
                                 {@html $t("import.faq_security_desc2") ||
-                                    'Goyfield.moe never saves your personal information, such as tokens and links. Your token is only processed to retrieve pulls and is never saved. If you have any concerns about the scripts, you can inspect them personally. If you are concerned about sending your token to the site backend server, you can deploy the site locally following the instructions on GitHub, as this is an open-source project.'}
+                                    "Goyfield.moe never saves your personal information, such as tokens and links. Your token is only processed to retrieve pulls and is never saved. If you have any concerns about the scripts, you can inspect them personally. If you are concerned about sending your token to the site backend server, you can deploy the site locally following the instructions on GitHub, as this is an open-source project."}
                             </p>
                         </div>
 
-                        <!--<div
-                        class="mb-5 text-sm text-gray-500 dark:text-[#999] bg-gray-50 dark:bg-[#2C2C2C] border-l-2 border-[#FACC15] p-3 rounded-r-lg"
-                    >
-                        <span
-                            class="font-bold text-gray-700 dark:text-[#E0E0E0]"
-                            >{$t("import.note") || "Note"}:</span
+                        <div
+                            class="mb-5 text-sm text-gray-500 dark:text-[#999] bg-gray-50 dark:bg-[#2C2C2C] border-l-2 border-[#FACC15] p-3 rounded-r-lg"
                         >
-                        {@html $t("import.faq_security_desc3") ||
-                            "Для запуска скриптов PowerShell <strong>не требуется</strong> запуск PowerShell с правами администратора."}
-                    </div>-->
+                            <span
+                                class="font-bold text-gray-700 dark:text-[#E0E0E0]"
+                                >{$t("import.note") || "Note"}:</span
+                            >
+                            {@html $t("import.faq_security_desc3") ||
+                                "Running the PowerShell scripts does not require running PowerShell as administrator."}
+                        </div>
 
                         <div
                             class="bg-red-50 dark:bg-red-500/10 rounded-lg p-3 border border-red-100 dark:border-red-500/20"
@@ -577,12 +569,27 @@
                                         "{link}",
                                         "https://www.reddit.com/r/Endfield/comments/1rjx5v6/endfieldrecords_dot_com_pull_tracker_malware/",
                                     ) ||
-                                        `Если вы пользовались сайтом <strong>Endfieldrecords</strong>, то немедленно поменяйте пароль в игре и проследуйте <a href="https://www.reddit.com/r/Endfield/comments/1rjx5v6/endfieldrecords_dot_com_pull_tracker_malware/" target="_blank" class="underline">гайду на Reddit</a> для проверки своего компьютера.`}
+                                        `If you used the <strong>Endfieldrecords</strong> site, change your in-game password immediately and follow the <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit guide</a> to check your computer.`}
                                 </span>
                             </p>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div
+                class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-5 mt-5 overflow-x-auto custom-tab-scroll"
+            >
+                {#each [{ id: "pc-web", label: $t("import.tab_pc") }, { id: "pc1", label: $t("import.tab_pc1") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
+                    <button
+                        class="px-6 py-3 text-sm font-bold transition-all relative border-b-2 whitespace-nowrap
+            {platformTab === tab.id
+                            ? 'text-[#21272C] border-[#FFE145] dark:text-[#FDFDFD]'
+                            : 'text-gray-400 hover:text-gray-600 border-transparent hover:bg-gray-50 hover:dark:bg-[#424242] dark:text-[#B7B6B3]'}"
+                        on:click={() => (platformTab = tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                {/each}
             </div>
             {#if platformTab === "android"}
                 <div
@@ -643,6 +650,111 @@
                         </p>
 
                         <div class="mb-6"></div>
+                    </div>
+                {:else if platformTab === "pc1" || platformTab === "pc2"}
+                    <div
+                        class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-1 pl-10"
+                    >
+                        <div
+                            class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
+                        >
+                            1
+                        </div>
+                        <div
+                            class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl mb-4"
+                        >
+                            {$t("import.step2_pre")}
+                            <Tooltip text={$t("import.ps_tooltip")}>
+                                <span
+                                    class="underline decoration-dotted"
+                                    >{$t("import.step2_ps")}</span
+                                >
+                            </Tooltip>
+                            {$t("import.step2_post")}
+                        </div>
+                        <div class="max-w-4xl">
+                            <PowershellBlock
+                                script={platformTab === "pc1"
+                                    ? powerShellScript
+                                    : powerShellScript2}
+                                language="POWERSHELL"
+                            />
+
+                            <div class="flex justify-end">
+                                <a
+                                    href="https://github.com/ivaqis/arknights-pull-url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-all italic group"
+                                >
+                                {#if platformTab === "pc1"}
+                                    <span>{$t("import.script_details")}</span>
+                                    <Icon
+                                        name="sendToLink"
+                                        class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity"
+                                    />
+                                    {/if}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="relative border-l-2 border-transparent pl-10 pb-4"
+                    >
+                        <div
+                            class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
+                        >
+                            2
+                        </div>
+                        <p
+                            class="text-lg text-[#21272C] dark:text-[#E0E0E0] font-medium pt-1"
+                        >
+                            {#if platformTab === "pc1"}
+                                {$t("import.step3")}
+                            {:else}
+                                {$t("import.android_s11")}
+                            {/if}
+                        </p>
+                    </div>
+                {:else if platformTab === "pc-manual"}
+                    <div
+                        class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10"
+                    >
+                        <div
+                            class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
+                        >
+                            1
+                        </div>
+                        <div
+                            class="text-lg dark:text-[#E0E0E0] text-[#21272C] pt-1 font-medium leading-relaxed max-w-4xl"
+                        >
+                            {$t("import.manual_text_pre")}
+                            <code
+                                class="select-all bg-gray-100 dark:bg-[#444] px-1.5 py-0.5 rounded font-mono text-sm"
+                                >%LocalAppData%\PlatformProcess\Cache\data_1</code
+                            >,
+                            {$t("import.manual_text_mid")}
+                            <span
+                                class="text-blue-500 font-mono text-sm break-all"
+                                >"https://ef-webview.gryphline.com/...u8_token=..."</span
+                            >
+                            {$t("import.manual_text_post")}
+                        </div>
+                    </div>
+                    <div
+                        class="relative border-l-2 border-transparent pl-10 pb-4"
+                    >
+                        <div
+                            class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
+                        >
+                            2
+                        </div>
+                        <p
+                            class="text-lg text-[#21272C] dark:text-[#E0E0E0] font-medium pt-1"
+                        >
+                            {$t("import.step3")}
+                        </p>
                     </div>
                 {:else if platformTab === "android"}
                     {#each [{ text: $t("import.android_s1") }, { text: $t("import.android_s2") }, { text: $t("import.android_s3"), subList: [$t("import.android_s3_sub1"), $t("import.android_s3_sub2"), $t("import.android_s3_sub3")] }, { text: $t("import.android_s4") }, { text: $t("import.android_s5") }, { text: $t("import.android_s6") }, { text: $t("import.android_s7") }, { text: $t("import.android_s8") }, { text: $t("import.android_s9") }, { text: $t("import.android_s10") }] as step, i}
@@ -706,7 +818,7 @@
                     </div>
 
                     <div
-                        class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10"
+                        class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-3 pl-10"
                     >
                         <div
                             class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -719,13 +831,12 @@
                             {$t("import.pc_web_step2")}
                         </div>
                         <div class="max-w-4xl">
-                            <PowershellBlock script={browserBookmarklet} />
-                            <!--<p class="text-xs text-gray-400 mt-2 italic">{$t("import.pc_web_hint")}</p>-->
+                            <PowershellBlock script={browserBookmarklet} language="JAVA SCRIPT"/>
                         </div>
                     </div>
 
                     <div
-                        class="relative border-l-2 border-transparent pl-10 pb-8"
+                        class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-10 pl-10"
                     >
                         <div
                             class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-[#FFE145] border-2 border-[#FFE145] shadow-sm flex items-center justify-center font-sdk font-bold text-xl text-[#21272C] z-10"
@@ -748,14 +859,14 @@
                         <p
                             class="text-lg text-[#21272C] dark:text-[#E0E0E0] font-medium mb-4 pt-1"
                         >
-                            {$t("import.step3")}
+                            {$t("import.android_s11")}
                         </p>
                     </div>
                 {/if}
 
                 <div class="mb-6 {platformTab === 'ios' ? '' : 'pl-10'}">
                     <div
-                        class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full max-w-4xl mb-6"
+                        class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full max-w-4xl mb-4"
                     >
                         <button
                             class="px-6 py-3 text-sm font-bold transition-all relative border-b-2
@@ -785,18 +896,25 @@
 
                     {#if activeTab === "new"}
                         <div class="max-w-4xl mb-6 relative group">
-                            
-                            {#if platformTab === "android" || platformTab === "pc-web"}
-                                <div class="flex gap-2 mb-3 p-1 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg w-fit transition-all">
+                            {#if platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2"}
+                                <div
+                                    class="flex gap-2 mb-3 p-1 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg w-fit transition-all"
+                                >
                                     <button
-                                        class="px-4 py-1.5 text-sm font-bold rounded-md transition-colors {selectedServer === '3' ? 'bg-white dark:bg-[#444] text-[#21272C] dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
-                                        on:click={() => selectedServer = "3"}
+                                        class="px-4 py-1.5 text-sm font-bold rounded-md transition-colors {selectedServer ===
+                                        '3'
+                                            ? 'bg-white dark:bg-[#444] text-[#21272C] dark:text-white shadow-sm'
+                                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
+                                        on:click={() => (selectedServer = "3")}
                                     >
                                         Americas / Europe
                                     </button>
                                     <button
-                                        class="px-4 py-1.5 text-sm font-bold rounded-md transition-colors {selectedServer === '2' ? 'bg-white dark:bg-[#444] text-[#21272C] dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
-                                        on:click={() => selectedServer = "2"}
+                                        class="px-4 py-1.5 text-sm font-bold rounded-md transition-colors {selectedServer ===
+                                        '2'
+                                            ? 'bg-white dark:bg-[#444] text-[#21272C] dark:text-white shadow-sm'
+                                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
+                                        on:click={() => (selectedServer = "2")}
                                     >
                                         Asia
                                     </button>
@@ -808,9 +926,12 @@
                                     type="text"
                                     value={urlInput}
                                     on:input={handleInputProcessing}
-                                    placeholder={(platformTab === "android" || platformTab === "pc-web")
-                                        ? $t("import.placeholder_token") || "Paste Token here"
-                                        : $t("import.placeholder_url") || "Paste Link here"}
+                                    placeholder={platformTab === "android" ||
+                                    platformTab === "pc-web" || platformTab === "pc2"
+                                        ? $t("import.placeholder_token") ||
+                                          "Paste Token here"
+                                        : $t("import.placeholder_url") ||
+                                          "Paste Link here"}
                                     class="w-full p-4 bg-gray-50 border-2 border-gray-100 dark:bg-[#343434] dark:border-[#444444] dark:text-[#E0E0E0] focus:bg-white focus:border-[#FFE145] focus:dark:border-[#FFE145] rounded-md outline-none transition-all font-mono text-xs md:text-sm text-gray-700 placeholder-gray-400
                 {isInputError &&
                                     errorMsg !==
@@ -821,19 +942,31 @@
                                         : ''}"
                                 />
 
-                                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none">
-                                    {#if (platformTab === "android" || platformTab === "pc-web") && urlInput && !urlInput.startsWith("http")}
-                                        <Icon name="check" style="width: 16px; height: 16px; color: green;" />
+                                <div
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
+                                >
+                                    {#if (platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2") && urlInput && !urlInput.startsWith("http")}
+                                        <Icon
+                                            name="check"
+                                            style="width: 16px; height: 16px; color: green;"
+                                        />
                                     {:else}
-                                        <div class="bg-gray-50/90 dark:bg-[#343434]/80 p-1 rounded-lg">
-                                            <Icon name="link" style="width: 16px; height: 16px;" />
+                                        <div
+                                            class="bg-gray-50/90 dark:bg-[#343434]/80 p-1 rounded-lg"
+                                        >
+                                            <Icon
+                                                name="link"
+                                                style="width: 16px; height: 16px;"
+                                            />
                                         </div>
                                     {/if}
                                 </div>
                             </div>
 
                             {#if isInputError && errorMsg !== $t("import.error_token_name") && errorMsg !== "Token name is required for saving."}
-                                <div class="absolute -bottom-6 left-0 text-red-600 text-xs font-bold px-2 py-1 rounded animate-in fade-in slide-in-from-top-1">
+                                <div
+                                    class="absolute -bottom-6 left-0 text-red-600 text-xs font-bold px-2 py-1 rounded animate-in fade-in slide-in-from-top-1"
+                                >
                                     {errorMsg}
                                 </div>
                             {/if}
@@ -941,17 +1074,19 @@
                                             class="text-gray-600 dark:text-[#E0E0E0] group-hover:dark:text-[#FDFDFD] group-hover:text-black transition-colors cursor-pointer font-medium text-sm"
                                         >
                                             {$t(
-                                                (platformTab === "android" || platformTab === "pc-web")
+                                                platformTab === "android" ||
+                                                    platformTab === "pc-web" || platformTab === "pc2"
                                                     ? "import.save_label_token"
                                                     : "import.save_label_url",
                                             )}
                                         </span>
                                         {#if isSaveTokenEnabled}
                                             <div
-                                                class="text-gray-400 text-xs mt-0.5 max-w-md"
+                                                class="text-gray-400 text-xs mt-1 max-w-md"
                                             >
                                                 {$t(
-                                                    (platformTab === "android" || platformTab === "pc-web")
+                                                    platformTab === "android" ||
+                                                        platformTab === "pc-web" || platformTab === "pc2"
                                                         ? "import.save_desc_token"
                                                         : "import.save_desc_url",
                                                 )}
@@ -959,9 +1094,9 @@
                                         {/if}
                                     </div>
                                 </label>
-                                
+
                                 {#if isSaveTokenEnabled}
-                                    <div class="pl-8 mb-3 relative">
+                                    <div class="pl-8 mb-1 relative">
                                         <input
                                             type="text"
                                             bind:value={tokenName}
@@ -987,7 +1122,12 @@
                                         {/if}
                                     </div>
                                 {/if}
-                                <label class="flex items-start gap-3 select-none group cursor-pointer w-fit mt-1">
+                            </div>
+                        {/if}
+
+                        <label
+                            class="flex items-start gap-3 select-none group cursor-pointer w-fit"
+                        >
                             <div class="relative flex items-center">
                                 <input
                                     type="checkbox"
@@ -1008,19 +1148,23 @@
                             </div>
                             <div class="flex flex-col">
                                 <span
-                                    class="text-gray-600 dark:text-[#E0E0E0] group-hover:text-black group-hover:dark:text-[#FDFDFD] transition-colors cursor-pointer font-medium text-sm {isOverwriteEnabled ? 'text-red-600 dark:text-red-400 font-bold' : ''}"
+                                    class="text-gray-600 dark:text-[#E0E0E0] group-hover:text-black group-hover:dark:text-[#FDFDFD] transition-colors cursor-pointer font-medium text-sm {isOverwriteEnabled
+                                        ? 'text-red-600 dark:text-red-400 font-bold'
+                                        : ''}"
                                 >
-                                    {$t("import.overwriteStats") || "Перезаписать статистику (сброс багов)"}
+                                    {$t("import.overwriteStats") ||
+                                        "Overwrite Raiting Stats"}
                                 </span>
                                 {#if isOverwriteEnabled}
-                                    <div class="text-gray-400 dark:text-gray-500 text-xs mt-1 max-w-md leading-relaxed">
-                                        {$t("import.overwriteDesc") || "Используй эту опцию, только если твоя статистика задвоилась или показывает неверные цифры. Система жестко пересчитает всю твою историю из базы игры."}
+                                    <div
+                                        class="text-gray-400 dark:text-gray-500 text-xs mt-1 max-w-md leading-relaxed"
+                                    >
+                                        {$t("import.overwriteDesc") ||
+                                            "Use this option only if your rating stats are doubled or showing incorrect numbers. The system will strictly recalculate your rating from the local pull history."}
                                     </div>
                                 {/if}
                             </div>
                         </label>
-                            </div>
-                        {/if}
 
                         <label
                             class="flex items-center gap-3 select-none group cursor-pointer w-fit"
@@ -1224,7 +1368,7 @@
                     on:click={() => (window.location.href = "/records")}
                     class="mt-6 px-6 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-[#2C2C2C] dark:hover:bg-[#1E1E1E] text-gray-700 dark:text-[#E0E0E0] text-sm font-bold rounded-lg transition-colors"
                 >
-                    {$t("home.go_back") || "На главную"}
+                    {$t("home.go_back") || "Go back"}
                 </button>
             </div>
         </div>

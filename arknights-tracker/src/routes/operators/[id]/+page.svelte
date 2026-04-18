@@ -18,15 +18,19 @@
     import TalentCard from "$lib/components/TalentCard.svelte";
 
     function formatBirthDate(raw, lang) {
-        if (typeof raw !== 'string' || !/^\d{1,2}-\d{1,2}$/.test(raw)) return null;
-        const [day, month] = raw.split('-');
+        if (typeof raw !== "string" || !/^\d{1,2}-\d{1,2}$/.test(raw))
+            return null;
+        const [day, month] = raw.split("-");
         const date = new Date(2000, parseInt(month) - 1, parseInt(day));
-        const langMap = { 'zhcn': 'zh-CN', 'zhtw': 'zh-TW' };
-        const safeLang = langMap[lang?.toLowerCase()] || lang || 'en';
+        const langMap = { zhcn: "zh-CN", zhtw: "zh-TW" };
+        const safeLang = langMap[lang?.toLowerCase()] || lang || "en";
         try {
-            return new Intl.DateTimeFormat(safeLang, { month: 'long', day: 'numeric' }).format(date);
+            return new Intl.DateTimeFormat(safeLang, {
+                month: "long",
+                day: "numeric",
+            }).format(date);
         } catch (e) {
-            return null; 
+            return null;
         }
     }
 
@@ -44,7 +48,7 @@
         th: import.meta.glob("/src/lib/locales/th/characters/*.json"),
         vi: import.meta.glob("/src/lib/locales/vi/characters/*.json"),
         zhcn: import.meta.glob("/src/lib/locales/zhcn/characters/*.json"),
-        zhtw: import.meta.glob("/src/lib/locales/zhtw/characters/*.json")
+        zhtw: import.meta.glob("/src/lib/locales/zhtw/characters/*.json"),
     };
 
     const dataModules = import.meta.glob("/src/lib/data/charactersData/*.json");
@@ -60,10 +64,10 @@
 
     async function loadCharacterData(targetId, lang) {
         if (!targetId) return;
-        
+
         lang = lang || "en";
 
-        const safeLang = lang.toLowerCase().replace('-', '');
+        const safeLang = lang.toLowerCase().replace("-", "");
 
         const dataPath = `/src/lib/data/charactersData/${targetId}.json`;
         if (dataModules[dataPath]) {
@@ -76,9 +80,9 @@
 
         const localePath = `/src/lib/locales/${safeLang}/characters/${targetId}.json`;
         const fallbackPath = `/src/lib/locales/en/characters/${targetId}.json`;
-        
+
         let localeLoader = localeModules[safeLang]?.[localePath];
-        
+
         if (!localeLoader && safeLang !== "en") {
             localeLoader = localeModules["en"]?.[fallbackPath];
         }
@@ -95,7 +99,7 @@
     $: baseInfoLocale = charLocale.baseInfo || {};
     $: skillsValuesData = charDetails.skills || {};
     $: charMaterials = charDetails.materials || {};
-    
+
     let isEditingPot = false;
     let draftPot = 0;
 
@@ -107,23 +111,23 @@
     function changeDraft(delta) {
         let newPot = draftPot + delta;
         const minPot = isAlwaysOwned ? 0 : -1;
-        
-        if (newPot < minPot) newPot = minPot; 
+
+        if (newPot < minPot) newPot = minPot;
         if (newPot > 9999) newPot = 9999;
-        
+
         draftPot = newPot;
     }
 
     function savePot() {
         const activeId = currentAccountId;
-        manualPotentials.update(pots => {
+        manualPotentials.update((pots) => {
             const currentAccPots = pots[activeId] || {};
-            return { 
-                ...pots, 
+            return {
+                ...pots,
                 [activeId]: {
                     ...currentAccPots,
-                    [id]: draftPot
-                }
+                    [id]: draftPot,
+                },
             };
         });
         isEditingPot = false;
@@ -135,14 +139,14 @@
 
     function resetPot() {
         const activeId = currentAccountId;
-        manualPotentials.update(pots => {
+        manualPotentials.update((pots) => {
             const currentAccPots = pots[activeId] || {};
             const newAccPots = { ...currentAccPots };
             delete newAccPots[id];
-            
-            return { 
-                ...pots, 
-                [activeId]: newAccPots
+
+            return {
+                ...pots,
+                [activeId]: newAccPots,
             };
         });
         isEditingPot = false;
@@ -155,11 +159,14 @@
         let count = 0;
         Object.entries($pullData).forEach(([_, banner]) => {
             const pulls = banner?.pulls || [];
-            const matches = pulls.filter(p => 
-                p.id === char.id || 
-                p.name === char.id || 
-                p.itemId === char.id || 
-                (p.name && char.name && p.name.toLowerCase() === char.name.toLowerCase())
+            const matches = pulls.filter(
+                (p) =>
+                    p.id === char.id ||
+                    p.name === char.id ||
+                    p.itemId === char.id ||
+                    (p.name &&
+                        char.name &&
+                        p.name.toLowerCase() === char.name.toLowerCase()),
             );
             count += matches.length;
         });
@@ -168,32 +175,35 @@
 
     $: currentAccountId = $selectedId;
     $: isAlwaysOwned = id === "endministrator1" || id === "endministrator2";
-    $: basePot = gachaPulls > 0 ? gachaPulls - 1 : (isAlwaysOwned ? 0 : -1);
+    $: basePot = gachaPulls > 0 ? gachaPulls - 1 : isAlwaysOwned ? 0 : -1;
     $: accountPots = $manualPotentials[currentAccountId] || {};
-    $: currentPot = accountPots[id] !== undefined 
-        ? (isAlwaysOwned ? Math.max(0, accountPots[id]) : accountPots[id]) 
-        : basePot;
+    $: currentPot =
+        accountPots[id] !== undefined
+            ? isAlwaysOwned
+                ? Math.max(0, accountPots[id])
+                : accountPots[id]
+            : basePot;
 
     $: isOwned = currentPot >= 0;
 
     function changePot(delta) {
         let newPot = currentPot + delta;
-        
+
         const minPot = isAlwaysOwned ? 0 : -1;
-        
-        if (newPot < minPot) newPot = minPot; 
-        if (newPot > 9999) newPot = 9999; 
-        
+
+        if (newPot < minPot) newPot = minPot;
+        if (newPot > 9999) newPot = 9999;
+
         const activeId = currentAccountId;
 
-        manualPotentials.update(pots => {
+        manualPotentials.update((pots) => {
             const currentAccPots = pots[activeId] || {};
-            return { 
-                ...pots, 
+            return {
+                ...pots,
                 [activeId]: {
                     ...currentAccPots,
-                    [id]: newPot
-                }
+                    [id]: newPot,
+                },
             };
         });
     }
@@ -266,16 +276,15 @@
             if (index >= statArray.length) {
                 index = statArray.length - 1;
             }
-            
+
             return Math.round(parseFloat(statArray[index]));
-        } 
-        else {
+        } else {
             const min = parseFloat(statArray[0]);
             const max = parseFloat(statArray[statArray.length - 1]);
-            
+
             if (currentLvl === 1) return Math.round(min);
             if (currentLvl === maxLevel) return Math.round(max);
-            
+
             const percent = (currentLvl - 1) / (maxLevel - 1);
             return Math.round(min + (max - min) * percent);
         }
@@ -441,21 +450,18 @@
             "ba.spelldmg": "text-[#E3BC55] font-bold", // Урон от искусств
         };
 
-        return text.replace(
-            /<([@#])([^>]+)>([\s\S]*?)<\/>/g,
-            (match, type, tag, content) => {
-                if (tag === "profile.key") return content;
-
-                let styleClass = styles[tag] || "text-[#E3BC55] font-bold";
-
-                if (type === "#") {
-                    styleClass +=
-                        " underline decoration-dashed decoration-current underline-offset-4";
-                }
-
-                return `<span class="${styleClass}">${content}</span>`;
-            },
-        );
+        let html = text.replace(/<([@#])([^>]+)>/g, (match, type, tag) => {
+            if (tag === "profile.key") return `<span>`;
+            let styleClass = styles[tag] || "text-[#E3BC55] font-bold";
+            if (type === "#") {
+                styleClass +=
+                    " underline decoration-dashed decoration-current underline-offset-4";
+            }
+            return `<span class="${styleClass}">`;
+        });
+        html = html.replace(/<\/>/g, "</span>");
+        html = html.replace(/\n/g, "<br>");
+        return html;
     }
 
     function interpolateBlackboard(text, bb) {
@@ -537,7 +543,9 @@
                 </div>
 
                 <div class="flex items-center flex-wrap gap-x-4 gap-y-2">
-                    <h1 class="font-sdk text-4xl md:text-5xl font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none shrink break-all md:break-normal">
+                    <h1
+                        class="font-sdk text-4xl md:text-5xl font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none shrink break-all md:break-normal"
+                    >
                         {$t(`characters.${id}`) || char.name}
                     </h1>
 
@@ -545,59 +553,87 @@
                         {#if !isEditingPot}
                             <div class="flex items-center gap-3">
                                 {#if isOwned}
-                                    <div class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white text-[15px] font-black px-2.5 py-1 rounded-md shadow-sm border border-white/20 leading-none">
+                                    <div
+                                        class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white text-[15px] font-black px-2.5 py-1 rounded-md shadow-sm border border-white/20 leading-none"
+                                    >
                                         P{currentPot}
                                     </div>
                                 {/if}
-                                
-                                <Tooltip text={$t("stats.editPotential") || "Edit Potential"}>
-                                    <button 
+
+                                <Tooltip
+                                    text={$t("stats.editPotential") ||
+                                        "Edit Potential"}
+                                >
+                                    <button
                                         on:click={startEditing}
                                         class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#383838] text-gray-600 dark:text-gray-300 shadow-sm border border-gray-200 dark:border-[#444444] hover:bg-gray-50 dark:hover:bg-[#444] hover:border-gray-300 dark:hover:border-[#555] transition-all"
                                     >
-                                        <Icon name="pen" class="w-4 h-4 opacity-80" />
+                                        <Icon
+                                            name="pen"
+                                            class="w-4 h-4 opacity-80"
+                                        />
                                     </button>
                                 </Tooltip>
                             </div>
                         {:else}
-                            <div class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444444] p-1 rounded-md shadow-sm animate-fadeIn">
-                                
+                            <div
+                                class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444444] p-1 rounded-md shadow-sm animate-fadeIn"
+                            >
                                 {#if accountPots[id] !== undefined}
-                                    <Tooltip text={$t("stats.reset") || "Reset"}>
-                                        <button 
+                                    <Tooltip
+                                        text={$t("stats.reset") || "Reset"}
+                                    >
+                                        <button
                                             on:click={resetPot}
                                             class="w-7 h-7 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors"
                                         >
-                                            <Icon name="refresh" class="w-4 h-4" /> 
+                                            <Icon
+                                                name="refresh"
+                                                class="w-4 h-4"
+                                            />
                                         </button>
                                     </Tooltip>
-                                    <div class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+                                    <div
+                                        class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"
+                                    ></div>
                                 {/if}
 
-                                <button 
+                                <button
                                     on:click={() => changeDraft(-1)}
                                     class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
-                                    disabled={draftPot === (isAlwaysOwned ? 0 : -1)}
+                                    disabled={draftPot ===
+                                        (isAlwaysOwned ? 0 : -1)}
                                 >
-                                    <span class="font-bold text-sm leading-none">-</span>
+                                    <span class="font-bold text-sm leading-none"
+                                        >-</span
+                                    >
                                 </button>
-                                
-                                <span class="font-nums font-bold text-sm px-1 text-center dark:text-white uppercase tracking-wider">
-                                    {draftPot === -1 ? '' : `P${draftPot}`}
+
+                                <span
+                                    class="font-nums font-bold text-sm px-1 text-center dark:text-white uppercase tracking-wider"
+                                >
+                                    {draftPot === -1 ? "" : `P${draftPot}`}
                                 </span>
 
-                                <button 
+                                <button
                                     on:click={() => changeDraft(1)}
                                     class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
                                     disabled={draftPot >= 999}
                                 >
-                                    <span class="font-bold text-sm leading-none">+</span>
+                                    <span class="font-bold text-sm leading-none"
+                                        >+</span
+                                    >
                                 </button>
 
-                                <div class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+                                <div
+                                    class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"
+                                ></div>
 
-                                <Tooltip text={$t("settings.account.cancel") || "Cancel"}>
-                                    <button 
+                                <Tooltip
+                                    text={$t("settings.account.cancel") ||
+                                        "Cancel"}
+                                >
+                                    <button
                                         on:click={cancelEdit}
                                         class="w-7 h-7 rounded text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] flex items-center justify-center transition-colors shadow-sm"
                                     >
@@ -605,8 +641,10 @@
                                     </button>
                                 </Tooltip>
 
-                                <Tooltip text={$t("settings.account.save") || "Save"}>
-                                    <button 
+                                <Tooltip
+                                    text={$t("settings.account.save") || "Save"}
+                                >
+                                    <button
                                         on:click={savePot}
                                         class="w-7 h-7 ml-1 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors shadow-sm"
                                     >
@@ -618,8 +656,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mt-2">
-                    
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mt-2"
+                >
                     <div class="flex items-center gap-4">
                         <Tooltip text={$t(`classes.${char.class}`)}>
                             <div
@@ -696,32 +735,36 @@
                 </div>
 
                 <div class="flex flex-col items-start gap-2 mt-3 w-fit">
-                    
-                    {#each [
-                        { label: "bio.faction", localizedVal: baseInfoLocale.blocTag, rawVal: char.faction }, 
-                        { label: "bio.race", localizedVal: baseInfoLocale.raceTag, rawVal: char.race }, 
-                        { label: "bio.birth", type: "date", localizedVal: null, rawVal: char.birthDate }
-                    ] as item}
-                        
-                        <div class="flex items-stretch h-[32px] rounded-lg overflow-hidden shadow-sm text-sm">
-                            
-                            <div class="bg-[#333] text-white px-4 flex items-center justify-center font-bold whitespace-nowrap min-w-[120px]">
+                    {#each [{ label: "bio.faction", localizedVal: baseInfoLocale.blocTag, rawVal: char.faction }, { label: "bio.race", localizedVal: baseInfoLocale.raceTag, rawVal: char.race }, { label: "bio.birth", type: "date", localizedVal: null, rawVal: char.birthDate }] as item}
+                        <div
+                            class="flex items-stretch h-[32px] rounded-lg overflow-hidden shadow-sm text-sm"
+                        >
+                            <div
+                                class="bg-[#333] text-white px-4 flex items-center justify-center font-bold whitespace-nowrap min-w-[120px]"
+                            >
                                 {$t(item.label) || item.label}
                             </div>
-                            
-                            <div class="bg-[#E5E5E5] text-[#333] px-4 flex items-center font-medium whitespace-nowrap">
+
+                            <div
+                                class="bg-[#E5E5E5] text-[#333] px-4 flex items-center font-medium whitespace-nowrap"
+                            >
                                 {#if item.localizedVal}
                                     {item.localizedVal}
                                 {:else if item.type === "date" && formatBirthDate(item.rawVal, $currentLocale)}
-                                    {formatBirthDate(item.rawVal, $currentLocale)}
+                                    {formatBirthDate(
+                                        item.rawVal,
+                                        $currentLocale,
+                                    )}
                                 {:else}
-                                    {$t(`bioValues.${item.rawVal || "Unknown"}`) || item.rawVal || "-"}
+                                    {$t(
+                                        `bioValues.${item.rawVal || "Unknown"}`,
+                                    ) ||
+                                        item.rawVal ||
+                                        "-"}
                                 {/if}
                             </div>
-                            
                         </div>
                     {/each}
-                    
                 </div>
             </div>
 
@@ -742,7 +785,12 @@
             </div>
         </div>
 
-        <div class="flex flex-col gap-1 relative z-10 w-full flex-1 transition-all duration-300 {activeTab === 'about' ? '2xl:max-w-[400px] 2xl:ml-auto' : '2xl:max-w-[1000px]'}">
+        <div
+            class="flex flex-col gap-1 relative z-10 w-full flex-1 transition-all duration-300 {activeTab ===
+            'about'
+                ? '2xl:max-w-[400px] 2xl:ml-auto'
+                : '2xl:max-w-[1000px]'}"
+        >
             {#if activeTab === "about"}
                 <div
                     class="bg-white/90 backdrop-blur-sm dark:bg-[#383838] dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-6"
@@ -794,7 +842,11 @@
 
                     <div class="flex flex-col gap-3 px-1">
                         {#each ["str", "agi", "int", "will"] as attr}
-                            {@const styles = getAttrStyles(attr, charStats.mainAttribute, charStats.secondaryAttribute)}
+                            {@const styles = getAttrStyles(
+                                attr,
+                                charStats.mainAttribute,
+                                charStats.secondaryAttribute,
+                            )}
                             {@const isMain = attr === charStats.mainAttribute}
 
                             <div
@@ -946,7 +998,7 @@
                     {#if skillsLocale?.indicator || charMaterials?.indicator}
                         <section>
                             <h2
-                                class="text-3xl dark:text-[#FDFDFD] mb-2 font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right "
+                                class="text-3xl dark:text-[#FDFDFD] mb-2 font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
                             >
                                 {$t("menu.indicators") || "Indicators"}
                             </h2>
@@ -1214,37 +1266,65 @@
                                             )}
                                         </div>
 
-                                        <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
-                                            
+                                        <div
+                                            class="absolute top-3 right-3 z-20 flex items-center gap-2"
+                                        >
                                             <button
                                                 class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
                                                 title="Copy image"
                                                 on:click|stopPropagation={async () => {
                                                     try {
                                                         const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
-                                                        const response = await fetch(imageUrl);
-                                                        const blob = await response.blob();
-                                                        await navigator.clipboard.write([
-                                                            new ClipboardItem({ [blob.type]: blob })
-                                                        ]);
-                                                        
+                                                        const response =
+                                                            await fetch(
+                                                                imageUrl,
+                                                            );
+                                                        const blob =
+                                                            await response.blob();
+                                                        await navigator.clipboard.write(
+                                                            [
+                                                                new ClipboardItem(
+                                                                    {
+                                                                        [blob.type]:
+                                                                            blob,
+                                                                    },
+                                                                ),
+                                                            ],
+                                                        );
+
                                                         copiedArtId = realKey;
-                                                        
+
                                                         setTimeout(() => {
-                                                            if (copiedArtId === realKey) copiedArtId = null;
+                                                            if (
+                                                                copiedArtId ===
+                                                                realKey
+                                                            )
+                                                                copiedArtId =
+                                                                    null;
                                                         }, 2000);
                                                     } catch (err) {
-                                                        console.error("Error copying:", err);
+                                                        console.error(
+                                                            "Error copying:",
+                                                            err,
+                                                        );
                                                     }
                                                 }}
                                             >
                                                 {#if copiedArtId === realKey}
                                                     <svg
-                                                        width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                                        width="16"
+                                                        height="16"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        stroke-width="3"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
                                                         class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
                                                     >
-                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                        <polyline
+                                                            points="20 6 9 17 4 12"
+                                                        ></polyline>
                                                     </svg>
                                                 {:else}
                                                     <Icon
@@ -1259,12 +1339,19 @@
                                                 title="Dowanload Art"
                                                 on:click|stopPropagation={() => {
                                                     const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
-                                                    const link = document.createElement("a");
+                                                    const link =
+                                                        document.createElement(
+                                                            "a",
+                                                        );
                                                     link.href = imageUrl;
                                                     link.download = `${id}_${realKey}.png`;
-                                                    document.body.appendChild(link);
+                                                    document.body.appendChild(
+                                                        link,
+                                                    );
                                                     link.click();
-                                                    document.body.removeChild(link);
+                                                    document.body.removeChild(
+                                                        link,
+                                                    );
                                                 }}
                                             >
                                                 <Icon
@@ -1272,7 +1359,6 @@
                                                     class="w-4 h-4 transition-transform group-hover/down:scale-110"
                                                 />
                                             </button>
-                                            
                                         </div>
                                     </div>
 
@@ -1331,7 +1417,8 @@
                                     role="button"
                                     tabindex="0"
                                     class="relative w-full aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
-                                    on:click={() => (selectedArtId = `splash_${id}`)}
+                                    on:click={() =>
+                                        (selectedArtId = `splash_${id}`)}
                                     on:keydown={(e) =>
                                         (e.key === "Enter" || e.key === " ") &&
                                         (selectedArtId = `splash_${id}`)}
@@ -1341,44 +1428,79 @@
                                         class="w-full h-full object-cover"
                                         alt="Splash Art"
                                         loading="lazy"
-                                        on:error={(e) => e.target.style.display = 'none'} 
+                                        on:error={(e) =>
+                                            (e.target.style.display = "none")}
                                     />
 
-                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"></div>
+                                    <div
+                                        class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"
+                                    ></div>
 
-                                    <div class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none">
+                                    <div
+                                        class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none"
+                                    >
                                         Splash
                                     </div>
 
-                                    <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
-                                        
+                                    <div
+                                        class="absolute top-3 right-3 z-20 flex items-center gap-2"
+                                    >
                                         <button
                                             class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
                                             title="Copy image"
                                             on:click|stopPropagation={async () => {
                                                 try {
                                                     const imageUrl = `/images/operators/splash/${id}.png`;
-                                                    const response = await fetch(imageUrl);
-                                                    const blob = await response.blob();
-                                                    await navigator.clipboard.write([
-                                                        new ClipboardItem({ [blob.type]: blob })
-                                                    ]);
-                                                    
+                                                    const response =
+                                                        await fetch(imageUrl);
+                                                    const blob =
+                                                        await response.blob();
+                                                    await navigator.clipboard.write(
+                                                        [
+                                                            new ClipboardItem({
+                                                                [blob.type]:
+                                                                    blob,
+                                                            }),
+                                                        ],
+                                                    );
+
                                                     copiedArtId = "splash";
                                                     setTimeout(() => {
-                                                        if (copiedArtId === "splash") copiedArtId = null;
+                                                        if (
+                                                            copiedArtId ===
+                                                            "splash"
+                                                        )
+                                                            copiedArtId = null;
                                                     }, 2000);
                                                 } catch (err) {
-                                                    console.error("Error copying:", err);
+                                                    console.error(
+                                                        "Error copying:",
+                                                        err,
+                                                    );
                                                 }
                                             }}
                                         >
                                             {#if copiedArtId === "splash"}
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black">
-                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                <svg
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="3"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
+                                                >
+                                                    <polyline
+                                                        points="20 6 9 17 4 12"
+                                                    ></polyline>
                                                 </svg>
                                             {:else}
-                                                <Icon name="copy" class="w-4 h-4 transition-transform group-hover/copy:scale-110" />
+                                                <Icon
+                                                    name="copy"
+                                                    class="w-4 h-4 transition-transform group-hover/copy:scale-110"
+                                                />
                                             {/if}
                                         </button>
 
@@ -1387,7 +1509,8 @@
                                             title="Download Art"
                                             on:click|stopPropagation={() => {
                                                 const imageUrl = `/images/operators/splash/${id}.png`;
-                                                const link = document.createElement("a");
+                                                const link =
+                                                    document.createElement("a");
                                                 link.href = imageUrl;
                                                 link.download = `${id}_splash.png`;
                                                 document.body.appendChild(link);
@@ -1395,25 +1518,54 @@
                                                 document.body.removeChild(link);
                                             }}
                                         >
-                                            <Icon name="import" class="w-4 h-4 transition-transform group-hover/down:scale-110" />
+                                            <Icon
+                                                name="import"
+                                                class="w-4 h-4 transition-transform group-hover/down:scale-110"
+                                            />
                                         </button>
-                                        
                                     </div>
                                 </div>
 
-                                <div class="flex flex-col p-5 h-full dark:bg-[#383838] dark:border-[#444444]">
-                                    <div class="flex justify-between items-start gap-4 mb-3">
-                                        <h3 class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2">
+                                <div
+                                    class="flex flex-col p-5 h-full dark:bg-[#383838] dark:border-[#444444]"
+                                >
+                                    <div
+                                        class="flex justify-between items-start gap-4 mb-3"
+                                    >
+                                        <h3
+                                            class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2"
+                                        >
                                             Splash Art
                                         </h3>
                                     </div>
-                                    <p class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic">
-                                        </p>
-                                    <div class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]">
-                                        <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <p
+                                        class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic"
+                                    ></p>
+                                    <div
+                                        class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]"
+                                    >
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0"
+                                        >
+                                            <svg
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                ><path
+                                                    d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                                                ></path><circle
+                                                    cx="12"
+                                                    cy="7"
+                                                    r="4"
+                                                ></circle></svg
+                                            >
                                         </div>
-                                        <span class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]">
+                                        <span
+                                            class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]"
+                                        >
                                             Official
                                         </span>
                                     </div>
@@ -1609,9 +1761,9 @@
             on:click|stopPropagation
             on:keydown|stopPropagation
         >
-            {#if selectedArtId.startsWith('splash_')}
+            {#if selectedArtId.startsWith("splash_")}
                 <img
-                    src={`/images/operators/splash/${selectedArtId.replace('splash_', '')}.png`}
+                    src={`/images/operators/splash/${selectedArtId.replace("splash_", "")}.png`}
                     class="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
                     alt="Splash Art Full"
                 />

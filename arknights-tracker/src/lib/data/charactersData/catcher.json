@@ -1872,6 +1872,23 @@
                     15.0
                 ]
             },
+            "costValue": {
+                "dataType": "float",
+                "data": [
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0,
+                    80.0
+                ]
+            },
             "seq1DmgMultiplier": {
                 "dataType": "percent",
                 "data": [

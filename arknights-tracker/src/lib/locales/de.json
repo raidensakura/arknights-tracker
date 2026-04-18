@@ -5,6 +5,9 @@
     "description": "Erweiterter Tracker für Arknights: Endfield. Verfolge deinen Rekrutierungsverlauf, berechne Pity-Counter und sage deinen nächsten garantierten Operator oder deine nächste Waffe voraus.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield Deutsch, Gacha Statistik, Rekrutierungsverlauf, Operator, Goyfield"
   },
+  "hints": {
+    "editPotential": "Um das Waffenpotenzial zu ändern, klicke auf das Stiftsymbol."
+  },
   "sidebar": {
     "home": "Home",
     "records": "Rekrutierung",
@@ -143,7 +146,7 @@
       "success": "Daten erfolgreich importiert!"
     },
     "faq_security_title": "FAQ: Kontosicherheit",
-    "faq_security_desc3": "Für die Ausführung der PowerShell-Skripte sind <strong>keine</strong> Administratorrechte erforderlich.",
+    "faq_security_desc3": "Das Ausführen der PowerShell-Skripte erfordert keine Ausführung von PowerShell als Administrator.",
     "faq_q1": "Ist es gefährlich, Skripte zu verwenden?",
     "faq_q2": "Ist Goyfield.moe gefährlich?",
     "note": "Hinweis",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "In Arbeit",
     "manual_text_pre": "Gehe zur Datei",
-    "manual_text_mid": ", scrolle ganz nach unten und finde einen Link wie",
+    "manual_text_mid": " öffnen Sie sie mit dem Editor, scrollen Sie ganz nach unten und suchen Sie nach einem Link wie",
     "manual_text_post": "und kopiere ihn.",
     "android_note": "Apps wie ByeByeDPI oder aktive VPNs können die Protokollierung stören. Wenn die Logs leer sind, versuche, das VPN neu zu installieren.",
     "android_s1": "Lade <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> und <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> von GitHub herunter.",
@@ -459,6 +462,7 @@
     "recommended": "Empfohlen",
     "artificing": "Ausrüstungsveredelung",
     "coolDown": "Abklingzeit",
+    "costValue": "Ultimative Energiekosten",
     "mainAttr": "Hauptattribut",
     "secAttr": "Sekundärattribut",
     "str": "Stärke",
@@ -721,6 +725,8 @@
   },
   "settings": {
     "title": "Einstellungen",
+    "other": "Sonstiges",
+    "disableDarkening": "Abdunkelung der Waffen- und Operator-Karten deaktivieren",
     "account": {
       "title": "Konto auswählen",
       "add": "Hinzufügen",

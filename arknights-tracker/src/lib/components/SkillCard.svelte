@@ -95,14 +95,15 @@
     function getValue(key, lvl) {
         const valObj = skillValues[key];
         if (!valObj) return "-";
-        
+
         const rawArray = Array.isArray(valObj) ? valObj : valObj.data;
         if (!rawArray || !Array.isArray(rawArray)) return "-";
 
         const idx = Math.min(lvl - 1, rawArray.length - 1);
         let raw = rawArray[idx];
 
-        if (valObj.dataType === "percent") return parseFloat((raw * 100).toFixed(2)) + "%";
+        if (valObj.dataType === "percent")
+            return parseFloat((raw * 100).toFixed(2)) + "%";
         return raw;
     }
 
@@ -110,61 +111,76 @@
         if (!skillData || !skillData.description) return "";
 
         let text = skillData.description;
-        text = text.replace(/\{(-?[a-zA-Z0-9_\.]+)(?::([^}]+))?\}/g, (match, rawKey, format) => {
-            const isNegative = rawKey.startsWith('-');
-            const cleanKey = isNegative ? rawKey.substring(1) : rawKey;
-            const lowerKey = cleanKey.toLowerCase();
+        text = text.replace(
+            /\{(-?[a-zA-Z0-9_\.]+)(?::([^}]+))?\}/g,
+            (match, rawKey, format) => {
+                const isNegative = rawKey.startsWith("-");
+                const cleanKey = isNegative ? rawKey.substring(1) : rawKey;
+                const lowerKey = cleanKey.toLowerCase();
 
-            let foundRaw = null;
-            if (skillValues) {
-                const fk = Object.keys(skillValues).find(k => k.toLowerCase() === lowerKey);
-                if (fk) foundRaw = skillValues[fk];
-            }
-            if (foundRaw === null || foundRaw === undefined) {
-                if (blackboard) {
-                    for (const subSkill of Object.values(blackboard)) {
-                        if (subSkill && typeof subSkill === 'object') {
-                            const fk = Object.keys(subSkill).find(k => k.toLowerCase() === lowerKey);
-                            if (fk) {
-                                foundRaw = subSkill[fk];
-                                break;
+                let foundRaw = null;
+                if (skillValues) {
+                    const fk = Object.keys(skillValues).find(
+                        (k) => k.toLowerCase() === lowerKey,
+                    );
+                    if (fk) foundRaw = skillValues[fk];
+                }
+                if (foundRaw === null || foundRaw === undefined) {
+                    if (blackboard) {
+                        for (const subSkill of Object.values(blackboard)) {
+                            if (subSkill && typeof subSkill === "object") {
+                                const fk = Object.keys(subSkill).find(
+                                    (k) => k.toLowerCase() === lowerKey,
+                                );
+                                if (fk) {
+                                    foundRaw = subSkill[fk];
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (foundRaw === null || foundRaw === undefined) return match;
-            let num = 0;
-            let isPercentData = false;
-            if (typeof foundRaw === 'object' && !Array.isArray(foundRaw) && Array.isArray(foundRaw.data)) {
-                const idx = Math.min(level - 1, foundRaw.data.length - 1);
-                num = parseFloat(foundRaw.data[idx]);
-                if (foundRaw.dataType === 'percent') isPercentData = true;
-            } else if (Array.isArray(foundRaw)) {
-                const idx = Math.min(level - 1, foundRaw.length - 1);
-                num = parseFloat(foundRaw[idx]);
-            } else {
-                num = parseFloat(foundRaw);
-            }
-            if (isNaN(num)) return match;
-            if (isNegative) num = -num;
-            let result = num;
-            if (format) {
-                if (format.includes('%')) result = Math.round(num * 100) + '%';
-                else if (format === '0') result = Math.round(num);
-                else if (format === '0.0') result = num.toFixed(1);
-                else result = parseFloat(num.toFixed(2));
-            } else {
-                if (isPercentData) result = parseFloat((num * 100).toFixed(2)) + '%';
-                else result = parseFloat(num.toFixed(2));
-            }
+                if (foundRaw === null || foundRaw === undefined) return match;
+                let num = 0;
+                let isPercentData = false;
+                if (
+                    typeof foundRaw === "object" &&
+                    !Array.isArray(foundRaw) &&
+                    Array.isArray(foundRaw.data)
+                ) {
+                    const idx = Math.min(level - 1, foundRaw.data.length - 1);
+                    num = parseFloat(foundRaw.data[idx]);
+                    if (foundRaw.dataType === "percent") isPercentData = true;
+                } else if (Array.isArray(foundRaw)) {
+                    const idx = Math.min(level - 1, foundRaw.length - 1);
+                    num = parseFloat(foundRaw[idx]);
+                } else {
+                    num = parseFloat(foundRaw);
+                }
+                if (isNaN(num)) return match;
+                if (isNegative) num = -num;
+                let result = num;
+                if (format) {
+                    if (format.includes("%"))
+                        result = Math.round(num * 100) + "%";
+                    else if (format === "0") result = Math.round(num);
+                    else if (format === "0.0") result = num.toFixed(1);
+                    else result = parseFloat(num.toFixed(2));
+                } else {
+                    if (isPercentData)
+                        result = parseFloat((num * 100).toFixed(2)) + "%";
+                    else result = parseFloat(num.toFixed(2));
+                }
 
-            return `<span class="text-[#38BDF8] font-bold drop-shadow-sm">${result}</span>`;
-        });
+                return `<span class="text-[#38BDF8] font-bold drop-shadow-sm">${result}</span>`;
+            },
+        );
         return parseRichText(text);
     })();
 
-    $: multiplierKeys = Object.keys(skillValues).filter(key => key !== 'elementType');
+    $: multiplierKeys = Object.keys(skillValues).filter(
+        (key) => key !== "elementType",
+    );
 
     function parseRichText(text) {
         if (!text) return "";
@@ -202,17 +218,20 @@
     let isTableCopied = false;
 
     async function copySkillTable() {
-        const headers = [$t("stats.level") || "Level", ...Array.from({ length: 12 }, (_, i) => i + 1)];
+        const headers = [
+            $t("stats.level") || "Level",
+            ...Array.from({ length: 12 }, (_, i) => i + 1),
+        ];
         let textData = headers.join("\t") + "\n";
 
         for (const key of multiplierKeys) {
             let rowLabel = key.replace(/([A-Z])/g, " $1").trim();
-            
+
             const translated = $t(`stats.${key}`);
             if (translated && translated !== `stats.${key}`) {
                 rowLabel = translated;
             }
-            
+
             if (skillData[skillKey] && skillData[skillKey][key]) {
                 rowLabel = skillData[skillKey][key];
             } else if (skillData[key]) {
@@ -236,7 +255,6 @@
             console.error("Failed to copy", err);
         }
     }
-    
 </script>
 
 <svelte:window on:mouseup={stopDrag} on:mousemove={handleGlobalMouseMove} />
@@ -247,7 +265,9 @@
         {isTableMode ? 'max-w-full' : 'max-w-[600px]'}"
     >
         <div class="flex items-start gap-4">
-            <div class="w-20 h-20 shrink-0 flex items-center justify-center relative">
+            <div
+                class="w-20 h-20 shrink-0 flex items-center justify-center relative"
+            >
                 <div
                     class="absolute inset-0 rounded-full border-[3px] border-transparent"
                     style="background: conic-gradient(from 225deg, #d1d5db 270deg, transparent 0deg) border-box;
@@ -257,7 +277,9 @@
                 mask-composite: exclude;"
                 ></div>
 
-                <div class="w-[82%] h-[82%] rounded-full bg-black/30 relative overflow-hidden flex items-center justify-center shadow-lg border border-white/5">
+                <div
+                    class="w-[82%] h-[82%] rounded-full bg-black/30 relative overflow-hidden flex items-center justify-center shadow-lg border border-white/5"
+                >
                     {#if isUltimate}
                         <div
                             class="absolute inset-0 opacity-90"
@@ -271,7 +293,9 @@
                         ></div>
                     {/if}
 
-                    <div class="relative z-10 w-[85%] h-[85%] flex items-center justify-center">
+                    <div
+                        class="relative z-10 w-[85%] h-[85%] flex items-center justify-center"
+                    >
                         <Images
                             id={skillImageId}
                             variant="skill-icon"
@@ -284,16 +308,23 @@
             <div class="flex flex-col w-full">
                 <div>
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="px-2 py-0.5 bg-gray-100 dark:text-[#E4E4E4] dark:bg-[#2C2C2C] rounded text-[10px] font-bold uppercase text-gray-500 tracking-wider">
+                        <span
+                            class="px-2 py-0.5 bg-gray-100 dark:text-[#E4E4E4] dark:bg-[#2C2C2C] rounded text-[10px] font-bold uppercase text-gray-500 tracking-wider"
+                        >
                             {skillKey.replace(/([A-Z])/g, " $1").trim()}
                         </span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#21272C] dark:text-[#E4E4E4] leading-tight flex flex-wrap items-baseline gap-2">
+                    <h3
+                        class="text-xl font-bold text-[#21272C] dark:text-[#E4E4E4] leading-tight flex flex-wrap items-baseline gap-2"
+                    >
                         {skillData.name || "Unknown Skill"}
-                        <span class="text-gray-400 font-normal dark:text-[#B7B6B3] text-sm font-nums whitespace-nowrap">(RANK {level})</span>
+                        <span
+                            class="text-gray-400 font-normal dark:text-[#B7B6B3] text-sm font-nums whitespace-nowrap"
+                            >(RANK {level})</span
+                        >
                     </h3>
                 </div>
-<div class="block md:hidden w-full mt-3 mb-2 pr-2">
+                <div class="block md:hidden w-full mt-3 mb-2 pr-2">
                     <input
                         type="range"
                         min="1"
@@ -302,13 +333,16 @@
                         bind:value={level}
                         class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#FFC107]"
                     />
-                    <div class="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 mt-1.5 font-nums font-bold">
+                    <div
+                        class="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 mt-1.5 font-nums font-bold"
+                    >
                         <span>Lv. 1</span>
                         <span>Lv. 12</span>
                     </div>
                 </div>
 
-                <div class="hidden md:flex items-center select-none cursor-pointer w-full max-w-[480px] outline-none mt-1"
+                <div
+                    class="hidden md:flex items-center select-none cursor-pointer w-full max-w-[480px] outline-none mt-1"
                     bind:this={sliderContainer}
                     role="slider"
                     tabindex="0"
@@ -331,14 +365,25 @@
                         {@const isActive = lvl <= level}
                         {@const isCurrent = lvl === level}
 
-                        <div class="relative flex-1 py-2 flex justify-center group" data-lvl={lvl}>
-                            <div class="pointer-events-none {lvl === 10 ? 'translate-x-3' : lvl === 12 ? '-translate-x-3' : ''}">
+                        <div
+                            class="relative flex-1 py-2 flex justify-center group"
+                            data-lvl={lvl}
+                        >
+                            <div
+                                class="pointer-events-none {lvl === 10
+                                    ? 'translate-x-3'
+                                    : lvl === 12
+                                      ? '-translate-x-3'
+                                      : ''}"
+                            >
                                 {#if isHex}
                                     <svg
                                         width="20"
                                         height="20"
                                         viewBox="0 0 24 24"
-                                        class="transition-transform duration-150 {isCurrent ? 'scale-125 drop-shadow-sm' : ''}"
+                                        class="transition-transform duration-150 {isCurrent
+                                            ? 'scale-125 drop-shadow-sm'
+                                            : ''}"
                                     >
                                         <path
                                             d="M12 2L21 7V17L12 22L3 17V7L12 2Z"
@@ -370,7 +415,9 @@
             </div>
         </div>
 
-        <div class="text-sm text-gray-700 dark:text-[#E4E4E4] leading-relaxed whitespace-pre-wrap mt-2">
+        <div
+            class="text-sm text-gray-700 dark:text-[#E4E4E4] leading-relaxed whitespace-pre-wrap mt-2"
+        >
             {@html parsedDescription || "No description"}
         </div>
 
@@ -379,32 +426,48 @@
                 <div class="flex flex-col gap-2">
                     {#each multiplierKeys as key}
                         {@const translatedKey = $t(`stats.${key}`)}
-                        <div class="flex justify-between items-center text-sm border-b border-gray-50 dark:border-[#444444]/70 pb-1 last:border-0">
-                            <span class="font-bold text-gray-600 dark:text-[#E4E4E4]">
-                                {(skillData[skillKey] && skillData[skillKey][key]) ||
+                        <div
+                            class="flex justify-between items-center text-sm border-b border-gray-50 dark:border-[#444444]/70 pb-1 last:border-0"
+                        >
+                            <span
+                                class="font-bold text-gray-600 dark:text-[#E4E4E4]"
+                            >
+                                {(skillData[skillKey] &&
+                                    skillData[skillKey][key]) ||
                                     skillData[key] ||
-                                    (translatedKey !== `stats.${key}` ? translatedKey : null) ||
+                                    (translatedKey !== `stats.${key}`
+                                        ? translatedKey
+                                        : null) ||
                                     key.replace(/([A-Z])/g, " $1").trim()}
                             </span>
-                            <span class="font-nums font-bold text-[#21272C] dark:text-[#E4E4E4]">
+                            <span
+                                class="font-nums font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                            >
                                 {getValue(key, level)}
                             </span>
                         </div>
                     {/each}
                 </div>
             {:else}
-                <div class="relative w-full rounded-xl border border-gray-200 dark:border-[#444444] overflow-hidden bg-white shadow-sm animate-fadeIn">
+                <div
+                    class="relative w-full rounded-xl border border-gray-200 dark:border-[#444444] overflow-hidden bg-white shadow-sm animate-fadeIn"
+                >
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-sm border-collapse min-w-max">
                             <thead class="bg-[#21272C] text-white">
                                 <tr>
-                                    <th class="sticky left-0 z-20 bg-[#21272C] px-4 py-3 dark:bg-[#343434] text-left font-bold border-r border-gray-600 min-w-[150px] dark:border-[#444444]">
+                                    <th
+                                        class="sticky left-0 z-20 bg-[#21272C] px-4 py-3 dark:bg-[#343434] text-left font-bold border-r border-gray-600 min-w-[150px] dark:border-[#444444]"
+                                    >
                                         {$t("stats.level") || "Level"}
                                     </th>
                                     {#each Array(12) as _, i}
                                         {@const lvl = i + 1}
                                         <th
-                                            class="px-3 py-3 font-nums text-center dark:bg-[#343434] font-bold border-r border-gray-600/50 last:border-0 cursor-pointer hover:bg-white/10 transition-colors {level === lvl ? 'bg-[#FACC15] dark:bg-[#FACC15] text-[#21272C]' : ''}"
+                                            class="px-3 py-3 font-nums text-center dark:bg-[#343434] font-bold border-r border-gray-600/50 last:border-0 cursor-pointer hover:bg-white/10 transition-colors {level ===
+                                            lvl
+                                                ? 'bg-[#FACC15] dark:bg-[#FACC15] text-[#21272C]'
+                                                : ''}"
                                             on:click={() => (level = lvl)}
                                         >
                                             {lvl}
@@ -415,17 +478,30 @@
                             <tbody class="text-gray-700">
                                 {#each multiplierKeys as key}
                                     {@const translatedKey = $t(`stats.${key}`)}
-                                    <tr class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
-                                        <td class="sticky left-0 z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
-                                            {(skillData[skillKey] && skillData[skillKey][key]) ||
+                                    <tr
+                                        class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
+                                    >
+                                        <td
+                                            class="sticky left-0 z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]"
+                                        >
+                                            {(skillData[skillKey] &&
+                                                skillData[skillKey][key]) ||
                                                 skillData[key] ||
-                                                (translatedKey !== `stats.${key}` ? translatedKey : null) ||
-                                                key.replace(/([A-Z])/g, " $1").trim()}
+                                                (translatedKey !==
+                                                `stats.${key}`
+                                                    ? translatedKey
+                                                    : null) ||
+                                                key
+                                                    .replace(/([A-Z])/g, " $1")
+                                                    .trim()}
                                         </td>
                                         {#each Array(12) as _, i}
                                             {@const lvl = i + 1}
                                             <td
-                                                class="px-2 py-2 text-center font-nums border-r border-gray-100 last:border-0 whitespace-nowrap cursor-pointer {level === lvl ? 'bg-yellow-50 font-bold text-black' : ''}"
+                                                class="px-2 py-2 text-center font-nums border-r border-gray-100 last:border-0 whitespace-nowrap cursor-pointer {level ===
+                                                lvl
+                                                    ? 'bg-yellow-50 font-bold text-black'
+                                                    : ''}"
                                                 on:click={() => (level = lvl)}
                                             >
                                                 {getValue(key, lvl)}
@@ -479,7 +555,9 @@
             {/if}
         </div>
 
-        <div class="bg-[#F0F2F4] rounded-xl p-4 dark:bg-[#343434] flex gap-4 overflow-x-auto materials-scroll pb-3 md:justify-center justify-start mt-4 w-full snap-x">
+        <div
+            class="bg-[#F0F2F4] rounded-xl p-4 dark:bg-[#343434] flex gap-4 overflow-x-auto materials-scroll pb-3 md:justify-center justify-start mt-4 w-full snap-x"
+        >
             {#if neededMaterials.length > 0}
                 {#each neededMaterials as mat (mat.id)}
                     <div class="shrink-0 snap-start">
@@ -487,8 +565,11 @@
                     </div>
                 {/each}
             {:else}
-                <div class="w-full text-center text-gray-400 text-xs py-2 italic shrink-0">
-                    {$t("systemNames.noMaterialsNeeded") || "No materials needed"}
+                <div
+                    class="w-full text-center text-gray-400 text-xs py-2 italic shrink-0"
+                >
+                    {$t("systemNames.noMaterialsNeeded") ||
+                        "No materials needed"}
                 </div>
             {/if}
         </div>
@@ -509,7 +590,7 @@
     .materials-scroll::-webkit-scrollbar-thumb:hover {
         background-color: #9ca3af;
     }
-    
+
     /* Стили для темной темы через :global, чтобы Tailwind подхватил */
     :global(.dark) .materials-scroll::-webkit-scrollbar-thumb {
         background-color: #525252; /* Темно-серый для темной темы */

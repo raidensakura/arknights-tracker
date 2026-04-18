@@ -558,9 +558,7 @@
                             </div>
                         {/if}
                     </div>
-                </div>
-
-                {#if banner.url}
+                    {#if banner.url}
                     <a
                         href={banner.url}
                         target="_blank"
@@ -585,6 +583,9 @@
                         </div>
                     </a>
                 {/if}
+                </div>
+
+                
 
                 {#if featuredItems.length > 0}
                     <div class="space-y-3">

@@ -66,6 +66,13 @@
 
             setTimeout(() => {
                 ready = true;
+                const splash = document.getElementById('app-splash-screen');
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.remove();
+                    }, 500);
+                }
             }, 100);
 
             initAuth();

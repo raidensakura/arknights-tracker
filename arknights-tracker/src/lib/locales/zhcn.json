@@ -5,6 +5,9 @@
     "description": "明日方舟：终末地的高级寻访记录追踪器。追踪您的寻访历史，计算保底进度，并预测下一次必出的干员或武器。",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, 明日方舟终末地, 终末地, 寻访记录, 抽卡分析, 干员, Goyfield"
   },
+  "hints": {
+    "editPotential": "要更改武器潜能，请点击铅笔图标。"
+  },
   "sidebar": {
     "home": "首页",
     "records": "寻访记录",
@@ -143,7 +146,7 @@
       "success": "数据导入成功！"
     },
     "faq_security_title": "FAQ: 账号安全",
-    "faq_security_desc3": "运行 PowerShell 脚本<strong>不需要</strong>管理员权限。",
+    "faq_security_desc3": "运行 PowerShell 脚本不需要以管理员身份运行 PowerShell。",
     "faq_q1": "使用脚本危险吗？",
     "faq_q2": "Goyfield.moe 危险吗？",
     "note": "注意",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "开发中",
     "manual_text_pre": "前往文件",
-    "manual_text_mid": "，滚动到底部并找到类似",
+    "manual_text_mid": " 用记事本打开它，滚动到最底部并找到类似以下的链接",
     "manual_text_post": "的链接并复制。",
     "android_note": "像 ByeByeDPI 这样的应用或开启的 VPN 可能会干扰日志抓取。如果日志为空，请尝试重新安装 VPN。",
     "android_s1": "从 GitHub 下载 <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> 和 <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a>。",
@@ -458,6 +461,7 @@
     "recommended": "推荐",
     "artificing": "装备精锻",
     "coolDown": "冷却",
+    "costValue": "所需终结技能量",
     "mainAttr": "主属性",
     "secAttr": "副属性",
     "str": "力量",
@@ -720,6 +724,8 @@
   },
   "settings": {
     "title": "设置",
+    "other": "其他",
+    "disableDarkening": "禁用武器和干员卡牌变暗",
     "account": {
       "title": "选择账号",
       "add": "添加",

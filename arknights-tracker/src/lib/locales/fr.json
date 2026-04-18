@@ -5,6 +5,9 @@
     "description": "Suivi de vœux avancé pour Arknights: Endfield. Suivez votre historique de recrutement, calculez votre pity et prédisez votre prochain opérateur ou arme garantie.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield Français, Suivi Gacha, Historique de Tirage, Opérateurs, Goyfield"
   },
+  "hints": {
+    "editPotential": "Pour modifier les potentiels de l'arme, cliquez sur l'icône en forme de crayon."
+  },
   "sidebar": {
     "home": "Accueil",
     "records": "Historique Recrutement",
@@ -143,7 +146,7 @@
       "success": "Données importées avec succès !"
     },
     "faq_security_title": "FAQ: Sécurité du compte",
-    "faq_security_desc3": "L'exécution des scripts PowerShell <strong>ne nécessite pas</strong> de privilèges d'administrateur.",
+    "faq_security_desc3": "L'exécution des scripts PowerShell ne nécessite pas d'exécuter PowerShell en tant qu'administrateur.",
     "faq_q1": "Est-il dangereux d'utiliser des scripts ?",
     "faq_q2": "Goyfield.moe est-il dangereux ?",
     "note": "Note",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "En cours de développement",
     "manual_text_pre": "Allez dans le fichier",
-    "manual_text_mid": ", faites défiler tout en bas et trouvez un lien comme",
+    "manual_text_mid": " ouvrez-le avec le Bloc-notes, faites défiler tout en bas et trouvez un lien du type",
     "manual_text_post": "et copiez-le.",
     "android_note": "Les applications comme ByeByeDPI ou les VPN actifs peuvent interférer avec la capture des logs. Si les logs sont vides, essayez de réinstaller le VPN.",
     "android_s1": "Téléchargez <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> et <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> depuis GitHub.",
@@ -459,6 +462,7 @@
     "recommended": "Recommandé",
     "artificing": "Renforcement d'équipement",
     "coolDown": "Temps de recharge",
+    "costValue": "Coût en énergie d'ultime",
     "mainAttr": "Attribut Principal",
     "secAttr": "Attribut Secondaire",
     "str": "Force",
@@ -721,6 +725,8 @@
   },
   "settings": {
     "title": "Paramètres",
+    "other": "Autre",
+    "disableDarkening": "Désactiver l'assombrissement des cartes d'armes et d'opérateurs",
     "account": {
       "title": "Choisir Compte",
       "add": "Ajouter",

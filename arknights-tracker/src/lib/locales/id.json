@@ -5,6 +5,9 @@
     "description": "Pelacak Permohonan Canggih untuk Arknights: Endfield. Lacak riwayat headhunting Anda, hitung counter pity, dan prediksi operator atau senjata garansi berikutnya.",
     "keywords": "Arknights Endfield, Arknights, Gacha Tracker, Pull History, Operators, Arknights Endfield Indonesia, Pelacak Gacha, Riwayat Pull, Operator, Goyfield"
   },
+  "hints": {
+    "editPotential": "Untuk mengubah potensi senjata, klik ikon pensil."
+  },
   "sidebar": {
     "home": "Beranda",
     "records": "Riwayat Headhunting",
@@ -143,7 +146,7 @@
       "success": "Data berhasil diimpor!"
     },
     "faq_security_title": "FAQ: Keamanan Akun",
-    "faq_security_desc3": "Menjalankan skrip PowerShell <strong>tidak memerlukan</strong> hak akses administrator.",
+    "faq_security_desc3": "Menjalankan skrip PowerShell tidak memerlukan akses administrator PowerShell.",
     "faq_q1": "Apakah berbahaya menggunakan skrip?",
     "faq_q2": "Apakah Goyfield.moe berbahaya?",
     "note": "Catatan",
@@ -183,7 +186,7 @@
     "tab_ios": "iOS (Beta)",
     "wip": "Dalam Pengembangan",
     "manual_text_pre": "Pergi ke file",
-    "manual_text_mid": " gulir ke bagian paling bawah dan cari tautan seperti",
+    "manual_text_mid": " buka dengan Notepad, gulir ke paling bawah dan temukan tautan seperti",
     "manual_text_post": "lalu salin.",
     "android_note": "Aplikasi seperti ByeByeDPI atau VPN aktif dapat mengganggu pengambilan log. Jika log kosong, coba instal ulang VPN.",
     "android_s1": "Unduh <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> dan <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> dari GitHub.",
@@ -459,6 +462,7 @@
     "recommended": "Rekomendasi",
     "artificing": "Penyempurnaan Gear",
     "coolDown": "Cooldown",
+    "costValue": "Biaya Energi Ultimate",
     "mainAttr": "Atribut Utama",
     "secAttr": "Atribut Sekunder",
     "str": "Kekuatan",
@@ -721,6 +725,8 @@
   },
   "settings": {
     "title": "Pengaturan",
+    "other": "Lainnya",
+    "disableDarkening": "Nonaktifkan penggelapan kartu senjata dan operator",
     "account": {
       "title": "Pilih Akun",
       "add": "Tambah",
