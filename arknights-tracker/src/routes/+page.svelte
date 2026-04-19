@@ -130,6 +130,7 @@
           displayEndTime: isAsia && p.endTimeAsia ? p.endTimeAsia : p.endTime
       };
   }).filter((p) => {
+      if (p.displayEndTime === null || p.displayEndTime === "N/A") return true;
       const end = parseWithServerOffset(p.displayEndTime);
       return now <= end;
   });
@@ -333,6 +334,10 @@
                 <Icon name="permanent" class="w-4 h-4" />
               </div>
             </Tooltip>
+          {:else if promo.displayEndTime === "N/A"}
+            <div class="flex items-center font-bold justify-center p-1 text-gray-700 hover:text-[#FACC15] hover:dark:text-[#FACC15] dark:text-gray-300 transition-colors">
+                N/A
+              </div>
           {:else}
             <span
               class="text-xs font-bold text-gray-700 dark:text-[#E0E0E0] whitespace-nowrap leading-tight"

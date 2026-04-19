@@ -2803,7 +2803,7 @@
         },
         "potential2": {
             "Will": 20,
-            "NormalSkillEfficiency": 0.15
+            "NormalSkillDamageIncrease": 0.15
         },
         "potential3": {
             "sword_duration": 10,

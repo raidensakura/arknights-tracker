@@ -501,7 +501,7 @@
 
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
-<div class="min-h-screen relative flex flex-col p-8">
+<div class="min-h-screen relative flex flex-col p-4 md:px-8 md:py-3">
     <div
         class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 transition-opacity duration-500 {activeTab ===
         'about'
@@ -514,7 +514,7 @@
             <Images id={char.id} variant="operator-splash" size="100%" />
         </div>
         <div
-            class="absolute inset-0 bg-gradient-to-r dark:from-[#707070] from-[#F9F9F9] via-[#F9F9F9]/80 to-transparent lg:via-[#F9F9F9]/40 z-10 opacity-40"
+            class="absolute inset-0 bg-gradient-to-r dark:from-[#5E5E5E] from-[#F9F9F9] via-[#F9F9F9]/80 to-transparent lg:via-[#F9F9F9]/40 z-10 opacity-40"
         ></div>
     </div>
 
@@ -1609,12 +1609,12 @@
                 class="flex items-center justify-between px-6 py-4 bg-[#21272C] text-white dark:bg-[#2C2C2C] shrink-0"
             >
                 <h3 class="font-bold text-lg">
-                    {$t("stats.attributesTable") || "Attributes Table (1-90)"}
+                    {$t("stats.attributesTable") || "Attributes Table"}
                 </h3>
                 <div class="flex items-center gap-3">
                     <button
                         on:click={copyStatsTable}
-                        class="flex items-center justify-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-md transition-colors text-white text-sm font-bold border border-white/20 shrink-0"
+                        class="p-1.5 rounded-md bg-white dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-600 dark:text-white transition-colors flex items-center gap-2 px-3 text-sm font-bold border border-gray-200 dark:border-transparent shadow-sm dark:shadow-none"
                     >
                         {#if isTableCopied}
                             <svg
@@ -1644,22 +1644,22 @@
                 </div>
             </div>
 
-            <div class="overflow-auto custom-scrollbar bg-white p-0">
+            <div class="overflow-auto custom-scrollbar bg-white dark:bg-[#2b2b2b] p-0">
                 <table class="w-full text-center border-collapse">
                     <thead
-                        class="bg-gray-100 dark:bg-[#383838] font-bold sticky top-0 z-10 shadow-sm text-sm"
+                        class="bg-gray-50 dark:bg-[#383838] font-bold sticky top-0 shadow-sm text-sm text-gray-600 dark:text-[#E4E4E4]"
                     >
                         <tr>
                             <th
-                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4]"
+                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4] dark:border-[#444]"
                                 >{$t("stats.level") || "Level"}</th
                             >
                             <th
-                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4]"
+                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4] dark:border-[#444]"
                                 >{$t("stats.baseHp") || "Base HP"}</th
                             >
                             <th
-                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4]"
+                                class="py-3 px-2 border-b text-gray-600 dark:text-[#E4E4E4] dark:border-[#444]"
                                 >{$t("stats.baseAtk") || "Base ATK"}</th
                             >
 
@@ -1669,7 +1669,7 @@
                                 {@const isSec =
                                     attr === charStats.secondaryAttribute}
 
-                                <th class="py-3 px-2 border-b align-middle">
+                                <th class="py-3 px-2 border-b align-middle dark:border-[#444]">
                                     <div class="flex justify-center w-full">
                                         <Tooltip
                                             text={$t(
@@ -1697,41 +1697,41 @@
                             {/each}
                         </tr>
                     </thead>
-                    <tbody class="text-sm font-nums text-gray-800">
+                    <tbody class="text-sm font-nums text-gray-800 dark:text-gray-300">
                         {#each Array(90) as _, i}
                             {@const lvl = i + 1}
                             <tr
-                                class="hover:bg-yellow-50 transition-colors border-b border-gray-50 even:bg-gray-50/50"
+                                class="hover:bg-gray-100 dark:hover:bg-[#3d3d3d] transition-colors border-b border-gray-100 dark:border-[#333] even:bg-gray-50/50 dark:even:bg-[#383838]/50"
                             >
                                 <td
-                                    class="py-2 px-2 font-bold text-gray-400 bg-gray-50/50"
+                                    class="py-2 px-4 text-gray-500 dark:text-gray-400"
                                     >{lvl}</td
                                 >
-                                <td class="py-2 px-2 font-bold"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(charStats.hp, lvl)}</td
                                 >
-                                <td class="py-2 px-2 font-bold"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(charStats.atk, lvl)}</td
                                 >
-                                <td class="py-2 px-2"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.str,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-2"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.agi,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-2"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.int,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-2"
+                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.will,
                                         lvl,

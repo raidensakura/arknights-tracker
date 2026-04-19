@@ -420,7 +420,7 @@
     }}
 />
 
-<div class="min-h-screen p-4 md:p-8 font-sans transition-colors">
+<div class="min-h-screen p-4 md:px-8 md:py-3 font-sans transition-colors">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button
             variant="roundSmall"
@@ -1158,13 +1158,13 @@
         }}
     >
         <div
-            class="bg-white dark:bg-[#2b2b2b] rounded-xl w-full max-w-sm max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200 dark:border-[#444]"
+            class="bg-white rounded-xl w-full max-w-sm max-h-[85vh] flex flex-col shadow-2xl overflow-hidden"
         >
             <div
-                class="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-[#222] border-b border-gray-200 dark:border-[#444] shrink-0"
+                class="flex items-center justify-between px-6 py-4 bg-[#21272C] text-white dark:bg-[#2C2C2C] shrink-0"
             >
-                <h3 class="font-bold text-[#21272C] dark:text-white text-lg">
-                    {tOrFallback("stats.attributesTable", "Таблица параметров")}
+                <h3 class="font-bold text-lg">
+                    {tOrFallback("stats.attributesTable", "Attributes Table")}
                 </h3>
                 <div class="flex gap-2">
                     <button

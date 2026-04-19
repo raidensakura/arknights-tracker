@@ -56,5 +56,16 @@ export const promocodes = [
         condition: "home.conditions.onlyPc",
         endTime: null,
         url: null
+    },
+    {
+        code: "ZAU2SYXHWX5L4ZH",
+        rewards: [
+            { id: "tCreds", count: 5000 },
+            { id: "armsInspKit", count: 10 }
+        ],
+        startTime: "2024-04-18 00:00:00",
+        condition: null,
+        endTime: "N/A",
+        url: null
     }
 ];
