@@ -50,9 +50,9 @@
 
     $: if (browser) {
         if (isMobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = '';
+            document.body.style.overflow = "";
         }
     }
 
@@ -66,9 +66,9 @@
 
             setTimeout(() => {
                 ready = true;
-                const splash = document.getElementById('app-splash-screen');
+                const splash = document.getElementById("app-splash-screen");
                 if (splash) {
-                    splash.style.opacity = '0';
+                    splash.style.opacity = "0";
                     setTimeout(() => {
                         splash.remove();
                     }, 500);
@@ -129,8 +129,6 @@
             localStorage.setItem("theme", "light");
         }
     }
-
-    
 </script>
 
 <svelte:head>
@@ -233,80 +231,75 @@
             md:w-[var(--sb-w)]
         "
         >
-        <div
-                    class="mb-5 flex items-center min-h-[40px] px-4 {visuallyCollapsed
-                        ? 'justify-center'
-                        : 'justify-between'}"
+            <div
+                class="mb-5 flex items-center min-h-[40px] px-4 {visuallyCollapsed
+                    ? 'justify-center'
+                    : 'justify-between'}"
+            >
+                {#if !visuallyCollapsed}
+                    <div class="pr-1">
+                        <h1
+                            class="font-black text-2xl tracking-tighter text-gray-900 dark:text-white leading-none"
+                        >
+                            <a
+                                href="/"
+                                class="block hover:opacity-80 transition-opacity"
+                            >
+                                <Icons name="siteLogo" class="w-full h-auto" />
+                            </a>
+                        </h1>
+                    </div>
+                {/if}
+
+                <button
+                    on:click={toggleCollapse}
+                    class="hidden md:flex items-center justify-center w-8 h-8 rounded text-gray-400 dark:text-gray-500 hover:text-[#21272C] dark:hover:text-[#FDFDFD] transition-colors group flex-shrink-0"
+                    aria-label={isCollapsed
+                        ? "Expand Sidebar"
+                        : "Collapse Sidebar"}
                 >
-                    {#if !visuallyCollapsed}
-                        <div class="pr-1">
-                            <h1
-                                class="font-black text-2xl tracking-tighter text-gray-900 dark:text-white leading-none"
-                            >
-                                <a
-                                    href="/"
-                                    class="block hover:opacity-80 transition-opacity"
-                                >
-                                    <Icons
-                                        name="siteLogo"
-                                        class="w-full h-auto"
-                                    />
-                                </a>
-                            </h1>
-                        </div>
+                    {#if isCollapsed}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 group-hover:text-[#FFE145] transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                stroke-linecap="square"
+                                stroke-linejoin="miter"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    {:else}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 group-hover:text-[#FFE145] transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                stroke-linecap="square"
+                                stroke-linejoin="miter"
+                                d="M18 19l-7-7 7-7"
+                            />
+                            <path
+                                stroke-linecap="square"
+                                stroke-linejoin="miter"
+                                d="M11 19l-7-7 7-7"
+                                class="opacity-50"
+                            />
+                        </svg>
                     {/if}
-
-                    <button
-                        on:click={toggleCollapse}
-                        class="hidden md:flex items-center justify-center w-8 h-8 rounded text-gray-400 dark:text-gray-500 hover:text-[#21272C] dark:hover:text-[#FDFDFD] transition-colors group flex-shrink-0"
-                        aria-label={isCollapsed
-                            ? "Expand Sidebar"
-                            : "Collapse Sidebar"}
-                    >
-                        {#if isCollapsed}
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6 group-hover:text-[#FFE145] transition-colors"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="2"
-                            >
-                                <path
-                                    stroke-linecap="square"
-                                    stroke-linejoin="miter"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                            </svg>
-                        {:else}
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6 group-hover:text-[#FFE145] transition-colors"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="2"
-                            >
-                                <path
-                                    stroke-linecap="square"
-                                    stroke-linejoin="miter"
-                                    d="M18 19l-7-7 7-7"
-                                />
-                                <path
-                                    stroke-linecap="square"
-                                    stroke-linejoin="miter"
-                                    d="M11 19l-7-7 7-7"
-                                    class="opacity-50"
-                                />
-                            </svg>
-                        {/if}
-                    </button>
-                </div>
+                </button>
+            </div>
             <div class="flex-1 overflow-y-auto overflow-x-hidden">
-                
-
                 <nav class="flex flex-col gap-3 px-3">
-                    {#each [{ path: "/", label: "sidebar.home", icon: "mainPage" }, { path: "/records", label: "sidebar.records", icon: "records" }, { path: "/operators", label: "sidebar.operators", icon: "operators" }, { path: "/weapons", label: "pages.weapons", icon: "weapons" }, { path: "/essences", label: "pages.essences", icon: "essence" }, { path: "/equipment", label: "pages.equipment", icon: "edc" }, { path: "/events", label: "sidebar.events", icon: "timeline" }, { path: "/settings", label: "sidebar.settings", icon: "settingsMenu" }] as item}
+                    {#each [{ path: "/", label: "sidebar.home", icon: "mainPage" }, { path: "/records", label: "sidebar.records", icon: "records" }, { path: "/operators", label: "sidebar.operators", icon: "operators" }, { path: "/weapons", label: "pages.weapons", icon: "weapons" }, { path: "/essences", label: "pages.essences", icon: "essence" }, { path: "/equipment", label: "pages.equipment", icon: "edc" }, { path: "/events", label: "sidebar.events", icon: "timeline" }, { path: "/settings", label: "sidebar.settings", icon: "settings" }] as item}
                         <a
                             href={item.path}
                             class="
@@ -319,7 +312,7 @@
                             (item.path === '/'
                                 ? $page.url.pathname === '/'
                                 : true)
-                                ? 'bg-gray-100 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
+                                ? 'bg-gray-200 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
                         "
                             title={visuallyCollapsed ? $t(item.label) : ""}
@@ -468,9 +461,9 @@
 
             {#if $page.url.pathname !== "/"}
                 <footer class="mt-20 w-full max-w-[1600px] z-10 pb-4">
-                    <div class="flex items-center gap-3 mb-8">
+                    <div class="flex gap-3 mb-8">
                         <div
-                            class="w-[2px] h-7 bg-gray-400 dark:bg-gray-300 rounded-full"
+                            class="w-[2px] shrink-0 bg-gray-400 dark:bg-gray-300 rounded-full"
                         ></div>
                         <p
                             class="text-sm text-gray-400 dark:text-[#B7B6B3] leading-snug"

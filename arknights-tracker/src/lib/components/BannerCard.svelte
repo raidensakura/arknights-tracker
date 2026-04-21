@@ -197,7 +197,7 @@
 >
   {#if availableSubBanners.length > 1}
     <div
-      class="flex gap-1 overflow-x-auto pb-1 pt-1 banners-scroll -mx-1 px-0.5 snap-x"
+      class="flex gap-1 overflow-x-auto pb-0.5 pt-0.5 banners-scroll -mx-1 px-0.5 snap-x"
     >
       {#each availableSubBanners as bId}
         <div class="shrink-0">
@@ -346,8 +346,8 @@
       <div class="text-right">{$t("page.banner.avg")}</div>
     </div>
 
-    <div class="border-b border-gray-50 dark:border-[#444444]">
-      <div class="grid grid-cols-4 text-sm items-center py-2">
+    <div class="border-t border-gray-50 dark:border-[#444444]">
+      <div class="grid grid-cols-4 text-sm items-center py-1.5 border-b border-gray-50 dark:border-[#444444]">
         <div
           class="font-bold text-gray-700 dark:text-[#FDFDFD] flex items-center gap-1 font-nums"
         >
@@ -370,7 +370,7 @@
       </div>
 
       {#if showWinRate}
-        <div class="grid grid-cols-4 text-sm items-center py-1 pb-2">
+        <div class="grid grid-cols-4 text-sm items-center py-1.5 pb-1.5 border-b border-gray-50 dark:border-[#444444]">
           <div
             class="text-gray-600 dark:text-[#E4E4E4] text-xs pl-6 col-span-1"
           >
@@ -395,7 +395,7 @@
       {/if}
     </div>
 
-    <div class="grid grid-cols-4 text-sm items-center py-2">
+    <div class="grid grid-cols-4 text-sm items-center py-1.5">
       <div
         class="font-bold text-gray-700 dark:text-[#FDFDFD] flex items-center gap-1 font-nums"
       >

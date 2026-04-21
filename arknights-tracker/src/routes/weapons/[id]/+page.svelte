@@ -509,7 +509,7 @@
 
                                         {#if showPotHint}
                                             <div
-                                                class="absolute top-full mt-3 right-0 w-52 bg-gray-900 dark:bg-[#1E1E1E] text-white text-xs rounded-lg shadow-2xl p-2.5 z-[150] animate-fadeIn border border-gray-700/50"
+                                                class="z-99 absolute top-full mt-3 right-0 w-52 bg-gray-900 dark:bg-[#1E1E1E] text-white text-xs rounded-lg shadow-2xl p-2.5 z-[150] animate-fadeIn border border-gray-700/50"
                                             >
                                                 <span
                                                     class="absolute bottom-full right-2.5 border-[5px] border-transparent border-b-gray-900 dark:border-b-[#1E1E1E]"

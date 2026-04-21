@@ -128,47 +128,49 @@
 />
 
 <div class="max-w-[1400px]">
-  <div class="flex flex-col md:flex-row mb-8 gap-4 md:items-center">
-    <h2
-      class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] mb-2 md:mb-0"
-    >
+  <div class="flex flex-wrap justify-left items-center mb-8 gap-6">
+    
+    <h2 class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] shrink-0">
       {$t("page.title")}
     </h2>
 
-    <div class="w-full md:w-auto">
-      <Button variant="yellow" onClick={openImport}>
-        <div slot="icon">
-          <Icon name="import" style="width: 30px; height: 30px;" />
-        </div>
-        <span class="whitespace-nowrap px-2">
-          {$t("page.importBtn")}
-        </span>
-      </Button>
-    </div>
+    <div class="flex flex-col md:flex-row gap-4 w-full xl:w-auto">
+      
+      <div class="w-full md:w-auto">
+        <Button variant="yellow" onClick={openImport} className="w-full justify-center">
+          <div slot="icon">
+            <Icon name="import" style="width: 30px; height: 30px;" />
+          </div>
+          <span class="whitespace-nowrap px-2">
+            {$t("page.importBtn")}
+          </span>
+        </Button>
+      </div>
 
-    <div class="w-full md:w-auto">
-      <Button variant="black2" onClick={openGlobal}>
-        <div slot="icon">
-          <Icon name="globe" style="width: 30px; height: 30px;" />
-        </div>
-        <span class="whitespace-nowrap px-2">
-          {$t("page.globalBtn")}
-        </span>
-      </Button>
-    </div>
+      <div class="w-full md:w-auto">
+        <Button variant="black2" onClick={openGlobal} className="w-full justify-center">
+          <div slot="icon">
+            <Icon name="globe" style="width: 30px; height: 30px;" />
+          </div>
+          <span class="whitespace-nowrap px-2">
+            {$t("page.globalBtn")}
+          </span>
+        </Button>
+      </div>
 
-    <div class="w-full md:w-auto">
-      <Button variant="black2" onClick={() => (isSettingsOpen = true)}>
-        <div slot="icon">
-          <Icon name="settings" style="width: 30px; height: 30px;" />
-        </div>
-        <span class="whitespace-nowrap px-2">
-          {$t("page.settingsBtn")}
-        </span>
-      </Button>
-    </div>
-  </div>
+      <div class="w-full md:w-auto">
+        <Button variant="black2" onClick={() => (isSettingsOpen = true)} className="w-full justify-center">
+          <div slot="icon">
+            <Icon name="settings" style="width: 25px; height: 25px;" />
+          </div>
+          <span class="whitespace-nowrap px-2">
+            {$t("page.settingsBtn")}
+          </span>
+        </Button>
+      </div>
 
+    </div>
+</div>
   <div
     class="grid grid-cols-1 md:grid-cols-[400px_400px] xl:grid-cols-[400px_400px_400px] gap-6 items-start"
   >
