@@ -11,16 +11,19 @@
     export let dataKey = "";
     export let materials = [];
     export let localizedData = {};
-    export let maxLevels = 2;
     export let indicatorType = "";
     export let facSkillImage = "";
     export let postfixes = [];
 
     $: levelsCount = (() => {
-        const matLength = materials?.length || 0;
         const descLength = localizedData?.levels?.length || 0;
-        let count = Math.max(matLength, descLength, 1);
-        return Math.min(count, maxLevels);
+        const postLength = postfixes?.length || 0;
+        let count = Math.max(descLength, postLength, 1);
+        if (materials && Array.isArray(materials)) {
+            count = Math.min(count, Math.max(materials.length, 1));
+        }
+
+        return count;
     })();
 
     $: skillImageId = (() => {
@@ -132,12 +135,54 @@
 
     $: bbKey = `${dataKey}_${currentLevel}`;
     $: currentBlackboard = blackboard?.[bbKey] || blackboard?.[dataKey] || {};
+
+    $: cumulativeTotals = (() => {
+        if (type !== "indicator" || !localizedData?.levels) return [];
+        let totals = [];
+        let sum = 0;
+        for (let i = 0; i < levelsCount; i++) {
+            const text = localizedData.levels[i] || "";
+            const cleanText = text.replace(/<[^>]+>/g, "");
+            const match = cleanText.match(/[-+]?\s*\d+(?:\.\d+)?/);
+            if (match) {
+                const val = parseFloat(match[0].replace(/\s/g, ""));
+                sum += val;
+            }
+            totals.push(sum);
+        }
+        return totals;
+    })();
 </script>
 
 <div
-    class="bg-white rounded-xl p-5 shadow-sm dark:bg-[#383838] dark:border-[#444444] border border-gray-200 w-full flex flex-col md:flex-row gap-2 transition-all hover:border-gray-300"
+    class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 rounded-xl p-5 shadow-sm dark:border-[#444444] border border-gray-200 w-full flex flex-col gap-2 transition-all hover:border-gray-300"
 >
     <div class="flex-1 flex flex-col gap-2">
+        <div class="flex items-center gap-2 mb-1">
+            <span
+                class="px-2 py-0.5 bg-gray-100 dark:text-[#E4E4E4] dark:bg-[#2C2C2C] rounded text-[10px] font-bold uppercase text-gray-500 tracking-wider"
+            >
+                {$t(
+                    type === "indicator"
+                        ? "menu.indicators"
+                        : type === "talent"
+                          ? "menu.talents"
+                          : "menu.baseSkills",
+                ) || type}
+            </span>
+            {#if type === "indicator" && cumulativeTotals[currentLevel - 1]}
+                <div
+                    class="inline-flex items-center px-2 py-0.5 bg-[#38BDF8]/10 text-[#38BDF8] rounded text-xs font-bold tracking-wider shadow-sm"
+                >
+                    {$t("systemNames.total") || "Total"}: {cumulativeTotals[
+                        currentLevel - 1
+                    ] > 0
+                        ? "+"
+                        : ""}{cumulativeTotals[currentLevel - 1]}
+                </div>
+            {/if}
+        </div>
+
         <div class="flex items-center gap-4">
             <div class="shrink-0">
                 {#if type === "base"}
@@ -152,7 +197,7 @@
                     </div>
                 {:else}
                     <div
-                        class="w-[52px] h-[52px] rounded-full bg-[#FFD800] border-[3px] border-[#9A8722]/70 overflow-hidden flex items-center justify-center shadow-sm p-[3px]"
+                        class="w-[52px] h-[52px] rounded-full bg-[#F3CE00] border-[3px] border-[#9A8722]/70 overflow-hidden flex items-center justify-center shadow-sm p-[3px]"
                     >
                         <Images
                             id={skillImageId}
@@ -170,7 +215,7 @@
                     {name}
                 </h3>
 
-                {#if levelsCount > 1 && (type === "base" || hasMaterials)}
+                {#if levelsCount > 1}
                     <div class="flex gap-[6px] items-center mt-1">
                         {#each Array(levelsCount) as _, i}
                             {@const lvl = i + 1}
@@ -181,7 +226,7 @@
                             <button
                                 on:click={() => (currentLevel = lvl)}
                                 class="transition-all duration-200 outline-none flex items-center justify-center shrink-0
-            {type === 'base'
+                {type === 'base'
                                     ? 'w-7 h-7 rounded border-[2px] font-serif font-bold text-sm ' +
                                       (isFilled
                                           ? 'border-[#FACC15] bg-[#FACC15] text-black ' +
@@ -208,23 +253,26 @@
         </div>
 
         <div
-            class="text-sm text-gray-700 dark:text-[#E4E4E4] leading-relaxed min-h-[25px] whitespace-pre-wrap mt-1"
+            class="text-sm text-gray-700 dark:text-[#E4E4E4] leading-relaxed min-h-[25px] whitespace-pre-wrap mt-1 flex flex-col items-start gap-2"
         >
-            {@html parseRichText(
-                interpolateBlackboard(description, currentBlackboard),
-            )}
+            <div>
+                {@html parseRichText(
+                    interpolateBlackboard(description, currentBlackboard),
+                )}
+            </div>
         </div>
     </div>
 
-    <div class="h-px w-full bg-gray-100 dark:bg-[#444444] md:hidden"></div>
-    <div
-        class="md:w-[240px] shrink-0 flex flex-col gap-2 md:border-l md:border-gray-100 md:dark:border-[#444444] md:pl-6"
-    >
+    <div class="h-px w-full bg-gray-100 dark:bg-[#444444]"></div>
+
+    <div class="w-full shrink-0 flex flex-col gap-2">
         <span class="text-xs font-bold text-gray-400 dark:text-[#B7B6B3]">
             {$t("stats.materials") || "Materials"}
         </span>
 
-        <div class="flex flex-wrap gap-2 items-start">
+        <div
+            class="bg-[#F0F2F4] rounded-xl pt-4 px-4 dark:bg-[#343434] flex gap-2 overflow-x-auto materials-scroll md:justify-center justify-start w-full snap-x"
+        >
             {#if currentMaterials.length > 0}
                 {#each currentMaterials as mat}
                     <div class="transform scale-90 origin-top-left">
@@ -233,7 +281,7 @@
                 {/each}
             {:else}
                 <div
-                    class="w-full text-center dark:bg-[#343434] py-4 bg-gray-50 rounded border border-gray-200 dark:border-[#444444]"
+                    class="w-full text-center dark:bg-[#343434] py-4 mb-4 bg-gray-50 rounded border border-gray-200 dark:border-[#444444]"
                 >
                     <span class="text-xs text-gray-400 italic">
                         {$t("systemNames.noMaterialsNeeded") ||

@@ -270,20 +270,26 @@
                         foodNonDefAttrs.length > 0 &&
                         foodNonDefAttrs[0].attrType === targetAttr.attrType;
                     const isGoodMatch = isHigherStat && isFirstStat;
+                    const craftCost = (food.materials && food.materials.length > 0) ? food.materials[0].amount : Infinity;
 
-                    return { ...food, isGoodMatch, foodMax, isHigherStat };
+                    return { ...food, isGoodMatch, foodMax, isHigherStat, craftCost };
                 });
 
             const absoluteMaxStat =
                 matchesMapped.length > 0
                     ? Math.max(...matchesMapped.map((m) => m.foodMax))
                     : 0;
+            const matchesAtAbsoluteMax = matchesMapped.filter(m => m.foodMax === absoluteMaxStat);
+            const minCraftCostAtMaxStat = matchesAtAbsoluteMax.length > 0 
+                ? Math.min(...matchesAtAbsoluteMax.map(m => m.craftCost))
+                : 0;
 
             const matches = matchesMapped
                 .map((match) => {
                     const isRecommended =
                         match.foodMax > targetMax &&
-                        match.foodMax === absoluteMaxStat;
+                        match.foodMax === absoluteMaxStat &&
+                        match.craftCost === minCraftCostAtMaxStat;
 
                     return { ...match, isRecommended };
                 })
@@ -293,6 +299,7 @@
                     if (!a.isRecommended && b.isRecommended) return 1;
                     if (a.isGoodMatch && !b.isGoodMatch) return -1;
                     if (!a.isGoodMatch && b.isGoodMatch) return 1;
+                    if (a.craftCost !== b.craftCost) return a.craftCost - b.craftCost; 
                     return a.id.localeCompare(b.id);
                 });
 
@@ -738,7 +745,7 @@
                                 <div class="flex flex-col gap-2">
                                     {#each attrGroup.matches as match}
                                         <div
-                                            class="flex items-center gap-3 p-1.5 rounded-xl border transition-all
+                                            class="relative flex items-center gap-3 p-1.5 rounded-xl border transition-all
                                             {match.isRecommended
                                                 ? 'bg-[#22C55E]/5 border-[#22C55E]/30 hover:bg-[#22C55E]/15 hover:border-[#22C55E]/50 dark:bg-[#4ADE80]/10 dark:border-[#4ADE80]/30 dark:hover:bg-[#4ADE80]/20 dark:hover:border-[#4ADE80]/50'
                                                 : match.isGoodMatch
@@ -756,9 +763,10 @@
                                                 disableHover={true}
                                             />
 
-                                            <div class="flex flex-col gap-0.5">
+                                            <div class="flex flex-col gap-0.5 flex-1 min-w-0 pr-2">
+                                                
                                                 <span
-                                                    class="text-[13px] font-medium text-gray-800 dark:text-gray-200 leading-tight"
+                                                    class="text-[13px] font-medium text-gray-800 dark:text-gray-200 leading-tight block whitespace-normal break-words"
                                                 >
                                                     {tOrFallback(
                                                         `equipment.${match.id}`,
@@ -814,6 +822,21 @@
                                                     {/if}
                                                 </div>
                                             </div>
+
+                                            {#if match.craftCost !== Infinity && match.materials[0]}
+                                                <div class="absolute right-1 bottom-1 flex items-center gap-0.5 bg-white/50 dark:bg-black/30 backdrop-blur-sm border border-black/5 dark:border-white/5 px-1 py-0.5 rounded-md pointer-events-none shadow-sm">
+                                                    <div class="w-3.5 h-3.5 flex items-center justify-center shrink-0">
+                                                        <Images
+                                                            id={match.materials[0].name}
+                                                            variant="item"
+                                                            className="max-w-full max-h-full object-contain drop-shadow-sm"
+                                                        />
+                                                    </div>
+                                                    <span class="text-[11px] font-nums font-bold text-gray-600 dark:text-gray-300 leading-none mt-px">
+                                                        {match.craftCost}
+                                                    </span>
+                                                </div>
+                                            {/if}
                                         </div>
                                     {/each}
 

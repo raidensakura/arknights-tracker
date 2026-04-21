@@ -193,7 +193,7 @@
     "select_token": "Выбрать",
     "delete_confirm": "Удалить этот токен из памяти?",
     "errHistoryEmpty": "История пуста или ссылка устарела. UID не найден.",
-    "tab_pc": "PC web",
+    "tab_pc": "Web",
     "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC (Вручную)",
@@ -279,7 +279,8 @@
     "hLeft": "ч осталось",
     "featuredCharacters": "Представленные операторы",
     "noMaterialsNeeded": "Материалы не требуются",
-    "new": "Новый"
+    "new": "Новый",
+    "version": "Версия"
   },
   "status": {
     "won": "Выигрыш 50:50",
@@ -322,6 +323,7 @@
     "operators": "Оперативники",
     "weapons": "Оружие",
     "essences": "Эссенции",
+    "changelog": "Журнал изменений",
     "equipment": "Снаряжение"
   },
   "events": {

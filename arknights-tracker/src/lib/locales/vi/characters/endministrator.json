@@ -78,12 +78,10 @@
       "name": "Đóng Băng Không Gian Thực"
     },
     "baseSkill1": {
-      "levels": [],
-      "name": ""
+      "levels": []
     },
     "baseSkill2": {
-      "levels": [],
-      "name": ""
+      "levels": []
     },
     "files": {}
   },

@@ -299,59 +299,74 @@
             </div>
             <div class="flex-1 overflow-y-auto overflow-x-hidden">
                 <nav class="flex flex-col gap-3 px-3">
-                    {#each [{ path: "/", label: "sidebar.home", icon: "mainPage" }, { path: "/records", label: "sidebar.records", icon: "records" }, { path: "/operators", label: "sidebar.operators", icon: "operators" }, { path: "/weapons", label: "pages.weapons", icon: "weapons" }, { path: "/essences", label: "pages.essences", icon: "essence" }, { path: "/equipment", label: "pages.equipment", icon: "edc" }, { path: "/events", label: "sidebar.events", icon: "timeline" }, { path: "/settings", label: "sidebar.settings", icon: "settings" }] as item}
-                        <a
-                            href={item.path}
-                            class="
-                            flex items-center gap-3 py-3 rounded-lg group relative min-h-[48px]
-                            {ready ? 'transition-all' : ''} 
-                            
-                            {visuallyCollapsed ? 'px-0 justify-center' : 'px-3'}
+                    {#each [
+                        { path: "/", label: "sidebar.home", icon: "mainPage" },
+                        { path: "/records", label: "sidebar.records", icon: "records" },
+                        { path: "/events", label: "sidebar.events", icon: "timeline" },
+                        { path: "/settings", label: "sidebar.settings", icon: "settings" },
+                        { type: "divider" },
+                        { path: "/changelog", label: "pages.changelog", icon: "changelog" },
+                        { path: "/operators", label: "sidebar.operators", icon: "operators" },
+                        { path: "/weapons", label: "pages.weapons", icon: "weapons" },
+                        { path: "/essences", label: "pages.essences", icon: "essence" },
+                        { path: "/equipment", label: "pages.equipment", icon: "edc" }
+                    ] as item}
+                        {#if item.type === "divider"}
+                            <div class="h-px bg-gray-200 dark:bg-[#444444] my-1 mx-2"></div>
+                        {:else}
+                            <a
+                                href={item.path}
+                                class="
+                                flex items-center gap-3 py-3 rounded-lg group relative min-h-[48px]
+                                {ready ? 'transition-all' : ''} 
+                                
+                                {visuallyCollapsed ? 'px-0 justify-center' : 'px-3'}
 
-                            {isCurrent(item.path) &&
-                            (item.path === '/'
-                                ? $page.url.pathname === '/'
-                                : true)
-                                ? 'bg-gray-200 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
-                                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
-                        "
-                            title={visuallyCollapsed ? $t(item.label) : ""}
-                        >
-                            <div
-                                class="w-6 h-6 flex-shrink-0 flex justify-center items-center pointer-events-none {isCurrent(
-                                    item.path,
-                                ) &&
+                                {isCurrent(item.path) &&
                                 (item.path === '/'
                                     ? $page.url.pathname === '/'
                                     : true)
-                                    ? 'text-gray-900 dark:text-white'
-                                    : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}"
+                                    ? 'bg-gray-200 dark:bg-[#424242] text-gray-900 dark:text-[#FDFDFD]'
+                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#373737]'}
+                            "
+                                title={visuallyCollapsed ? $t(item.label) : ""}
                             >
-                                <Icons name={item.icon} class="w-full h-full" />
-                            </div>
-
-                            {#if !visuallyCollapsed}
-                                <span
-                                    class="
-                                    text-lg leading-tight
-                                    {isCurrent(item.path) &&
+                                <div
+                                    class="w-6 h-6 flex-shrink-0 flex justify-center items-center pointer-events-none {isCurrent(
+                                        item.path,
+                                    ) &&
                                     (item.path === '/'
                                         ? $page.url.pathname === '/'
                                         : true)
-                                        ? 'font-bold'
-                                        : 'font-medium'}
-                                "
+                                        ? 'text-gray-900 dark:text-white'
+                                        : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200'}"
                                 >
-                                    {$t(item.label)}
-                                </span>
-                            {/if}
+                                    <Icons name={item.icon} class="w-full h-full" />
+                                </div>
 
-                            {#if isCurrent(item.path) && (item.path === "/" ? $page.url.pathname === "/" : true)}
-                                <div
-                                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#FFE145] rounded-r"
-                                ></div>
-                            {/if}
-                        </a>
+                                {#if !visuallyCollapsed}
+                                    <span
+                                        class="
+                                        text-lg leading-tight
+                                        {isCurrent(item.path) &&
+                                        (item.path === '/'
+                                            ? $page.url.pathname === '/'
+                                            : true)
+                                            ? 'font-bold'
+                                            : 'font-medium'}
+                                    "
+                                    >
+                                        {$t(item.label)}
+                                    </span>
+                                {/if}
+
+                                {#if isCurrent(item.path) && (item.path === "/" ? $page.url.pathname === "/" : true)}
+                                    <div
+                                        class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#FFE145] rounded-r"
+                                    ></div>
+                                {/if}
+                            </a>
+                        {/if}
                     {/each}
                 </nav>
             </div>

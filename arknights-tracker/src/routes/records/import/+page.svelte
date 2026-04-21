@@ -50,6 +50,7 @@
 
     const powerShellScript = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url.ps1'))}"`;
     const powerShellScript2 = `$f=[System.IO.File]::Open("$env:LOCALAPPDATA\\PlatformProcess\\Cache\\data_1",3,1,3); $t=(New-Object System.IO.StreamReader($f,[System.Text.Encoding]::ASCII)).ReadToEnd(); $f.Close(); $m=[regex]::Matches($t,"u8_token=([^&\\s\\x00]+)"); if($m.Count){ $m[$m.Count-1].Groups[1].Value | Set-Clipboard }`;
+    const powerShellScript3 = `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex "&{$((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ivaqis/arknights-pull-url/refs/heads/main/endfield-url2.ps1'))}"`;
     const browserBookmarklet = `javascript:(async()=>{try{let e=null;for(let[t,n]of Object.entries(sessionStorage))if(t.startsWith("APP_ROLE_U8_TOKEN:")){e=n.toString().split(":")[0];break}if(!e)throw new Error("Token not found. Please log in and refresh the page.");await navigator.clipboard.writeText(e),alert("Success! Token copied to clipboard.")}catch(e){alert("Error: "+e.message)}})();`;
     onMount(() => {
         loadSavedTokens();
@@ -579,7 +580,7 @@
             <div
                 class="flex items-end gap-0 border-b border-gray-200 dark:border-[#444444] w-full mb-5 mt-5 overflow-x-auto custom-tab-scroll"
             >
-                {#each [{ id: "pc-web", label: $t("import.tab_pc") }, { id: "pc1", label: $t("import.tab_pc1") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
+                {#each [{ id: "pc-web", label: $t("import.tab_pc") }, { id: "pc1", label: $t("import.tab_pc1") }, { id: "pc2", label: $t("import.tab_pc2") }, { id: "pc3", label: $t("import.tab_pc3") }, { id: "pc-manual", label: $t("import.tab_pc_manual") }, { id: "android", label: $t("import.tab_android") }, { id: "ios", label: $t("import.tab_ios") }] as tab}
                     <button
                         class="px-6 py-3 text-sm font-bold transition-all relative border-b-2 whitespace-nowrap
             {platformTab === tab.id
@@ -651,7 +652,7 @@
 
                         <div class="mb-6"></div>
                     </div>
-                {:else if platformTab === "pc1" || platformTab === "pc2"}
+                {:else if platformTab === "pc1" || platformTab === "pc2" || platformTab === "pc3"}
                     <div
                         class="relative border-l-2 dark:border-[#FDFD1F]/50 border-gray-200 pb-1 pl-10"
                     >
@@ -665,8 +666,7 @@
                         >
                             {$t("import.step2_pre")}
                             <Tooltip text={$t("import.ps_tooltip")}>
-                                <span
-                                    class="underline decoration-dotted"
+                                <span class="underline decoration-dotted"
                                     >{$t("import.step2_ps")}</span
                                 >
                             </Tooltip>
@@ -674,9 +674,11 @@
                         </div>
                         <div class="max-w-4xl">
                             <PowershellBlock
-                                script={platformTab === "pc1"
-                                    ? powerShellScript
-                                    : powerShellScript2}
+                                script={{
+                                    pc1: powerShellScript,
+                                    pc2: powerShellScript2,
+                                    pc3: powerShellScript3,
+                                }[platformTab]}
                                 language="POWERSHELL"
                             />
 
@@ -687,12 +689,14 @@
                                     rel="noopener noreferrer"
                                     class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-all italic group"
                                 >
-                                {#if platformTab === "pc1"}
-                                    <span>{$t("import.script_details")}</span>
-                                    <Icon
-                                        name="sendToLink"
-                                        class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity"
-                                    />
+                                    {#if platformTab === "pc1" || platformTab === "pc3"}
+                                        <span
+                                            >{$t("import.script_details")}</span
+                                        >
+                                        <Icon
+                                            name="sendToLink"
+                                            class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity"
+                                        />
                                     {/if}
                                 </a>
                             </div>
@@ -831,7 +835,10 @@
                             {$t("import.pc_web_step2")}
                         </div>
                         <div class="max-w-4xl">
-                            <PowershellBlock script={browserBookmarklet} language="JAVA SCRIPT"/>
+                            <PowershellBlock
+                                script={browserBookmarklet}
+                                language="JAVA SCRIPT"
+                            />
                         </div>
                     </div>
 
@@ -896,7 +903,7 @@
 
                     {#if activeTab === "new"}
                         <div class="max-w-4xl mb-6 relative group">
-                            {#if platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2"}
+                            {#if platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2" || platformTab === "pc3"}
                                 <div
                                     class="flex gap-2 mb-3 p-1 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg w-fit transition-all"
                                 >
@@ -927,7 +934,8 @@
                                     value={urlInput}
                                     on:input={handleInputProcessing}
                                     placeholder={platformTab === "android" ||
-                                    platformTab === "pc-web" || platformTab === "pc2"
+                                    platformTab === "pc-web" ||
+                                    platformTab === "pc2" || platformTab === "pc3"
                                         ? $t("import.placeholder_token") ||
                                           "Paste Token here"
                                         : $t("import.placeholder_url") ||
@@ -945,7 +953,7 @@
                                 <div
                                     class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
                                 >
-                                    {#if (platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2") && urlInput && !urlInput.startsWith("http")}
+                                    {#if (platformTab === "android" || platformTab === "pc-web" || platformTab === "pc2" || platformTab === "pc3") && urlInput && !urlInput.startsWith("http")}
                                         <Icon
                                             name="check"
                                             style="width: 16px; height: 16px; color: green;"
@@ -1075,7 +1083,8 @@
                                         >
                                             {$t(
                                                 platformTab === "android" ||
-                                                    platformTab === "pc-web" || platformTab === "pc2"
+                                                    platformTab === "pc-web" ||
+                                                    platformTab === "pc2" || platformTab === "pc3"
                                                     ? "import.save_label_token"
                                                     : "import.save_label_url",
                                             )}
@@ -1086,7 +1095,9 @@
                                             >
                                                 {$t(
                                                     platformTab === "android" ||
-                                                        platformTab === "pc-web" || platformTab === "pc2"
+                                                        platformTab ===
+                                                            "pc-web" ||
+                                                        platformTab === "pc2" || platformTab === "pc3"
                                                         ? "import.save_desc_token"
                                                         : "import.save_desc_url",
                                                 )}

@@ -195,12 +195,13 @@
     "select_token": "Select",
     "delete_confirm": "Delete this token from memory?",
     "errHistoryEmpty": "The history is empty or the link is outdated. UID not found.",
-    "tab_pc": "PC web",
+    "tab_pc": "Web",
     "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
+    "tab_pc3": "PC 3",
     "tab_pc_manual": "PC Manual",
     "tab_android": "Android",
-    "tab_pc_web": "Web (Browser)",
+    "tab_pc_web": "Web",
     "pc_web_step1": "Log in to your account at",
     "pc_web_step2": "On the bookmarks bar (press Ctrl + Shift + B to show it), click 'Add page', give it any name, and paste this code into the URL field:",
     "pc_web_step3": "While on the website, click that bookmark — the link will be copied.",
@@ -281,7 +282,8 @@
     "hLeft": "h left",
     "noMaterialsNeeded": "No materials Needed",
     "featuredCharacters": "Featured operators",
-    "new": "New"
+    "new": "New",
+    "version": "Version"
   },
   "status": {
     "won": "Won 50:50",
@@ -299,7 +301,7 @@
     "special_1_0_2": "Hues Of Passion",
     "special_1_1_1": "River's Daughter",
     "special_1_1_2": "Wolf Pearl",
-    "special_1_2_1": "",
+    "special_1_2_1": "Thunder of Renewal",
     "standard_01": "Basic Headhunting",
     "new_player_01": "New Horizons Headhunting",
     "weponbox_1_0_1": "Smelting Forge Issue",
@@ -322,6 +324,7 @@
     "operators": "Operators",
     "weapons": "Weapons",
     "essences": "Essences",
+    "changelog": "Changelog",
     "equipment": "Equipment"
   },
   "events": {

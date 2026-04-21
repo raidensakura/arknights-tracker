@@ -18,7 +18,7 @@
 
 <div class="w-[80px] flex flex-col group select-none shadow-sm hover:shadow-md transition-shadow">
     
-    <div class="relative w-full h-[80px] bg-[#E5E5E5] flex items-center justify-center overflow-visible">
+    <div class="relative w-full bg-[#E5E5E5] flex items-center justify-center overflow-visible">
         
         <Images 
             id={item.id} 

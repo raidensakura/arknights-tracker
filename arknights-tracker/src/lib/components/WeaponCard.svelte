@@ -165,7 +165,11 @@
             class="relative w-full h-full rounded-[6px] overflow-hidden bg-white dark:bg-[#2a2a2a]"
         >
             <div
-                class="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-200 dark:from-[#3a3a3a] dark:to-[#1a1a1a]"
+                class="
+                absolute inset-0 bg-gradient-to-br from-[#4F4F4F] to-[#323232] dark:from-[#3a3a3a] dark:to-[#1a1a1a] transition-all duration-200
+                group-hover:from-[#5E5E5E] group-hover:to-[#3E3E3E]
+                dark:group-hover:from-[#404040] dark:group-hover:to-[#2C2C2C]
+                "
             ></div>
 
            <div

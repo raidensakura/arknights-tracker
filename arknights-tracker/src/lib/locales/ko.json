@@ -179,7 +179,7 @@
     "select_token": "선택",
     "delete_confirm": "이 토큰을 삭제하시겠습니까?",
     "errHistoryEmpty": "기록이 비어있거나 링크가 만료되었습니다. UID를 찾을 수 없습니다.",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC (수동)",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "파일",
     "manual_text_mid": " 메모장으로 열고 맨 아래로 스크롤하여 다음과 같은 링크를 찾습니다",
     "manual_text_post": "복사하세요.",
+    "pc_web_step1": "다음에서 계정에 로그인하세요:",
+    "pc_web_step2": "북마크 바(Ctrl + Shift + B를 눌러 표시)에서 '페이지 추가'를 클릭하고, 아무 이름이나 입력한 후 URL 필드에 이 코드를 붙여넣으세요:",
+    "pc_web_step3": "웹사이트에 있는 동안 해당 북마크를 클릭하면 링크가 복사됩니다.",
+    "pc_web_hint": "이 방법은 안전하며 브라우저를 통해 직접 작동합니다.",
     "android_note": "ByeByeDPI 같은 앱이나 활성화된 VPN은 로그 캡처를 방해할 수 있습니다. 로그가 비어있다면 VPN을 재설치해보세요.",
     "android_s1": "GitHub에서 <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a>와 <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a>를 다운로드하세요.",
     "android_s2": "Wi-Fi에 연결합니다. Shizuku를 엽니다 (알림 허용).",
@@ -258,7 +262,8 @@
     "hLeft": "시간 남음",
     "noMaterialsNeeded": "필요한 재료 없음",
     "featuredCharacters": "픽업 오퍼레이터",
-    "new": "NEW"
+    "new": "NEW",
+    "version": "버전"
   },
   "status": {
     "won": "승리 50:50",
@@ -299,6 +304,7 @@
     "operators": "오퍼레이터",
     "weapons": "무기",
     "essences": "무기 기질",
+    "changelog": "업데이트 내역",
     "equipment": "장비"
   },
   "events": {

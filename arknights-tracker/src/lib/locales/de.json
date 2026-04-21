@@ -179,7 +179,7 @@
     "select_token": "Auswählen",
     "delete_confirm": "Diesen Token aus dem Speicher löschen?",
     "errHistoryEmpty": "Der Verlauf ist leer oder der Link ist veraltet. UID nicht gefunden.",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC Manuell",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "Gehe zur Datei",
     "manual_text_mid": " öffnen Sie sie mit dem Editor, scrollen Sie ganz nach unten und suchen Sie nach einem Link wie",
     "manual_text_post": "und kopiere ihn.",
+    "pc_web_step1": "Melden Sie sich bei Ihrem Konto an unter",
+    "pc_web_step2": "Klicken Sie in der Lesezeichenleiste (drücken Sie Strg + Umschalt + B, um sie anzuzeigen) auf 'Seite hinzufügen', geben Sie einen beliebigen Namen ein und fügen Sie diesen Code in das URL-Feld ein:",
+    "pc_web_step3": "Klicken Sie auf der Website auf dieses Lesezeichen – der Link wird kopiert.",
+    "pc_web_hint": "Diese Methode ist sicher und funktioniert direkt in Ihrem Browser.",
     "android_note": "Apps wie ByeByeDPI oder aktive VPNs können die Protokollierung stören. Wenn die Logs leer sind, versuche, das VPN neu zu installieren.",
     "android_s1": "Lade <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> und <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> von GitHub herunter.",
     "android_s2": "Verbinde dich mit dem WLAN. Öffne Shizuku (Benachrichtigungen zulassen).",
@@ -258,7 +262,8 @@
     "hLeft": "Std übrig",
     "noMaterialsNeeded": "Keine Materialien benötigt",
     "featuredCharacters": "Aktions-Operator",
-    "new": "NEU"
+    "new": "NEU",
+    "version": ""
   },
   "status": {
     "won": "Gewonnen 50:50",
@@ -299,6 +304,7 @@
     "operators": "Operator",
     "weapons": "Waffen",
     "essences": "Essenzen",
+    "changelog": "Changelog",
     "equipment": "Ausrüstung"
   },
   "events": {

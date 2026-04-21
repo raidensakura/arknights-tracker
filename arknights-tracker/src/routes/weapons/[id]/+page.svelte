@@ -71,6 +71,7 @@
     let weaponLocale = {};
     let copiedImageId = null;
     let selectedImageVariant = null;
+    let isDraggingRank = false;
 
     $: loadWeaponData(id, $currentLocale);
 
@@ -418,6 +419,7 @@
         if (!e.target.closest(".pot-dropdown-container"))
             isPotDropdownOpen = false;
     }}
+    on:mouseup={() => (isDraggingRank = false)}
 />
 
 <div class="min-h-screen p-4 md:px-8 md:py-3 font-sans transition-colors">
@@ -578,7 +580,7 @@
                                 </button>
 
                                 <span
-                                    class="font-nums font-bold text-base px-2 text-center text-[#21272C] dark:text-white uppercase tracking-wider"
+                                    class="font-nums font-bold px-2 text-center text-[#21272C] dark:text-white uppercase tracking-wider"
                                 >
                                     {draftPot === -1 ? "" : `P${draftPot}`}
                                 </span>
@@ -669,16 +671,35 @@
             <div
                 class="px-6 pt-5 bg-white dark:bg-[#383838] flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-4 border-t border-gray-200 dark:border-[#444] transition-colors"
             >
-                <div class="flex items-center gap-1 shrink-0 w-full md:w-auto justify-between md:justify-start">
-                    
+                <div
+                    class="flex items-center gap-1 shrink-0 w-full md:w-auto justify-between md:justify-start"
+                >
                     <div class="flex items-center gap-1.5">
-                        <div class="flex flex-col gap-1 shrink-0 h-full justify-center">
-                            <button on:click={setMaxAll} class="text-[9px] font-bold px-2.5 py-[4px] bg-gray-100 hover:bg-[#FFE145] dark:bg-[#4A4A4A] dark:hover:bg-[#F9B90C] rounded text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-black uppercase leading-none transition-colors border border-gray-200 dark:border-transparent shadow-sm">MAX</button>
-                            <button on:click={setMinAll} class="text-[9px] font-bold px-2.5 py-[4px] bg-gray-100 hover:bg-[#FFE145] dark:bg-[#4A4A4A] dark:hover:bg-[#F9B90C] rounded text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-black uppercase leading-none transition-colors border border-gray-200 dark:border-transparent shadow-sm">MIN</button>
+                        <div
+                            class="flex flex-col gap-1 shrink-0 h-full justify-center"
+                        >
+                            <button
+                                on:click={setMaxAll}
+                                class="text-[9px] font-bold px-2.5 py-[4px] bg-gray-200 dark:bg-[#4A4A4A] hover:bg-gray-300 dark:hover:bg-[#555] rounded text-gray-700 hover:text-black dark:text-gray-200 uppercase leading-none transition-colors border border-gray-200 dark:border-transparent shadow-sm"
+                                >MAX</button
+                            >
+                            <button
+                                on:click={setMinAll}
+                                class="text-[9px] font-bold px-2.5 py-[4px] bg-gray-200 dark:bg-[#4A4A4A] hover:bg-gray-300 dark:hover:bg-[#555] rounded text-gray-700 hover:text-black dark:text-gray-200 uppercase leading-none transition-colors border border-gray-200 dark:border-transparent shadow-sm"
+                                >MIN</button
+                            >
                         </div>
-                        <div class="bg-gray-200 dark:bg-[#4A4A4A] w-[75px] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0">
-                            <span class="text-[28px] font-bold text-[#21272C] dark:text-white font-nums leading-none">{level}</span>
-                            <span class="text-[11px] font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest">LV.</span>
+                        <div
+                            class="bg-gray-200 dark:bg-[#4A4A4A] w-[75px] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0"
+                        >
+                            <span
+                                class="text-[28px] font-bold text-[#21272C] dark:text-white font-nums leading-none"
+                                >{level}</span
+                            >
+                            <span
+                                class="text-[11px] font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest"
+                                >LV.</span
+                            >
                         </div>
                     </div>
 
@@ -686,7 +707,7 @@
                         <button
                             on:click={() =>
                                 (isPotDropdownOpen = !isPotDropdownOpen)}
-                            class="flex h-[40px] items-center gap-3 bg-gray-200 dark:bg-[#4A4A4A] text-[13px] font-bold rounded-md px-3 py-1.5 outline-none border border-gray-200 dark:border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-[#555] transition-colors shadow-sm"
+                            class="flex h-[40px] items-center gap-3 bg-gray-200 dark:bg-[#4A4A4A] text-[13px] font-bold rounded-md px-3 py-1.5 outline-none border border-gray-200 dark:border-transparent cursor-pointer hover:bg-gray-300 dark:hover:bg-[#555] transition-colors shadow-sm"
                         >
                             <span
                                 class="font-medium text-gray-500 dark:text-gray-300 font-sans"
@@ -809,12 +830,27 @@
                                                 type="button"
                                                 aria-label="Set level {i + 1}"
                                                 title="Level {i + 1}"
-                                                class="w-[8px] h-[13px] rounded-[4px] transform -skew-x-[25deg] border-[1.5px] transition-all duration-200 cursor-pointer outline-none hover:scale-110 hover:brightness-125 focus:ring-1 focus:ring-[#F9B90C]
-                                                {i < state.rank
+                                                class="w-[7px] h-[13px] rounded-full transform rotate-[30deg] border-[1.5px] transition-all duration-200 cursor-pointer outline-none shrink-0 flex items-center justify-center hover:scale-110 focus:ring-1 focus:ring-[#F9B90C]
+            {i < state.rank
                                                     ? 'bg-[#21272C] border-[#21272C] dark:bg-white dark:border-white shadow-sm'
                                                     : i < state.upper
                                                       ? 'bg-gray-300 border-gray-300 dark:bg-[#555] dark:border-[#555]'
-                                                      : 'bg-transparent border-gray-300 dark:border-[#555]'}"
+                                                      : 'bg-transparent border-gray-400 dark:border-[#666] hover:bg-gray-200 dark:hover:bg-[#444]'}"
+                                                on:mousedown={() => {
+                                                    isDraggingRank = true;
+                                                    manualSkillRanks = {
+                                                        ...manualSkillRanks,
+                                                        [skillKey]: i + 1,
+                                                    };
+                                                }}
+                                                on:mouseenter={() => {
+                                                    if (isDraggingRank) {
+                                                        manualSkillRanks = {
+                                                            ...manualSkillRanks,
+                                                            [skillKey]: i + 1,
+                                                        };
+                                                    }
+                                                }}
                                                 on:click={() =>
                                                     (manualSkillRanks = {
                                                         ...manualSkillRanks,

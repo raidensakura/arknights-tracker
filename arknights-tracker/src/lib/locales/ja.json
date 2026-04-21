@@ -179,7 +179,7 @@
     "select_token": "選択",
     "delete_confirm": "このトークンを削除しますか？",
     "errHistoryEmpty": "履歴が空か、リンクの期限が切れています。UIDが見つかりません。",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC (手動)",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "ファイル",
     "manual_text_mid": " メモ帳で開き、一番下までスクロールして次のようなリンクを見つけます",
     "manual_text_post": "そしてそれをコピーしてください。",
+    "pc_web_step1": "次のサイトでアカウントにログインします：",
+    "pc_web_step2": "ブックマークバー（Ctrl + Shift + Bを押して表示）で「ページを追加」をクリックし、任意の名前を付けて、このコードをURLフィールドに貼り付けます：",
+    "pc_web_step3": "ウェブサイトを開いた状態でそのブックマークをクリックすると、リンクがコピーされます。",
+    "pc_web_hint": "この方法は安全であり、ブラウザを介して直接機能します。",
     "android_note": "ByeByeDPIのようなアプリやVPNはログ取得を妨害する可能性があります。ログが空の場合はVPNを再設定してみてください。",
     "android_s1": "GitHubから <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> と <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> をダウンロードしてください。",
     "android_s2": "Wi-Fiに接続します。Shizukuを開いてください（通知を許可）。",
@@ -258,7 +262,8 @@
     "hLeft": "時間 残り",
     "noMaterialsNeeded": "素材不要",
     "featuredCharacters": "ピックアップ",
-    "new": "NEW"
+    "new": "NEW",
+    "version": "バージョン"
   },
   "status": {
     "won": "勝利 50:50",
@@ -299,6 +304,7 @@
     "operators": "オペレーター",
     "weapons": "武器",
     "essences": "武器基質",
+    "changelog": "更新履歴",
     "equipment": "装備"
   },
   "events": {

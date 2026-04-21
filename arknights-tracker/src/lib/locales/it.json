@@ -179,7 +179,7 @@
     "select_token": "Seleziona",
     "delete_confirm": "Eliminare questo token dalla memoria?",
     "errHistoryEmpty": "La cronologia è vuota o il link è obsoleto. UID non trovato.",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC Manuale",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "Vai al file",
     "manual_text_mid": " aprilo con il Blocco note, scorri fino in fondo e trova un link simile a",
     "manual_text_post": "e copialo.",
+    "pc_web_step1": "Accedi al tuo account su",
+    "pc_web_step2": "Sulla barra dei preferiti (premi Ctrl + Maiusc + B per mostrarla), fai clic su 'Aggiungi pagina', dalle un nome qualsiasi e incolla questo codice nel campo URL:",
+    "pc_web_step3": "Mentre sei sul sito web, fai clic su quel preferito: il link verrà copiato.",
+    "pc_web_hint": "Questo metodo è sicuro e funziona direttamente tramite il tuo browser.",
     "android_note": "App come ByeByeDPI o VPN attive possono interferire con la cattura dei log. Se i log sono vuoti, prova a reinstallare la VPN.",
     "android_s1": "Scarica <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> e <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> da GitHub.",
     "android_s2": "Connettiti al Wi-Fi. Apri Shizuku (consenti le notifiche).",
@@ -258,7 +262,8 @@
     "hLeft": "h rimaste",
     "noMaterialsNeeded": "Nessun materiale necessario",
     "featuredCharacters": "Operatori in evidenza",
-    "new": "NUOVO"
+    "new": "NUOVO",
+    "version": "Versione"
   },
   "status": {
     "won": "Vinto 50:50",
@@ -299,6 +304,7 @@
     "operators": "Operatori",
     "weapons": "Armi",
     "essences": "Essenze",
+    "changelog": "Registro delle modifiche",
     "equipment": "Equipaggiamento"
   },
   "events": {

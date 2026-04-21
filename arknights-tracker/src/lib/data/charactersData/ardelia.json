@@ -747,6 +747,16 @@
                     "name": "tCreds",
                     "amount": 7200
                 }
+            ],
+            [
+                {
+                    "name": "protoprism",
+                    "amount": 85
+                },
+                {
+                    "name": "tCreds",
+                    "amount": 26000
+                }
             ]
         ],
         "talent2": [
@@ -759,8 +769,7 @@
                     "name": "tCreds",
                     "amount": 26000
                 }
-            ],
-            []
+            ]
         ],
         "baseSkill1": [
             [
@@ -2315,12 +2324,24 @@
             "sheep_num": 3,
             "effect_prob": 0.1
         },
+        "talent1_3": {
+            "heal_scale": 0.75,
+            "heal_value": 90,
+            "sheep_num": 3,
+            "effect_prob": 0.1
+        },
         "talent2_1": {
             "talent1": 1
         },
         "talent2_2": {
             "heal_scale": 0.53,
             "heal_value": 63,
+            "sheep_num": 3,
+            "effect_prob": 0.1
+        },
+        "talent2_3": {
+            "heal_scale": 0.75,
+            "heal_value": 90,
             "sheep_num": 3,
             "effect_prob": 0.1
         },

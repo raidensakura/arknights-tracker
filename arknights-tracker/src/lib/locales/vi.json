@@ -179,7 +179,7 @@
     "select_token": "Chọn",
     "delete_confirm": "Xóa token này khỏi bộ nhớ?",
     "errHistoryEmpty": "Lịch sử trống hoặc liên kết đã hết hạn. Không tìm thấy UID.",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC Thủ công",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "Đi tới tệp",
     "manual_text_mid": " mở nó bằng Notepad, cuộn xuống dưới cùng và tìm một liên kết giống như",
     "manual_text_post": "và sao chép nó.",
+    "pc_web_step1": "Đăng nhập vào tài khoản của bạn tại",
+    "pc_web_step2": "Trên thanh dấu trang (nhấn Ctrl + Shift + B để hiển thị), nhấp vào 'Thêm trang', đặt tên bất kỳ và dán mã này vào trường URL:",
+    "pc_web_step3": "Trong khi ở trên trang web, hãy nhấp vào dấu trang đó — liên kết sẽ được sao chép.",
+    "pc_web_hint": "Phương pháp này an toàn và hoạt động trực tiếp thông qua trình duyệt của bạn.",
     "android_note": "Các ứng dụng như ByeByeDPI hoặc VPN đang bật có thể cản trở việc bắt log. Nếu log trống, hãy thử cài đặt lại VPN.",
     "android_s1": "Tải <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> và <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> từ GitHub.",
     "android_s2": "Kết nối Wi-Fi. Mở Shizuku (cho phép thông báo).",
@@ -258,7 +262,8 @@
     "hLeft": "g còn lại",
     "noMaterialsNeeded": "Không cần vật liệu",
     "featuredCharacters": "Đặc vụ tiêu biểu",
-    "new": "MỚI"
+    "new": "MỚI",
+    "version": "Phiên bản"
   },
   "status": {
     "won": "Thắng 50:50",
@@ -299,6 +304,7 @@
     "operators": "Đặc vụ",
     "weapons": "Vũ khí",
     "essences": "Tinh chất",
+    "changelog": "Nhật ký thay đổi",
     "equipment": "Trang bị"
   },
   "events": {

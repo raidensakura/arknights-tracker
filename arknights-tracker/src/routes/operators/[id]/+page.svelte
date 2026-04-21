@@ -1,6 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import { t } from "$lib/i18n";
+    import { fade, fly } from "svelte/transition";
     import { currentLocale } from "$lib/stores/locale";
     import { progression } from "$lib/data/items/progression.js";
     import { currencies } from "$lib/data/items/currencies.js";
@@ -542,19 +543,25 @@
                     </Button>
                 </div>
 
-                <div class="flex items-center flex-wrap gap-x-4 gap-y-2">
+                <div
+                    class="flex items-start md:items-center flex-wrap gap-3 w-full max-w-full min-h-[36px]"
+                >
                     <h1
-                        class="font-sdk text-4xl md:text-5xl font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none shrink break-all md:break-normal"
+                        class="font-sdk text-4xl md:text-5xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight shrink drop-shadow-sm break-words transition-opacity duration-200"
                     >
                         {$t(`characters.${id}`) || char.name}
                     </h1>
 
-                    <div class="flex items-center shrink-0 self-center pt-2">
+                    <div
+                        class="flex items-center shrink-0 relative mt-1 md:mt-0"
+                    >
                         {#if !isEditingPot}
-                            <div class="flex items-center gap-3">
+                            <div
+                                class="flex items-center gap-3 transition-opacity"
+                            >
                                 {#if isOwned}
                                     <div
-                                        class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white text-[15px] font-black px-2.5 py-1 rounded-md shadow-sm border border-white/20 leading-none"
+                                        class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white text-[13px] font-black px-2 py-0.5 rounded shadow-sm border border-white/20 leading-none"
                                     >
                                         P{currentPot}
                                     </div>
@@ -566,18 +573,18 @@
                                 >
                                     <button
                                         on:click={startEditing}
-                                        class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#383838] text-gray-600 dark:text-gray-300 shadow-sm border border-gray-200 dark:border-[#444444] hover:bg-gray-50 dark:hover:bg-[#444] hover:border-gray-300 dark:hover:border-[#555] transition-all"
+                                        class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-[#383838] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-[#444] hover:bg-gray-200 dark:hover:bg-[#444] transition-all"
                                     >
                                         <Icon
                                             name="pen"
-                                            class="w-4 h-4 opacity-80"
+                                            class="w-3.5 h-3.5 opacity-80"
                                         />
                                     </button>
                                 </Tooltip>
                             </div>
                         {:else}
                             <div
-                                class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444444] p-1 rounded-md shadow-sm animate-fadeIn"
+                                class="flex items-center gap-1 bg-white dark:bg-[#383838] border border-gray-200 dark:border-[#444] p-1.5 rounded-lg shadow-sm animate-fadeIn"
                             >
                                 {#if accountPots[id] !== undefined}
                                     <Tooltip
@@ -585,7 +592,7 @@
                                     >
                                         <button
                                             on:click={resetPot}
-                                            class="w-7 h-7 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors"
+                                            class="w-8 h-8 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors"
                                         >
                                             <Icon
                                                 name="refresh"
@@ -594,39 +601,39 @@
                                         </button>
                                     </Tooltip>
                                     <div
-                                        class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"
+                                        class="w-[1px] h-6 bg-gray-300 dark:bg-gray-600 mx-1"
                                     ></div>
                                 {/if}
 
                                 <button
                                     on:click={() => changeDraft(-1)}
-                                    class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
+                                    class="w-8 h-8 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
                                     disabled={draftPot ===
                                         (isAlwaysOwned ? 0 : -1)}
                                 >
-                                    <span class="font-bold text-sm leading-none"
+                                    <span class="font-bold text-lg leading-none"
                                         >-</span
                                     >
                                 </button>
 
                                 <span
-                                    class="font-nums font-bold text-sm px-1 text-center dark:text-white uppercase tracking-wider"
+                                    class="font-nums font-bold px-2 text-center text-[#21272C] dark:text-white uppercase tracking-wider"
                                 >
                                     {draftPot === -1 ? "" : `P${draftPot}`}
                                 </span>
 
                                 <button
                                     on:click={() => changeDraft(1)}
-                                    class="w-7 h-7 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
-                                    disabled={draftPot >= 999}
+                                    class="w-8 h-8 rounded bg-gray-100 hover:bg-gray-200 dark:bg-[#444] dark:hover:bg-[#555] flex items-center justify-center transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
+                                    disabled={draftPot >= 9999}
                                 >
-                                    <span class="font-bold text-sm leading-none"
+                                    <span class="font-bold text-lg leading-none"
                                         >+</span
                                     >
                                 </button>
 
                                 <div
-                                    class="w-[1px] h-5 bg-gray-300 dark:bg-gray-600 mx-1"
+                                    class="w-[1px] h-6 bg-gray-300 dark:bg-gray-600 mx-1"
                                 ></div>
 
                                 <Tooltip
@@ -635,7 +642,7 @@
                                 >
                                     <button
                                         on:click={cancelEdit}
-                                        class="w-7 h-7 rounded text-gray-400 hover:bg-gray-100 dark:hover:bg-[#444] flex items-center justify-center transition-colors shadow-sm"
+                                        class="w-8 h-8 rounded text-gray-500 hover:bg-gray-200 dark:hover:bg-[#444] flex items-center justify-center transition-colors"
                                     >
                                         <Icon name="close" class="w-4 h-4" />
                                     </button>
@@ -646,9 +653,9 @@
                                 >
                                     <button
                                         on:click={savePot}
-                                        class="w-7 h-7 ml-1 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors shadow-sm"
+                                        class="w-8 h-8 ml-1 rounded bg-[#FFC107] hover:bg-[#F9B90C] text-black flex items-center justify-center transition-colors"
                                     >
-                                        <Icon name="save" class="w-3.5 h-3.5" />
+                                        <Icon name="save" class="w-4 h-4" />
                                     </button>
                                 </Tooltip>
                             </div>
@@ -786,803 +793,874 @@
         </div>
 
         <div
-            class="flex flex-col gap-1 relative z-10 w-full flex-1 transition-all duration-300 {activeTab ===
-            'about'
-                ? '2xl:max-w-[400px] 2xl:ml-auto'
-                : '2xl:max-w-[1000px]'}"
+            class="relative z-10 w-full flex-1 2xl:max-w-[1300px] 2xl:ml-auto grid items-start"
         >
-            {#if activeTab === "about"}
+            {#key activeTab}
                 <div
-                    class="bg-white/90 backdrop-blur-sm dark:bg-[#383838] dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-6"
+                    in:fly={{ y: 15, duration: 100 }}
+                    class="col-start-1 row-start-1 flex flex-col gap-1 w-full {activeTab ===
+                    'about'
+                        ? '2xl:max-w-[400px] 2xl:ml-auto'
+                        : ''}"
                 >
-                    <div class="flex flex-col gap-2">
-                        <div class="flex items-baseline gap-1">
-                            <span
-                                class="text-6xl font-sdk font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none"
-                            >
-                                {level}
-                            </span>
-                            <span
-                                class="text-xl font-bold text-gray-400 dark:text-[#B7B6B3] uppercase"
-                                >Lv.</span
-                            >
-                        </div>
-
-                        <div class="w-full relative h-6 flex items-center">
-                            <input
-                                type="range"
-                                min="1"
-                                max={maxLevel}
-                                step="1"
-                                value={level}
-                                on:input={handleInput}
-                                class="w-full h-[2px] bg-[#333] dark:bg-[#7A7A7A] dark:accent-[#7A7A7A] appearance-none cursor-pointer accent-[#333]"
-                            />
-                        </div>
-                    </div>
-
-                    <div
-                        class="bg-[#333] rounded h-[36px] flex dark:bg-[#424242] items-center justify-between px-4 text-white shadow-sm"
-                    >
-                        <span class="font-bold text-sm">
-                            {$t("stats.attributes") || "Attributes"}
-                        </span>
-
-                        <button
-                            on:click={() => (showStatsTable = true)}
-                            class="flex items-center gap-2 text-sm font-normal text-gray-300 hover:text-white transition-colors"
+                    {#if activeTab === "about"}
+                        <div
+                            class="max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-6"
                         >
-                            <div class="w-[1px] h-4 bg-gray-500 mx-1"></div>
-                            <span class="flex gap-0.5 items-center"
-                                ><Icon name="table" class="w-4 h-4" />
-                                {$t("stats.table") || "Table"}</span
-                            >
-                        </button>
-                    </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-baseline gap-1">
+                                    <span
+                                        class="text-6xl font-sdk font-bold dark:text-[#FDFDFD] text-[#21272C] leading-none"
+                                    >
+                                        {level}
+                                    </span>
+                                    <span
+                                        class="text-xl font-bold text-gray-400 dark:text-[#B7B6B3] uppercase"
+                                        >Lv.</span
+                                    >
+                                </div>
 
-                    <div class="flex flex-col gap-3 px-1">
-                        {#each ["str", "agi", "int", "will"] as attr}
-                            {@const styles = getAttrStyles(
-                                attr,
-                                charStats.mainAttribute,
-                                charStats.secondaryAttribute,
-                            )}
-                            {@const isMain = attr === charStats.mainAttribute}
+                                <div
+                                    class="w-full relative h-6 flex items-center"
+                                >
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max={maxLevel}
+                                        step="1"
+                                        value={level}
+                                        on:input={handleInput}
+                                        class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
+                                    />
+                                </div>
+                            </div>
 
                             <div
-                                class="flex items-center justify-between h-[40px]"
+                                class="bg-[#333] rounded h-[36px] flex dark:bg-[#424242] items-center justify-between px-4 text-white shadow-sm"
                             >
-                                <div class="flex items-center gap-3">
-                                    <Tooltip
-                                        text={$t(
-                                            isMain
-                                                ? "stats.mainAttr"
-                                                : attr ===
-                                                    charStats.secondaryAttribute
-                                                  ? "stats.secAttr"
-                                                  : "",
-                                        )}
+                                <span class="font-bold text-sm">
+                                    {$t("stats.attributes") || "Attributes"}
+                                </span>
+
+                                <button
+                                    on:click={() => (showStatsTable = true)}
+                                    class="flex items-center gap-2 text-sm font-normal text-gray-300 hover:text-white transition-colors"
+                                >
+                                    <div
+                                        class="w-[1px] h-4 bg-gray-500 mx-1"
+                                    ></div>
+                                    <span class="flex gap-0.5 items-center"
+                                        ><Icon name="table" class="w-4 h-4" />
+                                        {$t("stats.table") || "Table"}</span
                                     >
+                                </button>
+                            </div>
+
+                            <div class="flex flex-col gap-3 px-1">
+                                {#each ["str", "agi", "int", "will"] as attr}
+                                    {@const styles = getAttrStyles(
+                                        attr,
+                                        charStats.mainAttribute,
+                                        charStats.secondaryAttribute,
+                                    )}
+                                    {@const isMain =
+                                        attr === charStats.mainAttribute}
+
+                                    <div
+                                        class="flex items-center justify-between h-[40px]"
+                                    >
+                                        <div class="flex items-center gap-3">
+                                            <Tooltip
+                                                text={$t(
+                                                    isMain
+                                                        ? "stats.mainAttr"
+                                                        : attr ===
+                                                            charStats.secondaryAttribute
+                                                          ? "stats.secAttr"
+                                                          : "",
+                                                )}
+                                            >
+                                                <div
+                                                    class="w-10 h-10 rounded flex items-center justify-center {styles.bg}"
+                                                >
+                                                    <Icon
+                                                        name={attr}
+                                                        class="w-6 h-6 {styles.icon}"
+                                                    />
+                                                </div>
+                                            </Tooltip>
+                                            <span
+                                                class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                            >
+                                                {$t(`stats.${attr}`) || attr}
+                                            </span>
+                                        </div>
+                                        <span
+                                            class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                        >
+                                            {calculateStat(
+                                                charStats.attributes[attr],
+                                                level,
+                                            )}
+                                        </span>
+                                    </div>
+                                {/each}
+
+                                <div
+                                    class="flex items-center justify-between h-[40px]"
+                                >
+                                    <div class="flex items-center gap-3">
                                         <div
-                                            class="w-10 h-10 rounded flex items-center justify-center {styles.bg}"
+                                            class="w-10 h-10 rounded bg-[#8F8F8F] flex items-center justify-center"
                                         >
                                             <Icon
-                                                name={attr}
-                                                class="w-6 h-6 {styles.icon}"
+                                                name="hp"
+                                                class="w-6 h-6 text-white"
                                             />
                                         </div>
-                                    </Tooltip>
+                                        <span
+                                            class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                            >{$t("stats.baseHp") ||
+                                                "Base HP"}</span
+                                        >
+                                    </div>
                                     <span
-                                        class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                        class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
                                     >
-                                        {$t(`stats.${attr}`) || attr}
+                                        {calculateStat(charStats.hp, level)}
                                     </span>
                                 </div>
-                                <span
-                                    class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
-                                >
-                                    {calculateStat(
-                                        charStats.attributes[attr],
-                                        level,
-                                    )}
-                                </span>
-                            </div>
-                        {/each}
 
-                        <div class="flex items-center justify-between h-[40px]">
-                            <div class="flex items-center gap-3">
                                 <div
-                                    class="w-10 h-10 rounded bg-[#8F8F8F] flex items-center justify-center"
+                                    class="flex items-center justify-between h-[40px]"
                                 >
-                                    <Icon
-                                        name="hp"
-                                        class="w-6 h-6 text-white"
-                                    />
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded bg-[#8F8F8F] flex items-center justify-center"
+                                        >
+                                            <Icon
+                                                name="atk"
+                                                class="w-6 h-6 text-white"
+                                            />
+                                        </div>
+                                        <span
+                                            class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                            >{$t("stats.baseAtk") ||
+                                                "Base ATK"}</span
+                                        >
+                                    </div>
+                                    <span
+                                        class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
+                                    >
+                                        {calculateStat(charStats.atk, level)}
+                                    </span>
                                 </div>
-                                <span
-                                    class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
-                                    >{$t("stats.baseHp") || "Base HP"}</span
-                                >
                             </div>
-                            <span
-                                class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
-                            >
-                                {calculateStat(charStats.hp, level)}
-                            </span>
                         </div>
 
-                        <div class="flex items-center justify-between h-[40px]">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded bg-[#8F8F8F] flex items-center justify-center"
-                                >
-                                    <Icon
-                                        name="atk"
-                                        class="w-6 h-6 text-white"
-                                    />
-                                </div>
-                                <span
-                                    class="text-lg font-bold text-[#21272C] dark:text-[#E4E4E4]"
-                                    >{$t("stats.baseAtk") || "Base ATK"}</span
-                                >
-                            </div>
-                            <span
-                                class="text-2xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4]"
-                            >
-                                {calculateStat(charStats.atk, level)}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="mt-4 bg-white/90 backdrop-blur-sm p-6 dark:bg-[#383838] dark:border-[#444444] rounded-2xl shadow-xl border border-white/50 flex flex-col gap-4"
-                >
-                    <div
-                        class="flex justify-between items-center border-b border-gray-100 pb-3 dark:border-[#444444]"
-                    >
-                        <div class="flex items-center gap-2">
-                            <span
-                                class="font-bold text-[#21272C] text-lg dark:text-[#FDFDFD]"
-                            >
-                                {$t("stats.materials") || "Materials"}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap justify-center gap-4 pt-2">
-                        {#if neededMaterials.length > 0}
-                            {#each neededMaterials as mat (mat.id)}
-                                <ItemCard item={mat} amount={mat.amount} />
-                            {/each}
-                        {:else}
+                        <div
+                            class="max-w-[550px] mt-4 bg-white/90 backdrop-blur-md p-6 dark:bg-[#383838]/90 dark:border-[#444444] rounded-2xl shadow-xl border border-white/50 flex flex-col gap-4"
+                        >
                             <div
-                                class="w-full text-center text-gray-400 text-sm py-4 italic"
+                                class="flex justify-between items-center border-b border-gray-100 pb-3 dark:border-[#444444]"
                             >
-                                {$t("stats.maxed") || "Max level reached"}
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="font-bold text-[#21272C] text-lg dark:text-[#FDFDFD]"
+                                    >
+                                        {$t("stats.materials") || "Materials"}
+                                    </span>
+                                </div>
                             </div>
-                        {/if}
-                    </div>
-                </div>
-            {:else if activeTab === "skills"}
-                <div class="flex flex-col gap-5 animate-fadeIn w-full">
-                    <h2
-                        class="text-3xl dark:text-[#FDFDFD] mb-1 font-bold text-[#21272C] drop-shadow-sm font-sdk text-left 2xl:text-right"
-                    >
-                        {$t("menu.combatSkills") || "Combat Skills"}
-                    </h2>
 
-                    {#each skillKeys as key}
-                        {#if skillsValuesData[key]}
-                            <div class="w-full flex justify-center">
-                                <SkillCard
-                                    charId={id}
-                                    skillKey={key}
-                                    element={char.element}
-                                    skillData={skillsLocale[key] || {}}
-                                    skillValues={skillsValuesData[key]}
-                                    blackboard={charDetails.blackboard}
-                                    weaponType={char.weapon}
-                                    materialsData={getSkillMaterials(
-                                        charMaterials,
-                                        key,
-                                    )}
-                                    {itemsDb}
-                                />
-                            </div>
-                        {/if}
-                    {/each}
-                </div>
-            {:else if activeTab === "talents"}
-                <div class="flex flex-col gap-5 animate-fadeIn">
-                    {#if skillsLocale?.indicator || charMaterials?.indicator}
-                        <section>
-                            <h2
-                                class="text-3xl dark:text-[#FDFDFD] mb-2 font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
+                            <div
+                                class="flex flex-wrap justify-center gap-2 pt-1"
                             >
-                                {$t("menu.indicators") || "Indicators"}
+                                {#if neededMaterials.length > 0}
+                                    {#each neededMaterials as mat (mat.id)}
+                                        <ItemCard
+                                            item={mat}
+                                            amount={mat.amount}
+                                        />
+                                    {/each}
+                                {:else}
+                                    <div
+                                        class="w-full text-center text-gray-400 text-sm py-4 italic"
+                                    >
+                                        {$t("stats.maxed") ||
+                                            "Max level reached"}
+                                    </div>
+                                {/if}
+                            </div>
+                        </div>
+                    {:else if activeTab === "skills"}
+                        <div class="flex flex-col gap-5 animate-fadeIn w-full">
+                            <h2
+                                class="text-3xl dark:text-[#FDFDFD] mb-1 font-bold text-[#21272C] drop-shadow-sm font-sdk text-left 2xl:text-right"
+                            >
+                                {$t("menu.combatSkills") || "Combat Skills"}
                             </h2>
-                            <TalentCard
-                                charId={id}
-                                type="indicator"
-                                dataKey="indicator"
-                                maxLevels={4}
-                                materials={charMaterials?.indicator}
-                                indicatorType={charDetails?.indicatorType}
-                                localizedData={skillsLocale?.indicator}
-                            />
-                        </section>
-                    {/if}
 
-                    {#if skillsLocale?.talent1 || charMaterials?.talent1 || skillsLocale?.talent2 || charMaterials?.talent2}
-                        <section>
+                            <div
+                                class="flex flex-wrap items-start gap-5 justify-start 2xl:justify-end"
+                            >
+                                {#each skillKeys as key}
+                                    {#if skillsValuesData[key]}
+                                        <SkillCard
+                                            charId={id}
+                                            skillKey={key}
+                                            element={char.element}
+                                            skillData={skillsLocale[key] || {}}
+                                            skillValues={skillsValuesData[key]}
+                                            blackboard={charDetails.blackboard}
+                                            weaponType={char.weapon}
+                                            materialsData={getSkillMaterials(
+                                                charMaterials,
+                                                key,
+                                            )}
+                                            {itemsDb}
+                                        />
+                                    {/if}
+                                {/each}
+                            </div>
+                        </div>
+                    {:else if activeTab === "talents"}
+                        <div class="flex flex-col gap-5 animate-fadeIn">
                             <h2
-                                class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
+                                class="text-3xl dark:text-[#FDFDFD] mb-2 font-bold text-[#21272C] drop-shadow-sm font-sdk text-left 2xl:text-right"
                             >
                                 {$t("menu.talents") || "Talents"}
                             </h2>
 
-                            <div class="flex flex-col gap-4">
-                                {#if skillsLocale?.talent1 || charMaterials?.talent1}
-                                    <TalentCard
-                                        charId={id}
-                                        type="talent"
-                                        dataKey="talent1"
-                                        maxLevels={2}
-                                        materials={charMaterials?.talent1}
-                                        indicatorType={charDetails?.indicatorType}
-                                        localizedData={skillsLocale?.talent1}
-                                        blackboard={charDetails?.blackboard}
-                                    />
-                                {/if}
-
-                                {#if skillsLocale?.talent2 || charMaterials?.talent2}
-                                    <TalentCard
-                                        charId={id}
-                                        type="talent"
-                                        dataKey="talent2"
-                                        maxLevels={2}
-                                        materials={charMaterials?.talent2}
-                                        localizedData={skillsLocale?.talent2}
-                                        indicatorType={charDetails?.indicatorType}
-                                        blackboard={charDetails?.blackboard}
-                                    />
-                                {/if}
-                            </div>
-                        </section>
-                    {/if}
-
-                    {#if charDetails?.facSkills}
-                        {@const fac1 =
-                            charDetails.facSkills.facSkill1_1 ||
-                            charDetails.facSkills.facSkill1_2}
-                        {@const fac2 =
-                            charDetails.facSkills.facSkill2_1 ||
-                            charDetails.facSkills.facSkill2_2}
-                        {@const hasBase1 =
-                            skillsLocale?.baseSkill1 ||
-                            charMaterials?.baseSkill1}
-                        {@const hasBase2 =
-                            skillsLocale?.baseSkill2 ||
-                            charMaterials?.baseSkill2}
-
-                        {#if (fac1 && hasBase1) || (fac2 && hasBase2)}
-                            <section>
-                                <h2
-                                    class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
-                                >
-                                    {$t("menu.baseSkills") || "Base Skills"}
-                                </h2>
-
-                                <div class="flex flex-col gap-4">
-                                    {#if fac1 && hasBase1}
-                                        <TalentCard
-                                            charId={id}
-                                            type="base"
-                                            index={0}
-                                            dataKey="baseSkill1"
-                                            maxLevels={charDetails.facSkills
-                                                .facSkill1_2
-                                                ? 2
-                                                : 1}
-                                            levelsCount={charDetails.facSkills
-                                                .facSkill1_2
-                                                ? 2
-                                                : 1}
-                                            materials={charMaterials?.baseSkill1}
-                                            localizedData={skillsLocale?.baseSkill1}
-                                            facSkillImage={fac1.name}
-                                            blackboard={charDetails?.blackboard}
-                                            postfixes={[
-                                                charDetails.facSkills
-                                                    .facSkill1_1
-                                                    ?.skillNamePostfix,
-                                                charDetails.facSkills
-                                                    .facSkill1_2
-                                                    ?.skillNamePostfix,
-                                            ].filter(Boolean)}
-                                        />
-                                    {/if}
-
-                                    {#if fac2 && hasBase2}
-                                        <TalentCard
-                                            charId={id}
-                                            type="base"
-                                            index={1}
-                                            dataKey="baseSkill2"
-                                            maxLevels={charDetails.facSkills
-                                                .facSkill2_2
-                                                ? 2
-                                                : 1}
-                                            levelsCount={charDetails.facSkills
-                                                .facSkill2_2
-                                                ? 2
-                                                : 1}
-                                            materials={charMaterials?.baseSkill2}
-                                            localizedData={skillsLocale?.baseSkill2}
-                                            facSkillImage={fac2.name}
-                                            blackboard={charDetails?.blackboard}
-                                            postfixes={[
-                                                charDetails.facSkills
-                                                    .facSkill2_1
-                                                    ?.skillNamePostfix,
-                                                charDetails.facSkills
-                                                    .facSkill2_2
-                                                    ?.skillNamePostfix,
-                                            ].filter(Boolean)}
-                                        />
-                                    {/if}
-                                </div>
-                            </section>
-                        {/if}
-                    {/if}
-                </div>
-            {:else if activeTab === "files"}
-                <div class="flex flex-col gap-5 animate-fadeIn w-full">
-                    <h2
-                        class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
-                    >
-                        {$t("menu.files") || "Files"}
-                    </h2>
-
-                    {#if skillsLocale?.files}
-                        {#each Object.entries(skillsLocale.files) as [fileKey, fileContent]}
-                            <div
-                                class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl dark:bg-[#383838] dark:border-[#444444] shadow-xl border border-white/50 flex flex-col gap-3"
-                            >
-                                <h3
-                                    class="font-bold text-lg text-[#21272C] dark:text-[#E4E4E4] capitalize border-b border-gray-100 dark:border-[#444444] pb-1"
-                                >
-                                    {fileKey}
-                                </h3>
-                                <div
-                                    class="text-gray-700 dark:text-[#E4E4E4] whitespace-pre-wrap text-sm leading-relaxed font-medium"
-                                >
-                                    {@html parseRichText(fileContent)}
-                                </div>
-                            </div>
-                        {/each}
-                    {:else}
-                        <div class="text-gray-500 text-center italic mt-10">
-                            {$t("global.noData") || "No Data"}
-                        </div>
-                    {/if}
-                </div>
-            {:else if activeTab === "potentials"}
-                <div class="flex flex-col gap-5 animate-fadeIn w-full">
-                    <h2
-                        class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
-                    >
-                        {$t("menu.potentials") || "Potentials"}
-                    </h2>
-
-                    {#if charLocale?.potentials}
-                        <div class="flex flex-col gap-4">
-                            {#each Object.entries(charLocale.potentials) as [potKey, potData]}
-                                {@const bbData =
-                                    charDetails.blackboard?.[potKey]}
-                                <div
-                                    class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl dark:bg-[#383838] dark:border-[#444444] shadow-xl border border-white/50 flex gap-4 items-start transition-transform"
-                                >
+                            {#if skillsLocale?.talent1 || charMaterials?.talent1 || skillsLocale?.talent2 || charMaterials?.talent2}
+                                <section>
                                     <div
-                                        class="bg-gradient-to-br from-[#F9B90C] to-[#E3A000] text-white font-black text-xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm border border-white/20 mt-1"
+                                        class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
                                     >
-                                        {potKey.replace("potential", "")}
-                                    </div>
+                                        {#if skillsLocale?.talent1 || charMaterials?.talent1}
+                                            <div
+                                                class="w-full md:w-[calc(50%-10px)]"
+                                            >
+                                                <TalentCard
+                                    charId={id}
+                                    type="talent"
+                                    dataKey="talent1"
+                                    materials={charMaterials?.talent1}
+                                    indicatorType={charDetails?.indicatorType}
+                                    localizedData={skillsLocale?.talent1}
+                                    blackboard={charDetails?.blackboard}
+                                />
+                                            </div>
+                                        {/if}
 
-                                    <div class="flex flex-col gap-1 w-full">
-                                        <h3
-                                            class="font-bold text-lg text-[#21272C] dark:text-[#E4E4E4] dark:border-[#444444] border-b border-gray-100 pb-1.5"
+                                        {#if skillsLocale?.talent2 || charMaterials?.talent2}
+                                            <div
+                                                class="w-full md:w-[calc(50%-10px)]"
+                                            >
+                                                <TalentCard
+                                                    charId={id}
+                                                    type="talent"
+                                                    dataKey="talent2"
+                                                    materials={charMaterials?.talent2}
+                                                    localizedData={skillsLocale?.talent2}
+                                                    indicatorType={charDetails?.indicatorType}
+                                                    blackboard={charDetails?.blackboard}
+                                                />
+                                            </div>
+                                        {/if}
+                                    </div>
+                                </section>
+                            {/if}
+
+                            {#if charDetails?.facSkills}
+                                {@const fac1Keys = Object.keys(
+                                    charDetails.facSkills,
+                                )
+                                    .filter((k) => k.startsWith("facSkill1_"))
+                                    .sort()}
+                                {@const fac2Keys = Object.keys(
+                                    charDetails.facSkills,
+                                )
+                                    .filter((k) => k.startsWith("facSkill2_"))
+                                    .sort()}
+
+                                {@const fac1 =
+                                    charDetails.facSkills[fac1Keys[0]]}
+                                {@const fac2 =
+                                    charDetails.facSkills[fac2Keys[0]]}
+
+                                {@const hasBase1 =
+                                    skillsLocale?.baseSkill1 ||
+                                    charMaterials?.baseSkill1}
+                                {@const hasBase2 =
+                                    skillsLocale?.baseSkill2 ||
+                                    charMaterials?.baseSkill2}
+
+                                {#if (fac1 && hasBase1) || (fac2 && hasBase2)}
+                                    <section>
+                                        <div
+                                            class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
                                         >
-                                            {potData.name}
+                                            {#if fac1 && hasBase1}
+                                                <div
+                                                    class="w-full md:w-[calc(50%-10px)]"
+                                                >
+                                                    <TalentCard
+                                                        charId={id}
+                                                        type="base"
+                                                        index={0}
+                                                        dataKey="baseSkill1"
+                                                        materials={charMaterials?.baseSkill1}
+                                                        localizedData={skillsLocale?.baseSkill1}
+                                                        facSkillImage={fac1.name}
+                                                        blackboard={charDetails?.blackboard}
+                                                        postfixes={fac1Keys
+                                                            .map(
+                                                                (k) =>
+                                                                    charDetails
+                                                                        .facSkills[
+                                                                        k
+                                                                    ]
+                                                                        ?.skillNamePostfix,
+                                                            )
+                                                            .filter(Boolean)}
+                                                    />
+                                                </div>
+                                            {/if}
+
+                                            {#if fac2 && hasBase2}
+                                                <div
+                                                    class="w-full md:w-[calc(50%-10px)]"
+                                                >
+                                                    <TalentCard
+                                                        charId={id}
+                                                        type="base"
+                                                        index={1}
+                                                        dataKey="baseSkill2"
+                                                        materials={charMaterials?.baseSkill2}
+                                                        localizedData={skillsLocale?.baseSkill2}
+                                                        facSkillImage={fac2.name}
+                                                        blackboard={charDetails?.blackboard}
+                                                        postfixes={fac2Keys
+                                                            .map(
+                                                                (k) =>
+                                                                    charDetails
+                                                                        .facSkills[
+                                                                        k
+                                                                    ]
+                                                                        ?.skillNamePostfix,
+                                                            )
+                                                            .filter(Boolean)}
+                                                    />
+                                                </div>
+                                            {/if}
+                                        </div>
+                                    </section>
+                                {/if}
+
+                                {#if skillsLocale?.indicator || charMaterials?.indicator}
+                                    <section>
+                                        <div
+                                            class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
+                                        >
+                                            <div
+                                                class="w-full md:w-[calc(50%-10px)]"
+                                            >
+                                                <TalentCard
+                                                    charId={id}
+                                                    type="indicator"
+                                                    dataKey="indicator"
+                                                    maxLevels={4}
+                                                    materials={charMaterials?.indicator}
+                                                    indicatorType={charDetails?.indicatorType}
+                                                    localizedData={skillsLocale?.indicator}
+                                                />
+                                            </div>
+                                        </div>
+                                    </section>
+                                {/if}
+                            {/if}
+                        </div>
+                    {:else if activeTab === "files"}
+                        <div class="flex flex-col gap-5 animate-fadeIn w-full">
+                            <h2
+                                class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
+                            >
+                                {$t("menu.files") || "Files"}
+                            </h2>
+
+                            {#if skillsLocale?.files}
+                                {#each Object.entries(skillsLocale.files) as [fileKey, fileContent]}
+                                    <div
+                                        class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 p-6 rounded-2xl dark:border-[#444444] shadow-xl border border-white/50 flex flex-col gap-3"
+                                    >
+                                        <h3
+                                            class="font-bold text-lg text-[#21272C] dark:text-[#E4E4E4] capitalize border-b border-gray-100 dark:border-[#444444] pb-1"
+                                        >
+                                            {fileKey}
                                         </h3>
                                         <div
-                                            class="text-gray-700 text-sm dark:text-[#E4E4E4] leading-relaxed font-medium mt-1"
+                                            class="text-gray-700 dark:text-[#E4E4E4] whitespace-pre-wrap text-sm leading-relaxed font-medium"
                                         >
-                                            {@html parseRichText(
-                                                interpolateBlackboard(
-                                                    potData.description,
-                                                    bbData,
-                                                ),
-                                            )}
+                                            {@html parseRichText(fileContent)}
                                         </div>
                                     </div>
-                                </div>
-                            {/each}
-                        </div>
-                    {:else}
-                        <div class="text-gray-500 text-center italic mt-10">
-                            {$t("global.noData") || "No Data"}
-                        </div>
-                    {/if}
-                </div>
-            {:else if activeTab === "artwork"}
-                <div class="flex flex-col gap-5 animate-fadeIn w-full">
-                    <h2
-                        class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
-                    >
-                        {$t("menu.artwork") || "Artwork"}
-                    </h2>
-
-                    {#if charLocale?.arts}
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {#each Object.entries(charLocale.arts) as [artKey, artData]}
-                                {@const realKey =
-                                    artKey === "potential6"
-                                        ? "potential5"
-                                        : artKey}
-
+                                {/each}
+                            {:else}
                                 <div
-                                    class="group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 bg-white/90 backdrop-blur-sm transition-all hover:shadow-2xl dark:bg-[#383838] dark:border-[#444444]"
+                                    class="text-gray-500 text-center italic mt-10"
                                 >
-                                    <div
-                                        role="button"
-                                        tabindex="0"
-                                        class="relative w-full aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
-                                        on:click={() =>
-                                            (selectedArtId = `${id}_${realKey}`)}
-                                        on:keydown={(e) =>
-                                            (e.key === "Enter" ||
-                                                e.key === " ") &&
-                                            (selectedArtId = `${id}_${realKey}`)}
-                                    >
-                                        <Images
-                                            id={`${id}_${realKey}`}
-                                            variant="operator-art"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                            alt={artData.name}
-                                        />
+                                    {$t("global.noData") || "No Data"}
+                                </div>
+                            {/if}
+                        </div>
+                    {:else if activeTab === "potentials"}
+                        <div class="flex flex-col gap-5 animate-fadeIn w-full">
+                            <h2
+                                class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
+                            >
+                                {$t("menu.potentials") || "Potentials"}
+                            </h2>
 
+                            {#if charLocale?.potentials}
+                                <div class="flex flex-col gap-4">
+                                    {#each Object.entries(charLocale.potentials) as [potKey, potData]}
+                                        {@const bbData =
+                                            charDetails.blackboard?.[potKey]}
                                         <div
-                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"
-                                        ></div>
-
-                                        <div
-                                            class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none"
+                                            class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 p-5 rounded-2xl dark:border-[#444444] shadow-xl border border-white/50 flex gap-4 items-start transition-transform"
                                         >
-                                            Phase {realKey.replace(
-                                                "potential",
-                                                "",
-                                            )}
+                                            <div
+                                                class="bg-[#F3CE00] text-white font-black text-xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm border border-white/20 mt-1"
+                                            >
+                                                {potKey.replace(
+                                                    "potential",
+                                                    "",
+                                                )}
+                                            </div>
+
+                                            <div
+                                                class="flex flex-col gap-1 w-full"
+                                            >
+                                                <h3
+                                                    class="font-bold text-lg text-[#21272C] dark:text-[#E4E4E4] dark:border-[#444444] border-b border-gray-100 pb-1.5"
+                                                >
+                                                    {potData.name}
+                                                </h3>
+                                                <div
+                                                    class="text-gray-700 text-sm dark:text-[#E4E4E4] leading-relaxed font-medium mt-1"
+                                                >
+                                                    {@html parseRichText(
+                                                        interpolateBlackboard(
+                                                            potData.description,
+                                                            bbData,
+                                                        ),
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {/each}
+                                </div>
+                            {:else}
+                                <div
+                                    class="text-gray-500 text-center italic mt-10"
+                                >
+                                    {$t("global.noData") || "No Data"}
+                                </div>
+                            {/if}
+                        </div>
+                    {:else if activeTab === "artwork"}
+                        <div class="flex flex-col gap-5 animate-fadeIn w-full">
+                            <h2
+                                class="text-3xl dark:text-[#FDFDFD] font-bold text-[#21272C] mb-4 drop-shadow-sm font-sdk text-left 2xl:text-right"
+                            >
+                                {$t("menu.artwork") || "Artwork"}
+                            </h2>
+
+                            {#if charLocale?.arts}
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-8"
+                                >
+                                    {#each Object.entries(charLocale.arts) as [artKey, artData]}
+                                        {@const realKey =
+                                            artKey === "potential6"
+                                                ? "potential5"
+                                                : artKey}
+
+                                        <div
+                                            class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
+                                        >
+                                            <div
+                                                role="button"
+                                                tabindex="0"
+                                                class="relative w-full aspect-[4/3] bg-gradient-to-br from-[#3A3A3A] to-[#1A1A1A] flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
+                                                on:click={() =>
+                                                    (selectedArtId = `${id}_${realKey}`)}
+                                                on:keydown={(e) =>
+                                                    (e.key === "Enter" ||
+                                                        e.key === " ") &&
+                                                    (selectedArtId = `${id}_${realKey}`)}
+                                            >
+                                                <Images
+                                                    id={`${id}_${realKey}`}
+                                                    variant="operator-art"
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                    alt={artData.name}
+                                                />
+
+                                                <div
+                                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"
+                                                ></div>
+
+                                                <div
+                                                    class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none"
+                                                >
+                                                    Phase {realKey.replace(
+                                                        "potential",
+                                                        "",
+                                                    )}
+                                                </div>
+
+                                                <div
+                                                    class="absolute top-3 right-3 z-20 flex items-center gap-2"
+                                                >
+                                                    <button
+                                                        class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                                        title="Copy image"
+                                                        on:click|stopPropagation={async () => {
+                                                            try {
+                                                                const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
+                                                                const response =
+                                                                    await fetch(
+                                                                        imageUrl,
+                                                                    );
+                                                                const blob =
+                                                                    await response.blob();
+                                                                await navigator.clipboard.write(
+                                                                    [
+                                                                        new ClipboardItem(
+                                                                            {
+                                                                                [blob.type]:
+                                                                                    blob,
+                                                                            },
+                                                                        ),
+                                                                    ],
+                                                                );
+
+                                                                copiedArtId =
+                                                                    realKey;
+
+                                                                setTimeout(
+                                                                    () => {
+                                                                        if (
+                                                                            copiedArtId ===
+                                                                            realKey
+                                                                        )
+                                                                            copiedArtId =
+                                                                                null;
+                                                                    },
+                                                                    2000,
+                                                                );
+                                                            } catch (err) {
+                                                                console.error(
+                                                                    "Error copying:",
+                                                                    err,
+                                                                );
+                                                            }
+                                                        }}
+                                                    >
+                                                        {#if copiedArtId === realKey}
+                                                            <svg
+                                                                width="16"
+                                                                height="16"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                stroke-width="3"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
+                                                            >
+                                                                <polyline
+                                                                    points="20 6 9 17 4 12"
+                                                                ></polyline>
+                                                            </svg>
+                                                        {:else}
+                                                            <Icon
+                                                                name="copy"
+                                                                class="w-4 h-4 transition-transform group-hover/copy:scale-110"
+                                                            />
+                                                        {/if}
+                                                    </button>
+
+                                                    <button
+                                                        class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                                        title="Dowanload Art"
+                                                        on:click|stopPropagation={() => {
+                                                            const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
+                                                            const link =
+                                                                document.createElement(
+                                                                    "a",
+                                                                );
+                                                            link.href =
+                                                                imageUrl;
+                                                            link.download = `${id}_${realKey}.png`;
+                                                            document.body.appendChild(
+                                                                link,
+                                                            );
+                                                            link.click();
+                                                            document.body.removeChild(
+                                                                link,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <Icon
+                                                            name="import"
+                                                            class="w-4 h-4 transition-transform group-hover/down:scale-110"
+                                                        />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="flex flex-col p-5 h-full dark:border-[#444444]"
+                                            >
+                                                <div
+                                                    class="flex justify-between items-start gap-4 mb-3"
+                                                >
+                                                    <h3
+                                                        class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2"
+                                                    >
+                                                        {artData.name}
+                                                    </h3>
+                                                </div>
+                                                <p
+                                                    class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic"
+                                                >
+                                                    "{artData.description}"
+                                                </p>
+                                                <div
+                                                    class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]"
+                                                >
+                                                    <div
+                                                        class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0"
+                                                    >
+                                                        <svg
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            ><path
+                                                                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                                                            ></path><circle
+                                                                cx="12"
+                                                                cy="7"
+                                                                r="4"
+                                                            ></circle></svg
+                                                        >
+                                                    </div>
+                                                    <span
+                                                        class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]"
+                                                    >
+                                                        {artData.author}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {/each}
+                                    <div
+                                        class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
+                                    >
+                                        <div
+                                            role="button"
+                                            tabindex="0"
+                                            class="relative w-full aspect-[4/3] bg-gradient-to-br from-[#3A3A3A] to-[#1A1A1A] flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
+                                            on:click={() =>
+                                                (selectedArtId = `splash_${id}`)}
+                                            on:keydown={(e) =>
+                                                (e.key === "Enter" ||
+                                                    e.key === " ") &&
+                                                (selectedArtId = `splash_${id}`)}
+                                        >
+                                            <img
+                                                src={`/images/operators/splash/${id}.png`}
+                                                class="w-full h-full object-cover"
+                                                alt="Splash Art"
+                                                loading="lazy"
+                                                on:error={(e) =>
+                                                    (e.target.style.display =
+                                                        "none")}
+                                            />
+
+                                            <div
+                                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"
+                                            ></div>
+
+                                            <div
+                                                class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none"
+                                            >
+                                                Splash
+                                            </div>
+
+                                            <div
+                                                class="absolute top-3 right-3 z-20 flex items-center gap-2"
+                                            >
+                                                <button
+                                                    class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
+                                                    title="Copy image"
+                                                    on:click|stopPropagation={async () => {
+                                                        try {
+                                                            const imageUrl = `/images/operators/splash/${id}.png`;
+                                                            const response =
+                                                                await fetch(
+                                                                    imageUrl,
+                                                                );
+                                                            const blob =
+                                                                await response.blob();
+                                                            await navigator.clipboard.write(
+                                                                [
+                                                                    new ClipboardItem(
+                                                                        {
+                                                                            [blob.type]:
+                                                                                blob,
+                                                                        },
+                                                                    ),
+                                                                ],
+                                                            );
+
+                                                            copiedArtId =
+                                                                "splash";
+                                                            setTimeout(() => {
+                                                                if (
+                                                                    copiedArtId ===
+                                                                    "splash"
+                                                                )
+                                                                    copiedArtId =
+                                                                        null;
+                                                            }, 2000);
+                                                        } catch (err) {
+                                                            console.error(
+                                                                "Error copying:",
+                                                                err,
+                                                            );
+                                                        }
+                                                    }}
+                                                >
+                                                    {#if copiedArtId === "splash"}
+                                                        <svg
+                                                            width="16"
+                                                            height="16"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="3"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
+                                                        >
+                                                            <polyline
+                                                                points="20 6 9 17 4 12"
+                                                            ></polyline>
+                                                        </svg>
+                                                    {:else}
+                                                        <Icon
+                                                            name="copy"
+                                                            class="w-4 h-4 transition-transform group-hover/copy:scale-110"
+                                                        />
+                                                    {/if}
+                                                </button>
+
+                                                <button
+                                                    class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
+                                                    title="Download Art"
+                                                    on:click|stopPropagation={() => {
+                                                        const imageUrl = `/images/operators/splash/${id}.png`;
+                                                        const link =
+                                                            document.createElement(
+                                                                "a",
+                                                            );
+                                                        link.href = imageUrl;
+                                                        link.download = `${id}_splash.png`;
+                                                        document.body.appendChild(
+                                                            link,
+                                                        );
+                                                        link.click();
+                                                        document.body.removeChild(
+                                                            link,
+                                                        );
+                                                    }}
+                                                >
+                                                    <Icon
+                                                        name="import"
+                                                        class="w-4 h-4 transition-transform group-hover/down:scale-110"
+                                                    />
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div
-                                            class="absolute top-3 right-3 z-20 flex items-center gap-2"
+                                            class="flex flex-col p-5 h-full dark:border-[#444444]"
                                         >
-                                            <button
-                                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
-                                                title="Copy image"
-                                                on:click|stopPropagation={async () => {
-                                                    try {
-                                                        const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
-                                                        const response =
-                                                            await fetch(
-                                                                imageUrl,
-                                                            );
-                                                        const blob =
-                                                            await response.blob();
-                                                        await navigator.clipboard.write(
-                                                            [
-                                                                new ClipboardItem(
-                                                                    {
-                                                                        [blob.type]:
-                                                                            blob,
-                                                                    },
-                                                                ),
-                                                            ],
-                                                        );
-
-                                                        copiedArtId = realKey;
-
-                                                        setTimeout(() => {
-                                                            if (
-                                                                copiedArtId ===
-                                                                realKey
-                                                            )
-                                                                copiedArtId =
-                                                                    null;
-                                                        }, 2000);
-                                                    } catch (err) {
-                                                        console.error(
-                                                            "Error copying:",
-                                                            err,
-                                                        );
-                                                    }
-                                                }}
+                                            <div
+                                                class="flex justify-between items-start gap-4 mb-3"
                                             >
-                                                {#if copiedArtId === realKey}
+                                                <h3
+                                                    class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2"
+                                                >
+                                                    Splash Art
+                                                </h3>
+                                            </div>
+                                            <p
+                                                class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic"
+                                            ></p>
+                                            <div
+                                                class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]"
+                                            >
+                                                <div
+                                                    class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0"
+                                                >
                                                     <svg
-                                                        width="16"
-                                                        height="16"
+                                                        width="12"
+                                                        height="12"
                                                         viewBox="0 0 24 24"
                                                         fill="none"
                                                         stroke="currentColor"
-                                                        stroke-width="3"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
+                                                        stroke-width="2"
+                                                        ><path
+                                                            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                                                        ></path><circle
+                                                            cx="12"
+                                                            cy="7"
+                                                            r="4"
+                                                        ></circle></svg
                                                     >
-                                                        <polyline
-                                                            points="20 6 9 17 4 12"
-                                                        ></polyline>
-                                                    </svg>
-                                                {:else}
-                                                    <Icon
-                                                        name="copy"
-                                                        class="w-4 h-4 transition-transform group-hover/copy:scale-110"
-                                                    />
-                                                {/if}
-                                            </button>
-
-                                            <button
-                                                class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
-                                                title="Dowanload Art"
-                                                on:click|stopPropagation={() => {
-                                                    const imageUrl = `/images/operators/arts/${id}_${realKey}.png`;
-                                                    const link =
-                                                        document.createElement(
-                                                            "a",
-                                                        );
-                                                    link.href = imageUrl;
-                                                    link.download = `${id}_${realKey}.png`;
-                                                    document.body.appendChild(
-                                                        link,
-                                                    );
-                                                    link.click();
-                                                    document.body.removeChild(
-                                                        link,
-                                                    );
-                                                }}
-                                            >
-                                                <Icon
-                                                    name="import"
-                                                    class="w-4 h-4 transition-transform group-hover/down:scale-110"
-                                                />
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="flex flex-col p-5 h-full dark:bg-[#383838] dark:border-[#444444]"
-                                    >
-                                        <div
-                                            class="flex justify-between items-start gap-4 mb-3"
-                                        >
-                                            <h3
-                                                class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2"
-                                            >
-                                                {artData.name}
-                                            </h3>
-                                        </div>
-                                        <p
-                                            class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic"
-                                        >
-                                            "{artData.description}"
-                                        </p>
-                                        <div
-                                            class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]"
-                                        >
-                                            <div
-                                                class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0"
-                                            >
-                                                <svg
-                                                    width="12"
-                                                    height="12"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    ><path
-                                                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                                                    ></path><circle
-                                                        cx="12"
-                                                        cy="7"
-                                                        r="4"
-                                                    ></circle></svg
+                                                </div>
+                                                <span
+                                                    class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]"
                                                 >
+                                                    Official
+                                                </span>
                                             </div>
-                                            <span
-                                                class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]"
-                                            >
-                                                {artData.author}
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                            {/each}
-                            <div
-                                class="group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 bg-white/90 backdrop-blur-sm transition-all hover:shadow-2xl dark:bg-[#383838] dark:border-[#444444]"
-                            >
+                            {:else}
                                 <div
-                                    role="button"
-                                    tabindex="0"
-                                    class="relative w-full aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
-                                    on:click={() =>
-                                        (selectedArtId = `splash_${id}`)}
-                                    on:keydown={(e) =>
-                                        (e.key === "Enter" || e.key === " ") &&
-                                        (selectedArtId = `splash_${id}`)}
+                                    class="text-gray-500 text-center italic mt-10"
                                 >
-                                    <img
-                                        src={`/images/operators/splash/${id}.png`}
-                                        class="w-full h-full object-cover"
-                                        alt="Splash Art"
-                                        loading="lazy"
-                                        on:error={(e) =>
-                                            (e.target.style.display = "none")}
-                                    />
-
-                                    <div
-                                        class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"
-                                    ></div>
-
-                                    <div
-                                        class="absolute top-3 left-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm z-10 pointer-events-none"
-                                    >
-                                        Splash
-                                    </div>
-
-                                    <div
-                                        class="absolute top-3 right-3 z-20 flex items-center gap-2"
-                                    >
-                                        <button
-                                            class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/copy"
-                                            title="Copy image"
-                                            on:click|stopPropagation={async () => {
-                                                try {
-                                                    const imageUrl = `/images/operators/splash/${id}.png`;
-                                                    const response =
-                                                        await fetch(imageUrl);
-                                                    const blob =
-                                                        await response.blob();
-                                                    await navigator.clipboard.write(
-                                                        [
-                                                            new ClipboardItem({
-                                                                [blob.type]:
-                                                                    blob,
-                                                            }),
-                                                        ],
-                                                    );
-
-                                                    copiedArtId = "splash";
-                                                    setTimeout(() => {
-                                                        if (
-                                                            copiedArtId ===
-                                                            "splash"
-                                                        )
-                                                            copiedArtId = null;
-                                                    }, 2000);
-                                                } catch (err) {
-                                                    console.error(
-                                                        "Error copying:",
-                                                        err,
-                                                    );
-                                                }
-                                            }}
-                                        >
-                                            {#if copiedArtId === "splash"}
-                                                <svg
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="3"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="animate-fadeIn text-[#FACC15] group-hover/copy:text-black"
-                                                >
-                                                    <polyline
-                                                        points="20 6 9 17 4 12"
-                                                    ></polyline>
-                                                </svg>
-                                            {:else}
-                                                <Icon
-                                                    name="copy"
-                                                    class="w-4 h-4 transition-transform group-hover/copy:scale-110"
-                                                />
-                                            {/if}
-                                        </button>
-
-                                        <button
-                                            class="flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-[#FFD800] text-white hover:text-black backdrop-blur rounded-full transition-all duration-300 shadow-md group/down"
-                                            title="Download Art"
-                                            on:click|stopPropagation={() => {
-                                                const imageUrl = `/images/operators/splash/${id}.png`;
-                                                const link =
-                                                    document.createElement("a");
-                                                link.href = imageUrl;
-                                                link.download = `${id}_splash.png`;
-                                                document.body.appendChild(link);
-                                                link.click();
-                                                document.body.removeChild(link);
-                                            }}
-                                        >
-                                            <Icon
-                                                name="import"
-                                                class="w-4 h-4 transition-transform group-hover/down:scale-110"
-                                            />
-                                        </button>
-                                    </div>
+                                    {$t("global.noData") || "No Data"}
                                 </div>
-
-                                <div
-                                    class="flex flex-col p-5 h-full dark:bg-[#383838] dark:border-[#444444]"
-                                >
-                                    <div
-                                        class="flex justify-between items-start gap-4 mb-3"
-                                    >
-                                        <h3
-                                            class="font-bold text-xl text-[#21272C] dark:text-[#E4E4E4] leading-tight line-clamp-2"
-                                        >
-                                            Splash Art
-                                        </h3>
-                                    </div>
-                                    <p
-                                        class="text-gray-600 text-sm dark:text-[#E4E4E4] leading-relaxed mb-4 flex-grow italic"
-                                    ></p>
-                                    <div
-                                        class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-[#444444]"
-                                    >
-                                        <div
-                                            class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 dark:text-[#B7B6B3] shrink-0"
-                                        >
-                                            <svg
-                                                width="12"
-                                                height="12"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                ><path
-                                                    d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                                                ></path><circle
-                                                    cx="12"
-                                                    cy="7"
-                                                    r="4"
-                                                ></circle></svg
-                                            >
-                                        </div>
-                                        <span
-                                            class="text-xs font-bold text-gray-500 dark:text-[#B7B6B3]"
-                                        >
-                                            Official
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            {/if}
                         </div>
                     {:else}
-                        <div class="text-gray-500 text-center italic mt-10">
-                            {$t("global.noData") || "No Data"}
+                        <div class="text-white text-xl font-bold mt-10">
+                            WIP: {activeTab} section
                         </div>
                     {/if}
                 </div>
-            {:else}
-                <div class="text-white text-xl font-bold mt-10">
-                    WIP: {activeTab} section
-                </div>
-            {/if}
+            {/key}
         </div>
     </div>
 </div>
@@ -1644,7 +1722,9 @@
                 </div>
             </div>
 
-            <div class="overflow-auto custom-scrollbar bg-white dark:bg-[#2b2b2b] p-0">
+            <div
+                class="overflow-auto custom-scrollbar bg-white dark:bg-[#2b2b2b] p-0"
+            >
                 <table class="w-full text-center border-collapse">
                     <thead
                         class="bg-gray-50 dark:bg-[#383838] font-bold sticky top-0 shadow-sm text-sm text-gray-600 dark:text-[#E4E4E4]"
@@ -1669,7 +1749,9 @@
                                 {@const isSec =
                                     attr === charStats.secondaryAttribute}
 
-                                <th class="py-3 px-2 border-b align-middle dark:border-[#444]">
+                                <th
+                                    class="py-3 px-2 border-b align-middle dark:border-[#444]"
+                                >
                                     <div class="flex justify-center w-full">
                                         <Tooltip
                                             text={$t(
@@ -1684,7 +1766,7 @@
                                                 class="px-2 py-1 rounded transition-colors text-xs font-bold tracking-wider {isMain
                                                     ? 'bg-[#FFEE00] text-[#21272C]  shadow-sm'
                                                     : ''} {isSec
-                                                    ? 'bg-[#3B3B3B] dark:bg-[#343434] text-white shadow-sm'
+                                                    ? 'bg-[#3B3B3B] dark:bg-[#323232] text-white shadow-sm'
                                                     : ''} {!isMain && !isSec
                                                     ? 'text-gray-600 dark:text-[#E4E4E4]'
                                                     : ''}"
@@ -1697,7 +1779,9 @@
                             {/each}
                         </tr>
                     </thead>
-                    <tbody class="text-sm font-nums text-gray-800 dark:text-gray-300">
+                    <tbody
+                        class="text-sm font-nums text-gray-800 dark:text-gray-300"
+                    >
                         {#each Array(90) as _, i}
                             {@const lvl = i + 1}
                             <tr
@@ -1707,31 +1791,37 @@
                                     class="py-2 px-4 text-gray-500 dark:text-gray-400"
                                     >{lvl}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(charStats.hp, lvl)}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(charStats.atk, lvl)}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.str,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.agi,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.int,
                                         lvl,
                                     )}</td
                                 >
-                                <td class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
                                     >{calculateStat(
                                         charStats.attributes.will,
                                         lvl,

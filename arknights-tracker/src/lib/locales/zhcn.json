@@ -179,7 +179,7 @@
     "select_token": "选择",
     "delete_confirm": "从内存中删除此 Token？",
     "errHistoryEmpty": "记录为空或链接已过期。未找到 UID。",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC (手动)",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "前往文件",
     "manual_text_mid": " 用记事本打开它，滚动到最底部并找到类似以下的链接",
     "manual_text_post": "的链接并复制。",
+    "pc_web_step1": "登录您的帐户：",
+    "pc_web_step2": "在书签栏上（按 Ctrl + Shift + B 显示），点击“添加网页”，输入任意名称，然后将此代码粘贴到 URL 字段中：",
+    "pc_web_step3": "在网站上时，点击该书签——链接将被复制。",
+    "pc_web_hint": "此方法是安全的，并且直接通过您的浏览器运行。",
     "android_note": "像 ByeByeDPI 这样的应用或开启的 VPN 可能会干扰日志抓取。如果日志为空，请尝试重新安装 VPN。",
     "android_s1": "从 GitHub 下载 <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> 和 <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a>。",
     "android_s2": "连接 Wi-Fi。打开 Shizuku（允许通知）。",
@@ -258,7 +262,8 @@
     "hLeft": "小时 剩余",
     "noMaterialsNeeded": "无需材料",
     "featuredCharacters": "UP干员",
-    "new": "NEW"
+    "new": "NEW",
+    "version": "版本"
   },
   "status": {
     "won": "胜出 50:50",
@@ -299,6 +304,7 @@
     "operators": "干员",
     "weapons": "武器",
     "essences": "武器基质",
+    "changelog": "更新日志",
     "equipment": "装备"
   },
   "events": {

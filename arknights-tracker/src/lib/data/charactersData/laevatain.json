@@ -747,6 +747,16 @@
                     "name": "tCreds",
                     "amount": 2400
                 }
+            ],
+            [
+                {
+                    "name": "protohedron",
+                    "amount": 18
+                },
+                {
+                    "name": "tCreds",
+                    "amount": 16000
+                }
             ]
         ],
         "talent2": [
@@ -2863,6 +2873,11 @@
             "ignore_fire_resist_duration": 20,
             "max_stack": 4
         },
+        "talent1_3": {
+            "ignore_fire_resist": 0.2,
+            "ignore_fire_resist_duration": 20,
+            "max_stack": 4
+        },
         "talent2_1": {
             "hp_threshold": 0.4,
             "heal_max_hp": 0.05,
@@ -2878,6 +2893,11 @@
             "duration": 8,
             "cd": 120,
             "shelter_real": 0.1
+        },
+        "talent2_3": {
+            "ignore_fire_resist": 0.2,
+            "ignore_fire_resist_duration": 20,
+            "max_stack": 4
         },
         "potential1": {
             "atb": 20,

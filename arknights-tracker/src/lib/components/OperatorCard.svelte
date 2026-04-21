@@ -119,10 +119,10 @@
             relative w-full h-full rounded-[6px] overflow-hidden transition-all duration-200
             shadow-sm dark:shadow-sm
             group-hover:shadow-md dark:group-hover:shadow-md
-            bg-gradient-to-b from-gray-50 to-gray-200 
-            group-hover:from-white group-hover:to-gray-100
-            dark:bg-[#2C2C2C] dark:bg-none
-            dark:group-hover:bg-[#353535]
+
+            bg-gradient-to-b from-[#4F4F4F] to-[#323232] dark:from-[#3a3a3a] dark:to-[#1a1a1a]
+            group-hover:from-[#5E5E5E] group-hover:to-[#3E3E3E]
+            dark:group-hover:from-[#404040] dark:group-hover:to-[#2C2C2C]
         ">
             
             <div class="absolute inset-0 {variant === 'default' ? 'bottom-[21%]' : 'bottom-0'}">

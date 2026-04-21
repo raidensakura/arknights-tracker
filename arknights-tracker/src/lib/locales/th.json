@@ -179,7 +179,7 @@
     "select_token": "เลือก",
     "delete_confirm": "ลบ Token นี้ออกจากความจำหรือไม่?",
     "errHistoryEmpty": "ประวัติว่างเปล่าหรือลิงก์หมดอายุ ไม่พบ UID",
-    "tab_pc": "PC",
+    "tab_pc": "Web",
     "tab_pc2": "PC 2",
     "tab_pc_manual": "PC (ด้วยตนเอง)",
     "tab_android": "Android",
@@ -188,6 +188,10 @@
     "manual_text_pre": "ไปที่ไฟล์",
     "manual_text_mid": " เปิดด้วย Notepad เลื่อนลงไปล่างสุด และค้นหาลิงก์ในรูปแบบ",
     "manual_text_post": "แล้วคัดลอกมา",
+    "pc_web_step1": "เข้าสู่ระบบบัญชีของคุณที่",
+    "pc_web_step2": "บนแถบบุ๊กมาร์ก (กด Ctrl + Shift + B เพื่อแสดง) คลิก 'เพิ่มหน้า' ตั้งชื่ออะไรก็ได้ และวางโค้ดนี้ในช่อง URL:",
+    "pc_web_step3": "ขณะที่อยู่บนเว็บไซต์ ให้คลิกบุ๊กมาร์กนั้น — ลิงก์จะถูกคัดลอก",
+    "pc_web_hint": "วิธีนี้ปลอดภัยและทำงานโดยตรงผ่านเบราว์เซอร์ของคุณ",
     "android_note": "แอปอย่าง ByeByeDPI หรือ VPN ที่เปิดอยู่อาจรบกวนการจับ Log หาก Log ว่างเปล่า ให้ลองติดตั้ง VPN ใหม่",
     "android_s1": "ดาวน์โหลด <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> และ <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> จาก GitHub",
     "android_s2": "เชื่อมต่อ Wi-Fi เปิด Shizuku (อนุญาตการแจ้งเตือน)",
@@ -258,7 +262,8 @@
     "hLeft": "ชม. เหลือ",
     "noMaterialsNeeded": "ไม่ต้องการวัสดุ",
     "featuredCharacters": "โอเปอเรเตอร์หน้าตู้",
-    "new": "ใหม่"
+    "new": "ใหม่",
+    "version": "เวอร์ชัน"
   },
   "status": {
     "won": "ชนะ 50:50",
@@ -299,6 +304,7 @@
     "operators": "โอเปอเรเตอร์",
     "weapons": "อาวุธ",
     "essences": "แก่นแท้",
+    "changelog": "บันทึกการเปลี่ยนแปลง",
     "equipment": "อุปกรณ์"
   },
   "events": {

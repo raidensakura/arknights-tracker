@@ -367,8 +367,7 @@
     </svg>
 {:else if name === "settings"}
     <svg
-        class={$$props.class}
-        style={$$props.style}
+
         viewBox="0 0 24 23"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -2980,6 +2979,19 @@
             d="M20 14V20H14V14H20ZM10 14V20H4V14H10ZM20 4V10H14V4H20ZM10 4V10H4V4H10Z"
             stroke="currentColor"
             stroke-width="2"
+        />
+    </svg>
+{:else if name == "changelog"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M23 23H1V1H23V23ZM5 14.75V17.25H7V14.75H5ZM9 14.75V17.25H19V14.75H9ZM5 10.75V13.25H7V10.75H5ZM9 10.75V13.25H19V10.75H9ZM5 6.75V9.25H7V6.75H5ZM9 6.75V9.25H19V6.75H9Z"
+            fill="currentColor"
         />
     </svg>
 {/if}

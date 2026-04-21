@@ -780,14 +780,6 @@
                 }
             ]
         ],
-        "baseSkill1": [
-            [],
-            []
-        ],
-        "baseSkill2": [
-            [],
-            []
-        ],
         "battleSkillRank2": [
             {
                 "name": "protoprism",
