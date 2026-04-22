@@ -258,7 +258,7 @@
           >{$t("page.banner.spent")}</span
         >
         <span
-          class="font-bold text-gray-900 dark:text-[#FDFDFD] flex items-center gap-2 font-nums text-xl"
+          class="font-bold text-gray-900 dark:text-[#FDFDFD] flex items-center gap-1 font-nums text-xl"
         >
           <Images id="oroberyl" variant="currency" size={25} />
           {spent}

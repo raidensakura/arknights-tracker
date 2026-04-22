@@ -5,6 +5,7 @@
     import { browser } from "$app/environment";
     import { rawEvents } from "$lib/data/timeline.js";
     import { banners } from "$lib/data/banners.js";
+    import { currentLocale } from "$lib/stores/locale";
 
     import Icon from "$lib/components/Icons.svelte";
     import BannerModal from "$lib/components/BannerModal.svelte";
@@ -40,10 +41,16 @@
 
     $: allEvents = (() => {
         const isAsia = currentServerId === "2";
-        const allAvailableVersions = [...new Set([...rawEvents, ...banners].map(e => String(e.version)).filter(v => v !== 'undefined' && v !== 'null'))];
+        const allAvailableVersions = [
+            ...new Set(
+                [...rawEvents, ...banners]
+                    .map((e) => String(e.version))
+                    .filter((v) => v !== "undefined" && v !== "null"),
+            ),
+        ];
         allAvailableVersions.sort((a, b) => {
-            const pa = a.split('.').map(Number);
-            const pb = b.split('.').map(Number);
+            const pa = a.split(".").map(Number);
+            const pb = b.split(".").map(Number);
             for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
                 const va = pa[i] || 0;
                 const vb = pb[i] || 0;
@@ -58,7 +65,10 @@
         } else {
             const len = allAvailableVersions.length;
             if (len >= 2) {
-                activeVersions = [allAvailableVersions[len - 2], allAvailableVersions[len - 1]];
+                activeVersions = [
+                    allAvailableVersions[len - 2],
+                    allAvailableVersions[len - 1],
+                ];
             } else if (len === 1) {
                 activeVersions = [allAvailableVersions[0]];
             }
@@ -67,33 +77,38 @@
         let extendedVersionsForWeapons = [...activeVersions];
         const earliestIdx = allAvailableVersions.indexOf(activeVersions[0]);
         if (earliestIdx > 0) {
-            extendedVersionsForWeapons.push(allAvailableVersions[earliestIdx - 1]);
+            extendedVersionsForWeapons.push(
+                allAvailableVersions[earliestIdx - 1],
+            );
         }
 
         const filterByVersion = (item) => {
             if (!item.version) return true;
-            
-            const isWeap = item.originalType === 'weapon' || item.type === 'weapon' || (item.id && item.id.includes('weap'));
-            const allowedVersions = isWeap ? extendedVersionsForWeapons : activeVersions;
-            
+
+            const isWeap =
+                item.originalType === "weapon" ||
+                item.type === "weapon" ||
+                (item.id && item.id.includes("weap"));
+            const allowedVersions = isWeap
+                ? extendedVersionsForWeapons
+                : activeVersions;
+
             return allowedVersions.includes(String(item.version));
         };
 
-        const mappedEvents = rawEvents
-            .filter(filterByVersion)
-            .map((e) => {
-                const startStr =
-                    isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
-                const endStr = isAsia && e.endTimeAsia ? e.endTimeAsia : e.endTime;
+        const mappedEvents = rawEvents.filter(filterByVersion).map((e) => {
+            const startStr =
+                isAsia && e.startTimeAsia ? e.startTimeAsia : e.startTime;
+            const endStr = isAsia && e.endTimeAsia ? e.endTimeAsia : e.endTime;
 
-                return {
-                    ...e,
-                    originalType: e.type,
-                    type: e.type || "ingame",
-                    realStartTime: parseServerDate(startStr),
-                    realEndTime: endStr ? parseServerDate(endStr) : null,
-                };
-            });
+            return {
+                ...e,
+                originalType: e.type,
+                type: e.type || "ingame",
+                realStartTime: parseServerDate(startStr),
+                realEndTime: endStr ? parseServerDate(endStr) : null,
+            };
+        });
 
         const mappedBanners = banners
             .filter((b) => {
@@ -609,7 +624,7 @@
     }
     function isShortEvent(event) {
         if (!event.realEndTime || !event.realStartTime) return false;
-        return (event.realEndTime - event.realStartTime) / 86400000 < 5;
+        return (event.realEndTime - event.realStartTime) / 86400000 < 8;
     }
 </script>
 
@@ -800,8 +815,13 @@
                             <div
                                 class="relative z-20 h-full w-full pointer-events-none"
                             >
-
-                                <div class="sticky left-0 inline-flex items-center {isShortEvent(event) ? 'gap-1.5 px-2' : 'gap-2 px-3'} h-full max-w-full pointer-events-auto">
+                                <div
+                                    class="sticky left-0 inline-flex items-center {isShortEvent(
+                                        event,
+                                    )
+                                        ? 'gap-1.5 px-2'
+                                        : 'gap-2 px-3'} h-full max-w-full pointer-events-auto"
+                                >
                                     {#if badge}
                                         <div
                                             class="flex items-center gap-1.5 rounded px-1.5 py-0.5 text-white shrink-0 shadow-sm border border-white/10 {badge.bg}"
@@ -810,13 +830,12 @@
                                                 name={badge.icon}
                                                 class="w-3.5 h-3.5"
                                             />
-                                            
-                                                <span
-                                                    class="text-[10px] font-bold uppercase tracking-wide opacity-90"
-                                                >
-                                                    {badge.label}
-                                                </span>
-                                            
+
+                                            <span
+                                                class="text-[10px] font-bold uppercase tracking-wide opacity-90"
+                                            >
+                                                {badge.label}
+                                            </span>
                                         </div>
                                     {/if}
 
@@ -829,32 +848,23 @@
                                     <div
                                         class="flex flex-col justify-center min-w-0"
                                     >
-                                        {#if !isShortEvent(event)}
-                                            <span
-                                                class="text-white font-bold text-sm leading-tight truncate"
-                                            >
-                                                {getEventName(event)}
-                                            </span>
-                                        
-                                        
                                         <span
-                                            class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
+                                            class="text-white font-bold text-sm leading-tight truncate [text-shadow:_0_0_1px_rgba(0,0,0,1),_0_0_2px_rgba(0,0,0,0.5)]"
                                         >
-                                            {event.realStartTime.getDate()}
-                                            {$t(
-                                                `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
-                                            )} - 
-                                            {event.realEndTime.getDate()}
-                                            {$t(
-                                                `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
-                                            )}
+                                            {getEventName(event)}
                                         </span>
-                                        <span
-                                            class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
-                                        >
-                                            
+
+                                        <span class="text-white/95 text-[10px] uppercase font-bold tracking-wider whitespace-nowrap truncate mt-0.5 [text-shadow:_0_0_1px_rgba(0,0,0,1),_0_0_2px_rgba(0,0,0,0.5)]">
+                                            {#if !isShortEvent(event)}
+                                                {event.realStartTime.getDate()}
+                                                {$t(`months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)} -
+                                                {event.realEndTime.getDate()}
+                                                {$t(`months_gen.${event.realEndTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)}
+                                            {:else}
+                                                {event.realStartTime.toLocaleDateString($currentLocale || 'en-US', { day: '2-digit', month: '2-digit' })} - 
+                                                {event.realEndTime.toLocaleDateString($currentLocale || 'en-US', { day: '2-digit', month: '2-digit' })}
+                                            {/if}
                                         </span>
-                                        {/if}
                                     </div>
                                 </div>
                             </div>
