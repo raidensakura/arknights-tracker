@@ -774,9 +774,8 @@
                                                     )}
                                                 </span>
 
-                                                <div
-                                                    class="flex items-center gap-1.5 mt-0.5 flex-wrap"
-                                                >
+                                                <div class="flex flex-col items-start gap-1.5 mt-1">
+                                                    
                                                     {#if match.isRecommended}
                                                         <span
                                                             class="text-[11px] font-bold text-[#16A34A] dark:text-[#4ADE80] leading-none flex items-center gap-0.5"
@@ -788,43 +787,45 @@
                                                         </span>
                                                     {/if}
 
-                                                    {#if match.isGoodMatch}
-                                                        <span
-                                                            class="text-[11px] font-medium {match.isRecommended
-                                                                ? 'text-[#F9B90C]/80'
-                                                                : 'text-[#F9B90C]'} leading-none"
-                                                        >
-                                                            {tOrFallback(
-                                                                "stats.goodMatch",
-                                                                "Good Match",
-                                                            )}
-                                                        </span>
-                                                    {:else if !match.isRecommended}
-                                                        <span
-                                                            class="text-[11px] font-medium text-gray-400 dark:text-[#888] leading-none"
-                                                        >
-                                                            {tOrFallback(
-                                                                "stats.standardMatch",
-                                                                "Standard Match",
-                                                            )}
-                                                        </span>
-                                                    {/if}
+                                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                                        {#if match.isGoodMatch}
+                                                            <span
+                                                                class="text-[11px] font-medium {match.isRecommended
+                                                                    ? 'text-[#F9B90C]/80'
+                                                                    : 'text-[#F9B90C]'} leading-none"
+                                                            >
+                                                                {tOrFallback(
+                                                                    "stats.goodMatch",
+                                                                    "Good Match",
+                                                                )}
+                                                            </span>
+                                                        {:else if !match.isRecommended}
+                                                            <span
+                                                                class="text-[11px] font-medium text-gray-400 dark:text-[#888] leading-none"
+                                                            >
+                                                                {tOrFallback(
+                                                                    "stats.standardMatch",
+                                                                    "Standard Match",
+                                                                )}
+                                                            </span>
+                                                        {/if}
 
-                                                    {#if match.id === id}
-                                                        <span
-                                                            class="px-1.5 py-[2px] rounded bg-[#26BAFB]/10 border border-[#26BAFB]/20 text-[#26BAFB] text-[9px] font-bold uppercase leading-none shadow-sm"
-                                                        >
-                                                            {tOrFallback(
-                                                                "common.same",
-                                                                "Same",
-                                                            )}
-                                                        </span>
-                                                    {/if}
+                                                        {#if match.id === id}
+                                                            <span
+                                                                class="px-1.5 py-[2px] rounded bg-[#26BAFB]/10 border border-[#26BAFB]/20 text-[#26BAFB] text-[9px] font-bold uppercase leading-none shadow-sm"
+                                                            >
+                                                                {tOrFallback(
+                                                                    "common.same",
+                                                                    "Same",
+                                                                )}
+                                                            </span>
+                                                        {/if}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {#if match.craftCost !== Infinity && match.materials[0]}
-                                                <div class="absolute right-1 bottom-1 flex items-center gap-0.5 bg-white/50 dark:bg-black/30 backdrop-blur-sm border border-black/5 dark:border-white/5 px-1 py-0.5 rounded-md pointer-events-none shadow-sm">
+                                                <div class="absolute right-1 bottom-1 flex items-center gap-0.5 bg-white/50 dark:bg-black/30 border border-black/5 dark:border-white/5 px-0.5 py-0.5 rounded-md pointer-events-none shadow-sm">
                                                     <div class="w-3.5 h-3.5 flex items-center justify-center shrink-0">
                                                         <Images
                                                             id={match.materials[0].name}

@@ -473,8 +473,9 @@
     "artwork": "Artwork",
     "files": "Files",
     "audio": "Audio",
-    "indicators": "Indicators",
-    "baseSkills": "Factory Skills",
+    "indicators": "Attribute",
+    "baseSkills": "Base Skill",
+    "talent": "Talent",
     "description": "Description",
     "images": "Images"
   },
@@ -485,6 +486,8 @@
   },
   "stats": {
     "attributes": "Attributes",
+    "ascension": "Ascension",
+    "cumulative": "Cumulative",
     "goodMatch": "Good Match",
     "standardMatch": "Standard Match",
     "recommended": "Recommended",

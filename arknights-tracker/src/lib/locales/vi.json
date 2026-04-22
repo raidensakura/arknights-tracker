@@ -450,8 +450,9 @@
     "artwork": "Minh họa",
     "files": "Hồ sơ",
     "audio": "Giọng nói",
-    "indicators": "Chỉ số",
-    "baseSkills": "Kỹ năng cơ sở",
+    "indicators": "Thuộc Tính",
+    "baseSkills": "Kỹ Năng Hậu Cần",
+    "talent": "Thiên Phú",
     "description": "Mô tả",
     "images": "Hình ảnh"
   },
@@ -462,6 +463,8 @@
   },
   "stats": {
     "attributes": "Thuộc tính",
+    "ascension": "Đột phá",
+    "cumulative": "Tích lũy",
     "goodMatch": "Ghép Trận Anh Tài",
     "standardMatch": "Ghép Trận Tiêu Chuẩn",
     "recommended": "Đề xuất",

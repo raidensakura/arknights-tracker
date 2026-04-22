@@ -450,8 +450,9 @@
     "artwork": "ภาพประกอบ",
     "files": "ไฟล์",
     "audio": "เสียง",
-    "indicators": "ตัวชี้วัด",
-    "baseSkills": "สกิลฐาน",
+    "indicators": "ค่า​คุณสมบัติ",
+    "baseSkills": "ทักษะ​พื้นฐาน",
+    "talent": "พรสวรรค์",
     "description": "คำอธิบาย",
     "images": "รูปภาพ"
   },
@@ -462,6 +463,8 @@
   },
   "stats": {
     "attributes": "ค่าสถานะ",
+    "ascension": "เลื่อนขั้น",
+    "cumulative": "สะสม",
     "goodMatch": "ตรง​ตามคำสั่ง",
     "standardMatch": "ตรง​ตามมา​ตร​ฐาน",
     "recommended": "แนะนำ",

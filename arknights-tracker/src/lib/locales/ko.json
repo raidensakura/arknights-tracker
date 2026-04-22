@@ -451,8 +451,9 @@
     "artwork": "일러스트",
     "files": "파일",
     "audio": "음성",
-    "indicators": "지표",
-    "baseSkills": "기지 스킬",
+    "indicators": "능력치",
+    "baseSkills": "인프라 스킬",
+    "talent": "재능",
     "description": "설명",
     "images": "이미지"
   },
@@ -463,6 +464,8 @@
   },
   "stats": {
     "attributes": "속성",
+    "ascension": "돌파",
+    "cumulative": "누적",
     "goodMatch": "양호 조합",
     "standardMatch": "표준 조합",
     "recommended": "추천",

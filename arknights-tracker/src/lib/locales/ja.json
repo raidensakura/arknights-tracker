@@ -451,8 +451,9 @@
     "artwork": "イラスト",
     "files": "ファイル",
     "audio": "ボイス",
-    "indicators": "指標",
-    "baseSkills": "基地スキル",
+    "indicators": "素質",
+    "baseSkills": "配属スキル",
+    "talent": "能力値",
     "description": "説明",
     "images": "画像"
   },
@@ -463,6 +464,8 @@
   },
   "stats": {
     "attributes": "ステータス",
+    "ascension": "突破",
+    "cumulative": "累積",
     "goodMatch": "高適合",
     "standardMatch": "標準",
     "recommended": "おすすめ",

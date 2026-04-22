@@ -166,7 +166,7 @@
                     type === "indicator"
                         ? "menu.indicators"
                         : type === "talent"
-                          ? "menu.talents"
+                          ? "menu.talent"
                           : "menu.baseSkills",
                 ) || type}
             </span>
@@ -197,7 +197,7 @@
                     </div>
                 {:else}
                     <div
-                        class="w-[52px] h-[52px] rounded-full bg-[#F3CE00] border-[3px] border-[#9A8722]/70 overflow-hidden flex items-center justify-center shadow-sm p-[3px]"
+                        class="w-[52px] h-[52px] rounded-full bg-[#F3CE00] border-[3px] border-[#D5B500] overflow-hidden flex items-center justify-center shadow-sm p-[3px]"
                     >
                         <Images
                             id={skillImageId}

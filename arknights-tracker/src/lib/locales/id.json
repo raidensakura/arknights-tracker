@@ -451,8 +451,9 @@
     "artwork": "Artwork",
     "files": "File",
     "audio": "Audio",
-    "indicators": "Indikator",
-    "baseSkills": "Skill Pabrik",
+    "indicators": "Atribut",
+    "baseSkills": "Skill Dasar",
+    "talent": "Talent",
     "description": "Deskripsi",
     "images": "Gambar"
   },
@@ -463,6 +464,8 @@
   },
   "stats": {
     "attributes": "Atribut",
+    "ascension": "Promosi",
+    "cumulative": "Kumulatif",
     "goodMatch": "Pasangan Bagus",
     "standardMatch": "Pasangan Standar",
     "recommended": "Rekomendasi",

@@ -472,7 +472,8 @@
     "files": "Файлы",
     "audio": "Аудио",
     "indicators": "Показатели",
-    "baseSkills": "Базовые навыки",
+    "baseSkills": "Базовый навык",
+    "talent": "Талант",
     "description": "Описание",
     "images": "Изображения"
   },
@@ -483,6 +484,8 @@
   },
   "stats": {
     "attributes": "Атрибуты",
+    "ascension": "Возвышение",
+    "cumulative": "Кумулятивно",
     "goodMatch": "Отличное сочетание",
     "standardMatch": "Стандартное сочетание",
     "recommended": "Рекомендуется",

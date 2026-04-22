@@ -451,8 +451,9 @@
     "artwork": "立繪",
     "files": "檔案",
     "audio": "語音",
-    "indicators": "指標",
-    "baseSkills": "基建技能",
+    "indicators": "能力值",
+    "baseSkills": "後勤技能",
+    "talent": "天賦",
     "description": "描述",
     "images": "圖片"
   },
@@ -463,6 +464,8 @@
   },
   "stats": {
     "attributes": "屬性",
+    "ascension": "突破",
+    "cumulative": "累計",
     "goodMatch": "較好適用",
     "standardMatch": "標準適用",
     "recommended": "推薦",

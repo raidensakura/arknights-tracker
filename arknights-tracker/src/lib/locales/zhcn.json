@@ -450,8 +450,9 @@
     "artwork": "立绘",
     "files": "档案",
     "audio": "语音",
-    "indicators": "指标",
-    "baseSkills": "基建技能",
+    "indicators": "能力值",
+    "baseSkills": "后勤技能",
+    "talent": "天赋",
     "description": "描述",
     "images": "图片"
   },
@@ -462,6 +463,8 @@
   },
   "stats": {
     "attributes": "属性",
+    "ascension": "突破",
+    "cumulative": "累计",
     "goodMatch": "较好适配",
     "standardMatch": "标准适配",
     "recommended": "推荐",

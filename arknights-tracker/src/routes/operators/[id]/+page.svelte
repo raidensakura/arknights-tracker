@@ -9,6 +9,7 @@
     import { manualPotentials } from "$lib/stores/potentials";
     import { pullData } from "$lib/stores/pulls";
     import { accountStore } from "$lib/stores/accounts";
+    import { levels as levelUpTable } from "$lib/data/levelUpTable.js";
 
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -252,6 +253,8 @@
     let activeTab = "about";
     let maxLevel = 90;
     let level = maxLevel;
+    let showAscension = true;
+    let isCumulative = true;
     let isTotalMode = false;
     let isTableCopied = false;
 
@@ -311,44 +314,114 @@
     }
 
     $: neededMaterials = (() => {
-        if (!charMaterials || Object.keys(charMaterials).length === 0)
-            return [];
-
         const required = {};
-        let phasesNeeded = [];
 
-        const t1 = { cap: 20, key: "ascention1" };
-        const t2 = { cap: 40, key: "ascention2" };
-        const t3 = { cap: 60, key: "ascention3" };
-        const t4 = { cap: 80, key: "ascention4" };
+        // 1. ВОЗВЫШЕНИЯ (Ascensions)
+        if (
+            showAscension &&
+            charMaterials &&
+            Object.keys(charMaterials).length > 0
+        ) {
+            let phasesNeeded = [];
+            const ascensions = [
+                { cap: 20, key: "ascention1" },
+                { cap: 40, key: "ascention2" },
+                { cap: 60, key: "ascention3" },
+                { cap: 80, key: "ascention4" },
+            ];
 
-        if (isTotalMode) {
-            if (level >= t1.cap) phasesNeeded.push(t1.key);
-            if (level >= t2.cap) phasesNeeded.push(t2.key);
-            if (level >= t3.cap) phasesNeeded.push(t3.key);
-            if (level >= t4.cap) phasesNeeded.push(t4.key);
-        } else {
-            if (level <= 20) {
-                phasesNeeded.push(t1.key);
-            } else if (level <= 40) {
-                phasesNeeded.push(t2.key);
-            } else if (level <= 60) {
-                phasesNeeded.push(t3.key);
+            if (isCumulative) {
+                // КУМУЛЯТИВНО: суммируем все пройденные капы
+                ascensions.forEach((asc) => {
+                    if (level >= asc.cap) phasesNeeded.push(asc.key);
+                });
             } else {
-                phasesNeeded.push(t4.key);
+                // НЕ КУМУЛЯТИВНО: показываем материалы только ровно на уровне капа
+                const exactAsc = ascensions.find((a) => a.cap === level);
+                if (exactAsc) {
+                    phasesNeeded.push(exactAsc.key);
+                }
+            }
+
+            phasesNeeded.forEach((key) => {
+                const mats = charMaterials[key];
+                if (mats) {
+                    mats.forEach((mat) => {
+                        const itemId = mat.name;
+                        if (!required[itemId]) required[itemId] = 0;
+                        required[itemId] += mat.amount;
+                    });
+                }
+            });
+        }
+
+        // 2. УРОВНИ (Exp & Gold)
+        if (typeof levelUpTable !== "undefined") {
+            let totalExp1to60 = 0;
+            let totalExp60to90 = 0;
+            let totalGold = 0;
+            const table = Array.isArray(levelUpTable)
+                ? levelUpTable[0]
+                : levelUpTable;
+
+            if (isCumulative) {
+                for (let l = 2; l <= level; l++) {
+                    const data = table[l.toString()];
+                    if (data) {
+                        if (l <= 60) totalExp1to60 += data.exp || 0;
+                        else totalExp60to90 += data.exp || 0;
+                        totalGold += data.gold || 0;
+                    }
+                }
+            } else {
+                if (level > 1) {
+                    const data = table[level.toString()];
+                    if (data) {
+                        if (level <= 60) totalExp1to60 += data.exp || 0;
+                        else totalExp60to90 += data.exp || 0;
+                        totalGold += data.gold || 0;
+                    }
+                }
+            }
+
+            if (totalGold > 0) {
+                const goldId = "tCreds";
+                required[goldId] = (required[goldId] || 0) + totalGold;
+            }
+
+            const addExpItems = (expAmount, items) => {
+                let remaining = expAmount;
+                for (const item of items) {
+                    if (remaining <= 0) break;
+                    const count = Math.floor(remaining / item.val);
+                    if (count > 0) {
+                        required[item.id] = (required[item.id] || 0) + count;
+                        remaining -= count * item.val;
+                    }
+                }
+                if (remaining > 0 && items.length > 0) {
+                    const smallest = items[items.length - 1];
+                    required[smallest.id] = (required[smallest.id] || 0) + 1;
+                }
+            };
+
+            if (totalExp1to60 > 0) {
+                addExpItems(totalExp1to60, [
+                    { id: "advancedCombatRecord", val: 10000 },
+                    { id: "intermediateCombatRecord", val: 1000 },
+                    { id: "elementaryCombatRecord", val: 200 },
+                ]);
+            }
+
+            if (totalExp60to90 > 0) {
+                addExpItems(totalExp60to90, [
+                    { id: "advancedCognitiveCarrier", val: 10000 },
+                    { id: "elementaryCognitiveCarrier", val: 1000 },
+                ]);
             }
         }
 
-        phasesNeeded.forEach((key) => {
-            const mats = charMaterials[key];
-            if (mats) {
-                mats.forEach((mat) => {
-                    const itemId = mat.name;
-                    if (!required[itemId]) required[itemId] = 0;
-                    required[itemId] += mat.amount;
-                });
-            }
-        });
+        if (Object.keys(required).length === 0) return [];
 
         return Object.entries(required)
             .map(([itemId, amount]) => {
@@ -363,7 +436,7 @@
             .sort((a, b) => {
                 if (a.id === "t_creds") return -1;
                 if (b.id === "t_creds") return 1;
-                return (a.rarity || 1) - (b.rarity || 1);
+                return (b.rarity || 1) - (a.rarity || 1);
             });
     })();
 
@@ -498,11 +571,21 @@
             return `<span class="text-[#38BDF8] font-bold drop-shadow-sm">${result}</span>`;
         });
     }
+    $: currentIndex = menuItems.findIndex((item) => item.id === activeTab);
+    $: prevTab = currentIndex > 0 ? menuItems[currentIndex - 1] : null;
+    $: nextTab =
+        currentIndex < menuItems.length - 1
+            ? menuItems[currentIndex + 1]
+            : null;
+    function switchTab(tabId) {
+        activeTab = tabId;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 </script>
 
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
-<div class="min-h-screen relative flex flex-col p-4 md:px-8 md:py-3">
+<div class="min-h-screen relative flex flex-col md:px-8 md:py-3">
     <div
         class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 transition-opacity duration-500 {activeTab ===
         'about'
@@ -678,7 +761,9 @@
                             </div>
                         </Tooltip>
 
-                        <div class="w-[1px] h-8 bg-gray-300"></div>
+                        <div
+                            class="w-[1px] h-8 bg-gray-300 dark:bg-gray-500"
+                        ></div>
 
                         <Tooltip text={$t(`elements.${char.element}`)}>
                             <div
@@ -692,7 +777,9 @@
                         </Tooltip>
                     </div>
 
-                    <div class="hidden md:block w-[1px] h-8 bg-gray-300"></div>
+                    <div
+                        class="hidden md:block w-[1px] h-8 bg-gray-300 dark:bg-gray-500"
+                    ></div>
 
                     <div class="flex items-center gap-0 -space-x-1">
                         {#each Array(char.rarity || 1) as _}
@@ -793,19 +880,19 @@
         </div>
 
         <div
-            class="relative z-10 w-full flex-1 2xl:max-w-[1300px] 2xl:ml-auto grid items-start"
+            class="relative z-10 w-full flex-1 2xl:max-w-[1300px] 2xl:ml-auto grid items-start min-w-0"
         >
             {#key activeTab}
                 <div
                     in:fly={{ y: 15, duration: 100 }}
-                    class="col-start-1 row-start-1 flex flex-col gap-1 w-full {activeTab ===
+                    class="col-start-1 row-start-1 flex flex-col gap-1 min-w-0 w-full {activeTab ===
                     'about'
                         ? '2xl:max-w-[400px] 2xl:ml-auto'
                         : ''}"
                 >
                     {#if activeTab === "about"}
                         <div
-                            class="max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-6"
+                            class="max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-5"
                         >
                             <div class="flex flex-col gap-2">
                                 <div class="flex items-baseline gap-1">
@@ -962,7 +1049,7 @@
                             class="max-w-[550px] mt-4 bg-white/90 backdrop-blur-md p-6 dark:bg-[#383838]/90 dark:border-[#444444] rounded-2xl shadow-xl border border-white/50 flex flex-col gap-4"
                         >
                             <div
-                                class="flex justify-between items-center border-b border-gray-100 pb-3 dark:border-[#444444]"
+                                class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-3 dark:border-[#444444] gap-1"
                             >
                                 <div class="flex items-center gap-2">
                                     <span
@@ -970,6 +1057,29 @@
                                     >
                                         {$t("stats.materials") || "Materials"}
                                     </span>
+                                </div>
+
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <label
+                                        class="flex items-center gap-1.5 text-xs md:text-sm font-medium text-gray-600 dark:text-[#B7B6B3] cursor-pointer select-none hover:text-black dark:hover:text-white transition-colors"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            bind:checked={showAscension}
+                                            class="accent-[#F9B90C] w-3.5 h-3.5 md:w-4 md:h-4 cursor-pointer rounded"
+                                        />
+                                        {$t("stats.ascension") || "Ascension"}
+                                    </label>
+                                    <label
+                                        class="flex items-center gap-1.5 text-xs md:text-sm font-medium text-gray-600 dark:text-[#B7B6B3] cursor-pointer select-none hover:text-black dark:hover:text-white transition-colors"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            bind:checked={isCumulative}
+                                            class="accent-[#F9B90C] w-3.5 h-3.5 md:w-4 md:h-4 cursor-pointer rounded"
+                                        />
+                                        {$t("stats.cumulative") || "Cumulative"}
+                                    </label>
                                 </div>
                             </div>
 
@@ -987,8 +1097,12 @@
                                     <div
                                         class="w-full text-center text-gray-400 text-sm py-4 italic"
                                     >
-                                        {$t("stats.maxed") ||
-                                            "Max level reached"}
+                                        {level === 1
+                                            ? $t(
+                                                  "systemNames.noMaterialsNeeded",
+                                              ) || "No materials needed"
+                                            : $t("stats.maxed") ||
+                                              "Max level reached"}
                                     </div>
                                 {/if}
                             </div>
@@ -1042,14 +1156,14 @@
                                                 class="w-full md:w-[calc(50%-10px)]"
                                             >
                                                 <TalentCard
-                                    charId={id}
-                                    type="talent"
-                                    dataKey="talent1"
-                                    materials={charMaterials?.talent1}
-                                    indicatorType={charDetails?.indicatorType}
-                                    localizedData={skillsLocale?.talent1}
-                                    blackboard={charDetails?.blackboard}
-                                />
+                                                    charId={id}
+                                                    type="talent"
+                                                    dataKey="talent1"
+                                                    materials={charMaterials?.talent1}
+                                                    indicatorType={charDetails?.indicatorType}
+                                                    localizedData={skillsLocale?.talent1}
+                                                    blackboard={charDetails?.blackboard}
+                                                />
                                             </div>
                                         {/if}
 
@@ -1659,6 +1773,31 @@
                             WIP: {activeTab} section
                         </div>
                     {/if}
+                    <div class="flex md:hidden items-center justify-between w-full mt-5 gap-4">
+                                <div class="flex-1 flex justify-start overflow-hidden">
+                                    {#if prevTab}
+                                        <button
+                                            on:click={() => switchTab(prevTab.id)}
+                                            class="flex items-center gap-2 px-4 py-3 bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 rounded-2xl shadow-sm border border-white/50 dark:border-[#444444] active:scale-95 transition-all group max-w-full"
+                                        >
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-gray-400"><path d="M15 18l-6-6 6-6"/></svg>
+                                            <span class="font-bold text-sm text-[#21272C] dark:text-[#E4E4E4] truncate">{$t(prevTab.label) || prevTab.id}</span>
+                                        </button>
+                                    {/if}
+                                </div>
+                                
+                                <div class="flex-1 flex justify-end overflow-hidden">
+                                    {#if nextTab}
+                                        <button
+                                            on:click={() => switchTab(nextTab.id)}
+                                            class="flex items-center justify-end gap-2 px-4 py-3 bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 rounded-2xl shadow-sm border border-white/50 dark:border-[#444444] active:scale-95 transition-all group max-w-full"
+                                        >
+                                            <span class="font-bold text-sm text-[#21272C] dark:text-[#E4E4E4] truncate">{$t(nextTab.label) || nextTab.id}</span>
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-gray-400"><path d="M9 18l6-6-6-6"/></svg>
+                                        </button>
+                                    {/if}
+                                </div>
+                            </div>
                 </div>
             {/key}
         </div>

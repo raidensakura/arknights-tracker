@@ -843,7 +843,16 @@
                                             {event.realStartTime.getDate()}
                                             {$t(
                                                 `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
+                                            )} - 
+                                            {event.realEndTime.getDate()}
+                                            {$t(
+                                                `months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`,
                                             )}
+                                        </span>
+                                        <span
+                                            class="text-white/80 text-[10px] uppercase font-bold tracking-wider"
+                                        >
+                                            
                                         </span>
                                         {/if}
                                     </div>

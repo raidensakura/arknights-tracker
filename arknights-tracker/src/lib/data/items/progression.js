@@ -1,7 +1,5 @@
 // src/lib/data/progression.js
 
-// Заменить картинки на свои
-
 export const progression = [
     {
         id: "pinkBolete",

@@ -451,8 +451,9 @@
     "artwork": "Illustrations",
     "files": "Fichiers",
     "audio": "Audio",
-    "indicators": "Indicateurs",
-    "baseSkills": "Compétences Base",
+    "indicators": "Trait",
+    "baseSkills": "Compétence de base",
+    "talent": "Talent",
     "description": "Description",
     "images": "Images"
   },
@@ -463,6 +464,8 @@
   },
   "stats": {
     "attributes": "Attributs",
+    "ascension": "Ascension",
+    "cumulative": "Cumulatif",
     "goodMatch": "Bonne association",
     "standardMatch": "Association standard",
     "recommended": "Recommandé",

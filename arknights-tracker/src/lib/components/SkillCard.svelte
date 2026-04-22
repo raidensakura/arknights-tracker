@@ -322,14 +322,14 @@
                     >
                 </h3>
             </div>
-            <div class="block md:hidden w-full mt-3 mb-2 pr-2">
+            <div class="block md:hidden w-full mt-2 md:mt-3 mb-1 pr-2 max-w-full min-w-0">
                 <input
                     type="range"
                     min="1"
                     max="12"
                     step="1"
                     bind:value={level}
-                    class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#FFC107]"
+                    class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#FFC107] outline-none touch-none"
                 />
                 <div
                     class="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 mt-1.5 font-nums font-bold"
@@ -463,7 +463,7 @@
                         <thead class="bg-[#21272C] text-white">
                             <tr>
                                 <th
-                                    class="sticky left-0 z-20 bg-[#21272C] px-4 py-3 dark:bg-[#343434] text-left font-bold border-r border-gray-600 min-w-[150px] dark:border-[#444444]"
+                                    class="static md:sticky md:left-0 md:z-20 bg-[#21272C] px-4 py-3 dark:bg-[#343434] text-left font-bold border-r border-gray-600 min-w-[150px] dark:border-[#11111]"
                                 >
                                     {$t("stats.level") || "Level"}
                                 </th>
@@ -488,7 +488,7 @@
                                     class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
                                 >
                                     <td
-                                        class="sticky left-0 z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]"
+                                        class="static md:sticky md:left-0 md:z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 md:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)] max-w-[200px] break-words whitespace-normal"
                                     >
                                         {(skillData[skillKey] &&
                                             skillData[skillKey][key]) ||
@@ -561,7 +561,7 @@
     </div>
 
     <div
-        class="bg-[#F0F2F4] rounded-xl p-4 dark:bg-[#343434] flex gap-2 overflow-x-auto justify-start md:[justify-content:safe_center]"
+        class="bg-[#F0F2F4] rounded-xl p-4 dark:bg-[#343434] flex gap-2 overflow-x-auto md:justify-center justify-start"
     >
         {#if neededMaterials.length > 0}
             {#each neededMaterials as mat (mat.id)}
