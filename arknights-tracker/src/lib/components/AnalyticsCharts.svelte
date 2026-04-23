@@ -260,7 +260,7 @@
             <div class="h-full min-w-max relative flex flex-col pr-4">
               <!-- Столбцы -->
               <div
-                class="relative pl-4 flex-grow border-b dark:border-[#7A7A7A] border-gray-200 flex items-end gap-4 z-10 pb-[1px]"
+                class="relative pl-4 flex-grow border-b dark:border-[#7A7A7A] border-gray-200 flex items-end gap-3 z-10 pb-[1px]"
               >
                 <div
                   class="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -311,7 +311,7 @@
               </div>
 
               <div
-                class="h-[90px] flex items-start gap-4 flex-shrink-0 relative pt-3 overflow-visible"
+                class="h-[90px] flex items-start gap-3 flex-shrink-0 relative pt-3 pl-4 overflow-visible"
               >
                 {#each timelineData as item}
                   <div class="w-6 relative overflow-visible">

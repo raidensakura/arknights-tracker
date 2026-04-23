@@ -476,7 +476,7 @@
 
             {#if $page.url.pathname !== "/"}
                 <footer class="mt-20 w-full max-w-[1600px] z-10 pb-4">
-                    <div class="flex gap-3 mb-8">
+                    <div class="flex gap-3 mb-8 max-w-[550px] md:max-w-[1600px]">
                         <div
                             class="w-[2px] shrink-0 bg-gray-400 dark:bg-gray-300 rounded-full"
                         ></div>

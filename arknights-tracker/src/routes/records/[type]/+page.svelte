@@ -1,4 +1,3 @@
-<!-- src/routes/records/[type]/+page.svelte -->
 <script>
     import { page } from "$app/stores";
     import { t } from "$lib/i18n";
@@ -12,6 +11,7 @@
     import { currencies } from "$lib/data/items/currencies";
     import { isDarkMode } from "$lib/stores/theme";
     import { onMount } from "svelte";
+
     import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -40,15 +40,16 @@
 
     $: currentAccount = $accounts.find((a) => a.id === $selectedId);
     $: currentServerId = currentAccount?.serverId || "3";
-    
+
     $: isAsia = String(currentServerId) === "2";
-    
+
     $: serverOffset =
         currentServerId === "2" || currentServerId === "1" ? 8 : -5;
 
     function getBannerDates(b) {
         if (!b) return { startStr: null, endStr: null };
-        const startStr = isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
+        const startStr =
+            isAsia && b.startTimeAsia ? b.startTimeAsia : b.startTime;
         const endStr = isAsia && b.endTimeAsia ? b.endTimeAsia : b.endTime;
         return { startStr, endStr };
     }
@@ -219,7 +220,8 @@
 
                 if (durationA !== durationB) return durationA - durationB;
                 return (
-                    parseServerDate(datesB.startStr) - parseServerDate(datesA.startStr)
+                    parseServerDate(datesB.startStr) -
+                    parseServerDate(datesA.startStr)
                 );
             });
             return matches[0];
@@ -233,7 +235,10 @@
             .sort((a, b) => {
                 const datesA = getBannerDates(a);
                 const datesB = getBannerDates(b);
-                return parseServerDate(datesB.startStr) - parseServerDate(datesA.startStr);
+                return (
+                    parseServerDate(datesB.startStr) -
+                    parseServerDate(datesA.startStr)
+                );
             });
 
         return pastBanners[0];
@@ -293,13 +298,13 @@
         let p6 = 0,
             p5 = 0;
         let bannerCounts = {};
-        
-        let rateUpCounters = {}; 
-        
+
+        let rateUpCounters = {};
+
         const isWeapon =
             bannerType.includes("weap") || bannerType.includes("wepon");
         const hardPityLimit = isWeapon ? 80 : 120;
-        
+
         let processed = sorted.map((pull, i) => {
             const p = { ...pull };
             p.pullNumber = i + 1;
@@ -307,7 +312,7 @@
             const bid = banner ? banner.id : "other";
 
             if (!bannerCounts[bid]) bannerCounts[bid] = 0;
-            if (rateUpCounters[bid] === undefined) rateUpCounters[bid] = 0; 
+            if (rateUpCounters[bid] === undefined) rateUpCounters[bid] = 0;
 
             let isFree = false;
 
@@ -329,23 +334,23 @@
 
             bannerCounts[bid]++;
             if (!isFree) {
-                    if (p.rarity === 6) {
-                        p.pity = p6 + 1;
-                        p6 = 0;
-                        p5 = 0;
-                    } else if (p.rarity === 5) {
-                        p.pity = p5 + 1;
-                        p5 = 0;
-                        p6++;
-                    } else {
-                        p6++;
-                        p5++;
-                        p.pity = 1;
-                    }
+                if (p.rarity === 6) {
+                    p.pity = p6 + 1;
+                    p6 = 0;
+                    p5 = 0;
+                } else if (p.rarity === 5) {
+                    p.pity = p5 + 1;
+                    p5 = 0;
+                    p6++;
                 } else {
+                    p6++;
+                    p5++;
                     p.pity = 1;
                 }
-                
+            } else {
+                p.pity = 1;
+            }
+
             let isHardPityTriggered = false;
             if (!isFree) {
                 if (rateUpCounters[bid] >= hardPityLimit - 1) {
@@ -504,11 +509,9 @@
         </h2>
     </div>
 
-    <!-- MAIN CONTAINER -->
     <div
         class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_480px] 2xl:grid-cols-[minmax(0,1fr)_680px] gap-6 items-start"
     >
-        <!-- СТАТИСТИКА -->
         <div
             class="flex mt-11 flex-col gap-6 w-full order-1 xl:order-2 min-w-0"
         >
@@ -534,7 +537,7 @@
                                     >{$t("page.banner.spent")}</span
                                 >
                                 <span
-                                    class="font-bold text-gray-900 dark:text-[#FDFDFD] flex items-center gap-2 font-nums text-xl"
+                                    class="font-bold text-gray-900 dark:text-[#FDFDFD] flex items-center gap-0.5 font-nums text-xl"
                                 >
                                     <Images
                                         id="oroberyl"
@@ -633,13 +636,13 @@
                     class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5"
                 >
                     <h4
-                        class="font-bold text-sm mb-2 dark:text-[#FDFDFD] text-[#21272C]"
+                        class="font-bold text-sm mb-3 text-[#21272C] dark:text-[#FDFDFD]"
                     >
                         {$t("page.banner.stats")}
                     </h4>
 
                     <div
-                        class="grid grid-cols-4 text-xs dark:text-[#B7B6B3] text-gray-500 mb-1 font-medium"
+                        class="grid grid-cols-4 text-xs text-gray-500 dark:text-[#B7B6B3] mb-1 font-medium"
                     >
                         <div>{$t("page.banner.rarity")}</div>
                         <div class="text-right">{$t("page.banner.count")}</div>
@@ -649,70 +652,71 @@
                         <div class="text-right">{$t("page.banner.avg")}</div>
                     </div>
 
-                    {#each statsRows as row}
-                        <div
-                            class="border-b dark:border-[#444444] border-gray-50 last:border-0"
-                        >
+                    <div class="border-t border-gray-50 dark:border-[#444444]">
+                        {#each statsRows as row}
                             <div
-                                class="grid grid-cols-4 text-sm items-center py-1"
+                                class="border-b border-gray-50 dark:border-[#444444] last:border-0"
                             >
                                 <div
-                                    class="font-bold text-gray-700 dark:text-[#E0E0E0] flex items-center gap-1 font-nums"
+                                    class="grid grid-cols-4 text-sm items-center py-1.5"
                                 >
-                                    {row.label}
-                                    <Icon name="star" class="w-4 h-4" />
+                                    <div
+                                        class="font-bold text-gray-700 dark:text-[#FDFDFD] flex items-center gap-1 font-nums"
+                                    >
+                                        {row.label}
+                                        <Icon name="star" class="w-4 h-4" />
+                                    </div>
+                                    <div
+                                        class="text-right font-bold font-nums text-[#21272C] dark:text-[#E4E4E4]"
+                                    >
+                                        {row.count}
+                                    </div>
+                                    <div
+                                        class="text-right text-gray-600 dark:text-[#B7B6B3] font-nums"
+                                    >
+                                        {row.percent}%
+                                    </div>
+                                    <div
+                                        class="text-right font-bold font-nums"
+                                        style="color: {getAvgColor(
+                                            row.avg,
+                                            row.avgMax,
+                                        )}"
+                                    >
+                                        {row.avg}
+                                    </div>
                                 </div>
-                                <div
-                                    class="text-right font-bold dark:text-[#E0E0E0] font-nums text-[#21272C]"
-                                >
-                                    {row.count}
-                                </div>
-                                <div
-                                    class="text-right dark:text-[#B7B6B3] text-gray-600 font-nums"
-                                >
-                                    {row.percent}%
-                                </div>
-                                <div
-                                    class="text-right font-bold font-nums text-[#1D6F42]"
-                                    style="color: {getAvgColor(
-                                        row.avg,
-                                        row.avgMax,
-                                    )}"
-                                >
-                                    {row.avg}
-                                </div>
+
+                                {#if hasRateUp && row.winRate.total > 0}
+                                    <div
+                                        class="grid grid-cols-4 border-t border-gray-50 dark:border-[#444444] text-sm items-center pb-1.5 pt-1.5"
+                                    >
+                                        <div
+                                            class="text-gray-600 dark:text-[#E4E4E4] text-xs pl-6 col-span-1"
+                                        >
+                                            {#if isWeaponType}
+                                                25:75
+                                            {:else}
+                                                50:50
+                                            {/if}
+                                        </div>
+                                        <div
+                                            class="text-right font-nums text-[#21272C] dark:text-[#E4E4E4] col-span-1"
+                                        >
+                                            {row.winRate.won}/{row.winRate
+                                                .total}
+                                        </div>
+                                        <div
+                                            class="text-right text-gray-600 dark:text-[#B7B6B3] font-nums col-span-1"
+                                        >
+                                            {row.winRate.percent}%
+                                        </div>
+                                        <div class="col-span-1"></div>
+                                    </div>
+                                {/if}
                             </div>
-
-                            {#if hasRateUp && row.winRate.total > 0}
-                                <div
-                                    class="grid grid-cols-4 text-sm items-center py-1"
-                                >
-                                    <div
-                                        class="text-gray-600 dark:text-[#E0E0E0] text-xs pl-2"
-                                    >
-                                        {#if isWeaponType}
-                                            25:75
-                                        {:else}
-                                            50:50
-                                        {/if}
-                                    </div>
-
-                                    <div
-                                        class="text-right dark:text-[#E0E0E0] font-nums text-[#21272C]"
-                                    >
-                                        {row.winRate.won}/{row.winRate.total}
-                                    </div>
-
-                                    <div
-                                        class="text-right dark:text-[#B7B6B3] text-gray-600 font-nums"
-                                    >
-                                        {row.winRate.percent}%
-                                    </div>
-                                    <div class="text-right"></div>
-                                </div>
-                            {/if}
-                        </div>
-                    {/each}
+                        {/each}
+                    </div>
                 </div>
             </div>
 
@@ -720,8 +724,6 @@
                 <AnalyticsCharts {rawPulls} {bannerType} />
             </div>
         </div>
-
-        <!-- ТАБЛИЦА -->
         <div class="flex flex-col gap-3 order-2 xl:order-1 min-w-0">
             <div class="flex gap-2">
                 {#each [6, 5, 4] as rarity}
@@ -766,7 +768,11 @@
                                 </div>
                             </Tooltip>
                             <div class="whitespace-nowrap">
-                                {$t("systemNames.operator")}
+                                {#if isWeaponType}
+                                    {$t("sort.weapon")}
+                                {:else}
+                                    {$t("systemNames.operator")}
+                                {/if}
                             </div>
                             <div
                                 class="flex items-center justify-center whitespace-nowrap"
@@ -788,8 +794,7 @@
                                 >
                                     <Icon name="noData" class="w-4 h-4" />
                                     <p class="text-sm">
-                                        {$t("emptyState.noData") ||
-                                            "Нет данных"}
+                                        {$t("emptyState.noData") || "No data"}
                                     </p>
                                 </div>
                             {:else}
@@ -944,7 +949,9 @@
                                                         {#if row.status === "won"}
                                                             {#if !bannerType.includes("standard") && !bannerType.includes("new")}
                                                                 <Tooltip
-                                                                    textKey={isWeaponType ? "status.wonWeapon" : "status.won"}
+                                                                    textKey={isWeaponType
+                                                                        ? "status.wonWeapon"
+                                                                        : "status.won"}
                                                                 >
                                                                     <Icon
                                                                         name="star"
@@ -954,7 +961,9 @@
                                                             {/if}
                                                         {:else if row.status === "lost"}
                                                             <Tooltip
-                                                                textKey={isWeaponType ? "status.lostWeapon" : "status.lost"}
+                                                                textKey={isWeaponType
+                                                                    ? "status.lostWeapon"
+                                                                    : "status.lost"}
                                                             >
                                                                 <Icon
                                                                     name="lost"

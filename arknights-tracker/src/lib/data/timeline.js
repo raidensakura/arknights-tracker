@@ -606,11 +606,11 @@ export const rawEvents = [
     startTime: "2026-04-24 12:00:00",
     endTime: "2026-06-05 04:00:00",
     icon: "ev11-v1.2.jpg",
-    url: "https://x.com/AKEndfield/status/2046557275972915575?s=20",
+    url: "https://x.com/AKEndfield/status/2047148457685594381?s=20",
     color: "#18283F",
     layer: 3,
     type: "inGame",
-    iconPosition: 20,
+    iconPosition: 10,
     version: "1.2"
   },
   {
@@ -624,7 +624,7 @@ export const rawEvents = [
     color: "#424242",
     layer: 4,
     type: "signIn",
-    iconPosition: 20,
+    iconPosition: 10,
     version: "1.2"
   },
   {

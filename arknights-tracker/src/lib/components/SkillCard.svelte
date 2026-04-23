@@ -352,9 +352,12 @@
                         {@const lvl = i + 1}
 
                         <div
-                            class="{lvl >= 10
-                                ? 'w-5 shrink-0'
-                                : 'flex-1'} h-full cursor-pointer"
+                            class="{lvl >= 10 ? 'w-5 shrink-0' : 'flex-1'} h-full cursor-pointer"
+                            role="slider"
+                            tabindex="0"
+                            aria-valuenow={lvl}
+                            aria-valuemin="1"
+                            aria-valuemax="12"
                             on:mousedown={() => startDrag(lvl)}
                             on:mouseenter={() => {
                                 if (isDragging) level = lvl;

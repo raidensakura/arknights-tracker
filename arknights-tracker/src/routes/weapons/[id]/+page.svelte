@@ -10,6 +10,7 @@
     import { weapons } from "$lib/data/weapons.js";
     import { manualPotentials } from "$lib/stores/potentials";
     import { accountStore } from "$lib/stores/accounts";
+    import { levels as weaponLevelUpTable } from "$lib/data/weaponLevelUpTable.js";
 
     import Icon from "$lib/components/Icons.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
@@ -200,6 +201,8 @@
     const maxLevel = 90;
     let showStatsTable = false;
     let isTableCopied = false;
+    let showAscension = true;
+    let isCumulative = true;
 
     $: itemsDb = [...(progression || []), ...(currencies || [])];
     $: baseAtk = weaponData.levels?.baseAtk
@@ -278,24 +281,89 @@
     };
 
     $: neededMaterials = (() => {
-        if (!weaponData.materials) return [];
+        if (!weaponData) return [];
         const required = {};
-        let phasesNeeded = [];
 
-        if (level <= 20) phasesNeeded.push("breakthrough2");
-        else if (level <= 40) phasesNeeded.push("breakthrough3");
-        else if (level <= 60) phasesNeeded.push("breakthrough4");
-        else phasesNeeded.push("breakthrough5");
+        if (showAscension && weaponData.materials) {
+            let phasesNeeded = [];
+            const ascensions = [
+                { cap: 20, key: "breakthrough2" },
+                { cap: 40, key: "breakthrough3" },
+                { cap: 60, key: "breakthrough4" },
+                { cap: 80, key: "breakthrough5" },
+            ];
 
-        phasesNeeded.forEach((key) => {
-            const mats = weaponData.materials[key];
-            if (mats) {
-                mats.forEach((mat) => {
-                    if (!required[mat.name]) required[mat.name] = 0;
-                    required[mat.name] += mat.amount;
+            if (isCumulative) {
+                ascensions.forEach(asc => {
+                    if (level >= asc.cap) phasesNeeded.push(asc.key);
                 });
+            } else {
+                const exactAsc = ascensions.find(a => a.cap === level);
+                if (exactAsc) phasesNeeded.push(exactAsc.key);
             }
-        });
+
+            phasesNeeded.forEach((key) => {
+                const mats = weaponData.materials[key];
+                if (mats) {
+                    mats.forEach((mat) => {
+                        if (!required[mat.name]) required[mat.name] = 0;
+                        required[mat.name] += mat.amount;
+                    });
+                }
+            });
+        }
+
+        if (typeof weaponLevelUpTable !== 'undefined') {
+            const curveKey = `weapon_upgrade_curve_${weaponBase.rarity || 5}star`;
+            const curveData = weaponLevelUpTable[curveKey]?.list;
+
+            if (curveData && level > 1) {
+                let totalExp = 0;
+                let totalGold = 0;
+                const currentIndex = level - 1;
+
+                if (isCumulative) {
+                    totalExp = curveData[currentIndex]?.lvUpExpSum || 0;
+                    totalGold = curveData[currentIndex]?.lvUpGoldSum || 0;
+                } else {
+                    const currentExpSum = curveData[currentIndex]?.lvUpExpSum || 0;
+                    const prevExpSum = curveData[currentIndex - 1]?.lvUpExpSum || 0;
+                    const currentGoldSum = curveData[currentIndex]?.lvUpGoldSum || 0;
+                    const prevGoldSum = curveData[currentIndex - 1]?.lvUpGoldSum || 0;
+                    
+                    totalExp = currentExpSum - prevExpSum;
+                    totalGold = currentGoldSum - prevGoldSum;
+                }
+
+                if (totalGold > 0) {
+                    required["tCreds"] = (required["tCreds"] || 0) + totalGold;
+                }
+
+                if (totalExp > 0) {
+                    const expItems = [
+                        { id: "armsInspSet", val: 10000 }, 
+                        { id: "armsInspKit", val: 1000 }, 
+                        { id: "armsInspector", val: 200 }
+                    ];
+
+                    let remaining = totalExp;
+                    for (const item of expItems) {
+                        if (remaining <= 0) break;
+                        const count = Math.floor(remaining / item.val);
+                        if (count > 0) {
+                            required[item.id] = (required[item.id] || 0) + count;
+                            remaining -= count * item.val;
+                        }
+                    }
+                    if (remaining > 0 && expItems.length > 0) {
+                        const smallest = expItems[expItems.length - 1];
+                        required[smallest.id] = (required[smallest.id] || 0) + 1;
+                    }
+                }
+            }
+        }
+
+        if (Object.keys(required).length === 0) return [];
 
         return Object.entries(required)
             .map(([itemId, amount]) => {
@@ -309,7 +377,7 @@
             .sort((a, b) => {
                 if (a.id === "t_creds") return -1;
                 if (b.id === "t_creds") return 1;
-                return (a.rarity || 1) - (b.rarity || 1);
+                return (b.rarity || 1) - (a.rarity || 1);
             });
     })();
 
@@ -422,7 +490,7 @@
     on:mouseup={() => (isDraggingRank = false)}
 />
 
-<div class="min-h-screen p-4 md:px-8 md:py-3 font-sans transition-colors">
+<div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors ">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button
             variant="roundSmall"
@@ -759,7 +827,7 @@
                             max={maxLevel}
                             step="1"
                             bind:value={level}
-                            class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
+                            class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
                         />
                     </div>
 
@@ -809,12 +877,18 @@
                                             stroke-width="2"
                                         />
                                     </svg>
-
-                                    <h3
-                                        class="font-medium text-[#21272C] dark:text-[#E4E4E4] text-[15px] leading-tight"
-                                    >
-                                        {skillData.name}
-                                    </h3>
+                                    <div class="flex gap-1 items-center">
+                                        <h3
+                                            class="font-medium text-[#21272C] dark:text-[#E4E4E4] text-[15px] leading-tight"
+                                        >
+                                            {skillData.name}
+                                        </h3>
+                                        <span
+                                            class="pt-1 block sm:hidden min-w-[40px] flex text-xs font-bold text-gray-400 dark:text-gray-500 font-nums tracking-wider"
+                                        >
+                                            (Lv. {state.rank})
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="hidden sm:block flex-1"></div>
@@ -876,14 +950,8 @@
                                                         e.target.value,
                                                     ),
                                                 })}
-                                            class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C]"
+                                            class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C]"
                                         />
-                                        <div
-                                            class="flex justify-between text-[10px] text-gray-400 dark:text-[#555] mt-1.5 font-nums font-bold"
-                                        >
-                                            <span>Lv. 1</span>
-                                            <span>Lv. 9</span>
-                                        </div>
                                     </div>
 
                                     <div
@@ -930,24 +998,35 @@
             <div
                 class="bg-white dark:bg-[#2b2b2b] p-6 rounded-3xl border border-gray-200 dark:border-[#444] flex flex-col gap-4 transition-colors"
             >
-                <h2
-                    class="text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-sdk border-b border-gray-100 dark:border-[#444] pb-3"
-                >
-                    {tOrFallback("stats.materials", "Материалы")}
-                </h2>
-                <div class="flex flex-wrap gap-4 pt-1">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 dark:border-[#444] pb-3 gap-4">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] font-sdk">
+                            {tOrFallback("stats.materials", "Материалы")}
+                        </h2>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 flex-wrap">
+                        <label class="flex items-center gap-1.5 text-xs md:text-sm font-medium text-gray-600 dark:text-[#B7B6B3] cursor-pointer select-none hover:text-black dark:hover:text-white transition-colors">
+                            <input type="checkbox" bind:checked={showAscension} class="accent-[#F9B90C] w-3.5 h-3.5 md:w-4 md:h-4 cursor-pointer rounded" />
+                            {tOrFallback("stats.ascension", "Возвышение")}
+                        </label>
+                        <label class="flex items-center gap-1.5 text-xs md:text-sm font-medium text-gray-600 dark:text-[#B7B6B3] cursor-pointer select-none hover:text-black dark:hover:text-white transition-colors">
+                            <input type="checkbox" bind:checked={isCumulative} class="accent-[#F9B90C] w-3.5 h-3.5 md:w-4 md:h-4 cursor-pointer rounded" />
+                            {tOrFallback("stats.cumulative", "Кумулятивно")}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
                     {#if neededMaterials.length > 0}
                         {#each neededMaterials as mat (mat.id)}
                             <ItemCard item={mat} amount={mat.amount} />
                         {/each}
                     {:else}
-                        <div
-                            class="w-full text-gray-500 dark:text-[#B7B6B3] text-sm py-4 italic"
-                        >
-                            {tOrFallback(
-                                "systemNames.noMaterialsNeeded",
-                                "Достигнут максимальный уровень",
-                            )}
+                        <div class="w-full text-center text-gray-500 dark:text-[#B7B6B3] text-sm py-4 italic">
+                            {level === 1 
+                                ? tOrFallback("systemNames.noMaterialsNeeded", "Материалы не требуются") 
+                                : tOrFallback("stats.maxed", "Достигнут максимальный уровень")}
                         </div>
                     {/if}
                 </div>
@@ -1317,45 +1396,6 @@
 {/if}
 
 <style>
-    /* Слайдер с поддержкой темной и светлой темы */
-    .custom-slider {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 4px;
-        background: #d1d5db;
-        border-radius: 2px;
-        cursor: pointer;
-    }
-    :global(.dark) .custom-slider {
-        background: #555;
-    }
-    .custom-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 14px;
-        height: 14px;
-        background: #21272c;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    }
-    :global(.dark) .custom-slider::-webkit-slider-thumb {
-        background: #e5e5e5;
-    }
-    .custom-slider::-moz-range-thumb {
-        width: 14px;
-        height: 14px;
-        background: #21272c;
-        border-radius: 50%;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    }
-    :global(.dark) .custom-slider::-moz-range-thumb {
-        background: #e5e5e5;
-    }
-
     .custom-scrollbar::-webkit-scrollbar {
         width: 6px;
     }
@@ -1369,7 +1409,6 @@
     :global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
         background-color: #555;
     }
-
     .card-gradient {
         background: linear-gradient(
             to right,

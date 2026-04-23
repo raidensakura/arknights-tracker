@@ -862,7 +862,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-2 w-full max-w-[240px]">
+            <div class="flex flex-col gap-2 w-full md:max-w-[240px] max-w-[550px]">
                 {#each menuItems as item}
                     <Button
                         variant="menuButton"
@@ -870,7 +870,7 @@
                         onClick={() => (activeTab = item.id)}
                         className="transition-all duration-300 {activeTab !==
                         item.id
-                            ? 'opacity-60 hover:opacity-100'
+                            ? 'opacity-70 hover:opacity-100'
                             : 'scale-105'}"
                     >
                         {$t(item.label) || item.id}
@@ -917,7 +917,7 @@
                                         step="1"
                                         value={level}
                                         on:input={handleInput}
-                                        class="w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
+                                        class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
                                     />
                                 </div>
                             </div>
@@ -1773,7 +1773,10 @@
                             WIP: {activeTab} section
                         </div>
                     {/if}
-                    <div class="flex md:hidden items-center justify-between w-full mt-5 gap-4">
+                    <div class="flex md:hidden items-center justify-between w-full mt-5 gap-4 {activeTab ===
+                    'about'
+                        ? 'max-w-[550px]'
+                        : ''}">
                                 <div class="flex-1 flex justify-start overflow-hidden">
                                     {#if prevTab}
                                         <button
@@ -1786,7 +1789,7 @@
                                     {/if}
                                 </div>
                                 
-                                <div class="flex-1 flex justify-end overflow-hidden">
+                                <div class="flex-1 flex justify-end overflow-hidden ">
                                     {#if nextTab}
                                         <button
                                             on:click={() => switchTab(nextTab.id)}
