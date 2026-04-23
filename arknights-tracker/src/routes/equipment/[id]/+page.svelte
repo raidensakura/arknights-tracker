@@ -311,7 +311,7 @@
     })();
 </script>
 
-<div class="min-h-screen p-4 md:p-8 font-sans transition-colors">
+<div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button
             variant="roundSmall"

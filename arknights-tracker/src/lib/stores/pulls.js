@@ -176,8 +176,20 @@ function createPullStore() {
                                 }
                             });
 
-                            const existingIds = new Set(oldList.map(p => p.id));
-                            const reallyNew = incomeList.filter(p => !existingIds.has(p.id));
+                            const oldCounts = {};
+                            oldList.forEach(p => {
+                                const sig = `${p.time.getTime()}_${p.name}`;
+                                oldCounts[sig] = (oldCounts[sig] || 0) + 1;
+                            });
+                            const reallyNew = [];
+                            const newCounts = {};
+                            incomeList.forEach(p => {
+                                const sig = `${p.time.getTime()}_${p.name}`;
+                                newCounts[sig] = (newCounts[sig] || 0) + 1;
+                                if (newCounts[sig] > (oldCounts[sig] || 0)) {
+                                    reallyNew.push(p);
+                                }
+                            });
 
                             if (reallyNew.length > 0 || hasEnriched) {
                                 const mergedList = mergePulls(oldList, reallyNew);

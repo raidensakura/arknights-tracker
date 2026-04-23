@@ -125,6 +125,7 @@ export function getWeaponCategory(bannerId) {
 
 export function parseGachaLog(list) {
     if (!Array.isArray(list)) throw new Error("Invalid data array");
+    const timeCounters = {};
     return list.map((item, i) => {
         const rawName = item.name || item.charName || item.weaponName || item.character || item.item_name;
         const rarity = Number(item.rarity || item.rank || item.rank_type);
@@ -140,8 +141,22 @@ export function parseGachaLog(list) {
         const rawBannerId = item.bannerId || item.poolId || item.gacha_type;
         const internalId = getInternalBannerType(rawBannerId);
         const itemType = item.weaponName ? 'weapon' : 'character';
-        let uniqueId = item.id || (seqId !== 0 ? `${dateObj.getTime()}_${rawName}_${seqId}` : `${dateObj.getTime()}_${rawName}_idx${i}`);
-        return { id: uniqueId, time: dateObj, name: rawName, rarity, bannerId: internalId, seqId, isNew, isFree, type: itemType, rawPoolId: rawBannerId };
+        const tsStr = dateObj.getTime().toString();
+        if (timeCounters[tsStr] === undefined) timeCounters[tsStr] = 0;
+        const localIdx = timeCounters[tsStr]++;
+        let uniqueId = item.id || (seqId !== 0 ? `${dateObj.getTime()}_${rawName}_${seqId}` : `${dateObj.getTime()}_${rawName}_loc${localIdx}`);
+        return { 
+            id: uniqueId, 
+            time: dateObj, 
+            name: rawName, 
+            rarity, 
+            bannerId: internalId, 
+            seqId, 
+            isNew, 
+            isFree, 
+            type: itemType, 
+            rawPoolId: rawBannerId 
+        };
     }).sort(sortPulls);
 }
 
@@ -374,9 +389,14 @@ export function validateAccountConsistency(existingPulls, newPulls) {
         return t >= minNewTime && t <= maxNewTime;
     });
     if (overlaps.length === 0) return;
-    const existingIdsInrange = new Set(overlaps.map(p => p.id));
+    const existingSignatures = new Set(overlaps.map(p => `${p.time.getTime()}_${p.name}`));
     let hasMatch = false;
-    for (const p of sortedNew) { if (existingIdsInrange.has(p.id)) { hasMatch = true; break; } }
+    for (const p of sortedNew) { 
+        if (existingSignatures.has(`${p.time.getTime()}_${p.name}`)) { 
+            hasMatch = true; 
+            break; 
+        } 
+    }
     if (!hasMatch) {
         const startDate = new Date(minNewTime).toLocaleDateString();
         const endDate = new Date(maxNewTime).toLocaleDateString();

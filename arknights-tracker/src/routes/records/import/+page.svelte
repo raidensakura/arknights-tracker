@@ -336,62 +336,29 @@
     async function handleImportComplete(data, urlToSend) {
         const importedUid = data.uid;
         const backendServerId = data.serverId;
-
         if (importedUid) {
-            const accounts = get(accountStore.accounts);
+            const accounts = get(accountStore.accounts) || [];
             const selectedId = get(accountStore.selectedId);
             const currentAcc = accounts.find((a) => a.id === selectedId);
 
-            const currentPullData = get(pullData);
-            let hasPulls = false;
-
-            if (currentPullData) {
-                for (const key of Object.keys(currentPullData)) {
-                    if (currentPullData[key]?.pulls?.length > 0) {
-                        hasPulls = true;
-                        break;
-                    }
-                }
-            }
-
-            const isUidMatch =
-                currentAcc &&
-                String(currentAcc.serverUid) === String(importedUid);
-
-            const shortUid =
-                importedUid.length > 4 ? importedUid.slice(-4) : importedUid;
-            const newSmartName = `Account ${shortUid}`;
-
-            if (!hasPulls || isUidMatch) {
-                if (accountStore.updateAccount && currentAcc) {
-                    const shouldRename =
-                        currentAcc.name === "Main Account" ||
-                        currentAcc.name.startsWith("Account") ||
+            if (currentAcc) {
+                if (accountStore.updateAccount) {
+                    const shortUid = importedUid.length > 4 ? importedUid.slice(-4) : importedUid;
+                    const shouldRename = 
+                        currentAcc.name === "Main Account" || 
+                        currentAcc.name.startsWith("Account") || 
                         currentAcc.name.startsWith("Doctor");
-
-                    const nameToSet = shouldRename
-                        ? newSmartName
-                        : currentAcc.name;
 
                     accountStore.updateAccount(currentAcc.id, {
                         uid: importedUid,
                         serverId: backendServerId,
-                        name: nameToSet,
+                        name: shouldRename ? `Account ${shortUid}` : currentAcc.name,
                     });
                 }
             } else {
-                const existingAccount = accounts.find(
-                    (a) => String(a.serverUid) === String(importedUid),
-                );
-
-                if (existingAccount) {
-                    accountStore.selectAccount(existingAccount.id);
-                } else {
-                    accountStore.addAccount(
-                        importedUid,
-                        newSmartName,
-                        backendServerId,
-                    );
+                if (accountStore.addAccount) {
+                    const shortUid = importedUid.length > 4 ? importedUid.slice(-4) : importedUid;
+                    accountStore.addAccount(importedUid, `Account ${shortUid}`, backendServerId);
                 }
             }
         }
