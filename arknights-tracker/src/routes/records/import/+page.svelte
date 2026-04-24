@@ -212,6 +212,20 @@
 
         isLoading = true;
         pendingData = null;
+        let lastPullTimes = {};
+        const currentPullData = get(pullData);
+        if (currentPullData && !isOverwriteEnabled) { 
+            Object.entries(currentPullData).forEach(([catId, cat]) => {
+                let maxTimeForCat = 0;
+                if (cat.pulls && Array.isArray(cat.pulls)) {
+                    cat.pulls.forEach(p => {
+                        const t = new Date(p.time).getTime();
+                        if (t > maxTimeForCat) maxTimeForCat = t;
+                    });
+                }
+                lastPullTimes[catId] = maxTimeForCat;
+            });
+        }
 
         previewReport = {
             status: "loading",
@@ -226,6 +240,7 @@
                 body: JSON.stringify({
                     rawUrl: urlToSend,
                     overwrite: isOverwriteEnabled,
+                    lastPullTimes
                 }),
             });
 
@@ -255,59 +270,48 @@
 
                 for (const line of lines) {
                     if (!line.trim()) continue;
+                    let msg;
                     try {
-                        const msg = JSON.parse(line);
-
-                        console.log("Stream received:", msg);
-
-                        if (msg.type === "progress") {
-                            const { poolId, count } = msg;
-                            const currentPoolCount =
-                                previewReport.addedCount[poolId] || 0;
-                            previewReport.totalAdded += count;
-
-                            previewReport.addedCount = {
-                                ...previewReport.addedCount,
-                                [poolId]: currentPoolCount + count,
-                            };
-
-                            previewReport = previewReport;
-                            await new Promise((r) => setTimeout(r, 0));
-                        } else if (msg.type === "complete") {
-                            console.log("Import Complete!");
-                            await handleImportComplete(msg.data, urlToSend);
-                        } else if (msg.type === "error") {
-                            const backendMsg = msg.message || "";
-
-                            if (backendMsg.includes("Token is invalid")) {
-                                errorMsg =
-                                    $t("import.error_invalid_token") ||
-                                    "Token is invalid or expired.";
-                            } else if (backendMsg.includes("Invalid domain")) {
-                                errorMsg =
-                                    $t("import.error_domain") ||
-                                    "Invalid game link. Domain not supported";
-                            } else if (
-                                backendMsg.includes("No pulls found") ||
-                                backendMsg.includes("expired")
-                            ) {
-                                errorMsg =
-                                    $t("import.error_no_data") ||
-                                    "No pulls found or Link Expired";
-                            } else if (backendMsg.includes("No token found")) {
-                                errorMsg =
-                                    $t("import.error_format") ||
-                                    "Invalid URL/Token format";
-                            } else {
-                                errorMsg = backendMsg;
-                            }
-
-                            previewReport = null;
-                            isLoading = false;
-                            return;
-                        }
+                        msg = JSON.parse(line);
                     } catch (e) {
                         console.error("Stream parse error:", e);
+                        continue;
+                    }
+                    console.log("Stream received:", msg);
+
+                    if (msg.type === "progress") {
+                        const { poolId, count } = msg;
+                        const currentPoolCount = previewReport.addedCount[poolId] || 0;
+                        previewReport.totalAdded += count;
+
+                        previewReport.addedCount = {
+                            ...previewReport.addedCount,
+                            [poolId]: currentPoolCount + count,
+                        };
+
+                        previewReport = previewReport;
+                        await new Promise((r) => setTimeout(r, 0));
+                    } else if (msg.type === "complete") {
+                        console.log("Import Complete!");
+                        await handleImportComplete(msg.data, urlToSend);
+                    } else if (msg.type === "error") {
+                        const backendMsg = msg.message || "";
+
+                        if (backendMsg.includes("Token is invalid")) {
+                            errorMsg = $t("import.error_invalid_token") || "Token is invalid or expired.";
+                        } else if (backendMsg.includes("Invalid domain")) {
+                            errorMsg = $t("import.error_domain") || "Invalid game link. Domain not supported";
+                        } else if (backendMsg.includes("No pulls found") || backendMsg.includes("expired")) {
+                            errorMsg = $t("import.error_no_data") || "No pulls found or Link Expired";
+                        } else if (backendMsg.includes("No token found")) {
+                            errorMsg = $t("import.error_format") || "Invalid URL/Token format";
+                        } else {
+                            errorMsg = backendMsg;
+                        }
+
+                        previewReport = null;
+                        isLoading = false;
+                        return;
                     }
                 }
             }
@@ -324,10 +328,11 @@
             ) {
                 errorMsg = $t("import.error_network") || "Bad Gateway";
             } else {
-                errorMsg = $t("import.error_unknown") || "Unknown Error";
+                errorMsg = err.message || $t("import.error_unknown") || "Unknown Error";
             }
 
             previewReport = null;
+            pendingData = null;
         } finally {
             isLoading = false;
         }
@@ -369,13 +374,13 @@
 
         const rawData = data.list;
         const cleanPulls = parseGachaLog(rawData);
-        pendingData = cleanPulls;
 
         const report = await pullData.smartImport(
             cleanPulls,
             backendServerId,
             false,
         );
+        pendingData = cleanPulls;
         previewReport = report;
     }
 

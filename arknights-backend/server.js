@@ -88,7 +88,7 @@ const POOL_TYPES = [
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-async function fetchGameData(token, lang, serverId, onProgress) {
+async function fetchGameData(token, lang, serverId, onProgress, lastPullTimes) { 
     console.log(`\n--- Starting PARALLEL Scan on SERVER ID: ${serverId} ---`);
     let isTokenInvalid = false;
 
@@ -105,6 +105,19 @@ async function fetchGameData(token, lang, serverId, onProgress) {
             : 'https://ef-webview.gryphline.com/api/record/char';
 
         const poolLabel = isWeaponScan ? 'weapon-all' : mapPoolTypeToShort(poolType);
+        let specificLastTime = 0;
+        if (isWeaponScan) {
+            const t1 = lastPullTimes['weap-standard'] || 0;
+            const t2 = lastPullTimes['weap-special'] || 0;
+            specificLastTime = (t1 > 0 && t2 > 0) ? Math.min(t1, t2) : Math.max(t1, t2);
+        } else if (poolType.includes('Beginner')) {
+            specificLastTime = lastPullTimes['new-player'] || 0;
+        } else if (poolType.includes('Special')) {
+            specificLastTime = lastPullTimes['special'] || 0;
+        } else {
+            specificLastTime = lastPullTimes['standard'] || 0;
+        }
+        const safeCutoffTime = specificLastTime > 0 ? (Number(specificLastTime) - 7200000) : 0;
 
         while (hasMore) {
             const params = new URLSearchParams({ token, lang, server_id: serverId });
@@ -134,8 +147,17 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 }
 
                 const list = result.data?.list || [];
-
+                let reachedKnownData = false;
                 const newItems = list.filter(item => {
+                    let itemTime = 0;
+                    if (item.gachaTs) itemTime = Number(item.gachaTs);
+                    else if (item.ts) itemTime = Number(item.ts) * 1000;
+                    else if (item.time) itemTime = new Date(item.time).getTime();
+                    if (safeCutoffTime > 0 && itemTime > 0 && itemTime <= safeCutoffTime) {
+                        reachedKnownData = true;
+                        return false; 
+                    }
+
                     const uniqueKey = (isWeaponScan ? 'w_' : 'c_') + item.seqId;
                     return !visitedIds.has(uniqueKey);
                 });
@@ -143,6 +165,12 @@ async function fetchGameData(token, lang, serverId, onProgress) {
                 if (list.length > 0 && newItems.length === 0) {
                     hasMore = false;
                     break;
+                }
+                if (reachedKnownData) {
+                    console.log(`[Optimization] Reached known history in ${poolLabel}. Stopping pagination.`);
+                    hasMore = false; 
+                } else {
+                    hasMore = result.data?.hasMore;
                 }
 
                 newItems.forEach(item => {
@@ -218,7 +246,7 @@ async function fetchGameData(token, lang, serverId, onProgress) {
 }
 
 app.post('/api/import', importLimiter, async (req, res) => {
-    const { rawUrl, overwrite } = req.body;
+    const { rawUrl, overwrite, lastPullTimes } = req.body;
 
     res.writeHead(200, {
         'Content-Type': 'text/event-stream; charset=utf-8',
@@ -270,7 +298,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
 
         for (const serverId of serverCandidates) {
             console.log(`Checking Server ID: ${serverId}...`);
-            const result = await fetchGameData(token, lang, serverId, progressCallback);
+            const result = await fetchGameData(token, lang, serverId, progressCallback, lastPullTimes || {});
 
             if (result.pulls.length > 0) {
                 console.log(`✅ Data found on Server ID: ${serverId}`);
@@ -299,9 +327,9 @@ app.post('/api/import', importLimiter, async (req, res) => {
             return res.end();
         }
 
-        if (prisma && prisma.user) {
+        /*if (prisma && prisma.user) {
             await updateAggregatedStats(stableUid, allPulls, usedServerId, overwrite === true);
-        }
+        }*/
 
         sendEvent({
             type: 'complete',
@@ -700,132 +728,33 @@ function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startP
         return (Number(a.seqId) || 0) - (Number(b.seqId) || 0);
     });
 
-    const isWeaponType = categoryId.includes('weap') || categoryId.includes('wepon') || categoryId.includes('constant');
-    const hardPityLimit = isWeaponType ? 80 : 120;
-
-    const specificBannerConfig = BANNERS.find(b => b.id === categoryId);
-    const isGenericCalculation = !specificBannerConfig;
-
-    if (pulls.length > 0 && isGenericCalculation) {
-        console.log(`\n[MATH DEBUG] Calculating Generic Category: "${categoryId}" (Pulls: ${pulls.length})`);
-    }
-
     let total = pulls.length;
     let count6 = 0, count5 = 0;
     let sumPity6 = 0, sumPity5 = 0;
     let won5050 = 0, total5050 = 0;
 
-    let currentPity6 = startPity6;
-    let currentPity5 = startPity5;
-    let rateUpCounter = 0;
-
-    const offset = getServerOffset(serverId);
-    const enrichedPulls = [];
-
-    pulls.forEach((pull) => {
-        const p = { ...pull };
-        const itemName = normalize(p.name);
-        const isFreePull = p.isFree === true;
+    pulls.forEach((p) => {
+        const isFreePull = p.isFree === true || String(p.isFree) === "true";
 
         if (!isFreePull) {
-            currentPity6++;
-            currentPity5++;
-            rateUpCounter++;
-        }
-
-        const isHardPityTriggered = rateUpCounter >= hardPityLimit;
-
-        if (p.rarity === 6) {
-            p.pity = isFreePull ? 1 : currentPity6;
-
-            if (!isFreePull) {
+            if (p.rarity === 6) {
                 count6++;
-                sumPity6 += currentPity6;
-                console.log(`   [6* PAID] ${p.name} | Pity: ${currentPity6} | Total6: ${count6} | Avg: ${(sumPity6 / count6).toFixed(1)}`);
-
-                currentPity6 = 0;
-                currentPity5 = 0;
-            } else {
-                console.log(`   [6* FREE] ${p.name} | Ignored in stats | Pity set to 1`);
-            }
-
-            let currentFeaturedList = [];
-            if (isGenericCalculation) {
-                const timeMs = new Date(p.time).getTime();
-
-                const candidates = BANNERS.filter(b => {
-                    const dates = getBannerDates(b, serverId);
-
-                    const start = parseDateWithServer(dates.startStr, offset).getTime();
-                    const end = dates.endStr ? parseDateWithServer(dates.endStr, offset).getTime() : Infinity;
-                    if (timeMs < start || timeMs > end) return false;
-
-                    if (categoryId === 'weap-standard') return b.type === 'weapon' && (b.id.includes('constant') || b.id.includes('standard'));
-                    if (categoryId === 'weap-special') return b.type === 'weapon' && !b.id.includes('constant') && !b.id.includes('standard');
-                    if (categoryId === 'special') return b.type === 'special';
-                    if (categoryId === 'standard') return b.type === 'standard';
-                    if (categoryId === 'new-player') return b.type === 'new-player';
-                    return false;
-                });
-
-                let bestBanner = candidates.find(b =>
-                    b.featured6 && b.featured6.some(f => normalize(f) === itemName)
-                );
-
-                if (!bestBanner && candidates.length > 0) {
-                    candidates.sort((a, b) =>
-                        parseDateWithServer(getBannerDates(b, serverId).startStr, offset).getTime() -
-                        parseDateWithServer(getBannerDates(a, serverId).startStr, offset).getTime()
-                    );
-                    bestBanner = candidates[0];
-                }
-
-                if (bestBanner) currentFeaturedList = bestBanner.featured6 || [];
-            } else {
-                currentFeaturedList = specificBannerConfig.featured6 || [];
-            }
-
-            const isFeatured = currentFeaturedList.map(n => normalize(n)).includes(itemName);
-
-            if (categoryId === 'weponbox_1_0_2' && p.rarity === 6) {
-                console.log(`[DEBUG 120] Item from game: "${itemName}"`);
-                console.log(`[DEBUG 120] Featured in config:`, currentFeaturedList.map(n => normalize(n)));
-            }
-
-            if (!isFreePull) {
-                if (isFeatured) {
-                    if (isHardPityTriggered) {
-                        p.gachaStatus = "guaranteed";
-                    } else {
-                        won5050++;
-                        total5050++;
-                        p.gachaStatus = "won";
-                    }
-                    rateUpCounter = 0;
-                } else {
+                sumPity6 += Number(p.pity || 1);
+                const pullStatus = p.status || p.gachaStatus;
+                if (pullStatus === "won") {
+                    won5050++;
                     total5050++;
-                    p.gachaStatus = "lost";
+                } else if (pullStatus === "lost") {
+                    total5050++;
                 }
-            } else {
-                p.gachaStatus = "free";
-            }
-
-        } else if (p.rarity === 5) {
-            p.pity = isFreePull ? 1 : currentPity5;
-            if (!isFreePull) {
+            } else if (p.rarity === 5) {
                 count5++;
-                sumPity5 += currentPity5;
-                currentPity5 = 0;
+                sumPity5 += Number(p.pity || 1);
             }
-        } else {
-            p.pity = 1;
         }
-
-        enrichedPulls.push(p);
     });
 
     const winRate = total5050 > 0 ? (won5050 / total5050 * 100) : 0;
-    console.log(`[MATH END] ${categoryId} Result -> Avg6: ${(sumPity6 / count6 || 0).toFixed(1)} | WinRate: ${winRate.toFixed(1)}% (Won: ${won5050}/${total5050})`);
 
     return {
         stats: {
@@ -838,7 +767,7 @@ function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startP
             total5050,
             winRate
         },
-        enrichedPulls
+        enrichedPulls: pulls
     };
 }
 
