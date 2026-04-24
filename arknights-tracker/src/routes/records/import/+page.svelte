@@ -389,9 +389,12 @@
             const currentAcc = accounts.find((a) => a.id === selectedId);
             const sId = currentAcc?.serverId || "3";
             const uid = currentAcc?.serverUid;
+            if (uid && typeof window !== "undefined") {
+                localStorage.setItem("ark_active_uid", uid);
+            }
             await pullData.smartImport(pendingData, sId, true);
 
-            if (isOverwriteEnabled && uid) {
+            if (uid) {
                 const currentLocalData = get(pullData);
                 let allLocalPulls = [];
 
@@ -1103,7 +1106,7 @@
                             </div>
                         {/if}
 
-                        <label
+                        <!--<label
                             class="flex items-start gap-3 select-none group cursor-pointer w-fit"
                         >
                             <div class="relative flex items-center">
@@ -1142,7 +1145,7 @@
                                     </div>
                                 {/if}
                             </div>
-                        </label>
+                        </label>-->
 
                         <label
                             class="flex items-center gap-3 select-none group cursor-pointer w-fit"
