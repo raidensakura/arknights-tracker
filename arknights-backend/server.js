@@ -732,14 +732,17 @@ function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startP
     let count6 = 0, count5 = 0;
     let sumPity6 = 0, sumPity5 = 0;
     let won5050 = 0, total5050 = 0;
+    let currentPity5 = startPity5; 
 
     pulls.forEach((p) => {
         const isFreePull = p.isFree === true || String(p.isFree) === "true";
 
         if (!isFreePull) {
+            currentPity5++;
             if (p.rarity === 6) {
                 count6++;
-                sumPity6 += Number(p.pity || 1);
+                sumPity6 += Number(p.pity || 1); 
+
                 const pullStatus = p.status || p.gachaStatus;
                 if (pullStatus === "won") {
                     won5050++;
@@ -747,9 +750,12 @@ function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startP
                 } else if (pullStatus === "lost") {
                     total5050++;
                 }
+                currentPity5 = 0; 
+                
             } else if (p.rarity === 5) {
                 count5++;
-                sumPity5 += Number(p.pity || 1);
+                sumPity5 += currentPity5; 
+                currentPity5 = 0;
             }
         }
     });
@@ -767,7 +773,7 @@ function calculateMath(pulls, categoryId, serverId = '3', startPity6 = 0, startP
             total5050,
             winRate
         },
-        enrichedPulls: pulls
+        enrichedPulls: pulls 
     };
 }
 
