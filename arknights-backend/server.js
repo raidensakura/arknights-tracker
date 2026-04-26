@@ -444,6 +444,12 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
                 });
             }
 
+            const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
+            const newGlobalPulls = enrichedPulls.filter(p => p.time > lastTime);
+            if (newGlobalPulls.length > 0) {
+                await processGlobalGraphsOnly(bannerId, newGlobalPulls);
+            }
+
             await prisma.userBannerStat.upsert({
                 where: { uid_bannerId: { uid, bannerId } },
                 create: { 
