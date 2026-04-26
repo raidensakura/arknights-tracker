@@ -419,6 +419,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
         const oldUserStat = await prisma.userBannerStat.findUnique({ where: { uid_bannerId: { uid, bannerId } } });
         const d_users = oldUserStat ? 0 : 1;
         const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time;
+        console.log(`   -> Specific Banner [${bannerId}]: Processing ${enrichedPulls.length} pulls...`);
 
         if (overwrite) {
             enrichedPulls.forEach(p => trulyNewPullIds.add(String(p.seqId || p.time)));
@@ -445,9 +446,12 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
             }
 
             const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
-            const newGlobalPulls = enrichedPulls.filter(p => p.time > lastTime);
+            const newGlobalPulls = oldUserStat ? enrichedPulls.filter(p => p.time > lastTime) : enrichedPulls;
             if (newGlobalPulls.length > 0) {
+                console.log(`      + Adding ${newGlobalPulls.length} NEW pulls to Global Graphs!`);
                 await processGlobalGraphsOnly(bannerId, newGlobalPulls);
+            } else {
+                console.log(`      = 0 new pulls for graphs (lastTime protection active)`);
             }
 
             await prisma.userBannerStat.upsert({
@@ -712,17 +716,13 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
 }
 
 function getDistinctBannerId(pull, serverId) {
-    const rawId = pull.poolId || 'unknown';
+    const rawId = pull.rawPoolId || pull.poolId || pull.bannerId || 'unknown';
     const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player', 'E_CharacterGachaPoolType_Special'];
-
-    if (!genericIds.includes(rawId) && !rawId.startsWith('E_')) {
+    if (rawId !== 'unknown' && !genericIds.includes(rawId) && !rawId.startsWith('E_')) {
         return rawId;
     }
-
     const foundBanner = findBannerConfigByTime(pull.time, rawId, serverId);
-
     if (foundBanner) return foundBanner.id;
-
     const d = new Date(Number(pull.time));
     return `gen_${rawId}_${d.getFullYear()}_${d.getMonth()}_w${Math.floor(d.getDate() / 7)}`;
 }
