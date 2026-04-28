@@ -39,7 +39,27 @@
 
     export let graphDates = [];
 
-    $: chartData = stats.timeline || [];
+    function toISODateString(dateObj) {
+        if (!dateObj) return null;
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    $: chartData = (() => {
+        const rawTimeline = stats.timeline || [];
+        if (!rawTimeline.length || !currentBanner) return rawTimeline;
+        const startObj = parseWithServerOffset(currentBanner.startTime);
+        const endObj = currentBanner.endTime ? parseWithServerOffset(currentBanner.endTime) : null;
+        const startStr = toISODateString(startObj);
+        const endStr = toISODateString(endObj);
+        return rawTimeline.filter(item => {
+            if (startStr && item.date < startStr) return false;
+            if (endStr && item.date > endStr) return false;
+            return true;
+        });
+    })();
     
     $: displayDates = graphDates || [];
 
