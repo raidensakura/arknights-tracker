@@ -1,4 +1,5 @@
 // src/lib/stores/potentials.js
+
 import { writable } from 'svelte/store';
 
 const isBrowser = typeof window !== 'undefined';

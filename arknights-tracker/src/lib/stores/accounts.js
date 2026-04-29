@@ -1,4 +1,5 @@
 // src/lib/stores/accounts.js
+
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { currentUid } from './auth';

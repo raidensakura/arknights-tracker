@@ -1,4 +1,5 @@
 // src/lib/i18n.js
+
 import { derived, writable } from 'svelte/store';
 import { currentLocale } from '$lib/stores/locale';
 

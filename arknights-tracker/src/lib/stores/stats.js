@@ -1,3 +1,5 @@
+// src/lib/stores/stats.js
+
 import { derived } from 'svelte/store';
 import { pullData } from './pulls';
 

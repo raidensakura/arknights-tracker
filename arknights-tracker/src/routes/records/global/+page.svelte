@@ -412,14 +412,12 @@
     }
 
     $: graphDates = (() => {
-        if (!stats.timeline.length) return [];
+        if (!chartData || !chartData.length) return [];
         const count = 5;
-        const step = (stats.timeline.length - 1) / (count - 1);
+        const step = (chartData.length - 1) / (count - 1);
         return Array.from({ length: count }, (_, i) => {
             const index = Math.round(i * step);
-            const item =
-                stats.timeline[index] ||
-                stats.timeline[stats.timeline.length - 1];
+            const item = chartData[index] || chartData[chartData.length - 1];
             return item ? item.date : "";
         });
     })();

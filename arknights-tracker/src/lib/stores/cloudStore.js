@@ -1,3 +1,5 @@
+// src/lib/stores/cloudStore.js
+
 import { writable, get } from "svelte/store";
 import { auth, db, provider, analytics } from "$lib/firebase";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";

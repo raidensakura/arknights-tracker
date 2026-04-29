@@ -1,3 +1,5 @@
+// src/lib/stores/pulls.js
+
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { mergePulls, calculatePity, calculateBannerStats, validateAccountConsistency } from '$lib/utils/importUtils';
@@ -89,7 +91,6 @@ function createPullStore() {
             resetStore();
         }
     };
-
 
     if (browser) {
         accountStore.selectedId.subscribe(id => {

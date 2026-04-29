@@ -1,3 +1,5 @@
+// src/lib/stores/filterStore.js
+
 import { writable } from 'svelte/store';
 
 function createPersistentStore(key, startValue) {
