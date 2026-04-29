@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Hồ sơ Chiêu mộ",
+    "activityChart": "Lượt quay mỗi tháng",
     "importBtn": "Nhập dữ liệu",
     "globalBtn": "Thống kê toàn cầu",
     "settingsBtn": "Cài đặt",

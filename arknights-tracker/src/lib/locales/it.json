@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Registro Reclutamenti",
+    "activityChart": "Tiri al mese",
     "importBtn": "Importa",
     "globalBtn": "Statistiche Globali",
     "settingsBtn": "Impostazioni",

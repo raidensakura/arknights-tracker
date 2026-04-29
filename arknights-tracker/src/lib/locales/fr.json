@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Dossiers de Recrutement",
+    "activityChart": "Tirages par mois",
     "importBtn": "Importer",
     "globalBtn": "Stats Globales",
     "settingsBtn": "Paramètres",

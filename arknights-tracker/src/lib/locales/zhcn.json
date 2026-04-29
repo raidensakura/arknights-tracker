@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "寻访记录档案",
+    "activityChart": "每月抽卡次数",
     "importBtn": "导入数据",
     "globalBtn": "全服统计",
     "settingsBtn": "设置",

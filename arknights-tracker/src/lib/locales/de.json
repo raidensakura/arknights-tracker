@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Rekrutierung",
+    "activityChart": "Ziehungen pro Monat",
     "importBtn": "Importieren",
     "globalBtn": "Globale Statistik",
     "settingsBtn": "Einstellungen",

@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "헤드헌팅 기록",
+    "activityChart": "월별 뽑기 횟수",
     "importBtn": "가져오기",
     "globalBtn": "전체 통계",
     "settingsBtn": "설정",

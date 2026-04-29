@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Catatan Headhunting",
+    "activityChart": "Tarikan per bulan",
     "importBtn": "Impor",
     "globalBtn": "Statistik Global",
     "settingsBtn": "Pengaturan",

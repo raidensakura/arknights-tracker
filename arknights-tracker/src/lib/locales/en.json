@@ -44,6 +44,7 @@
   },
   "page": {
     "title": "Headhunting Records",
+    "activityChart": "Pulls per month",
     "importBtn": "Import",
     "globalBtn": "Global Stats",
     "settingsBtn": "Settings",

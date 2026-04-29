@@ -120,6 +120,92 @@
       checkSync($user);
     }
   });
+
+  let hoverIndex = -1;
+
+  $: monthlyData = (() => {
+    let allPulls = [];
+    Object.values($pullData).forEach(data => {
+      if (data && data.pulls) allPulls.push(...data.pulls);
+    });
+    if (allPulls.length === 0) return [];
+
+    allPulls.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
+
+    const grouped = {};
+    const minDate = new Date(allPulls[0].time);
+    const maxDate = new Date(allPulls[allPulls.length - 1].time);
+
+    let curr = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+    const end = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+
+    while (curr <= end) {
+      const yy = String(curr.getFullYear()).slice(-2);
+      const mm = String(curr.getMonth() + 1).padStart(2, '0');
+      grouped[`${yy}-${mm}`] = { dateStr: `${yy}-${mm}`, total: 0, five: 0, six: 0 };
+      curr.setMonth(curr.getMonth() + 1);
+    }
+
+    allPulls.forEach(p => {
+      const d = new Date(p.time);
+      const yy = String(d.getFullYear()).slice(-2);
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const key = `${yy}-${mm}`;
+      if (grouped[key]) {
+        grouped[key].total++;
+        if (p.rarity === 5) grouped[key].five++;
+        if (p.rarity === 6) grouped[key].six++;
+      }
+    });
+
+    return Object.values(grouped);
+  })();
+
+  $: maxMonthlyPulls = Math.max(...monthlyData.map(d => d.total), 10);
+
+  function getSmoothLine(data, key, maxY) {
+    if (!data || data.length === 0) return "";
+    if (data.length === 1) {
+      const y = 100 - (data[0][key]/maxY)*100;
+      return `M 0,${y} L 100,${y}`;
+    }
+
+    const points = data.map((d, i) => {
+      const x = (i / (data.length - 1)) * 100;
+      const y = 100 - (d[key] / maxY) * 100;
+      return [x, y];
+    });
+
+    let d = `M ${points[0][0]},${points[0][1]}`;
+    const tension = 7;
+    
+    for (let i = 0; i < points.length - 1; i++) {
+      const [x0, y0] = i > 0 ? points[i - 1] : points[0];
+      const [x1, y1] = points[i];
+      const [x2, y2] = points[i + 1];
+      const [x3, y3] = i !== points.length - 2 ? points[i + 2] : points[i + 1];
+
+      const cp1x = x1 + (x2 - x0) / tension;
+      const cp1y = y1 + (y2 - y0) / tension;
+      const cp2x = x2 - (x3 - x1) / tension;
+      const cp2y = y2 - (y3 - y1) / tension;
+
+      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${x2},${y2}`;
+    }
+    return d;
+  }
+
+  $: xAxisLabels = (() => {
+    if (monthlyData.length === 0) return [];
+    if (monthlyData.length <= 7) return monthlyData.map(d => d.dateStr);
+    
+    const labels = [];
+    const step = (monthlyData.length - 1) / 5;
+    for (let i = 0; i <= 5; i++) {
+      labels.push(monthlyData[Math.round(i * step)].dateStr);
+    }
+    return labels;
+  })();
 </script>
 
 <SettingsModal
@@ -129,15 +215,19 @@
 
 <div class="max-w-[1400px]">
   <div class="flex flex-wrap justify-left items-center mb-8 gap-6">
-    
-    <h2 class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] shrink-0">
+    <h2
+      class="font-sdk text-5xl tracking-wide text-[#21272C] dark:text-[#FDFDFD] shrink-0"
+    >
       {$t("page.title")}
     </h2>
 
     <div class="flex flex-col md:flex-row gap-4 w-full xl:w-auto">
-      
       <div class="w-full md:w-auto">
-        <Button variant="yellow" onClick={openImport} className="w-full justify-center">
+        <Button
+          variant="yellow"
+          onClick={openImport}
+          className="w-full justify-center"
+        >
           <div slot="icon">
             <Icon name="import" style="width: 30px; height: 30px;" />
           </div>
@@ -148,7 +238,11 @@
       </div>
 
       <div class="w-full md:w-auto">
-        <Button variant="black2" onClick={openGlobal} className="w-full justify-center">
+        <Button
+          variant="black2"
+          onClick={openGlobal}
+          className="w-full justify-center"
+        >
           <div slot="icon">
             <Icon name="globe" style="width: 30px; height: 30px;" />
           </div>
@@ -159,7 +253,11 @@
       </div>
 
       <div class="w-full md:w-auto">
-        <Button variant="black2" onClick={() => (isSettingsOpen = true)} className="w-full justify-center">
+        <Button
+          variant="black2"
+          onClick={() => (isSettingsOpen = true)}
+          className="w-full justify-center"
+        >
           <div slot="icon">
             <Icon name="settings" style="width: 25px; height: 25px;" />
           </div>
@@ -168,9 +266,8 @@
           </span>
         </Button>
       </div>
-
     </div>
-</div>
+  </div>
   <div
     class="grid grid-cols-1 md:grid-cols-[400px_400px] xl:grid-cols-[400px_400px_400px] gap-6 items-start"
   >
@@ -203,6 +300,110 @@
           bannerId={bStandardWeap.id}
           titleKey={bStandardWeap.i18nKey}
         />
+      {/if}
+
+      {#if monthlyData.length > 0}
+        <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col min-h-[280px]">
+          
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-bold font-sdk text-[#21272C] dark:text-[#FDFDFD]">
+              {$t("page.activityChart") || "Активность"}
+            </h3>
+          </div>
+
+          <div class="relative w-full h-[180px] flex">
+            <div class="w-8 h-[calc(100%-20px)] flex flex-col justify-between items-end pr-2 text-[10px] text-gray-400 dark:text-[#787878] font-nums font-bold select-none border-r border-gray-200 dark:border-[#444] shrink-0">
+              <span class="transform -translate-y-1.5">{maxMonthlyPulls}</span>
+              <span class="transform translate-y-0.5">{Math.round(maxMonthlyPulls / 2)}</span>
+              <span class="transform translate-y-1.5">0</span>
+            </div>
+
+            <div class="flex-1 relative h-full">
+              
+              <div class="absolute inset-0 w-full h-[calc(100%-20px)] pointer-events-none z-0">
+                <div class="absolute w-full border-t border-dashed border-gray-300 dark:border-[#555] opacity-50" style="top: 0%;"></div>
+                <div class="absolute w-full border-t border-dashed border-gray-300 dark:border-[#555] opacity-50" style="top: 50%;"></div>
+                <div class="absolute w-full border-t border-dashed border-gray-300 dark:border-[#555] opacity-50" style="top: 100%;"></div>
+                
+                {#if monthlyData.length > 1}
+                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 20%;"></div>
+                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 40%;"></div>
+                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 60%;"></div>
+                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 80%;"></div>
+                {/if}
+              </div>
+
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-[calc(100%-20px)] overflow-visible pointer-events-none z-10">
+                
+                <defs>
+                  <linearGradient id="gradTotal" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#4ADE80" stop-opacity="0.3" />
+                    <stop offset="100%" stop-color="#4ADE80" stop-opacity="0" />
+                  </linearGradient>
+                  <linearGradient id="gradFive" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#E3BC55" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#E3BC55" stop-opacity="0" />
+                  </linearGradient>
+                  <linearGradient id="gradSix" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#D0926E" stop-opacity="0.4" />
+                    <stop offset="100%" stop-color="#D0926E" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+
+                <path d="{getSmoothLine(monthlyData, 'total', maxMonthlyPulls)} L 100,100 L 0,100 Z" fill="url(#gradTotal)" stroke="none" />
+                <path d="{getSmoothLine(monthlyData, 'five', maxMonthlyPulls)} L 100,100 L 0,100 Z" fill="url(#gradFive)" stroke="none" />
+                <path d="{getSmoothLine(monthlyData, 'six', maxMonthlyPulls)} L 100,100 L 0,100 Z" fill="url(#gradSix)" stroke="none" />
+
+                <path d={getSmoothLine(monthlyData, 'total', maxMonthlyPulls)} fill="none" stroke="#4ADE80" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+                <path d={getSmoothLine(monthlyData, 'five', maxMonthlyPulls)} fill="none" stroke="#E3BC55" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+                <path d={getSmoothLine(monthlyData, 'six', maxMonthlyPulls)} fill="none" stroke="#D0926E" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+
+              <div class="absolute top-0 left-0 w-full h-[calc(100%-20px)] z-20 cursor-default"
+                   role="application"
+                   on:mousemove={(e) => {
+                     const rect = e.currentTarget.getBoundingClientRect();
+                     if (rect.width === 0) return;
+                     const x = (e.clientX - rect.left) / rect.width;
+                     hoverIndex = Math.min(Math.max(0, Math.round(x * (monthlyData.length - 1))), monthlyData.length - 1);
+                   }}
+                   on:mouseleave={() => hoverIndex = -1}>
+              </div>
+
+              {#if hoverIndex !== -1 && monthlyData[hoverIndex]}
+                {@const point = monthlyData[hoverIndex]}
+                {@const leftPos = (hoverIndex / (monthlyData.length - 1)) * 100}
+                
+                <div class="absolute top-0 left-0 z-30 pointer-events-none w-full h-[calc(100%-20px)]">
+                  <div class="absolute top-0 bottom-0 w-px bg-gray-300 dark:bg-[#666] border-r border-dashed border-gray-400 dark:border-[#888]" style="left: {leftPos}%;"></div>
+
+                  <div class="absolute w-2.5 h-2.5 rounded-full bg-[#4ADE80] border-2 border-white dark:border-[#383838] shadow-sm transform -translate-x-1/2 -translate-y-1/2" style="left: {leftPos}%; top: {100 - (point.total / maxMonthlyPulls) * 100}%;"></div>
+                  <div class="absolute w-2.5 h-2.5 rounded-full bg-[#E3BC55] border-2 border-white dark:border-[#383838] shadow-sm transform -translate-x-1/2 -translate-y-1/2" style="left: {leftPos}%; top: {100 - (point.five / maxMonthlyPulls) * 100}%;"></div>
+                  <div class="absolute w-2.5 h-2.5 rounded-full bg-[#D0926E] border-2 border-white dark:border-[#383838] shadow-sm transform -translate-x-1/2 -translate-y-1/2" style="left: {leftPos}%; top: {100 - (point.six / maxMonthlyPulls) * 100}%;"></div>
+
+                  <div class="absolute top-0 transition-transform duration-75 ease-out" style="left: {leftPos}%; transform: translateX({leftPos > 60 ? '-105%' : '5%'});">
+                    <div class="bg-white/95 dark:bg-[#2C2C2C]/95 backdrop-blur-sm text-xs rounded-lg p-2.5 shadow-lg border border-black/5 dark:border-white/10 mt-1 min-w-[90px]">
+                      <div class="text-gray-400 dark:text-[#A0A0A0] font-bold text-[10px] mb-1.5 border-b border-gray-100 dark:border-[#444] pb-1">
+                        {point.dateStr}
+                      </div>
+                      <div class="flex flex-col gap-1 font-nums text-[11px]">
+                        <div class="flex justify-between gap-3 text-[#4ADE80]"><span class="font-medium text-gray-600 dark:text-[#E4E4E4]">{$t("systemNames.total")}</span> <span class="font-bold">{point.total}</span></div>
+                        <div class="flex justify-between gap-3 text-[#E3BC55]"><span class="font-medium text-gray-600 dark:text-[#E4E4E4] flex items-center gap-0.5">5<Icon name="star" class="w-2.5 h-2.5"/></span> <span class="font-bold">{point.five}</span></div>
+                        <div class="flex justify-between gap-3 text-[#D0926E]"><span class="font-medium text-gray-600 dark:text-[#E4E4E4] flex items-center gap-0.5">6<Icon name="star" class="w-2.5 h-2.5"/></span> <span class="font-bold">{point.six}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {/if}
+
+              <div class="absolute bottom-0 left-0 w-full h-5 flex justify-between items-end text-[9px] font-bold text-gray-400 dark:text-[#787878] select-none pl-1">
+                {#each xAxisLabels as date}
+                  <span class="transform translate-y-1">{date}</span>
+                {/each}
+              </div>
+            </div>
+          </div>
+        </div>
       {/if}
     </div>
 

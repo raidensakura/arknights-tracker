@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "尋訪記錄檔案",
+    "activityChart": "每月抽卡次數",
     "importBtn": "匯入資料",
     "globalBtn": "全服統計",
     "settingsBtn": "設定",

@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "人材発掘",
+    "activityChart": "月別ガチャ回数",
     "importBtn": "インポート",
     "globalBtn": "全体統計",
     "settingsBtn": "設定",

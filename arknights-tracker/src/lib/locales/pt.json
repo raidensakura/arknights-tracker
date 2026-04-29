@@ -29,6 +29,7 @@
   },
   "page": {
     "title": "Registros de Busca",
+    "activityChart": "Tiros por mês",
     "importBtn": "Importar",
     "globalBtn": "Estatísticas Globais",
     "settingsBtn": "Configurações",

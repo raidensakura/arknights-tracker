@@ -44,6 +44,7 @@
   },
   "page": {
     "title": "Записи о найме",
+    "activityChart": "Круток в месяц",
     "importBtn": "Импорт",
     "globalBtn": "Глобальная статистика",
     "settingsBtn": "Настройки",

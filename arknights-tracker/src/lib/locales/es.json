@@ -26,6 +26,7 @@
   },
   "page": {
     "title": "Registros de Reclutamiento",
+    "activityChart": "Tiradas por mes",
     "importBtn": "Importar",
     "globalBtn": "Estadísticas Globales",
     "settingsBtn": "Ajustes",
