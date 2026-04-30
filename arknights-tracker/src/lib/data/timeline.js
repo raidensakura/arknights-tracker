@@ -670,5 +670,19 @@ export const rawEvents = [
     type: "inGame",
     iconPosition: 50,
     version: "1.2"
+  },
+  {
+    id: "ev15-v1.2",
+    title: "",
+    name: "Party Together [Pastry Tower]",
+    startTime: "2026-05-01 12:00:00",
+    endTime: "2026-06-04 17:00:00",
+    icon: "ev14-v1.2.jpg",
+    url: "",
+    color: "#1180da",
+    layer: 19,
+    type: "inGame",
+    iconPosition: 45,
+    version: "1.2"
   }
 ];  

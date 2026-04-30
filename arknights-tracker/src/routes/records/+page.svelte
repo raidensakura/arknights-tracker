@@ -7,6 +7,7 @@
   import { banners } from "$lib/data/banners";
   import { currencies } from "$lib/data/items/currencies.js";
   import { user, checkSync, syncStatus } from "$lib/stores/cloudStore";
+  import { currentLocale } from "$lib/stores/locale";
 
   import BannerCard from "$lib/components/BannerCard.svelte";
   import SettingsModal from "$lib/components/SettingsModal.svelte";
@@ -142,7 +143,11 @@
     while (curr <= end) {
       const yy = String(curr.getFullYear()).slice(-2);
       const mm = String(curr.getMonth() + 1).padStart(2, '0');
-      grouped[`${yy}-${mm}`] = { dateStr: `${yy}-${mm}`, total: 0, five: 0, six: 0 };
+      grouped[`${yy}-${mm}`] = { 
+        dateStr: `${yy}-${mm}`, 
+        dateObj: new Date(curr),
+        total: 0, five: 0, six: 0 
+      };
       curr.setMonth(curr.getMonth() + 1);
     }
 
@@ -195,17 +200,39 @@
     return d;
   }
 
-  $: xAxisLabels = (() => {
-    if (monthlyData.length === 0) return [];
-    if (monthlyData.length <= 7) return monthlyData.map(d => d.dateStr);
-    
-    const labels = [];
-    const step = (monthlyData.length - 1) / 5;
-    for (let i = 0; i <= 5; i++) {
-      labels.push(monthlyData[Math.round(i * step)].dateStr);
+  $: xAxisTicks = (() => {
+    const len = monthlyData.length;
+    if (len === 0) return [];
+    if (len === 1) return [{ label: monthlyData[0].dateStr, pos: 0 }];
+    if (len <= 7) {
+      return monthlyData.map((d, i) => ({
+        label: d.dateStr,
+        pos: (i / (len - 1)) * 100
+      }));
     }
-    return labels;
+    
+    const ticks = [];
+    const step = (len - 1) / 5;
+    for (let i = 0; i <= 5; i++) {
+      const idx = Math.round(i * step);
+      ticks.push({
+        label: monthlyData[idx].dateStr,
+        pos: (idx / (len - 1)) * 100
+      });
+    }
+    return ticks;
   })();
+
+  function formatTooltipMonth(dateObj, loc) {
+      if (!dateObj) return "";
+      try {
+          const month = new Intl.DateTimeFormat(loc || 'ru', { month: 'long' }).format(dateObj);
+          const year = dateObj.getFullYear();
+          return month.charAt(0).toUpperCase() + month.slice(1) + " " + year;
+      } catch (e) {
+          return "";
+      }
+  }
 </script>
 
 <SettingsModal
@@ -325,16 +352,14 @@
                 <div class="absolute w-full border-t border-dashed border-gray-300 dark:border-[#555] opacity-50" style="top: 50%;"></div>
                 <div class="absolute w-full border-t border-dashed border-gray-300 dark:border-[#555] opacity-50" style="top: 100%;"></div>
                 
-                {#if monthlyData.length > 1}
-                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 20%;"></div>
-                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 40%;"></div>
-                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 60%;"></div>
-                  <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: 80%;"></div>
-                {/if}
+                {#each xAxisTicks as tick}
+                  {#if tick.pos > 0 && tick.pos < 100}
+                    <div class="absolute h-full border-l border-dashed border-gray-300 dark:border-[#555] opacity-50" style="left: {tick.pos}%;"></div>
+                  {/if}
+                {/each}
               </div>
 
               <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-[calc(100%-20px)] overflow-visible pointer-events-none z-10">
-                
                 <defs>
                   <linearGradient id="gradTotal" x1="0" x2="0" y1="0" y2="1">
                     <stop offset="0%" stop-color="#4ADE80" stop-opacity="0.3" />
@@ -384,7 +409,7 @@
                   <div class="absolute top-0 transition-transform duration-75 ease-out" style="left: {leftPos}%; transform: translateX({leftPos > 60 ? '-105%' : '5%'});">
                     <div class="bg-white/95 dark:bg-[#2C2C2C]/95 backdrop-blur-sm text-xs rounded-lg p-2.5 shadow-lg border border-black/5 dark:border-white/10 mt-1 min-w-[90px]">
                       <div class="text-gray-400 dark:text-[#A0A0A0] font-bold text-[10px] mb-1.5 border-b border-gray-100 dark:border-[#444] pb-1">
-                        {point.dateStr}
+                        {formatTooltipMonth(point.dateObj, $currentLocale)}
                       </div>
                       <div class="flex flex-col gap-1 font-nums text-[11px]">
                         <div class="flex justify-between gap-3 text-[#4ADE80]"><span class="font-medium text-gray-600 dark:text-[#E4E4E4]">{$t("systemNames.total")}</span> <span class="font-bold">{point.total}</span></div>
@@ -396,9 +421,11 @@
                 </div>
               {/if}
 
-              <div class="absolute bottom-0 left-0 w-full h-5 flex justify-between items-end text-[9px] font-bold text-gray-400 dark:text-[#787878] select-none pl-1">
-                {#each xAxisLabels as date}
-                  <span class="transform translate-y-1">{date}</span>
+              <div class="absolute bottom-0 left-0 w-full h-5 text-[9px] font-bold text-gray-400 dark:text-[#787878] select-none">
+                {#each xAxisTicks as tick}
+                  <div class="absolute bottom-0 whitespace-nowrap" style="left: {tick.pos}%; transform: translateX({tick.pos === 0 ? '0' : tick.pos === 100 ? '-100%' : '-50%'});">
+                    <span class="block transform translate-y-1">{tick.label}</span>
+                  </div>
                 {/each}
               </div>
             </div>
