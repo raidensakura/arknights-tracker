@@ -375,7 +375,7 @@ export const banners = [
     showOnMain: true
   },
   {
-    id: "festOfBrilliance",
+    id: "special_1_2_2",
     name: "Fest of Brilliance",
     type: "special",
     startTime: "2026-05-14 12:00:00",
