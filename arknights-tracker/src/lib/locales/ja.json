@@ -119,7 +119,8 @@
     "weapSpecial": "イベント武器",
     "weap-standard": "通常武器",
     "weap-special": "イベント武器",
-    "weapon-all": "武器バナー"
+    "weapon-all": "武器バナー",
+    "joint": "輝きの祝典"
   },
   "import": {
     "title": "発掘履歴のインポート",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "星声・申請",
     "weaponbox_constant_3": "遠路・申請",
     "weaponbox_constant_4": "山岳・申請",
-    "weaponbox_constant_5": "雷光・申請"
+    "weaponbox_constant_5": "雷光・申請",
+    "joint_1_2_2": "輝きの祝典",
+    "weponbox_1_2_2": "溶融・申請",
+    "weponbox_1_2_3": "早駆・申請"
   },
   "pages": {
     "home": "ホーム",

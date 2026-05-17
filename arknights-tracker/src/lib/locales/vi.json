@@ -119,7 +119,8 @@
     "weapSpecial": "Vũ khí Sự kiện",
     "weap-standard": "Vũ khí Tiêu chuẩn",
     "weap-special": "Vũ khí Sự kiện",
-    "weapon-all": "Banner Vũ khí"
+    "weapon-all": "Banner Vũ khí",
+    "joint": "Lễ Hội Rực Rỡ"
   },
   "import": {
     "title": "Nhập Hồ sơ Chiêu mộ",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "Gói Tiếng Sao",
     "weaponbox_constant_3": "Gói Viễn Chinh",
     "weaponbox_constant_4": "Gói Núi Cao",
-    "weaponbox_constant_5": "Gói Tiếng Sấm Rền"
+    "weaponbox_constant_5": "Gói Tiếng Sấm Rền",
+    "joint_1_2_2": "Lễ Hội Rực Rỡ",
+    "weponbox_1_2_2": "Gói Luyện Hỏa",
+    "weponbox_1_2_3": "Gói Hành Tốc"
   },
   "pages": {
     "home": "Trang chủ",

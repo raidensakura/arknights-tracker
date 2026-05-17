@@ -83,6 +83,7 @@ const POOL_TYPES = [
     "E_CharacterGachaPoolType_Beginner",
     "E_CharacterGachaPoolType_Standard",
     "E_CharacterGachaPoolType_Special",
+    "E_CharacterGachaPoolType_Joint",
     "WEAPON_FETCH_ALL"
 ];
 
@@ -114,6 +115,8 @@ async function fetchGameData(token, lang, serverId, onProgress, lastPullTimes) {
             specificLastTime = lastPullTimes['new-player'] || 0;
         } else if (poolType.includes('Special')) {
             specificLastTime = lastPullTimes['special'] || 0;
+        } else if (poolType.includes('Joint')) {
+            specificLastTime = lastPullTimes['joint'] || 0;
         } else {
             specificLastTime = lastPullTimes['standard'] || 0;
         }
@@ -375,6 +378,7 @@ function mapPoolTypeToShort(longType) {
         if (longType.includes('Beginner')) return 'new-player';
         if (longType.includes('Standard')) return 'standard';
         if (longType.includes('Special')) return 'special';
+        if (longType.includes('Joint')) return 'joint';
     }
     if (longType.includes('Beginner')) return 'new-player';
     if (longType.includes('Standard') && !longType.includes('Weapon')) return 'standard';
@@ -717,7 +721,7 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
 
 function getDistinctBannerId(pull, serverId) {
     const rawId = pull.rawPoolId || pull.poolId || pull.bannerId || 'unknown';
-    const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player', 'E_CharacterGachaPoolType_Special'];
+    const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player', 'joint', 'E_CharacterGachaPoolType_Special', 'E_CharacterGachaPoolType_Joint'];
     if (rawId !== 'unknown' && !genericIds.includes(rawId) && !rawId.startsWith('E_')) {
         return rawId;
     }
@@ -791,20 +795,16 @@ const normalize = (str) => {
 function normalizeBannerId(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
-
     if (id === 'all') return 'all';
-
+    if (id.includes('joint')) return 'joint';
     if (id.includes('weapon') || id.includes('wepon') || id.includes('weap')) {
         if (id.includes('constant') || (id.includes('standard') && !id.includes('special'))) {
             return 'weap-standard';
         }
         return 'weap-special';
     }
-
     if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) return 'new-player';
-
     if (id === '1' || id.includes('standard') || id.includes('permanent')) return 'standard';
-
     return 'special';
 }
 

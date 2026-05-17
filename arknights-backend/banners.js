@@ -164,9 +164,9 @@ const BANNERS = [
     featured6: ["loneBarge", "Lone Barge"],
   },
   {
-    id: "special_1_2_2",
+    id: "joint_1_2_2",
     name: "Fest of Brilliance",
-    type: "festOfBrilliance",
+    type: "joint",
     startTime: "2026-05-14 12:00:00",
     endTime: "2026-06-05 04:00:00",
     featured6: ["pogranichnik", "laevatain", "gilberta", "ardelia"],

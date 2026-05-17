@@ -119,7 +119,8 @@
     "weapSpecial": "Event-Waffe",
     "weap-standard": "Standard-Waffe",
     "weap-special": "Event-Waffe",
-    "weapon-all": "Waffenbanner"
+    "weapon-all": "Waffenbanner",
+    "joint": "Feier der Exzellenz"
   },
   "import": {
     "title": "Rekrutierungsverlauf importieren",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "Kosmische Stimme",
     "weaponbox_constant_3": "Erkundung der Weite",
     "weaponbox_constant_4": "Aufragender Berg",
-    "weaponbox_constant_5": "Donnergrollen"
+    "weaponbox_constant_5": "Donnergrollen",
+    "joint_1_2_2": "Feier der Exzellenz",
+    "weponbox_1_2_2": "Hüttenfeuer-Ausgabe",
+    "weponbox_1_2_3": "Schnellschreiter-Ausgabe"
   },
   "pages": {
     "home": "Home",

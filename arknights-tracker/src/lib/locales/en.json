@@ -135,7 +135,8 @@
     "weapSpecial": "Event Weapon",
     "weap-standard": "Standard Weapon",
     "weap-special": "Event Weapon",
-    "weapon-all": "Weapon Banners"
+    "weapon-all": "Weapon Banners",
+    "joint": "Joint Banners"
   },
   "import": {
     "title": "Import Headhunting Records",
@@ -315,7 +316,10 @@
     "weaponbox_constant_2": "Cosmic Voice Issue",
     "weaponbox_constant_3": "Far Expedition Issue",
     "weaponbox_constant_4": "Rising Mount Issue",
-    "weaponbox_constant_5": "Thunderous Peal Issue"
+    "weaponbox_constant_5": "Thunderous Peal Issue",
+    "joint_1_2_2": "Fest of Brilliance",
+    "weponbox_1_2_2": "Smelting Fire Issue",
+    "weponbox_1_2_3": "Swift Walker Issue"
   },
   "pages": {
     "home": "Home",

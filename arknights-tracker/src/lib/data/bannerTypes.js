@@ -1,8 +1,5 @@
 // src/lib/data/bannerTypes.js
 
-// Обернуть переводом на все языки
-// Разобраться с цветами
-
 export const bannerTypes = [
   {
     id: "standard",
@@ -49,5 +46,14 @@ export const bannerTypes = [
     order: 5,
     showOnHome: true,
     showInRating: true 
-  }
+  },
+  {
+    id: "joint",
+    apiType: "joint", 
+    i18nKey: "bannerTypes.joint",
+    name: "Joint Operation",
+    order: 6,
+    showOnHome: true,
+    showInRating: true 
+}
 ];

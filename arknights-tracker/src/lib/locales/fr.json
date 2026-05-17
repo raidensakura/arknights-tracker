@@ -119,7 +119,8 @@
     "weapSpecial": "Arme Événement",
     "weap-standard": "Arme Standard",
     "weap-special": "Arme Événement",
-    "weapon-all": "Bannières d'armes"
+    "weapon-all": "Bannières d'armes",
+    "joint": "Festival de Radiance"
   },
   "import": {
     "title": "Importer l'Historique de Recrutement",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "Tirage de voix cosmique",
     "weaponbox_constant_3": "Tirage d'expédition lointaine",
     "weaponbox_constant_4": "Tirage des cimes",
-    "weaponbox_constant_5": "Tirage de fracas du tonnerre"
+    "weaponbox_constant_5": "Tirage de fracas du tonnerre",
+    "joint_1_2_2": "Festival de Radiance",
+    "weponbox_1_2_2": "Tirage du feu des forges",
+    "weponbox_1_2_3": "Tirage du marcheur alerte"
   },
   "pages": {
     "home": "Accueil",

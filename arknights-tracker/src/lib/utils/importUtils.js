@@ -58,6 +58,7 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
     if (categoryContext) {
         if (categoryContext.includes('weap') || categoryContext.includes('constant')) targetType = 'weapon';
         else if (categoryContext.includes('new')) targetType = 'new-player';
+        else if (categoryContext.includes('joint')) targetType = 'joint';
         else if (categoryContext === 'standard') targetType = 'standard';
         else if (categoryContext === 'special') targetType = 'special';
     }
@@ -73,10 +74,12 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
             if (targetType === 'special' && b.type !== 'special') return false;
             if (targetType === 'standard' && b.type !== 'standard') return false;
             if (targetType === 'new-player' && b.type !== 'new-player') return false;
+            if (targetType === 'joint' && b.type !== 'joint') return false;
             if (targetType === 'weapon' && b.type !== 'weapon' && !b.id.includes('weap')) return false;
         } else {
             const isBannerWeapon = b.type === 'weapon' || (b.id && b.id.includes('weap'));
             if (b.type === 'new-player') return false;
+            if (b.type === 'joint') return false;
             if (isBannerWeapon) return false;
         }
         return true;
@@ -95,13 +98,10 @@ function findBannerConfigByTime(timestamp, categoryContext, serverId) {
 
 function getDistinctBannerId(pull, serverId) {
     const rawId = pull.rawPoolId || pull.bannerId || 'unknown';
-    const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player'];
-
+    const genericIds = ['special', 'standard', 'weapon', 'weap-special', 'weap-standard', 'new-player', 'joint'];
     if (!genericIds.includes(rawId)) return rawId;
-
     const foundBanner = findBannerConfigByTime(pull.time, rawId, serverId);
     if (foundBanner) return foundBanner.id;
-
     const d = new Date(pull.time);
     return `gen_${rawId}_${d.getFullYear()}_${d.getMonth()}_w${Math.floor(d.getDate()/7)}`; 
 }
@@ -109,6 +109,7 @@ function getDistinctBannerId(pull, serverId) {
 export function getInternalBannerType(rawId) {
     if (!rawId) return 'standard';
     const id = String(rawId).toLowerCase().trim();
+    if (id.includes('joint')) return 'joint';
     if (id.includes('weapon') || id.includes('wepon') || id.includes('constant') || id.includes('scathe')) return rawId;
     if (id === '2' || id.includes('beginner') || id.includes('new') || id.includes('novice')) return 'new-player';
     if (id === '1' || id.includes('standard') || id.includes('permanent')) return 'standard';
@@ -169,6 +170,7 @@ export function mergePulls(oldList, newList) {
 
 export function calculatePity(pulls, bannerId, accountServerId = null) {
     const isSpecialCategory = bannerId?.includes('special') && !bannerId.includes('weap');
+    const isJointCategory = bannerId?.includes('joint');
     let pityCounter = 0;
     const bannerSpecificCounts = {}; 
 
@@ -181,7 +183,7 @@ export function calculatePity(pulls, bannerId, accountServerId = null) {
             isFreePull = pull.isFree;
         } else {
             const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
-            isFreePull = isSpecialCategory && (countInThisBanner >= 30 && countInThisBanner < 40);
+            isFreePull = (isSpecialCategory || isJointCategory) && (countInThisBanner >= 30 && countInThisBanner < 40);
         }
 
         bannerSpecificCounts[uniqueBannerKey]++;
@@ -203,10 +205,12 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
     pulls.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
     let currentViewBanner = banners.find(b => b.id === bannerId);
     const isWeaponType = bannerId.includes('weap') || bannerId.includes('wepon') || bannerId.includes('constant');
+    const isJointType = bannerId.includes('joint');
 
-    if (!currentViewBanner && (bannerId.includes('special') || isWeaponType)) {
+    if (!currentViewBanner && (bannerId.includes('special') || isWeaponType || isJointType)) {
         const candidates = banners.filter(b => {
             if (isWeaponType) return b.type === 'weapon' || (b.id && (b.id.includes('weap') || b.id.includes('wepon')));
+            if (isJointType) return b.type === 'joint' || b.id?.includes('joint');
             return b.type === 'special';
         });
         
@@ -232,7 +236,7 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
         mileageEnd = dates.endStr ? parseDateWithServer(dates.endStr, accountServerId).getTime() : Infinity;
     }
 
-    const hardPityLimit = isWeaponType ? 80 : 120;
+    const hardPityLimit = (isWeaponType || isJointType) ? 80 : 120;
     let total = pulls.length;
     let count6 = 0, count5 = 0;
     let sumPity6 = 0, sumPity5 = 0;
@@ -257,7 +261,7 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
             isFreePull = pull.isFree;
         } else {
             const countInThisBanner = bannerSpecificCounts[uniqueBannerKey];
-            isFreePull = (bannerId.includes('special') && !isWeaponType) && (countInThisBanner >= 30 && countInThisBanner < 40);
+            isFreePull = ((bannerId.includes('special') && !isWeaponType) || isJointType) && (countInThisBanner >= 30 && countInThisBanner < 40);
         }
 
         bannerSpecificCounts[uniqueBannerKey]++;
@@ -351,6 +355,9 @@ export function calculateBannerStats(pulls, bannerId, accountServerId = null) {
                 };
             }
         }
+    }
+    else if (isJointType) {
+        mileage = { show: true, current: currentBannerMileage, max: 120, label: "selector_6" };
     }
     else if (bannerId.includes('special')) {
         if (hasReceivedRateUp || currentBannerMileage >= 120) {

@@ -119,7 +119,8 @@
     "weapSpecial": "Senjata Event",
     "weap-standard": "Senjata Standar",
     "weap-special": "Senjata Event",
-    "weapon-all": "Banner Senjata"
+    "weapon-all": "Banner Senjata",
+    "joint": "Festival Kegemilangan"
   },
   "import": {
     "title": "Impor Catatan Headhunting",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "Edisi Suara Kosmis",
     "weaponbox_constant_3": "Edisi Ekspedisi Jauh",
     "weaponbox_constant_4": "Edisi Gunung Menjulang",
-    "weaponbox_constant_5": "Edisi Gemuruh Guntur"
+    "weaponbox_constant_5": "Edisi Gemuruh Guntur",
+    "joint_1_2_2": "Festival Kegemilangan",
+    "weponbox_1_2_2": "Edisi Api Pelebur",
+    "weponbox_1_2_3": "Edisi Pengembara Gesit"
   },
   "pages": {
     "home": "Beranda",

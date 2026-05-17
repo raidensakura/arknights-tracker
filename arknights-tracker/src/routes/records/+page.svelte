@@ -115,6 +115,7 @@
   $: bNewPlayer = getBanner("new-player");
   $: bSpecialWeap = getBanner("weap-special");
   $: bStandardWeap = getBanner("weap-standard");
+  $: bJoint = getBanner("joint");
 
   onMount(() => {
     if ($user && $syncStatus !== "checking") {
@@ -310,6 +311,13 @@
         <BannerCard
           bannerId={bSpecialWeap.id}
           titleKey={bSpecialWeap.i18nKey}
+        />
+      {/if}
+
+      {#if bJoint}
+        <BannerCard
+          bannerId={bJoint.id}
+          titleKey={bJoint.i18nKey}
         />
       {/if}
     </div>

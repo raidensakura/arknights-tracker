@@ -178,6 +178,8 @@
                 keysToCheck = ["standard"];
             } else if (id.includes("new") || type === "new-player") {
                 keysToCheck = ["new-player", "new"];
+            } else if (id.includes("joint") || type === "joint") {
+                keysToCheck = ["joint"];
             } else {
                 keysToCheck = ["special"];
             }
@@ -276,7 +278,7 @@
 
             const isGenericType = [
                 "special", "standard", "weapon", "weap-special", 
-                "weap-standard", "new-player"
+                "weap-standard", "new-player", "joint"
             ].some((t) => pull.bannerId?.includes(t));
             
             const typesMatch = isWeaponBanner
@@ -291,8 +293,8 @@
         });
 
         if (filtered.length === 0) return { pulls: [], stats: {} };
-
-        const hardPityLimit = isWeaponBanner ? 80 : 120;
+        const isJointBanner = banner?.type === "joint" || banner?.id?.includes("joint");
+        const hardPityLimit = (isWeaponBanner || isJointBanner) ? 80 : 120;
         let count6 = 0, count5 = 0;
         let sumPity6 = 0, sumPity5 = 0;
         let total5050 = 0, won5050 = 0;

@@ -119,7 +119,8 @@
     "weapSpecial": "Arma Evento",
     "weap-standard": "Arma Standard",
     "weap-special": "Arma Evento",
-    "weapon-all": "Banner Armi"
+    "weapon-all": "Banner Armi",
+    "joint": "Festival della lucentezza"
   },
   "import": {
     "title": "Importa Registro Reclutamenti",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "Distribuzione Voce cosmica",
     "weaponbox_constant_3": "Distribuzione Spedizione lontana",
     "weaponbox_constant_4": "Distribuzione Monte crescente",
-    "weaponbox_constant_5": "Distribuzione Fragore del tuono"
+    "weaponbox_constant_5": "Distribuzione Fragore del tuono",
+    "joint_1_2_2": "Festival della lucentezza",
+    "weponbox_1_2_2": "Distribuzione Fiamma della fonderia",
+    "weponbox_1_2_3": "Distribuzione Viandante celere"
   },
   "pages": {
     "home": "Home",

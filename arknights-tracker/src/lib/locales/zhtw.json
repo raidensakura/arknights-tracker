@@ -119,7 +119,8 @@
     "weapSpecial": "活動武器",
     "weap-standard": "標準武器",
     "weap-special": "活動武器",
-    "weapon-all": "武器卡池"
+    "weapon-all": "武器卡池",
+    "joint": "輝光慶典"
   },
   "import": {
     "title": "匯入尋訪記錄",
@@ -295,7 +296,10 @@
     "weaponbox_constant_2": "星聲申領",
     "weaponbox_constant_3": "遠途申領",
     "weaponbox_constant_4": "崇山申領",
-    "weaponbox_constant_5": "雷鳴申領"
+    "weaponbox_constant_5": "雷鳴申領",
+    "joint_1_2_2": "輝光慶典",
+    "weponbox_1_2_2": "熔灼申領",
+    "weponbox_1_2_3": "疾行申領"
   },
   "pages": {
     "home": "首頁",

@@ -9,7 +9,8 @@ import { uploadLocalData, user } from "$lib/stores/cloudStore";
 const defaultData = {
     "standard": { pulls: [], stats: {} },
     "special": { pulls: [], stats: {} },
-    "new-player": { pulls: [], stats: {} }
+    "new-player": { pulls: [], stats: {} },
+    "joint": { pulls: [], stats: {} }
 };
 
 const nameFixes = {
@@ -135,7 +136,8 @@ function createPullStore() {
                         const allCurrentPulls = [
                             ...(newData.standard?.pulls || []),
                             ...(newData.special?.pulls || []),
-                            ...(newData["new-player"]?.pulls || [])
+                            ...(newData["new-player"]?.pulls || []),
+                            ...(newData.joint?.pulls || [])
                         ];
 
                         if (allCurrentPulls.length > 0) {
@@ -153,7 +155,7 @@ function createPullStore() {
 
                         Object.keys(incomingByBanner).forEach(bid => {
                             let targetKey = bid;
-                            const isKnownKey = newData[bid] || bid === 'standard' || bid === 'special' || bid === 'new-player';
+                            const isKnownKey = newData[bid] || bid === 'standard' || bid === 'special' || bid === 'new-player' || bid === 'joint';
                             const isWeaponKey = bid.includes('weapon') || bid.includes('wepon') || bid.includes('constant');
 
                             if (!isKnownKey && !isWeaponKey) {

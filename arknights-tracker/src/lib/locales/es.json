@@ -116,7 +116,8 @@
     "weapSpecial": "Arma de Evento",
     "weap-standard": "Arma Estándar",
     "weap-special": "Arma de Evento",
-    "weapon-all": "Banners de armas"
+    "weapon-all": "Banners de armas",
+    "joint": "Festival del resplandor"
   },
   "import": {
     "title": "Importar Historial de Reclutamiento",
@@ -294,7 +295,10 @@
     "weaponbox_constant_2": "Solicitud de la Voz cósmica",
     "weaponbox_constant_3": "Solicitud de la Expedición lejana",
     "weaponbox_constant_4": "Solicitud del Monte ascendente",
-    "weaponbox_constant_5": "Solicitud del Estruendo estrepitoso"
+    "weaponbox_constant_5": "Solicitud del Estruendo estrepitoso",
+    "joint_1_2_2": "Festival del resplandor",
+    "weponbox_1_2_2": "Solicitud del Fuego de fundición",
+    "weponbox_1_2_3": "Solicitud del Caminante veloz"
   },
   "pages": {
     "home": "Inicio",
