@@ -1,7 +1,7 @@
 import {Item} from "$lib/classes/items/Item.js";
 import {fullBottles} from "$lib/data/items/fullBottles.js";
 
-export class FullBottle extends Item{
+export class FullBottle extends Item {
     _fullBottleObj;
 
     constructor(itemObj, fullBottleObj) {
@@ -27,17 +27,17 @@ export class FullBottle extends Item{
     }
 
     static getFullBottle(itemId) {
-        if (!this.itemExists(itemId)) return null;
+        let item = Item.getItem(itemId);
 
-        let item = this.getItem(itemId);
+        if (!item) return null;
 
-        return this.getFullBottleFromItem(item);
+        return FullBottle.getFullBottleFromItem(item);
     }
 
     static getFullBottleFromItem(item) {
-        if (!this.isFullBottle(item.id)) return null;
-
         let fullBottleObj = fullBottles[item.id];
+
+        if (!fullBottleObj) return null;
 
         return new FullBottle(item, fullBottleObj);
     }

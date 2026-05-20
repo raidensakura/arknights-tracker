@@ -49,7 +49,7 @@ export class Item {
     static getItem(itemId) {
         let itemObj = items[itemId];
 
-        if (itemObj ?? false) return null;
+        if (!itemObj) return null;
 
         return new Item(itemObj);
     }

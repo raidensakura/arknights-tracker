@@ -19,18 +19,17 @@ export class Fuel extends Item {
     }
 
     static getFuel(itemId) {
-        if (!this.isFuel(itemId)) return null;
-        if (!this.itemExists(itemId)) return null;
+        let item = Item.getItem(itemId);
 
-        let item = this.getItem(itemId);
+        if (!item) return null;
 
-        return this.getFuelFromItem(item);
+        return Fuel.getFuelFromItem(item);
     }
 
     static getFuelFromItem(item) {
-        if (!this.isFuel(item.id)) return null;
-
         let fuelObj = fuel[item.id];
+
+        if (!fuelObj) return null;
 
         return new Fuel(item, fuelObj);
     }
