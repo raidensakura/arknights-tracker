@@ -20,6 +20,22 @@ export class Building {
         return this._buildingObj.itemId;
     }
 
+    isCrafter() {
+        return this.type === "crafter";
+    }
+
+    isMiner() {
+        return this.type === "miner";
+    }
+
+    isPump() {
+        return this.type === "pump";
+    }
+
+    isPowerStation() {
+        return this.type === "powerStation";
+    }
+
     static getBuilding(buildingId) {
         if (!this.isBuilding(buildingId)) return null;
 
