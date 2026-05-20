@@ -4,8 +4,8 @@ import {fuel} from "$lib/data/items/fuel.js";
 export class Fuel extends Item {
     _fuelObj;
 
-    constructor(itemObj, fuelObj) {
-        super(itemObj);
+    constructor(item, fuelObj) {
+        super(item._itemObj);
 
         this._fuelObj = fuelObj;
     }

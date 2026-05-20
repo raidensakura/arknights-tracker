@@ -4,8 +4,8 @@ import {fullBottles} from "$lib/data/items/fullBottles.js";
 export class FullBottle extends Item {
     _fullBottleObj;
 
-    constructor(itemObj, fullBottleObj) {
-        super(itemObj);
+    constructor(item, fullBottleObj) {
+        super(item._itemObj);
 
         this._fullBottleObj = fullBottleObj;
     }
