@@ -23,6 +23,14 @@ export class Miner extends Building {
         return this._minerObj.mineable.hasOwnProperty(itemId);
     }
 
+    getMineableObj(itemId) {
+        let mineableObj = this._minerObj.mineable[itemId];
+
+        if (!mineableObj) return null;
+
+        return mineableObj;
+    }
+
     getMiningFormula(itemId) {
         return MiningFormula.getMiningFormula(this, itemId);
     }
