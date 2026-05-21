@@ -10,14 +10,48 @@ export class Crafter extends Building {
         this._crafterObj = crafterObj;
     }
 
-    // todo сделать свойства
+    get modeList() {
+        return this._crafterObj.modeMap;
+    }
+
+    get modeNameList() {
+        return this.modeList
+            .map((mode) => mode.modeName);
+    }
+
+    get groupIdList() {
+        return this.modeList
+            .map((mode) => mode.formulaGroupId);
+    }
+
+    hasMode(modeName) {
+        return this.modeList
+            .some((mode) => mode.modeName === modeName);
+    }
+
+    getModeNameByGroupId(groupId) {
+        return this.modeList
+            .find((mode) => mode.formulaGroupId === groupId)
+            ?.modeName;
+    }
+
+    hasGroup(groupId) {
+        return this.modeList
+            .some((mode) => mode.formulaGroupId === groupId);
+    }
+
+    getGroupIdByModeName(modeName) {
+        return this.modeList
+            .find((mode) => mode.modeName === modeName)
+            ?.formulaGroupId;
+    }
 
     static getCrafter(buildingId) {
         let building = Building.getBuilding(buildingId);
 
         if (!building) return null;
 
-        return this.getCrafterFromBuilding(building);
+        return Crafter.getCrafterFromBuilding(building);
     }
 
     static getCrafterFromBuilding(building) {
