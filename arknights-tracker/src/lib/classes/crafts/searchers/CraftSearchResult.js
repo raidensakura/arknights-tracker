@@ -9,7 +9,7 @@ export class CraftSearchResult {
         return this._resultObj.craftList;
     }
 
-    hasCraft(formulaId) {
+    containsCraft(formulaId) {
         return this.craftList.includes(formulaId);
     }
 
