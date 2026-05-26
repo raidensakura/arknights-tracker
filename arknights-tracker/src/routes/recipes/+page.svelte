@@ -1,16 +1,15 @@
 <script>
-    import {items} from "$lib/data/items/items.js";
-    import { t } from "$lib/i18n";
+    import {t} from "$lib/i18n";
     import {itemFilters, itemManual, itemSearch} from "$lib/stores/filterStore.js";
     import {Item} from "$lib/classes/items/Item.js";
     import DataToolbar from "$lib/components/DataToolbar.svelte";
     import ItemCard from "$lib/components/recipes/ItemCard.svelte";
+    import {craftableItemsList} from "$lib/data/crafts/craftableItemsList.js";
 
     $: filters = $itemFilters;
     $: searchQuery = $itemSearch;
 
-    const itemIds = Object.keys(items);
-    const allItems = itemIds.map((itemId) => Item.getItem(itemId));
+    const allItems = craftableItemsList.map((itemId) => Item.getItem(itemId));
 
     let filters = {
         rarity: [5, 4, 3, 2, 1],
