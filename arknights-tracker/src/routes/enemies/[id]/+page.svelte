@@ -114,7 +114,7 @@
             
             <div class="bg-white dark:bg-[#2b2b2b] rounded-3xl flex flex-col overflow-hidden border border-gray-200 dark:border-[#444] transition-colors">
                 <div class="relative min-h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]">
-                    <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to right, transparent 20%, {rarityColor} 100%); opacity: 0.15;"></div>
+                    <div class="absolute inset-0 z-0 pointer-events-none card-gradient" style="--rarity-color: {rarityColor};"></div>
 
                     <div class="absolute right-[0px] top-1/2 -translate-y-1/2 w-[250px] h-[250px] z-10 pointer-events-none">
                         <Images {id} variant="enemy-icon" className="w-full h-full object-contain drop-shadow-xl" alt={enemyName} />
@@ -356,6 +356,23 @@
 
             </div>
         </div>
-        
     </div>
 </div>
+<style>
+    .card-gradient {
+        background: linear-gradient(
+            to right,
+            #ffffff 20%,
+            var(--rarity-color) 100%
+        );
+        opacity: 0.9;
+    }
+    :global(.dark) .card-gradient {
+        background: linear-gradient(
+            to right,
+            #383838 20%,
+            var(--rarity-color) 100%
+        );
+        opacity: 0.85;
+    }
+</style>
