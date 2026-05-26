@@ -163,7 +163,7 @@
                     <div class="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] md:grid-cols-[repeat(auto-fill,100px)] gap-5 justify-start">
                         {#each group.items as enemy (enemy.id)}
                             <div class="flex justify-center transition-transform">
-                                <WeaponCard weapon={enemy} isEnemy={true} />
+                                <WeaponCard weapon={enemy} isEnemy={true} hideDarkness={true} hidePot={false}/>
                             </div>
                         {/each}
                     </div>
