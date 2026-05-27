@@ -1058,12 +1058,12 @@
                             >
                                 <div class="flex items-center gap-3 group">
                                     <div
-                                        class="w-12 h-12 rounded-full border border-gray-400 dark:border-gray-600 bg-[#111] overflow-hidden flex-shrink-0 group-hover:outline group-hover:outline-white transition-all"
+                                        class="w-12 h-12 rounded-full border border-gray-400 dark:border-gray-600 bg-[#111] overflow-hidden flex-shrink-0 outline-gray-300 group-hover:outline group-hover:outline-white hover:shadow-lg transition-all duration-200"
                                     >
                                         {#if firstEnemyId}
                                             <a 
                                                 href={`/enemies/${firstEnemyId}`}
-                                                class="block w-full h-full overflow-hidden transition-all  cursor-pointer rounded-[inherit]"
+                                                class="block w-full h-full overflow-hidden transition-all cursor-pointer rounded-[inherit]"
                                             >
                                                 <img
                                                     src={`/images/enemies/${firstEnemyId}.png`}
@@ -1087,7 +1087,7 @@
                                             {#if firstEnemyId}
                                                 <a 
                                                     href={`/enemies/${firstEnemyId}`}
-                                                    class="text-md font-bold text-gray-900 dark:text-[#E0E0E0] group-hover:text-white transition-opacity block w-max"
+                                                    class="text-md font-bold text-gray-900 dark:text-[#E0E0E0] group-hover:text-black group-hover:dark:text-white transition-opacity block w-max"
                                                 >
                                                     {$t(`enemies.${firstEnemyId}`) || firstEnemyId}
                                                 </a>
@@ -1231,6 +1231,7 @@
                                             >
                                                 <Images
                                                     id={match.weapon.id}
+                                                    interactive={true}
                                                     variant="weapon-icon"
                                                     className="w-full h-full scale-110 pt-1 pr-0.5 object-contain drop-shadow-md rotate-[0.01deg] transition-transform duration-300 group-hover/icon:scale-110"
                                                     alt={match.weapon.name}
@@ -1503,6 +1504,7 @@
                                                                                 >
                                                                                 <Images
                                                                                     id={wp.id}
+                                                                                    interactive={true}
                                                                                     variant="weapon-icon"
                                                                                     className="w-[90%] h-[90%] object-contain drop-shadow-sm scale-110"
                                                                                 />

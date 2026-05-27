@@ -89,6 +89,10 @@ const initialOperatorFilters = {
     weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
 };
 
+const initialEnemiesFilters = {
+    rarity: [6, 5, 4, 3]
+};
+
 const initialItemFilters = {
     rarity: [5, 4, 3, 2, 1],
     itemSubGroups: itemSubGroups

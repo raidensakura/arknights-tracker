@@ -94,7 +94,11 @@
       "exportXLSX": ".xlsx 내보내기",
       "importJSON": ".json 가져오기",
       "exportJSON": ".json 내보내기",
-      "close": "닫기"
+      "close": "닫기",
+      "importSuccess": "가챠 데이터 가져오기 성공! 새로운 가챠 {n}개가 추가되었습니다.",
+      "importDuplicate": "파일의 모든 가챠 데이터가 이미 데이터베이스에 존재합니다.",
+      "importError": "가져오기 오류. 파일 구조를 확인해 주세요.",
+      "importNoData": "가져올 올바른 데이터가 없습니다."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "배너 기록",

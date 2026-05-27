@@ -352,6 +352,7 @@
                         <Images
                             {id}
                             variant="equipment"
+                            interactive={true}
                             className="w-full h-full object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transform-gpu scale-100"
                             alt={equipName}
                         />

@@ -22,7 +22,8 @@
         
         <Images 
             id={item.id} 
-            variant="item" 
+            variant="item"
+            interactive={true}
             className="w-full h-full object-contain p-1" 
         />
 

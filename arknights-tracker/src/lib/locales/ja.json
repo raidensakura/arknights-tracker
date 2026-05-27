@@ -94,7 +94,11 @@
       "exportXLSX": ".xlsx エクスポート",
       "importJSON": ".json インポート",
       "exportJSON": ".json エクスポート",
-      "close": "閉じる"
+      "close": "閉じる",
+      "importSuccess": "インポートが成功しました！新しいガチャが {n} 件追加されました。",
+      "importDuplicate": "ファイル内のすべてのガチャはすでにデータベースに存在します。",
+      "importError": "インポートエラー。ファイル構造を確認してください。",
+      "importNoData": "インポートするための有効なデータが見つかりませんでした。"
     },
     "bannerTypes": {
       "bannerHistoryGraph": "ガチャ履歴グラフ",

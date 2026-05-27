@@ -94,7 +94,11 @@
       "exportXLSX": "匯出 .xlsx",
       "importJSON": "匯入 .json",
       "exportJSON": "匯出 .json",
-      "close": "關閉"
+      "close": "關閉",
+      "importSuccess": "匯入成功！已新增 {n} 個新尋訪記錄。",
+      "importDuplicate": "檔案中的所有尋訪記錄已存在於資料庫中。",
+      "importError": "匯入錯誤。請檢查檔案結構。",
+      "importNoData": "未找到可匯入的有效資料。"
     },
     "bannerTypes": {
       "bannerHistoryGraph": "卡池歷史趨勢",

@@ -191,6 +191,7 @@
                     >
                         <Images
                             id={skillImageId}
+                            interactive={true}
                             variant={imageVariant}
                             className="max-w-full max-h-full object-contain"
                         />
@@ -201,6 +202,7 @@
                     >
                         <Images
                             id={skillImageId}
+                            interactive={true}
                             variant={imageVariant}
                             className="w-full h-full object-cover rounded-full"
                         />

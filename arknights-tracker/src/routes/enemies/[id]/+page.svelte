@@ -98,7 +98,41 @@
         { key: "Pushback Coeff.", val: enemyData.pushedBackCoefficient }
     ].filter(s => s.val !== undefined);
     
+    let shiftPressed = false;
+    let targetLevel = level;
+
+    function handleKeydown(e) {
+        if (e.key === "Shift") shiftPressed = true;
+    }
+
+    function handleKeyup(e) {
+        if (e.key === "Shift") shiftPressed = false;
+    }
+
+    function handleInput(e) {
+        const val = parseInt(e.target.value);
+        if (shiftPressed) {
+            const diff = val - level;
+            if (Math.abs(diff) >= 5) {
+                const change = diff > 0 ? 10 : -10;
+                let nextLevel = Math.round(level / 10) * 10 + change;
+                if (nextLevel < 1) nextLevel = 1;
+                if (nextLevel > maxLevel) nextLevel = maxLevel;
+                level = nextLevel;
+            }
+        } else {
+            level = val;
+        }
+        targetLevel = val;
+    }
+
+    $: if (!shiftPressed) {
+        targetLevel = level;
+    }
 </script>
+
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
+
 <div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button variant="roundSmall" color="white" onClick={() => history.back()}>
@@ -114,10 +148,10 @@
             
             <div class="bg-white dark:bg-[#2b2b2b] rounded-3xl flex flex-col overflow-hidden border border-gray-200 dark:border-[#444] transition-colors">
                 <div class="relative min-h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]">
-                    <div class="absolute inset-0 z-0 pointer-events-none card-gradient" style="--rarity-color: {rarityColor};"></div>
+                    <div class="pointer-events-none absolute inset-0 z-0 pointer-events-none card-gradient" style="--rarity-color: {rarityColor};"></div>
 
                     <div class="absolute right-[0px] top-1/2 -translate-y-1/2 w-[250px] h-[250px] z-10 pointer-events-none">
-                        <Images {id} variant="enemy-icon" className="w-full h-full object-contain drop-shadow-xl" alt={enemyName} />
+                        <Images {id} variant="enemy-icon" className="w-full h-full object-contain drop-shadow-xl" interactive={true} alt={enemyName} />
                     </div>
 
                     <div class="absolute top-4 right-4 z-20 flex flex-col gap-2">
@@ -193,7 +227,7 @@
                         <div class="flex items-center gap-4">
                             {#if enemyData.groupId}
                                 <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded bg-[#21272C] flex items-center justify-center shadow-sm">
+                                    <div class="w-9 h-9 rounded bg-[#21272C] flex items-center justify-center shadow-sm min-w-[35px]">
                                         <Icon name={enemyData.groupId.replace('wiki_group_monster_', '')} class="w-6 h-6 text-white" />
                                     </div>
                                     <span class="text-[15px] font-bold text-[#21272C] dark:text-[#E4E4E4]">
@@ -250,12 +284,13 @@
                 </div>
 
                 <div class="px-6 pt-5 pb-5 bg-white dark:bg-[#383838] flex items-center gap-4 border-t border-gray-200 dark:border-[#444]">
-                    <div class="bg-gray-200 dark:bg-[#4A4A4A]  rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0 {level === 100 ? 'w-[95px]' : 'w-[75px]'}">
+                    <div class="bg-gray-200 dark:bg-[#4A4A4A] rounded-md px-3 py-1.5 flex items-baseline gap-1 shadow-sm shrink-0 {level === 100 ? 'w-[95px]' : 'w-[75px]'}">
                         <span class="text-[28px] font-bold text-[#21272C] dark:text-white font-nums leading-none">{level}</span>
                         <span class="text-[11px] font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest">LV.</span>
                     </div>
                     <input 
-                        type="range" min="1" max={maxLevel} step="1" bind:value={level}
+                        type="range" min="1" max={maxLevel} step="1" value={targetLevel}
+                        on:input={handleInput}
                         class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
                     />
                 </div>

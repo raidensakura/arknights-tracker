@@ -94,7 +94,11 @@
       "exportXLSX": "Exporter .xlsx",
       "importJSON": "Importer .json",
       "exportJSON": "Exporter .json",
-      "close": "Fermer"
+      "close": "Fermer",
+      "importSuccess": "Importation réussie ! {n} nouveaux tirages ajoutés.",
+      "importDuplicate": "Tous les tirages du fichier sont déjà dans la base de données.",
+      "importError": "Erreur d'importation. Vérifiez la structure du fichier.",
+      "importNoData": "Aucune donnée valide trouvée pour l'importation."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Historique des bannières",

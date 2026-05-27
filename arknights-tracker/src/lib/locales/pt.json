@@ -94,7 +94,11 @@
       "exportXLSX": "Exportar .xlsx",
       "importJSON": "Importar .json",
       "exportJSON": "Exportar .json",
-      "close": "Fechar"
+      "close": "Fechar",
+      "importSuccess": "Importação bem-sucedida! Adicionadas {n} novas jogadas.",
+      "importDuplicate": "Todas as jogadas no arquivo já estão no banco de dados.",
+      "importError": "Erro de importação. Verifique a estrutura do arquivo.",
+      "importNoData": "Não foi possível encontrar dados válidos para importação."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Histórico de banners",

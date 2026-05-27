@@ -109,7 +109,11 @@
       "exportXLSX": "Export .xlsx",
       "importJSON": "Import .json",
       "exportJSON": "Export .json",
-      "close": "Close"
+      "close": "Close",
+      "importSuccess": "Import successful! Added {n} new pulls.",
+      "importDuplicate": "All pulls in the file are already in the database.",
+      "importError": "Import error. Check file structure or account consistency.",
+      "importNoData": "Could not find valid data for import."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Banners history",

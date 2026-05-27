@@ -91,7 +91,11 @@
       "exportXLSX": "Exportar .xlsx",
       "importJSON": "Importar .json",
       "exportJSON": "Exportar .json",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "importSuccess": "¡Importación exitosa! Se agregaron {n} tiradas nuevas.",
+      "importDuplicate": "Todas las tiradas del archivo ya están en la base de datos.",
+      "importError": "Error de importación. Compruebe la estructura del archivo.",
+      "importNoData": "No se encontraron datos válidos para importar."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Historial de banners",

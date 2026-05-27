@@ -16,6 +16,12 @@
 
     let currentServerId = "3";
 
+    const DAY_WIDTH = 32;
+    const ROW_HEIGHT = 37;
+    const GAP_HEIGHT = 8;
+    const HEADER_HEIGHT_PX = 80;
+    const EVENT_TOP_OFFSET = 2;
+
     $: serverOffset = currentServerId === "2" ? 8 : -5;
     $: serverName = currentServerId === "2" ? "Asia (UTC+8)" : "Global (UTC-5)";
 
@@ -241,11 +247,7 @@
         return new Date(utc + 3600000 * targetOffset);
     }
 
-    const DAY_WIDTH = 32;
-    const ROW_HEIGHT = 40;
-    const GAP_HEIGHT = 8;
-    const HEADER_HEIGHT_PX = 80;
-    const EVENT_TOP_OFFSET = 2;
+    
 
     $: TIMELINE_HEIGHT = `clamp(70%, ${contentHeight}px, 99%)`;
 
@@ -779,17 +781,16 @@
                             class="relative block w-full h-full text-left focus:outline-none"
                         >
                             <div
-                                class="absolute inset-0 overflow-hidden shadow-sm group-hover:ring-1 ring-offset-3 dark:ring-white/30 ring-gray-400 ring-offset-transparent transition-all
-                {event.connectLeft ? 'rounded-l-none border-l-0' : 'rounded-l'} 
-                {event.connectRight
-                                    ? 'rounded-r-none border-r-0'
-                                    : 'rounded-r'}"
+                                class="absolute inset-0 overflow-hidden shadow-sm transition-all duration-300 outline outline-[2px] outline-transparent group-hover:[outline-color:var(--hover-outline-color)]
+                                {event.connectLeft ? 'rounded-l-none border-l-0' : 'rounded-l'} 
+                                {event.connectRight
+                                                    ? 'rounded-r-none border-r-0'
+                                                    : 'rounded-r'}"
                                 style="
-                    background-color: {event.color};
-                    border-right: {event.connectRight
-                                    ? 'none'
-                                    : `4px solid ${event.color}`};
-                "
+                                    background-color: {event.color};
+                                    --hover-outline-color: color-mix(in srgb, {event.color}, white 20%);
+                                    border-right: {event.connectRight ? 'none' : `4px solid ${event.color}`};
+                                "
                             >
                                 <div
                                     class="absolute top-0 right-0 bottom-0 w-[250px] z-0 transition-transform"
@@ -854,7 +855,7 @@
                                             {getEventName(event)}
                                         </span>
 
-                                        <span class="text-white/95 text-[10px] uppercase font-bold tracking-wider whitespace-nowrap truncate mt-0.5 [text-shadow:_0_0_1px_rgba(0,0,0,1),_0_0_2px_rgba(0,0,0,0.5)]">
+                                        <span class="text-white/95 text-[10px] uppercase font-bold tracking-wider whitespace-nowrap truncate [text-shadow:_0_0_1px_rgba(0,0,0,1),_0_0_2px_rgba(0,0,0,0.5)]">
                                             {#if !isShortEvent(event)}
                                                 {event.realStartTime.getDate()}
                                                 {$t(`months_gen.${event.realStartTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)} -

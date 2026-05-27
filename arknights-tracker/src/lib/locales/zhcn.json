@@ -94,7 +94,11 @@
       "exportXLSX": "导出 .xlsx",
       "importJSON": "导入 .json",
       "exportJSON": "导出 .json",
-      "close": "关闭"
+      "close": "关闭",
+      "importSuccess": "导入成功！已添加 {n} 个新寻访记录。",
+      "importDuplicate": "文件中的所有寻访记录已存在于数据库中。",
+      "importError": "导入错误。请检查文件结构。",
+      "importNoData": "未找到可导入的有效数据。"
     },
     "bannerTypes": {
       "bannerHistoryGraph": "卡池历史趋势",

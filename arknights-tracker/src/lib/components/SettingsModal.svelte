@@ -31,6 +31,7 @@
         "standard": [],
         "weapon": [],
         "new_player": [],
+        "joint": [],
         "other": []
     };
 
@@ -42,6 +43,7 @@
         
         if (keyLower.includes('new') || keyLower.includes('beginner')) cat = 'new_player';
         else if (keyLower.includes('weap') || keyLower.includes('wepon') || keyLower.includes('constant')) cat = 'weapon';
+        else if (keyLower.includes('joint')) cat = 'joint';
         else if (keyLower === 'standard' || keyLower.includes('standard')) cat = 'standard';
         else if (keyLower.includes('special') || keyLower.includes('event')) cat = 'special';
         const pulls = [...bannerData.pulls].sort((a, b) => new Date(a.time) - new Date(b.time));
@@ -110,6 +112,7 @@
         "standard": "Standard",
         "weapon": "Weapon",
         "new_player": "New Player",
+        "joint": "Joint",
         "other": "Other"
     };
 
@@ -166,13 +169,138 @@
   function handleKeydown(event) {
     if (event.key === "Escape") onClose();
   }
+
+  function generateId() {
+    return 'import_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+  }
+
+  function parseLocaleDateStr(dateStr) {
+    if (!dateStr) return new Date();
+    if (dateStr instanceof Date) return dateStr;
+    if (!isNaN(dateStr) && String(dateStr).length > 5) return new Date(Number(dateStr));
+
+    try {
+      const cleanStr = String(dateStr).replace(',', '').trim();
+      const [datePart, timePart] = cleanStr.split(' ');
+      
+      const [day, month, year] = datePart.split('.').map(Number);
+      const [hours, minutes, seconds] = timePart.split(':').map(Number);
+      
+      return new Date(year, month - 1, day, hours, minutes, seconds);
+    } catch (e) {
+      const fallback = new Date(dateStr);
+      return isNaN(fallback.getTime()) ? new Date() : fallback;
+    }
+  }
+
+  let notification = null
+
+  function importExcel(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      
+      const bannerNameToIdMap = new Map();
+      if (workbook.SheetNames.includes("Banners List")) {
+        const bannersSheet = workbook.Sheets["Banners List"];
+        const bannersRows = XLSX.utils.sheet_to_json(bannersSheet);
+        bannersRows.forEach(row => {
+          if (row["Banner Name"] && row["ID"]) {
+            bannerNameToIdMap.set(row["Banner Name"], row["ID"]);
+          }
+        });
+      }
+
+      const allPullsToImport = [];
+      let msOffset = 0;
+
+      const sheetMapping = {
+        "Special": "special",
+        "Standard": "standard",
+        "Weapon": "constant", 
+        "New Player": "new-player",
+        "Joint": "joint",
+        "Other": "standard"
+      };
+
+      workbook.SheetNames.forEach(sheetName => {
+        const defaultBannerId = sheetMapping[sheetName];
+        if (!defaultBannerId) return;
+
+        const sheet = workbook.Sheets[sheetName];
+        const rows = XLSX.utils.sheet_to_json(sheet);
+        
+        rows.forEach(row => {
+          if (!row["Name"]) return;
+
+          const bannerName = row["Banner"];
+          const realId = bannerNameToIdMap.get(bannerName);
+          
+          let storeBannerId = defaultBannerId;
+          if (defaultBannerId === 'constant' && realId) {
+            storeBannerId = realId;
+          }
+
+          const baseDate = parseLocaleDateStr(row["Time"]);
+          const uniqueTime = new Date(baseDate.getTime() + msOffset);
+          msOffset++;
+
+          allPullsToImport.push({
+            id: generateId(),
+            time: uniqueTime, 
+            name: row["Name"],
+            rarity: Number(row["Rarity"]),
+            pity: Number(row["Pity"]) || 1,
+            bannerId: storeBannerId,     
+            rawPoolId: realId || defaultBannerId     
+          });
+        });
+      });
+
+      if (allPullsToImport.length > 0) {
+        try {
+          const accountsData = JSON.parse(localStorage.getItem('ark_tracker_accounts') || '{}');
+          const currentAccount = Object.values(accountsData).find(a => a.selected);
+          const serverId = currentAccount?.serverId || '3';
+
+          const report = await pullData.smartImport(allPullsToImport, serverId, true);
+
+          if (report.totalAdded > 0) {
+            notification = { type: 'success', key: 'importSuccess', count: report.totalAdded };
+            setTimeout(() => {
+              notification = null;
+              onClose();
+            }, 2500);
+          } else {
+            notification = { type: 'warning', key: 'importDuplicate' };
+            setTimeout(() => notification = null, 4000);
+          }
+        } catch (error) {
+          console.error(error);
+          notification = { type: 'error', key: 'importError' };
+          setTimeout(() => notification = null, 4000);
+        }
+      } else {
+        notification = { type: 'error', key: 'importNoData' };
+        setTimeout(() => notification = null, 4000);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  function triggerFileInput() {
+    fileInputExcel.click();
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
 {#if isOpen}
   <div
-    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm transition-opacity"
+    class="md:ml-[var(--sb-w)] fixed inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm transition-opacity"
     on:click={onClose}
     on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && onClose()}
     role="button"
@@ -186,6 +314,24 @@
       aria-modal="true"
       tabindex="-1"
     >
+      {#if notification}
+        <div class="mb-4 p-3 rounded-xl border text-sm font-bold flex items-center gap-2 transition-all shadow-sm
+          {notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-700 dark:bg-green-950/30 dark:border-green-900/50 dark:text-green-400' : ''}
+          {notification.type === 'warning' ? 'bg-amber-50 border-amber-200 text-amber-700 dark:bg-amber-950/30 dark:border-amber-900/50 dark:text-amber-400' : ''}
+          {notification.type === 'error' ? 'bg-red-50 border-red-200 text-red-700 dark:bg-red-950/30 dark:border-red-900/50 dark:text-red-400' : ''}"
+        >
+          {#if notification.type === 'success'}
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            {$t(`page.recordsSettings.${notification.key}`, { n: notification.count })}
+          {:else if notification.type === 'warning'}
+            <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
+            {$t(`page.recordsSettings.${notification.key}`)}
+          {:else}
+            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+            {$t(`page.recordsSettings.${notification.key}`)}
+          {/if}
+        </div>
+      {/if}
       <h2 class="text-2xl font-bold dark:text-[#FDFDFD] mb-6 text-[#21272C] font-sdk">
         {$t("page.recordsSettings.settings")}
       </h2>
@@ -195,7 +341,7 @@
           <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 font-sdk">
             Excel
           </h3>
-          <div class="grid grid-cols-1 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               on:click={exportExcel}
               class="flex flex-col dark:border-[#444444] dark:bg-[#383838] hover:dark:bg-[#373737] items-center justify-center p-4 border border-gray-200 rounded-xl hover:border-[#1D6F42] hover:bg-green-50 transition group bg-white h-24 w-full"
@@ -208,7 +354,25 @@
               </div>
             </button>
             
-            </div>
+            <input 
+              type="file" 
+              accept=".xlsx, .xls" 
+              bind:this={fileInputExcel} 
+              on:change={importExcel} 
+              class="hidden" 
+            />
+            <button
+              on:click={triggerFileInput}
+              class="flex flex-col dark:border-[#444444] dark:bg-[#383838] hover:dark:bg-[#373737] items-center justify-center p-4 border border-gray-200 rounded-xl hover:border-[#F9B90C] hover:bg-amber-50/50 transition group bg-white h-24 w-full"
+            >
+              <div class="mb-2 text-gray-400 group-hover:text-[#F9B90C] dark:text-[#E0E0E0] transition-colors">
+                <Icon name="import" class="w-6 h-6" />
+              </div>
+              <div class="font-bold dark:text-[#E0E0E0] text-[#21272C] text-sm">
+                {$t("page.recordsSettings.importXLSX")}
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 

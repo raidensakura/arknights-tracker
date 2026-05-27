@@ -90,8 +90,8 @@
     $: cornerSize = variant === "small" ? "w-2 h-2" : "w-3 h-3";
     $: borderW = variant === "small" ? "2px" : "4px"; 
     $: rootClass = variant === "small"
-        ? `relative cursor-pointer transition-all duration-300 select-none group bg-transparent flex-shrink-0 ${className || 'w-[80px] h-[110px]'}`
-        : `relative w-[120px] h-[147px] cursor-pointer transition-all duration-300 select-none group bg-transparent flex-shrink-0 ${className}`;
+        ? `relative cursor-pointer transition-all duration-300 group bg-transparent flex-shrink-0 ${className || 'w-[80px] h-[110px]'}`
+        : `relative w-[120px] h-[147px] cursor-pointer transition-all duration-300 group bg-transparent flex-shrink-0 ${className}`;
     $: iconSize = variant === "small" ? "w-4 h-4" : "w-6 h-6";
     $: iconPadding = variant === "small" ? "pl-1 pt-1 gap-0.5" : "pl-0.5 pt-0.5 gap-0";
 
@@ -125,17 +125,18 @@
             dark:group-hover:from-[#404040] dark:group-hover:to-[#2C2C2C]
         ">
             
-            <div class="absolute inset-0 {variant === 'default' ? 'bottom-[21%]' : 'bottom-0'}">
+            <div class="absolute inset-0 z-10 {variant === 'default' ? 'bottom-[21%]' : 'bottom-0'}">
                 <Images
                     id={operator.id}
                     variant="operator-preview"
                     size="100%"
+                    interactive={true}
                     alt={operator.name}
                     className="w-full h-full object-cover transition-all duration-300 {shouldDarken ? 'brightness-50 grayscale-[50%]' : ''}"
                 />
 
                 {#if variant === "small" && !hideName}
-                    <div class="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none z-10"></div>
                 {/if}
             </div>
 
@@ -162,7 +163,7 @@
             </div>
 
             {#if variant === "default"}
-                <div class="absolute bottom-[24px] w-full flex justify-center items-center gap-[-2px] z-20">
+                <div class="absolute bottom-[24px] w-full flex justify-center items-center gap-[-2px] z-20 pointer-events-none">
                     {#each Array(safeRarity) as _}
                         <div class="relative w-[20px] h-[20px] flex items-center justify-center">
                             <div class="relative z-10 w-full h-full drop-shadow-sm" style:color={rarityColor}>
@@ -174,9 +175,10 @@
 
                 <div
                     class="
-                        absolute bottom-0 left-0 w-full h-[32px] z-10 flex items-center justify-center px-2 pb-0.5 transition-colors duration-200
+                        absolute bottom-0 left-0 w-full h-[32px] z-20 flex items-center justify-center px-2 pb-0.5 transition-colors duration-200
                         bg-white dark:bg-[#383838]
                         group-hover:bg-white dark:group-hover:bg-[#373737]
+                        pointer-events-none
                     "
                     role="none"
                     on:mouseenter={checkTruncation}
@@ -188,13 +190,13 @@
                         >
                             <div
                                 bind:this={nameElement}
-                                class="font-bold pb-1.5 text-[#1d1e1f] dark:text-[#E0E0E0] text-[11px] leading-normal whitespace-nowrap overflow-hidden text-ellipsis text-center w-full"
+                                class="font-bold pb-1.5 text-[#1d1e1f] dark:text-[#E0E0E0] text-[11px] leading-normal whitespace-nowrap overflow-hidden text-ellipsis text-center w-full select-none"
                             >
                                 {$t(`characters.${nameKey}`) || operator.name}
                             </div>
                         </Tooltip>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-full h-[7px]" style:background-color={rarityColor}></div>
+                    <div class="absolute bottom-0 left-0 w-full h-[7px] pointer-events-none" style:background-color={rarityColor}></div>
                 </div>
 
                 {#if hasOperator}
@@ -225,14 +227,14 @@
 
             {#if variant === "small" && !hideName}
                  <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none flex flex-col justify-end p-1.5 pb-1.5 h-full">
-                     <div class="text-white text-[8px] font-bold leading-tight text-center drop-shadow-md line-clamp-2 break-words mb-1">
+                     <div class="text-white text-[8px] font-bold leading-tight text-center drop-shadow-md line-clamp-2 break-words mb-1 select-none">
                          {$t(`characters.${nameKey}`) || operator.name}
                      </div>
                      <div class="h-[2px] w-full rounded-full opacity-90 shrink-0 shadow-sm" style:background-color={rarityColor}></div>
                  </div>
             {/if}
             {#if isNew && variant !== 'small'}
-                <div class="absolute right-0 mt-1 mr-[-3px] top-[38px] h-[16px] flex items-stretch z-30 pointer-events-none drop-shadow-sm">
+                <div class="absolute right-0 mt-1 mr-[-3px] top-[38px] h-[16px] flex items-stretch z-30 pointer-events-none drop-shadow-sm select-none">
                     <div class="w-[3px] mr-[1.5px] bg-[#FFC107]/85 -skew-x-[24deg]"></div>
                     
                     <div class="w-[3px] mr-[1.5px] bg-[#FFC107]/85 -skew-x-[24deg]"></div>

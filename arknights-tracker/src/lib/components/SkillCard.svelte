@@ -296,6 +296,7 @@
                 >
                     <Images
                         id={skillImageId}
+                        interactive={true}
                         variant="skill-icon"
                         className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
                     />

@@ -94,7 +94,11 @@
       "exportXLSX": "ส่งออก .xlsx",
       "importJSON": "นำเข้า .json",
       "exportJSON": "ส่งออก .json",
-      "close": "ปิด"
+      "close": "ปิด",
+      "importSuccess": "นำเข้าสำเร็จ! เพิ่มการโรลใหม่ทั้งหมด {n} ครั้ง",
+      "importDuplicate": "ข้อมูลการโรลทั้งหมดในไฟล์มีอยู่ในระบบแล้ว",
+      "importError": "เกิดข้อผิดพลาดในการนำเข้า กรุณาตรวจสอบโครงสร้างไฟล์",
+      "importNoData": "ไม่พบข้อมูลที่ถูกต้องในการนำเข้า"
     },
     "bannerTypes": {
       "bannerHistoryGraph": "กราฟประวัติแบนเนอร์",

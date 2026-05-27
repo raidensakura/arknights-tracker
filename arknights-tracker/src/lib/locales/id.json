@@ -94,7 +94,11 @@
       "exportXLSX": "Ekspor .xlsx",
       "importJSON": "Impor .json",
       "exportJSON": "Ekspor .json",
-      "close": "Tutup"
+      "close": "Tutup",
+      "importSuccess": "Impor berhasil! Menambahkan {n} tarikan baru.",
+      "importDuplicate": "Semua tarikan dalam file sudah ada di database.",
+      "importError": "Kesalahan impor. Periksa struktur file.",
+      "importNoData": "Tidak dapat menemukan data yang valid untuk diimpor."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Riwayat Banner",

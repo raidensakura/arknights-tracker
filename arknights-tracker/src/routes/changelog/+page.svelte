@@ -129,6 +129,7 @@
                             >
                                 <Images 
                                     id={banner.id} 
+                                    interactive={true}
                                     variant={banner.type === 'web' || banner.type === 'ingame' ? 'event-icon' : 'banner-icon'} 
                                     className="w-full h-full object-cover" 
                                     alt={banner.name} 

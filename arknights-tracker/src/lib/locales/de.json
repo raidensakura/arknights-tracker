@@ -94,7 +94,11 @@
       "exportXLSX": ".xlsx exportieren",
       "importJSON": ".json importieren",
       "exportJSON": ".json exportieren",
-      "close": "Schließen"
+      "close": "Schließen",
+      "importSuccess": "Import erfolgreich! {n} neue Züge hinzugefügt.",
+      "importDuplicate": "Alle Züge in der Datei sind bereits in der Datenbank.",
+      "importError": "Importfehler. Überprüfen Sie die Dateistruktur.",
+      "importNoData": "Keine gültigen Daten für den Import gefunden."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Banner-Verlauf",

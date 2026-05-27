@@ -109,7 +109,11 @@
       "exportXLSX": "Экспорт .xlsx",
       "importJSON": "Импорт .json",
       "exportJSON": "Экспорт .json",
-      "close": "Закрыть"
+      "close": "Закрыть",
+      "importSuccess": "Импорт успешно завершен! Добавлено новых круток: {n}.",
+      "importDuplicate": "Все крутки из файла уже есть в базе данных.",
+      "importError": "Ошибка импорта. Проверьте структуру файла.",
+      "importNoData": "Не удалось найти корректные данные для импорта."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "История по баннерам",

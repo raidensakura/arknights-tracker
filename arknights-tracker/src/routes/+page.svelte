@@ -211,11 +211,25 @@
 
     return { icon: "event", label: "Limited Event", bg: glassStyle };
   }
-  $: eventsWithBadges = activeEvents.map(e => ({ 
-    ...e, 
-    badge: getEventBadge(e),
-    name: $t(e.title) !== e.title ? $t(e.title) : e.title 
-  }));
+  $: eventsWithBadges = activeEvents
+    .map(e => ({ 
+      ...e, 
+      badge: getEventBadge(e),
+      name: $t(e.title) !== e.title ? $t(e.title) : e.title 
+    }))
+    .sort((a, b) => {
+      const isAPerm = a.type === "inGamePermanent";
+      const isBPerm = b.type === "inGamePermanent";
+
+      if (isAPerm && !isBPerm) return 1;
+      if (!isAPerm && isBPerm) return -1;
+
+      if (!isAPerm && !isBPerm) {
+        return new Date(a.endTime).getTime() - new Date(b.endTime).getTime();
+      }
+
+      return 0;
+    });
 </script>
 
 <div class="min-h-screen w-full relative flex flex-col items-center py-10 px-4 sm:px-8 font-sans text-[#21272C] dark:text-[#FDFDFD]">

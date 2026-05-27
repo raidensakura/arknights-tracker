@@ -181,6 +181,7 @@
             >
                 <Images
                     id={weapon.id}
+                    interactive={true}
                     variant={imageVariant}
                     className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300 {shouldDarken
                         ? 'brightness-50 grayscale-[50%]'

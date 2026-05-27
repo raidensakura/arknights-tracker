@@ -9,6 +9,7 @@
     export let size = "100%";
     export let className = ""; 
     export let style = "";
+    export let interactive = false;
 
     $: rawId = id || (item?.icon) || (item?.id) || (item?.name);
     $: src = getImagePath(rawId, variant);
@@ -73,8 +74,8 @@
         alt={alt || rawId}
         loading="lazy"
         decoding="async"
-        draggable="false"
-        class="{className} object-cover antialiased transition-opacity duration-300 pointer-events-none select-none {isVisible ? 'opacity-100' : 'opacity-0'}"
+        draggable={interactive ? "true" : "false"}
+        class="{className} object-cover antialiased transition-opacity duration-300 {interactive ? '' : 'pointer-events-none select-none'} {isVisible ? 'opacity-100' : 'opacity-0'}"
         style="{smoothImageStyles} {sizeStyle} {style}"
     />
 {/if}

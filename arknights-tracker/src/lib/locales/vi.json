@@ -94,7 +94,11 @@
       "exportXLSX": "Xuất .xlsx",
       "importJSON": "Nhập .json",
       "exportJSON": "Xuất .json",
-      "close": "Đóng"
+      "close": "Đóng",
+      "importSuccess": "Nhập thành công! Đã thêm {n} lượt tìm kiếm mới.",
+      "importDuplicate": "Tất cả lượt tìm kiếm trong tệp đã có trong cơ sở dữ liệu.",
+      "importError": "Lỗi nhập dữ liệu. Vui lòng kiểm tra cấu trúc tệp.",
+      "importNoData": "Không tìm thấy dữ liệu hợp lệ để nhập."
     },
     "bannerTypes": {
       "bannerHistoryGraph": "Lịch sử Banner",

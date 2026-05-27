@@ -150,7 +150,7 @@
     });
 </script>
 
-<div class="fixed top-0 right-0 left-0 md:left-[var(--sb-w)] z-20 flex flex-col overflow-hidden md:p-8 p-4 text-[#21272C] dark:text-[#FDFDFD]">
+<div class="relative flex flex-col w-full text-[#21272C] dark:text-[#FDFDFD]">
     
     <div class="flex items-center gap-4 mb-1 shrink-0">
         <h2

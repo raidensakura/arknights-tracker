@@ -477,6 +477,42 @@
         }
         manualSkillRanks = maxRanks;
     }
+
+    let shiftPressed = false;
+    let targetLevel = level;
+
+    function handleKeydown(e) {
+        if (e.key === "Shift") shiftPressed = true;
+    }
+
+    function handleKeyup(e) {
+        if (e.key === "Shift") shiftPressed = false;
+    }
+
+    function handleInput(e) {
+        const val = parseInt(e.target.value);
+        
+        if (shiftPressed) {
+            const diff = val - level;
+            
+            if (Math.abs(diff) >= 5) {
+                const change = diff > 0 ? 10 : -10;
+                let nextLevel = Math.round(level / 10) * 10 + change;
+                
+                if (nextLevel < 1) nextLevel = 1;
+                if (nextLevel > maxLevel) nextLevel = maxLevel;
+                
+                level = nextLevel;
+            }
+        } else {
+            level = val;
+        }
+        
+        targetLevel = val;
+    }
+    $: if (!shiftPressed) {
+        targetLevel = level;
+    }
 </script>
 
 <svelte:window
@@ -488,6 +524,8 @@
             isPotDropdownOpen = false;
     }}
     on:mouseup={() => (isDraggingRank = false)}
+    on:keydown={handleKeydown}
+    on:keyup={handleKeyup}
 />
 
 <div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors ">
@@ -518,7 +556,7 @@
                 class="relative min-h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]"
             >
                 <div
-                    class="absolute inset-0 z-0 pointer-events-none card-gradient"
+                    class="absolute inset-0 z-0 pointer-events-none card-gradient pointer-events-none"
                     style="--rarity-color: {rarityColor};"
                 ></div>
 
@@ -528,6 +566,7 @@
                     <Images
                         {id}
                         variant="weapon-icon"
+                        interactive={true}
                         className="w-full h-full object-contain drop-shadow-xl blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu scale-100"
                         alt={weaponName}
                     />
@@ -826,7 +865,8 @@
                             min="1"
                             max={maxLevel}
                             step="1"
-                            bind:value={level}
+                            value={targetLevel}
+                            on:input={handleInput}
                             class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
                         />
                     </div>
@@ -1060,6 +1100,7 @@
                             <Images
                                 {id}
                                 variant="weapon-icon"
+                                interactive={true}
                                 className="w-full h-full object-contain drop-shadow-2xl"
                                 alt="{weaponName} Icon"
                             />
@@ -1158,6 +1199,7 @@
                             >
                                 <Images
                                     {id}
+                                    interactive={true}
                                     variant="weapons-big"
                                     className="w-full h-full drop-shadow-2xl"
                                     alt="{weaponName} Full"
@@ -1381,6 +1423,7 @@
             <Images
                 {id}
                 variant={selectedImageVariant}
+                interactive={true}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
                 alt="{weaponName} Full"
             />
