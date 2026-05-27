@@ -1231,6 +1231,7 @@
                                             >
                                                 <Images
                                                     id={match.weapon.id}
+                                                    interactive={true}
                                                     variant="weapon-icon"
                                                     className="w-full h-full scale-110 pt-1 pr-0.5 object-contain drop-shadow-md rotate-[0.01deg] transition-transform duration-300 group-hover/icon:scale-110"
                                                     alt={match.weapon.name}
@@ -1503,6 +1504,7 @@
                                                                                 >
                                                                                 <Images
                                                                                     id={wp.id}
+                                                                                    interactive={true}
                                                                                     variant="weapon-icon"
                                                                                     className="w-[90%] h-[90%] object-contain drop-shadow-sm scale-110"
                                                                                 />

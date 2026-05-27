@@ -2002,6 +2002,7 @@
             {:else}
                 <Images
                     id={selectedArtId}
+                    interactive={true}
                     variant="operator-art"
                     className="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
                 />

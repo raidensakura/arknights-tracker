@@ -410,13 +410,14 @@
             <div class="aspect-[32/9] w-full relative bg-gray-100">
                 <Images
                     item={banner}
+                    interactive={true}
                     variant={imageVariant}
                     className="w-full h-full"
                     alt={banner.name}
                     style="object-fit: cover;"
                 />
                 <div
-                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none"
                 ></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5">
                     <h3

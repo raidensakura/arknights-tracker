@@ -556,7 +556,7 @@
                 class="relative min-h-[210px] flex p-6 overflow-hidden bg-white dark:bg-[#2b2b2b]"
             >
                 <div
-                    class="absolute inset-0 z-0 pointer-events-none card-gradient"
+                    class="absolute inset-0 z-0 pointer-events-none card-gradient pointer-events-none"
                     style="--rarity-color: {rarityColor};"
                 ></div>
 
@@ -566,6 +566,7 @@
                     <Images
                         {id}
                         variant="weapon-icon"
+                        interactive={true}
                         className="w-full h-full object-contain drop-shadow-xl blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu scale-100"
                         alt={weaponName}
                     />
@@ -1099,6 +1100,7 @@
                             <Images
                                 {id}
                                 variant="weapon-icon"
+                                interactive={true}
                                 className="w-full h-full object-contain drop-shadow-2xl"
                                 alt="{weaponName} Icon"
                             />
@@ -1197,6 +1199,7 @@
                             >
                                 <Images
                                     {id}
+                                    interactive={true}
                                     variant="weapons-big"
                                     className="w-full h-full drop-shadow-2xl"
                                     alt="{weaponName} Full"
@@ -1420,6 +1423,7 @@
             <Images
                 {id}
                 variant={selectedImageVariant}
+                interactive={true}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg drop-shadow-2xl select-none"
                 alt="{weaponName} Full"
             />
