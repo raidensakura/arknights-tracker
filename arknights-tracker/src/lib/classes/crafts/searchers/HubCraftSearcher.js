@@ -6,7 +6,7 @@ export class HubCraftSearcher extends CraftSearcher {
     constructor({
                     craftItemAsIncomeMap = hubCraftItemAsIncome,
                     craftItemAsOutcomeMap = hubCraftItemAsOutcome
-                }) {
+                } = {}) {
         super({craftItemAsIncomeMap, craftItemAsOutcomeMap});
     }
 }

@@ -59,7 +59,7 @@ export class Crafter extends Building {
 
         if (!crafterObj) return null;
 
-        return new Crafter(building._buildingObj)
+        return new Crafter(building._buildingObj, crafterObj)
     }
 
     static isCrafter(buildingId) {

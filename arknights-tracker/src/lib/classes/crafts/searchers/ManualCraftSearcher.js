@@ -6,7 +6,7 @@ export class ManualCraftSearcher extends CraftSearcher {
     constructor({
                     craftItemAsIncomeMap = manualCraftItemAsIncome,
                     craftItemAsOutcomeMap = manualCraftItemAsOutcome
-                }) {
+                } = {}) {
         super({craftItemAsIncomeMap, craftItemAsOutcomeMap});
     }
 }
