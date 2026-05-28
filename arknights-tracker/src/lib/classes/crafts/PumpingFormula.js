@@ -16,7 +16,7 @@ export class PumpingFormula {
     }
 
     get pumpTimeMs() {
-        return this._pump.timeMs;
+        return this._pump.pumpTimeMs;
     }
 
     get pumpingLiquidId() {
