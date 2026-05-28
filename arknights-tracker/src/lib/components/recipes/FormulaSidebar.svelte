@@ -1,4 +1,5 @@
 <script>
+    import {t} from "$lib/i18n";
     import {Item} from "$lib/classes/items/Item.js";
     import ItemStackCard from "$lib/components/ItemStackCard.svelte";
     import {MachineCraftSearcher} from "$lib/classes/crafts/searchers/MachineCraftSearcher.js";
@@ -11,6 +12,10 @@
     import {Miner} from "$lib/classes/buildings/Miner.js";
     import {Pump} from "$lib/classes/buildings/Pump.js";
     import ResourcePointCard from "$lib/components/recipes/ResourcePointCard.svelte";
+    import Formula from "$lib/components/recipes/Formula.svelte";
+    import {MachineCraft} from "$lib/classes/crafts/MachineCraft.js";
+    import {MiningFormula} from "$lib/classes/crafts/MiningFormula.js";
+    import {PumpingFormula} from "$lib/classes/crafts/PumpingFormula.js";
 
     export let currentItemId = "";
 
@@ -60,14 +65,14 @@
 
 </script>
 
-<div class="flex-grow flex flex-col justify-start min-w-[300px] overflow-auto sticky top-10 h-[95vh]
+<div class="flex-grow flex flex-col justify-start min-w-[500px] overflow-auto sticky top-10 h-[95vh]
     bg-white dark:bg-[#383838] rounded-3xl border border-gray-200 dark:border-[#444] transition-colors">
 
     {#if (currentItemId)}
 
         <div class="relative flex p-6 overflow-hidden border-b border-gray-200 dark:border-[#444]">
             <h2 class="font-sdk text-xl md:text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight drop-shadow-sm">
-                {currentItemId}
+                {$t(`itemNames.${currentItemId}`)}
             </h2>
         </div>
 
@@ -89,6 +94,27 @@
         <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid"/>
         <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid" size="small"/>
         <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid" size="micro"/>
+    </div>
+
+    <div class="relative flex p-6 overflow-hidden">
+        <Formula
+            formula={MachineCraft.getMachineCraft("filling_bottled_copperenr_xiranite_lowpoly")}
+            mode="machineCraft"
+        />
+    </div>
+
+    <div class="relative flex p-6 overflow-hidden">
+        <Formula
+            formula={MiningFormula.getMiningFormula(Miner.getMiner("miner_4"), "item_copper_ore")}
+            mode="miningFormula"
+        />
+    </div>
+
+    <div class="relative flex p-6 overflow-hidden">
+        <Formula
+            formula={Pump.getPump("pump_2").getPumpingFormula("item_liquid_acid")}
+            mode="pumpingFormula"
+        />
     </div>
 
 </div>

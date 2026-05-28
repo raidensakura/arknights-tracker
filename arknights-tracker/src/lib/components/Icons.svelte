@@ -3147,7 +3147,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M15 7.5L3.75 13.9952L3.75 1.00481L15 7.5Z" fill="#393939" />
-        <path d="M26 7.5L14.75 13.9952L14.75 1.00481L26 7.5Z" fill="#393939" />
+        <path d="M15 7.5L3.75 13.9952L3.75 1.00481L15 7.5Z" fill="currentColor" />
+        <path d="M26 7.5L14.75 13.9952L14.75 1.00481L26 7.5Z" fill="currentColor" />
     </svg>
 {/if}
