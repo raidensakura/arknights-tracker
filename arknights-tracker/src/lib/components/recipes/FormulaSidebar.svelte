@@ -16,6 +16,7 @@
     import {MachineCraft} from "$lib/classes/crafts/MachineCraft.js";
     import {MiningFormula} from "$lib/classes/crafts/MiningFormula.js";
     import {PumpingFormula} from "$lib/classes/crafts/PumpingFormula.js";
+    import Icons from "$lib/components/Icons.svelte";
 
     export let currentItemId = "";
 
@@ -63,58 +64,42 @@
         }
     }
 
+    $: hasOutcomeFormulas = machineCraftSearchResultAsOutcome
+        || manualCraftSearchResultAsOutcome
+        || hubCraftSearchResultAsOutcome;
+    $: hasIncomeFormulas = machineCraftSearchResultAsIncome
+        || manualCraftSearchResultAsIncome
+        || hubCraftSearchResultAsIncome;
+
 </script>
 
-<div class="flex-grow flex flex-col justify-start min-w-[500px] overflow-auto sticky top-10 h-[95vh]
+<div class="min-w-[400px] overflow-auto sticky top-10 h-[95vh]
     bg-white dark:bg-[#383838] rounded-3xl border border-gray-200 dark:border-[#444] transition-colors">
 
     {#if (currentItemId)}
+        <div class="flex flex-col justify-start w-full h-full">
 
-        <div class="relative flex p-6 overflow-hidden border-b border-gray-200 dark:border-[#444]">
-            <h2 class="font-sdk text-xl md:text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight drop-shadow-sm">
-                {$t(`itemNames.${currentItemId}`)}
-            </h2>
+            <div class="relative flex p-6 overflow-hidden border-b border-gray-200 dark:border-[#444]">
+                <h2 class="font-sdk text-xl md:text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight drop-shadow-sm">
+                    {$t(`itemNames.${currentItemId}`)}
+                </h2>
+            </div>
+
+            <div class="flex flex-col justify-start w-full h-full p-6">
+                {#if (hasOutcomeFormulas)}
+                    
+                {/if}
+            </div>
+
+        </div>
+
+    {:else}
+
+        <div class="flex flex-col justify-center items-center w-full h-full">
+            <Icons name="noData" class="w-16 h-16" />
         </div>
 
     {/if}
 
-    <div class="relative flex p-6 overflow-hidden gap-2">
-        <ItemStackCard itemId={currentItemId} amount={50000}/>
-        <ItemStackCard itemId={currentItemId} amount={50000} size="small"/>
-        <ItemStackCard itemId={currentItemId} amount={10} size="micro"/>
-    </div>
-
-    <div class="relative flex p-6 overflow-hidden gap-2">
-        <ResourcePointCard itemId="item_copper_ore" resourcePoint="miner"/>
-        <ResourcePointCard itemId="item_copper_ore" resourcePoint="miner" size="small"/>
-        <ResourcePointCard itemId="item_copper_ore" resourcePoint="miner" size="micro"/>
-    </div>
-
-    <div class="relative flex p-6 overflow-hidden gap-2">
-        <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid"/>
-        <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid" size="small"/>
-        <ResourcePointCard itemId="item_liquid_acid" resourcePoint="liquid" size="micro"/>
-    </div>
-
-    <div class="relative flex p-6 overflow-hidden">
-        <Formula
-            formula={MachineCraft.getMachineCraft("filling_bottled_copperenr_xiranite_lowpoly")}
-            mode="machineCraft"
-        />
-    </div>
-
-    <div class="relative flex p-6 overflow-hidden">
-        <Formula
-            formula={MiningFormula.getMiningFormula(Miner.getMiner("miner_4"), "item_copper_ore")}
-            mode="miningFormula"
-        />
-    </div>
-
-    <div class="relative flex p-6 overflow-hidden">
-        <Formula
-            formula={Pump.getPump("pump_2").getPumpingFormula("item_liquid_acid")}
-            mode="pumpingFormula"
-        />
-    </div>
 
 </div>
