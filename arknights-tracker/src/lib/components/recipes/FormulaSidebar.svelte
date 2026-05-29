@@ -1,7 +1,6 @@
 <script>
     import {t} from "$lib/i18n";
     import {Item} from "$lib/classes/items/Item.js";
-    import ItemStackCard from "$lib/components/ItemStackCard.svelte";
     import {MachineCraftSearcher} from "$lib/classes/crafts/searchers/MachineCraftSearcher.js";
     import {ManualCraftSearcher} from "$lib/classes/crafts/searchers/ManualCraftSearcher.js";
     import {HubCraftSearcher} from "$lib/classes/crafts/searchers/HubCraftSearcher.js";
@@ -11,11 +10,8 @@
     import {Crafter} from "$lib/classes/buildings/Crafter.js";
     import {Miner} from "$lib/classes/buildings/Miner.js";
     import {Pump} from "$lib/classes/buildings/Pump.js";
-    import ResourcePointCard from "$lib/components/recipes/ResourcePointCard.svelte";
     import Formula from "$lib/components/recipes/Formula.svelte";
     import {MachineCraft} from "$lib/classes/crafts/MachineCraft.js";
-    import {MiningFormula} from "$lib/classes/crafts/MiningFormula.js";
-    import {PumpingFormula} from "$lib/classes/crafts/PumpingFormula.js";
     import Icons from "$lib/components/Icons.svelte";
     import SidebarSectorLabel from "$lib/components/recipes/SidebarSectorLabel.svelte";
     import SidebarCraftSourceLabel from "$lib/components/recipes/SidebarCraftSourceLabel.svelte";
@@ -47,7 +43,7 @@
 
     $: building = Building.getBuildingFromItemId(item?.id ?? "");
     $: buildingId = building?.id;
-    $: isCrafter = Crafter.isCrafter(buildingId ?? "") ?? false;
+    $: isCrafter = Crafter.isCrafter(buildingId ?? "");
     $: miner = Miner.getMiner(buildingId ?? "");
     $: pump = Pump.getPump(buildingId ?? "");
 
