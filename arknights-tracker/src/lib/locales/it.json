@@ -1864,5 +1864,21 @@
     "miner_4": "Impianto di estrazione idrico",
     "pump_1": "Pompa per liquidi",
     "pump_2": "Pompa anti-corrosione v2"
+  },
+  "buildingModes":{
+    "normal": "Modalità standard",
+    "liquid": "Modalità liquidi"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Fonte",
+      "using": "Formule applicabili",
+      "availableFormulas": "Formule disponibili",
+      "resourceCollection": "Risorse da raccogliere"
+    },
+    "craftSource": {
+      "hub": "Nucleo di automazione",
+      "manual": "Creazione"
+    }
   }
 }

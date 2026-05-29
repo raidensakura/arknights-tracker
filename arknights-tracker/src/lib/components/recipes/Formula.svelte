@@ -4,22 +4,24 @@
     import Icons from "$lib/components/Icons.svelte";
 
     export let formula;
-    export let mode = ""; // "machineCraft" | "manualCraft" | "hubCraft" | "miningFormula" | "pumpingFormula"
+
+    $: mode = formula.formulaType;
+
     let ingredients;
     let outcomes;
     let craftTimeMs;
     let resourceItemId;
 
-    if (mode === "machineCraft") {
+    $: if (mode === "machineCraft") {
         craftTimeMs = formula.craftTimeMs;
     }
 
-    if (mode === "machineCraft" || mode === "manualCraft" || mode === "hubCraft") {
+    $: if (mode === "machineCraft" || mode === "manualCraft" || mode === "hubCraft") {
         ingredients = formula.ingredients;
         outcomes = formula.outcomes;
     }
 
-    if (mode === "miningFormula") {
+    $: if (mode === "miningFormula") {
         if (formula.hasConsumeItem()) {
             ingredients = [{
                 count: formula.consumeItemCount,
@@ -36,7 +38,7 @@
         resourceItemId = formula.miningItemId;
     }
 
-    if (mode === "pumpingFormula") {
+    $: if (mode === "pumpingFormula") {
         ingredients = [];
         outcomes = [{
             count: 1,

@@ -1863,5 +1863,21 @@
     "miner_4": "Plataforma de hidrominería",
     "pump_1": "Bomba de fluido",
     "pump_2": "Bomba resistente al ácido Mk II"
+  },
+  "buildingModes":{
+    "normal": "Modo estándar",
+    "liquid": "Modo Fluido"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Fuente",
+      "using": "Fórmulas aplicables",
+      "availableFormulas": "Fórmulas disponibles",
+      "resourceCollection": "Recursos recolectables"
+    },
+    "craftSource": {
+      "hub": "Núcleo de automatización",
+      "manual": "Fabricación"
+    }
   }
 }

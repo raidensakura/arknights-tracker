@@ -1931,5 +1931,21 @@
     "miner_4": "Hydro Mining Rig",
     "pump_1": "Fluid Pump",
     "pump_2": "Acid Resistant Pump Mk II"
+  },
+  "buildingModes":{
+    "normal": "STD Mode",
+    "liquid": "Fluid Mode"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Source",
+      "using": "Applicable Formulas",
+      "availableFormulas": "Available Formulas",
+      "resourceCollection": "Gatherable Resources"
+    },
+    "craftSource": {
+      "hub": "Automation-Core",
+      "manual": "Crafting"
+    }
   }
 }

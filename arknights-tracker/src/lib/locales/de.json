@@ -1863,5 +1863,21 @@
     "miner_4": "Hydro-Abbauanlage",
     "pump_1": "Flüssigkeitspumpe",
     "pump_2": "Säurefeste Pumpe Mk II"
+  },
+  "buildingModes":{
+    "normal": "STD-Modus",
+    "liquid": "Flüssigkeitsmodus"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Quelle",
+      "using": "Anwendbare Formeln",
+      "availableFormulas": "Verfügbare Formeln",
+      "resourceCollection": "Sammelbare Ressourcen"
+    },
+    "craftSource": {
+      "hub": "Automationskern",
+      "manual": "Herstellen"
+    }
   }
 }

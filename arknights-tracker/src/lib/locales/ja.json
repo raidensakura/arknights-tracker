@@ -1864,5 +1864,21 @@
     "miner_4": "水力採鉱機",
     "pump_1": "液体ポンプ",
     "pump_2": "耐酸性液体ポンプⅡ"
+  },
+  "buildingModes":{
+    "normal": "基礎モード",
+    "liquid": "液体対応モード"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "入手方法",
+      "using": "レシピ",
+      "availableFormulas": "生産レシピ",
+      "resourceCollection": "採集可能"
+    },
+    "craftSource": {
+      "hub": "協約核心",
+      "manual": "道具製作"
+    }
   }
 }

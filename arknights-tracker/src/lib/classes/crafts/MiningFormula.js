@@ -7,6 +7,10 @@ export class MiningFormula {
         this._minableObj = minableObj;
     }
 
+    get formulaType() {
+        return "miningFormula";
+    }
+
     get miner() {
         return this._miner;
     }

@@ -1864,5 +1864,21 @@
     "miner_4": "Plateforme d'extraction hydraulique",
     "pump_1": "Pompe à fluide",
     "pump_2": "Pompe résistante à l'acide V2"
+  },
+  "buildingModes":{
+    "normal": "Mode STD",
+    "liquid": "Mode Fluide"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Source",
+      "using": "Formules applicables",
+      "availableFormulas": "Formules disponibles",
+      "resourceCollection": "Ressources récoltables"
+    },
+    "craftSource": {
+      "hub": "Noyau d'automatisation",
+      "manual": "Fabrication"
+    }
   }
 }

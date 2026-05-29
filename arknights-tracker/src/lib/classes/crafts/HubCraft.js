@@ -7,6 +7,10 @@ export class HubCraft {
         this._craftObj = craftObj;
     }
 
+    get formulaType() {
+        return "hubCraft";
+    }
+
     get id() {
         return this._craftObj.id;
     }

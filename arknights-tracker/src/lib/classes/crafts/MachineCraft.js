@@ -8,6 +8,10 @@ export class MachineCraft {
         this._craftObj = craftObj;
     }
 
+    get formulaType() {
+        return "machineCraft";
+    }
+
     get id() {
         return this._craftObj.id;
     }

@@ -1864,5 +1864,21 @@
     "miner_4": "Sonda de Hidromineração",
     "pump_1": "Bomba de Fluido",
     "pump_2": "Bomba Resistente a Ácido Mk II"
+  },
+  "buildingModes":{
+    "normal": "Modo PDR",
+    "liquid": "Modo de Fluido"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Origem",
+      "using": "Fórmulas Aplicáveis",
+      "availableFormulas": "Fórmulas Disponíveis",
+      "resourceCollection": "Recursos Coletáveis"
+    },
+    "craftSource": {
+      "hub": "Núcleo de Automação",
+      "manual": "Confecção"
+    }
   }
 }

@@ -1864,5 +1864,21 @@
     "miner_4": "แท่น​ขุด​เหมือง​ไฮ​โดร",
     "pump_1": "ปั๊ม​ของเหลว",
     "pump_2": "ปั๊ม​ทน​กรด​ Mk II"
+  },
+  "buildingModes":{
+    "normal": "โหม​ด​ STD",
+    "liquid": "โหม​ด​ของเหลว"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "ที่มา",
+      "using": "สูตร​ที่​เกี่ยวข้อง",
+      "availableFormulas": "สูตร​ที่​ใช้งาน​ได้",
+      "resourceCollection": "ทรัพยากร​ที่เก็บ​ได้"
+    },
+    "craftSource": {
+      "hub": "แกน​หลัก​อัตโนมัติ",
+      "manual": "การ​สร้าง"
+    }
   }
 }

@@ -1889,5 +1889,21 @@
     "miner_4": "Добывающая гидроустановка",
     "pump_1": "Гидронасос",
     "pump_2": "Кислотостойкий насос Mk II"
+  },
+  "buildingModes":{
+    "normal": "Стандартный режим",
+    "liquid": "Режим жидкостей"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Источник",
+      "using": "Подходящие формулы",
+      "availableFormulas": "Доступные формулы",
+      "resourceCollection": "Сбор ресурсов"
+    },
+    "craftSource": {
+      "hub": "Блок автоматизации",
+      "manual": "Создание"
+    }
   }
 }

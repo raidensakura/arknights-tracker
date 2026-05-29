@@ -17,6 +17,10 @@
     import {MiningFormula} from "$lib/classes/crafts/MiningFormula.js";
     import {PumpingFormula} from "$lib/classes/crafts/PumpingFormula.js";
     import Icons from "$lib/components/Icons.svelte";
+    import SidebarSectorLabel from "$lib/components/recipes/SidebarSectorLabel.svelte";
+    import SidebarCraftSourceLabel from "$lib/components/recipes/SidebarCraftSourceLabel.svelte";
+    import {ManualCraft} from "$lib/classes/crafts/ManualCraft.js";
+    import {HubCraft} from "$lib/classes/crafts/HubCraft.js";
 
     export let currentItemId = "";
 
@@ -38,10 +42,11 @@
 
     let machineCraftSearchResultAsCrafter;
 
-    let availableMiners;
-    let availablePumps;
+    let minerSearchResult;
+    let pumpSearchResult;
 
-    $: buildingId = Building.getBuildingIdFromItemId(item?.id ?? "");
+    $: building = Building.getBuildingFromItemId(item?.id ?? "");
+    $: buildingId = building?.id;
     $: isCrafter = Crafter.isCrafter(buildingId ?? "") ?? false;
     $: miner = Miner.getMiner(buildingId ?? "");
     $: pump = Pump.getPump(buildingId ?? "");
@@ -56,20 +61,23 @@
         hubCraftSearchResultAsIncome = hubCraftSearcher.searchByItemAsIncome(item.id);
         hubCraftSearchResultAsOutcome = hubCraftSearcher.searchByItemAsOutcome(item.id);
 
-        availableMiners = minerSearcher.searchByItemAsOutcome(item.id);
-        availablePumps = pumpSearcher.searchByItemAsOutcome(item.id);
+        minerSearchResult = minerSearcher.searchByItemAsOutcome(item.id);
+        pumpSearchResult = pumpSearcher.searchByItemAsOutcome(item.id);
 
         if (buildingId && isCrafter) {
             machineCraftSearchResultAsCrafter = machineCraftSearcher.searchByCrafter(buildingId);
         }
     }
 
-    $: hasOutcomeFormulas = machineCraftSearchResultAsOutcome
-        || manualCraftSearchResultAsOutcome
-        || hubCraftSearchResultAsOutcome;
-    $: hasIncomeFormulas = machineCraftSearchResultAsIncome
-        || manualCraftSearchResultAsIncome
-        || hubCraftSearchResultAsIncome;
+    $: hasOutcomeFormulas = !(machineCraftSearchResultAsOutcome?.isEmpty() ?? true)
+        || !(manualCraftSearchResultAsOutcome?.isEmpty() ?? true)
+        || !(hubCraftSearchResultAsOutcome?.isEmpty() ?? true)
+        || !(minerSearchResult?.isEmpty() ?? true)
+        || !(pumpSearchResult?.isEmpty() ?? true);
+
+    $: hasIncomeFormulas = !(machineCraftSearchResultAsIncome?.isEmpty() ?? true)
+        || !(manualCraftSearchResultAsIncome?.isEmpty() ?? true)
+        || !(hubCraftSearchResultAsIncome?.isEmpty() ?? true);
 
 </script>
 
@@ -79,16 +87,209 @@
     {#if (currentItemId)}
         <div class="flex flex-col justify-start w-full h-full">
 
-            <div class="relative flex p-6 overflow-hidden border-b border-gray-200 dark:border-[#444]">
+            <div class="relative flex pl-6 pr-6 pt-3 pb-3 min-h-16 overflow-hidden border-b border-gray-200 dark:border-[#444]">
                 <h2 class="font-sdk text-xl md:text-2xl font-bold text-[#21272C] dark:text-[#FDFDFD] leading-tight drop-shadow-sm">
                     {$t(`itemNames.${currentItemId}`)}
                 </h2>
             </div>
 
-            <div class="flex flex-col justify-start w-full h-full p-6">
+            <div class="flex flex-col justify-start w-full h-full pl-6 pr-6 pt-3 pb-3 gap-10">
                 {#if (hasOutcomeFormulas)}
-                    
+                    <div class="flex flex-col justify-start w-full gap-3">
+
+                        <SidebarSectorLabel text={$t("formulaSidebar.sector.source")}/>
+
+                        {#if (!hubCraftSearchResultAsOutcome.isEmpty())}
+                            <SidebarCraftSourceLabel
+                                text={$t("formulaSidebar.craftSource.hub")}
+                            />
+                        {/if}
+
+                        {#each hubCraftSearchResultAsOutcome.craftList as craftId}
+
+                            <Formula
+                                formula={HubCraft.getHubCraft(craftId)}
+                            />
+
+                        {/each}
+
+                        {#if (!manualCraftSearchResultAsOutcome.isEmpty())}
+                            <SidebarCraftSourceLabel
+                                text={$t("formulaSidebar.craftSource.manual")}
+                            />
+                        {/if}
+
+                        {#each manualCraftSearchResultAsOutcome.craftList as craftId}
+
+                            <Formula
+                                formula={ManualCraft.getManualCraft(craftId)}
+                            />
+
+                        {/each}
+
+                        {#each minerSearchResult.buildingIdList as minerId}
+
+                            <SidebarCraftSourceLabel
+                                text={$t(`buildingNames.${minerId}`)}
+                                iconId={Miner.getMiner(minerId).iconId}
+                                iconVariant="building-icon"
+                            />
+
+                            <Formula
+                                formula={Miner.getMiner(minerId).getMiningFormula(currentItemId)}
+                            />
+
+                        {/each}
+
+                        {#each pumpSearchResult.buildingIdList as pumpId}
+
+                            <SidebarCraftSourceLabel
+                                text={$t(`buildingNames.${pumpId}`)}
+                                iconId={Pump.getPump(pumpId).iconId}
+                                iconVariant="building-icon"
+                            />
+
+                            <Formula
+                                formula={Pump.getPump(pumpId).getPumpingFormula(currentItemId)}
+                            />
+
+                        {/each}
+
+                        {#each machineCraftSearchResultAsOutcome.getCrafterIdList() as crafterId}
+
+                            <SidebarCraftSourceLabel
+                                text={$t(`buildingNames.${crafterId}`)}
+                                iconId={Building.getBuilding(crafterId).iconId}
+                                iconVariant="building-icon"
+                            />
+
+                            {#each machineCraftSearchResultAsOutcome.getCrafterModeList(crafterId) as crafterMode}
+                                {#each machineCraftSearchResultAsOutcome.getCraftList(crafterId, crafterMode) as craftId}
+
+                                    <Formula
+                                        formula={MachineCraft.getMachineCraft(craftId)}
+                                    />
+
+                                {/each}
+                            {/each}
+
+                        {/each}
+
+                    </div>
                 {/if}
+
+                {#if (hasIncomeFormulas)}
+                    <div class="flex flex-col justify-start w-full gap-3">
+
+                        <SidebarSectorLabel text={$t("formulaSidebar.sector.using")}/>
+
+                        {#if (!hubCraftSearchResultAsIncome.isEmpty())}
+                            <SidebarCraftSourceLabel
+                                text={$t("formulaSidebar.craftSource.hub")}
+                            />
+                        {/if}
+
+                        {#each hubCraftSearchResultAsIncome.craftList as craftId}
+
+                            <Formula
+                                formula={HubCraft.getHubCraft(craftId)}
+                            />
+
+                        {/each}
+
+                        {#if (!manualCraftSearchResultAsIncome.isEmpty())}
+                            <SidebarCraftSourceLabel
+                                text={$t("formulaSidebar.craftSource.manual")}
+                            />
+                        {/if}
+
+                        {#each manualCraftSearchResultAsIncome.craftList as craftId}
+
+                            <Formula
+                                formula={ManualCraft.getManualCraft(craftId)}
+                            />
+
+                        {/each}
+
+                        {#each machineCraftSearchResultAsIncome.getCrafterIdList() as crafterId}
+
+                            <SidebarCraftSourceLabel
+                                text={$t(`buildingNames.${crafterId}`)}
+                                iconId={Building.getBuilding(crafterId).iconId}
+                                iconVariant="building-icon"
+                            />
+
+                            {#each machineCraftSearchResultAsIncome.getCrafterModeList(crafterId) as crafterMode}
+                                {#each machineCraftSearchResultAsIncome.getCraftList(crafterId, crafterMode) as craftId}
+
+                                    <Formula
+                                        formula={MachineCraft.getMachineCraft(craftId)}
+                                    />
+
+                                {/each}
+                            {/each}
+
+                        {/each}
+
+                    </div>
+                {/if}
+
+                {#if (isCrafter)}
+                    <div class="flex flex-col justify-start w-full gap-3">
+
+                        <SidebarSectorLabel text={$t("formulaSidebar.sector.availableFormulas")}/>
+
+                        {#each machineCraftSearchResultAsCrafter.getCrafterModeList(buildingId) as crafterMode}
+
+                            <SidebarCraftSourceLabel
+                                text={$t(`buildingModes.${crafterMode}`)}
+                            />
+
+                            {#each machineCraftSearchResultAsCrafter.getCraftList(buildingId, crafterMode) as craftId}
+
+                                <Formula
+                                    formula={MachineCraft.getMachineCraft(craftId)}
+                                />
+
+                            {/each}
+
+                        {/each}
+
+                    </div>
+                {/if}
+
+                {#if (miner)}
+                    <div class="flex flex-col justify-start w-full gap-3">
+
+                        <SidebarSectorLabel text={$t("formulaSidebar.sector.resourceCollection")}/>
+
+                        {#each miner.mineableItemIds as itemId}
+
+                            <Formula
+                                formula={miner.getMiningFormula(itemId)}
+                            />
+
+                        {/each}
+
+                    </div>
+                {/if}
+
+                {#if (pump)}
+                    <div class="flex flex-col justify-start w-full gap-3">
+
+                        <SidebarSectorLabel text={$t("formulaSidebar.sector.resourceCollection")}/>
+
+                        {#each pump.enableLiquidIds as itemId}
+
+                            <Formula
+                                formula={pump.getPumpingFormula(itemId)}
+                            />
+
+                        {/each}
+
+                    </div>
+                {/if}
+
             </div>
 
         </div>

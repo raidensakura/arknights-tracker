@@ -1864,5 +1864,21 @@
     "miner_4": "Rig Tambang Hidro",
     "pump_1": "Pompa Cairan",
     "pump_2": "Pompa Tahan Asam Mk II"
+  },
+  "buildingModes":{
+    "normal": "Mode STD",
+    "liquid": "Mode Cairan"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Sumber",
+      "using": "Formula yang Bisa Diterapkan",
+      "availableFormulas": "Formula yang Tersedia",
+      "resourceCollection": "Sumber Daya yang Bisa Dikumpulkan"
+    },
+    "craftSource": {
+      "hub": "Automasi Canggih",
+      "manual": "Crafting"
+    }
   }
 }

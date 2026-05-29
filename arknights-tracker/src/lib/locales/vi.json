@@ -1864,5 +1864,21 @@
     "miner_4": "Giàn Khai Thác Thủy Lực",
     "pump_1": "Máy Bơm Chất Lỏng",
     "pump_2": "Máy Bơm Chống Ăn Mòn Mk II"
+  },
+  "buildingModes":{
+    "normal": "Chế Độ STD",
+    "liquid": "Chế Độ Lỏng"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "Nguồn",
+      "using": "Công Thức Áp Dụng",
+      "availableFormulas": "Công Thức Có Sẵn",
+      "resourceCollection": "Tài Nguyên Có Thể Thu Thập"
+    },
+    "craftSource": {
+      "hub": "Lõi Tự Động Hóa",
+      "manual": "Chế Tạo"
+    }
   }
 }

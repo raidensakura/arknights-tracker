@@ -1864,5 +1864,21 @@
     "miner_4": "수력 채굴기",
     "pump_1": "양수기",
     "pump_2": "내산성 양수기 II"
+  },
+  "buildingModes":{
+    "normal": "기본 모드",
+    "liquid": "액체 모드"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "획득 방법",
+      "using": "사용 가능 조합 공식",
+      "availableFormulas": "사용 가능 조합 공식",
+      "resourceCollection": "채집 가능 자원"
+    },
+    "craftSource": {
+      "hub": "프로토콜 코어",
+      "manual": "간편 제작"
+    }
   }
 }

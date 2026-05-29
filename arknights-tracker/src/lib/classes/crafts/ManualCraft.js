@@ -7,6 +7,10 @@ export class ManualCraft {
         this._craftObj = craftObj;
     }
 
+    get formulaType() {
+        return "manualCraft";
+    }
+
     get id() {
         return this._craftObj.id;
     }

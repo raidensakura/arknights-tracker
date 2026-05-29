@@ -10,6 +10,10 @@ export class PowerFormula {
         this._fuel = fuel;
     }
 
+    get formulaType() {
+        return "powerFormula";
+    }
+
     get powerStation() {
         return this._powerStation;
     }

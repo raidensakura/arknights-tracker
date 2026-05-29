@@ -7,6 +7,10 @@ export class PumpingFormula {
         this._pumpingLiquidId = pumpingLiquidId;
     }
 
+    get formulaType() {
+        return "pumpingFormula";
+    }
+
     get pump() {
         return this._pump;
     }

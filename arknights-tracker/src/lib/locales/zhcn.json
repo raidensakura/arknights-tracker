@@ -1864,5 +1864,21 @@
     "miner_4": "水驱矿机",
     "pump_1": "水泵",
     "pump_2": "二型耐酸水泵"
+  },
+  "buildingModes":{
+    "normal": "基础模式",
+    "liquid": "液体模式"
+  },
+  "formulaSidebar":{
+    "sector": {
+      "source": "获取方式",
+      "using": "参与配方",
+      "availableFormulas": "可用配方",
+      "resourceCollection": "可采集资源"
+    },
+    "craftSource": {
+      "hub": "协议核心",
+      "manual": "简易制作"
+    }
   }
 }
