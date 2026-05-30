@@ -98,6 +98,7 @@
                         {#if (!hubCraftSearchResultAsOutcome.isEmpty())}
                             <SidebarCraftSourceLabel
                                 text={$t("formulaSidebar.craftSource.hub")}
+                                iconVariant="hubCraft"
                             />
                         {/if}
 
@@ -113,6 +114,7 @@
                         {#if (!manualCraftSearchResultAsOutcome.isEmpty())}
                             <SidebarCraftSourceLabel
                                 text={$t("formulaSidebar.craftSource.manual")}
+                                iconVariant="manualCraft"
                             />
                         {/if}
 
@@ -187,6 +189,7 @@
                         {#if (!hubCraftSearchResultAsIncome.isEmpty())}
                             <SidebarCraftSourceLabel
                                 text={$t("formulaSidebar.craftSource.hub")}
+                                iconVariant="hubCraft"
                             />
                         {/if}
 
@@ -202,6 +205,7 @@
                         {#if (!manualCraftSearchResultAsIncome.isEmpty())}
                             <SidebarCraftSourceLabel
                                 text={$t("formulaSidebar.craftSource.manual")}
+                                iconVariant="manualCraft"
                             />
                         {/if}
 
@@ -247,6 +251,8 @@
 
                             <SidebarCraftSourceLabel
                                 text={$t(`buildingModes.${crafterMode}`)}
+                                iconVariant="buildingMode"
+                                buildingModeName={crafterMode}
                             />
 
                             {#each machineCraftSearchResultAsCrafter.getCraftList(buildingId, crafterMode) as craftId}

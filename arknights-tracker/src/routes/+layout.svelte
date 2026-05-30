@@ -307,7 +307,7 @@
                         { path: "/essences", label: "pages.essences", icon: "essence" },
                         { path: "/enemies", label: "pages.enemies", icon: "hongshan" },
                         { path: "/equipment", label: "pages.equipment", icon: "edc" },
-                        { path: "/recipes", label: "pages.recipes", icon: "noData" },
+                        { path: "/recipes", label: "pages.recipes", icon: "recepies" },
                         { type: "divider" },
                         { path: "/settings", label: "sidebar.settings", icon: "settings" }
                     ] as item}
