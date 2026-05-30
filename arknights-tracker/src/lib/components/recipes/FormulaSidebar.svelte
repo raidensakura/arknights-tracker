@@ -17,6 +17,7 @@
     import SidebarCraftSourceLabel from "$lib/components/recipes/SidebarCraftSourceLabel.svelte";
     import {ManualCraft} from "$lib/classes/crafts/ManualCraft.js";
     import {HubCraft} from "$lib/classes/crafts/HubCraft.js";
+    import {ResourcePoint} from "$lib/classes/items/ResourcePoint.js";
 
     export let currentItemId = "";
 
@@ -128,33 +129,37 @@
                         {/each}
 
                         {#each minerSearchResult.buildingIdList as minerId}
+                            {#if (ResourcePoint.isItemResourcePoint(currentItemId))}
 
-                            <SidebarCraftSourceLabel
-                                text={$t(`buildingNames.${minerId}`)}
-                                iconId={Miner.getMiner(minerId).iconId}
-                                iconVariant="building-icon"
-                            />
+                                <SidebarCraftSourceLabel
+                                    text={$t(`buildingNames.${minerId}`)}
+                                    iconId={Miner.getMiner(minerId).iconId}
+                                    iconVariant="building-icon"
+                                />
 
-                            <Formula
-                                formula={Miner.getMiner(minerId).getMiningFormula(currentItemId)}
-                                highlightItemId={currentItemId}
-                            />
+                                <Formula
+                                    formula={Miner.getMiner(minerId).getMiningFormula(currentItemId)}
+                                    highlightItemId={currentItemId}
+                                />
 
+                            {/if}
                         {/each}
 
                         {#each pumpSearchResult.buildingIdList as pumpId}
+                            {#if (ResourcePoint.isItemResourcePoint(currentItemId))}
 
-                            <SidebarCraftSourceLabel
-                                text={$t(`buildingNames.${pumpId}`)}
-                                iconId={Pump.getPump(pumpId).iconId}
-                                iconVariant="building-icon"
-                            />
+                                <SidebarCraftSourceLabel
+                                    text={$t(`buildingNames.${pumpId}`)}
+                                    iconId={Pump.getPump(pumpId).iconId}
+                                    iconVariant="building-icon"
+                                />
 
-                            <Formula
-                                formula={Pump.getPump(pumpId).getPumpingFormula(currentItemId)}
-                                highlightItemId={currentItemId}
-                            />
+                                <Formula
+                                    formula={Pump.getPump(pumpId).getPumpingFormula(currentItemId)}
+                                    highlightItemId={currentItemId}
+                                />
 
+                            {/if}
                         {/each}
 
                         {#each machineCraftSearchResultAsOutcome.getCrafterIdList() as crafterId}
@@ -275,12 +280,12 @@
                         <SidebarSectorLabel text={$t("formulaSidebar.sector.resourceCollection")}/>
 
                         {#each miner.mineableItemIds as itemId}
-
-                            <Formula
-                                formula={miner.getMiningFormula(itemId)}
-                                highlightItemId={currentItemId}
-                            />
-
+                            {#if (ResourcePoint.isItemResourcePoint(itemId))}
+                                <Formula
+                                    formula={miner.getMiningFormula(itemId)}
+                                    highlightItemId={currentItemId}
+                                />
+                            {/if}
                         {/each}
 
                     </div>
@@ -292,12 +297,12 @@
                         <SidebarSectorLabel text={$t("formulaSidebar.sector.resourceCollection")}/>
 
                         {#each pump.enableLiquidIds as itemId}
-
-                            <Formula
-                                formula={pump.getPumpingFormula(itemId)}
-                                highlightItemId={currentItemId}
-                            />
-
+                            {#if (ResourcePoint.isItemResourcePoint(itemId))}
+                                <Formula
+                                    formula={pump.getPumpingFormula(itemId)}
+                                    highlightItemId={currentItemId}
+                                />
+                            {/if}
                         {/each}
 
                     </div>
