@@ -37,14 +37,14 @@
     //Maintanance
     //const maintenanceStartTime = new Date("2026-03-11T17:00:00-05:00").getTime();
 
-    function checkMaintenanceStatus() {
-        const now = Date.now();
-        if (now >= maintenanceStartTime) {
-            isMaintenance = true;
-        } else {
-            isMaintenance = false;
-        }
-    }
+    //function checkMaintenanceStatus() {
+    //    const now = Date.now();
+    //    if (now >= maintenanceStartTime) {
+    //        isMaintenance = true;
+    //    } else {
+    //        isMaintenance = false;
+    //    }
+    //}
 
     const ALLOWED_DOMAINS = ["ef-webview.gryphline.com"];
     let isInputError = false;
@@ -55,10 +55,10 @@
     const browserBookmarklet = `javascript:(async()=>{try{let e=null;for(let[t,n]of Object.entries(sessionStorage))if(t.startsWith("APP_ROLE_U8_TOKEN:")){e=n.toString().split(":")[0];break}if(!e)throw new Error("Token not found. Please log in and refresh the page.");await navigator.clipboard.writeText(e),alert("Success! Token copied to clipboard.")}catch(e){alert("Error: "+e.message)}})();`;
     onMount(() => {
         loadSavedTokens();
-        checkMaintenanceStatus();
-        timerInterval = setInterval(() => {
-            checkMaintenanceStatus();
-        }, 1000);
+        //checkMaintenanceStatus();
+        //timerInterval = setInterval(() => {
+        //    checkMaintenanceStatus();
+        //}, 1000);
     });
 
     onDestroy(() => {

@@ -215,12 +215,12 @@
         8;
 
     function handleClickOutside(event) {
-        if (!showTimezoneMenu) return;
+        //if (!showTimezoneMenu) return;
         const clickedBadge = event.target.closest("[data-timezone-badge]");
         const clickedMenu = event.target.closest("[data-timezone-menu]");
-        if (!clickedBadge && !clickedMenu) {
-            showTimezoneMenu = false;
-        }
+        //if (!clickedBadge && !clickedMenu) {
+        //    showTimezoneMenu = false;
+        //}
     }
 
     function getVariant(item) {

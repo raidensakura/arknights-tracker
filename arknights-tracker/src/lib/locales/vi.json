@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Sao lưu",
-      "description": "Bản sao lưu chứa dữ liệu cho tất cả các tài khoản. Khi nhập bản sao lưu, đừng quên tạo thêm một bản sao lưu dự phòng, vì tất cả dữ liệu hiện tại sẽ bị xóa.",
+      "description": "Bản sao lưu chứa dữ liệu của tất cả các tài khoản trên thiết bị này. Trước khi nhập, bạn nên xuất dữ liệu hiện tại vì việc khôi phục bản sao lưu toàn bộ sẽ ghi đè lên toàn bộ lịch sử cục bộ.",
       "export": "Xuất Dữ liệu",
-      "import": "Nhập Dữ liệu"
+      "import": "Nhập Dữ liệu",
+      "success_export": "Sao lưu đã được xuất thành công!",
+      "success_import_full": "Khôi phục sao lưu toàn bộ hệ thống thành công! Đang tải lại...",
+      "success_import_pulls": "Dữ liệu lượt chiêu mộ đã được nhập và hợp nhất thành công!",
+      "error_export": "Xuất sao lưu thất bại",
+      "error_import": "Nhập dữ liệu thất bại: {error}",
+      "error_parse": "Lỗi phân tích cú pháp tệp JSON: {error}",
+      "error_read": "Lỗi khi đọc tệp.",
+      "error_too_large": "Tệp quá lớn! Kích thước tối đa cho phép là 10MB.",
+      "error_invalid_format": "Định dạng tệp không xác định. Tệp không phải là sao lưu toàn bộ hệ thống cũng như không chứa dữ liệu chiêu mộ hợp lệ.",
+      "confirm_full_title": "Khôi phục sao lưu toàn bộ?",
+      "confirm_full_desc": "CẢNH BÁO: Đây là bản sao lưu toàn bộ hệ thống. Khôi phục nó sẽ GHI ĐÈ HOÀN TOÀN tất cả các tài khoản và lịch sử trên thiết bị này. Lịch sử không thể khôi phục.",
+      "confirm_full_btn": "Ghi đè",
+      "confirm_pulls_title": "Nhập dữ liệu chiêu mộ?",
+      "confirm_pulls_desc": "Đây là tệp dữ liệu chiêu mộ. Bạn có muốn nhập và HỢP NHẤT các lượt chiêu mộ này vào tài khoản đang chọn HIỆN TẠI của mình không?",
+      "confirm_pulls_btn": "Hợp nhất & Nhập"
     },
     "sources": {
       "title": "Nguồn"

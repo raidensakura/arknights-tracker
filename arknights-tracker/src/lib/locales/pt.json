@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Backup",
-      "description": "Os backups contêm dados de todas as contas. Ao importar um backup, não se esqueça de criar um backup adicional, pois todos os dados atuais serão excluídos.",
+      "description": "O backup contém dados de todas as contas neste dispositivo. Antes de importar, é altamente recomendável exportar os dados atuais, pois a restauração de um backup completo substituirá todo o histórico local.",
       "export": "Exportar Dados",
-      "import": "Importar Dados"
+      "import": "Importar Dados",
+      "success_export": "Backup exportado com sucesso!",
+      "success_import_full": "Backup completo do sistema restaurado com sucesso! Recarregando...",
+      "success_import_pulls": "Pulls importados e mesclados com sucesso!",
+      "error_export": "Falha ao exportar backup",
+      "error_import": "Falha na importação: {error}",
+      "error_parse": "Erro ao analisar o arquivo JSON: {error}",
+      "error_read": "Erro ao ler o arquivo.",
+      "error_too_large": "O arquivo é muito grande! O tamanho máximo permitido é de 10 MB.",
+      "error_invalid_format": "Formato de arquivo desconhecido. O arquivo não é um backup completo nem dados de pulls reconhecíveis.",
+      "confirm_full_title": "Restaurar Backup Completo?",
+      "confirm_full_desc": "AVISO: Este é um backup completo do sistema. Restaurá-lo SUBSTITUIRÁ COMPLETAMENTE todas as contas e o histórico neste dispositivo. Isso não pode ser desfeito.",
+      "confirm_full_btn": "Substituir",
+      "confirm_pulls_title": "Importar Dados de Pulls?",
+      "confirm_pulls_desc": "Este é um arquivo de dados de pulls. Deseja importar e MESCLAR esses pulls em sua conta selecionada ATUAL?",
+      "confirm_pulls_btn": "Mesclar & Importar"
     },
     "sources": {
       "title": "Fontes"

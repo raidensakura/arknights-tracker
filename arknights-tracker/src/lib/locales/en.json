@@ -901,9 +901,24 @@
     },
     "backup": {
       "title": "Backup",
-      "description": "Backups contain data for all accounts. When importing a backup, don't forget to create an additional backup, as all current data will be deleted.",
+      "description": "Backups contain data for all accounts on this device. Before importing, it is highly recommended to export your current data, as restoring a full backup will overwrite all local history.",
       "export": "Export Data",
-      "import": "Import Data"
+      "import": "Import Data",
+      "success_export": "Backup exported successfully!",
+      "success_import_full": "Full system backup restored successfully! Reloading...",
+      "success_import_pulls": "Pulls imported and merged successfully!",
+      "error_export": "Failed to export backup",
+      "error_import": "Import failed: {error}",
+      "error_parse": "Error parsing JSON file: {error}",
+      "error_read": "Error reading file.",
+      "error_too_large": "File is too large! Maximum allowed size is 10MB.",
+      "error_invalid_format": "Unknown file format. The file is neither a Full Backup nor recognizable Pull Data.",
+      "confirm_full_title": "Restore Full Backup?",
+      "confirm_full_desc": "WARNING: This is a Full System Backup. Restoring it will COMPLETELY OVERWRITE all accounts and history on this device. This cannot be undone.",
+      "confirm_full_btn": "Overwrite",
+      "confirm_pulls_title": "Import Pull Data?",
+      "confirm_pulls_desc": "This is a pull data file. Do you want to import and MERGE these pulls into your CURRENT selected account?",
+      "confirm_pulls_btn": "Merge & Import"
     },
     "sources": {
       "title": "Sources"

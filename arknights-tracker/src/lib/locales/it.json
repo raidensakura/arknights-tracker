@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Backup",
-      "description": "I backup contengono i dati di tutti gli account. Quando importi un backup, non dimenticare di creare un backup aggiuntivo, poiché tutti i dati correnti verranno eliminati.",
+      "description": "Il backup contiene i dati di tutti gli account su questo dispositivo. Prima di importare, si consiglia vivamente di esportare i dati correnti, poiché il ripristino di un backup completo sovrascriverà tutta la cronologia locale.",
       "export": "Esporta Dati",
-      "import": "Importa Dati"
+      "import": "Importa Dati",
+      "success_export": "Backup esportato con successo!",
+      "success_import_full": "Backup completo del sistema ripristinato con successo! Ricaricamento...",
+      "success_import_pulls": "Pulls importati e uniti con successo!",
+      "error_export": "Esportazione del backup non riuscita",
+      "error_import": "Importazione non riuscita: {error}",
+      "error_parse": "Errore durante l'analisi del file JSON: {error}",
+      "error_read": "Errore durante la lettura del file.",
+      "error_too_large": "Il file è troppo grande! La dimensione massima consentita è di 10 MB.",
+      "error_invalid_format": "Formato di file sconosciuto. Il file non è né un backup completo né dati di pulls riconoscibili.",
+      "confirm_full_title": "Ripristinare il backup completo?",
+      "confirm_full_desc": "ATTENZIONE: Questo è un backup completo del sistema. Ripristinarlo SOVRASCRIVERÀ COMPLETAMENTE tutti gli account e la cronologia su questo dispositivo. Questa azione non può essere annullata.",
+      "confirm_full_btn": "Sovrascrivi",
+      "confirm_pulls_title": "Importare i dati delle pulls?",
+      "confirm_pulls_desc": "Questo è un file di dati delle pulls. Vuoi importare e UNIRE queste pulls nel tuo account selezionato ATTUALE?",
+      "confirm_pulls_btn": "Unisci e importa"
     },
     "sources": {
       "title": "Fonti"

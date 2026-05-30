@@ -833,9 +833,24 @@
     },
     "backup": {
       "title": "Respaldo",
-      "description": "Los respaldos contienen datos de todas las cuentas. Al importar un respaldo, no olvides crear un respaldo adicional, ya que todos los datos actuales serán eliminados.",
+      "description": "La copia de seguridad contiene datos de todas las cuentas en este dispositivo. Antes de importar, se recomienda encarecidamente exportar los datos actuales, ya que restaurar una copia de seguridad completa sobrescribirá todo el historial local.",
       "export": "Exportar Datos",
-      "import": "Importar Datos"
+      "import": "Importar Datos",
+      "success_export": "¡Copia de seguridad exportada con éxito!",
+      "success_import_full": "¡Copia de seguridad del sistema restaurada con éxito! Recargando...",
+      "success_import_pulls": "¡Tiradas importadas y combinadas con éxito!",
+      "error_export": "Error al exportar la copia de seguridad",
+      "error_import": "Error de importación: {error}",
+      "error_parse": "Error al analizar el archivo JSON: {error}",
+      "error_read": "Error al leer el archivo.",
+      "error_too_large": "¡El archivo es demasiado grande! El tamaño máximo permitido es de 10 MB.",
+      "error_invalid_format": "Formato de archivo desconocido. El archivo no es una copia de seguridad completa ni datos de tiradas reconocibles.",
+      "confirm_full_title": "¿Restaurar copia de seguridad completa?",
+      "confirm_full_desc": "ADVERTENCIA: Esta es una copia de seguridad completa del sistema. Restaurarla SOBREESCRIBIRÁ POR COMPLETO todas las cuentas y el historial en este dispositivo. Esto no se puede deshacer.",
+      "confirm_full_btn": "Sobreescribir",
+      "confirm_pulls_title": "¿Importar datos de tiradas?",
+      "confirm_pulls_desc": "Este es un archivo de datos de tiradas. ¿Quieres importar y COMBINAR estas tiradas en tu cuenta seleccionada ACTUAL?",
+      "confirm_pulls_btn": "Combinar e importar"
     },
     "sources": {
       "title": "Fuentes"

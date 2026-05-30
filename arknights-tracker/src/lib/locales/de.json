@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Backup",
-      "description": "Backups enthalten Daten für alle Konten. Vergiss beim Importieren eines Backups nicht, ein zusätzliches Backup zu erstellen, da alle aktuellen Daten gelöscht werden.",
+      "description": "Ein Backup enthält die Daten aller Konten auf diesem Gerät. Es wird dringend empfohlen, vor dem Import ein aktuelles Backup zu exportieren, da das Wiederherstellen eines vollständigen Backups alle lokalen Verlaufsdaten überschreibt.",
       "export": "Daten exportieren",
-      "import": "Daten importieren"
+      "import": "Daten importieren",
+      "success_export": "Backup erfolgreich exportiert!",
+      "success_import_full": "Vollständiges Backup erfolgreich wiederhergestellt! Neu laden...",
+      "success_import_pulls": "Ziehungen erfolgreich importiert und zusammengeführt!",
+      "error_export": "Backup-Export fehlgeschlagen",
+      "error_import": "Import failed: {error}",
+      "error_parse": "Fehler beim Parsen der JSON-Datei: {error}",
+      "error_read": "Fehler beim Lesen der Datei.",
+      "error_too_large": "Datei ist zu groß! Die maximal zulässige Größe beträgt 10 MB.",
+      "error_invalid_format": "Unbekanntes Dateiformat. Die Datei ist weder ein vollständiges Backup noch erkennbare Ziehungsdaten.",
+      "confirm_full_title": "Vollständiges Backup wiederherstellen?",
+      "confirm_full_desc": "WARNUNG: Dies ist ein vollständiges System-Backup. Die Wiederherstellung wird alle Konten und den Verlauf auf diesem Gerät VOLLSTÄNDIG ÜBERSCHREIBEN. Dies kann nicht rückgängig gemacht werden.",
+      "confirm_full_btn": "Überschreiben",
+      "confirm_pulls_title": "Ziehungsdaten importieren?",
+      "confirm_pulls_desc": "Dies ist eine Datei mit Ziehungsdaten. Möchtest du diese Ziehungen importieren und mit deinem AKTUELL ausgewählten Konto ZUSAMMENFÜHREN?",
+      "confirm_pulls_btn": "Zusammenführen & Importieren"
     },
     "sources": {
       "title": "Quellen"

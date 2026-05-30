@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Cadangan",
-      "description": "Cadangan berisi data untuk semua akun. Saat mengimpor cadangan, jangan lupa untuk membuat cadangan tambahan, karena semua data saat ini akan dihapus.",
+      "description": "Cadangan berisi data untuk semua akun di perangkat ini. Sebelum mengimpor, sangat disarankan untuk mengekspor data saat ini, karena memulihkan cadangan penuh akan menimpa semua riwayat lokal.",
       "export": "Ekspor Data",
-      "import": "Impor Data"
+      "import": "Impor Data",
+      "success_export": "Cadangan berhasil diekspor!",
+      "success_import_full": "Cadangan sistem penuh berhasil dipulihkan! Memuat ulang...",
+      "success_import_pulls": "Data pull berhasil diimpor dan digabungkan!",
+      "error_export": "Gagal mengekspor cadangan",
+      "error_import": "Gagal mengimpor: {error}",
+      "error_parse": "Kesalahan parsing file JSON: {error}",
+      "error_read": "Kesalahan membaca file.",
+      "error_too_large": "Ukuran file terlalu besar! Ukuran maksimum yang diizinkan adalah 10MB.",
+      "error_invalid_format": "Format file tidak dikenal. File ini bukan cadangan penuh maupun data pull yang dapat dikenali.",
+      "confirm_full_title": "Pulihkan Cadangan Penuh?",
+      "confirm_full_desc": "PERINGATAN: Ini adalah Cadangan Sistem Penuh. Memulihkannya akan SEPENUHNYA MENULIS ULANG semua akun dan riwayat di perangkat ini. Tindakan ini tidak dapat dibatalkan.",
+      "confirm_full_btn": "Tulis Ulang",
+      "confirm_pulls_title": "Impor Data Pull?",
+      "confirm_pulls_desc": "Ini adalah file data pull. Apakah Anda ingin mengimpor dan MENGGABUNGKAN data pull ini ke dalam akun Anda yang AKTIF saat ini?",
+      "confirm_pulls_btn": "Gabungkan & Impor"
     },
     "sources": {
       "title": "Sumber"

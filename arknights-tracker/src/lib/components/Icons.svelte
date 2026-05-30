@@ -297,27 +297,11 @@
         stroke-linejoin="round"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+        <path
+            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+        />
         <line x1="12" y1="9" x2="12" y2="13" />
         <line x1="12" y1="17" x2="12.01" y2="17" />
-    </svg>
-{:else if name === "info"}
-    <svg
-        class={$$props.class}
-        style={$$props.style}
-        width="15"
-        height="15"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="16" x2="12" y2="12" />
-        <line x1="12" y1="8" x2="12.01" y2="8" />
     </svg>
 {:else if name === "link"}
     <svg
@@ -3218,5 +3202,57 @@
     >
         <path d="M15 7.5L3.75 13.9952L3.75 1.00481L15 7.5Z" fill="currentColor" />
         <path d="M26 7.5L14.75 13.9952L14.75 1.00481L26 7.5Z" fill="currentColor" />
+    </svg>
+{:else if name == "recepies"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 44 38"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M37 10H30V6H14V10H7V0H37V10Z" fill="currentColor" />
+        <path
+            d="M44 38H0V10H44V38ZM9 16L12 19V22H9L6 19H5V27H14L20.5 33.5L23.5 30.5L17 24V15H9V16Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "pba"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 47 46"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M47 46H0V0H47V46ZM20 3V28.5H18L17 32H20V35.5H17V37H12V41H35V37H30V35.5H27V32H30L29 28.5H27V3H20Z"
+            fill="currentColor"
+        />
+    </svg>
+{:else if name == "boxes"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 45 41"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect x="13" y="1" width="18" height="18" fill="currentColor" />
+        <rect x="1" y="23" width="18" height="18" fill="currentColor" />
+        <rect x="25" y="23" width="18" height="18" fill="currentColor" />
+    </svg>
+{:else if name == "liquid"}
+    <svg
+        class={$$props.class}
+        style={$$props.style}
+        viewBox="0 0 30 50"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M30 35.5C30 43.5081 23.0081 50 15 50C6.99187 50 0 43.5081 0 35.5C0.5 27.5 15 0 15 0C15 0 29.5 27.5 30 35.5Z"
+            fill="currentColor"
+        />
     </svg>
 {/if}

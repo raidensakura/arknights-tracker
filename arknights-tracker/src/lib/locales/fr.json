@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "Sauvegarde",
-      "description": "Les sauvegardes contiennent les données de tous les comptes. Lors de l'import d'une sauvegarde, n'oubliez pas de créer une sauvegarde additionnelle, car toutes les données actuelles seront supprimées.",
+      "description": "La sauvegarde contient les données de tous les comptes sur cet appareil. Avant d'importer, il est fortement recommandé d'exporter vos données actuelles, car la restauration d'une sauvegarde complète écrasera tout l'historique local.",
       "export": "Exporter Données",
-      "import": "Importer Données"
+      "import": "Importer Données",
+      "success_export": "Sauvegarde exportée avec succès !",
+      "success_import_full": "Sauvegarde complète du système restaurée avec succès ! Rechargement...",
+      "success_import_pulls": "Tirages importés et fusionnés avec succès !",
+      "error_export": "Échec de l'exportation de la sauvegarde",
+      "error_import": "Échec de l'importation : {error}",
+      "error_parse": "Erreur d'analyse du fichier JSON : {error}",
+      "error_read": "Erreur lors de la lecture du fichier.",
+      "error_too_large": "Le fichier est trop volumineux ! La taille maximale autorisée est de 10 Mo.",
+      "error_invalid_format": "Format de fichier inconnu. Le fichier n'est ni une sauvegarde complète ni des données de tirages reconnaissables.",
+      "confirm_full_title": "Restaurer la sauvegarde complète ?",
+      "confirm_full_desc": "AVERTISSEMENT : Il s'agit d'une sauvegarde complète du système. La restaurer ÉCRASERA COMPLÈTEMENT tous les comptes et l'historique sur cet appareil. Cette action est irréversible.",
+      "confirm_full_btn": "Écraser",
+      "confirm_pulls_title": "Importer les données de tirages ?",
+      "confirm_pulls_desc": "Il s'agit d'un fichier de données de tirages. Voulez-vous importer et FUSIONNER ces tirages dans votre compte sélectionné ACTUEL ?",
+      "confirm_pulls_btn": "Fusionner & Importer"
     },
     "sources": {
       "title": "Sources"

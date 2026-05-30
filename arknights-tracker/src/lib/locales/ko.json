@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "백업",
-      "description": "백업에는 모든 계정의 데이터가 포함됩니다. 백업을 가져올 때 현재 데이터가 모두 삭제되므로 반드시 추가 백업을 생성하세요.",
+      "description": "백업에는 이 기기의 모든 계정 데이터가 포함되어 있습니다. 전체 백업을 복원하면 로컬 기록이 모두 덮어씌워지므로 가져오기 전에 현재 데이터를 내보내는 것을 강력히 권장합니다.",
       "export": "데이터 내보내기",
-      "import": "데이터 가져오기"
+      "import": "데이터 가져오기",
+      "success_export": "백업을 성공적으로 내보냈습니다!",
+      "success_import_full": "전체 시스템 백업을 성공적으로 복원했습니다! 다시 로드 중...",
+      "success_import_pulls": "가챠 데이터를 성공적으로 가져오고 병합했습니다!",
+      "error_export": "백업 내보내기 실패",
+      "error_import": "가져오기 실패: {error}",
+      "error_parse": "JSON 파일 파싱 오류: {error}",
+      "error_read": "파일 읽기 오류.",
+      "error_too_large": "파일이 너무 큽니다! 최대 허용 크기는 10MB입니다.",
+      "error_invalid_format": "알 수 없는 파일 형식입니다. 이 파일은 전체 백업 파일이거나 인식 가능한 가챠 데이터가 아닙니다.",
+      "confirm_full_title": "전체 백업을 복원하시겠습니까?",
+      "confirm_full_desc": "경고: 이것은 시스템 전체 백업입니다. 복원하면 이 기기의 모든 계정과 기록이 완전히 덮어씌워집니다. 이 작업은 되돌릴 수 없습니다.",
+      "confirm_full_btn": "덮어쓰기",
+      "confirm_pulls_title": "가챠 데이터를 가져오시겠습니까?",
+      "confirm_pulls_desc": "이것은 가챠 데이터 파일입니다. 이 데이터를 가져와서 현재 선택된 계정에 병합하시겠습니까?",
+      "confirm_pulls_btn": "병합하여 가져오기"
     },
     "sources": {
       "title": "출처"

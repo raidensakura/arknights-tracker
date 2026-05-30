@@ -268,7 +268,10 @@ app.post('/api/import', importLimiter, async (req, res) => {
 
     try {
         const parsedUrl = new URL(rawUrl);
-        if (!parsedUrl.hostname.endsWith('hg-game.com') && !parsedUrl.hostname.endsWith('gryphline.com')) {
+        const hostname = parsedUrl.hostname;
+        const isValidDomain = hostname === 'hg-game.com' || hostname.endsWith('.hg-game.com') ||
+                              hostname === 'gryphline.com' || hostname.endsWith('.gryphline.com');
+        if (!isValidDomain) {
             sendEvent({ type: 'error', message: "Invalid domain" });
             return res.end();
         }

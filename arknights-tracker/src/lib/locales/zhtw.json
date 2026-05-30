@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "備份",
-      "description": "備份包含所有帳號的資料。匯入備份時，請不要忘記建立額外的備份，因為當前的所有資料都將被刪除。",
+      "description": "備份包含此設備上所有帳戶的數據。在匯入之前，強烈建議先匯出目前數據，因為還原完整備份將完全覆蓋所有本地歷史記錄。",
       "export": "匯出資料",
-      "import": "匯入資料"
+      "import": "匯入資料",
+      "success_export": "備份匯出成功！",
+      "success_import_full": "系統完整備份還原成功！正在重新載入...",
+      "success_import_pulls": "尋訪數據匯入並合併成功！",
+      "error_export": "備份匯出失敗",
+      "error_import": "匯入失敗: {error}",
+      "error_parse": "JSON 檔案解析錯誤: {error}",
+      "error_read": "讀取檔案時出錯。",
+      "error_too_large": "檔案太大！最大允許大小為 10MB。",
+      "error_invalid_format": "未知的檔案格式。該檔案既不是完整備份，也不是可識別的尋訪數據。",
+      "confirm_full_title": "還原完整備份？",
+      "confirm_full_desc": "警告：這是系統完整備份。還原它將完全覆蓋此設備上的所有帳戶和尋訪歷史。此操作無法撤銷。",
+      "confirm_full_btn": "覆蓋",
+      "confirm_pulls_title": "匯入尋訪數據？",
+      "confirm_pulls_desc": "這是一個尋訪數據檔案。您是否要匯入這些數據並將其合併到目前選擇的帳戶中？",
+      "confirm_pulls_btn": "合併並匯入"
     },
     "sources": {
       "title": "資料來源"

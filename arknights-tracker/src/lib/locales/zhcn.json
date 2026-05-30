@@ -834,9 +834,24 @@
     },
     "backup": {
       "title": "备份",
-      "description": "备份包含所有账号的数据。导入备份时，请不要忘记创建额外的备份，因为当前的所有数据都将被删除。",
+      "description": "备份包含此设备上所有账户的数据。在导入之前，强烈建议先导出当前数据，因为恢复完整备份将完全覆盖所有本地历史记录。",
       "export": "导出数据",
-      "import": "导入数据"
+      "import": "导入数据",
+      "success_export": "备份导出成功！",
+      "success_import_full": "系统完整备份恢复成功！正在重新加载...",
+      "success_import_pulls": "寻访数据导入并合并成功！",
+      "error_export": "备份导出失败",
+      "error_import": "导入失败: {error}",
+      "error_parse": "JSON 文件解析错误: {error}",
+      "error_read": "读取文件时出错。",
+      "error_too_large": "文件太大！最大允许大小为 10MB。",
+      "error_invalid_format": "未知的文件格式。该文件既不是完整备份，也不是可识别的寻访数据。",
+      "confirm_full_title": "恢复完整备份？",
+      "confirm_full_desc": "警告：这是系统完整备份。恢复它将完全覆盖此设备上的所有账户和寻访历史。此操作无法撤销。",
+      "confirm_full_btn": "覆盖",
+      "confirm_pulls_title": "导入寻访数据？",
+      "confirm_pulls_desc": "这是一个寻访数据文件。您是否要导入这些数据并将其合并到当前选择的账户中？",
+      "confirm_pulls_btn": "合并并导入"
     },
     "sources": {
       "title": "数据源"

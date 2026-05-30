@@ -11,6 +11,7 @@
     import { fade } from "svelte/transition";
     import { onDestroy } from "svelte";
     import { disableDarkening } from "$lib/stores/settings";
+    import { addNotification } from "$lib/stores/notifications";
 
     import Select from "$lib/components/Select.svelte";
     import Icon from "$lib/components/Icons.svelte";
@@ -136,55 +137,65 @@
         : "";
 
     let fileInputJson;
+    let showImportFullModal = false;
+    let showImportPullsModal = false;
+    let importedJsonData = null;
 
     function handleExportBackup() {
-        const currentAccounts = get(accounts);
-        const currentSelectedId = get(selectedId);
+        try {
+            const currentAccounts = get(accounts);
+            const currentSelectedId = get(selectedId);
 
-        const fullBackup = {
-            type: "ark_tracker_full_backup",
-            version: 1,
-            timestamp: new Date().toISOString(),
-            meta: {
-                accounts: currentAccounts,
-                selectedId: currentSelectedId,
-            },
-            data: {},
-        };
+            const fullBackup = {
+                type: "ark_tracker_full_backup",
+                version: 1,
+                timestamp: new Date().toISOString(),
+                meta: {
+                    accounts: currentAccounts,
+                    selectedId: currentSelectedId,
+                },
+                data: {},
+            };
 
-        currentAccounts.forEach((acc) => {
-            const key = `ark_tracker_data_${acc.id}`;
-            const rawData = localStorage.getItem(key);
-            if (rawData) {
-                try {
-                    fullBackup.data[acc.id] = JSON.parse(rawData);
-                } catch (e) {
-                    console.error(
-                        `Error exporting data for account ${acc.id}`,
-                        e,
-                    );
-                    fullBackup.data[acc.id] = {
-                        standard: { pulls: [], stats: {} },
-                    };
+            currentAccounts.forEach((acc) => {
+                const key = `ark_tracker_data_${acc.id}`;
+                const rawData = localStorage.getItem(key);
+                if (rawData) {
+                    try {
+                        fullBackup.data[acc.id] = JSON.parse(rawData);
+                    } catch (e) {
+                        console.error(
+                            `Error exporting data for account ${acc.id}`,
+                            e,
+                        );
+                        fullBackup.data[acc.id] = {
+                            standard: { pulls: [], stats: {} },
+                        };
+                    }
+                } else {
+                    fullBackup.data[acc.id] = null;
                 }
-            } else {
-                fullBackup.data[acc.id] = null;
-            }
-        });
+            });
 
-        const dataStr =
-            "data:text/json;charset=utf-8," +
-            encodeURIComponent(JSON.stringify(fullBackup, null, 2));
-        const downloadAnchorNode = document.createElement("a");
-        downloadAnchorNode.setAttribute("href", dataStr);
-        const date = new Date().toISOString().slice(0, 10);
-        downloadAnchorNode.setAttribute(
-            "download",
-            `Goyfield_FullBackup_${date}.json`,
-        );
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
+            const dataStr =
+                "data:text/json;charset=utf-8," +
+                encodeURIComponent(JSON.stringify(fullBackup, null, 2));
+            const downloadAnchorNode = document.createElement("a");
+            downloadAnchorNode.setAttribute("href", dataStr);
+            const date = new Date().toISOString().slice(0, 10);
+            downloadAnchorNode.setAttribute(
+                "download",
+                `Goyfield_FullBackup_${date}.json`,
+            );
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+
+            addNotification("success", $t("settings.backup.success_export"));
+        } catch (err) {
+            console.error("Backup export failed:", err);
+            addNotification("error", $t("settings.backup.error_export"));
+        }
     }
 
     function handleImportBackup() {
@@ -197,7 +208,7 @@
 
         const MAX_SIZE = 10 * 1024 * 1024;
         if (file.size > MAX_SIZE) {
-            alert("File is too large! Maximum allowed size is 10MB.");
+            addNotification("error", $t("settings.backup.error_too_large"));
             event.target.value = "";
             return;
         }
@@ -209,43 +220,14 @@
                 if (!json || typeof json !== "object")
                     throw new Error("Invalid JSON structure: not an object");
 
+                importedJsonData = json;
+
                 if (
                     json.type === "ark_tracker_full_backup" &&
                     json.data &&
                     json.meta
                 ) {
-                    if (
-                        !confirm(
-                            "This is a Full System Backup.\n\nWARNING: Restoring it will COMPLETELY OVERWRITE all current accounts and pull history on this device.\n\nAre you sure you want to continue?",
-                        )
-                    )
-                        return;
-
-                    try {
-                        Object.entries(json.data).forEach(
-                            ([accId, accData]) => {
-                                if (accData)
-                                    localStorage.setItem(
-                                        `ark_tracker_data_${accId}`,
-                                        JSON.stringify(accData),
-                                    );
-                            },
-                        );
-                        accountStore.accounts.set(json.meta.accounts);
-                        if (json.meta.selectedId)
-                            accountStore.selectAccount(json.meta.selectedId);
-
-                        alert(
-                            "✓ Full system backup restored successfully! The page will now reload.",
-                        );
-                        window.location.reload();
-                    } catch (err) {
-                        console.error("Full Backup Restore Error:", err);
-                        alert(
-                            "Critical error while restoring backup: " +
-                                err.message,
-                        );
-                    }
+                    showImportFullModal = true;
                 } else {
                     const isPullData =
                         json.standard ||
@@ -253,46 +235,78 @@
                         json["wish-counter-standard-pool"] ||
                         Array.isArray(json);
                     if (isPullData) {
-                        if (
-                            confirm(
-                                "This looks like pull data (not a full backup).\nImport and MERGE it into the CURRENTLY selected account?",
-                            )
-                        ) {
-                            try {
-                                await pullData.smartImport(json);
-                                alert(
-                                    "✓ Pulls imported into current account successfully!",
-                                );
-
-                                const currentMemData = get(pullData);
-
-                                if ($user) {
-                                    if (typeof window !== "undefined")
-                                        localStorage.removeItem(
-                                            "ark_ignore_cloud_ts",
-                                        );
-
-                                    checkSync($user, currentMemData);
-                                }
-                            } catch (err) {
-                                console.error("Smart Import Error:", err);
-                                alert("✗ Import Error: " + err.message);
-                            }
-                        }
+                        showImportPullsModal = true;
                     } else {
-                        alert(
-                            "✗ Unknown file format.\nThe file is neither a Full Backup nor recognizable Pull Data.",
-                        );
+                        addNotification("error", $t("settings.backup.error_invalid_format"));
+                        importedJsonData = null;
                     }
                 }
             } catch (error) {
                 console.error(error);
-                alert("✗ Error parsing JSON file: " + error.message);
+                addNotification("error", $t("settings.backup.error_parse").replace("{error}", error.message));
+                importedJsonData = null;
             }
         };
-        reader.onerror = () => alert("✗ Error reading file");
+        reader.onerror = () => {
+            addNotification("error", $t("settings.backup.error_read"));
+            importedJsonData = null;
+        };
         reader.readAsText(file);
         event.target.value = "";
+    }
+
+    async function confirmImportFull() {
+        showImportFullModal = false;
+        if (!importedJsonData) return;
+
+        try {
+            Object.entries(importedJsonData.data).forEach(
+                ([accId, accData]) => {
+                    if (accData)
+                        localStorage.setItem(
+                            `ark_tracker_data_${accId}`,
+                            JSON.stringify(accData),
+                        );
+                },
+            );
+            accountStore.accounts.set(importedJsonData.meta.accounts);
+            if (importedJsonData.meta.selectedId)
+                accountStore.selectAccount(importedJsonData.meta.selectedId);
+
+            addNotification("success", $t("settings.backup.success_import_full"));
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        } catch (err) {
+            console.error("Full Backup Restore Error:", err);
+            addNotification("error", $t("settings.backup.error_import").replace("{error}", err.message));
+        } finally {
+            importedJsonData = null;
+        }
+    }
+
+    async function confirmImportPulls() {
+        showImportPullsModal = false;
+        if (!importedJsonData) return;
+
+        try {
+            await pullData.smartImport(importedJsonData);
+            addNotification("success", $t("settings.backup.success_import_pulls"));
+
+            const currentMemData = get(pullData);
+
+            if ($user) {
+                if (typeof window !== "undefined")
+                    localStorage.removeItem("ark_ignore_cloud_ts");
+
+                checkSync($user, currentMemData);
+            }
+        } catch (err) {
+            console.error("Smart Import Error:", err);
+            addNotification("error", $t("settings.backup.error_import").replace("{error}", err.message));
+        } finally {
+            importedJsonData = null;
+        }
     }
 
     function getServerLabel(sid) {
@@ -304,18 +318,6 @@
         value: acc.id,
         label: `${acc.name} (${getServerLabel(acc.serverId || "3")})`,
     }));
-
-    function handleRenameAccount() {
-        const currentAcc = $accounts.find((a) => a.id === $selectedId);
-        if (!currentAcc) return;
-        const newName = prompt(
-            $t("settings.account.rename_prompt") || "Enter new account name:",
-            currentAcc.name,
-        );
-        if (newName && newName.trim() !== "") {
-            accountStore.renameAccount(currentAcc.id, newName.trim());
-        }
-    }
 
     let currentSelection;
     $: if ($selectedId) {
@@ -918,4 +920,22 @@
     confirmColor="green"
     on:confirm={confirmRename}
     on:close={() => (showRenameModal = false)}
+/>
+<ConfirmationModal
+    isOpen={showImportFullModal}
+    title={$t("settings.backup.confirm_full_title")}
+    description={$t("settings.backup.confirm_full_desc")}
+    confirmText={$t("settings.backup.confirm_full_btn")}
+    isDestructive={true}
+    on:confirm={confirmImportFull}
+    on:close={() => (showImportFullModal = false)}
+/>
+<ConfirmationModal
+    isOpen={showImportPullsModal}
+    title={$t("settings.backup.confirm_pulls_title")}
+    description={$t("settings.backup.confirm_pulls_desc")}
+    confirmText={$t("settings.backup.confirm_pulls_btn")}
+    confirmColor="yellow"
+    on:confirm={confirmImportPulls}
+    on:close={() => (showImportPullsModal = false)}
 />

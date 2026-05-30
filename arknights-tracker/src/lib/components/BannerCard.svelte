@@ -233,7 +233,6 @@
     </h3>
     <Button
       variant="roundSmall"
-      className="opacity-70 hover:opacity-100"
       color="gray"
       onClick={goToDetails}
     >
