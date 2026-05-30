@@ -499,11 +499,11 @@
     "pack": "Set",
     "itemGroup": "Item Group",
     "itemGroups": {
-      "nature": "Nature",
-      "product": "Product",
-      "usable": "Usable",
-      "gatherable": "Gatherable",
-      "facility": "Facility"
+      "nature": "Natural Resources",
+      "gatherable": "Gatherables",
+      "product": "AIC Products",
+      "usable": "Usable Items",
+      "facility": "Production"
     },
     "itemSubGroups": {
       "facility_battle": "Battle",
