@@ -345,7 +345,8 @@
     "changelog": "Журнал изменений",
     "equipment": "Снаряжение",
     "bannerHistory": "История баннеров",
-    "enemies": "Враги"
+    "enemies": "Враги",
+    "recipes": "Рецепты"
   },
   "events": {
     "type": {
@@ -494,7 +495,50 @@
     "filters": "Фильтры",
     "stats": "Атрибуты",
     "slot": "Слот",
-    "pack": "Комплект"
+    "pack": "Комплект",
+    "itemGroup": "Группы предметов",
+    "itemGroups": {
+      "nature": "Природные ресурсы",
+      "gatherable": "Трофеи",
+      "product": "Изделия АПК",
+      "usable": "Используемые предметы",
+      "facility": "Производство"
+    },
+    "itemSubGroups": {
+      "facility_battle": "Вооружение",
+      "facility_crafter": "Производство",
+      "facility_miner": "Добывающая установка",
+      "facility_other": "Другое",
+      "facility_powerStation": "Электростанция",
+      "facility_pump": "Насос",
+      "facility_soil": "Плантация",
+      "gatherable_drop": "Дроп",
+      "gatherable_muck": "Навоз",
+      "gatherable_plant": "Жук",
+      "nature_flowerPlant": "Цветок",
+      "nature_grassPlant": "Трава",
+      "nature_liquid": "Жидкость",
+      "nature_ore": "Руда",
+      "nature_soilPlant": "Плантационное растение",
+      "nature_wood": "Древесина",
+      "product_activityXiranite": "Тяжелый ксиранит",
+      "product_amethyst": "Аметист",
+      "product_battery": "Батарея",
+      "product_carbon": "Углерод",
+      "product_component": "Компонент",
+      "product_copper": "Куприй",
+      "product_fullBottle": "Наполненная бутылка",
+      "product_iron": "Феррий",
+      "product_liquid": "Жидкость",
+      "product_muck": "Удобрение",
+      "product_originium": "Ориджиний",
+      "product_powder": "Порошок",
+      "product_xiranite": "Ксиранит",
+      "usable_bomb": "Взрывчатка",
+      "usable_bottledProdFood": "Еда",
+      "usable_other": "Другое",
+      "usable_powder": "Порошок"
+    }
   },
   "menu": {
     "about": "Обзор",

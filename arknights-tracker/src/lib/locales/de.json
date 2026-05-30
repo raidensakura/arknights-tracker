@@ -473,7 +473,14 @@
     "filters": "Filter",
     "stats": "Attribute",
     "slot": "Platz",
-    "pack": "Set"
+    "pack": "Set",
+    "itemGroups": {
+      "nature": "Natürliche Ressourcen",
+      "gatherable": "Sammelobjekte",
+      "product": "AIK-Produkte",
+      "usable": "Verwendbare Gegenstände",
+      "facility": "Produktion"
+    }
   },
   "menu": {
     "about": "Über",

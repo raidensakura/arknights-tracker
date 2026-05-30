@@ -472,7 +472,14 @@
     "filters": "Filtros",
     "stats": "Atributos",
     "slot": "Ranura",
-    "pack": "Conjunto"
+    "pack": "Conjunto",
+    "itemGroups": {
+      "nature": "Recursos naturales",
+      "gatherable": "Recolectables",
+      "product": "Productos del CAI",
+      "usable": "Objetos utilizables",
+      "facility": "Producción"
+    }
   },
   "menu": {
     "about": "Acerca de",

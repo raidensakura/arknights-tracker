@@ -473,7 +473,14 @@
     "filters": "Bộ lọc",
     "stats": "Thuộc tính",
     "slot": "Ô",
-    "pack": "Bộ"
+    "pack": "Bộ",
+    "itemGroups": {
+      "nature": "Tài Nguyên Tự Nhiên",
+      "gatherable": "Có Thể Thu Thập",
+      "product": "Sản Phẩm Khu Phức Hợp",
+      "usable": "Vật Phẩm Có Thể Dùng",
+      "facility": "Sản xuất"
+    }
   },
   "menu": {
     "about": "Giới thiệu",

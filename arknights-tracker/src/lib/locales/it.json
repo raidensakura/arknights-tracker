@@ -473,7 +473,14 @@
     "filters": "Filtri",
     "stats": "Attributi",
     "slot": "Slot",
-    "pack": "Set"
+    "pack": "Set",
+    "itemGroups": {
+      "nature": "Risorse naturali",
+      "gatherable": "Risorse da raccogliere",
+      "product": "Prodotti del SIA",
+      "usable": "Oggetti utilizzabili",
+      "facility": "Produzione"
+    }
   },
   "menu": {
     "about": "Info",

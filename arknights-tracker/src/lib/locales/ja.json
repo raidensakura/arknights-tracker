@@ -473,7 +473,14 @@
     "filters": "フィルター",
     "stats": "ステータス",
     "slot": "スロット",
-    "pack": "セット"
+    "pack": "セット",
+    "itemGroups": {
+      "nature": "天然資源",
+      "gatherable": "採集素材",
+      "product": "工業製品",
+      "usable": "消費アイテム",
+      "facility": "工具"
+    }
   },
   "menu": {
     "about": "概要",

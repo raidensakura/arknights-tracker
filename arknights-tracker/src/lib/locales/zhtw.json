@@ -473,7 +473,14 @@
     "filters": "篩選",
     "stats": "屬性",
     "slot": "槽位",
-    "pack": "套裝"
+    "pack": "套裝",
+    "itemGroups": {
+      "nature": "自然資源",
+      "gatherable": "採集材料",
+      "product": "工業產物",
+      "usable": "可用道具",
+      "facility": "生產工具"
+    }
   },
   "menu": {
     "about": "關於",
