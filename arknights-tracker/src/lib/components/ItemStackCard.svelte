@@ -59,7 +59,7 @@
 </script>
 
 <Tooltip
-    text={showTooltip ? tooltipText : ""}
+    text={tooltipText}
 >
 
     <div

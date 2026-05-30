@@ -28,7 +28,7 @@
         <div class="flex justify-center items-center h-8 w-8">
             <Icons
                 name={svgIconName}
-                class="text-[#FDFDFD] dark:text-[#FDFDFD]"
+                class="text-[#FDFDFD] dark:text-[#FDFDFD] h-full w-full"
             />
         </div>
     {/if}
