@@ -71,6 +71,7 @@
                     amount={count}
                     size="micro"
                     highlight={highlightItemId === itemId}
+                    showTooltip={true}
                 />
             {/each}
 
@@ -89,6 +90,7 @@
                     amount={count}
                     size="micro"
                     highlight={highlightItemId === itemId}
+                    showTooltip={true}
                 />
             {/each}
         {:else if (mode === "pumpingFormula")}
@@ -106,6 +108,7 @@
                     amount={count}
                     size="micro"
                     highlight={highlightItemId === itemId}
+                    showTooltip={true}
                 />
             {/each}
         {/if}
@@ -137,6 +140,7 @@
                 amount={count}
                 size="micro"
                 highlight={highlightItemId === itemId}
+                showTooltip={true}
             />
         {/each}
 
