@@ -1895,6 +1895,7 @@
       "source": "Fuente",
       "using": "Fórmulas aplicables",
       "availableFormulas": "Fórmulas disponibles",
+      "availableFunctions": "Funciones disponibles",
       "resourceCollection": "Recursos recolectables"
     },
     "craftSource": {

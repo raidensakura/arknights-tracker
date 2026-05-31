@@ -1896,6 +1896,7 @@
       "source": "획득 방법",
       "using": "사용 가능 조합 공식",
       "availableFormulas": "사용 가능 조합 공식",
+      "availableFunctions": "사용 가능 기능",
       "resourceCollection": "채집 가능 자원"
     },
     "craftSource": {

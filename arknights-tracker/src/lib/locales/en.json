@@ -1956,6 +1956,7 @@
       "source": "Source",
       "using": "Applicable Formulas",
       "availableFormulas": "Available Formulas",
+      "availableFunctions": "Available Functions",
       "resourceCollection": "Gatherable Resources"
     },
     "craftSource": {

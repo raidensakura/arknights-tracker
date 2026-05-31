@@ -1896,6 +1896,7 @@
       "source": "入手方法",
       "using": "レシピ",
       "availableFormulas": "生産レシピ",
+      "availableFunctions": "機能詳細",
       "resourceCollection": "採集可能"
     },
     "craftSource": {

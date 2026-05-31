@@ -1896,6 +1896,7 @@
       "source": "Origem",
       "using": "Fórmulas Aplicáveis",
       "availableFormulas": "Fórmulas Disponíveis",
+      "availableFunctions": "Funções Disponíveis",
       "resourceCollection": "Recursos Coletáveis"
     },
     "craftSource": {

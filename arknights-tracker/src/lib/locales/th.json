@@ -1896,6 +1896,7 @@
       "source": "ที่มา",
       "using": "สูตร​ที่​เกี่ยวข้อง",
       "availableFormulas": "สูตร​ที่​ใช้งาน​ได้",
+      "availableFunctions": "ฟังก์ชัน​ที่​ใช้งาน​ได้",
       "resourceCollection": "ทรัพยากร​ที่เก็บ​ได้"
     },
     "craftSource": {

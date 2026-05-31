@@ -1896,6 +1896,7 @@
       "source": "Sumber",
       "using": "Formula yang Bisa Diterapkan",
       "availableFormulas": "Formula yang Tersedia",
+      "availableFunctions": "Fungsi Tersedia",
       "resourceCollection": "Sumber Daya yang Bisa Dikumpulkan"
     },
     "craftSource": {

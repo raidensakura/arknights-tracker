@@ -1896,6 +1896,7 @@
       "source": "Nguồn",
       "using": "Công Thức Áp Dụng",
       "availableFormulas": "Công Thức Có Sẵn",
+      "availableFunctions": "Các Tính Năng Có Sẵn",
       "resourceCollection": "Tài Nguyên Có Thể Thu Thập"
     },
     "craftSource": {
