@@ -1,6 +1,8 @@
 <script>
     import { t } from "$lib/i18n";
     import Icon from "$lib/components/Icons.svelte";
+    import {factoryEvents} from "$lib/data/events/factoryEvents.js";
+    import {FactoryEvent} from "$lib/classes/events/FactoryEvent.js";
 
     export let mode = "operators"; // "operators" | "weapons" | "equipment" | "enemies" | "items"
     export let sortField = "rarity";
@@ -100,6 +102,9 @@
         "AllDamageTakenScalar",
         "HealOutputIncrease",
     ];
+
+    const factoryEventIds = Object.keys(factoryEvents);
+
     $: filterOptions = {
         rarity:
             mode === "enemies" ? [6, 5, 4, 3]
@@ -163,7 +168,8 @@
             "usable_bottledProdFood",
             "usable_other",
             "usable_powder"
-        ]
+        ],
+        factoryEvents: ["nonEvent", ...factoryEventIds]
     };
 
     export let filters = (() => {
@@ -204,7 +210,8 @@
                     "usable_bottledProdFood",
                     "usable_other",
                     "usable_powder"
-                ]
+                ],
+                factoryEvents: ["nonEvent", ...factoryEventIds]
             }
         }
 
@@ -305,6 +312,7 @@
         pack: false,
         stats: false,
         itemSubGroups: false,
+        factoryEvents: false,
     };
 
     function toggleFilterGroup(groupKey) {
@@ -1158,6 +1166,28 @@
 
                 {#if mode === "items"}
                     <div>
+
+                        <button
+                            type="button"
+                            class="text-sm dark:text-[#E0E0E0] font-bold text-gray-800 mb-2 hover:opacity-70"
+                            on:click={() => {toggleFilterGroup("factoryEvents")}}
+                        >
+                            {$t("pages.events")}
+                        </button>
+                        <div class="flex flex-wrap gap-2">
+                            {#each factoryEventIds as eventId}
+                                <button
+                                    type="button"
+                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer
+                                            {getFilterClass('factoryEvents', eventId)}"
+                                    on:click={() => toggleFilterItem("factoryEvents", eventId)}
+                                >
+                                    <span class="text-xs font-bold capitalize pointer-events-none">
+                                        {$t(FactoryEvent.getEvent(eventId).title)}
+                                    </span>
+                                </button>
+                            {/each}
+                        </div>
 
                         <button
                             type="button"

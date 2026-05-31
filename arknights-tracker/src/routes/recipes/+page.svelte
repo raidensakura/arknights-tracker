@@ -6,6 +6,8 @@
     import ItemCard from "$lib/components/recipes/ItemCard.svelte";
     import {craftableItemsList} from "$lib/data/crafts/craftableItemsList.js";
     import FormulaSidebar from "$lib/components/recipes/FormulaSidebar.svelte";
+    import {factoryEvents} from "$lib/data/events/factoryEvents.js";
+    import {FactoryEvent} from "$lib/classes/events/FactoryEvent.js";
 
     $: filters = $itemFilters;
     $: searchQuery = $itemSearch;
@@ -13,44 +15,47 @@
 
     const allItems = craftableItemsList.map((itemId) => Item.getItem(itemId));
 
-    let filters = {
-        rarity: [5, 4, 3, 2, 1],
-        itemSubGroups: [
-            "facility_battle",
-            "facility_crafter",
-            "facility_miner",
-            "facility_other",
-            "facility_powerStation",
-            "facility_pump",
-            "facility_soil",
-            "gatherable_drop",
-            "gatherable_muck",
-            "gatherable_plant",
-            "nature_flowerPlant",
-            "nature_grassPlant",
-            "nature_liquid",
-            "nature_ore",
-            "nature_soilPlant",
-            "nature_wood",
-            "product_activityXiranite",
-            "product_amethyst",
-            "product_battery",
-            "product_carbon",
-            "product_component",
-            "product_copper",
-            "product_fullBottle",
-            "product_iron",
-            "product_liquid",
-            "product_muck",
-            "product_originium",
-            "product_powder",
-            "product_xiranite",
-            "usable_bomb",
-            "usable_bottledProdFood",
-            "usable_other",
-            "usable_powder"
-        ]
-    };
+    const factoryEventIds = Object.keys(factoryEvents);
+
+    // let filters = {
+    //     rarity: [5, 4, 3, 2, 1],
+    //     itemSubGroups: [
+    //         "facility_battle",
+    //         "facility_crafter",
+    //         "facility_miner",
+    //         "facility_other",
+    //         "facility_powerStation",
+    //         "facility_pump",
+    //         "facility_soil",
+    //         "gatherable_drop",
+    //         "gatherable_muck",
+    //         "gatherable_plant",
+    //         "nature_flowerPlant",
+    //         "nature_grassPlant",
+    //         "nature_liquid",
+    //         "nature_ore",
+    //         "nature_soilPlant",
+    //         "nature_wood",
+    //         "product_activityXiranite",
+    //         "product_amethyst",
+    //         "product_battery",
+    //         "product_carbon",
+    //         "product_component",
+    //         "product_copper",
+    //         "product_fullBottle",
+    //         "product_iron",
+    //         "product_liquid",
+    //         "product_muck",
+    //         "product_originium",
+    //         "product_powder",
+    //         "product_xiranite",
+    //         "usable_bomb",
+    //         "usable_bottledProdFood",
+    //         "usable_other",
+    //         "usable_powder"
+    //     ],
+    //     factoryEvents: [...factoryEventIds]
+    // };
 
     let sortField = "itemGroup";
     let sortDirection = "desc";
@@ -75,7 +80,12 @@
                 filters.itemSubGroups.length === 0
                 || filters.itemSubGroups.includes(item.subGroupId);
 
-            return matchesRarity && matchesGroup;
+            let matchesEvent = filters.factoryEvents.length === 0
+                || filters.factoryEvents.includes("nonEvent")
+                || filters.factoryEvents
+                    .some((eventId) => FactoryEvent.getFactoryEvent(eventId).containsEventItemId(item.id));
+
+            return matchesRarity && matchesGroup && matchesEvent;
         });
 
         const sortLogic = (itemA, itemB) => {

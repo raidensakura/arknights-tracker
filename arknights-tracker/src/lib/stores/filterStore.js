@@ -1,6 +1,7 @@
 // src/lib/stores/filterStore.js
 
 import { writable } from 'svelte/store';
+import {factoryEvents} from "$lib/data/events/factoryEvents.js";
 
 function createPersistentStore(key, startValue) {
     const isBrowser = typeof window !== 'undefined';
@@ -95,7 +96,8 @@ const initialEnemiesFilters = {
 
 const initialItemFilters = {
     rarity: [5, 4, 3, 2, 1],
-    itemSubGroups: itemSubGroups
+    itemSubGroups: itemSubGroups,
+    factoryEvents: ["nonEvent", ...Object.keys(factoryEvents)]
 };
 
 const initialManualMode = {

@@ -11,7 +11,7 @@ export class FactoryEvent extends GameEvent {
     }
 
     get eventItemIds() {
-        return this._eventObj.eventItemIds;
+        return this._factoryEventObj.eventItemIds;
     }
 
     containsEventItemId(itemId) {
@@ -19,11 +19,11 @@ export class FactoryEvent extends GameEvent {
     }
 
     static getFactoryEvent(eventId) {
-        let event = GameEvent.getEvent(eventId);
+        let gameEvent = GameEvent.getEvent(eventId);
 
-        if (!event) return null;
+        if (!gameEvent) return null;
 
-        return FactoryEvent.getFactoryEventFromGameEvent(event);
+        return FactoryEvent.getFactoryEventFromGameEvent(gameEvent);
     }
 
     static getFactoryEventFromGameEvent(gameEvent) {
