@@ -8,9 +8,7 @@ function getEventId2EventObj(list) {
     for (let eventObj of list) {
         let eventId = eventObj.id;
 
-        if (!map.hasOwnProperty(eventId)) map[eventId] = [];
-
-        map[eventId].push(eventObj);
+        map[eventId] = eventObj;
     }
 
     return map;
