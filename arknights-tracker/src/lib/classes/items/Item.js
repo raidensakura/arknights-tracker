@@ -1,5 +1,6 @@
 import {items} from "$lib/data/items/items.js";
 import {Building} from "$lib/classes/buildings/Building.js";
+import {itemId2EventId} from "$lib/data/items/itemMaps.js";
 
 export class Item {
     _itemObj;
@@ -36,6 +37,14 @@ export class Item {
 
     toBuilding() {
         return Building.getBuildingFromItemId(this.id)
+    }
+
+    getEventIds() {
+        return itemId2EventId[this.id];
+    }
+
+    isEventItem() {
+        return itemId2EventId.hasOwnProperty(this.id);
     }
 
     static getItem(itemId) {
