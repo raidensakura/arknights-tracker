@@ -5,10 +5,10 @@
 
     export let item = {};
 
-    let isFullBottle = FullBottle.isFullBottle(item.id);
+    $: isFullBottle = FullBottle.isFullBottle(item.id);
 
-    let fullBottle = FullBottle.getFullBottleFromItem(item);
-    let liquid = fullBottle?.liquidItem;
+    $: fullBottle = FullBottle.getFullBottleFromItem(item);
+    $: liquid = fullBottle?.liquidItem;
 
     let isHovered = false;
     $: rarityColor = getRarityColor(item.rarity);
