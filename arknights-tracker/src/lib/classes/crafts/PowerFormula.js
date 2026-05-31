@@ -44,7 +44,7 @@ export class PowerFormula {
 
     static getPowerFormulaFromId(powerStationId, fuelId) {
         let powerStation = PowerStation.getPowerStation(powerStationId);
-        let fuel = Fuel.getFuel(powerStationId);
+        let fuel = Fuel.getFuel(fuelId);
 
         if (!powerStation || !fuel) return null;
 
