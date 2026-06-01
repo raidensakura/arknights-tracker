@@ -14,6 +14,7 @@
     import Images from "$lib/components/Images.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Button from "$lib/components/Button.svelte";
+    import BottomSheet from "$lib/components/BottomSheet.svelte";
 
     $: filters = $weaponFilters;
     $: searchQuery = $weaponSearch;
@@ -222,6 +223,7 @@
     }
 
     let activeTab = "optimizer";
+    let isBottomSheetOpen = false;
     let invAttr1 = null;
     let invAttr2 = null;
     let invAttr3 = null;
@@ -238,12 +240,20 @@
         if (group === 1) invAttr1 = invAttr1 === skillId ? null : skillId;
         if (group === 2) invAttr2 = invAttr2 === skillId ? null : skillId;
         if (group === 3) invAttr3 = invAttr3 === skillId ? null : skillId;
+
+        const hasSelection = invAttr1 || invAttr2 || invAttr3;
+        if (hasSelection) {
+            isBottomSheetOpen = true;
+        } else {
+            isBottomSheetOpen = false;
+        }
     }
 
     function clearInvFilters() {
         invAttr1 = null;
         invAttr2 = null;
         invAttr3 = null;
+        isBottomSheetOpen = false;
     }
 
     $: invSelectedCount = [invAttr1, invAttr2, invAttr3].filter(Boolean).length;
@@ -288,8 +298,12 @@
         } else {
             selectedWeaponIds.add(wpId);
             if (!primaryWeaponId) primaryWeaponId = wpId;
+            isBottomSheetOpen = true;
         }
         selectedWeaponIds = new Set(selectedWeaponIds);
+        if (selectedWeaponIds.size === 0) {
+            isBottomSheetOpen = false;
+        }
     }
 
     function setPrimaryWeapon(wpId) {
@@ -300,6 +314,7 @@
         selectedWeaponIds.clear();
         selectedWeaponIds = new Set();
         primaryWeaponId = null;
+        isBottomSheetOpen = false;
     }
 
     $: wishlistData = computeWishlist(
@@ -1002,7 +1017,14 @@
         {/if}
     </div>
 
-    <div class="w-full xl:w-[55%] flex flex-col pb-8 pt-2">
+    <BottomSheet
+        bind:isOpen={isBottomSheetOpen}
+        title={activeTab === 'optimizer' ? ($t("essencesPage.optimizerResults") || "Optimization Results") : ($t("essencesPage.suitableWeapons") || "Suitable Weapons")}
+        showReset={activeTab === 'optimizer' ? selectedWeaponIds.size > 0 : invSelectedCount > 0}
+        onReset={activeTab === 'optimizer' ? clearSelection : clearInvFilters}
+        resetLabel={$t("essencesPage.reset") || "Reset"}
+        className="w-full xl:w-[55%] flex flex-col pb-8 pt-2"
+    >
         {#if activeTab === "optimizer"}
             {#if selectedWeaponIds.size === 0}
                 <div
@@ -1680,5 +1702,18 @@
                 </div>
             {/if}
         {/if}
-    </div>
+    </BottomSheet>
 </div>
+
+{#if !isBottomSheetOpen}
+    {#if (activeTab === 'optimizer' && selectedWeaponIds.size > 0) || (activeTab === 'inventory' && invSelectedCount > 0)}
+        <button
+            type="button"
+            class="xl:hidden fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#F9B90C] hover:bg-[#FFC01E] text-black rounded-full shadow-lg flex items-center justify-center transition-all active:scale-95 border border-white dark:border-[#1A1A1A] cursor-pointer"
+            on:click={() => (isBottomSheetOpen = true)}
+            title="Results"
+        >
+            <Icon name="inbox" class="w-6 h-6 text-black" />
+        </button>
+    {/if}
+{/if}

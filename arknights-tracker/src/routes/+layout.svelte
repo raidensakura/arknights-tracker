@@ -497,7 +497,7 @@
 
         <main
             class="
-            w-full p-4 md:p-8 relative z-0
+            w-full md:w-[calc(100%-var(--sb-w))] p-4 md:p-8 relative z-0
             ml-0
             {ready ? 'transition-all duration-300 ease-in-out' : ''}
             
@@ -514,7 +514,7 @@
             {#if $page.url.pathname !== "/"}
                 <footer class="mt-20 w-full max-w-[1600px] z-10 pb-4">
                     <div
-                        class="flex gap-3 mb-8 max-w-[550px] md:max-w-[1600px]"
+                        class="flex gap-3 mb-8 max-w-[550px] xl:max-w-[1600px]"
                     >
                         <div
                             class="w-[2px] shrink-0 bg-gray-400 dark:bg-gray-300 rounded-full"
@@ -527,7 +527,7 @@
                     </div>
 
                     <div
-                        class="flex flex-col md:flex-row md:items-start gap-6 md:gap-10"
+                        class="flex flex-col xl:flex-row xl:items-start gap-6 xl:gap-10"
                     >
                         <div class="flex flex-col gap-3 min-w-[180px]">
                             <span
@@ -564,7 +564,7 @@
                         </div>
 
                         <div
-                            class="hidden md:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
+                            class="hidden xl:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
                         ></div>
 
                         <div class="flex flex-col gap-3 min-w-[200px]">
@@ -626,7 +626,7 @@
                         </div>
 
                         <div
-                            class="hidden md:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
+                            class="hidden xl:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
                         ></div>
 
                         <div class="flex flex-col gap-3 min-w-[200px]">
@@ -646,7 +646,7 @@
                         </div>
 
                         <div
-                            class="hidden md:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
+                            class="hidden xl:block w-px min-h-[60px] bg-gray-300 dark:bg-[#444444]"
                         ></div>
 
                         <div class="flex flex-col gap-3 min-w-[200px]">

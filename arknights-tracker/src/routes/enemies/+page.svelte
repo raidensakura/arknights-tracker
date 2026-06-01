@@ -1,7 +1,7 @@
 <script>
     import { t } from "$lib/i18n";
     import { enemies } from "$lib/data/enemies.js"; 
-    import { enemyFilters, enemySearch, enemyGroupMode } from "$lib/stores/filterStore"; // Подставь свои сторы, если они есть, или оставь локальные переменные
+    import { enemyFilters, enemySearch, enemyGroupMode } from "$lib/stores/filterStore";
 
     import WeaponCard from "$lib/components/WeaponCard.svelte";
     import DataToolbar from "$lib/components/DataToolbar.svelte";

@@ -7,6 +7,8 @@
     import {craftableItemsList} from "$lib/data/crafts/craftableItemsList.js";
     import FormulaSidebar from "$lib/components/recipes/FormulaSidebar.svelte";
     import {FactoryEvent} from "$lib/classes/events/FactoryEvent.js";
+    import BottomSheet from "$lib/components/BottomSheet.svelte";
+    import Icons from "$lib/components/Icons.svelte";
 
     $: filters = $itemFilters;
     $: searchQuery = $itemSearch;
@@ -134,14 +136,17 @@
     };
 
     let selectedItemId = "";
+    let isBottomSheetOpen = false;
 
     function selectItem(itemId) {
         if (selectedItemId === itemId) {
             selectedItemId = "";
+            isBottomSheetOpen = false;
             return;
         }
 
         selectedItemId = itemId;
+        isBottomSheetOpen = true;
     }
 
     $: isSelectedItem = (itemId) => {
@@ -275,7 +280,23 @@
         </div>
     </div>
 
-    <div class="w-full min-h-[50vh] h-full  xl:w-[max(470px,30%)] xl:h-[95vh] sticky top-8">
+    <BottomSheet
+        bind:isOpen={isBottomSheetOpen}
+        className="w-full xl:min-h-[50vh] xl:h-full xl:w-[max(470px,30%)] xl:h-[95vh] xl:sticky xl:top-8"
+    >
         <FormulaSidebar currentItemId={selectedItemId} />
-    </div>
+    </BottomSheet>
 </div>
+
+{#if !isBottomSheetOpen}
+    {#if selectedItemId}
+        <button
+            type="button"
+            class="xl:hidden fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#F9B90C] hover:bg-[#FFC01E] text-black rounded-full shadow-lg flex items-center justify-center transition-all active:scale-95 border border-white dark:border-[#1A1A1A] cursor-pointer"
+            on:click={() => (isBottomSheetOpen = true)}
+            title="Results"
+        >
+            <Icons name="inbox" class="w-6 h-6 text-black" />
+        </button>
+    {/if}
+{/if}
