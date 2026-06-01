@@ -247,8 +247,6 @@
         return new Date(utc + 3600000 * targetOffset);
     }
 
-    
-
     $: TIMELINE_HEIGHT = `clamp(70%, ${contentHeight}px, 99%)`;
 
     let innerHeight;

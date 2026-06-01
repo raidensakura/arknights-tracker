@@ -4,6 +4,7 @@
 
     export let item = {};
     export let amount = 0;
+    export let customPath;
     function getRarityColor(rarity) {
         if (rarity === 5) return "#FFC107";
         if (rarity === 4) return "#A857FA";
@@ -14,6 +15,8 @@
 
     $: color = getRarityColor(item.rarity || 3);
     $: itemIdKey = item.id ? item.id.replace(/\s+/g, '') : "unknown";
+    $: imageVariant = customPath?.toLowerCase().includes("itemname") ? "item-icon" : "item";
+    $: translationPrefix = customPath?.toLowerCase().includes("itemname") ? "itemNames" : "items";
 </script>
 
 <div class="w-[80px] flex flex-col group select-none shadow-sm hover:shadow-md transition-shadow">
@@ -22,7 +25,7 @@
         
         <Images 
             id={item.id} 
-            variant="item"
+            variant={imageVariant}
             interactive={true}
             className="w-full h-full object-contain p-1" 
         />
@@ -49,7 +52,7 @@
 
     <div class="bg-[#333] w-full min-h-[24px] flex items-center justify-center py-1 px-1 mt-[2px]">
         <span class="text-white text-[10px] font-bold text-center leading-tight break-words">
-            {$t(`items.${itemIdKey}`) || item.name}
+            {$t(`${translationPrefix}.${itemIdKey}`) || item.name}
         </span>
     </div>
 </div>

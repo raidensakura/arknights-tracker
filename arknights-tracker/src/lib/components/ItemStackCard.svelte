@@ -95,6 +95,7 @@
                 <div class="absolute inset-0 flex items-center justify-center z-0 bottom-[6px]">
                     <Images
                         id={item.iconId}
+                        interactive={true}
                         variant="item-icon"
                         className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300"
                         alt={item.id}
@@ -106,6 +107,7 @@
                         <div class="w-2/3 h-2/3">
                             <Images
                                 id={liquid.iconId}
+                                interactive={true}
                                 variant="item-icon"
                                 className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300"
                             />

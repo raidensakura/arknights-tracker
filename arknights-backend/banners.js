@@ -142,7 +142,7 @@ const BANNERS = [
     name: "Lupine Scarlet",
     type: "weapon",
     startTime: "2026-03-29 12:00:00",
-    endTime: "2026-06-23 04:00:00",
+    endTime: "2026-06-26 11:59:59",
     featured6: ["lupineScarlet", "Lupine Scarlet"],
   },
   {
@@ -160,7 +160,8 @@ const BANNERS = [
     type: "weapon",
     startTime: "2026-04-16 22:00:00",
     startTimeAsia: "2026-04-17 11:00:00",
-    endTime: "2026-07-12 04:00:00",
+    endTime: "2026-07-16 04:00:00",
+    endTimeAsia: "2026-07-15 17:00:00",
     featured6: ["loneBarge", "Lone Barge"],
   },
   {
@@ -189,6 +190,41 @@ const BANNERS = [
     endTime: "2026-06-04 04:00:00",
     endTimeAsia: "2026-06-05 06:00:00",
     featured6: ["deliveryGuaranteed"],
+  },
+  {
+    id: "special_1_3_1",
+    name: "Fists of No Regrets",
+    type: "special",
+    startTime: "2026-06-04 22:00:00",
+    startTimeAsia: "2026-06-05 11:00:00",
+    endTime: "2026-06-26 11:59:59",
+    featured6: ["miFu", "MiFu"],
+  },
+  {
+    id: "special_1_3_2",
+    name: "Expubger of Sin",
+    type: "special",
+    startTime: "2026-06-26 12:00:00",
+    endTime: "2026-07-16 04:00:00",
+    endTimeAsia: "2026-07-15 17:00:00",
+    featured6: ["camille"],
+  },
+  {
+    id: "weapon_1_3_1",
+    name: "Scarlet Knot Issue",
+    type: "weapon",
+    startTime: "2026-06-04 22:00:00",
+    startTimeAsia: "2026-06-05 11:00:00",
+    endTime: "2026-08-08 11:59:59",
+    featured6: ["amaranthineTassel"],
+  },
+  {
+    id: "weapon_1_3_2",
+    name: "Crimson Hued Issue",
+    type: "weapon",
+    startTime: "2026-06-26 12:00:00",
+    endTime: "2026-08-24 17:00:00",
+    featured6: ["blessingOfLustrousCarmine"],
   }
 ];
 

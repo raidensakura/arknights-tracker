@@ -404,7 +404,7 @@
                 <div class="flex flex-wrap gap-2 pt-1">
                     {#if enemyData.drop && enemyData.drop.length > 0}
                         {#each enemyData.drop as dropId}
-                            <ItemCard item={{id: dropId}} />
+                            <ItemCard item={{id: dropId}} customPath="itemNames" />
                         {/each}
                     {:else}
                         <div class="w-full text-center text-gray-500 dark:text-[#B7B6B3] text-sm py-4 italic">
