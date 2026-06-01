@@ -844,5 +844,21 @@ export const rawEvents = [
     type: "inGame",
     iconPosition: 45,
     version: "1.3"
+  },
+  {
+    id: "ev9-v1.3",
+    title: "events.",
+    name: "Protocol Pass: Viridian Mont",
+    startTime: "2026-06-04 22:00:00",
+    startTimeAsia: "2026-06-05 11:00:00",
+    endTime: "2026-07-16 04:00:00",
+    endTimeAsia: "2026-07-15 17:00:00",
+    icon: "ev9-v1.0.jpg",
+    url: "",
+    color: "#456755",
+    layer: 16,
+    type: "protoPass",
+    iconPosition: 45,
+    version: "1.3"
   }
 ];
