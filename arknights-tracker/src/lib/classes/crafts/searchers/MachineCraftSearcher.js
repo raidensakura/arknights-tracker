@@ -61,8 +61,9 @@ export class MachineCraftSearcher extends CraftSearcher{
 
     searchByFormulaIds(formulaIdList) {
         let result = {};
-        let nonDismantlerFormulaIdList = [];
+        let otherFormulaIdList = [];
         let dismantlerFormulaIdList = [];
+        let purifierFormulaIdList = [];
 
         for (let formulaId of formulaIdList) {
             let formula = MachineCraft.getMachineCraft(formulaId);
@@ -71,7 +72,8 @@ export class MachineCraftSearcher extends CraftSearcher{
                 .getModeNameByGroupId(formula.formulaGroupId);
 
             if (crafterId === "dismantler_1") dismantlerFormulaIdList.push(formulaId);
-            else nonDismantlerFormulaIdList.push(formulaId);
+            else if (crafterId === "liquid_purifier_1") purifierFormulaIdList.push(formulaId);
+            else otherFormulaIdList.push(formulaId);
 
             if (!result.hasOwnProperty(crafterId))
                 result[crafterId] = {};
@@ -81,6 +83,12 @@ export class MachineCraftSearcher extends CraftSearcher{
             result[crafterId][crafterMode].push(formulaId);
         }
 
+        let purifierResult = result.liquid_purifier_1;
+        if (purifierResult) {
+            delete result.liquid_purifier_1;
+            result.liquid_purifier_1 = purifierResult;
+        }
+
         let dismantlerResult = result.dismantler_1;
         if (dismantlerResult) {
             delete result.dismantler_1;
@@ -88,7 +96,7 @@ export class MachineCraftSearcher extends CraftSearcher{
         }
 
         return new MachineCraftSearchResult({
-            craftList: [...nonDismantlerFormulaIdList, ...dismantlerFormulaIdList],
+            craftList: [...otherFormulaIdList, ...purifierFormulaIdList, ...dismantlerFormulaIdList],
             resultMap: result
         })
     }
