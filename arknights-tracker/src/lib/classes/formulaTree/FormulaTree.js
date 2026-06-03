@@ -54,6 +54,9 @@ export class FormulaTree {
                 node.formula = this._getFirstFormula(item);
             }
 
+            if (this._isItemUsed(item.id)) continue;
+            this._addItemToUsedItemList(item.id);
+
             let formula = node.formula;
 
             if (formula?.formulaType === "machineCraft"
