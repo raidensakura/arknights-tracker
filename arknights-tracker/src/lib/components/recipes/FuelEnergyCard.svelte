@@ -12,7 +12,7 @@
     </div>
 
     <div>
-        <span class="font-sdk text-2xl text-[#FDFDFD] dark:text-[#FDFDFD] tracking-wider">
+        <span class="font-sdk text-2xl text-[#21272C] dark:text-[#FDFDFD] tracking-wider">
             {powerProvide}
         </span>
     </div>
