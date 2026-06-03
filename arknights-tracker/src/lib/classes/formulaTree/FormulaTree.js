@@ -17,28 +17,103 @@ export class FormulaTree {
     _minerSearcher = new MinerSearcher();
     _pumpSearcher = new PumpSearcher();
 
+    _itemsInTree = new Set();
+
     _startNode;
 
+    /**
+     *
+     * @param {Item} startItem
+     * @param {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula} startFormula
+     */
     constructor(startItem, startFormula = null) {
+        this._startNode = new Node(
+            startFormula,
+            startItem.id,
+            null
+        );
 
+        this.updateNode(this._startNode);
     }
 
-    updateNode(node) {
-        const item = Item.getItem(node.itemId);
+    /**
+     *
+     * @param {Node} startNode
+     */
+    updateNode(startNode) {
+        startNode.resetChildNodes();
+        this.updateItemList();
 
-        if (!node.formula) {
-            node.formula = this._getFirstFormula(item);
-        }
-
-        node.resetChildNodes();
-
-        const stack = [node];
+        const stack = [startNode];
 
         while (stack.length > 0) {
+            let node = stack.pop();
+            let item = Item.getItem(node.itemId);
 
+            if (!node.formula) {
+                node.formula = this._getFirstFormula(item);
+            }
+
+            let formula = node.formula;
+
+            if (formula?.formulaType === "machineCraft"
+                || formula?.formulaType === "manualCraft"
+                || formula?.formulaType === "hubCraft"
+            ) {
+                let ingredients = formula.getIngredientItemIds();
+
+                for (let ingredientId of ingredients) {
+                    let ingredient = Item.getItem(ingredientId);
+
+                    if (!ingredient) continue;
+
+                    let childNode = new Node(
+                        this._getFirstFormula(ingredient),
+                        ingredientId,
+                        node
+                    );
+
+                    node.addChildNode(childNode);
+                }
+            }
         }
     }
 
+    updateItemList() {
+        this._clearUsedItemList();
+
+        const stack = [this._startNode];
+
+        while (stack.length > 0) {
+            let node = stack.pop();
+
+            let childNodes = node.getChildNodesCopy();
+            while (childNodes.length > 0) {
+                stack.push(childNodes.pop());
+            }
+
+            this._addItemToUsedItemList(node.itemId);
+        }
+    }
+
+    _clearUsedItemList() {
+        this._itemsInTree.clear();
+    }
+
+    _addItemToUsedItemList(itemId) {
+        this._itemsInTree.add(itemId);
+    }
+
+    _isItemUsed(itemId) {
+        return this._itemsInTree.has(itemId);
+    }
+
+    /**
+     *
+     * @param {Item} item
+     * @returns {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula|null}
+     * @private
+     */
     _getFirstFormula(item) {
         let functionList;
 
@@ -123,6 +198,12 @@ class Node {
     _parentNode;
     _childNodes = [];
 
+    /**
+     *
+     * @param {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula|null} formula
+     * @param {string} itemId
+     * @param {Node} parentNode
+     */
     constructor(formula, itemId, parentNode) {
         this._formula = formula;
         this._itemId = itemId;
@@ -147,6 +228,10 @@ class Node {
 
     get childNodes() {
         return this._childNodes;
+    }
+
+    getChildNodesCopy() {
+        return [...this.childNodes];
     }
 
     addChildNode(node) {
