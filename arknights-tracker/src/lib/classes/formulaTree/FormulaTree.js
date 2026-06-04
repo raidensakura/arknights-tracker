@@ -94,16 +94,7 @@ export class FormulaTree {
     updateItemList() {
         this._clearUsedItemList();
 
-        const stack = [this._startNode];
-
-        while (stack.length > 0) {
-            let node = stack.pop();
-
-            let childNodes = node.getChildNodesCopy();
-            while (childNodes.length > 0) {
-                stack.push(childNodes.pop());
-            }
-
+        for (let node of this.getIterator()) {
             this._addItemToUsedItemList(node.itemId);
         }
     }
