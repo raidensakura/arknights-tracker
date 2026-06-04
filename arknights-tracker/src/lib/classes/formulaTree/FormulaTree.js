@@ -17,6 +17,9 @@ export class FormulaTree {
     _minerSearcher = new MinerSearcher();
     _pumpSearcher = new PumpSearcher();
 
+    _maxLayer = 0;
+    _maxStage = 0;
+
     _itemsInTree = {};
 
     /**
@@ -34,6 +37,14 @@ export class FormulaTree {
      */
     get startNode() {
         return this._startNode;
+    }
+
+    get maxLayer() {
+        return this._maxLayer;
+    }
+
+    get maxStage() {
+        return this._maxStage;
     }
 
     /**
@@ -108,6 +119,9 @@ export class FormulaTree {
     }
 
     updateNodePositions() {
+        let maxLayer = 0;
+        let maxStage = 0;
+
         let startNode = this._startNode;
         startNode._selfChildIndex = null;
         startNode._layer = 0;
@@ -131,7 +145,13 @@ export class FormulaTree {
                 node._stage = node.parentNode._stage + 1;
                 node._layer = node.selfChildIndex === 0 ? layer : ++layer;
             }
+
+            maxLayer = Math.max(maxLayer, node._layer);
+            maxStage = Math.max(maxStage, node._stage);
         }
+
+        this._maxLayer = maxLayer;
+        this._maxStage = maxStage;
     }
 
     getIterator() {
