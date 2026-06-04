@@ -19,6 +19,10 @@ export class FormulaTree {
 
     _itemsInTree = new Set();
 
+    /**
+     * @type {Node}
+     * @private
+     */
     _startNode;
 
     constructor() {
@@ -89,6 +93,8 @@ export class FormulaTree {
                 }
             }
         }
+
+        this.updateNodePositions();
     }
 
     updateItemList() {
@@ -96,6 +102,32 @@ export class FormulaTree {
 
         for (let node of this.getIterator()) {
             this._addItemToUsedItemList(node.itemId);
+        }
+    }
+
+    updateNodePositions() {
+        let startNode = this._startNode;
+        startNode._selfChildIndex = null;
+        startNode._layer = 0;
+        startNode._stage = 0;
+
+        const stack = [startNode];
+
+        let layer = 0;
+        while (stack.length > 0) {
+            let node = stack.pop();
+
+            let childNodes = node.getChildNodesCopy();
+            while (childNodes.length > 0) {
+                let childNode = childNodes.pop();
+
+                childNode._selfChildIndex = childNodes.length;
+            }
+
+            if (node.parentNode) {
+                node._stage = node.parentNode._stage + 1;
+                node._layer = node.selfChildIndex === 0 ? layer : ++layer;
+            }
         }
     }
 
