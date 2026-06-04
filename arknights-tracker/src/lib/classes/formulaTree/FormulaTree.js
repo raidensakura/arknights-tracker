@@ -26,7 +26,6 @@ export class FormulaTree {
     }
 
     /**
-     *
      * @returns {Node}
      */
     get startNode() {
@@ -34,7 +33,6 @@ export class FormulaTree {
     }
 
     /**
-     *
      * @param {string} startItemId
      * @param {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula} startFormula
      */
@@ -49,7 +47,6 @@ export class FormulaTree {
     }
 
     /**
-     *
      * @param {Node} startNode
      */
     updateNode(startNode) {
@@ -111,6 +108,10 @@ export class FormulaTree {
         }
     }
 
+    getIterator() {
+        return this.startNode.getIterator();
+    }
+
     _clearUsedItemList() {
         this._itemsInTree.clear();
     }
@@ -124,7 +125,6 @@ export class FormulaTree {
     }
 
     /**
-     *
      * @param {Item} item
      * @returns {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula|null}
      * @private
@@ -219,8 +219,11 @@ class Node {
     _parentNode;
     _childNodes = [];
 
+    _selfChildIndex;
+    _layer; // row
+    _stage; // column
+
     /**
-     *
      * @param {MachineCraft|ManualCraft|HubCraft|MiningFormula|PumpingFormula|null} formula
      * @param {string} itemId
      * @param {Node} parentNode
@@ -243,6 +246,18 @@ class Node {
         return this._itemId;
     }
 
+    get selfChildIndex() {
+        return this._selfChildIndex;
+    }
+
+    get layer() {
+        return this._layer;
+    }
+
+    get stage() {
+        return this._stage;
+    }
+
     get parentNode() {
         return this._parentNode;
     }
@@ -261,5 +276,24 @@ class Node {
 
     resetChildNodes() {
         this._childNodes = [];
+    }
+
+    /**
+     * Traversing the tree in depth
+     * @returns {Generator<Node, void, *>}
+     */
+    *getIterator() {
+        const stack = [this];
+
+        while (stack.length > 0) {
+            let node = stack.pop();
+            let childNodes = node.getChildNodesCopy();
+
+            while (childNodes.length > 0) {
+                stack.push(childNodes.pop());
+            }
+
+            yield node;
+        }
     }
 }
