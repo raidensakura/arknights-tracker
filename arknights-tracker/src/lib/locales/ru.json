@@ -799,7 +799,9 @@
     "hetoniteComponent": "Гетонитовый компонент",
     "hetoniteSolution": "Раствор гетонита",
     "precipitationAcid": "Осадочная кислота",
-    "liquidHeavyXiranite": "Жидкий тяжелый ксиранит"
+    "liquidHeavyXiranite": "Жидкий тяжелый ксиранит",
+    "centuryRind": "Вековая кожура",
+    "caudalGoldscale": "Золотая хвостовая чешуя"
   },
   "common": {
     "copy": "Копировать",
@@ -987,7 +989,9 @@
     "pogranichnik": "Пограничник",
     "rossi": "Росси",
     "zhuangfy": "Чжуан Фанъи",
-    "zhuangFangyi": "Чжуан Фанъи"
+    "zhuangFangyi": "Чжуан Фанъи",
+    "miFu": "Ми Фу",
+    "mifu": "Ми Фу"
   },
   "weaponsList": {
     "industry01": "Индустрия 0.1",
@@ -1057,7 +1061,10 @@
     "finchaser30": "Водоплаволов 3.0",
     "lupineScarlet": "Волчий багрянец",
     "loneBarge": "Одинокая ладья",
-    "flickersInTheMist": "Всполохи в тумане"
+    "flickersInTheMist": "Всполохи в тумане",
+    "phantomPain": "Фантомная боль",
+    "amaranthineTassel": "Пурпурная кисточка",
+    "beaconOfDuty": "Маяк долга"
   },
   "cookies": {
     "title": "Мы используем куки",
@@ -1154,7 +1161,14 @@
     "world_energy_point07_4": "Сильный аллювий энергии: Межевой камень",
     "world_energy_point08_3": "Аллювий энергии: область испытаний",
     "world_energy_point08_2": "Аллювий энергии: область испытаний",
-    "world_energy_point08_6": "Сильный аллювий энергии: область испытаний"
+    "world_energy_point08_6": "Сильный аллювий энергии: область испытаний",
+    "world_energy_point09_1": "Аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_2": "Аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_3": "Аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_4": "Сильный аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_5": "Сильный аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_6": "Сильный аллювий энергии: долина Залежи Клинков",
+    "world_energy_point09_7": "Сильный аллювий энергии: долина Залежи Клинков"
   },
   "enemies": {
     "eny_0007_mimicw": "Роющий нидвурм",
@@ -1228,7 +1242,10 @@
     "eny_0078_nefarp1": "Неферит «Костолом»",
     "eny_0095_ethillu": "Эфирлюзия",
     "eny_0079_nefarp2": "Неферит «Завоевательница»",
-    "eny_0082_hsbear": "Небесный барабанщик"
+    "eny_0082_hsbear": "Небесный барабанщик",
+    "eny_0112_jzmonk": "Каменный ревун",
+    "eny_0113_jzogre": "Бронированный саблезубый зверь",
+    "eny_0114_jzmking": "Скальный ревун"
   },
   "essencesPage": {
     "optimizer": "Оптимизатор фарма",
@@ -1476,7 +1493,15 @@
     "item_equip_t4_suit_combo_cd01_hand_02": "Перчатки «Циньбо»",
     "item_equip_t4_suit_expend_spell01_edc_02": "Дубинка «Ксиранад»",
     "item_equip_t4_suit_expend_spell01_body_02": "Легкая броня «Ксиранад»",
-    "item_equip_t4_suit_phy01_hand_03": "Тактические рукавицы «Мастер меча» К1"
+    "item_equip_t4_suit_phy01_hand_03": "Тактические рукавицы «Мастер меча» К1",
+    "item_equip_t4_suit_combo_cd01_edc_04": "Локатор «Циньбо» К1",
+    "item_equip_t4_suit_crush_fracture_body_01": "Броня «Потертое лезвие»",
+    "item_equip_t4_suit_crush_fracture_body_02": "Броня «Потертое лезвие» К1",
+    "item_equip_t4_suit_crush_fracture_edc_01": "Тычковый нож «Потертое лезвие»",
+    "item_equip_t4_suit_crush_fracture_edc_02": "Тычковый нож «Потертое лезвие» К1",
+    "item_equip_t4_suit_crush_fracture_hand_01": "Рукавицы «Потертое лезвие»",
+    "item_equip_t4_suit_crush_fracture_hand_02": "Рукавицы «Потертое лезвие» К1",
+    "item_equip_t4_suit_phy01_body_04": "Волоконная броня «Мастер меча»"
   },
   "packs": {
     "none": "Некомплектное",
@@ -1524,7 +1549,8 @@
     "suit_wisd01": "Изолированный «Мортвольт»",
     "suit_wisdwill01": "Легкий АПК",
     "suit_combo_cd01": "Циньбо",
-    "suit_expend_spell01": "Ксиранад"
+    "suit_expend_spell01": "Ксиранад",
+    "suit_crush_fracture": "Потертое лезвие"
   },
   "equipmentTypes": {
     "body": "Броня",
@@ -1628,7 +1654,7 @@
     "item_port_miner_1": "Портативная ориджиниевая установка",
     "item_port_miner_2": "Добывающая ЭУ",
     "item_port_miner_3": "Добывающая ЭУ Mk II",
-    "item_port_miner_4": "Добывающая гидроустановка",
+    "item_port_miner_4": "Добывающая гидроуст.",
     "item_port_mix_pool_1": "Камера реактора",
     "item_port_mix_pool_2": "Расширенная камера",
     "item_port_planter_1": "Модуль посадки",
@@ -1891,7 +1917,7 @@
     "item_corp4_animal_1": "Жареный рис по-улински",
     "item_corp4_grass2_1": "Садовый жареный рис",
     "item_dog_1_slimeml_1_1": "Сборное рагу",
-    "item_dog_hsmob_corp_1": "Лапша с тушеным мясом",
+    "item_dog_hsmob_corp_1": "Особая лапша с тушеным мясом от тети Тянь",
     "item_erhound_1_agmelee_1_moss_1_1": "Цветок тенепламени",
     "item_ethillu_1_wgslime_1_wgthorns_1_1": "Памятное средство",
     "item_firebat_1_agrange_1_1": "Съедобная гнилотруба",
@@ -1922,7 +1948,21 @@
     "item_wgshoal_1_grass_1_grass_2_1": "Карамельная картинка",
     "item_wgslime_1_hsmob_1_grass_2_1": "Овощное желе «Пухлик-лун»",
     "item_wgslime_1_wgthorns_1_1": "Загадочная газировка",
-    "item_wgthorns_1_hshog_1_hsmob_1_1": "Двойная жареная хрустяшка"
+    "item_wgthorns_1_hshog_1_hsmob_1_1": "Двойная жареная хрустяшка",
+    "item_drop_agdisk_1": "Проводящий камень пугала",
+    "item_drop_agshield_1": "Слиток натурального хризополиса",
+    "item_drop_hsbear_1": "Косичка воющего зверя",
+    "item_drop_hsmino_1": "Бамбуковая подвеска из Циньбо",
+    "item_drop_hstiger_1": "Шерсть хитрого зверя",
+    "item_drop_hvybow_1": "Тенепламенная баллиста",
+    "item_drop_lbroshan_1": "Рукавицы осадного кастетчика",
+    "item_drop_lbtough_1": "Расколотое лезвие топора",
+    "item_drop_sandb_1": "Рог-секира",
+    "item_drop_wgabyss_1": "Скороброженка",
+    "item_drop_jzmonk_1": "Вековая кожура",
+    "item_drop_jzogre_1": "Золотая хвостовая чешуя",
+    "item_corp4_spc": "Особый паек «Родос Айленд»",
+    "item_jzmonk_1_hsmob_1_1": "Побеги со вкусом кожуры"
   },
   "buildingNames": {
     "component_mc_1": "Модуль штамповки",
@@ -1949,11 +1989,11 @@
     "pump_1": "Гидронасос",
     "pump_2": "Кислотостойкий насос Mk II"
   },
-  "buildingModes":{
+  "buildingModes": {
     "normal": "Стандартный режим",
     "liquid": "Режим жидкостей"
   },
-  "formulaSidebar":{
+  "formulaSidebar": {
     "sector": {
       "source": "Источник",
       "using": "Подходящие формулы",

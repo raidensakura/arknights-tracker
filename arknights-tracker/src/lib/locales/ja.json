@@ -741,7 +741,9 @@
     "hetoniteComponent": "緋銅装備部品",
     "hetoniteSolution": "緋銅溶液",
     "precipitationAcid": "沈殿酸",
-    "liquidHeavyXiranite": "液化重息壌"
+    "liquidHeavyXiranite": "液化重息壌",
+    "centuryRind": "百年陳皮",
+    "caudalGoldscale": "尾先の金鱗"
   },
   "common": {
     "copy": "コピー",
@@ -925,7 +927,9 @@
     "pogranichnik": "ポグラニチニク",
     "rossi": "ロッシ",
     "zhuangfy": "ゾアン・ファンイ",
-    "zhuangFangyi": "ゾアン・ファンイ"
+    "zhuangFangyi": "ゾアン・ファンイ",
+    "miFu": "ミ・フ",
+    "mifu": "ミ・フ"
   },
   "weaponsList": {
     "industry01": "工業零点一",
@@ -995,7 +999,10 @@
     "finchaser30": "フィンチェイサー3.0",
     "lupineScarlet": "狼緋",
     "loneBarge": "孤舟",
-    "flickersInTheMist": "朧光"
+    "flickersInTheMist": "朧光",
+    "phantomPain": "ファントムペイン",
+    "amaranthineTassel": "赤纓",
+    "beaconOfDuty": "灯火の使命"
   },
   "cookies": {
     "title": "クッキーを使用しています",
@@ -1092,7 +1099,14 @@
     "world_energy_point07_4": "重度超域活性点・首礎",
     "world_energy_point08_3": "超域活性点・実験区域",
     "world_energy_point08_2": "超域活性点・実験区域",
-    "world_energy_point08_6": "重度超域活性点・実験区域"
+    "world_energy_point08_6": "重度超域活性点・実験区域",
+    "world_energy_point09_1": "超域活性点・蔵剣谷",
+    "world_energy_point09_2": "超域活性点・蔵剣谷",
+    "world_energy_point09_3": "超域活性点・蔵剣谷",
+    "world_energy_point09_4": "重度超域活性点・蔵剣谷",
+    "world_energy_point09_5": "重度超域活性点・蔵剣谷",
+    "world_energy_point09_6": "重度超域活性点・蔵剣谷",
+    "world_energy_point09_7": "重度超域活性点・蔵剣谷"
   },
   "enemies": {
     "eny_0007_mimicw": "潜地蛟獣",
@@ -1166,7 +1180,10 @@
     "eny_0078_nefarp1": "「ボーンクラッシャー」ネファリス",
     "eny_0095_ethillu": "イーサルー",
     "eny_0079_nefarp2": "「征服者」ネファリス",
-    "eny_0082_hsbear": "天鼓"
+    "eny_0082_hsbear": "天鼓",
+    "eny_0112_jzmonk": "山吼獣",
+    "eny_0113_jzogre": "鎧裂獣",
+    "eny_0114_jzmking": "大山吼獣"
   },
   "essencesPage": {
     "optimizer": "育成オプティマイザー",
@@ -1414,7 +1431,15 @@
     "item_equip_t4_suit_combo_cd01_hand_02": "清波プロテクター",
     "item_equip_t4_suit_expend_spell01_edc_02": "壌流棍棒",
     "item_equip_t4_suit_expend_spell01_body_02": "壌流軽防具",
-    "item_equip_t4_suit_phy01_hand_03": "宏山点剣ガントレットⅠ"
+    "item_equip_t4_suit_phy01_hand_03": "宏山点剣ガントレットⅠ",
+    "item_equip_t4_suit_combo_cd01_edc_04": "清波探知器具Ⅰ",
+    "item_equip_t4_suit_crush_fracture_body_01": "旧鋒防具",
+    "item_equip_t4_suit_crush_fracture_body_02": "旧鋒防具Ⅰ",
+    "item_equip_t4_suit_crush_fracture_edc_01": "旧鋒ナイフ",
+    "item_equip_t4_suit_crush_fracture_edc_02": "旧鋒ナイフⅠ",
+    "item_equip_t4_suit_crush_fracture_hand_01": "旧鋒ガントレット",
+    "item_equip_t4_suit_crush_fracture_hand_02": "旧鋒ガントレットⅠ",
+    "item_equip_t4_suit_phy01_body_04": "宏山点剣繊維防具"
   },
   "packs": {
     "none": "セットなし",
@@ -1462,7 +1487,8 @@
     "suit_wisd01": "蝕電遮断",
     "suit_wisdwill01": "集成軽量",
     "suit_combo_cd01": "清波",
-    "suit_expend_spell01": "壌流"
+    "suit_expend_spell01": "壌流",
+    "suit_crush_fracture": "旧鋒"
   },
   "equipmentTypes": {
     "body": "胴",
@@ -1829,7 +1855,7 @@
     "item_corp4_animal_1": "武陵チャーハン",
     "item_corp4_grass2_1": "野菜たっぷりチャーハン",
     "item_dog_1_slimeml_1_1": "豪快肉煮込み",
-    "item_dog_hsmob_corp_1": "爛肉麺",
+    "item_dog_hsmob_corp_1": "テンの名物爛肉麺",
     "item_erhound_1_agmelee_1_moss_1_1": "霧火の花",
     "item_ethillu_1_wgslime_1_wgthorns_1_1": "回響の秘薬",
     "item_firebat_1_agrange_1_1": "巣彫風味ソース",
@@ -1860,7 +1886,21 @@
     "item_wgshoal_1_grass_1_grass_2_1": "飴細工",
     "item_wgslime_1_hsmob_1_grass_2_1": "龍泡泡の野菜羊羹",
     "item_wgslime_1_wgthorns_1_1": "不思議な炭酸飲料",
-    "item_wgthorns_1_hshog_1_hsmob_1_1": "レバーとガツの強火炒め"
+    "item_wgthorns_1_hshog_1_hsmob_1_1": "レバーとガツの強火炒め",
+    "item_drop_agdisk_1": "熱伝導擬態石",
+    "item_drop_agshield_1": "天然晶城塊",
+    "item_drop_hsbear_1": "咆獣のたてがみ",
+    "item_drop_hsmino_1": "清波竹鈴",
+    "item_drop_hstiger_1": "彪獣の長毛",
+    "item_drop_hvybow_1": "浸霧のクロスボウ",
+    "item_drop_lbroshan_1": "攻城者のガントレット",
+    "item_drop_lbtough_1": "崩砕の斧",
+    "item_drop_sandb_1": "斧甲獣の角",
+    "item_drop_wgabyss_1": "即席熟成酒",
+    "item_drop_jzmonk_1": "百年陳皮",
+    "item_drop_jzogre_1": "尾先の金鱗",
+    "item_corp4_spc": "ロドス特製レーション",
+    "item_jzmonk_1_hsmob_1_1": "陳皮と筍の和え物"
   },
   "buildingNames": {
     "component_mc_1": "組立機",
@@ -1887,11 +1927,11 @@
     "pump_1": "液体ポンプ",
     "pump_2": "耐酸性液体ポンプⅡ"
   },
-  "buildingModes":{
+  "buildingModes": {
     "normal": "基礎モード",
     "liquid": "液体対応モード"
   },
-  "formulaSidebar":{
+  "formulaSidebar": {
     "sector": {
       "source": "入手方法",
       "using": "レシピ",

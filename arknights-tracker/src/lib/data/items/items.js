@@ -2294,5 +2294,103 @@ export const items = {
         "rarity": 3,
         "groupId": "usable",
         "subGroupId": "usable_powder"
+    },
+    "item_drop_agdisk_1": {
+        "id": "item_drop_agdisk_1",
+        "iconId": "item_drop_agdisk_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_agshield_1": {
+        "id": "item_drop_agshield_1",
+        "iconId": "item_drop_agshield_1",
+        "rarity": 5,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_hsbear_1": {
+        "id": "item_drop_hsbear_1",
+        "iconId": "item_drop_hsbear_1",
+        "rarity": 5,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_hsmino_1": {
+        "id": "item_drop_hsmino_1",
+        "iconId": "item_drop_hsmino_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_hstiger_1": {
+        "id": "item_drop_hstiger_1",
+        "iconId": "item_drop_hstiger_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_hvybow_1": {
+        "id": "item_drop_hvybow_1",
+        "iconId": "item_drop_hvybow_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_lbroshan_1": {
+        "id": "item_drop_lbroshan_1",
+        "iconId": "item_drop_lbroshan_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_lbtough_1": {
+        "id": "item_drop_lbtough_1",
+        "iconId": "item_drop_lbtough_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_sandb_1": {
+        "id": "item_drop_sandb_1",
+        "iconId": "item_drop_sandb_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_wgabyss_1": {
+        "id": "item_drop_wgabyss_1",
+        "iconId": "item_drop_wgabyss_1",
+        "rarity": 5,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_jzmonk_1": {
+        "id": "item_drop_jzmonk_1",
+        "iconId": "item_drop_jzmonk_1",
+        "rarity": 1,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_drop_jzogre_1": {
+        "id": "item_drop_jzogre_1",
+        "iconId": "item_drop_jzogre_1",
+        "rarity": 4,
+        "groupId": "gatherable",
+        "subGroupId": "gatherable_drop"
+    },
+    "item_corp4_spc": {
+        "id": "item_corp4_spc",
+        "iconId": "item_corp4_spc",
+        "rarity": 5,
+        "groupId": "usable",
+        "subGroupId": "usable_other"
+    },
+    "item_jzmonk_1_hsmob_1_1": {
+        "id": "item_jzmonk_1_hsmob_1_1",
+        "iconId": "item_jzmonk_1_hsmob_1_1",
+        "rarity": 4,
+        "groupId": "usable",
+        "subGroupId": "usable_other"
     }
 };

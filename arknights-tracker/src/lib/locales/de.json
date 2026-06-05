@@ -741,7 +741,9 @@
     "hetoniteComponent": "Hetonit-Komponente",
     "hetoniteSolution": "Hetonit-Lösung",
     "precipitationAcid": "Niederschlagssäure",
-    "liquidHeavyXiranite": "Flüssiges Schweres Xiranit"
+    "liquidHeavyXiranite": "Flüssiges Schweres Xiranit",
+    "centuryRind": "Jahrhundertschale",
+    "caudalGoldscale": "Goldene Schwanzschuppe"
   },
   "common": {
     "copy": "Kopieren",
@@ -924,7 +926,9 @@
     "tangtang": "Tangtang",
     "pogranichnik": "Pogranichnik",
     "rossi": "Rossi",
-    "zhuangFangyi": "Zhuang Fangyi"
+    "zhuangFangyi": "Zhuang Fangyi",
+    "miFu": "Mi Fu",
+    "mifu": "Mi Fu"
   },
   "weaponsList": {
     "industry01": "Industrie 0.1",
@@ -994,7 +998,10 @@
     "finchaser30": "Flösslerjäger 3.0",
     "lupineScarlet": "Scharlachroter Wolf",
     "loneBarge": "Einsame Barke",
-    "flickersInTheMist": "Schimmer im Nebel"
+    "flickersInTheMist": "Schimmer im Nebel",
+    "phantomPain": "Phantomschmerz",
+    "amaranthineTassel": "Amaranthfarbene Quaste",
+    "beaconOfDuty": "Leuchtfeuer der Pflicht"
   },
   "cookies": {
     "title": "Wir verwenden Cookies",
@@ -1091,7 +1098,14 @@
     "world_energy_point07_4": "Schweres Energie-Alluvium: Grenzstein",
     "world_energy_point08_3": "Energie-Alluvium: Testzone",
     "world_energy_point08_2": "Energie-Alluvium: Testzone",
-    "world_energy_point08_6": "Schweres Energie-Alluvium: Testzone"
+    "world_energy_point08_6": "Schweres Energie-Alluvium: Testzone",
+    "world_energy_point09_1": "Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_2": "Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_3": "Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_4": "Schweres Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_5": "Schweres Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_6": "Schweres Energie-Alluvium: Tal des Schwertverlieses",
+    "world_energy_point09_7": "Schweres Energie-Alluvium: Tal des Schwertverlieses"
   },
   "enemies": {
     "eny_0007_mimicw": "Tunnel-Nidwurm",
@@ -1165,7 +1179,10 @@
     "eny_0078_nefarp1": "Nefarith, „Knochenbrecherin“",
     "eny_0095_ethillu": "Æthillu",
     "eny_0079_nefarp2": "Nefarith, „Eroberin“",
-    "eny_0082_hsbear": "Himmelstrommler"
+    "eny_0082_hsbear": "Himmelstrommler",
+    "eny_0112_jzmonk": "Felsenheuler",
+    "eny_0113_jzogre": "Gepanzerte Fetzbestie",
+    "eny_0114_jzmking": "Klippenheuler"
   },
   "essencesPage": {
     "optimizer": "Farming-Optimierer",
@@ -1413,7 +1430,15 @@
     "item_equip_t4_suit_combo_cd01_hand_02": "Qingbo-Handschuhe",
     "item_equip_t4_suit_expend_spell01_edc_02": "Xiranfluss-Schlagstock",
     "item_equip_t4_suit_expend_spell01_body_02": "Leichte Xiranfluss-Rüstung",
-    "item_equip_t4_suit_phy01_hand_03": "Taktische Schwertkämpfer-Fingerhandschuhe S1"
+    "item_equip_t4_suit_phy01_hand_03": "Taktische Schwertkämpfer-Fingerhandschuhe S1",
+    "item_equip_t4_suit_combo_cd01_edc_04": "Qingbo-Positionsbestimmungskit S1",
+    "item_equip_t4_suit_crush_fracture_body_01": "Graukant-Rüstung",
+    "item_equip_t4_suit_crush_fracture_body_02": "Graukant-Rüstung S1",
+    "item_equip_t4_suit_crush_fracture_edc_01": "Graukant-Druckmesser",
+    "item_equip_t4_suit_crush_fracture_edc_02": "Graukant-Druckmesser S1",
+    "item_equip_t4_suit_crush_fracture_hand_01": "Graukant-Fingerhandschuhe",
+    "item_equip_t4_suit_crush_fracture_hand_02": "Graukant-Fingerhandschuhe S1",
+    "item_equip_t4_suit_phy01_body_04": "Faserverstärkte Schwertkämpfer-Rüstung"
   },
   "packs": {
     "none": "Ohne Set",
@@ -1461,7 +1486,8 @@
     "suit_wisd01": "Mordvolt-Isolierung",
     "suit_wisdwill01": "AIK (Leicht)",
     "suit_combo_cd01": "Qingbo",
-    "suit_expend_spell01": "Xiranfluss"
+    "suit_expend_spell01": "Xiranfluss",
+    "suit_crush_fracture": "Graukant"
   },
   "equipmentTypes": {
     "body": "Rüstung",
@@ -1553,8 +1579,8 @@
     "item_port_dismantler_1": "Zerlegeeinheit",
     "item_port_dumper_1": "Flüssigkeitsversor-gungseinheit",
     "item_port_filling_pd_mc_1": "Fülleinheit",
-    "item_port_furnance_1": "Veredelungs-einheit",
-    "item_port_grinder_1": "Zerkleinerungs-einheit",
+    "item_port_furnance_1": "Veredelungseinheit",
+    "item_port_grinder_1": "Zerkleinerungseinheit",
     "item_port_liquid_cleaner_1": "Wasseraufbereitungs-\neinheit",
     "item_port_liquid_purifier_1": "Kläreinheit",
     "item_port_liquid_storager_1": "Flüssigkeitstank",
@@ -1591,7 +1617,7 @@
     "item_port_squirter_1": "Sprinkler",
     "item_port_storager_1": "Protokolllager",
     "item_port_thickener_1": "Mahleinheit",
-    "item_port_tools_asm_mc_1": "Verpackungs-einheit",
+    "item_port_tools_asm_mc_1": "Verpackungseinheit",
     "item_port_travel_pole_1": "Seilbahnmast",
     "item_port_travel_pole_2": "Seilbahnstütze",
     "item_port_udpipe_loader_1": "Leitungseinlass",
@@ -1599,7 +1625,7 @@
     "item_port_udpipe_unloader_1": "Leitungsauslass",
     "item_port_udpipe_unloader_2": "Leitungsauslass (mehrfach)",
     "item_port_unloader_1": "Depot-Entlader",
-    "item_port_winder_1": "Ausrüstungs-einheit",
+    "item_port_winder_1": "Ausrüstungseinheit",
     "item_port_xiranite_oven_1": "Schmiede des Himmels",
     "item_drop_agfly_1": "Hohles Aggagrit",
     "item_drop_agmelee_1": "Hartes Aggagrit",
@@ -1828,7 +1854,7 @@
     "item_corp4_animal_1": "Wuling-Reispfanne",
     "item_corp4_grass2_1": "Garten-Reispfanne",
     "item_dog_1_slimeml_1_1": "Eintopf-Treffen",
-    "item_dog_hsmob_corp_1": "Nudeln mit Schmorbraten",
+    "item_dog_hsmob_corp_1": "Tians Nudeln mit Schmorbraten",
     "item_erhound_1_agmelee_1_moss_1_1": "Nebelfeuer-Blüte",
     "item_ethillu_1_wgslime_1_wgthorns_1_1": "Echo-Heilmittel",
     "item_firebat_1_agrange_1_1": "Essbarer Denstack",
@@ -1859,7 +1885,21 @@
     "item_wgshoal_1_grass_1_grass_2_1": "Mini-Zuckergemälde",
     "item_wgslime_1_hsmob_1_grass_2_1": "Geliertes Gemüse in Chubby-Lung-Form",
     "item_wgslime_1_wgthorns_1_1": "Geheimnisvolle Limonade",
-    "item_wgthorns_1_hshog_1_hsmob_1_1": "Doppel-Knusper"
+    "item_wgthorns_1_hshog_1_hsmob_1_1": "Doppel-Knusper",
+    "item_drop_agdisk_1": "Leitfähiger Golemstein",
+    "item_drop_agshield_1": "Natürlicher Chrysopolis-Barren",
+    "item_drop_hsbear_1": "Heulerbestiengeflecht",
+    "item_drop_hsmino_1": "Qingbo-Bambuswindspiel",
+    "item_drop_hstiger_1": "Langfell der Wüstlingsbestie",
+    "item_drop_hvybow_1": "Nebeldurchtränkte Knochenbrecher-Balliste",
+    "item_drop_lbroshan_1": "Belagerungsfaust-Fingerhandschuhe",
+    "item_drop_lbtough_1": "Zerschmetterte Axtklinge",
+    "item_drop_sandb_1": "Axthorn",
+    "item_drop_wgabyss_1": "Tafelfertige Weinlese",
+    "item_drop_jzmonk_1": "Jahrhundertschale",
+    "item_drop_jzogre_1": "Goldene Schwanzschuppe",
+    "item_corp4_spc": "Rhodes-Island-Spezialration",
+    "item_jzmonk_1_hsmob_1_1": "Sprossen mit Schalengeschmack"
   },
   "buildingNames": {
     "component_mc_1": "Einpasseinheit",
@@ -1886,11 +1926,11 @@
     "pump_1": "Flüssigkeitspumpe",
     "pump_2": "Säurefeste Pumpe Mk II"
   },
-  "buildingModes":{
+  "buildingModes": {
     "normal": "STD-Modus",
     "liquid": "Flüssigkeitsmodus"
   },
-  "formulaSidebar":{
+  "formulaSidebar": {
     "sector": {
       "source": "Quelle",
       "using": "Anwendbare Formeln",

@@ -741,7 +741,9 @@
     "hetoniteComponent": "혁동 장비 부품",
     "hetoniteSolution": "혁동 용액",
     "precipitationAcid": "산성 침적물",
-    "liquidHeavyXiranite": "액화 중식양"
+    "liquidHeavyXiranite": "액화 중식양",
+    "centuryRind": "백년 숙성 진피",
+    "caudalGoldscale": "꼬리 금갑"
   },
   "common": {
     "copy": "복사",
@@ -925,7 +927,9 @@
     "pogranichnik": "포그라니치니크",
     "rossi": "로시",
     "zhuangfy": "장방이",
-    "zhuangFangyi": "장방이"
+    "zhuangFangyi": "장방이",
+    "miFu": "미브",
+    "mifu": "미브"
   },
   "weaponsList": {
     "industry01": "공업 0.1",
@@ -995,7 +999,10 @@
     "finchaser30": "린수를 찾아서 3.0",
     "lupineScarlet": "늑대의 혈흔",
     "loneBarge": "고독한 나룻배",
-    "flickersInTheMist": "안개 속 불빛"
+    "flickersInTheMist": "안개 속 불빛",
+    "phantomPain": "환상통",
+    "amaranthineTassel": "적영",
+    "beaconOfDuty": "등불의 사명"
   },
   "cookies": {
     "title": "쿠키 사용 안내",
@@ -1092,7 +1099,14 @@
     "world_energy_point07_4": "고위 에너지 응집점 · 수돈",
     "world_energy_point08_3": "에너지 응집점 · 실험 구역",
     "world_energy_point08_2": "에너지 응집점 · 실험 구역",
-    "world_energy_point08_6": "고위 에너지 응집점 · 실험 구역"
+    "world_energy_point08_6": "고위 에너지 응집점 · 실험 구역",
+    "world_energy_point09_1": "에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_2": "에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_3": "에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_4": "고위 에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_5": "고위 에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_6": "고위 에너지 응집점 · 장검 골짜기",
+    "world_energy_point09_7": "고위 에너지 응집점 · 장검 골짜기"
   },
   "enemies": {
     "eny_0007_mimicw": "터널링 니드웜",
@@ -1166,7 +1180,10 @@
     "eny_0078_nefarp1": "'본 크러셔' 네파리스",
     "eny_0095_ethillu": "잔영",
     "eny_0079_nefarp2": "'정복자' 네파리스",
-    "eny_0082_hsbear": "천고"
+    "eny_0082_hsbear": "천고",
+    "eny_0112_jzmonk": "록하울러",
+    "eny_0113_jzogre": "무장 맹글러",
+    "eny_0114_jzmking": "거대한 록하울러"
   },
   "essencesPage": {
     "optimizer": "파밍 최적화",
@@ -1414,7 +1431,15 @@
     "item_equip_t4_suit_combo_cd01_hand_02": "청파 보호 장갑",
     "item_equip_t4_suit_expend_spell01_edc_02": "식양의 흐름 단봉",
     "item_equip_t4_suit_expend_spell01_body_02": "식양의 흐름 경갑",
-    "item_equip_t4_suit_phy01_hand_03": "검술사 전술 금속 장갑 · I"
+    "item_equip_t4_suit_phy01_hand_03": "검술사 전술 금속 장갑 · I",
+    "item_equip_t4_suit_combo_cd01_edc_04": "청파 위치 지정기 · I",
+    "item_equip_t4_suit_crush_fracture_body_01": "고검의 잔향 장갑",
+    "item_equip_t4_suit_crush_fracture_body_02": "고검의 잔향 장갑 · I",
+    "item_equip_t4_suit_crush_fracture_edc_01": "고검의 잔향 단검",
+    "item_equip_t4_suit_crush_fracture_edc_02": "고검의 잔향 단검 · I",
+    "item_equip_t4_suit_crush_fracture_hand_01": "고검의 잔향 금속 장갑",
+    "item_equip_t4_suit_crush_fracture_hand_02": "고검의 잔향 금속 장갑 · I",
+    "item_equip_t4_suit_phy01_body_04": "검술사 섬유 방어구"
   },
   "packs": {
     "none": "세트 없음",
@@ -1462,7 +1487,8 @@
     "suit_wisd01": "침식 차단",
     "suit_wisdwill01": "통합 경량형 모델",
     "suit_combo_cd01": "청파",
-    "suit_expend_spell01": "식양의 흐름"
+    "suit_expend_spell01": "식양의 흐름",
+    "suit_crush_fracture": "고검의 잔향"
   },
   "equipmentTypes": {
     "body": "방어구",
@@ -1663,7 +1689,7 @@
     "item_activity_xiranite_enr_tool": "실험용 옥동 발산기",
     "item_activity_xiranite_hulu": "식양 호리병",
     "item_carbon_enr": "안정된 카본 조각",
-    "item_carbon_enr_powder": "고운 카본 가루",
+    "item_carbon_enr_powder": "고밀도 카본 가루",
     "item_carbon_mtl": "카본 조각",
     "item_carbon_powder": "카본 가루",
     "item_copper_bottle": "적동 병",
@@ -1674,7 +1700,7 @@
     "item_copper_nugget": "적동 조각",
     "item_copper_powder": "적동 가루",
     "item_crystal_enr": "정련된 오리고 크러스트",
-    "item_crystal_enr_powder": "고운 오리고 크러스트 가루",
+    "item_crystal_enr_powder": "고밀도 오리고 크러스트 가루",
     "item_crystal_powder": "오리고 크러스트 가루",
     "item_crystal_shell": "오리고 크러스트",
     "item_equip_script_1": "자수정 장비 부품",
@@ -1759,7 +1785,7 @@
     "item_iron_enr": "강철 조각",
     "item_iron_enr_bottle": "강철 병",
     "item_iron_enr_cmpt": "강철 부품",
-    "item_iron_enr_powder": "고운 페리움 가루",
+    "item_iron_enr_powder": "고밀도 페리움 가루",
     "item_iron_nugget": "페리움 조각",
     "item_iron_powder": "페리움 가루",
     "item_liquid_copper": "적동 용액",
@@ -1772,7 +1798,7 @@
     "item_liquid_xiranite_lowpoly": "불활성 양정 폐액",
     "item_liquid_xiranite_poly": "양정 폐액",
     "item_muck_xiranite_1": "팽지박",
-    "item_originium_enr_powder": "고운 오리지늄 가루",
+    "item_originium_enr_powder": "고밀도 오리지늄 가루",
     "item_originium_powder": "오리지늄 가루",
     "item_plant_bbflower_powder_1": "아케톤 가루",
     "item_plant_moss_enr_powder_1": "고운 메밀꽃 가루",
@@ -1829,7 +1855,7 @@
     "item_corp4_animal_1": "무릉 볶음밥",
     "item_corp4_grass2_1": "채소 볶음밥",
     "item_dog_1_slimeml_1_1": "고기들의 회의",
-    "item_dog_hsmob_corp_1": "고기국수",
+    "item_dog_hsmob_corp_1": "전씨네 특제 고기국수",
     "item_erhound_1_agmelee_1_moss_1_1": "안갯불에 물든 꽃",
     "item_ethillu_1_wgslime_1_wgthorns_1_1": "메아리의 비약",
     "item_firebat_1_agrange_1_1": "식용 지옥의 용광로",
@@ -1860,7 +1886,21 @@
     "item_wgshoal_1_grass_1_grass_2_1": "작은 설탕 그림",
     "item_wgslime_1_hsmob_1_grass_2_1": "드래곤 버블 채소 젤리",
     "item_wgslime_1_wgthorns_1_1": "신비한 탄산음료",
-    "item_wgthorns_1_hshog_1_hsmob_1_1": "기름 폭발 볶음"
+    "item_wgthorns_1_hshog_1_hsmob_1_1": "기름 폭발 볶음",
+    "item_drop_agdisk_1": "전도 초상석",
+    "item_drop_agshield_1": "천연 결정 덩어리",
+    "item_drop_hsbear_1": "하울러비스트의 털 묶음",
+    "item_drop_hsmino_1": "청파죽령",
+    "item_drop_hstiger_1": "레이커비스트의 긴 털",
+    "item_drop_hvybow_1": "대형 안개의 쇠뇌",
+    "item_drop_lbroshan_1": "파괴자의 권갑",
+    "item_drop_lbtough_1": "산산조각 난 도끼날",
+    "item_drop_sandb_1": "큰 도끼뿔",
+    "item_drop_wgabyss_1": "속성 발효주",
+    "item_drop_jzmonk_1": "백년 숙성 진피",
+    "item_drop_jzogre_1": "꼬리 금갑",
+    "item_corp4_spc": "로도스 아일랜드 특별 제작 식량",
+    "item_jzmonk_1_hsmob_1_1": "진피 죽순 무침"
   },
   "buildingNames": {
     "component_mc_1": "부품 가공기",
@@ -1887,11 +1927,11 @@
     "pump_1": "양수기",
     "pump_2": "내산성 양수기 II"
   },
-  "buildingModes":{
+  "buildingModes": {
     "normal": "기본 모드",
     "liquid": "액체 모드"
   },
-  "formulaSidebar":{
+  "formulaSidebar": {
     "sector": {
       "source": "획득 방법",
       "using": "사용 가능 조합 공식",
