@@ -125,7 +125,8 @@
     "weap-standard": "อาวุธมาตรฐาน",
     "weap-special": "อาวุธกิจกรรม",
     "weapon-all": "แบนเนอร์อาวุธ",
-    "joint": "เทศกาล​เจิด​จรัส"
+    "joint": "เทศกาล​เจิด​จรัส",
+    "weponbox_1_3_1": "ตั๋ว​ปม​สกา​เล็ต"
   },
   "import": {
     "title": "นำเข้าประวัติการเฟ้นหา",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "ตั๋ว​เสียงดัง​สนั่น​ก้อง",
     "joint_1_2_2": "เทศกาล​เจิด​จรัส",
     "weponbox_1_2_2": "ตั๋ว​เพลิง​หลอมละลาย",
-    "weponbox_1_2_3": "ตั๋ว​นัก​เดินเท้า​ไว"
+    "weponbox_1_2_3": "ตั๋ว​นัก​เดินเท้า​ไว",
+    "special_1_3_1": "กำปั้น​ไม่​หวนคืน",
+    "weponbox_1_3_1": "ตั๋ว​ปม​สกา​เล็ต"
   },
   "pages": {
     "home": "หน้าแรก",
@@ -380,7 +383,17 @@
     "partyTogetherPastryTower": "[ปาร์ตี้ไปด้วยกัน] - [หอคอยขนมหวาน]",
     "sanitySupply": "เสบียง​ค่า​สติ",
     "qingboRising": "เช็คอิน ชิงปัวรุ่งอรุณ",
-    "risingTideOfWuling": "เช็คอิน น้ำขึ้นที่อู่หลิง"
+    "risingTideOfWuling": "เช็คอิน น้ำขึ้นที่อู่หลิง",
+    "oneWithHerFistsSignIn": "ลงชื่อ​เข้าสู่ระบบ​ หนึ่งเดียว​กับ​กำปั้น",
+    "protocolPassViridianMont": "บัตร​ผ่าน​โปร​โต​คอล​: วิ​ริ​เดียน​ มองต์",
+    "carlyFairytaleOfTheWuling": "นิทาน​แห่ง​อู่​หลิง​ของ​คาร์​ลี",
+    "trialAlgorithmics": "อัล​กอ​ริ​ธึ​มท​ด​สอบ",
+    "trialOfSwordmancy": "บท​ทดสอบ​แห่ง​วิชาดา​บ",
+    "contingencyContract": "สัญญา​ฉุกเฉิน",
+    "contingencyReadiness": "ความพร้อม​ฉุกเฉิน",
+    "seatchForSwordVaultDale": "ค้นหา​เดล​คลัง​ดาบ",
+    "monumentalEtchingDirgeOfGrief": "จารึก​อนุสรณ์​: บทเพลง​คร่ำครวญ​แห่ง​ความ​โศกเศร้า",
+    "umbralMonument": "อนุสาวรีย์​แห่ง​เงามืด"
   },
   "mouths": {
     "january": "มกราคม",

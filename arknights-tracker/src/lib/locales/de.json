@@ -125,7 +125,8 @@
     "weap-standard": "Standard-Waffe",
     "weap-special": "Event-Waffe",
     "weapon-all": "Waffenbanner",
-    "joint": "Feier der Exzellenz"
+    "joint": "Feier der Exzellenz",
+    "weponbox_1_3_1": "Scharlachknoten-Ausgabe"
   },
   "import": {
     "title": "Rekrutierungsverlauf importieren",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "Donnergrollen",
     "joint_1_2_2": "Feier der Exzellenz",
     "weponbox_1_2_2": "Hüttenfeuer-Ausgabe",
-    "weponbox_1_2_3": "Schnellschreiter-Ausgabe"
+    "weponbox_1_2_3": "Schnellschreiter-Ausgabe",
+    "special_1_3_1": "Fäuste ohne Reue",
+    "weponbox_1_3_1": "Scharlachknoten-Ausgabe"
   },
   "pages": {
     "home": "Home",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "Monumentales Ätzen: Unheilsflut",
     "partyTogetherPastryTower": "[Gemeinsam feiern] – [Gebäckturm]",
     "sanitySupply": "Verstandsversorgung",
-    "risingTideOfWuling": "Anmeldung: Flut von Wuling"
+    "risingTideOfWuling": "Anmeldung: Flut von Wuling",
+    "oneWithHerFistsSignIn": "„Eins mit ihren Fäusten“-Anmeldung",
+    "protocolPassViridianMont": "Protokollpass: Viridian Mont",
+    "carlyFairytaleOfTheWuling": "Carlys Wuling-Märchen",
+    "trialAlgorithmics": "Prüfungsalgorithmik",
+    "trialOfSwordmancy": "Prüfung der Schwertkunst",
+    "contingencyContract": "Krisenschutzvertrag",
+    "contingencyReadiness": "Krisenbereitschaft",
+    "seatchForSwordVaultDale": "Die Suche nach dem Tal des Schwertverlieses",
+    "monumentalEtchingDirgeOfGrief": "Monumentales Ätzen: Klagegesang",
+    "umbralMonument": "Schattenmonument"
   },
   "mouths": {
     "january": "Januar",

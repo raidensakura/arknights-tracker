@@ -125,7 +125,8 @@
     "weap-standard": "Arma Standard",
     "weap-special": "Arma Evento",
     "weapon-all": "Banner Armi",
-    "joint": "Festival della lucentezza"
+    "joint": "Festival della lucentezza",
+    "weponbox_1_3_1": "Distribuzione Nodo scarlatto"
   },
   "import": {
     "title": "Importa Registro Reclutamenti",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "Distribuzione Fragore del tuono",
     "joint_1_2_2": "Festival della lucentezza",
     "weponbox_1_2_2": "Distribuzione Fiamma della fonderia",
-    "weponbox_1_2_3": "Distribuzione Viandante celere"
+    "weponbox_1_2_3": "Distribuzione Viandante celere",
+    "special_1_3_1": "Pugni senza rimorsi",
+    "weponbox_1_3_1": "Distribuzione Nodo scarlatto"
   },
   "pages": {
     "home": "Home",
@@ -380,7 +383,17 @@
     "partyTogetherPastryTower": "Festa in compagnia - Torre di dolci",
     "sanitySupply": "Fornitura di Lucidità",
     "qingboRising": "Ascesa di Qingbo",
-    "risingTideOfWuling": "Accesso: Marea montante di Wuling"
+    "risingTideOfWuling": "Accesso: Marea montante di Wuling",
+    "oneWithHerFistsSignIn": "Accesso A suon di pugni",
+    "protocolPassViridianMont": "Pass protocollare: Monte Viridiano",
+    "carlyFairytaleOfTheWuling": "La fiaba di Wuling di Carly",
+    "trialAlgorithmics": "Algoritmi di prova",
+    "trialOfSwordmancy": "Prova di Spadamanzia",
+    "contingencyContract": "Contratto di emergenza",
+    "contingencyReadiness": "Reattività alle emergenze",
+    "seatchForSwordVaultDale": "Ricerca della Valletta di Voltaspada",
+    "monumentalEtchingDirgeOfGrief": "Incisione monumentale: Canto di dolore",
+    "umbralMonument": "Monumento d'ombra"
   },
   "mouths": {
     "january": "Gennaio",

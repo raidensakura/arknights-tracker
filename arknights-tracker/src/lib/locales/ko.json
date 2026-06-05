@@ -125,7 +125,8 @@
     "weap-standard": "통상 무기",
     "weap-special": "이벤트 무기",
     "weapon-all": "무기 배너",
-    "joint": "찬란한 빛의 축제"
+    "joint": "찬란한 빛의 축제",
+    "weponbox_1_3_1": "붉은 결속 신청"
   },
   "import": {
     "title": "헤드헌팅 기록 가져오기",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "뇌명 신청",
     "joint_1_2_2": "찬란한 빛의 축제",
     "weponbox_1_2_2": "용작 신청",
-    "weponbox_1_2_3": "질풍 신청"
+    "weponbox_1_2_3": "질풍 신청",
+    "special_1_3_1": "후회 없는 주먹",
+    "weponbox_1_3_1": "붉은 결속 신청"
   },
   "pages": {
     "home": "홈",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "기억의 흔적 · 불결한 흐름",
     "partyTogetherPastryTower": "「함께하는 기쁨」 - 「이 순간을 즐기며」",
     "sanitySupply": "이성 보급",
-    "risingTideOfWuling": "무릉의 밀물 출석"
+    "risingTideOfWuling": "무릉의 밀물 출석",
+    "oneWithHerFistsSignIn": "권심일체 출석 체크",
+    "protocolPassViridianMont": "프로토콜 통행증 · 푸른 산맥",
+    "carlyFairytaleOfTheWuling": "칼리의 무릉 동화",
+    "trialAlgorithmics": "연무 알고리즘",
+    "trialOfSwordmancy": "선검 연무",
+    "contingencyContract": "위기 협약",
+    "contingencyReadiness": "위기 대응 준비",
+    "seatchForSwordVaultDale": "골짜기의 검을 찾아서",
+    "monumentalEtchingDirgeOfGrief": "기억의 흔적 · 분노의 외침",
+    "umbralMonument": "그림자 이정표"
   },
   "mouths": {
     "january": "1월",

@@ -122,7 +122,8 @@
     "weap-standard": "Arma Estándar",
     "weap-special": "Arma de Evento",
     "weapon-all": "Banners de armas",
-    "joint": "Festival del resplandor"
+    "joint": "Festival del resplandor",
+    "weponbox_1_3_1": "Solicitud de Nudo escarlata"
   },
   "import": {
     "title": "Importar Historial de Reclutamiento",
@@ -312,7 +313,9 @@
     "weaponbox_constant_5": "Solicitud del Estruendo estrepitoso",
     "joint_1_2_2": "Festival del resplandor",
     "weponbox_1_2_2": "Solicitud del Fuego de fundición",
-    "weponbox_1_2_3": "Solicitud del Caminante veloz"
+    "weponbox_1_2_3": "Solicitud del Caminante veloz",
+    "special_1_3_1": "Puños sin arrepentimientos",
+    "weponbox_1_3_1": "Solicitud de Nudo escarlata"
   },
   "pages": {
     "home": "Inicio",
@@ -379,7 +382,17 @@
     "umbralMonumentTurbidityManifest": "Manifestación de turbiedad",
     "monumentalEtchingCorruptingSurge": "Grabado monumental: oleada de corrupción",
     "partyTogetherPastryTower": "[Celebremos juntos] - [Torre de repostería]",
-    "sanitySupply": "Suministro de Cordura"
+    "sanitySupply": "Suministro de Cordura",
+    "oneWithHerFistsSignIn": "Inicio de sesión de Una con sus puños",
+    "protocolPassViridianMont": "Pase de protocolo: Viridian Mont",
+    "carlyFairytaleOfTheWuling": "Cuento de hadas de Carly de Wuling",
+    "trialAlgorithmics": "Algoritmos de prueba",
+    "trialOfSwordmancy": "Prueba del Arte de la espada",
+    "contingencyContract": "Contrato de contingencia",
+    "contingencyReadiness": "Preparación ante contingencias",
+    "seatchForSwordVaultDale": "En busca del Valle Ocultaespadas",
+    "monumentalEtchingDirgeOfGrief": "Grabado monumental: Canto fúnebre del pesar",
+    "umbralMonument": "Monumento del umbral"
   },
   "mouths": {
     "january": "Enero",

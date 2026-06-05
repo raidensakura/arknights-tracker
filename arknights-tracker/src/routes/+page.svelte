@@ -370,7 +370,7 @@
       </div>
 
       <div
-        class="bg-white dark:bg-[#383838] rounded-xl gap-1 p-4 shadow-sm border border-gray-100 dark:border-[#444444] flex flex-col min-h-[300px]"
+        class="bg-white dark:bg-[#383838] rounded-xl gap-1 p-4 shadow-sm border border-gray-100 dark:border-[#444444] flex flex-col min-h-[250px]"
       >
         <div class="flex items-center justify-between mb-2">
           <h3

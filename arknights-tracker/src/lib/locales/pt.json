@@ -125,7 +125,8 @@
     "weap-standard": "Arma Padrão",
     "weapSpecial": "Arma de Evento",
     "weapon-all": "Banners de Armas",
-    "joint": "Festival do Brilhantismo"
+    "joint": "Festival do Brilhantismo",
+    "weponbox_1_3_1": "Distribuição Nó Escarlate"
   },
   "import": {
     "title": "Importar Histórico de Busca",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "Edição Estrondo",
     "joint_1_2_2": "Festival do Brilhantismo",
     "weponbox_1_2_2": "Distribuição Fogo Fundente",
-    "weponbox_1_2_3": "Distribuição Caminhante Veloz"
+    "weponbox_1_2_3": "Distribuição Caminhante Veloz",
+    "special_1_3_1": "Punhos Sem Remorsos",
+    "weponbox_1_3_1": "Distribuição Nó Escarlate"
   },
   "pages": {
     "home": "Início",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "Entalhe Monumental: Surto de Corrupção",
     "partyTogetherPastryTower": "[Encontro Festivo] - [Torre de Bolo]",
     "sanitySupply": "Suprimento de Sanidade",
-    "risingTideOfWuling": "Login: Maré Alta de Wuling"
+    "risingTideOfWuling": "Login: Maré Alta de Wuling",
+    "oneWithHerFistsSignIn": "Login em Uma Com Seus Punhos",
+    "protocolPassViridianMont": "Passe do Protocolo: Monte Viridian",
+    "carlyFairytaleOfTheWuling": "Conto de Fadas de Carly de Wuling",
+    "trialAlgorithmics": "Algoritmos do Desafio",
+    "trialOfSwordmancy": "Desafio de Espadomancia",
+    "contingencyContract": "Contrato de Contingência",
+    "contingencyReadiness": "Preparação de Contingência",
+    "seatchForSwordVaultDale": "A Procura do Vale do Cofre de Espadas",
+    "monumentalEtchingDirgeOfGrief": "Entalhe Monumental: Lamento da Dor",
+    "umbralMonument": "Monumento Umbral"
   },
   "mouths": {
     "january": "Janeiro",

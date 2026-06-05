@@ -125,7 +125,8 @@
     "weap-standard": "標準武器",
     "weap-special": "活動武器",
     "weapon-all": "武器卡池",
-    "joint": "輝光慶典"
+    "joint": "輝光慶典",
+    "weponbox_1_3_1": "絳結申領"
   },
   "import": {
     "title": "匯入尋訪記錄",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "雷鳴申領",
     "joint_1_2_2": "輝光慶典",
     "weponbox_1_2_2": "熔灼申領",
-    "weponbox_1_2_3": "疾行申領"
+    "weponbox_1_2_3": "疾行申領",
+    "special_1_3_1": "拳出無悔",
+    "weponbox_1_3_1": "絳結申領"
   },
   "pages": {
     "home": "首頁",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "豐碑留名·穢流",
     "partyTogetherPastryTower": "「共賀慶典」 - 「此時歡宴」",
     "sanitySupply": "理智補給",
-    "risingTideOfWuling": "武陵潮生簽到"
+    "risingTideOfWuling": "武陵潮生簽到",
+    "oneWithHerFistsSignIn": "拳與心合簽到",
+    "protocolPassViridianMont": "協議通行證·蒼山",
+    "carlyFairytaleOfTheWuling": "卡莉的武陵童話",
+    "trialAlgorithmics": "演武集算",
+    "trialOfSwordmancy": "選劍演武",
+    "contingencyContract": "危機合約",
+    "contingencyReadiness": "危機籌備",
+    "seatchForSwordVaultDale": "尋劍幽谷",
+    "monumentalEtchingDirgeOfGrief": "豐碑留名·忿聲",
+    "umbralMonument": "影拓豐碑"
   },
   "mouths": {
     "january": "一月",

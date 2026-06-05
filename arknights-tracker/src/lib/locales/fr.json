@@ -125,7 +125,8 @@
     "weap-standard": "Arme Standard",
     "weap-special": "Arme Événement",
     "weapon-all": "Bannières d'armes",
-    "joint": "Festival de Radiance"
+    "joint": "Festival de Radiance",
+    "weponbox_1_3_1": "Tirage de nœud écarlate"
   },
   "import": {
     "title": "Importer l'Historique de Recrutement",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "Tirage de fracas du tonnerre",
     "joint_1_2_2": "Festival de Radiance",
     "weponbox_1_2_2": "Tirage du feu des forges",
-    "weponbox_1_2_3": "Tirage du marcheur alerte"
+    "weponbox_1_2_3": "Tirage du marcheur alerte",
+    "special_1_3_1": "Poings sans regrets",
+    "weponbox_1_3_1": "Tirage de nœud écarlate"
   },
   "pages": {
     "home": "Accueil",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "Gravure monumentale : vague de corruption",
     "partyTogetherPastryTower": "[Réjouissances] - [Pièce montée]",
     "sanitySupply": "Approvisionnement en lucidité",
-    "risingTideOfWuling": "Connexion : Marée montante de Wuling"
+    "risingTideOfWuling": "Connexion : Marée montante de Wuling",
+    "oneWithHerFistsSignIn": "Connexion - Communion des poings",
+    "protocolPassViridianMont": "Pass de Protocole : Mont viride",
+    "carlyFairytaleOfTheWuling": "« Les contes de fées de Wuling » de Carly",
+    "trialAlgorithmics": "Algorithmique des épreuves",
+    "trialOfSwordmancy": "Épreuve de spadamancie",
+    "contingencyContract": "Contrat de crise",
+    "contingencyReadiness": "Parer à toute éventualité",
+    "seatchForSwordVaultDale": "Recherche du Val du caveau des lames",
+    "monumentalEtchingDirgeOfGrief": "Gravure monumentale : mélopée lugubre",
+    "umbralMonument": "Monument de l'ombre"
   },
   "mouths": {
     "january": "Janvier",

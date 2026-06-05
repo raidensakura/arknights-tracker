@@ -817,7 +817,7 @@ export const rawEvents = [
   },
   {
     id: "ev8-v1.3",
-    title: "events.",
+    title: "events.umbralMonument",
     name: "Umbral Monument",
     startTime: "2026-07-02 12:00:00",
     endTime: "2026-07-16 04:00:00",
@@ -832,7 +832,7 @@ export const rawEvents = [
   },
   {
     id: "ev9-v1.3",
-    title: "events.",
+    title: "events.monumentalEtchingDirgeOfGrief",
     name: "Monumental Etching: Dirge of Grief",
     startTime: "2026-07-02 12:00:00",
     endTime: "2026-07-16 04:00:00",

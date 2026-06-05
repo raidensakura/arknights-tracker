@@ -125,7 +125,8 @@
     "weap-standard": "通常武器",
     "weap-special": "イベント武器",
     "weapon-all": "武器バナー",
-    "joint": "輝きの祝典"
+    "joint": "輝きの祝典",
+    "weponbox_1_3_1": "赫結・申請"
   },
   "import": {
     "title": "発掘履歴のインポート",
@@ -313,7 +314,9 @@
     "weaponbox_constant_5": "雷光・申請",
     "joint_1_2_2": "輝きの祝典",
     "weponbox_1_2_2": "溶融・申請",
-    "weponbox_1_2_3": "早駆・申請"
+    "weponbox_1_2_3": "早駆・申請",
+    "special_1_3_1": "拳に悔い無し",
+    "weponbox_1_3_1": "赫結・申請"
   },
   "pages": {
     "home": "ホーム",
@@ -380,7 +383,17 @@
     "monumentalEtchingCorruptingSurge": "記憶の痕・毒流",
     "partyTogetherPastryTower": "「祝典を共に」 - 「祝宴の時」",
     "sanitySupply": "理性補給",
-    "risingTideOfWuling": "武陵の満ち潮ログイン"
+    "risingTideOfWuling": "武陵の満ち潮ログイン",
+    "oneWithHerFistsSignIn": "拳心一体スタンプ",
+    "protocolPassViridianMont": "協約通行証・蒼山",
+    "carlyFairytaleOfTheWuling": "カーリーの武陵絵本",
+    "trialAlgorithmics": "演武アルゴリズム",
+    "trialOfSwordmancy": "選剣演武",
+    "contingencyContract": "危機契約",
+    "contingencyReadiness": "危機準備",
+    "seatchForSwordVaultDale": "幽谷探剣",
+    "monumentalEtchingDirgeOfGrief": "記憶の痕・怒鳴",
+    "umbralMonument": "映像の記念碑"
   },
   "mouths": {
     "january": "1月",
