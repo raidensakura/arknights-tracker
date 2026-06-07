@@ -37,8 +37,35 @@
     }
 
     let isBottomSheetOpen = false;
-    let selectedItemId = "item_plant_grass_1";
-    let sidebarMode = "tree"
+    let sidebarMode = "tree";
+
+    let selectedItemNode;
+
+    let currentItemId;
+    let currentFormulas = [];
+    let isHeadItem = false;
+
+    $: if (selectedItemNode) {
+        currentItemId = selectedItemNode.itemId;
+
+        currentFormulas = [];
+
+        let formula = selectedItemNode.formula;
+        if (formula) {
+            currentFormulas.push(formula);
+        }
+
+        let parentFormula = selectedItemNode.parentNode?.formula;
+        if (parentFormula) {
+            currentFormulas.push(parentFormula);
+        }
+
+        isHeadItem = !selectedItemNode.parentNode;
+    } else {
+        currentItemId = null;
+        currentFormulas = [];
+        isHeadItem = false;
+    }
 
 </script>
 
@@ -67,6 +94,8 @@
             <FormulaTreePlate
                 startItemId={startItemId}
                 startFormula={startFormula}
+                bind:isBottomSheetOpen={isBottomSheetOpen}
+                bind:selectedItemNode={selectedItemNode}
             />
 
         </div>
@@ -75,10 +104,14 @@
 
     <BottomSheet bind:isOpen={isBottomSheetOpen}>
         <div class="w-full min-h-[50vh] h-full xl:h-[calc(100vh-64px)] sticky top-8">
+
             <FormulaSidebar
-                currentItemId={selectedItemId}
+                currentItemId={currentItemId}
                 mode="{sidebarMode}"
+                currentFormulas={currentFormulas}
+                isHeadItem={isHeadItem}
             />
+
         </div>
     </BottomSheet>
 

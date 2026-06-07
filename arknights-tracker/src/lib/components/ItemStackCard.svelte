@@ -14,6 +14,7 @@
     export let url;
 
     export let size = "default"; // "default" | "small" | "micro"
+    export let highlightRingSize = "default"; // "default" | "4"
 
     export let showAmount = true;
     export let highlight = false;
@@ -65,7 +66,7 @@
         }
     })();
 
-    $: highlightRing = highlight ? "ring-2 ring-[#F9B90C]" : "";
+    $: highlightRing = highlight ? `${highlightRingSize === "4" ? "ring-4" : "ring-2"} ring-[#F9B90C]` : "";
 
     let isHovered = false;
     $: rarityColor = getRarityColor(item?.rarity ?? 1);

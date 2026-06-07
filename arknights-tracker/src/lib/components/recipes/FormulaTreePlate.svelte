@@ -8,6 +8,10 @@
     export let startItemId = "item_activity_xiranite_enr_hulu";
     export let startFormula;
 
+    export let isBottomSheetOpen;
+
+    export let selectedItemNode;
+
     let tree = new FormulaTree();
 
     let startItem;
@@ -24,7 +28,27 @@
         forceTreeUpdate();
     }
 
+    // let selectedNode;
+
     $: nodes = [...tree.getIterator()];
+
+    function selectNode(node) {
+        console.log("sdfg");
+        console.log(node.itemId);
+
+        if (node === selectedItemNode) {
+            selectedItemNode = null;
+            isBottomSheetOpen = false;
+            return;
+        }
+
+        selectedItemNode = node;
+        isBottomSheetOpen = true;
+    }
+
+    $: isNodeSelected = (node) => {
+        return selectedItemNode === node;
+    };
 
     function getXpx(stage) {
         return 100 + stage * 200;
@@ -50,9 +74,19 @@
                  style="top: {getYpx(node.layer)}px; right:{getXpx(node.stage)}px">
                 {#if node.type === "itemNode"}
 
-                    <ItemStackCard
-                        itemId={node.itemId}
-                    />
+                    <button
+                        tabindex="0"
+                        class="w-[110px] h-[110px] rounded-[6px] cursor-pointer aspect-square transition-all duration-300"
+                        on:click|preventDefault|stopPropagation={() => selectNode(node)}
+                    >
+
+                        <ItemStackCard
+                            itemId={node.itemId}
+                            highlight={isNodeSelected(node)}
+                            highlightRingSize="4"
+                        />
+
+                    </button>
 
                 {:else if node.type === "resourcePointNode"}
 
