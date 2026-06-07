@@ -34,6 +34,8 @@
 
     export let mode = ""; // "recipes" | "tree" | "building"
 
+    export let selectedFormula;
+
     $: isRecipesMode = mode === "recipes";
     $: isTreeMode = mode === "tree";
     $: isBuildingMode = mode === "building";
@@ -102,6 +104,10 @@
 
     $: sortedEnableFuelIds = [...(powerStation?.enableFuelIds ?? [])]
         .sort((a, b) => Fuel.getFuel(a).powerProvide - Fuel.getFuel(b).powerProvide);
+
+    function handleFormulaClick(formula) {
+        selectedFormula = formula;
+    }
 
     // todo localization
     $: treeSwitchButtonText = isTreeMode
@@ -202,6 +208,8 @@
                                 formula={HubCraft.getHubCraft(craftId)}
                                 highlightItemId={item.id}
                                 itemsAsLink={itemsAsLink}
+                                formulaAsButton={isTreeMode}
+                                onClick={handleFormulaClick}
                             />
 
                         {/each}
@@ -219,6 +227,8 @@
                                 formula={ManualCraft.getManualCraft(craftId)}
                                 highlightItemId={item.id}
                                 itemsAsLink={itemsAsLink}
+                                formulaAsButton={isTreeMode}
+                                onClick={handleFormulaClick}
                             />
 
                         {/each}
@@ -236,6 +246,8 @@
                                     formula={Miner.getMiner(minerId).getMiningFormula(item.id)}
                                     highlightItemId={item.id}
                                     itemsAsLink={itemsAsLink}
+                                    formulaAsButton={isTreeMode}
+                                    onClick={handleFormulaClick}
                                 />
 
                             {/if}
@@ -254,6 +266,8 @@
                                     formula={Pump.getPump(pumpId).getPumpingFormula(item.id)}
                                     highlightItemId={item.id}
                                     itemsAsLink={itemsAsLink}
+                                    formulaAsButton={isTreeMode}
+                                    onClick={handleFormulaClick}
                                 />
 
                             {/if}
@@ -274,6 +288,8 @@
                                         formula={MachineCraft.getMachineCraft(craftId)}
                                         highlightItemId={item.id}
                                         itemsAsLink={itemsAsLink}
+                                        formulaAsButton={isTreeMode}
+                                        onClick={handleFormulaClick}
                                     />
 
                                 {/each}

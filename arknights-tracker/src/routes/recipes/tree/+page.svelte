@@ -67,6 +67,9 @@
         isHeadItem = false;
     }
 
+    let selectedFormula;
+
+
 </script>
 
 <div class="max-w-[100%] flex flex-col xl:flex-row">
@@ -94,6 +97,7 @@
             <FormulaTreePlate
                 startItemId={startItemId}
                 startFormula={startFormula}
+                bind:selectedFormula={selectedFormula}
                 bind:isBottomSheetOpen={isBottomSheetOpen}
                 bind:selectedItemNode={selectedItemNode}
             />
@@ -110,6 +114,7 @@
                 mode="{sidebarMode}"
                 currentFormulas={currentFormulas}
                 isHeadItem={isHeadItem}
+                bind:selectedFormula={selectedFormula}
             />
 
         </div>

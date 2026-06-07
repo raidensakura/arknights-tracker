@@ -11,7 +11,7 @@
     export let itemsAsLink = false;
     export let formulaAsButton = false;
 
-    export let isClicked = false;
+    export let onClick;
 
     $: mode = formula.formulaType;
 
@@ -71,7 +71,9 @@
     $: buttonHoverEffects = formulaAsButton ? "hover:bg-gray-200 dark:hover:bg-[#424242] cursor-pointer" : "";
 
     function selectFormula() {
-        // isClicked = true;
+        if (!onClick) return;
+
+        onClick(formula);
     }
     
 </script>
@@ -80,7 +82,7 @@
     this={formulaAsButton ? "button" : "div"}
     class="flex flex-row gap-3 h-[68px] w-full pl-1 pt-1 pb-1 rounded-md {buttonHoverEffects}"
     role={formulaAsButton ? "button" : "presentation"}
-    on:click|preventDefault|stopPropagation={() => selectFormula()}
+    on:click|stopPropagation={formulaAsButton ? () => selectFormula() : undefined}
 >
 
     <div class="flex flex-row gap-2">

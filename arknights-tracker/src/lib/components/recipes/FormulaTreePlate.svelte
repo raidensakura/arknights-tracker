@@ -11,6 +11,7 @@
     export let isBottomSheetOpen;
 
     export let selectedItemNode;
+    export let selectedFormula;
 
     let tree = new FormulaTree();
 
@@ -26,19 +27,36 @@
     ) {
         tree.setStartNode(startItem.id, startFormula);
         forceTreeUpdate();
+        console.log("start")
     }
 
     $: nodes = [...tree.getIterator()];
+
+    $: if (selectedFormula) {
+        console.log(selectedItemNode.itemId);
+        selectedItemNode.formula = selectedFormula;
+        console.log(selectedItemNode.formula?.id);
+        selectedFormula = null;
+        tree.updateNode(selectedItemNode);
+        tree.updateNodePositions();
+        selectedItemNode = null;
+        isBottomSheetOpen = false;
+
+        forceTreeUpdate();
+        console.log("sfgdfg")
+    }
 
     function selectNode(node) {
         if (node === selectedItemNode) {
             selectedItemNode = null;
             isBottomSheetOpen = false;
+            console.log("unselected");
             return;
         }
 
         selectedItemNode = node;
         isBottomSheetOpen = true;
+        console.log("selected")
     }
 
     $: isNodeSelected = (node) => {
@@ -55,6 +73,7 @@
 
     function forceTreeUpdate() {
         tree = tree;
+        console.log("forceTreeUpdate");
     }
 
 </script>
@@ -63,7 +82,7 @@
     <div class="relative shrink-0 bg-gray-600"
          style="width: {getXpx(tree.maxStage) + 200}px; height: {getYpx(tree.maxLayer) + 200}px;">
 
-        {#each nodes as node}
+        {#each tree.getIterator() as node}
 
             <div class="absolute top-[{getYpx(node.layer)}px] right-[{getXpx(node.stage)}px] top-0"
                  style="top: {getYpx(node.layer)}px; right:{getXpx(node.stage)}px">
