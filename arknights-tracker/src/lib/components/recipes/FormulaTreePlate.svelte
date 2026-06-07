@@ -28,14 +28,9 @@
         forceTreeUpdate();
     }
 
-    // let selectedNode;
-
     $: nodes = [...tree.getIterator()];
 
     function selectNode(node) {
-        console.log("sdfg");
-        console.log(node.itemId);
-
         if (node === selectedItemNode) {
             selectedItemNode = null;
             isBottomSheetOpen = false;
