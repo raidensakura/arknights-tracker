@@ -125,8 +125,8 @@
 
     <div class="absolute bottom-3 left-3 items-center justify-center flex flex-row bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]">
 
-        <div class="flex h-8 w-20 items-center justify-center">
-            <span class="font-nums text-xl text-[#21272C] dark:text-[#FDFDFD]">
+        <div class="flex h-8 w-16 items-center justify-center">
+            <span class="font-mono text-xl text-[#21272C] dark:text-[#FDFDFD]">
                 {scale * 100}%
             </span>
         </div>
