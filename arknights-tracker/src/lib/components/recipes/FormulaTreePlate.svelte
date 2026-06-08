@@ -98,6 +98,8 @@
                             itemId={node.itemId}
                             highlight={isNodeSelected(node)}
                             highlightRingSize="4"
+                            showAmount={false}
+                            interactiveImages={false}
                         />
 
                     </button>
