@@ -165,7 +165,7 @@
 
             {/if}
 
-            {#if node.childNodes.length === 0 && node.type === "itemNode"}
+            {#if node.childNodes.length === 0 && node.formula && node.type === "itemNode"}
 
                 <div
                     class="absolute flex items-center h-[110px]"
