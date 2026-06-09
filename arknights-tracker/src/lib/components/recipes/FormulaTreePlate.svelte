@@ -99,6 +99,7 @@
     const pointYByNodeHeightPx = itemNodeHeightPx / 2;
     
     const pointRadiusPx = 6;
+    const lineWidthPx = 4;
 
     function getXpx(stage) {
         return 100 + stage * (itemNodeWidthPx + itemNode2ItemNodeXDistancePx);
@@ -144,6 +145,19 @@
         return getYpx(layer) + pointYByNodeHeightPx;
     }
 
+    function getLinePath(x1, y1, x2, y2) {
+        let dx = x2 - x1;
+        let dy = y2 - y1;
+
+        if (dy === 0) {
+            return `M ${x1} ${y1} L ${x2} ${y2}`;
+        }
+
+        return`M ${x1} ${y1} `
+        + `Q ${x1 + dx / 2} ${y1}, ${x1 + dx / 2} ${y1 + dx / 2} `
+        + `L ${x1 + dx / 2} ${y2 - dx / 2} `
+        + `Q ${x1 + dx / 2} ${y2}, ${x2} ${y2}`;
+    }
 
     function forceTreeUpdate() {
         tree = tree;
@@ -204,7 +218,27 @@
                                 r="{pointRadiusPx}"
                                 fill="currentColor"
                             />
+
+                            <path
+                                d="{getLinePath(getPointXItemNodeLeft(node.stage), getPointYNode(node.layer),
+                                getPointXBuildingNodeRight(node.stage), getPointYNode(node.layer))}"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-width="{lineWidthPx}"
+                            />
                         {/if}
+
+                        {#each node.childNodes as childNode}
+
+                            <path
+                                d="{getLinePath(getPointXBuildingNodeLeft(node.stage), getPointYNode(node.layer),
+                                getPointXItemNodeRight(childNode.stage), getPointYNode(childNode.layer))}"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-width="{lineWidthPx}"
+                            />
+
+                        {/each}
 
                     {/each}
 
