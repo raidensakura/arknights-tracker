@@ -32,6 +32,14 @@
         y = 0;
     }
 
+    function resetScale() {
+        const oldScale = scale;
+        scale = 1;
+        const scaleChange = scale / oldScale;
+        x = x * scaleChange;
+        y = y * scaleChange;
+    }
+
     function onMouseDown(e) {
         isDragging = true;
         startX = e.clientX - x;
@@ -125,11 +133,14 @@
 
     <div class="absolute bottom-3 left-3 items-center justify-center flex flex-row bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]">
 
-        <div class="flex h-8 w-16 items-center justify-center">
+        <button
+            class="flex h-8 w-16 items-center justify-center"
+            onclick={resetScale}
+        >
             <span class="font-mono text-xl text-[#21272C] dark:text-[#FDFDFD]">
                 {scale * 100}%
             </span>
-        </div>
+        </button>
 
     </div>
 
