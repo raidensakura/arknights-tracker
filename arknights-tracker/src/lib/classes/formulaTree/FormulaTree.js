@@ -238,39 +238,21 @@ export class FormulaTree {
      * @private
      */
     _getFirstFormula(item) {
-        let formula;
-
-        formula = this._getFirstMiningFormula(item.id);
-
-        if (formula) return formula;
-
         if (item.subGroupId === "nature_liquid") {
-            formula = this._getFirstPumpingFormula(item.id);
-
-            if (formula) return formula;
-
-            formula = this._getFirstMachineCraft(item.id);
-
-            if (formula) return formula;
-        } else {
-            formula = this._getFirstMachineCraft(item.id);
-
-            if (formula) return formula;
-
-            formula = this._getFirstPumpingFormula(item.id);
-
-            if (formula) return formula;
+            return this._getFirstMiningFormula(item.id)
+                || this._getFirstPumpingFormula(item.id)
+                || this._getFirstMachineCraft(item.id)
+                || this._getFirstManualCraft(item.id)
+                || this._getFirstHubCraft(item.id)
+                || null;
         }
 
-        formula = this._getFirstManualCraft(item.id);
-
-        if (formula) return formula;
-
-        formula = this._getFirstHubCraft(item.id);
-
-        if (formula) return formula;
-
-        return null;
+        return this._getFirstMiningFormula(item.id)
+            || this._getFirstMachineCraft(item.id)
+            || this._getFirstPumpingFormula(item.id)
+            || this._getFirstManualCraft(item.id)
+            || this._getFirstHubCraft(item.id)
+            || null;
     }
 
     _getFirstMachineCraft(itemId) {
