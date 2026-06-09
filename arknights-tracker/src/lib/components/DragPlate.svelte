@@ -7,7 +7,6 @@
 
     function openSettings() {
         isSettingsOpen = true;
-        console.log("Settings open");
     }
 
     let scale = 1;
