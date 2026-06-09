@@ -7,6 +7,7 @@
 
     function openSettings() {
         isSettingsOpen = true;
+        console.log("Settings open");
     }
 
     let scale = 1;
@@ -58,15 +59,9 @@
     }
 
     function onMouseDown(e) {
-        if ($ctrlForZoom) {
-            isDragging = true;
-            startX = e.clientX - x;
-            startY = e.clientY - y;
-        } else {
-            isDragging = true;
-            startX = e.clientX - x;
-            startY = e.clientY - y;
-        }
+        isDragging = true;
+        startX = e.clientX - x;
+        startY = e.clientY - y;
     }
 
     function onMouseMove(e) {
@@ -85,11 +80,34 @@
         e.stopImmediatePropagation();
 
         if ($ctrlForZoom) {
-            if (!e.ctrlKey && !e.metaKey) {
-                x -= e.deltaX;
-                y -= e.deltaY;
+            if (e.ctrlKey || e.metaKey) {
+                const rect = e.currentTarget.getBoundingClientRect();
+
+                const mouseX = e.clientX - rect.left - rect.width / 2;
+                const mouseY = e.clientY - rect.top - rect.height / 2;
+
+                const oldScale = scale;
+
+                const delta = -e.deltaY * 0.001;
+                const newScale = Math.min(maxScale, Math.max(minScale, oldScale * Math.exp(delta)));
+
+                if (Math.abs(newScale - oldScale) < 0.001) return;
+
+                scale = newScale;
+                const scaleChange = scale / oldScale;
+                x = mouseX - scaleChange * (mouseX - x);
+                y = mouseY - scaleChange * (mouseY - y);
                 return;
             }
+
+            if (e.shiftKey) {
+                x -= e.deltaY || e.deltaX;
+                return;
+            }
+
+            x -= e.deltaX;
+            y -= e.deltaY;
+            return;
         }
 
         const rect = e.currentTarget.getBoundingClientRect();
