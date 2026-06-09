@@ -78,7 +78,7 @@
         const delta = -e.deltaY * 0.001;
         const newScale = Math.min(maxScale, Math.max(minScale, oldScale * Math.exp(delta)));
 
-        if (Math.abs(newScale - oldScale) < 0.001) return;
+        // if (Math.abs(newScale - oldScale) < 0.001) return;
 
         scale = newScale;
         const scaleChange = scale / oldScale;
