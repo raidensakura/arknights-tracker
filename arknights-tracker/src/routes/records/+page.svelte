@@ -303,9 +303,13 @@
   })();
 
   let draggedCardId = null;
+  let lastSwapX = 0;
+  let lastSwapY = 0;
 
   function handleDragStart(event, cardId) {
     draggedCardId = cardId;
+    lastSwapX = event.clientX;
+    lastSwapY = event.clientY;
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData('text/plain', cardId);
   }
@@ -335,6 +339,27 @@
     const targetIndex = currentOrder.indexOf(targetCardId);
 
     if (sourceIndex !== -1 && targetIndex !== -1 && sourceIndex !== targetIndex) {
+      let draggedColIdx = -1;
+      let targetColIdx = -1;
+      columnsData.forEach((col, colIdx) => {
+        if (col.some(card => card.id === draggedCardId)) draggedColIdx = colIdx;
+        if (col.some(card => card.id === targetCardId)) targetColIdx = colIdx;
+      });
+
+      if (draggedColIdx !== -1 && draggedColIdx === targetColIdx) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const relativeY = event.clientY - rect.top;
+        const margin = Math.min(50, rect.height * 0.2);
+
+        if (sourceIndex < targetIndex) {
+          if (relativeY < margin) return;
+        } else {
+          if (relativeY > rect.height - margin) return;
+        }
+      }
+
+      lastSwapX = event.clientX;
+      lastSwapY = event.clientY;
       currentOrder.splice(sourceIndex, 1);
       currentOrder.splice(targetIndex, 0, draggedCardId);
       $recordsCardsOrder = currentOrder;
