@@ -362,7 +362,8 @@
     "equipment": "Equipment",
     "bannerHistory": "Banner History",
     "enemies": "Enemies",
-    "recipes": "Recipes"
+    "recipes": "Recipes",
+    "recipeTree": "Recipe Chain"
   },
   "events": {
     "type": {
@@ -2022,7 +2023,8 @@
       "using": "Applicable Formulas",
       "availableFormulas": "Available Formulas",
       "availableFunctions": "Available Functions",
-      "resourceCollection": "Gatherable Resources"
+      "resourceCollection": "Gatherable Resources",
+      "currentFormulas": "Current Formulas"
     },
     "craftSource": {
       "hub": "Automation-Core",
@@ -2030,6 +2032,10 @@
     },
     "items": {
       "power": "Power"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Change chain",
+      "openTree": "View chain"
     }
   },
   "resourcePointNames": {
