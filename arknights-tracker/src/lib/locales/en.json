@@ -363,7 +363,8 @@
     "equipment": "Equipment",
     "bannerHistory": "Banner History",
     "enemies": "Enemies",
-    "recipes": "Recipes"
+    "recipes": "Recipes",
+    "recipeTree": "Recipe Chain"
   },
   "events": {
     "type": {
@@ -870,6 +871,7 @@
     "title": "Settings",
     "other": "Other",
     "disableDarkening": "Disable weapon and operator card darkening",
+    "toggleCtrlForZoom": "Hold Ctrl to zoom",
     "account": {
       "title": "Select Account",
       "add": "Add",
@@ -2023,7 +2025,8 @@
       "using": "Applicable Formulas",
       "availableFormulas": "Available Formulas",
       "availableFunctions": "Available Functions",
-      "resourceCollection": "Gatherable Resources"
+      "resourceCollection": "Gatherable Resources",
+      "currentFormulas": "Current Formulas"
     },
     "craftSource": {
       "hub": "Automation-Core",
@@ -2031,6 +2034,10 @@
     },
     "items": {
       "power": "Power"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Change chain",
+      "openTree": "View chain"
     }
   },
   "resourcePointNames": {

@@ -273,7 +273,7 @@
 
             {:else}
 
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(110px,1fr))] md:grid-cols-[repeat(auto-fill,110px)] gap-5 justify-start">
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(110px,1fr))] md:grid-cols-[repeat(auto-fill,110px)] gap-3 justify-start">
                     {#each displayedItems as item}
                         <button
                             tabindex="0"
@@ -308,8 +308,12 @@
         <BottomSheet
             bind:isOpen={isBottomSheetOpen}
         >
-            <div class="w-full min-h-[50vh] h-full xl:h-[95vh] sticky top-8">
-                <FormulaSidebar currentItemId={selectedItemId} />
+            <div class="w-full min-h-[50vh] h-full xl:h-[calc(100vh-64px)] sticky top-8">
+                <FormulaSidebar
+                    currentItemId={selectedItemId}
+                    mode="recipes"
+                    itemsAsLink={true}
+                />
             </div>
         </BottomSheet>
 </div>

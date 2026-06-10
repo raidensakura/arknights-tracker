@@ -11,12 +11,16 @@
     export let itemId = "";
     export let amount = 0;
     export let tooltipText;
+    export let url;
 
     export let size = "default"; // "default" | "small" | "micro"
+    export let highlightRingSize = "default"; // "default" | "4"
 
     export let showAmount = true;
     export let highlight = false;
     export let showTooltip = false;
+    export let asLink = false;
+    export let interactiveImages = true;
 
     $: item = Item.getItem(itemId);
 
@@ -63,7 +67,7 @@
         }
     })();
 
-    $: highlightRing = highlight ? "ring-2 ring-[#F9B90C]" : "";
+    $: highlightRing = highlight ? `${highlightRingSize === "4" ? "ring-4" : "ring-2"} ring-[#F9B90C]` : "";
 
     let isHovered = false;
     $: rarityColor = getRarityColor(item?.rarity ?? 1);
@@ -73,9 +77,11 @@
     text={tooltipFinalText}
 >
 
-    <div
-        class="relative flex flex-col cursor-pointer select-none group flex-shrink-0 {boxSize} no-underline focus:outline-none focus:ring-2 focus:ring-[#F9B90C] rounded-[6px] {highlightRing}"
-        role="presentation"
+    <svelte:element
+        this={asLink ? "a" : "div"}
+        href={asLink ? url : undefined}
+        role={asLink ? "link" : "presentation"}
+        class="relative flex flex-col cursor-pointer select-none group flex-shrink-0 {boxSize} no-underline focus:outline-none rounded-[6px] {highlightRing}"
         on:mouseenter={() => (isHovered = true)}
         on:mouseleave={() => (isHovered = false)}
     >
@@ -96,7 +102,7 @@
                 <div class="absolute inset-0 flex items-center justify-center z-0 bottom-[6px]">
                     <Images
                         id={item.iconId}
-                        interactive={true}
+                        interactive={interactiveImages}
                         variant="item-icon"
                         className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300"
                         alt={item.id}
@@ -108,7 +114,7 @@
                         <div class="w-2/3 h-2/3">
                             <Images
                                 id={liquid.iconId}
-                                interactive={true}
+                                interactive={interactiveImages}
                                 variant="item-icon"
                                 className="w-full h-full object-contain blur-[0.3px] rotate-[0.01deg] backface-hidden transform-gpu transition-all duration-300"
                             />
@@ -157,6 +163,6 @@
             </div>
         {/if}
 
-    </div>
+    </svelte:element>
 
 </Tooltip>

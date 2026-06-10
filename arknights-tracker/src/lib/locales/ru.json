@@ -362,7 +362,8 @@
     "equipment": "Снаряжение",
     "bannerHistory": "История баннеров",
     "enemies": "Враги",
-    "recipes": "Рецепты"
+    "recipes": "Рецепты",
+    "recipeTree": "Цепочка рецептов"
   },
   "events": {
     "type": {
@@ -872,6 +873,7 @@
     "title": "Настройки",
     "other": "Прочее",
     "disableDarkening": "Отключить затемнение карточек оружия и оперативников",
+    "toggleCtrlForZoom": "Удерживать Ctrl для приближения",
     "account": {
       "title": "Выберите аккаунт",
       "save": "Сохранить",
@@ -2025,7 +2027,8 @@
       "using": "Подходящие формулы",
       "availableFormulas": "Доступные формулы",
       "availableFunctions": "Доступные функции",
-      "resourceCollection": "Сбор ресурсов"
+      "resourceCollection": "Сбор ресурсов",
+      "currentFormulas": "Текущие формулы"
     },
     "craftSource": {
       "hub": "Блок автоматизации",
@@ -2033,6 +2036,10 @@
     },
     "items": {
       "power": "Энергия"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Сменить цепочку",
+      "openTree": "Посмотреть цепочку"
     }
   },
   "resourcePointNames": {
