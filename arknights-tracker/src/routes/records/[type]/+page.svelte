@@ -1083,7 +1083,7 @@
                                                             </Tooltip>
                                                         {:else if row.status === "guaranteed" && !isAllWeaponCategory}
                                                             <Tooltip
-                                                                textKey="{`${$t("status.guaranteed")} ${isWeapon ? "80" : "120"}`}"
+                                                                textKey={`${$t("status.guaranteed")} ${isWeapon ? "80" : "120"}`}
                                                             >
                                                                 <Icon
                                                                     name="guaranteed"
