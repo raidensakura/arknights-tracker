@@ -23,6 +23,8 @@ export class Item {
         return this._itemObj.groupId;
     }
 
+    get subGroupId() {}
+
     get type() {
         return this._itemObj.type;
     }
