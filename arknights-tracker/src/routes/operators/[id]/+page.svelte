@@ -18,6 +18,8 @@
     import SkillCard from "$lib/components/operators/SkillCard.svelte";
     import Image from "$lib/components/Image.svelte";
     import TalentCard from "$lib/components/operators/TalentCard.svelte";
+    import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
+    import NotFound from "$lib/components/NotFound.svelte";
 
     function formatBirthDate(raw, lang) {
         if (typeof raw !== "string" || !/^\d{1,2}-\d{1,2}$/.test(raw))
@@ -508,45 +510,6 @@
         }
     }
 
-    function parseRichText(text) {
-        if (!text) return "";
-
-        const styles = {
-            "ba.natur": "text-[#4ADE80] font-bold", // Природный
-            "ba.fire": "text-[#F87171] font-bold", // Огненный
-            "ba.cryst": "text-[#67E8F9] font-bold", // Кристаллический
-            "ba.pulse": "text-[#C084FC] font-bold", // Электрический
-            "ba.phy": "text-[#A3A3A3] font-bold", // Физический
-            "ba.poise": "text-[#FBBF24] font-bold", // Ошеломление
-            "ba.vup": "text-[#38BDF8] font-bold", // Повышение
-            "ba.key": "text-[#E3BC55] font-bold", // Ключевые термины
-            "ba.conduct": "text-[#C084FC] font-bold", // Электризация
-            "ba.spelldmg": "text-[#E3BC55] font-bold", // Урон от искусств
-            "ba.info": "text-gray-500 dark:text-[#A0A0A0] italic font-normal text-[13px]",
-            "ba.heal": "text-[#4ADE80] font-bold",
-            "ba.consume": "text-[#E3BC55] font-bold",
-            "ba.noguard": "text-[#F87171] font-bold",
-            "ba.crush": "text-[#FBBF24] font-bold",
-            "ba.fracture": "text-[#FBBF24] font-bold",
-            "ba.pd": "text-[#A3A3A3] font-bold",
-            "ba.physicalvul": "text-[#F87171] font-bold",
-            "ba.originium": "text-[#67E8F9] font-bold",
-            "ba.return": "text-[#38BDF8] font-bold",
-        };
-
-        let html = text.replace(/<([@#])([^>]+)>/g, (match, type, tag) => {
-            if (tag === "profile.key") return `<span>`;
-            let styleClass = styles[tag] || "text-[#E3BC55] font-bold";
-            if (type === "#") {
-                styleClass +=
-                    " underline decoration-dashed decoration-current underline-offset-4";
-            }
-            return `<span class="${styleClass}">`;
-        });
-        html = html.replace(/<\/>/g, "</span>");
-        html = html.replace(/\n/g, "<br>");
-        return html;
-    }
 
     function interpolateBlackboard(text, bb) {
         if (!text) return "";
@@ -595,6 +558,9 @@
 
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
+{#if !char.id}
+    <NotFound />
+{:else}
 <div class="min-h-screen relative flex flex-col md:px-8 md:py-3">
     <div
         class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 transition-opacity duration-500 {activeTab ===
@@ -1318,6 +1284,7 @@
                                         </h3>
                                         <div
                                             class="text-gray-700 dark:text-[#E4E4E4] whitespace-pre-wrap text-sm leading-relaxed font-medium"
+                                            use:hyperlinkAction
                                         >
                                             {@html parseRichText(fileContent)}
                                         </div>
@@ -1366,6 +1333,7 @@
                                                 </h3>
                                                 <div
                                                     class="text-gray-700 text-sm dark:text-[#E4E4E4] leading-relaxed font-medium mt-1"
+                                                    use:hyperlinkAction
                                                 >
                                                     {@html parseRichText(
                                                         interpolateBlackboard(
@@ -1944,6 +1912,8 @@
             </button>
         </div>
     </div>
+{/if}
+
 {/if}
 
 <style>

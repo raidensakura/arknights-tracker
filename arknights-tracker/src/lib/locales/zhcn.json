@@ -8,6 +8,23 @@
   "hints": {
     "editPotential": "要更改武器潜能，请点击铅笔图标。"
   },
+  "privacy": {
+    "title": "隐私政策",
+    "analytics_title": "隐私与分析",
+    "analytics_text1": "我们使用 Firebase Analytics（Google Analytics）收集访问流量和性能指标，以改进 Goyfield.moe。",
+    "analytics_text2": "Goyfield.moe 使用 localStorage 技术将您的用户首选项（如选择的服务器、主题、语言）和寻访历史数据本地存储在您的设备上。",
+    "tracker_title": "寻访记录器",
+    "tracker_text1": "默认情况下，所有导入的寻访数据都保存在您的本地设备上。您的导入链接（包含临时 Token）仅发送 to Goyfield.moe 后端服务器，用于连接官方游戏 API 并获取您的历史记录。链接本身、Token 或任何个人账户数据均不会与第三方共享，且不会以明文形式存储在服务器上。",
+    "tracker_text2": "如果在导入过程中发生系统错误，该链接可能会暂时保存在管理员日志中，以便我们找出并修复错误。",
+    "global_title": "全服统计",
+    "global_text": "当您导入历史记录时，关于您寻访的某些匿名信息（道具类型、稀有度、时间、卡池）会被保存在我们的服务器上。此数据与自动生成的匿名标识符（UID）相关联，用于支持“全服统计”部分。",
+    "cloud_title": "云端同步",
+    "cloud_text1": "Goyfield.moe 提供了关联 Google 账号的选项，以便为您寻访的数据创建云端备份。您的用户名和电子邮件地址仅显示在设置界面中，绝不会与第三方共享。",
+    "cloud_text2": "与本地存储不同，在使用此功能时，您的寻访数据将安全地存储在我们的云端数据库（Firebase）中。您可以随时通过“设置”登出账号。",
+    "close": "关闭"
+  },
+  "maintenance_title": "系统维护中",
+  "maintenance_desc": "目前正在进行网站更新的技术维护工作。请稍后再试！",
   "sidebar": {
     "home": "首页",
     "records": "寻访记录",
@@ -17,8 +34,6 @@
     "theme_dark": "深色",
     "theme_light": "浅色"
   },
-  "maintenance_title": "系统维护中",
-  "maintenance_desc": "目前正在进行网站更新的技术维护工作。请稍后再试！",
   "footer": {
     "devResources": "开发者资源",
     "officialResources": "官方资源",
@@ -126,6 +141,8 @@
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼之绯",
     "weponbox_1_2_1": "行舟申领",
+    "weponbox_1_3_1": "绛结申领",
+    "special_1_1_1": "河流的女儿",
     "weaponbox_constant_1": "坚冰刊",
     "weaponbox_constant_2": "宙声刊",
     "weaponbox_constant_3": "远征刊",
@@ -136,8 +153,7 @@
     "weap-standard": "标准武器",
     "weap-special": "活动武器",
     "weapon-all": "武器卡池",
-    "joint": "辉光庆典",
-    "weponbox_1_3_1": "绛结申领"
+    "joint": "辉光庆典"
   },
   "import": {
     "title": "导入寻访记录",
@@ -199,18 +215,21 @@
     "delete_confirm": "从内存中删除此 Token？",
     "errHistoryEmpty": "记录为空或链接已过期。未找到 UID。",
     "tab_pc": "Web",
+    "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
+    "tab_pc3": "PC 3",
     "tab_pc_manual": "PC (手动)",
     "tab_android": "Android",
+    "tab_pc_web": "Web",
+    "pc_web_step1": "登录您的帐户：",
+    "pc_web_step2": "在书签栏上（按 Ctrl + Shift + B 显示），点击“添加网页”，输入任意名称，然后将此代码粘贴到 URL 字段中：",
+    "pc_web_step3": "在网站上时，点击该书签——链接将被复制。",
+    "pc_web_hint": "此方法是安全的，并且直接通过您的浏览器运行。",
     "tab_ios": "iOS (Beta)",
     "wip": "开发中",
     "manual_text_pre": "前往文件",
     "manual_text_mid": " 用记事本打开它，滚动到最底部并找到类似以下的链接",
     "manual_text_post": "的链接并复制。",
-    "pc_web_step1": "登录您的帐户：",
-    "pc_web_step2": "在书签栏上（按 Ctrl + Shift + B 显示），点击“添加网页”，输入任意名称，然后将此代码粘贴到 URL 字段中：",
-    "pc_web_step3": "在网站上时，点击该书签——链接将被复制。",
-    "pc_web_hint": "此方法是安全的，并且直接通过您的浏览器运行。",
     "android_note": "像 ByeByeDPI 这样的应用或开启的 VPN 可能会干扰日志抓取。如果日志为空，请尝试重新安装 VPN。",
     "android_s1": "从 GitHub 下载 <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> 和 <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a>。",
     "android_s2": "连接 Wi-Fi。打开 Shizuku（允许通知）。",
@@ -250,6 +269,7 @@
     "error_no_data": "未找到寻访记录或链接已过期",
     "error_unknown": "未知错误",
     "error_network": "Bad Gateway (网络错误)",
+    "error_invalid_token": "Token无效或已过期。请登录游戏重新生成链接。",
     "error_account_mismatch": "账号不匹配！您已经拥有 {start} 至 {end} 的记录，但导入的数据完全不同。请检查是否选择了正确的账号。",
     "recoveryStats": "记录恢复",
     "recoveryTooltip": "勾选此框将强制恢复寻访记录（如果适用）。这有助于解决部分寻访记录丢失的问题。",
@@ -312,6 +332,7 @@
     "special_1_1_1": "河流的女儿",
     "special_1_1_2": "狼珀",
     "special_1_2_1": "春雷动，万物生",
+    "special_1_3_1": "拳出无悔",
     "standard_01": "基础寻访",
     "new_player_01": "启程寻访",
     "weponbox_1_0_1": "熔铸申领",
@@ -320,6 +341,7 @@
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼之绯",
     "weponbox_1_2_1": "行舟申领",
+    "weponbox_1_3_1": "绛结申领",
     "weaponbox_constant_1": "坚冰申领",
     "weaponbox_constant_2": "星声申领",
     "weaponbox_constant_3": "远途申领",
@@ -327,9 +349,7 @@
     "weaponbox_constant_5": "雷鸣申领",
     "joint_1_2_2": "辉光庆典",
     "weponbox_1_2_2": "熔灼申领",
-    "weponbox_1_2_3": "疾行申领",
-    "special_1_3_1": "拳出无悔",
-    "weponbox_1_3_1": "绛结申领"
+    "weponbox_1_2_3": "疾行申领"
   },
   "pages": {
     "home": "首页",
@@ -342,7 +362,10 @@
     "changelog": "更新日志",
     "equipment": "装备",
     "bannerHistory": "卡池历史",
-    "enemies": "敌人"
+    "enemies": "敌人",
+    "recipes": "配方",
+    "recipeTree": "配方链",
+    "openRecipe": "打开配方"
   },
   "events": {
     "type": {
@@ -371,6 +394,7 @@
     "delverOfTheCryptic": "密境行者",
     "spectralSplendorTrialSignIn": "异彩斑斓签到",
     "sanityDiscount": "理智减耗",
+    "qingboRising": "清波将起",
     "quietlyFlowsTheSpring": "泉流无声",
     "supplyExplorationDay": "物资供给·开拓节",
     "cleanseAndRise": "净流涤尘",
@@ -379,8 +403,9 @@
     "scorchMask": "丰碑留名·炽痕",
     "etchspaceSalvageZone4": "像差区域4",
     "gentlyFlowsQinbo": "清波静流签到",
-    "journeyOfTheLongEar": "长耳兽之旅",
     "pearlOfThePack": "狼群瑰宝签到",
+    "journeyOfTheLongEar": "长耳兽之旅",
+    "risingTideOfWuling": "武陵潮生签到",
     "subduerOfTheBlightedSea": "镇绥蚀海",
     "wulingSuperChef": "物资供给·武陵特厨",
     "curiousUseOfXiranite": "息壤妙用",
@@ -395,8 +420,7 @@
     "monumentalEtchingCorruptingSurge": "丰碑留名·秽流",
     "partyTogetherPastryTower": "「共贺庆典」 - 「此时欢宴」",
     "sanitySupply": "理智补给",
-    "qingboRising": "清波将起",
-    "risingTideOfWuling": "武陵潮生签到",
+    "curiosAndMyths": "「异趣与神话」签到",
     "oneWithHerFistsSignIn": "拳与心合签到",
     "protocolPassViridianMont": "协议通行证·苍山",
     "carlyFairytaleOfTheWuling": "卡莉的武陵童话",
@@ -442,6 +466,7 @@
     "left_d_h": "剩余 {d}天 {h}小时",
     "left_h": "剩余 {h}小时",
     "left_h_m": "剩余 {h}小时 {m}分",
+    "left_m": "剩余 {m} 分钟",
     "starts_in_h_m": "{h}小时 {m}分 后",
     "starts_in_m": "{m}分 后",
     "starts_in_d_h": "{d}天 {h}小时 后",
@@ -500,12 +525,48 @@
     "stats": "属性",
     "slot": "槽位",
     "pack": "套装",
+    "itemGroup": "物品分组",
     "itemGroups": {
       "nature": "自然资源",
       "gatherable": "采集材料",
       "product": "工业产物",
       "usable": "可用道具",
       "facility": "生产工具"
+    },
+    "itemSubGroups": {
+      "facility_battle": "战斗",
+      "facility_crafter": "生产",
+      "facility_miner": "采矿",
+      "facility_other": "其他",
+      "facility_powerStation": "发电",
+      "facility_pump": "水泵",
+      "facility_soil": "种植",
+      "gatherable_drop": "掉落物",
+      "gatherable_muck": "排泄物",
+      "gatherable_plant": "昆虫",
+      "nature_flowerPlant": "花",
+      "nature_grassPlant": "草",
+      "nature_liquid": "液体",
+      "nature_ore": "矿石",
+      "nature_soilPlant": "种植植物",
+      "nature_wood": "木材",
+      "product_activityXiranite": "实验息壤",
+      "product_amethyst": "紫晶",
+      "product_battery": "电池",
+      "product_carbon": "碳",
+      "product_component": "组件",
+      "product_copper": "赤铜",
+      "product_fullBottle": "瓶装物",
+      "product_iron": "蓝铁",
+      "product_liquid": "液体",
+      "product_muck": "肥料",
+      "product_originium": "源石",
+      "product_powder": "粉末",
+      "product_xiranite": "息壤",
+      "usable_bomb": "炸药",
+      "usable_bottledProdFood": "食物",
+      "usable_other": "其他",
+      "usable_powder": "粉末"
     }
   },
   "menu": {
@@ -804,12 +865,14 @@
     "won": "命中",
     "pulls": "抽",
     "roll": "第X抽",
-    "percent": "百分比"
+    "percent": "百分比",
+    "pull_one": "寻访"
   },
   "settings": {
     "title": "设置",
     "other": "其他",
     "disableDarkening": "禁用武器和干员卡牌变暗",
+    "toggleCtrlForZoom": "按住 Ctrl 进行缩放",
     "account": {
       "title": "选择账号",
       "add": "添加",
@@ -923,7 +986,10 @@
     "discordJoin": "加入 Discord",
     "docsTitle": "Goyfield DEV 文档",
     "docsAuthor": "作者 @beetwooo_",
-    "goToTimeline": "前往活动"
+    "goToTimeline": "前往活动",
+    "fullSupportLanguages": "完全支持的语言",
+    "uiLanguages": "界面语言",
+    "uiLanguagesDesc": "支持网站界面翻译的语言。对于游戏内名称，将使用所选的完全支持的游戏翻译语言。您可以在 <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">Goyfield Discord 服务器</a>中协助翻译"
   },
   "characters": {
     "catcher": "卡契尔",
@@ -1963,7 +2029,8 @@
       "using": "参与配方",
       "availableFormulas": "可用配方",
       "availableFunctions": "可用功能",
-      "resourceCollection": "可采集资源"
+      "resourceCollection": "可采集资源",
+      "currentFormulas": "当前配方"
     },
     "craftSource": {
       "hub": "协议核心",
@@ -1971,6 +2038,10 @@
     },
     "items": {
       "power": "发电"
+    },
+    "treeSwitchButton": {
+      "changeTree": "修改配方链",
+      "openTree": "查看配方链"
     }
   },
   "resourcePointNames": {

@@ -364,7 +364,8 @@
     "bannerHistory": "Banner History",
     "enemies": "Enemies",
     "recipes": "Recipes",
-    "recipeTree": "Recipe Chain"
+    "recipeTree": "Recipe Chain",
+    "openRecipe": "Open recipes"
   },
   "events": {
     "type": {
@@ -964,6 +965,8 @@
     }
   },
   "home": {
+    "uiLanguages": "Interface Languages",
+    "uiLanguagesDesc": "Languages supporting website interface translation. For game designations, the selected fully supported game translation language will be used. You can help with translation on the <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">Goyfield Discord server</a>",
     "promocodes": "Promo codes",
     "go_back": "Back",
     "rewards": "Rewards",
@@ -985,7 +988,8 @@
     "discordJoin": "Join Discord Server",
     "docsTitle": "Goyfield DEV Documentation",
     "docsAuthor": "by @beetwooo_",
-    "goToTimeline": "Go to events"
+    "goToTimeline": "Go to events",
+    "fullSupportLanguages": "Fully Supported Languages"
   },
   "characters": {
     "catcher": "Catcher",

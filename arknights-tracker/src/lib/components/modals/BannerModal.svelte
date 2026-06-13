@@ -8,7 +8,7 @@
     import { banners } from "$lib/data/banners.js";
     import { browser } from "$app/environment";
     import { t } from "$lib/i18n.js";
-    import { currentLocale } from "$lib/stores/locale.js";
+    import { currentLocale, currentUiLocale } from "$lib/stores/locale.js";
 
     import Icon from "$lib/components/Icon.svelte";
     import OperatorCard from "$lib/components/cards/OperatorCard.svelte";
@@ -505,7 +505,7 @@
                             >
                             <span
                                 class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
-                                >{formatTime(realStart, $currentLocale)}</span
+                                >{formatTime(realStart, $currentUiLocale)}</span
                             >
                         </div>
                         <div class="flex flex-col gap-0.5 text-right">
@@ -517,7 +517,7 @@
                                 class="font-nums font-medium dark:text-[#E0E0E0] text-gray-900"
                                 >{banner.isPermanent || !realEnd
                                     ? "∞"
-                                    : formatTime(realEnd, $currentLocale)}</span
+                                    : formatTime(realEnd, $currentUiLocale)}</span
                             >
                         </div>
                     </div>

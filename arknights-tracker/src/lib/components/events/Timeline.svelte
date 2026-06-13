@@ -4,7 +4,7 @@
     import { browser } from "$app/environment";
     import { rawEvents } from "$lib/data/timeline.js";
     import { banners } from "$lib/data/banners.js";
-    import { currentLocale } from "$lib/stores/locale.js";
+    import { currentLocale, currentUiLocale } from "$lib/stores/locale.js";
 
     import Icon from "$lib/components/Icon.svelte";
     import BannerModal from "$lib/components/modals/BannerModal.svelte";
@@ -859,8 +859,8 @@
                                                 {event.realEndTime.getDate()}
                                                 {$t(`months_gen.${event.realEndTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)}
                                             {:else}
-                                                {event.realStartTime.toLocaleDateString($currentLocale || 'en-US', { day: '2-digit', month: '2-digit' })} - 
-                                                {event.realEndTime.toLocaleDateString($currentLocale || 'en-US', { day: '2-digit', month: '2-digit' })}
+                                                {event.realStartTime.toLocaleDateString($currentUiLocale || 'en-US', { day: '2-digit', month: '2-digit' })} - 
+                                                {event.realEndTime.toLocaleDateString($currentUiLocale || 'en-US', { day: '2-digit', month: '2-digit' })}
                                             {/if}
                                         </span>
                                     </div>

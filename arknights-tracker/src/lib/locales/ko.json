@@ -342,7 +342,10 @@
     "changelog": "업데이트 내역",
     "equipment": "장비",
     "bannerHistory": "배너 기록",
-    "enemies": "적"
+    "enemies": "적",
+    "recipes": "레시피",
+    "recipeTree": "레시피 트리",
+    "openRecipe": "레시피 열기"
   },
   "events": {
     "type": {
@@ -923,7 +926,10 @@
     "discordJoin": "Discord 참여",
     "docsTitle": "Goyfield DEV 문서",
     "docsAuthor": "by @beetwooo_",
-    "goToTimeline": "이벤트로"
+    "goToTimeline": "이벤트로",
+    "fullSupportLanguages": "완전 지원되는 언어",
+    "uiLanguages": "인터페이스 언어",
+    "uiLanguagesDesc": "웹사이트 인터페이스 번역을 지원하는 언어입니다. 게임 내 명칭의 경우 선택한 완전 지원 게임 번역 언어가 사용됩니다. 번역 지원은 <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">Goyfield Discord 서버</a>에서 하실 수 있습니다"
   },
   "characters": {
     "catcher": "카치르",
@@ -1963,7 +1969,8 @@
       "using": "사용 가능 조합 공식",
       "availableFormulas": "사용 가능 조합 공식",
       "availableFunctions": "사용 가능 기능",
-      "resourceCollection": "채집 가능 자원"
+      "resourceCollection": "채집 가능 자원",
+      "currentFormulas": "현재 레시피"
     },
     "craftSource": {
       "hub": "프로토콜 코어",
@@ -1971,6 +1978,10 @@
     },
     "items": {
       "power": "발전"
+    },
+    "treeSwitchButton": {
+      "changeTree": "트리 변경",
+      "openTree": "트리 보기"
     }
   },
   "resourcePointNames": {

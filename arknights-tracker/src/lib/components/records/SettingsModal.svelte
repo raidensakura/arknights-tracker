@@ -4,7 +4,7 @@
   import { banners } from "$lib/data/banners.js";
   import { addNotification } from "$lib/stores/index.js";
   import { onDestroy } from "svelte";
-  import { currentLocale } from "$lib/stores/locale.js";
+  import { currentLocale, currentUiLocale } from "$lib/stores/locale.js";
   import Image from "$lib/components/Image.svelte";
 
   import * as XLSX from "xlsx";
@@ -402,8 +402,8 @@
     return ids.map(id => {
       const b = banners.find(x => x.id === id);
       const label = b ? ($t(`banners.${b.id}`) !== `banners.${b.id}` ? $t(`banners.${b.id}`) : b.name) : id;
-      const startFormatted = b ? formatBannerDate(b.startTime, $currentLocale) : "";
-      const endFormatted = b ? (b.endTime ? formatBannerDate(b.endTime, $currentLocale) : ($t("permanent") || "Permanent")) : "";
+      const startFormatted = b ? formatBannerDate(b.startTime, $currentUiLocale) : "";
+      const endFormatted = b ? (b.endTime ? formatBannerDate(b.endTime, $currentUiLocale) : ($t("permanent") || "Permanent")) : "";
       const subLabel = startFormatted && endFormatted ? `${startFormatted} - ${endFormatted}` : "";
       return {
         value: id,

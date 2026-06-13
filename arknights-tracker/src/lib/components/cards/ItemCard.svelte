@@ -3,10 +3,16 @@
 
     import Image from "$lib/components/Image.svelte";
 
+    import { craftableItemsList } from "$lib/data/crafts/craftableItemsList.js";
+    import Tooltip from "$lib/components/Tooltip.svelte";
+    import Icon from "$lib/components/Icon.svelte";
+    import { goto } from "$app/navigation";
+
     export let item = {};
     export let amount = 0;
     export let customPath;
     export let hideAmount = false;
+    export let linkToRecipe = false;
     
     function getRarityColor(rarity) {
         if (rarity === 5) return "#FFC107";
@@ -20,9 +26,34 @@
     $: itemIdKey = item.id ? item.id.replace(/\s+/g, '') : "unknown";
     $: imageVariant = customPath?.toLowerCase().includes("itemname") ? "item-icon" : "item";
     $: translationPrefix = customPath?.toLowerCase().includes("itemname") ? "itemNames" : "items";
+
+    const equipmentMatToItemMap = {
+        'origocrust': 'item_crystal_shell',
+        'wood': 'item_plant_tundra_wood',
+        'amethystComponent': 'item_equip_script_1',
+        'ferriumComponent': 'item_equip_script_2',
+        'crystonComponent': 'item_equip_script_3',
+        'xiraniteComponent': 'item_equip_script_4',
+        'cupriumComponent': 'item_equip_script_4_1',
+        'hetoniteComponent': 'item_equip_script_4_2'
+    };
+
+    $: resolvedItemId = item.id ? (equipmentMatToItemMap[item.id] || item.id) : null;
+    $: hasRecipe = resolvedItemId && craftableItemsList.includes(resolvedItemId);
+
+    function handleClick() {
+        if (hasRecipe && linkToRecipe) {
+            goto(`/recipes/tree?itemId=${resolvedItemId}`);
+        }
+    }
 </script>
 
-<div class="w-[80px] flex flex-col group select-none shadow-sm hover:shadow-md transition-shadow">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div 
+    class="w-[80px] flex flex-col group select-none shadow-sm hover:shadow-md transition-shadow relative {hasRecipe && linkToRecipe ? 'cursor-pointer' : ''}"
+    on:click={handleClick}
+>
     
     <div class="relative w-full bg-[#E5E5E5] flex items-center justify-center overflow-visible">
         
@@ -32,6 +63,16 @@
             interactive={true}
             className="w-full h-full object-contain p-1" 
         />
+
+        {#if hasRecipe && linkToRecipe}
+            <div class="absolute top-1 right-1 z-30">
+                <Tooltip class="cursor-pointer" textKey="pages.openRecipe">
+                    <div class="p-0.5 rounded bg-black/60 text-white hover:bg-black/80 hover:text-[#FFE145] transition-colors flex items-center justify-center">
+                        <Icon name="sendToLink" class="w-3.5 h-3.5" />
+                    </div>
+                </Tooltip>
+            </div>
+        {/if}
 
         <div 
             class="absolute bottom-[-6px] right-[-2px] z-20 text-sm font-bold font-sdk leading-none text-white drop-shadow-[0_2px_0_rgba(0,0,0,1)] stroke-black paint-order-stroke"

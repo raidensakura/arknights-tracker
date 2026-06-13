@@ -10,6 +10,8 @@
     import Button from "$lib/components/Button.svelte";
     import Image from "$lib/components/Image.svelte";
     import WeaponCard from "$lib/components/cards/WeaponCard.svelte";
+    import NotFound from "$lib/components/NotFound.svelte";
+    import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
 
     function tOrFallback(key, fallback) {
         const translated = $t(key);
@@ -90,44 +92,6 @@
     }
     $: rarityColor = getRarityColors(rarity);
 
-    function parseRichText(text) {
-        if (!text) return "";
-
-        const styles = {
-            "ba.natur": "text-[#4ADE80] font-bold", // Природный
-            "ba.fire": "text-[#F87171] font-bold", // Огненный
-            "ba.cryst": "text-[#67E8F9] font-bold", // Кристаллический
-            "ba.pulse": "text-[#C084FC] font-bold", // Электрический
-            "ba.phy": "text-[#A3A3A3] font-bold", // Физический
-            "ba.poise": "text-[#FBBF24] font-bold", // Ошеломление
-            "ba.vup": "text-[#38BDF8] font-bold", // Повышение
-            "ba.key": "text-[#E3BC55] font-bold", // Ключевые термины
-            "ba.conduct": "text-[#C084FC] font-bold", // Электризация
-            "ba.spelldmg": "text-[#E3BC55] font-bold", // Урон от искусств
-            "ba.info": "text-gray-500 dark:text-[#A0A0A0] italic font-normal text-[13px]",
-            "ba.heal": "text-[#4ADE80] font-bold",
-            "ba.consume": "text-[#E3BC55] font-bold",
-            "ba.noguard": "text-[#F87171] font-bold",
-            "ba.crush": "text-[#FBBF24] font-bold",
-            "ba.fracture": "text-[#FBBF24] font-bold",
-            "ba.pd": "text-[#A3A3A3] font-bold",
-            "ba.physicalvul": "text-[#F87171] font-bold",
-            "ba.originium": "text-[#67E8F9] font-bold",
-            "ba.return": "text-[#38BDF8] font-bold",
-        };
-
-        let html = text.replace(/<([@#])([^>]+)>/g, (match, type, tag) => {
-            if (tag === "profile.key") return "<span>";
-            let styleClass = styles[tag] || "text-[#E3BC55] font-bold";
-            if (type === "#") {
-                styleClass +=
-                    " underline decoration-dashed decoration-current underline-offset-4";
-            }
-            return `<span class="${styleClass}">`;
-        });
-        html = html.replace(/<\/>/g, "</span>");
-        return html;
-    }
     $: currentBlackboard = equipData.blackboard || {};
     $: neededMaterials = (equipData.materials || []).map((m) => ({
         id: m.name,
@@ -317,6 +281,9 @@
     })();
 </script>
 
+{#if !equipment[id]}
+    <NotFound />
+{:else}
 <div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button
@@ -633,6 +600,7 @@
                     {#if equipLocale.setBonus && pack !== "none"}
                         <div
                             class="pl-1 text-gray-700 dark:text-[#E0E0E0] whitespace-pre-wrap text-[14px] leading-relaxed"
+                            use:hyperlinkAction
                         >
                             {@html parseRichText(
                                 interpolateBlackboard(
@@ -827,7 +795,7 @@
                 <div class="flex flex-wrap gap-4 pt-1">
                     {#if neededMaterials.length > 0}
                         {#each neededMaterials as mat (mat.id)}
-                            <ItemCard item={mat} amount={mat.amount} />
+                            <ItemCard item={mat} amount={mat.amount} linkToRecipe={true} />
                         {/each}
                     {:else}
                         <div
@@ -844,6 +812,8 @@
         </div>
     </div>
 </div>
+
+{/if}
 
 <style>
     .card-gradient {

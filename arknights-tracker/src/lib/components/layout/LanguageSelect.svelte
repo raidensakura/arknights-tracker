@@ -1,6 +1,7 @@
 <script>
-    import { currentLocale, languages, isSupported } from "$lib/stores/locale.js";
+    import { currentLocale, currentUiLocale, languages, uiLanguages, isSupported } from "$lib/stores/locale.js";
     import { slide } from "svelte/transition";
+    import { t } from "$lib/i18n";
 
     import Icon from "$lib/components/Icon.svelte";
 
@@ -26,8 +27,18 @@
     function selectLanguage(code) {
         if (isSupported(code)) {
             $currentLocale = code;
+            $currentUiLocale = code;
             isOpen = false;
         }
+    }
+
+    function selectUiLanguage(code) {
+        if ($currentUiLocale === code) {
+            $currentUiLocale = $currentLocale;
+        } else {
+            $currentUiLocale = code;
+        }
+        isOpen = false;
     }
 
     function handleWindowClick(event) {
@@ -36,8 +47,10 @@
         }
     }
 
-    $: currentLabel =
-        languages.find((l) => l.code === $currentLocale)?.label || "Language";
+    $: mainLabel = languages.find((l) => l.code === $currentLocale)?.label || "Language";
+    $: uiLabel = [...uiLanguages, ...languages].find((l) => l.code === $currentUiLocale)?.label || "Language";
+
+    $: currentLabel = $currentLocale === $currentUiLocale ? mainLabel : `${uiLabel} (${mainLabel})`;
 </script>
 
 <svelte:window on:click={handleWindowClick} />
@@ -47,8 +60,14 @@ bind:this={selectContainer}>
     {#if isOpen}
         <div
             transition:slide={{ duration: 200 }}
-            class="absolute bottom-full mb-2 w-full bg-[#2A2A2A] border border-gray-700 dark:border-[#303030] rounded-md overflow-hidden shadow-xl z-50 max-h-60 overflow-y-auto custom-scrollbar"
+            class="absolute bottom-full mb-2 w-full bg-[#2A2A2A] border border-gray-700 dark:border-[#303030] rounded-md overflow-hidden shadow-xl z-50 max-h-80 overflow-y-auto custom-scrollbar"
         >
+            <div class="px-4 py-2 text-left bg-black/10">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    {$t("home.fullSupportLanguages")}
+                </span>
+            </div>
+
             {#each languages as lang}
                 <button
                     class="w-full text-left px-3 py-3 hover:bg-white/10 transition-colors flex items-center justify-between
@@ -72,6 +91,38 @@ bind:this={selectContainer}>
                     {/if}
                 </button>
             {/each}
+
+            <div class="border-t border-gray-700/60 dark:border-gray-800/80 my-2"></div>
+
+            <div class="px-4 py-2 text-left bg-black/10">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    {$t("home.uiLanguages")}
+                </span>
+                <p class="text-[11px] text-gray-500 mt-1 leading-relaxed">
+                    {@html $t("home.uiLanguagesDesc", { discordLink: "https://discord.gg/nqfuaRbWWn" })}
+                </p>
+            </div>
+
+            {#each uiLanguages as lang}
+                <button
+                    class="w-full text-left px-3 py-3 hover:bg-white/10 transition-colors flex items-center justify-between
+                    {lang.code === $currentUiLocale
+                        ? 'text-yellow-400 bg-white/5'
+                        : 'text-gray-300'}"
+                    on:click={() => selectUiLanguage(lang.code)}
+                >
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 flex-shrink-0 content-center">
+                            <Icon name={lang.code} class="w-full h-full" />
+                        </div>
+                        
+                        <span>{lang.label}</span>
+                    </div>
+                    {#if lang.code === $currentUiLocale}
+                        <Icon name="success" class="w-4 h-4 ml-2 flex-shrink-0" />
+                    {/if}
+                </button>
+            {/each}
         </div>
     {/if}
 
@@ -87,7 +138,7 @@ bind:this={selectContainer}>
         <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#FFE145] z-10"></div>
         <div class="relative z-10 flex items-center w-full px-5 content-center">
             <div class="mr-4 text-white">
-                <Icon name={$currentLocale} class="w-6 h-6" />
+                <Icon name={$currentUiLocale} class="w-6 h-6" />
             </div>
 
             <span class="text-mg font-medium flex-grow text-left justify-center">

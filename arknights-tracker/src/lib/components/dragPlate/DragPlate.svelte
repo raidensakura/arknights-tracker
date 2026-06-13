@@ -59,6 +59,9 @@
     }
 
     function onMouseDown(e) {
+        if (e.button === 1) {
+            e.preventDefault();
+        }
         isDragging = true;
         startX = e.clientX - x;
         startY = e.clientY - y;
@@ -267,20 +270,23 @@
         </button>
 
         <button
-            class="flex w-8 h-8 items-center justify-center pb-1 bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]"
+            class="flex w-8 h-8 items-center justify-center bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]"
             onclick={zoomOut}
         >
-            <span class="font-sdk text-xl text-[#21272C] dark:text-[#FDFDFD]">
-                -
+            <span class="font-sdk text-lg text-[#21272C] dark:text-[#FDFDFD]">
+                −
             </span>
         </button>
 
         <button
-            class="flex w-8 h-8 items-center justify-center pb-1 bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]"
+            class="flex w-8 h-8 items-center justify-center bg-white dark:bg-[#383838] rounded-xl border border-gray-200 dark:border-[#444]"
             onclick={reset}
         >
             <span class="font-sdk text-xl text-[#21272C] dark:text-[#FDFDFD]">
-                ↺
+                <Icon
+                    name="refresh"
+                    class="h-5 w-5 text-[#21272C] dark:text-[#FDFDFD]"
+                />
             </span>
         </button>
 

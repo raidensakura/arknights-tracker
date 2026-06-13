@@ -8,6 +8,23 @@
   "hints": {
     "editPotential": "要更改武器潛能，請點擊鉛筆圖示。"
   },
+  "privacy": {
+    "title": "隱私權政策",
+    "analytics_title": "隱私與分析",
+    "analytics_text1": "我們使用 Firebase Analytics (Google Analytics) 來收集流量和性能指標，以改進 Goyfield.moe。",
+    "analytics_text2": "Goyfield.moe 使用 localStorage 技術在您的本地裝置上儲存您的使用者偏好（如選擇的伺服器、主題、語言）和尋訪歷史數據。",
+    "tracker_title": "尋訪記錄器",
+    "tracker_text1": "預設情況下，所有匯入的尋訪數據都儲存在您的本地裝置上。您的匯入連結（包含臨時 Token）僅發送到 Goyfield.moe 後端伺服器，用於連接官方遊戲 API 并獲取您的歷史記錄。連結本身、Token 或 any 個人帳戶數據均不會與第三方共享，且不會以明文形式儲存在伺服器上。",
+    "tracker_text2": "如果在匯入過程中發生系統錯誤，該連結可能會暫時儲存在管理員記錄檔中，以便我們找出並修復錯誤。",
+    "global_title": "全服統計",
+    "global_text": "當您匯入歷史記錄時，關於您尋訪的某些匿名資訊（道具類型、稀有度、時間、卡池）會儲存在我們的伺服器上。此數據與自動生成的匿名識別碼（UID）相關聯，用於支援「全服統計」部分。",
+    "cloud_title": "雲端同步",
+    "cloud_text1": "Goyfield.moe 提供了連結 Google 帳戶的選項，以便為您尋訪的數據建立雲端備份。您的使用者名稱和電子郵件地址僅顯示在設定界面中，絕不会與第三方共享。",
+    "cloud_text2": "與本地儲存不同，在使用此功能時，您的尋訪數據將安全地儲存在我們的雲端資料庫 (Firebase) 中。您可以隨時透過「設定」登出帳戶。",
+    "close": "關閉"
+  },
+  "maintenance_title": "系統維護中",
+  "maintenance_desc": "目前正在進行網站更新的技術維護工作。請稍後再試！",
   "sidebar": {
     "home": "首頁",
     "records": "尋訪記錄",
@@ -17,8 +34,6 @@
     "theme_dark": "深色",
     "theme_light": "淺色"
   },
-  "maintenance_title": "系統維護中",
-  "maintenance_desc": "目前正在進行網站更新的技術維護工作。請稍後再試！",
   "footer": {
     "devResources": "開發者資源",
     "officialResources": "官方資源",
@@ -126,6 +141,8 @@
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼之緋",
     "weponbox_1_2_1": "行舟申領",
+    "weponbox_1_3_1": "絳結申領",
+    "special_1_1_1": "河流的女兒",
     "weaponbox_constant_1": "堅冰刊",
     "weaponbox_constant_2": "宙聲刊",
     "weaponbox_constant_3": "遠征刊",
@@ -136,8 +153,7 @@
     "weap-standard": "標準武器",
     "weap-special": "活動武器",
     "weapon-all": "武器卡池",
-    "joint": "輝光慶典",
-    "weponbox_1_3_1": "絳結申領"
+    "joint": "輝光慶典"
   },
   "import": {
     "title": "匯入尋訪記錄",
@@ -199,18 +215,21 @@
     "delete_confirm": "從記憶體中刪除此 Token？",
     "errHistoryEmpty": "記錄為空或連結已過期。未找到 UID。",
     "tab_pc": "Web",
+    "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
+    "tab_pc3": "PC 3",
     "tab_pc_manual": "PC (手動)",
     "tab_android": "Android",
+    "tab_pc_web": "Web",
+    "pc_web_step1": "登入您的帳戶：",
+    "pc_web_step2": "在書籤列上（按 Ctrl + Shift + B 顯示），點擊「新增網頁」，輸入任意名稱，然後將此代碼貼到 URL 欄位中：",
+    "pc_web_step3": "在網站上時，點擊該書籤——連結將被複製。",
+    "pc_web_hint": "此方法是安全的，並且直接透過您的瀏覽器執行。",
     "tab_ios": "iOS (Beta)",
     "wip": "開發中",
     "manual_text_pre": "前往檔案",
     "manual_text_mid": " 用記事本打開它，捲動到最底部並找到類似以下的連結",
     "manual_text_post": "的連結並複製。",
-    "pc_web_step1": "登入您的帳戶：",
-    "pc_web_step2": "在書籤列上（按 Ctrl + Shift + B 顯示），點擊「新增網頁」，輸入任意名稱，然後將此代碼貼到 URL 欄位中：",
-    "pc_web_step3": "在網站上時，點擊該書籤——連結將被複製。",
-    "pc_web_hint": "此方法是安全的，並且直接透過您的瀏覽器執行。",
     "android_note": "像 ByeByeDPI 這樣的應用程式或開啟的 VPN 可能會干擾日誌抓取。如果日誌為空，請嘗試重新安裝 VPN。",
     "android_s1": "從 GitHub 下載 <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> 和 <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a>。",
     "android_s2": "連線 Wi-Fi。打開 Shizuku（允許通知）。",
@@ -250,6 +269,7 @@
     "error_no_data": "未找到尋訪記錄或連結已過期",
     "error_unknown": "未知錯誤",
     "error_network": "Bad Gateway (網路錯誤)",
+    "error_invalid_token": "Token無效或已過期。請登入遊戲重新產生連結。",
     "error_account_mismatch": "帳號不符！您已經擁有 {start} 至 {end} 的記錄，但匯入的資料完全不同。請檢查是否選擇了正確的帳號。",
     "recoveryStats": "記錄恢復",
     "recoveryTooltip": "勾選此框將強制恢復尋訪記錄（如果適用）。這有助於解決部分尋訪記錄丟失的問題。",
@@ -312,6 +332,7 @@
     "special_1_1_1": "河流的女兒",
     "special_1_1_2": "狼珀",
     "special_1_2_1": "春雷動，萬物生",
+    "special_1_3_1": "拳出無悔",
     "standard_01": "基礎尋訪",
     "new_player_01": "啟程尋訪",
     "weponbox_1_0_1": "熔鑄申領",
@@ -320,6 +341,7 @@
     "weponbox_1_1_1": "落草",
     "weponbox_1_1_2": "狼之緋",
     "weponbox_1_2_1": "行舟申領",
+    "weponbox_1_3_1": "絳結申領",
     "weaponbox_constant_1": "堅冰申領",
     "weaponbox_constant_2": "星聲申領",
     "weaponbox_constant_3": "遠途申領",
@@ -327,9 +349,7 @@
     "weaponbox_constant_5": "雷鳴申領",
     "joint_1_2_2": "輝光慶典",
     "weponbox_1_2_2": "熔灼申領",
-    "weponbox_1_2_3": "疾行申領",
-    "special_1_3_1": "拳出無悔",
-    "weponbox_1_3_1": "絳結申領"
+    "weponbox_1_2_3": "疾行申領"
   },
   "pages": {
     "home": "首頁",
@@ -342,7 +362,10 @@
     "changelog": "更新日誌",
     "equipment": "裝備",
     "bannerHistory": "卡池歷史",
-    "enemies": "敵人"
+    "enemies": "敵人",
+    "recipes": "配方",
+    "recipeTree": "配方鏈",
+    "openRecipe": "打開配方"
   },
   "events": {
     "type": {
@@ -380,8 +403,9 @@
     "scorchMask": "豐碑留名·熾痕",
     "etchspaceSalvageZone4": "像差區域4",
     "gentlyFlowsQinbo": "清波靜流簽到",
-    "journeyOfTheLongEar": "長耳獸之旅",
     "pearlOfThePack": "狼群瑰寶簽到",
+    "journeyOfTheLongEar": "長耳獸之旅",
+    "risingTideOfWuling": "武陵潮生簽到",
     "subduerOfTheBlightedSea": "鎮綏蝕海",
     "wulingSuperChef": "物資供給·武陵特廚",
     "curiousUseOfXiranite": "息壤妙用",
@@ -396,7 +420,7 @@
     "monumentalEtchingCorruptingSurge": "豐碑留名·穢流",
     "partyTogetherPastryTower": "「共賀慶典」 - 「此時歡宴」",
     "sanitySupply": "理智補給",
-    "risingTideOfWuling": "武陵潮生簽到",
+    "curiosAndMyths": "「異趣與神話」簽到",
     "oneWithHerFistsSignIn": "拳與心合簽到",
     "protocolPassViridianMont": "協議通行證·蒼山",
     "carlyFairytaleOfTheWuling": "卡莉的武陵童話",
@@ -442,6 +466,7 @@
     "left_d_h": "剩餘 {d}天 {h}小時",
     "left_h": "剩餘 {h}小時",
     "left_h_m": "剩餘 {h}小時 {m}分",
+    "left_m": "剩餘 {m} 分鐘",
     "starts_in_h_m": "{h}小時 {m}分 後",
     "starts_in_m": "{m}分 後",
     "starts_in_d_h": "{d}天 {h}小時 後",
@@ -500,12 +525,48 @@
     "stats": "屬性",
     "slot": "槽位",
     "pack": "套裝",
+    "itemGroup": "物品分組",
     "itemGroups": {
       "nature": "自然資源",
       "gatherable": "採集材料",
       "product": "工業產物",
       "usable": "可用道具",
       "facility": "生產工具"
+    },
+    "itemSubGroups": {
+      "facility_battle": "戰鬥",
+      "facility_crafter": "生產",
+      "facility_miner": "採礦",
+      "facility_other": "其他",
+      "facility_powerStation": "發電",
+      "facility_pump": "水泵",
+      "facility_soil": "種植",
+      "gatherable_drop": "掉落物",
+      "gatherable_muck": "排泄物",
+      "gatherable_plant": "昆蟲",
+      "nature_flowerPlant": "花",
+      "nature_grassPlant": "草",
+      "nature_liquid": "液體",
+      "nature_ore": "礦石",
+      "nature_soilPlant": "種植植物",
+      "nature_wood": "木材",
+      "product_activityXiranite": "實驗息壤",
+      "product_amethyst": "紫晶",
+      "product_battery": "電池",
+      "product_carbon": "碳",
+      "product_component": "組件",
+      "product_copper": "赤銅",
+      "product_fullBottle": "瓶裝物",
+      "product_iron": "藍鐵",
+      "product_liquid": "液體",
+      "product_muck": "肥料",
+      "product_originium": "源石",
+      "product_powder": "粉末",
+      "product_xiranite": "息壤",
+      "usable_bomb": "炸藥",
+      "usable_bottledProdFood": "食物",
+      "usable_other": "其他",
+      "usable_powder": "粉末"
     }
   },
   "menu": {
@@ -804,12 +865,14 @@
     "won": "命中",
     "pulls": "抽",
     "roll": "第X抽",
-    "percent": "百分比"
+    "percent": "百分比",
+    "pull_one": "尋訪"
   },
   "settings": {
     "title": "設定",
     "other": "其他",
     "disableDarkening": "停用武器和幹員卡牌變暗",
+    "toggleCtrlForZoom": "按住 Ctrl 進行縮放",
     "account": {
       "title": "選擇帳號",
       "add": "新增",
@@ -923,7 +986,10 @@
     "discordJoin": "加入 Discord",
     "docsTitle": "Goyfield DEV 文件",
     "docsAuthor": "作者 @beetwooo_",
-    "goToTimeline": "前往活動"
+    "goToTimeline": "前往活動",
+    "fullSupportLanguages": "完全支援的語言",
+    "uiLanguages": "介面語言",
+    "uiLanguagesDesc": "支援網站介面翻譯的語言。對於遊戲內名稱，將使用所選的完全支援的遊戲翻譯語言。您可以在 <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">Goyfield Discord 伺服器</a>中協助翻譯"
   },
   "characters": {
     "catcher": "卡契爾",
@@ -1963,7 +2029,8 @@
       "using": "參與配方",
       "availableFormulas": "可用配方",
       "availableFunctions": "可用功能",
-      "resourceCollection": "可採集資源"
+      "resourceCollection": "可採集資源",
+      "currentFormulas": "當前配方"
     },
     "craftSource": {
       "hub": "協議核心",
@@ -1971,6 +2038,10 @@
     },
     "items": {
       "power": "發電"
+    },
+    "treeSwitchButton": {
+      "changeTree": "修改配方鏈",
+      "openTree": "查看配方鏈"
     }
   },
   "resourcePointNames": {

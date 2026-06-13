@@ -8,10 +8,17 @@
     import ItemCard from "$lib/components/cards/ItemCard.svelte";
     import Button from "$lib/components/Button.svelte";
     import Image from "$lib/components/Image.svelte";
+    import NotFound from "$lib/components/NotFound.svelte";
 
     function tOrFallback(key, fallback) {
         const translated = $t(key);
         return translated === key ? fallback : translated;
+    }
+
+    function formatNumberForSelection(num) {
+        if (num === undefined || num === null) return '0';
+        const formatted = num.toLocaleString("ru-RU");
+        return formatted.replace(/[\s\u00A0\u202F]/g, '<span class="select-none"> </span>');
     }
 
     const localeModules = {
@@ -32,6 +39,9 @@
     };
 
     let copiedImageId = null;
+    let showStatsTable = false;
+    let isTableCopied = false;
+
 
     $: resistances = [
         { key: "Physical", val: enemyData.PhysicalDamageTakenScalar, locKey: "physRez" },
@@ -137,10 +147,41 @@
     function setMaxAll() {
         level = maxLevel;
     }
+
+    async function copyStatsTable() {
+        let textData = `${tOrFallback("stats.level", "Level")}\tHP\tATK\tDEF\n`;
+        const count = maxLevel;
+        for (let i = 0; i < count; i++) {
+            const h = enemyData.hp ? enemyData.hp[i] : 0;
+            const a = enemyData.atk ? enemyData.atk[i] : 0;
+            const d = enemyData.def ? enemyData.def[i] : 0;
+            textData += `${i + 1}\t${h}\t${a}\t${d}\n`;
+        }
+        try {
+            await navigator.clipboard.writeText(textData);
+            isTableCopied = true;
+            setTimeout(() => {
+                isTableCopied = false;
+            }, 2000);
+        } catch (err) {
+            console.error("Failed to copy:", err);
+        }
+    }
+
 </script>
 
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
+<svelte:window 
+    on:keydown={(e) => {
+        if (e.key === "Escape") showStatsTable = false;
+        handleKeydown(e);
+    }} 
+    on:keyup={handleKeyup} 
+/>
 
+
+{#if !enemies[id]}
+    <NotFound />
+{:else}
 <div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button variant="roundSmall" color="white" onClick={() => history.back()}>
@@ -240,8 +281,9 @@
                                 <span class="text-[15px] font-bold text-[#21272C] dark:text-[#E4E4E4]">
                                     {tOrFallback("stats.hp", "HP")}
                                 </span>
-                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm">
-                                    {currentHp}
+                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm"
+                                    style="text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);">
+                                    {@html formatNumberForSelection(currentHp)}
                                 </span>
                             </div>
 
@@ -252,8 +294,9 @@
                                 <span class="text-[15px] font-bold text-[#21272C] dark:text-[#E4E4E4]">
                                     {tOrFallback("stats.atk", "ATK")}
                                 </span>
-                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm">
-                                    {currentAtk}
+                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm"
+                                    style="text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);">
+                                    {@html formatNumberForSelection(currentAtk)}
                                 </span>
                             </div>
 
@@ -264,8 +307,9 @@
                                 <span class="text-[15px] font-bold text-[#21272C] dark:text-[#E4E4E4]">
                                     {tOrFallback("stats.def", "DEF")}
                                 </span>
-                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm">
-                                    {currentDef}
+                                <span class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-1 drop-shadow-sm"
+                                    style="text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);">
+                                    {@html formatNumberForSelection(currentDef)}
                                 </span>
                             </div>
                         </div>
@@ -293,12 +337,25 @@
                             </div>
                         </div>
                     </div>
-                    <input 
-                        type="range" min="1" max={maxLevel} step="1" value={targetLevel}
-                        on:input={handleInput}
-                        class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
-                    />
+                    <div class="flex items-center gap-4 w-full flex-1">
+                        <div class="flex-1 relative flex items-center md:px-4">
+                            <input 
+                                type="range" min="1" max={maxLevel} step="1" value={targetLevel}
+                                on:input={handleInput}
+                                class="touch-none w-full h-2 bg-gray-200 dark:bg-[#2C2C2C] rounded-lg appearance-none cursor-pointer accent-[#F9B90C] outline-none"
+                            />
+                        </div>
+
+                        <button
+                            on:click={() => (showStatsTable = true)}
+                            class="shrink-0 flex items-center gap-1.5 bg-gray-200 dark:bg-[#4A4A4A] hover:bg-gray-300 dark:hover:bg-[#555] px-4 py-2 rounded-md text-[13px] text-[#21272C] dark:text-gray-200 font-medium transition-colors shadow-sm cursor-pointer"
+                        >
+                            <Icon name="table" class="w-4 h-4" />
+                            <span>{tOrFallback("stats.table", "Table")}</span>
+                        </button>
+                    </div>
                 </div>
+
 
                 <div class="px-6 pb-6 bg-white dark:bg-[#383838] flex flex-col gap-3">
                     <div>
@@ -385,7 +442,7 @@
                 <div class="flex flex-wrap gap-2 pt-1">
                     {#if enemyData.drop && enemyData.drop.length > 0}
                         {#each enemyData.drop as dropId}
-                            <ItemCard item={{id: dropId}} hideAmount=true customPath="itemNames" />
+                            <ItemCard item={{id: dropId}} hideAmount=true customPath="itemNames" linkToRecipe={true} />
                         {/each}
                     {:else}
                         <div class="w-full text-center text-gray-500 dark:text-[#B7B6B3] text-sm py-4 italic">
@@ -398,6 +455,106 @@
         </div>
     </div>
 </div>
+
+{#if showStatsTable}
+    <div
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 dark:bg-black/80 backdrop-blur-sm p-4 animate-fadeIn outline-none"
+        on:click|self={() => (showStatsTable = false)}
+        on:keydown|self={(e) => {
+            if (e.key === "Escape" || e.key === "Enter" || e.key === " ")
+                showStatsTable = false;
+        }}
+    >
+        <div
+            class="bg-white rounded-xl w-full max-w-sm max-h-[85vh] flex flex-col shadow-2xl overflow-hidden"
+        >
+            <div
+                class="flex items-center justify-between px-6 py-4 bg-[#21272C] text-white dark:bg-[#2C2C2C] shrink-0"
+            >
+                <h3 class="font-bold text-lg">
+                    {tOrFallback("stats.attributesTable", "Attributes Table")}
+                </h3>
+                <div class="flex gap-2">
+                    <button
+                        on:click={copyStatsTable}
+                        class="p-1.5 rounded-md bg-white dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-600 dark:text-white transition-colors flex items-center gap-2 px-3 text-sm font-bold border border-gray-200 dark:border-transparent shadow-sm dark:shadow-none cursor-pointer"
+                    >
+                        {#if isTableCopied}
+                            <Icon name="success" class="w-3.5 h-3.5 text-yellow-400" />
+                        {:else}
+                            <Icon name="copy" class="w-4 h-4" />
+                        {/if}
+                        <span>{tOrFallback("common.copy", "Copy")}</span>
+                    </button>
+                    <button
+                        on:click={() => (showStatsTable = false)}
+                        class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors cursor-pointer"
+                    >
+                        <Icon name="close" class="w-6 h-6" />
+                    </button>
+                </div>
+            </div>
+
+            <div
+                class="overflow-auto custom-scrollbar bg-white dark:bg-[#2b2b2b] p-0"
+            >
+                <table class="w-full text-center border-collapse">
+                    <thead
+                        class="bg-gray-50 dark:bg-[#383838] font-bold sticky top-0 shadow-sm text-sm text-gray-600 dark:text-[#E4E4E4]"
+                    >
+                        <tr>
+                            <th class="py-3 px-4 border-b border-gray-200 dark:border-[#444]"
+                                >{tOrFallback("stats.level", "Уровень")}</th
+                            >
+                            <th class="py-3 px-4 border-b border-gray-200 dark:border-[#444]"
+                                >{tOrFallback("stats.hp", "HP")}</th
+                            >
+                            <th class="py-3 px-4 border-b border-gray-200 dark:border-[#444]"
+                                >{tOrFallback("stats.atk", "ATK")}</th
+                            >
+                            <th class="py-3 px-4 border-b border-gray-200 dark:border-[#444]"
+                                >{tOrFallback("stats.def", "DEF")}</th
+                            >
+                        </tr>
+                    </thead>
+                    <tbody
+                        class="text-sm font-nums text-gray-800 dark:text-gray-300"
+                    >
+                        {#each Array(maxLevel) as _, i}
+                            <tr
+                                class="hover:bg-gray-100 dark:hover:bg-[#3d3d3d] transition-colors border-b border-gray-100 dark:border-[#333] even:bg-gray-50/50 dark:even:bg-[#383838]/50"
+                            >
+                                <td
+                                    class="py-2 px-4 text-gray-500 dark:text-gray-400"
+                                    >{i + 1}</td
+                                >
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                >
+                                    {@html formatNumberForSelection(enemyData.hp ? enemyData.hp[i] : 0)}
+                                </td>
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                >
+                                    {@html formatNumberForSelection(enemyData.atk ? enemyData.atk[i] : 0)}
+                                </td>
+                                <td
+                                    class="py-2 px-4 font-bold text-[#21272C] dark:text-white"
+                                >
+                                    {@html formatNumberForSelection(enemyData.def ? enemyData.def[i] : 0)}
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{/if}
+{/if}
 <style>
     .card-gradient {
         background: linear-gradient(

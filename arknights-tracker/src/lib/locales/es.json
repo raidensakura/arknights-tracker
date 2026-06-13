@@ -341,7 +341,10 @@
     "changelog": "Registro de cambios",
     "equipment": "Equipamiento",
     "bannerHistory": "Historial de banners",
-    "enemies": "Enemigos"
+    "enemies": "Enemigos",
+    "recipes": "Recetas",
+    "recipeTree": "Cadena de recetas",
+    "openRecipe": "Abrir recetas"
   },
   "events": {
     "type": {
@@ -922,7 +925,10 @@
     "discordJoin": "Unirse a Discord",
     "docsTitle": "Documentación Goyfield DEV",
     "docsAuthor": "por @beetwooo_",
-    "goToTimeline": "Ir a Eventos"
+    "goToTimeline": "Ir a Eventos",
+    "fullSupportLanguages": "Idiomas con soporte completo",
+    "uiLanguages": "Idiomas de la interfaz",
+    "uiLanguagesDesc": "Idiomas que admiten la traducción de la interfaz del sitio web. Para las designaciones del juego, se utilizará el idioma de traducción del juego totalmente compatible seleccionado. Puedes ayudar con la traducción en el <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">servidor de Discord de Goyfield</a>"
   },
   "characters": {
     "catcher": "Catcher",
@@ -1962,7 +1968,8 @@
       "using": "Fórmulas aplicables",
       "availableFormulas": "Fórmulas disponibles",
       "availableFunctions": "Funciones disponibles",
-      "resourceCollection": "Recursos recolectables"
+      "resourceCollection": "Recursos recolectables",
+      "currentFormulas": "Fórmulas actuales"
     },
     "craftSource": {
       "hub": "Núcleo de automatización",
@@ -1970,6 +1977,10 @@
     },
     "items": {
       "power": "Energía"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Cambiar cadena",
+      "openTree": "Ver cadena"
     }
   },
   "resourcePointNames": {

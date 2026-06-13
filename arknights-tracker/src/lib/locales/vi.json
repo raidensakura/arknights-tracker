@@ -8,6 +8,23 @@
   "hints": {
     "editPotential": "Để thay đổi tiềm năng vũ khí, hãy nhấp vào biểu tượng bút chì."
   },
+  "privacy": {
+    "title": "Chính sách Bảo mật",
+    "analytics_title": "Bảo mật & Phân tích",
+    "analytics_text1": "Chúng tôi sử dụng Firebase Analytics (Google Analytics) để thu thập các số liệu về lưu lượng truy cập và hiệu suất nhằm cải thiện Goyfield.moe.",
+    "analytics_text2": "Goyfield.moe sử dụng công nghệ localStorage để lưu trữ cục bộ các tùy chọn của bạn (như máy chủ được chọn, giao diện, ngôn ngữ) và dữ liệu lịch sử tìm kiếm trên thiết bị của bạn.",
+    "tracker_title": "Trình theo dõi Lượt quay",
+    "tracker_text1": "Theo mặc định, tất cả dữ liệu lượt quay được nhập sẽ được lưu cục bộ trên thiết bị của bạn. Liên kết nhập của bạn (chứa một token tạm thời) chỉ được gửi đến máy chủ phụ trợ của Goyfield.moe để kết nối với API chính thức của trò chơi và lấy lịch sử của bạn. Bản thân liên kết, token hoặc bất kỳ dữ liệu tài khoản cá nhân nào không được chia sẻ với bên thứ ba và không được lưu trữ ở dạng văn bản thuần trên máy chủ.",
+    "tracker_text2": "Trong trường hợp xảy ra lỗi hệ thống khi nhập, liên kết có thể được lưu tạm thời trong nhật ký của quản trị viên để xác định và khắc phục lỗi.",
+    "global_title": "Thống kê Toàn cầu",
+    "global_text": "Khi bạn nhập lịch sử của mình, một số thông tin ẩn danh về các lượt quay của bạn (loại vật phẩm, độ hiếm, thời gian, banner) sẽ được lưu trên máy chủ của chúng tôi. Dữ liệu này được liên kết với một số nhận dạng ẩn danh được tạo (UID) và được sử dụng để cung cấp thông tin cho phần \"Thống kê Toàn cầu\".",
+    "cloud_title": "Đồng bộ Đám mây",
+    "cloud_text1": "Goyfield.moe cung cấp tùy chọn liên kết tài khoản Google của bạn để tạo các bản sao lưu đám mây cho dữ liệu lượt quay của bạn. Tên người dùng và địa chỉ email của bạn chỉ được hiển thị trong giao diện cài đặt và không được chia sẻ với bên thứ ba.",
+    "cloud_text2": "Khác với lưu trữ cục bộ, khi sử dụng tính năng này, dữ liệu lượt quay của bạn được lưu trữ bảo mật trong cơ sở dữ liệu đám mây của chúng tôi (Firebase). Bạn có thể đăng xuất khỏi tài khoản của mình bất kỳ lúc nào thông qua mục Cài đặt.",
+    "close": "Đóng"
+  },
+  "maintenance_title": "Bảo trì",
+  "maintenance_desc": "Hiện tại đang có công tác kỹ thuật để cập nhật trang web. Vui lòng quay lại sau một chút!",
   "sidebar": {
     "home": "Trang chủ",
     "records": "Hồ sơ Chiêu mộ",
@@ -17,8 +34,6 @@
     "theme_dark": "Tối",
     "theme_light": "Sáng"
   },
-  "maintenance_title": "Bảo trì",
-  "maintenance_desc": "Hiện tại đang có công tác kỹ thuật để cập nhật trang web. Vui lòng quay lại sau một chút!",
   "footer": {
     "devResources": "Tài nguyên nhà phát triển",
     "officialResources": "Tài nguyên chính thức",
@@ -126,6 +141,8 @@
     "weponbox_1_1_1": "Tiếng Gọi Đạo Tặc",
     "weponbox_1_1_2": "Lupine Scarlet",
     "weponbox_1_2_1": "Gói Chiếc Bè Trôi Dạt",
+    "weponbox_1_3_1": "Gói Rút Nút Thắt Đỏ",
+    "special_1_1_1": "Con Gái Của Dòng Sông",
     "weaponbox_constant_1": "Ấn phẩm Băng Cứng",
     "weaponbox_constant_2": "Ấn phẩm Tiếng Vọng Vũ Trụ",
     "weaponbox_constant_3": "Ấn phẩm Viễn Chinh",
@@ -136,8 +153,7 @@
     "weap-standard": "Vũ khí Tiêu chuẩn",
     "weap-special": "Vũ khí Sự kiện",
     "weapon-all": "Banner Vũ khí",
-    "joint": "Lễ Hội Rực Rỡ",
-    "weponbox_1_3_1": "Gói Rút Nút Thắt Đỏ"
+    "joint": "Lễ Hội Rực Rỡ"
   },
   "import": {
     "title": "Nhập Hồ sơ Chiêu mộ",
@@ -199,18 +215,21 @@
     "delete_confirm": "Xóa token này khỏi bộ nhớ?",
     "errHistoryEmpty": "Lịch sử trống hoặc liên kết đã hết hạn. Không tìm thấy UID.",
     "tab_pc": "Web",
+    "tab_pc1": "PC 1",
     "tab_pc2": "PC 2",
+    "tab_pc3": "PC 3",
     "tab_pc_manual": "PC Thủ công",
     "tab_android": "Android",
+    "tab_pc_web": "Web",
+    "pc_web_step1": "Đăng nhập vào tài khoản của bạn tại",
+    "pc_web_step2": "Trên thanh dấu trang (nhấn Ctrl + Shift + B để hiển thị), nhấp vào 'Thêm trang', đặt tên bất kỳ và dán mã này vào trường URL:",
+    "pc_web_step3": "Trong khi ở trên trang web, hãy nhấp vào dấu trang đó — liên kết sẽ được sao chép.",
+    "pc_web_hint": "Phương pháp này an toàn và hoạt động trực tiếp thông qua trình duyệt của bạn.",
     "tab_ios": "iOS (Beta)",
     "wip": "Đang phát triển",
     "manual_text_pre": "Đi tới tệp",
     "manual_text_mid": " mở nó bằng Notepad, cuộn xuống dưới cùng và tìm một liên kết giống như",
     "manual_text_post": "và sao chép nó.",
-    "pc_web_step1": "Đăng nhập vào tài khoản của bạn tại",
-    "pc_web_step2": "Trên thanh dấu trang (nhấn Ctrl + Shift + B để hiển thị), nhấp vào 'Thêm trang', đặt tên bất kỳ và dán mã này vào trường URL:",
-    "pc_web_step3": "Trong khi ở trên trang web, hãy nhấp vào dấu trang đó — liên kết sẽ được sao chép.",
-    "pc_web_hint": "Phương pháp này an toàn và hoạt động trực tiếp thông qua trình duyệt của bạn.",
     "android_note": "Các ứng dụng như ByeByeDPI hoặc VPN đang bật có thể cản trở việc bắt log. Nếu log trống, hãy thử cài đặt lại VPN.",
     "android_s1": "Tải <a href='https://github.com/RikkaApps/Shizuku/releases' target='_blank' class='underline text-blue-600'>Shizuku</a> và <a href='https://github.com/F0x1d/LogFox/releases' target='_blank' class='underline text-blue-600'>LogFox</a> từ GitHub.",
     "android_s2": "Kết nối Wi-Fi. Mở Shizuku (cho phép thông báo).",
@@ -250,6 +269,7 @@
     "error_no_data": "Không tìm thấy lượt quay nào hoặc Liên kết hết hạn",
     "error_unknown": "Lỗi không xác định",
     "error_network": "Bad Gateway (Lỗi mạng)",
+    "error_invalid_token": "Token không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập vào game và tạo một liên kết mới.",
     "error_account_mismatch": "Tài khoản không khớp! Bạn đã có lịch sử giữa {start} và {end}, nhưng dữ liệu nhập vào khác hoàn toàn. Vui lòng kiểm tra lại tài khoản đã chọn.",
     "recoveryStats": "Khôi phục hồ sơ",
     "recoveryTooltip": "Chọn hộp này sẽ bắt buộc khôi phục lịch sử chiêu mộ nếu có thể. Điều này có thể giúp ích trong trường hợp mất một phần hồ sơ chiêu mộ.",
@@ -312,6 +332,7 @@
     "special_1_1_1": "Con Gái Của Dòng Sông",
     "special_1_1_2": "Ngọc Trai Sói",
     "special_1_2_1": "Tiếng Sấm Phục Sinh",
+    "special_1_3_1": "Cú Đấm Bất Hận",
     "standard_01": "Chiêu Mộ Cơ Bản",
     "new_player_01": "Chiêu Mộ Chân Trời Mới",
     "weponbox_1_0_1": "Gói Rèn Đúc",
@@ -320,6 +341,7 @@
     "weponbox_1_1_1": "Tiếng Gọi Đạo Tặc",
     "weponbox_1_1_2": "Lupine Scarlet",
     "weponbox_1_2_1": "Gói Chiếc Bè Trôi Dạt",
+    "weponbox_1_3_1": "Gói Rút Nút Thắt Đỏ",
     "weaponbox_constant_1": "Gói Băng Cứng",
     "weaponbox_constant_2": "Gói Tiếng Sao",
     "weaponbox_constant_3": "Gói Viễn Chinh",
@@ -327,9 +349,7 @@
     "weaponbox_constant_5": "Gói Tiếng Sấm Rền",
     "joint_1_2_2": "Lễ Hội Rực Rỡ",
     "weponbox_1_2_2": "Gói Luyện Hỏa",
-    "weponbox_1_2_3": "Gói Hành Tốc",
-    "special_1_3_1": "Cú Đấm Bất Hận",
-    "weponbox_1_3_1": "Gói Rút Nút Thắt Đỏ"
+    "weponbox_1_2_3": "Gói Hành Tốc"
   },
   "pages": {
     "home": "Trang chủ",
@@ -342,7 +362,10 @@
     "changelog": "Nhật ký thay đổi",
     "equipment": "Trang bị",
     "bannerHistory": "Lịch sử Banner",
-    "enemies": "Kẻ thù"
+    "enemies": "Kẻ thù",
+    "recipes": "Công thức",
+    "recipeTree": "Chuỗi công thức",
+    "openRecipe": "Mở công thức"
   },
   "events": {
     "type": {
@@ -371,6 +394,7 @@
     "delverOfTheCryptic": "Người Khám Phá Bí Ẩn",
     "spectralSplendorTrialSignIn": "Đăng Nhập Rực Rỡ Quang Phổ",
     "sanityDiscount": "Giảm Giá Tỉnh Táo",
+    "qingboRising": "Qingbo Trỗi Dậy",
     "quietlyFlowsTheSpring": "Dòng Suối Lặng Lẽ",
     "supplyExplorationDay": "Tiếp Tế: Ngày Khai Phá",
     "cleanseAndRise": "Tẩy Rửa và Tráng Sạch",
@@ -379,8 +403,9 @@
     "scorchMask": "Văn Khắc Kỷ Niệm: Dấu Cháy Xém",
     "etchspaceSalvageZone4": "Khu Dị Thể 4",
     "gentlyFlowsQinbo": "Điểm Danh Thanh Ba Nước Chảy Mây Trôi",
-    "journeyOfTheLongEar": "Hành Trình Của Tai Dài",
     "pearlOfThePack": "Điểm Danh Viên Ngọc Tộc Sói",
+    "journeyOfTheLongEar": "Hành Trình Của Tai Dài",
+    "risingTideOfWuling": "Điểm danh Thủy Triều Dâng Wuling",
     "subduerOfTheBlightedSea": "Kẻ Trấn Áp Biển Nhiễm Khuẩn",
     "wulingSuperChef": "Tiếp Tế: Siêu Đầu Bếp Võ Lăng",
     "curiousUseOfXiranite": "Ứng Dụng Dị Thường Của Xiranite",
@@ -395,8 +420,7 @@
     "monumentalEtchingCorruptingSurge": "Văn Khắc Kỷ Niệm: Triều Dâng Ma Hóa",
     "partyTogetherPastryTower": "[Cùng Mở Tiệc] - [Tháp Bánh Ngọt]",
     "sanitySupply": "Tiếp Tế Tỉnh Táo",
-    "qingboRising": "Qingbo Trỗi Dậy",
-    "risingTideOfWuling": "Điểm danh Thủy Triều Dâng Wuling",
+    "curiosAndMyths": "Điểm danh Kỳ Vật và Thần Thoại",
     "oneWithHerFistsSignIn": "Điểm Danh Quyền Ý Hợp Nhất",
     "protocolPassViridianMont": "Thẻ Giao Thức: Cổ Vật Thúy Sơn",
     "carlyFairytaleOfTheWuling": "Cổ Tích Võ Lăng của Carly",
@@ -442,6 +466,7 @@
     "left_d_h": "còn {d}ng {h}g",
     "left_h": "còn {h}g",
     "left_h_m": "còn {h}g {m}ph",
+    "left_m": "còn {m} phút",
     "starts_in_h_m": "trong {h}g {m}ph",
     "starts_in_m": "trong {m}ph",
     "starts_in_d_h": "trong {d}ng {h}g",
@@ -500,12 +525,48 @@
     "stats": "Thuộc tính",
     "slot": "Ô",
     "pack": "Bộ",
+    "itemGroup": "Nhóm vật phẩm",
     "itemGroups": {
       "nature": "Tài Nguyên Tự Nhiên",
       "gatherable": "Có Thể Thu Thập",
       "product": "Sản Phẩm Khu Phức Hợp",
       "usable": "Vật Phẩm Có Thể Dùng",
       "facility": "Sản xuất"
+    },
+    "itemSubGroups": {
+      "facility_battle": "Chiến đấu",
+      "facility_crafter": "Sản xuất",
+      "facility_miner": "Khai thác",
+      "facility_other": "Khác",
+      "facility_powerStation": "Trạm điện",
+      "facility_pump": "Máy bơm",
+      "facility_soil": "Trồng trọt",
+      "gatherable_drop": "Rơi ra",
+      "gatherable_muck": "Phân thú",
+      "gatherable_plant": "Côn trùng",
+      "nature_flowerPlant": "Hoa",
+      "nature_grassPlant": "Cỏ",
+      "nature_liquid": "Chất lỏng",
+      "nature_ore": "Quặng",
+      "nature_soilPlant": "Thực vật trồng trọt",
+      "nature_wood": "Gỗ",
+      "product_activityXiranite": "Xiranite thực nghiệm",
+      "product_amethyst": "Thạch anh tím",
+      "product_battery": "Pin",
+      "product_carbon": "Cacbon",
+      "product_component": "Linh kiện",
+      "product_copper": "Đồng",
+      "product_fullBottle": "Chai đầy",
+      "product_iron": "Sắt",
+      "product_liquid": "Chất lỏng",
+      "product_muck": "Phân bón",
+      "product_originium": "Originium",
+      "product_powder": "Bột",
+      "product_xiranite": "Xiranite",
+      "usable_bomb": "Bom",
+      "usable_bottledProdFood": "Thức ăn",
+      "usable_other": "Khác",
+      "usable_powder": "Bột"
     }
   },
   "menu": {
@@ -804,12 +865,14 @@
     "won": "Thắng",
     "pulls": "lượt quay",
     "roll": "Lần quay",
-    "percent": "Phần trăm"
+    "percent": "Phần trăm",
+    "pull_one": "Lượt quay"
   },
   "settings": {
     "title": "Cài đặt",
     "other": "Khác",
     "disableDarkening": "Tắt làm tối thẻ vũ khí và toán tử",
+    "toggleCtrlForZoom": "Nhấn giữ Ctrl để thu phóng",
     "account": {
       "title": "Chọn Tài khoản",
       "add": "Thêm",
@@ -923,7 +986,10 @@
     "discordJoin": "Tham gia Discord",
     "docsTitle": "Tài liệu Goyfield DEV",
     "docsAuthor": "bởi @beetwooo_",
-    "goToTimeline": "Đến sự kiện"
+    "goToTimeline": "Đến sự kiện",
+    "fullSupportLanguages": "Ngôn ngữ được hỗ trợ đầy đủ",
+    "uiLanguages": "Ngôn ngữ giao diện",
+    "uiLanguagesDesc": "Các ngôn ngữ hỗ trợ dịch giao diện trang web. Đối với các danh hiệu trong game, ngôn ngữ dịch game được hỗ trợ đầy đủ đã chọn sẽ được sử dụng. Bạn có thể hỗ trợ dịch thuật tại <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">máy chủ Discord của Goyfield</a>"
   },
   "characters": {
     "catcher": "Catcher",
@@ -1963,7 +2029,8 @@
       "using": "Công Thức Áp Dụng",
       "availableFormulas": "Công Thức Có Sẵn",
       "availableFunctions": "Các Tính Năng Có Sẵn",
-      "resourceCollection": "Tài Nguyên Có Thể Thu Thập"
+      "resourceCollection": "Tài Nguyên Có Thể Thu Thập",
+      "currentFormulas": "Công thức hiện tại"
     },
     "craftSource": {
       "hub": "Lõi Tự Động Hóa",
@@ -1971,6 +2038,10 @@
     },
     "items": {
       "power": "Phát Điện"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Thay đổi chuỗi",
+      "openTree": "Xem chuỗi"
     }
   },
   "resourcePointNames": {

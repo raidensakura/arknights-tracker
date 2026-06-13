@@ -342,7 +342,10 @@
     "changelog": "更新履歴",
     "equipment": "装備",
     "bannerHistory": "バナー履歴",
-    "enemies": "敵"
+    "enemies": "敵",
+    "recipes": "レシピ",
+    "recipeTree": "レシピツリー",
+    "openRecipe": "レシピを開く"
   },
   "events": {
     "type": {
@@ -923,7 +926,10 @@
     "discordJoin": "Discordに参加",
     "docsTitle": "Goyfield DEV ドキュメント",
     "docsAuthor": "by @beetwooo_",
-    "goToTimeline": "イベントへ"
+    "goToTimeline": "イベントへ",
+    "fullSupportLanguages": "完全対応の言語",
+    "uiLanguages": "インターフェースの言語",
+    "uiLanguagesDesc": "ウェブサイトのインターフェース翻訳に対応している言語です。ゲーム内の表記については、選択された完全対応のゲーム翻訳言語が使用されます。翻訳のお手伝いは、<a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">GoyfieldのDiscordサーバー</a>で受け付けています"
   },
   "characters": {
     "catcher": "キャッチャー",
@@ -1963,7 +1969,8 @@
       "using": "レシピ",
       "availableFormulas": "生産レシピ",
       "availableFunctions": "機能詳細",
-      "resourceCollection": "採集可能"
+      "resourceCollection": "採集可能",
+      "currentFormulas": "現在の配方"
     },
     "craftSource": {
       "hub": "協約核心",
@@ -1971,6 +1978,10 @@
     },
     "items": {
       "power": "発電"
+    },
+    "treeSwitchButton": {
+      "changeTree": "ツリーを変更",
+      "openTree": "ツリーを表示"
     }
   },
   "resourcePointNames": {

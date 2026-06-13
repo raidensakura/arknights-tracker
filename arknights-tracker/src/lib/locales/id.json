@@ -342,7 +342,10 @@
     "changelog": "Catatan Perubahan",
     "equipment": "Perlengkapan",
     "bannerHistory": "Riwayat Banner",
-    "enemies": "Musuh"
+    "enemies": "Musuh",
+    "recipes": "Resep",
+    "recipeTree": "Rantai Resep",
+    "openRecipe": "Buka resep"
   },
   "events": {
     "type": {
@@ -923,7 +926,10 @@
     "discordJoin": "Bergabung dengan Discord",
     "docsTitle": "Dokumentasi Goyfield DEV",
     "docsAuthor": "oleh @beetwooo_",
-    "goToTimeline": "Ke Event"
+    "goToTimeline": "Ke Event",
+    "fullSupportLanguages": "Bahasa dengan Dukungan Penuh",
+    "uiLanguages": "Bahasa Antarmuka",
+    "uiLanguagesDesc": "Bahasa yang mendukung terjemahan antarmuka situs web. Untuk sebutan game, bahasa terjemahan game yang didukung penuh yang dipilih akan digunakan. Anda dapat membantu menerjemahkan di <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">server Discord Goyfield</a>"
   },
   "characters": {
     "catcher": "Catcher",
@@ -1963,7 +1969,8 @@
       "using": "Formula yang Bisa Diterapkan",
       "availableFormulas": "Formula yang Tersedia",
       "availableFunctions": "Fungsi Tersedia",
-      "resourceCollection": "Sumber Daya yang Bisa Dikumpulkan"
+      "resourceCollection": "Sumber Daya yang Bisa Dikumpulkan",
+      "currentFormulas": "Formula Saat Ini"
     },
     "craftSource": {
       "hub": "Automasi Canggih",
@@ -1971,6 +1978,10 @@
     },
     "items": {
       "power": "Daya"
+    },
+    "treeSwitchButton": {
+      "changeTree": "Ubah rantai",
+      "openTree": "Lihat rantai"
     }
   },
   "resourcePointNames": {

@@ -17,8 +17,16 @@
     import ItemCard from "$lib/components/cards/ItemCard.svelte";
     import Button from "$lib/components/Button.svelte";
     import Image from "$lib/components/Image.svelte";
+    import NotFound from "$lib/components/NotFound.svelte";
+    import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
 
     let showPotHint = false;
+
+    function formatNumberForSelection(num) {
+        if (num === undefined || num === null) return '0';
+        const formatted = num.toLocaleString("ru-RU");
+        return formatted.replace(/[\s\u00A0\u202F]/g, '<span class="select-none"> </span>');
+    }
 
     onMount(() => {
         if (browser) {
@@ -390,43 +398,6 @@
     }
     $: rarityColor = getRarityColors(weaponBase.rarity);
 
-    function parseRichText(text) {
-        if (!text) return "";
-        const styles = {
-            "ba.natur": "text-[#4ADE80] font-bold",
-            "ba.fire": "text-[#F87171] font-bold",
-            "ba.vup": "text-[#38BDF8] font-bold",
-            "ba.info":
-                "text-gray-500 dark:text-[#A0A0A0] italic font-normal text-[13px]",
-            "ba.heal": "text-[#4ADE80] font-bold",
-            "ba.consume": "text-[#E3BC55] font-bold",
-            "ba.noguard": "text-[#F87171] font-bold",
-            "ba.cryst": "text-[#67E8F9] font-bold",
-            "ba.pulse": "text-[#C084FC] font-bold",
-            "ba.phy": "text-[#A3A3A3] font-bold",
-            "ba.poise": "text-[#FBBF24] font-bold",
-            "ba.key": "text-[#E3BC55] font-bold",
-            "ba.conduct": "text-[#C084FC] font-bold",
-            "ba.spelldmg": "text-[#E3BC55] font-bold",
-            "ba.crush": "text-[#FBBF24] font-bold",
-            "ba.fracture": "text-[#FBBF24] font-bold",
-            "ba.pd": "text-[#A3A3A3] font-bold",
-            "ba.physicalvul": "text-[#F87171] font-bold",
-            "ba.originium": "text-[#67E8F9] font-bold",
-            "ba.return": "text-[#38BDF8] font-bold",
-        };
-        let html = text.replace(/<([@#])([^>]+)>/g, (match, type, tag) => {
-            let styleClass = styles[tag] || "text-[#38BDF8] font-bold";
-            if (type === "#") {
-                styleClass +=
-                    " underline decoration-dashed decoration-current underline-offset-4 font-bold";
-            }
-            return `<span class="${styleClass}">`;
-        });
-        html = html.replace(/<\/>/g, "</span>");
-        html = html.replace(/\n/g, "<br>");
-        return html;
-    }
 
     function interpolateBlackboard(text, bb) {
         if (!text || !bb) return text;
@@ -541,6 +512,9 @@
     on:keyup={handleKeyup}
 />
 
+{#if !weapons[id]}
+    <NotFound />
+{:else}
 <div class="min-h-screen md:px-8 md:py-3 font-sans transition-colors ">
     <div class="w-full max-w-[1500px] mx-auto mb-6">
         <Button variant="roundSmall" color="white" onClick={() => history.back()}>
@@ -771,7 +745,8 @@
                         >
                         <span
                             class="text-3xl font-sdk font-bold text-[#21272C] dark:text-[#E4E4E4] leading-none ml-2 drop-shadow-sm"
-                            >{baseAtk}</span
+                            style="text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);"
+                            >{@html formatNumberForSelection(baseAtk)}</span
                         >
                     </div>
                 </div>
@@ -997,6 +972,7 @@
 
                             <div
                                 class="text-[14px] text-gray-700 dark:text-[#A0A0A0] leading-relaxed pl-[20px] whitespace-pre-wrap"
+                                use:hyperlinkAction
                             >
                                 {@html parseRichText(
                                     interpolateBlackboard(
@@ -1375,6 +1351,8 @@
             </button>
         </div>
     </div>
+{/if}
+
 {/if}
 
 <style>

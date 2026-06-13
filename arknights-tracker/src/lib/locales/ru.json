@@ -363,7 +363,8 @@
     "bannerHistory": "История баннеров",
     "enemies": "Враги",
     "recipes": "Рецепты",
-    "recipeTree": "Цепочка рецептов"
+    "recipeTree": "Цепочка рецептов",
+    "openRecipe": "Открыть рецепты"
   },
   "events": {
     "type": {
@@ -966,6 +967,8 @@
     }
   },
   "home": {
+    "uiLanguages": "Языки интерфейса",
+    "uiLanguagesDesc": "Языки, поддерживающие перевод интерфейса сайта. Для перевода игровых обозначений будет использован выбранный язык полностью поддерживающий перевод игры. Помочь с переводом вы можете в <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">дискорд сервере Goyfield</a>",
     "promocodes": "Промокоды",
     "go_back": "Назад",
     "rewards": "Награды",
@@ -987,7 +990,8 @@
     "discordJoin": "Присоединиться к Discord",
     "docsTitle": "Документация Goyfield DEV",
     "docsAuthor": "by @beetwooo_",
-    "goToTimeline": "Перейти к событиям"
+    "goToTimeline": "Перейти к событиям",
+    "fullSupportLanguages": "Языки с полной поддержкой"
   },
   "characters": {
     "catcher": "Кэтчер",

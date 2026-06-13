@@ -12,7 +12,7 @@
     import { onDestroy } from "svelte";
     import { disableDarkening } from "$lib/stores/settings";
     import { addNotification } from "$lib/stores/notifications";
-    import { currentLocale } from "$lib/stores/locale";
+    import { currentLocale, currentUiLocale } from "$lib/stores/locale";
     import { ctrlForZoom } from "$lib/stores/dragPlateSettings.js";
 
     import Select from "$lib/components/Select.svelte";
@@ -131,11 +131,11 @@
     }
 
     let lastSyncDate = "";
-    $: if ($syncStatus && $currentLocale && typeof window !== "undefined") {
+    $: if ($syncStatus && $currentUiLocale && typeof window !== "undefined") {
         const ts = parseInt(localStorage.getItem("ark_last_sync") || "0");
         if (ts > 0) {
             try {
-                lastSyncDate = new Intl.DateTimeFormat($currentLocale, {
+                lastSyncDate = new Intl.DateTimeFormat($currentUiLocale, {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit',

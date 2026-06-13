@@ -1,7 +1,7 @@
 <script>
   import { t } from "$lib/i18n";
   import { onMount, onDestroy } from "svelte";
-  import { currentLocale } from "$lib/stores/locale";
+  import { currentLocale, currentUiLocale } from "$lib/stores/locale";
   import { goto } from "$app/navigation";
   import { banners } from "$lib/data/banners.js";
   import { promocodes } from "$lib/data/promocodes.js";
@@ -155,9 +155,9 @@
     if (showServerTime) {
       const timeZone =
         currentServerId === "2" ? "Asia/Shanghai" : "America/New_York";
-      return end.toLocaleString($currentLocale, { ...dateOptions, timeZone });
+      return end.toLocaleString($currentUiLocale, { ...dateOptions, timeZone });
     }
-    return end.toLocaleString($currentLocale, dateOptions);
+    return end.toLocaleString($currentUiLocale, dateOptions);
   }
 
   function getPromoTimeLabel(dateStr) {

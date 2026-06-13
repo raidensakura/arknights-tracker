@@ -9,7 +9,7 @@
   import { currencies } from "$lib/data/items/currencies";
   import { getWeaponCategory } from "$lib/utils/importUtils";
   import { slide } from "svelte/transition";
-  import { currentLocale } from "$lib/stores/locale";
+  import { currentLocale, currentUiLocale } from "$lib/stores/locale";
   import { recordsExcludedBanners } from "$lib/stores/filterStore";
 
   import Button from "$lib/components/Button.svelte";
@@ -357,8 +357,8 @@
     }
     const b = banners.find((x) => x.id === bId);
     const label = b ? ($t(`banners.${b.id}`) !== `banners.${b.id}` ? $t(`banners.${b.id}`) : b.name) : bId;
-    const startFormatted = b ? formatBannerDate(b.startTime, $currentLocale) : "";
-    const endFormatted = b ? (b.endTime ? formatBannerDate(b.endTime, $currentLocale) : ($t("permanent") || "Permanent")) : "";
+    const startFormatted = b ? formatBannerDate(b.startTime, $currentUiLocale) : "";
+    const endFormatted = b ? (b.endTime ? formatBannerDate(b.endTime, $currentUiLocale) : ($t("permanent") || "Permanent")) : "";
     const subLabel = startFormatted && endFormatted ? `${startFormatted} - ${endFormatted}` : "";
     return {
       value: bId,

@@ -342,7 +342,10 @@
     "changelog": "บันทึกการเปลี่ยนแปลง",
     "equipment": "อุปกรณ์",
     "bannerHistory": "ประวัติแบนเนอร์",
-    "enemies": "ศัตรู"
+    "enemies": "ศัตรู",
+    "recipes": "สูตรผลิต",
+    "recipeTree": "สายการผลิต",
+    "openRecipe": "เปิดสูตรผลิต"
   },
   "events": {
     "type": {
@@ -923,7 +926,10 @@
     "discordJoin": "เข้าร่วม Discord",
     "docsTitle": "เอกสาร Goyfield DEV",
     "docsAuthor": "โดย @beetwooo_",
-    "goToTimeline": "ไปที่กิจกรรม"
+    "goToTimeline": "ไปที่กิจกรรม",
+    "fullSupportLanguages": "ภาษาที่สนับสนุนอย่างเต็มที่",
+    "uiLanguages": "ภาษาอินเทอร์เฟซ",
+    "uiLanguagesDesc": "ภาษาที่รองรับการแปลอินเทอร์เฟซของเว็บไซต์ สำหรับการระบุในเกม จะใช้ภาษาแปลในเกมที่รองรับอย่างเต็มรูปแบบที่เลือก คุณสามารถช่วยแปลได้ใน <a href=\"{discordLink}\" target=\"_blank\" class=\"text-yellow-400 hover:underline\">เซิร์ฟเวอร์ Discord ของ Goyfield</a>"
   },
   "characters": {
     "catcher": "แคท​เชอร์",
@@ -1963,7 +1969,8 @@
       "using": "สูตร​ที่​เกี่ยวข้อง",
       "availableFormulas": "สูตร​ที่​ใช้งาน​ได้",
       "availableFunctions": "ฟังก์ชัน​ที่​ใช้งาน​ได้",
-      "resourceCollection": "ทรัพยากร​ที่เก็บ​ได้"
+      "resourceCollection": "ทรัพยากร​ที่เก็บ​ได้",
+      "currentFormulas": "สูตรปัจจุบัน"
     },
     "craftSource": {
       "hub": "แกน​หลัก​อัตโนมัติ",
@@ -1971,6 +1978,10 @@
     },
     "items": {
       "power": "พลังงาน"
+    },
+    "treeSwitchButton": {
+      "changeTree": "เปลี่ยนสายการผลิต",
+      "openTree": "ดูสายการผลิต"
     }
   },
   "resourcePointNames": {
