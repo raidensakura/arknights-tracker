@@ -2013,7 +2013,7 @@ export const items = {
         "rarity": 3,
         "groupId": "product",
         "type": "compressed_powder",
-        "material": "plant_moss_1"
+        "material": "plant_flower_1"
     },
     "item_plant_moss_enr_powder_2": {
         "id": "item_plant_moss_enr_powder_2",
@@ -2021,7 +2021,7 @@ export const items = {
         "rarity": 3,
         "groupId": "product",
         "type": "compressed_powder",
-        "material": "plant_moss_2"
+        "material": "plant_flower_2"
     },
     "item_plant_moss_powder_3": {
         "id": "item_plant_moss_powder_3",
@@ -2029,7 +2029,7 @@ export const items = {
         "rarity": 2,
         "groupId": "product",
         "type": "powder",
-        "material": "plant_moss_3"
+        "material": "plant_flower_3"
     },
     "item_xiranite_enr_powder": {
         "id": "item_xiranite_enr_powder",
@@ -2117,7 +2117,7 @@ export const items = {
         "rarity": 3,
         "groupId": "usable",
         "type": "food",
-        "material": "plant_moss_2"
+        "material": "plant_flower_2"
     },
     "item_bottled_food_2": {
         "id": "item_bottled_food_2",
@@ -2125,7 +2125,7 @@ export const items = {
         "rarity": 3,
         "groupId": "usable",
         "type": "food",
-        "material": "plant_moss_2"
+        "material": "plant_flower_2"
     },
     "item_bottled_food_3": {
         "id": "item_bottled_food_3",
@@ -2133,7 +2133,7 @@ export const items = {
         "rarity": 4,
         "groupId": "usable",
         "type": "food",
-        "material": "plant_moss_2"
+        "material": "plant_flower_2"
     },
     "item_bottled_food_4": {
         "id": "item_bottled_food_4",
@@ -2189,7 +2189,7 @@ export const items = {
         "rarity": 3,
         "groupId": "usable",
         "type": "hp_recovery",
-        "material": "plant_moss_1"
+        "material": "plant_flower_1"
     },
     "item_bottled_rec_hp_2": {
         "id": "item_bottled_rec_hp_2",
@@ -2197,7 +2197,7 @@ export const items = {
         "rarity": 3,
         "groupId": "usable",
         "type": "hp_recovery",
-        "material": "plant_moss_1"
+        "material": "plant_flower_1"
     },
     "item_bottled_rec_hp_3": {
         "id": "item_bottled_rec_hp_3",
@@ -2205,7 +2205,7 @@ export const items = {
         "rarity": 4,
         "groupId": "usable",
         "type": "hp_recovery",
-        "material": "plant_moss_1"
+        "material": "plant_flower_1"
     },
     "item_bottled_rec_hp_4": {
         "id": "item_bottled_rec_hp_4",
