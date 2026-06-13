@@ -1,30 +1,28 @@
-import { mount, unmount } from "svelte";
 import { get } from "svelte/store";
 import { t } from "$lib/i18n.js";
-import Icon from "$lib/components/Icon.svelte";
 
 export function parseRichText(text) {
     if (!text) return "";
     const styles = {
-        "ba.natur": "text-[#4ADE80] font-bold", // Природный
-        "ba.fire": "text-[#F87171] font-bold", // Огненный
-        "ba.cryst": "text-[#67E8F9] font-bold", // Кристаллический
-        "ba.pulse": "text-[#C084FC] font-bold", // Электрический
-        "ba.phy": "text-[#A3A3A3] font-bold", // Физический
-        "ba.poise": "text-[#FBBF24] font-bold", // Ошеломление
-        "ba.vup": "text-[#38BDF8] font-bold", // Повышение
-        "ba.key": "text-[#E3BC55] font-bold", // Ключевые термины
-        "ba.conduct": "text-[#C084FC] font-bold", // Электризация
+        "ba.natur": "text-[#ade131] font-bold", // Природный
+        "ba.fire": "text-[#f45511] font-bold", // Огненный
+        "ba.cryst": "text-[#08edfb] font-bold", // Кристаллический
+        "ba.pulse": "text-[#ffcc00] font-bold", // Электрический
+        "ba.phy": "text-[#7d582d] font-bold", // Физический
+        "ba.poise": "text-[#ffd399] font-bold", // Ошеломление
+        "ba.vup": "text-[#22BBFF] font-bold", // Повышение
+        "ba.key": "text-[#00a8ff] font-bold", // Ключевые термины
+        "ba.conduct": "text-[#ffcc00] font-bold", // Электризация
         "ba.spelldmg": "text-[#E3BC55] font-bold", // Урон от искусств
         "ba.info": "text-gray-500 dark:text-[#A0A0A0] italic font-normal text-[13px]",
-        "ba.heal": "text-[#4ADE80] font-bold",
+        "ba.heal": "text-[#ade131] font-bold",
         "ba.consume": "text-[#E3BC55] font-bold",
-        "ba.noguard": "text-[#F87171] font-bold",
-        "ba.crush": "text-[#FBBF24] font-bold",
-        "ba.fracture": "text-[#FBBF24] font-bold",
-        "ba.pd": "text-[#A3A3A3] font-bold",
+        "ba.noguard": "text-[#e8ceb0] font-bold",
+        "ba.crush": "text-[#e8ceb0] font-bold",
+        "ba.fracture": "text-[#e8ceb0] font-bold",
+        "ba.pd": "text-[#7d582d] font-bold",
         "ba.physicalvul": "text-[#F87171] font-bold",
-        "ba.originium": "text-[#67E8F9] font-bold",
+        "ba.originium": "text-[#ff7100] font-bold",
         "ba.return": "text-[#38BDF8] font-bold",
     };
 
@@ -37,7 +35,12 @@ export function parseRichText(text) {
         }
         
         const showIconPlaceholder = tag !== "ba.info" && tag !== "profile.key";
-        const iconPlaceholder = showIconPlaceholder ? `<span class="rich-icon-placeholder" data-icon-id="${tag}"></span>` : '';
+        let iconPlaceholder = '';
+        if (showIconPlaceholder) {
+            const imgName = `icon_term_${tag.replace(/\./g, '_')}.png`;
+            const imgSrc = `/images/textIcons/${imgName}`;
+            iconPlaceholder = `<img src="${imgSrc}" class="w-5 h-5 inline-block align-text-bottom shrink-0 transition-transform duration-200 hover:scale-110" style="display: none;" onload="this.style.display='inline-block'" />`;
+        }
         
         return `<span class="rich-term ${styleClass}" data-term-id="${tag}">${iconPlaceholder}`;
     });
@@ -48,20 +51,10 @@ export function parseRichText(text) {
 }
 
 export function hyperlinkAction(node) {
-    let pageComponents = [];
-    let tooltipComponents = [];
     let tooltipEl = null;
     let hoverListeners = [];
 
     function cleanup() {
-        pageComponents.forEach(c => {
-            try {
-                unmount(c);
-            } catch (err) {
-            }
-        });
-        pageComponents = [];
-        
         cleanupTooltip();
 
         hoverListeners.forEach(cleanupListener => cleanupListener());
@@ -69,13 +62,6 @@ export function hyperlinkAction(node) {
     }
 
     function cleanupTooltip() {
-        tooltipComponents.forEach(c => {
-            try {
-                unmount(c);
-            } catch (err) {
-            }
-        });
-        tooltipComponents = [];
         if (tooltipEl) {
             tooltipEl.remove();
             tooltipEl = null;
@@ -86,24 +72,6 @@ export function hyperlinkAction(node) {
 
     function init() {
         cleanup();
-
-        const placeholders = node.querySelectorAll('.rich-icon-placeholder');
-        placeholders.forEach(ph => {
-            const iconId = ph.getAttribute('data-icon-id');
-            if (iconId) {
-                try {
-                    const comp = mount(Icon, {
-                        target: ph,
-                        props: {
-                            name: iconId,
-                            class: "w-3.5 h-3.5 inline-block mr-1 align-text-bottom shrink-0 transition-transform duration-200 group-hover:scale-110"
-                        }
-                    });
-                    pageComponents.push(comp);
-                } catch (e) {
-                }
-            }
-        });
 
         const terms = node.querySelectorAll('.rich-term');
         const tFunc = get(t);
@@ -125,34 +93,15 @@ export function hyperlinkAction(node) {
                     tooltipEl = document.createElement('div');
                     tooltipEl.className = "fixed px-3 py-2 bg-gray-900/95 dark:bg-[#1E1E1E]/95 text-white text-xs rounded-xl shadow-2xl pointer-events-none z-[999999] max-w-[280px] whitespace-normal leading-normal border border-white/10 backdrop-blur-sm transition-all duration-150 animate-fadeIn";
 
-                    const titleHtml = `<div class="font-bold border-b border-white/20 pb-1 mb-1 text-[13px] tracking-wide text-yellow-400 flex items-center gap-1.5"><span class="rich-tooltip-icon-placeholder" data-icon-id="${termId}"></span>${tooltipTitle}</div>`;
+                    const titleImgName = `icon_term_${termId.replace(/\./g, '_')}.png`;
+                    const titleImgSrc = `/images/textIcons/${titleImgName}`;
+                    const titleHtml = `<div class="font-bold border-b border-white/20 pb-1 mb-1 text-[13px] tracking-wide text-yellow-400 flex items-center gap-1.5"><img src="${titleImgSrc}" class="w-4 h-4 inline-block align-text-bottom shrink-0" style="display: none;" onload="this.style.display='inline-block'" />${tooltipTitle}</div>`;
                     
                     const parsedDesc = parseRichText(tooltipDesc);
                     const descHtml = `<div class="text-[11px] text-gray-200">${parsedDesc}</div>`;
                     tooltipEl.innerHTML = titleHtml + descHtml;
 
                     document.body.appendChild(tooltipEl);
-
-                    const tooltipPlaceholders = tooltipEl.querySelectorAll('.rich-tooltip-icon-placeholder, .rich-icon-placeholder');
-                    tooltipPlaceholders.forEach(ph => {
-                        const iconId = ph.getAttribute('data-icon-id');
-                        if (iconId) {
-                            try {
-                                const isTitle = ph.classList.contains('rich-tooltip-icon-placeholder');
-                                const tooltipIconComp = mount(Icon, {
-                                    target: ph,
-                                    props: {
-                                        name: iconId,
-                                        class: isTitle 
-                                            ? "w-4 h-4 inline-block align-text-bottom shrink-0" 
-                                            : "w-3.5 h-3.5 inline-block mr-1 align-text-bottom shrink-0 transition-transform duration-200"
-                                    }
-                                });
-                                tooltipComponents.push(tooltipIconComp);
-                            } catch (err) {
-                            }
-                        }
-                    });
 
                     window.addEventListener('scroll', cleanupTooltip, { passive: true });
                     window.addEventListener('resize', cleanupTooltip, { passive: true });

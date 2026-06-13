@@ -42,7 +42,6 @@
     let showStatsTable = false;
     let isTableCopied = false;
 
-
     $: resistances = [
         { key: "Physical", val: enemyData.PhysicalDamageTakenScalar, locKey: "physRez" },
         { key: "Fire", val: enemyData.FireDamageTakenScalar, locKey: "heatRez" },
@@ -425,8 +424,6 @@
                         {/each}
                     </div>
                 </div>
-
-                
             </div>
         </div>
 
@@ -442,7 +439,7 @@
                 <div class="flex flex-wrap gap-2 pt-1">
                     {#if enemyData.drop && enemyData.drop.length > 0}
                         {#each enemyData.drop as dropId}
-                            <ItemCard item={{id: dropId}} hideAmount=true customPath="itemNames" linkToRecipe={true} />
+                            <ItemCard item={{id: dropId}} hideAmount=true customPath="itemNames" />
                         {/each}
                     {:else}
                         <div class="w-full text-center text-gray-500 dark:text-[#B7B6B3] text-sm py-4 italic">
