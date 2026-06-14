@@ -500,6 +500,8 @@
     "attribute3": "속성 3",
     "title": "정렬",
     "filters": "필터",
+    "skillMaterials": "스킬 재료",
+    "any": "[전체]",
     "stats": "속성",
     "slot": "슬롯",
     "pack": "세트",
@@ -523,7 +525,11 @@
     "baseSkills": "인프라 스킬",
     "talent": "재능",
     "description": "설명",
-    "images": "이미지"
+    "images": "이미지",
+    "basicAttack": "일반 공격",
+    "battleSkill": "배틀 스킬",
+    "comboSkill": "연계 스킬",
+    "ultimate": "궁극기"
   },
   "bio": {
     "faction": "진영",

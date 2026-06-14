@@ -522,6 +522,8 @@
     "attribute3": "屬性 3",
     "title": "排序",
     "filters": "篩選",
+    "skillMaterials": "技能材料",
+    "any": "[任意]",
     "stats": "屬性",
     "slot": "槽位",
     "pack": "套裝",
@@ -581,7 +583,11 @@
     "baseSkills": "後勤技能",
     "talent": "天賦",
     "description": "描述",
-    "images": "圖片"
+    "images": "圖片",
+    "basicAttack": "普攻",
+    "battleSkill": "戰技",
+    "comboSkill": "連攜技",
+    "ultimate": "終結技"
   },
   "bio": {
     "faction": "陣營",

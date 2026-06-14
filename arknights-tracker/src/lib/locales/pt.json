@@ -500,6 +500,8 @@
     "attribute3": "Atributo 3",
     "title": "Ordenar",
     "filters": "Filtros",
+    "skillMaterials": "Materiais de habilidade",
+    "any": "[Qualquer]",
     "stats": "Atributos",
     "slot": "Espaço",
     "pack": "Conjunto",
@@ -523,7 +525,11 @@
     "baseSkills": "Habilidade Base",
     "talent": "Talento",
     "description": "Descrição",
-    "images": "Imagens"
+    "images": "Imagens",
+    "basicAttack": "Ataque Básico",
+    "battleSkill": "Habilidade de Batalha",
+    "comboSkill": "Combo de Habilidades",
+    "ultimate": "Habilidade Suprema"
   },
   "bio": {
     "faction": "Facção",

@@ -499,6 +499,8 @@
     "attribute3": "Atributo 3",
     "title": "Ordenar",
     "filters": "Filtros",
+    "skillMaterials": "Materiales de habilidad",
+    "any": "[Cualquiera]",
     "stats": "Atributos",
     "slot": "Ranura",
     "pack": "Conjunto",
@@ -522,7 +524,11 @@
     "baseSkills": "Habilidad base",
     "talent": "Talento",
     "description": "Descripción",
-    "images": "Imágenes"
+    "images": "Imágenes",
+    "basicAttack": "Ataque básico",
+    "battleSkill": "Habilidad de batalla",
+    "comboSkill": "Habilidad de combo",
+    "ultimate": "Máxima"
   },
   "bio": {
     "faction": "Facción",

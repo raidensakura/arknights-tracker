@@ -468,7 +468,7 @@
               class="flex flex-col dark:border-[#444444] dark:bg-[#383838] hover:dark:bg-[#373737] items-center justify-center p-4 border border-gray-200 rounded-xl hover:border-[#1D6F42] hover:bg-green-50 transition group bg-white h-24 w-full"
             >
               <div class="mb-2 text-gray-400 group-hover:text-[#1D6F42] dark:text-[#E0E0E0] transition-colors">
-                <Icon name="export" class="w-5 h-5" />
+                <Icon name="export" class="w-6 h-6" />
               </div>
               <div class="font-bold dark:text-[#E0E0E0] text-[#21272C] text-sm">
                 {$t("page.recordsSettings.exportXLSX")}

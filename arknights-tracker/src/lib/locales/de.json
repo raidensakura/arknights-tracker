@@ -500,6 +500,8 @@
     "attribute3": "Attribut 3",
     "title": "Sortieren",
     "filters": "Filter",
+    "skillMaterials": "Skill-Materialien",
+    "any": "[Beliebig]",
     "stats": "Attribute",
     "slot": "Platz",
     "pack": "Set",
@@ -523,7 +525,11 @@
     "baseSkills": "Grundfertigkeit",
     "talent": "Talent",
     "description": "Beschreibung",
-    "images": "Bilder"
+    "images": "Bilder",
+    "basicAttack": "Standardangriff",
+    "battleSkill": "Kampffertigkeit",
+    "comboSkill": "Kombofertigkeit",
+    "ultimate": "Ultimative Fertigkeit"
   },
   "bio": {
     "faction": "Fraktion",

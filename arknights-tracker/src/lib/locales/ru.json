@@ -521,6 +521,8 @@
     "attribute3": "Атрибут 3",
     "title": "Сортировка",
     "filters": "Фильтры",
+    "skillMaterials": "Материалы для скиллов",
+    "any": "[Любой]",
     "stats": "Атрибуты",
     "slot": "Слот",
     "pack": "Комплект",
@@ -580,7 +582,11 @@
     "baseSkills": "Базовый навык",
     "talent": "Талант",
     "description": "Описание",
-    "images": "Изображения"
+    "images": "Изображения",
+    "basicAttack": "Базовая атака",
+    "battleSkill": "Боевой навык",
+    "comboSkill": "Комбонавык",
+    "ultimate": "Супернавык"
   },
   "bio": {
     "faction": "Фракция",

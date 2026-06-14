@@ -522,6 +522,8 @@
     "attribute3": "Attribute 3",
     "title": "Sort",
     "filters": "Filters",
+    "skillMaterials": "Skill Materials",
+    "any": "[Any]",
     "stats": "Attributes",
     "slot": "Slot",
     "pack": "Set",
@@ -581,7 +583,11 @@
     "baseSkills": "Base Skill",
     "talent": "Talent",
     "description": "Description",
-    "images": "Images"
+    "images": "Images",
+    "basicAttack": "Basic Attack",
+    "battleSkill": "Battle Skill",
+    "comboSkill": "Combo Skill",
+    "ultimate": "Ultimate"
   },
   "bio": {
     "faction": "Faction",

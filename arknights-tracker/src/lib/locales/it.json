@@ -500,6 +500,8 @@
     "attribute3": "Attributo 3",
     "title": "Ordina",
     "filters": "Filtri",
+    "skillMaterials": "Materiali abilità",
+    "any": "[Qualsiasi]",
     "stats": "Attributi",
     "slot": "Slot",
     "pack": "Set",
@@ -523,7 +525,11 @@
     "baseSkills": "Abilità base",
     "talent": "Talento",
     "description": "Descrizione",
-    "images": "Immagini"
+    "images": "Immagini",
+    "basicAttack": "Attacco base",
+    "battleSkill": "Abilità di combattimento",
+    "comboSkill": "Abilità combo",
+    "ultimate": "Abilità suprema"
   },
   "bio": {
     "faction": "Fazione",

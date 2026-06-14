@@ -500,6 +500,8 @@
     "attribute3": "Attribut 3",
     "title": "Trier",
     "filters": "Filtres",
+    "skillMaterials": "Matériaux d'aptitude",
+    "any": "[Tout]",
     "stats": "Attributs",
     "slot": "Emplacement",
     "pack": "Ensemble",
@@ -523,7 +525,11 @@
     "baseSkills": "Compétence de base",
     "talent": "Talent",
     "description": "Description",
-    "images": "Images"
+    "images": "Images",
+    "basicAttack": "Attaque de base",
+    "battleSkill": "Comp. de combat",
+    "comboSkill": "Compétence de combo",
+    "ultimate": "Ultime"
   },
   "bio": {
     "faction": "Faction",

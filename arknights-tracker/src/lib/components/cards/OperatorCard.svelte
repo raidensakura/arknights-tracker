@@ -16,6 +16,8 @@
     export let className = "";
     export let isNew = undefined;
     export let hideName = false;
+    export let materialIcon = null;
+    export let materialCount = 0;
 
     $: computedIsNew =
         isNew !== undefined
@@ -303,6 +305,22 @@
                                     />
                                 {/each}
                             </svg>
+                        </Tooltip>
+                    </div>
+                {/if}
+
+                {#if materialIcon && materialCount > 0}
+                    <div class="absolute right-0.5 bottom-[45px] z-30 flex flex-col items-center pointer-events-auto">
+                        <Tooltip text={$t(`items.${materialIcon}`) || materialIcon}>
+                            <div class="flex flex-col items-center filter drop-shadow-md">
+                                <Image id={materialIcon} variant="item" size={32} className="object-contain mb-[-4px]" />
+                                <span
+                                    class="text-[10px] font-black text-white leading-none tracking-tight font-nums"
+                                    style="text-shadow: 1px 1px 0 #111, -1px -1px 0 #111, 1px -1px 0 #111, -1px 1px 0 #111, 0 2px 2px rgba(0,0,0,0.8);"
+                                >
+                                    {materialCount}
+                                </span>
+                            </div>
                         </Tooltip>
                     </div>
                 {/if}

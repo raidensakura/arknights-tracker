@@ -522,6 +522,8 @@
     "attribute3": "属性 3",
     "title": "排序",
     "filters": "筛选",
+    "skillMaterials": "技能材料",
+    "any": "[任意]",
     "stats": "属性",
     "slot": "槽位",
     "pack": "套装",
@@ -581,7 +583,11 @@
     "baseSkills": "后勤技能",
     "talent": "天赋",
     "description": "描述",
-    "images": "图片"
+    "images": "图片",
+    "basicAttack": "普攻",
+    "battleSkill": "战技",
+    "comboSkill": "连携技",
+    "ultimate": "终结技"
   },
   "bio": {
     "faction": "阵营",

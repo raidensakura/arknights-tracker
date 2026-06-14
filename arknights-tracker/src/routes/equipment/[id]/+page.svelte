@@ -149,6 +149,7 @@
                     tOrFallback(`equipSkills.${attr.attrType}`, attr.attrType),
                 ];
                 const isDef = attr.attrType.toLowerCase() === "def";
+                const isAllDamage = attr.attrType.toLowerCase() === "alldamagetakenscalar";
 
                 tiers.forEach((valIndex) => {
                     let val = attr.values[valIndex];
@@ -157,7 +158,9 @@
                     } else if (val === 0 || !val) {
                         row.push("-");
                     } else if (Math.abs(val) > 0 && Math.abs(val) < 1) {
-                        row.push(`${val * 100}%`);
+                        const displayVal = isAllDamage ? (1 - val) : val;
+                        const pct = Math.round(displayVal * 1000) / 10;
+                        row.push(`${pct}%`);
                     } else {
                         row.push(`${val}`);
                     }
@@ -547,19 +550,26 @@
                                             {#each tiers as valIndex}
                                                 {@const val =
                                                     attr.values[valIndex]}
+                                                {@const isAllDamage =
+                                                    attr.attrType.toLowerCase() ===
+                                                    "alldamagetakenscalar"}
+                                                {@const displayVal =
+                                                    isAllDamage && val !== undefined
+                                                        ? 1 - val
+                                                        : val}
                                                 <td
                                                     class="py-2 px-1 text-center font-nums text-[#21272C] dark:text-white"
                                                 >
                                                     {#if isDef && valIndex > 0}
                                                         -
-                                                    {:else if val === 0 || !val}
+                                                    {:else if displayVal === 0 || !displayVal}
                                                         -
-                                                    {:else if Math.abs(val) > 0 && Math.abs(val) < 1}
+                                                    {:else if Math.abs(displayVal) > 0 && Math.abs(displayVal) < 1}
                                                         {Math.round(
-                                                            val * 1000,
+                                                            displayVal * 1000,
                                                         ) / 10}%
                                                     {:else}
-                                                        {Math.round(val * 10) /
+                                                        {Math.round(displayVal * 10) /
                                                             10}
                                                     {/if}
                                                 </td>

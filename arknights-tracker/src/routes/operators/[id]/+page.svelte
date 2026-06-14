@@ -318,7 +318,6 @@
     $: neededMaterials = (() => {
         const required = {};
 
-        // 1. ВОЗВЫШЕНИЯ (Ascensions)
         if (
             showAscension &&
             charMaterials &&
@@ -333,12 +332,10 @@
             ];
 
             if (isCumulative) {
-                // КУМУЛЯТИВНО: суммируем все пройденные капы
                 ascensions.forEach((asc) => {
                     if (level >= asc.cap) phasesNeeded.push(asc.key);
                 });
             } else {
-                // НЕ КУМУЛЯТИВНО: показываем материалы только ровно на уровне капа
                 const exactAsc = ascensions.find((a) => a.cap === level);
                 if (exactAsc) {
                     phasesNeeded.push(exactAsc.key);
@@ -357,7 +354,6 @@
             });
         }
 
-        // 2. УРОВНИ (Exp & Gold)
         if (typeof levelUpTable !== "undefined") {
             let totalExp1to60 = 0;
             let totalExp60to90 = 0;
@@ -563,10 +559,11 @@
 {:else}
 <div class="min-h-screen relative flex flex-col md:px-8 md:py-3">
     <div
-        class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 transition-opacity duration-500 {activeTab ===
+        class="fixed top-0 left-0 w-[100svw] h-[100svh] flex items-center justify-center pointer-events-none z-0 transition-opacity duration-500 will-change-transform {activeTab ===
         'about'
             ? 'opacity-100'
             : 'opacity-60'}"
+        style="transform: translateZ(0);"
     >
         <div
             class="h-[110%] max-w-none object-cover opacity-100 lg:opacity-100 mask-image-gradient"
@@ -800,7 +797,7 @@
                 <div class="flex flex-col items-start gap-2 mt-3 w-fit">
                     {#each [{ label: "bio.faction", localizedVal: baseInfoLocale.blocTag, rawVal: char.faction }, { label: "bio.race", localizedVal: baseInfoLocale.raceTag, rawVal: char.race }, { label: "bio.birth", type: "date", localizedVal: null, rawVal: char.birthDate }] as item}
                         <div
-                            class="flex items-stretch h-[32px] rounded-lg overflow-hidden shadow-sm text-sm"
+                            class="flex items-stretch min-h-[32px] rounded-lg overflow-hidden shadow-sm text-sm"
                         >
                             <div
                                 class="bg-[#333] text-white px-4 flex items-center justify-center font-bold whitespace-nowrap min-w-[120px]"
@@ -809,7 +806,7 @@
                             </div>
 
                             <div
-                                class="bg-[#E5E5E5] text-[#333] px-4 flex items-center font-medium whitespace-nowrap"
+                                class="bg-[#E5E5E5] text-[#333] px-4 py-1.5 flex items-center font-medium leading-tight"
                             >
                                 {#if item.localizedVal}
                                     {item.localizedVal}

@@ -500,6 +500,8 @@
     "attribute3": "属性 3",
     "title": "並べ替え",
     "filters": "フィルター",
+    "skillMaterials": "スキル素材",
+    "any": "[任意]",
     "stats": "ステータス",
     "slot": "スロット",
     "pack": "セット",
@@ -523,7 +525,11 @@
     "baseSkills": "配属スキル",
     "talent": "能力値",
     "description": "説明",
-    "images": "画像"
+    "images": "画像",
+    "basicAttack": "通常攻撃",
+    "battleSkill": "戦技",
+    "comboSkill": "連携技",
+    "ultimate": "必殺技"
   },
   "bio": {
     "faction": "陣営",

@@ -4,6 +4,7 @@
     import { FactoryEvent } from "$lib/classes/events/FactoryEvent.js";
 
     import Icon from "$lib/components/Icon.svelte";
+    import Image from "$lib/components/Image.svelte";
 
     export let mode = "operators"; // "operators" | "weapons" | "equipment" | "enemies" | "items"
     export let sortField = "rarity";
@@ -12,6 +13,7 @@
     export let showOwnedOnly = false;
     export let availablePacks = [];
     export let groupMode = true;
+    export let exportXLSX = null;
 
     const skillIcons = {
         attr_atk: "atk",
@@ -428,6 +430,7 @@
             || manualMode.element
             || filters.weapon?.length !== filterOptions.weapon.length
             || manualMode.weapon
+            || filters.skillMaterial
             || showOwnedOnly;
 
     function resetFilters() {
@@ -454,6 +457,15 @@
                 attr2: [...filterOptions.attr2],
                 attr3: [...filterOptions.attr3],
             };
+        } else if (mode === "operators") {
+            filters = {
+                rarity: [...filterOptions.rarity],
+                class: [...filterOptions.class],
+                element: [...filterOptions.element],
+                weapon: [...filterOptions.weapon],
+                skillMaterialType: "any",
+                skillMaterial: null
+            };
         } else {
             filters = {
                 rarity: [...filterOptions.rarity],
@@ -463,7 +475,6 @@
             };
         }
         showOwnedOnly = false;
-        isFilterOpen = false;
     }
 
     function closeAll() {
@@ -846,6 +857,75 @@
                                         class="text-xs font-bold capitalize pointer-events-none"
                                         >{$t(`weapons.${wep}`) || wep}</span
                                     >
+                                </button>
+                            {/each}
+                        </div>
+                    </div>
+
+                    <div>
+                        <button
+                            type="button"
+                            class="text-sm font-bold dark:text-[#E0E0E0] text-gray-800 mb-2 hover:opacity-70"
+                            on:click={() => {
+                                filters.skillMaterialType = "any";
+                                filters.skillMaterial = null;
+                            }}
+                        >
+                            {$t("sort.skillMaterials") || "Материалы для скиллов"}
+                        </button>
+                        <div class="flex items-center gap-1 bg-gray-100 dark:bg-[#2C2C2C] p-1 rounded-lg mb-3 w-fit">
+                            {#each [
+                                { id: "any", label: $t("sort.any") || "[Any]" },
+                                { id: "basic_combo", label: `${$t("menu.basicAttack") || "Basic Attack"} + ${$t("menu.comboSkill") || "Combo Skill"}` },
+                                { id: "battle_ultimate", label: `${$t("menu.battleSkill") || "Battle Skill"} + ${$t("menu.ultimate") || "Ultimate"}` }
+                            ] as typeOpt}
+                                {@const isActive = filters.skillMaterialType === typeOpt.id}
+                                <button
+                                    type="button"
+                                    class="flex items-center px-3 py-1.5 rounded-md font-bold transition-all text-xs
+                                    {isActive
+                                        ? 'bg-white dark:bg-[#444] shadow-sm text-[#21272C] dark:text-white'
+                                        : 'hover:bg-gray-200 dark:hover:bg-[#333] text-gray-500 dark:text-gray-400'}"
+                                    on:click={() => {
+                                        filters.skillMaterialType = typeOpt.id;
+                                    }}
+                                >
+                                    {typeOpt.label}
+                                </button>
+                            {/each}
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            {#each [
+                                "d96SteelSample4",
+                                "metadiastimaPhotoemissionTube",
+                                "tachyonScreeningLattice",
+                                "quadrantFittingFluid",
+                                "triphasicNanoflake"
+                            ] as matId}
+                                {@const isSel = filters.skillMaterial === matId}
+                                {@const hasAnySelected = filters.skillMaterial !== null}
+                                <button
+                                    type="button"
+                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer 
+                                    {isSel
+                                        ? 'bg-[#F9B90C]/20 border-[#F9B90C] text-gray-900 dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]'
+                                        : !hasAnySelected
+                                            ? 'bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a]'
+                                            : 'bg-white dark:bg-[#383838] border-gray-200 text-gray-400 dark:border-[#444444] dark:text-[#787878] opacity-60 hover:opacity-100 hover:bg-gray-50 hover:dark:bg-[#424242]'}"
+                                    on:click={() => {
+                                        if (isSel) {
+                                            filters.skillMaterial = null;
+                                        } else {
+                                            filters.skillMaterial = matId;
+                                        }
+                                    }}
+                                >
+                                    <div class="w-5 h-5 flex items-center justify-center pointer-events-none {isSel || !hasAnySelected ? '' : 'grayscale opacity-50'} transition-all duration-200">
+                                        <Image id={matId} variant="item" className="w-full h-full object-contain" />
+                                    </div>
+                                    <span class="text-xs font-bold pointer-events-none">
+                                        {$t(`items.${matId}`) || matId}
+                                    </span>
                                 </button>
                             {/each}
                         </div>
@@ -1321,6 +1401,16 @@
             title="Toggle Grouping"
         >
             <Icon name="list" class="w-5 h-5 pointer-events-none" />
+        </button>
+    {/if}
+    {#if mode === "equipment" && exportXLSX}
+        <button
+            type="button"
+            on:click={exportXLSX}
+            class="h-[40px] px-4 rounded-full border border-gray-200 dark:border-[#444] dark:bg-[#383838] hover:dark:bg-[#444] text-gray-700 dark:text-[#E0E0E0] hover:text-[#1D6F42] hover:border-[#1D6F42] dark:hover:text-green-400 dark:hover:border-green-500 hover:bg-green-50/50 dark:hover:bg-green-950/20 transition-all flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer whitespace-nowrap shrink-0"
+        >
+            <Icon name="export" class="w-5 h-5 pointer-events-none" />
+            <span>{$t("page.recordsSettings.exportXLSX") || "Export .xlsx"}</span>
         </button>
     {/if}
 </div>

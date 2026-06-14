@@ -33,69 +33,144 @@
 
     const { selectedId } = accountStore;
 
-    $: filteredOperators = allOperators
-        .filter((op) => {
-            if (showOwnedOnly) {
-                const isEndmin = op.id === "endministrator1" || op.id === "endministrator2";
-                let isOwned = isEndmin;
+    const characterDataModules = import.meta.glob("/src/lib/data/charactersData/*.json", { eager: false });
+    let characterDetailsMap = {};
+    let isDataLoaded = false;
+    let loadingPromise = null;
 
-                if (!isOwned) {
-                    const activeId = $selectedId;
-                    const manualPots = $manualPotentials[activeId] || {};
-                    
-                    let pullsCount = 0;
-                    if ($pullData) {
-                        Object.values($pullData).forEach(banner => {
-                            const pulls = banner?.pulls || [];
-                            pullsCount += pulls.filter(p => 
-                                p.id === op.id || 
-                                p.name === op.id || 
-                                p.itemId === op.id || 
-                                (p.name && op.name && p.name.toLowerCase() === op.name.toLowerCase())
-                            ).length;
-                        });
+    async function loadCharacterData() {
+        if (isDataLoaded) return;
+        if (loadingPromise) return loadingPromise;
+
+        loadingPromise = (async () => {
+            const promises = Object.entries(characterDataModules).map(async ([_, importFn]) => {
+                const mod = await importFn();
+                const charData = mod.default || mod;
+                if (charData && charData.id) {
+                    characterDetailsMap[charData.id] = charData;
+                }
+            });
+            await Promise.all(promises);
+            isDataLoaded = true;
+            characterDetailsMap = { ...characterDetailsMap };
+        })();
+
+        return loadingPromise;
+    }
+
+    $: if (filters.skillMaterial && !isDataLoaded) {
+        loadCharacterData();
+    }
+
+    function getSkillMaterialCount(opId, matId, category) {
+        if (!matId) return 0;
+        const charDetails = characterDetailsMap[opId];
+        if (!charDetails || !charDetails.materials) return 0;
+
+        const materials = charDetails.materials;
+        let total = 0;
+
+        const keysToCheck = [];
+        const isAny = !category || category === "any";
+
+        if (isAny || category === "basic_combo") {
+            for (let r = 2; r <= 12; r++) {
+                keysToCheck.push(`basicAttackRank${r}`);
+                keysToCheck.push(`comboSkillRank${r}`);
+            }
+        }
+        if (isAny || category === "battle_ultimate") {
+            for (let r = 2; r <= 12; r++) {
+                keysToCheck.push(`battleSkillRank${r}`);
+                keysToCheck.push(`ultimateRank${r}`);
+            }
+        }
+
+        keysToCheck.forEach(key => {
+            const list = materials[key];
+            if (Array.isArray(list)) {
+                list.forEach(item => {
+                    if (item.name === matId) {
+                        total += item.amount;
                     }
-                    
-                    const basePot = pullsCount > 0 ? pullsCount - 1 : -1;
-                    const finalPot = manualPots[op.id] !== undefined ? manualPots[op.id] : basePot;
-                    isOwned = finalPot >= 0;
+                });
+            }
+        });
+
+        return total;
+    }
+
+    $: filteredOperators = (() => {
+        const _ = characterDetailsMap;
+        return allOperators
+            .filter((op) => {
+                if (showOwnedOnly) {
+                    const isEndmin = op.id === "endministrator1" || op.id === "endministrator2";
+                    let isOwned = isEndmin;
+
+                    if (!isOwned) {
+                        const activeId = $selectedId;
+                        const manualPots = $manualPotentials[activeId] || {};
+                        
+                        let pullsCount = 0;
+                        if ($pullData) {
+                            Object.values($pullData).forEach(banner => {
+                                const pulls = banner?.pulls || [];
+                                pullsCount += pulls.filter(p => 
+                                    p.id === op.id || 
+                                    p.name === op.id || 
+                                    p.itemId === op.id || 
+                                    (p.name && op.name && p.name.toLowerCase() === op.name.toLowerCase())
+                                ).length;
+                            });
+                        }
+                        
+                        const basePot = pullsCount > 0 ? pullsCount - 1 : -1;
+                        const finalPot = manualPots[op.id] !== undefined ? manualPots[op.id] : basePot;
+                        isOwned = finalPot >= 0;
+                    }
+
+                    if (!isOwned) return false;
                 }
 
-                if (!isOwned) return false;
-            }
+                const locName = ($t(`characters.${op.id}`) || "").toLowerCase();
+                const query = searchQuery.toLowerCase();
+                
+                const matchesSearch =
+                    !query ||
+                    op.name.toLowerCase().includes(query) ||
+                    (op.id && op.id.toLowerCase().includes(query)) ||
+                    locName.includes(query);
 
-            const locName = ($t(`characters.${op.id}`) || "").toLowerCase();
-            const query = searchQuery.toLowerCase();
-            
-            const matchesSearch =
-                !query ||
-                op.name.toLowerCase().includes(query) ||
-                (op.id && op.id.toLowerCase().includes(query)) ||
-                locName.includes(query);
+                if (!matchesSearch) return false;
+                
+                const matchesRarity = filters.rarity.length === 0 || filters.rarity.includes(op.rarity);
+                const matchesClass = filters.class.length === 0 || filters.class.some((c) => c.toLowerCase() === op.class?.toLowerCase());
+                const matchesElement = filters.element.length === 0 || filters.element.some((e) => e.toLowerCase() === op.element?.toLowerCase());
+                const matchesWeapon = filters.weapon.length === 0 || (op.weapon && filters.weapon.some((w) => w.toLowerCase() === op.weapon.toLowerCase()));
 
-            if (!matchesSearch) return false;
-            
-            const matchesRarity = filters.rarity.length === 0 || filters.rarity.includes(op.rarity);
-            const matchesClass = filters.class.length === 0 || filters.class.some((c) => c.toLowerCase() === op.class?.toLowerCase());
-            const matchesElement = filters.element.length === 0 || filters.element.some((e) => e.toLowerCase() === op.element?.toLowerCase());
-            const matchesWeapon = filters.weapon.length === 0 || (op.weapon && filters.weapon.some((w) => w.toLowerCase() === op.weapon.toLowerCase()));
+                if (filters.skillMaterial) {
+                    const count = getSkillMaterialCount(op.id, filters.skillMaterial, filters.skillMaterialType);
+                    if (count === 0) return false;
+                }
 
-            return matchesRarity && matchesClass && matchesElement && matchesWeapon;
-        })
-        .sort((a, b) => {
-            let valA = sortField === "weapon" ? a.weapon : a[sortField];
-            let valB = sortField === "weapon" ? b.weapon : b[sortField];
-            
-            if (sortField === "rarity") {
-                return sortDirection === "asc" ? valA - valB : valB - valA;
-            }
-            if (!valA) valA = "";
-            if (!valB) valB = "";
+                return matchesRarity && matchesClass && matchesElement && matchesWeapon;
+            })
+            .sort((a, b) => {
+                let valA = sortField === "weapon" ? a.weapon : a[sortField];
+                let valB = sortField === "weapon" ? b.weapon : b[sortField];
+                
+                if (sortField === "rarity") {
+                    return sortDirection === "asc" ? valA - valB : valB - valA;
+                }
+                if (!valA) valA = "";
+                if (!valB) valB = "";
 
-            return sortDirection === "asc"
-                ? String(valA).localeCompare(String(valB))
-                : String(valB).localeCompare(String(valA));
-        });
+                return sortDirection === "asc"
+                    ? String(valA).localeCompare(String(valB))
+                    : String(valB).localeCompare(String(valA));
+            });
+    })();
 
     let displayLimit = 40;
     $: if (searchQuery !== undefined || filters || sortField || sortDirection || showOwnedOnly) {
@@ -142,7 +217,12 @@
         >
             {#each filteredOperators as op (op.id)}
                 <div class="flex justify-center">
-                    <OperatorCard operator={op} isNew={op.isNew} />
+                    <OperatorCard 
+                        operator={op} 
+                        isNew={op.isNew} 
+                        materialIcon={filters.skillMaterial} 
+                        materialCount={getSkillMaterialCount(op.id, filters.skillMaterial, filters.skillMaterialType)} 
+                    />
                 </div>
             {/each}
         </div>

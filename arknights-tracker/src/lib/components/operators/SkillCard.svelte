@@ -271,7 +271,7 @@
                     <span
                         class="px-2 py-0.5 bg-gray-100 dark:text-[#E4E4E4] dark:bg-[#2C2C2C] rounded text-[10px] font-bold uppercase text-gray-500 tracking-wider"
                     >
-                        {skillKey.replace(/([A-Z])/g, " $1").trim()}
+                        {$t(`menu.${skillKey}`) || skillKey.replace(/([A-Z])/g, " $1").trim()}
                     </span>
                 </div>
                 <h3

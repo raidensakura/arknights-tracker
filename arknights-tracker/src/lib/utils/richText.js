@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import { t } from "$lib/i18n.js";
+import { t, isI18nReady } from "$lib/i18n.js";
 
 export function parseRichText(text) {
     if (!text) return "";
@@ -24,6 +24,16 @@ export function parseRichText(text) {
         "ba.physicalvul": "text-[#F87171] font-bold",
         "ba.originium": "text-[#ff7100] font-bold",
         "ba.return": "text-[#38BDF8] font-bold",
+        "ba.airborne": "text-[#e8ceb0] font-bold",
+        "ba.burning": "text-[#f45511] font-bold",
+        "ba.naturalinflict": "text-[#ade131] font-bold",
+        "ba.corrupt": "text-[#ade131] font-bold",
+        "ba.crystbreak": "text-[#f45511] font-bold",
+        "ba.crystinflict": "text-[#21C6D0] font-bold",
+        "ba.frozen": "text-[#08edfb] font-bold",
+        "ba.fireinflict": "text-[#ff8e59] font-bold",
+        "ba.knockdown": "text-[#e8ceb0] font-bold",
+        "ba.pulseinflict": "text-[#ffcc00] font-bold",
     };
 
     let html = text.replace(/<([@#])([^>]+)>/g, (match, type, tag) => {
@@ -49,14 +59,26 @@ export function parseRichText(text) {
     html = html.replace(/\n/g, "<br>");
     return html;
 }
+let lastTouchTime = 0;
+if (typeof window !== 'undefined') {
+    window.addEventListener('touchstart', () => {
+        lastTouchTime = Date.now();
+    }, { passive: true });
+}
+
+function isTouchPreventingHover() {
+    return Date.now() - lastTouchTime < 1000;
+}
 
 export function hyperlinkAction(node) {
     let tooltipEl = null;
     let hoverListeners = [];
+    let activeTerm = null;
+    let unsubscribeT = null;
+    let observer = null;
 
     function cleanup() {
         cleanupTooltip();
-
         hoverListeners.forEach(cleanupListener => cleanupListener());
         hoverListeners = [];
     }
@@ -66,8 +88,23 @@ export function hyperlinkAction(node) {
             tooltipEl.remove();
             tooltipEl = null;
         }
+        activeTerm = null;
         window.removeEventListener('scroll', cleanupTooltip);
         window.removeEventListener('resize', cleanupTooltip);
+        document.removeEventListener('click', handleDocumentClick);
+    }
+
+    function handleDocumentClick(e) {
+        if (tooltipEl && !tooltipEl.contains(e.target) && e.target !== activeTerm) {
+            cleanupTooltip();
+        }
+    }
+
+    let initTimeout = null;
+
+    function queueInit() {
+        if (initTimeout) clearTimeout(initTimeout);
+        initTimeout = setTimeout(init, 0);
     }
 
     function init() {
@@ -85,26 +122,55 @@ export function hyperlinkAction(node) {
             const hasTooltip = tooltipDesc && tooltipDesc !== `hyperlink.${termId}.desc`;
 
             if (hasTooltip) {
-                term.classList.add('cursor-default');
+                term.style.cursor = 'default';
 
                 const showTooltip = () => {
                     cleanupTooltip();
+                    activeTerm = term;
 
                     tooltipEl = document.createElement('div');
-                    tooltipEl.className = "fixed px-3 py-2 bg-gray-900/95 dark:bg-[#1E1E1E]/95 text-white text-xs rounded-xl shadow-2xl pointer-events-none z-[999999] max-w-[280px] whitespace-normal leading-normal border border-white/10 backdrop-blur-sm transition-all duration-150 animate-fadeIn";
+                    tooltipEl.style.cssText = `
+                        position: fixed;
+                        padding: 10px 14px;
+                        background: #0a0a0f;
+                        color: #e5e5e5;
+                        font-size: 12px;
+                        border-radius: 10px;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+                        pointer-events: none;
+                        z-index: 999999;
+                        max-width: 280px;
+                        white-space: normal;
+                        line-height: 1.5;
+                        border: 1px solid rgba(255, 255, 255, 0.08);
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        display: block !important;
+                    `;
 
                     const titleImgName = `icon_term_${termId.replace(/\./g, '_')}.png`;
                     const titleImgSrc = `/images/textIcons/${titleImgName}`;
-                    const titleHtml = `<div class="font-bold border-b border-white/20 pb-1 mb-1 text-[13px] tracking-wide text-yellow-400 flex items-center gap-1.5"><img src="${titleImgSrc}" class="w-4 h-4 inline-block align-text-bottom shrink-0" style="display: none;" onload="this.style.display='inline-block'" />${tooltipTitle}</div>`;
+                    const titleHtml = `<div style="font-weight:700;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:4px;margin-bottom:4px;font-size:13px;letter-spacing:0.025em;color:#facc15;display:flex;align-items:center;gap:6px;"><img src="${titleImgSrc}" style="width:16px;height:16px;display:none;flex-shrink:0;vertical-align:text-bottom;" onload="this.style.display='inline-block'" />${tooltipTitle}</div>`;
                     
                     const parsedDesc = parseRichText(tooltipDesc);
-                    const descHtml = `<div class="text-[11px] text-gray-200">${parsedDesc}</div>`;
+                    const descHtml = `<div style="font-size:11px;color:#e5e7eb;">${parsedDesc}</div>`;
                     tooltipEl.innerHTML = titleHtml + descHtml;
 
                     document.body.appendChild(tooltipEl);
 
                     window.addEventListener('scroll', cleanupTooltip, { passive: true });
                     window.addEventListener('resize', cleanupTooltip, { passive: true });
+                    
+                    setTimeout(() => {
+                        document.addEventListener('click', handleDocumentClick);
+                    }, 0);
+
+                    const imgs = tooltipEl.querySelectorAll('img');
+                    imgs.forEach(img => {
+                        if (!img.complete) {
+                            img.addEventListener('load', updatePosition);
+                        }
+                    });
 
                     updatePosition();
                 };
@@ -125,34 +191,93 @@ export function hyperlinkAction(node) {
                         left = window.innerWidth - tooltipRect.width - 10;
                     }
 
+                    tooltipEl.style.left = `${left}px`;
+
                     let top = termRect.top - tooltipRect.height - 8;
                     if (top < 10) {
-                        top = termRect.bottom + 8;
+                        tooltipEl.style.top = `${termRect.bottom + 8}px`;
+                        tooltipEl.style.bottom = 'auto';
+                    } else {
+                        tooltipEl.style.bottom = `${window.innerHeight - termRect.top + 8}px`;
+                        tooltipEl.style.top = 'auto';
                     }
-
-                    tooltipEl.style.top = `${top}px`;
-                    tooltipEl.style.left = `${left}px`;
                 };
 
-                term.addEventListener('mouseenter', showTooltip);
-                term.addEventListener('mouseleave', hideTooltip);
+                const handleMouseEnter = () => {
+                    if (isTouchPreventingHover()) return;
+                    showTooltip();
+                };
+
+                const handleMouseLeave = () => {
+                    if (isTouchPreventingHover()) return;
+                    hideTooltip();
+                };
+
+                const handleClick = (e) => {
+                    e.stopPropagation();
+                    if (tooltipEl && activeTerm === term) {
+                        cleanupTooltip();
+                    } else {
+                        showTooltip();
+                    }
+                };
+
+                term.addEventListener('mouseenter', handleMouseEnter);
+                term.addEventListener('mouseleave', handleMouseLeave);
+                term.addEventListener('click', handleClick);
 
                 hoverListeners.push(() => {
-                    term.removeEventListener('mouseenter', showTooltip);
-                    term.removeEventListener('mouseleave', hideTooltip);
+                    term.removeEventListener('mouseenter', handleMouseEnter);
+                    term.removeEventListener('mouseleave', handleMouseLeave);
+                    term.removeEventListener('click', handleClick);
                 });
             }
         });
     }
 
-    init();
+    let unsubscribeReady = null;
+
+    // Subscribe to isI18nReady - only init when translations are fully loaded
+    unsubscribeReady = isI18nReady.subscribe((ready) => {
+        if (ready) {
+            queueInit();
+        }
+    });
+
+    // Also subscribe to t for when translations update after already being ready
+    unsubscribeT = t.subscribe(() => {
+        if (get(isI18nReady)) {
+            queueInit();
+        }
+    });
+
+    if (typeof window !== 'undefined' && typeof MutationObserver !== 'undefined') {
+        observer = new MutationObserver(() => {
+            queueInit();
+        });
+        observer.observe(node, { childList: true, subtree: true });
+    }
 
     return {
         update() {
-            setTimeout(init, 0);
+            queueInit();
         },
         destroy() {
             cleanup();
+            if (initTimeout) {
+                clearTimeout(initTimeout);
+            }
+            if (unsubscribeReady) {
+                unsubscribeReady();
+            }
+            if (unsubscribeT) {
+                unsubscribeT();
+            }
+            if (observer) {
+                observer.disconnect();
+            }
         }
     };
 }
+
+

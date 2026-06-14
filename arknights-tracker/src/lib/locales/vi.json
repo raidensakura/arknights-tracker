@@ -522,6 +522,8 @@
     "attribute3": "Thuộc tính 3",
     "title": "Sắp xếp",
     "filters": "Bộ lọc",
+    "skillMaterials": "Nguyên liệu kỹ năng",
+    "any": "[Bất kỳ]",
     "stats": "Thuộc tính",
     "slot": "Ô",
     "pack": "Bộ",
@@ -581,7 +583,11 @@
     "baseSkills": "Kỹ Năng Hậu Cần",
     "talent": "Thiên Phú",
     "description": "Mô tả",
-    "images": "Hình ảnh"
+    "images": "Hình ảnh",
+    "basicAttack": "Đòn Đánh Thường",
+    "battleSkill": "KN Chiến Đấu",
+    "comboSkill": "KN Liên Hoàn",
+    "ultimate": "Tuyệt kỹ"
   },
   "bio": {
     "faction": "Phe phái",
