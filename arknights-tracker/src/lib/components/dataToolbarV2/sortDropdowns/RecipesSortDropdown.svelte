@@ -12,7 +12,6 @@
 
     function switchLocaleSort() {
         let current = sortParams.sortFieldParams.localeName;
-
         sortParams.sortFieldParams.localeName = current === "a-z" ? "z-a" : "a-z";
     }
 
@@ -63,13 +62,14 @@
     let draggedSortField = null;
     let dragOverSortField = null;
 
-    function handleDragStart(event, sortFieldName) {
+    function handleSortFieldDragStart(event, sortFieldName) {
+        openedSortField = null;
         draggedSortField = sortFieldName;
         event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('text/plain', sortFieldName);
+        event.dataTransfer.setData("text/plain", "sortField:" + sortFieldName);
     }
 
-    function handleDragEnter(event, sortFieldName) {
+    function handleSortFieldDragEnter(event, sortFieldName) {
         event.preventDefault();
 
         if (!draggedSortField || draggedSortField === sortFieldName) return;
@@ -87,6 +87,39 @@
         }
     }
 
+    let draggedFilter = null;
+    let draggedFilterField = null;
+    let dragOverFilter = null;
+
+    function handleFilterDragStart(event, sortFieldName, filterName) {
+        draggedFilter = filterName;
+        draggedFilterField = sortFieldName;
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", "filter:" + sortFieldName + ":" + filterName);
+        event.stopPropagation();
+    }
+
+    function handleFilterDragEnter(event, sortFieldName, filterName) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!draggedFilter || !draggedFilterField) return;
+        if (draggedFilterField !== sortFieldName) return;
+        if (draggedFilter === filterName) return;
+
+        dragOverFilter = filterName;
+
+        const currentFilters = [...sortParams.sortFieldParams[sortFieldName]];
+        const sourceIndex = currentFilters.indexOf(draggedFilter);
+        const targetIndex = currentFilters.indexOf(filterName);
+
+        if (sourceIndex !== -1 && targetIndex !== -1 && sourceIndex !== targetIndex) {
+            currentFilters.splice(sourceIndex, 1);
+            currentFilters.splice(targetIndex, 0, draggedFilter);
+            sortParams.sortFieldParams[sortFieldName] = currentFilters;
+        }
+    }
+
     function handleDragOver(event) {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
@@ -95,12 +128,18 @@
     function handleDragEnd() {
         draggedSortField = null;
         dragOverSortField = null;
+        draggedFilter = null;
+        draggedFilterField = null;
+        dragOverFilter = null;
     }
 
     function handleDrop(event) {
         event.preventDefault();
         draggedSortField = null;
         dragOverSortField = null;
+        draggedFilter = null;
+        draggedFilterField = null;
+        dragOverFilter = null;
     }
 </script>
 
@@ -125,20 +164,22 @@
     </div>
 
     {#each sortParams.sortFieldOrder as sortFieldName}
+
         <div
             class="flex flex-row transition-all duration-200 rounded-lg {
                 draggedSortField === sortFieldName
                     ? 'opacity-40 scale-95'
                     : ''
-            } "
+            }"
             draggable="true"
             role="listitem"
-            on:dragstart={(e) => handleDragStart(e, sortFieldName)}
-            on:dragenter={(e) => handleDragEnter(e, sortFieldName)}
+            on:dragstart={(e) => handleSortFieldDragStart(e, sortFieldName)}
+            on:dragenter={(e) => handleSortFieldDragEnter(e, sortFieldName)}
             on:dragover={handleDragOver}
             on:drop={handleDrop}
             on:dragend={handleDragEnd}
         >
+
             <div class="h-4 w-4 pt-[1px] mr-3 cursor-grab active:cursor-grabbing">
 
                 <Icon
@@ -178,7 +219,20 @@
 
                             {#each sortParams.sortFieldParams[sortFieldName] as filterName}
 
-                                <div class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a]">
+                                <div
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-grab active:cursor-grabbing bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a] {
+                                        draggedFilter === filterName && draggedFilterField === sortFieldName
+                                            ? 'opacity-40 scale-90'
+                                            : ''
+                                    }"
+                                    role="listitem"
+                                    draggable="true"
+                                    on:dragstart={(e) => handleFilterDragStart(e, sortFieldName, filterName)}
+                                    on:dragenter={(e) => handleFilterDragEnter(e, sortFieldName, filterName)}
+                                    on:dragover={handleDragOver}
+                                    on:drop={handleDrop}
+                                    on:dragend={handleDragEnd}
+                                >
 
                                     <span class="capitalize font-bold pointer-events-none">
                                         {filterName}
@@ -227,9 +281,20 @@
                         <div class="flex flex-wrap gap-2 transition-transform">
 
                             {#each sortParams.sortFieldParams[sortFieldName] as filterName}
-
-                                <div class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a]">
-
+                                <div
+                                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-grab active:cursor-grabbing bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a] {
+                                        draggedFilter === filterName && draggedFilterField === sortFieldName
+                                            ? 'opacity-40 scale-90'
+                                            : ''
+                                    }"
+                                    role="listitem"
+                                    draggable="true"
+                                    on:dragstart={(e) => handleFilterDragStart(e, sortFieldName, filterName)}
+                                    on:dragenter={(e) => handleFilterDragEnter(e, sortFieldName, filterName)}
+                                    on:dragover={handleDragOver}
+                                    on:drop={handleDrop}
+                                    on:dragend={handleDragEnd}
+                                >
                                     <span class="text-xs capitalize font-bold pointer-events-none">
                                         {getFilterNameLocale(sortFieldName, filterName)}
                                     </span>
