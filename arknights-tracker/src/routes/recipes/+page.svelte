@@ -165,13 +165,13 @@
     let flatDisplayLimit = 40;
 
     $: {
-        // const _trigger = [
-        //     $itemSearch,
-        //     $itemFilters,
-        //     sortField,
-        //     sortDirection,
-        //     isGrouped
-        // ];
+        const _trigger = [
+            $itemSearch,
+            $itemFilters,
+            $itemSortParams,
+            sortDirection,
+            isGrouped
+        ];
         displayLimit = 2;
         flatDisplayLimit = 40;
         setTimeout(checkScroll, 50);
@@ -219,15 +219,6 @@
         </div>
 
         <div class="w-full xl:w-[70%] mb-4">
-<!--            <DataToolbar-->
-<!--                bind:sortField-->
-<!--                bind:sortDirection-->
-<!--                bind:filters={$itemFilters}-->
-<!--                bind:searchQuery={$itemSearch}-->
-<!--                bind:manualMode={$itemManual}-->
-<!--                bind:groupMode={$itemGroupMode}-->
-<!--                mode="items"-->
-<!--            />-->
 
             <DataToolbar
                 showSortDropdownButton={true}
