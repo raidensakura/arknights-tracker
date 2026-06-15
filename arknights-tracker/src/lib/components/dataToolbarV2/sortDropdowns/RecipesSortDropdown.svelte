@@ -101,6 +101,8 @@
         event.stopPropagation();
     }
 
+    let dragDebounceTimer = null;
+
     function handleFilterDragEnter(event, sortFieldName, filterName) {
         event.preventDefault();
         event.stopPropagation();
@@ -109,17 +111,30 @@
         if (draggedFilterField !== sortFieldName) return;
         if (draggedFilter === filterName) return;
 
+        if (dragOverFilter === filterName) return;
+
         dragOverFilter = filterName;
 
-        const currentFilters = [...sortParams.sortFieldParams[sortFieldName]];
-        const sourceIndex = currentFilters.indexOf(draggedFilter);
-        const targetIndex = currentFilters.indexOf(filterName);
-
-        if (sourceIndex !== -1 && targetIndex !== -1 && sourceIndex !== targetIndex) {
-            currentFilters.splice(sourceIndex, 1);
-            currentFilters.splice(targetIndex, 0, draggedFilter);
-            sortParams.sortFieldParams[sortFieldName] = currentFilters;
+        if (dragDebounceTimer) {
+            clearTimeout(dragDebounceTimer);
         }
+
+        dragDebounceTimer = setTimeout(() => {
+            const currentFilters = [...sortParams.sortFieldParams[sortFieldName]];
+            const sourceIndex = currentFilters.indexOf(draggedFilter);
+            const targetIndex = currentFilters.indexOf(filterName);
+
+            if (sourceIndex !== -1 && targetIndex !== -1 && sourceIndex !== targetIndex) {
+                const newFilters = [...currentFilters];
+                const [movedItem] = newFilters.splice(sourceIndex, 1);
+                newFilters.splice(targetIndex, 0, movedItem);
+
+                sortParams.sortFieldParams = {
+                    ...sortParams.sortFieldParams,
+                    [sortFieldName]: newFilters
+                };
+            }
+        }, 50);
     }
 
     function handleDragOver(event) {
