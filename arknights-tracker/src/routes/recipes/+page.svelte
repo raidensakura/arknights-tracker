@@ -124,7 +124,7 @@
 
         if (!isSortParamsCorrect) {
             console.log("Incorrect item sort params");
-            sortParams = getDefaultItemSortParams();
+            resetSortParams();
         }
     }
 
@@ -273,6 +273,7 @@
                 showSearchInput={true}
                 showGroupButton={true}
                 isFilterActive={isFilterActive}
+                onFilterReset={() => $itemFilters = {}}
                 bind:isGrouped={$itemGroupMode}
                 bind:searchString={$itemSearch}
                 bind:sortDirection={sortDirection}
