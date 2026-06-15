@@ -106,9 +106,9 @@ export function getDefaultItemSortParams() {
         sortFieldOrder: [
             "itemGroups",
             "itemTypes",
-            "itemMaterials",
-            "rarity",
             "events",
+            "rarity",
+            "itemMaterials",
             "localeName"
         ],
         sortFieldParams: {
@@ -155,12 +155,12 @@ export function getDefaultItemSortParams() {
                 "originium_enr",
                 "amethyst_enr",
                 "iron_enr",
-                "carbon",
-                "carbon_enr",
                 "xiranite",
                 "xiranite_enr",
                 "copper",
                 "copper_enr",
+                "carbon",
+                "carbon_enr",
                 "plant_flower_1",
                 "plant_flower_2",
                 "plant_flower_3",
@@ -177,7 +177,7 @@ export function getDefaultItemSortParams() {
                 "plant_sp_4",
                 "nonMaterial"
             ],
-            rarity: [5, 4, 3, 2, 1],
+            rarity: [1, 2, 3, 4, 5],
             events: ["nonEvent", "ev4-v1.2"],
             localeName: "a-z"
         }
