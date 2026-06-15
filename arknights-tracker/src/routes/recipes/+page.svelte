@@ -120,11 +120,11 @@
 
     let defaultSortParams = getDefaultItemSortParams();
     $: {
-        let isSortParamsCorrect = sortParams ? checkSortParams(sortParams, defaultSortParams) : true;
+        let isSortParamsCorrect = $itemSortParams ? checkSortParams($itemSortParams, defaultSortParams) : true;
 
         if (!isSortParamsCorrect) {
             console.log("Incorrect item sort params");
-            resetSortParams();
+            $itemSortParams = getDefaultItemSortParams();
         }
     }
 
