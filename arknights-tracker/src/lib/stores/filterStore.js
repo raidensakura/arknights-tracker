@@ -26,42 +26,6 @@ const attr3Skills = [
     "combo", "crit", "force", "heal", "keyword", "phyabn", "smash"
 ];
 
-const itemSubGroups = [
-    "facility_battle",
-    "facility_crafter",
-    "facility_miner",
-    "facility_other",
-    "facility_powerStation",
-    "facility_pump",
-    "facility_soil",
-    "gatherable_drop",
-    "gatherable_muck",
-    "gatherable_plant",
-    "nature_flowerPlant",
-    "nature_grassPlant",
-    "nature_liquid",
-    "nature_ore",
-    "nature_soilPlant",
-    "nature_wood",
-    "product_activityXiranite",
-    "product_amethyst",
-    "product_battery",
-    "product_carbon",
-    "product_component",
-    "product_copper",
-    "product_fullBottle",
-    "product_iron",
-    "product_liquid",
-    "product_muck",
-    "product_originium",
-    "product_powder",
-    "product_xiranite",
-    "usable_bomb",
-    "usable_bottledProdFood",
-    "usable_other",
-    "usable_powder"
-];
-
 const initialEquipmentFilters = {
     rarity: [5, 4, 3, 2, 1],
     partType: [0, 1, 2], 
