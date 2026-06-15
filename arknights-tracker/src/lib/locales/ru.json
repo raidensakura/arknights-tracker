@@ -310,7 +310,8 @@
     "sortByRelease": "По релизам",
     "sortByWait": "По числу дней без рерана",
     "allBanners": "Все баннеры",
-    "emptyPageMsg": "Как же тут пусто"
+    "emptyPageMsg": "Как же тут пусто",
+    "equipmentType": "Тип снаряжения"
   },
   "status": {
     "won": "Выигрыш 50:50",
@@ -577,8 +578,8 @@
       "nonEvent": "Не событийный"
     },
     "itemTypes": {
-      "ore":  "Руда",
-      "liquid":  "Жидкость",
+      "ore": "Руда",
+      "liquid": "Жидкость",
       "plant": "Растение",
       "plant_seed": "Семя",
       "plant_special": "Редкое растение",

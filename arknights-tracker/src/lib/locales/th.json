@@ -293,7 +293,8 @@
     "sortByRelease": "ตามวันเปิดตัว",
     "sortByWait": "ตามจำนวนวันที่ไม่มีรีรัน",
     "allBanners": "แบนเนอร์ทั้งหมด",
-    "emptyPageMsg": "ที่นี่ว่างเปล่าจัง"
+    "emptyPageMsg": "ที่นี่ว่างเปล่าจัง",
+    "equipmentType": "ประเภทอุปกรณ์"
   },
   "status": {
     "won": "ชนะ 50:50",

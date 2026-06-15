@@ -293,7 +293,8 @@
     "sortByRelease": "출시일순",
     "sortByWait": "복각 대기일순",
     "allBanners": "모든 배너",
-    "emptyPageMsg": "여기 정말 텅 비었네"
+    "emptyPageMsg": "여기 정말 텅 비었네",
+    "equipmentType": "장비 유형"
   },
   "status": {
     "won": "승리 50:50",

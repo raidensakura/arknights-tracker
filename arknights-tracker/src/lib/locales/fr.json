@@ -293,7 +293,8 @@
     "sortByRelease": "Par date de sortie",
     "sortByWait": "Par jours sans rerun",
     "allBanners": "Tous les Banners",
-    "emptyPageMsg": "Comme c'est vide ici"
+    "emptyPageMsg": "Comme c'est vide ici",
+    "equipmentType": "Type d'équipement"
   },
   "status": {
     "won": "Gagné 50:50",

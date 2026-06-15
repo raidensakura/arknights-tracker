@@ -313,7 +313,8 @@
     "sortByRelease": "By release date",
     "sortByWait": "By days without rerun",
     "allBanners": "All Banners",
-    "emptyPageMsg": "It's so empty here"
+    "emptyPageMsg": "It's so empty here",
+    "equipmentType": "Equipment Type"
   },
   "status": {
     "won": "Won 50:50",
@@ -578,8 +579,8 @@
       "nonEvent": "Non-event"
     },
     "itemTypes": {
-      "ore":  "Ore",
-      "liquid":  "Liquid",
+      "ore": "Ore",
+      "liquid": "Liquid",
       "plant": "Plant",
       "plant_seed": "Seed",
       "plant_special": "Special Plant",

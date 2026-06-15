@@ -313,7 +313,8 @@
     "sortByRelease": "Theo ngày phát hành",
     "sortByWait": "Theo số ngày không có rerun",
     "allBanners": "Tất cả Banner",
-    "emptyPageMsg": "Ở đây trống trải quá"
+    "emptyPageMsg": "Ở đây trống trải quá",
+    "equipmentType": "Loại thiết bị"
   },
   "status": {
     "won": "Thắng 50:50",

@@ -85,6 +85,11 @@
                 keysToCheck.push(`ultimateRank${r}`);
             }
         }
+        if (isAny || category === "ascension") {
+            for (let r = 1; r <= 10; r++) {
+                keysToCheck.push(`ascention${r}`);
+            }
+        }
 
         keysToCheck.forEach(key => {
             const list = materials[key];

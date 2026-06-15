@@ -293,7 +293,8 @@
     "sortByRelease": "Berdasarkan rilis",
     "sortByWait": "Berdasarkan hari tanpa rerun",
     "allBanners": "Semua Banner",
-    "emptyPageMsg": "Kosong sekali di sini"
+    "emptyPageMsg": "Kosong sekali di sini",
+    "equipmentType": "Tipe Peralatan"
   },
   "status": {
     "won": "Menang 50:50",

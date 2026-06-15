@@ -871,13 +871,14 @@
                                 filters.skillMaterial = null;
                             }}
                         >
-                            {$t("sort.skillMaterials") || "Материалы для скиллов"}
+                            {$t("stats.materials") || "Материалы"}
                         </button>
                         <div class="flex items-center gap-1 bg-gray-100 dark:bg-[#2C2C2C] p-1 rounded-lg mb-3 w-fit">
                             {#each [
                                 { id: "any", label: $t("sort.any") || "[Any]" },
                                 { id: "basic_combo", label: `${$t("menu.basicAttack") || "Basic Attack"} + ${$t("menu.comboSkill") || "Combo Skill"}` },
-                                { id: "battle_ultimate", label: `${$t("menu.battleSkill") || "Battle Skill"} + ${$t("menu.ultimate") || "Ultimate"}` }
+                                { id: "battle_ultimate", label: `${$t("menu.battleSkill") || "Battle Skill"} + ${$t("menu.ultimate") || "Ultimate"}` },
+                                { id: "ascension", label: $t("stats.ascension") || "Ascension" }
                             ] as typeOpt}
                                 {@const isActive = filters.skillMaterialType === typeOpt.id}
                                 <button
@@ -1084,6 +1085,42 @@
                 {/if}
 
                 {#if mode === "equipment"}
+                    <div>
+                        <button
+                            type="button"
+                            class="text-sm dark:text-[#E0E0E0] font-bold text-gray-800 mb-2 hover:opacity-70"
+                            on:click={() => toggleFilterGroup("partType")}
+                        >
+                            {$t("systemNames.equipmentType") || "Equipment Type"}
+                        </button>
+                        <div class="flex flex-wrap gap-2">
+                            {#each filterOptions.partType as part}
+                                <button
+                                    type="button"
+                                    class="h-[32px] px-2 pr-3 rounded flex items-center gap-2 border transition-all cursor-pointer {getFilterClass(
+                                        'partType',
+                                        part,
+                                    )}"
+                                    on:click={() => toggleFilterItem("partType", part)}
+                                >
+                                    <div
+                                        class="w-5 h-5 flex items-center justify-center pointer-events-none bg-[#2A2A2A] rounded-[4px]"
+                                    >
+                                        <Icon
+                                            name={part === 0 ? "body" : part === 1 ? "hand" : "edc"}
+                                            class="w-3.5 h-3.5 text-white"
+                                        />
+                                    </div>
+                                    <span
+                                        class="text-xs font-bold pointer-events-none"
+                                    >
+                                        {$t(`equipmentTypes.${part === 0 ? "body" : part === 1 ? "hand" : "edc"}`) || (part === 0 ? "Body" : part === 1 ? "Hand" : "EDC")}
+                                    </span>
+                                </button>
+                            {/each}
+                        </div>
+                    </div>
+
                     <div>
                         <button
                             type="button"

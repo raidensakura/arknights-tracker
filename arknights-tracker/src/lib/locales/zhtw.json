@@ -313,7 +313,8 @@
     "sortByRelease": "按實裝順序",
     "sortByWait": "按未復刻天數",
     "allBanners": "所有卡池",
-    "emptyPageMsg": "這裡好空啊"
+    "emptyPageMsg": "這裡好空啊",
+    "equipmentType": "裝備類型"
   },
   "status": {
     "won": "勝出 50:50",
