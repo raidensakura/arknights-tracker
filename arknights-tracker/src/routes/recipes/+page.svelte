@@ -1,4 +1,5 @@
 <script>
+    import { FactoryEvent } from "$lib/classes/events/FactoryEvent.js";
     import { Item } from "$lib/classes/items/Item.js";
     import { ItemComparator } from "$lib/classes/items/ItemComparator.js";
     import BottomSheet from "$lib/components/BottomSheet.svelte";
@@ -44,6 +45,7 @@
         itemComparator.groupComparator.setValueOrder(sortParams.sortFieldParams.itemGroups);
         itemComparator.typeComparator.setValueOrder(sortParams.sortFieldParams.itemTypes);
         itemComparator.materialComparator.setValueOrder(sortParams.sortFieldParams.itemMaterials);
+        itemComparator.eventComparator.setValueOrder(sortParams.sortFieldParams.events);
         itemComparator.localeComparator.isReversed = sortParams.sortFieldParams.localeName !== "a-z";
 
         let items = [...allItems].filter((item) => {
@@ -148,18 +150,46 @@
         return selectedItemId === itemId;
     };
 
+    $: sortFieldName = (() => {
+        let sortFieldName = sortParams.sortFieldOrder[0];
+        if (sortFieldName === "localeName") {
+            sortFieldName = sortParams.sortFieldOrder[1];
+        }
+
+        return sortFieldName;
+    })();
+
+    $: groupFieldName = (() => {
+        switch (sortFieldName) {
+            case "itemGroups": return "groupId";
+            case "itemTypes": return "type";
+            case "itemMaterials": return "material";
+            case "rarity": return "rarity";
+            case "events": return "events";
+        }
+
+        return null;
+    })();
+
     $: groupedItems = filteredItems.reduce((groups, item) => {
-        let groupId = item.groupId;
+        let groupId = groupFieldName === "events"
+            ? (item.getEventIds()?.[0] ?? "nonEvent")
+            : item[groupFieldName];
 
-        if (!groups[groupId]) groups[groupId] = [];
+        groupId = groupId.toString();
 
-        groups[groupId].push(item);
+        if (!groups.groupLists[groupId]) {
+            groups.order.push(groupId);
+            groups.groupLists[groupId] = [];
+        }
+
+        groups.groupLists[groupId].push(item);
 
         return groups;
-    }, {});
+    }, { order: [], groupLists: {} });
 
-    $: groupedArray = Object.entries(groupedItems)
-        .map(([groupId, items]) => ({ groupId, items }));
+    $: groupedArray = groupedItems.order
+        .map((groupId) => ({ groupId, items: groupedItems.groupLists[groupId] }));
 
     let displayLimit = 2;
     let flatDisplayLimit = 40;
@@ -202,6 +232,22 @@
         if (totalHeight - currentScroll < 1000) {
             loadMore();
         }
+    }
+
+    function getFilterNameLocale(sortFieldName, filterName) {
+        if (sortFieldName === "rarity") {
+            return filterName;
+        }
+
+        if (sortFieldName === "events") {
+            if (filterName === "nonEvent") {
+                return $t("sort.events.nonEvent");
+            }
+
+            return $t(FactoryEvent.getEvent(filterName)?.title);
+        }
+
+        return $t(`sort.${sortFieldName}.${filterName}`);
     }
 </script>
 
@@ -254,10 +300,19 @@
 
                 {#each displayedGroups as group}
                     <div class="flex flex-col gap-1 animate-fadeIn pb-5">
-                        <div class="flex items-center gap-3 mb-2">
+                        <div class="flex items-center gap-2 mb-2">
                             <h3 class="text-xl font-bold text-[#21272C] dark:text-[#E4E4E4] font-sdk pl-0.5">
-                                {$t(`sort.itemGroups.${group.groupId}`)}
+                                {getFilterNameLocale(sortFieldName, group.groupId)}
                             </h3>
+
+                            {#if sortFieldName === "rarity"}
+
+                                <Icon
+                                    name="star"
+                                    class="h-5 w-5 text-[#21272C] dark:text-[#E4E4E4]"
+                                />
+
+                            {/if}
                         </div>
 
                         <div class="grid grid-cols-[repeat(auto-fill,minmax(110px,1fr))] md:grid-cols-[repeat(auto-fill,110px)] gap-3 justify-start">
