@@ -75,7 +75,8 @@
     function formatTime(d, loc) {
         if (!d) return "";
 
-        const activeLocale = loc || "ru";
+        let activeLocale = loc || "en";
+        if (activeLocale === "my") activeLocale = "ms-MY";
 
         if (showServerTime) {
             const shiftedMs = d.getTime() + serverOffset * 3600000;

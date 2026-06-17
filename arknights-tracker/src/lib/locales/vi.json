@@ -632,8 +632,8 @@
     "drops": "Xuất hiện",
     "properties": "Tài sản",
     "abilities": "Năng lực",
-    "vulnerable": "Yếu Đuối",
-    "enemiesResHint": "Hiển thị hệ số sát thương mà kẻ thù nhận phải theo công thức: Sát thương × Kháng (%). Ví dụ: 100% — không giảm sát thương, 50% — sát thương kẻ thù nhận phải giảm một nửa."
+    "vulnerable": "Hệ số Kháng",
+    "enemiesResHint": "Hiển thị hệ số sát thương nhận vào theo công thức: Sát thương × Hệ số Kháng (%). Ví dụ: 100% — không giảm sát thương, 50% — sát thương kẻ thù nhận vào giảm một nửa. Kháng: 100% - n% = m%, trong đó n% là hệ số kháng và m% là mức kháng."
   },
   "bioValues": {
     "Unknown": "Không rõ"

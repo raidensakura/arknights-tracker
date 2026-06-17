@@ -574,9 +574,8 @@
     "drops": "Butins",
     "properties": "Propriétés",
     "abilities": "Capacités",
-    "vulnerable": "Vulnérable",
-    "enemiesResHint": "Affiche le coefficient de dégâts reçus par l'ennemi selon la formule : Dégâts × Résistance (%). Par exemple : 100 % — aucune réduction de dégâts, 50 % — les dégâts reçus par l'ennemi sont réduits de moitié."
-  },
+    "vulnerable": "Multiplicateur de résistance",
+    "enemiesResHint": "Affiche le multiplicateur de dégâts reçus selon la formule : Dégâts × Multiplicateur de résistance (%). Par exemple : 100 % — aucune réduction de dégâts, 50 % — les dégâts reçus par l'ennemi sont réduits de moitié. Résistance : 100 % - n % = m %, où n % est le multiplicateur de résistance et m % est la résistance."  },
   "bioValues": {
     "Unknown": "Inconnu"
   },

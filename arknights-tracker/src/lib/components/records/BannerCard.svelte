@@ -332,8 +332,10 @@
     if (!dateStr) return "";
     const parsed = new Date(dateStr.replace(" ", "T"));
     if (isNaN(parsed.getTime())) return "";
+    let loc = locale || "en";
+    if (loc === "my") loc = "ms-MY";
     try {
-      return new Intl.DateTimeFormat(locale, {
+      return new Intl.DateTimeFormat(loc, {
         day: "2-digit",
         month: "2-digit",
         year: "2-digit"

@@ -93,6 +93,15 @@
         return "#888888";
     }
     $: rarityColor = getRarityColors(enemyData.rarity || 4);
+
+    function getResColorClass(val) {
+        const percent = Math.round(val * 100);
+        if (percent > 100) return "text-green-500"; // Green (>100)
+        if (percent === 100) return "text-[#21272C] dark:text-[#FDFDFD]"; // Default
+        if (percent <= 40) return "text-[#800020] dark:text-[#ff6b8b]"; // Burgundy red (A)
+        if (percent < 70) return "text-orange-500 dark:text-orange-400"; // Orange (B)
+        return "text-amber-500 dark:text-amber-300"; // Amber (C)
+    }
     $: advancedStats = [
         { key: "Stagger HP", val: enemyData.staggerHP },
         { key: "Stagger Rec.", val: enemyData.staggerRecovery },
@@ -375,7 +384,7 @@
                         <div class="flex flex-wrap gap-x-8 gap-y-5">
                             {#each resistances as res}
                                 {@const resPercent = Math.round(res.val * 100)}
-                                {@const resLetter = resPercent >= 100 ? 'D' : (resPercent >= 70 ? 'C' : (resPercent >= 40 ? 'B' : 'A'))}
+                                {@const resLetter = resPercent >= 100 ? 'D' : (resPercent >= 70 ? 'C' : (resPercent > 40 ? 'B' : 'A'))}
                                 <div class="flex items-center gap-3">
                                     <Icon name={res.locKey} class="w-8 h-8 text-gray-700 dark:text-gray-300 shrink-0" />
                                     <div class="flex flex-col">
@@ -383,10 +392,10 @@
                                             {$t(`resitances.${res.locKey}`) || res.key}
                                         </span>
                                         <div class="flex items-baseline gap-1.5 mt-1.5">
-                                            <span class="text-[16px] font-black {res.val < 1 ? 'text-orange-400' : (res.val > 1 ? 'text-red-500' : 'text-[#21272C] dark:text-[#FDFDFD]')} leading-none">
+                                            <span class="text-[16px] font-black {getResColorClass(res.val)} leading-none">
                                                 {resLetter}
                                             </span>
-                                            <span class="text-[16px] font-bold {res.val < 1 ? 'text-orange-400' : (res.val > 1 ? 'text-red-500' : 'text-[#21272C] dark:text-[#FDFDFD]')} leading-none">
+                                            <span class="text-[16px] font-bold {getResColorClass(res.val)} leading-none">
                                                 {resPercent}%
                                             </span>
                                         </div>

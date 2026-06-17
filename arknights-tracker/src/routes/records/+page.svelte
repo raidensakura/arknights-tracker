@@ -238,7 +238,9 @@
   function formatTooltipMonth(dateObj, loc) {
       if (!dateObj) return "";
       try {
-          const month = new Intl.DateTimeFormat(loc || 'ru', { month: 'long' }).format(dateObj);
+          let targetLoc = loc || 'ru';
+          if (targetLoc === "my") targetLoc = "ms-MY";
+          const month = new Intl.DateTimeFormat(targetLoc, { month: 'long' }).format(dateObj);
           const year = dateObj.getFullYear();
           return month.charAt(0).toUpperCase() + month.slice(1) + " " + year;
       } catch (e) {

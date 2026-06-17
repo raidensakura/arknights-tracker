@@ -152,12 +152,14 @@
   function getFormattedDate(dateStr) {
     const end = parseWithServerOffset(dateStr);
     const dateOptions = { month: "short", day: "numeric" };
+    let loc = $currentUiLocale || "en";
+    if (loc === "my") loc = "ms-MY";
     if (showServerTime) {
       const timeZone =
         currentServerId === "2" ? "Asia/Shanghai" : "America/New_York";
-      return end.toLocaleString($currentUiLocale, { ...dateOptions, timeZone });
+      return end.toLocaleString(loc, { ...dateOptions, timeZone });
     }
-    return end.toLocaleString($currentUiLocale, dateOptions);
+    return end.toLocaleString(loc, dateOptions);
   }
 
   function getPromoTimeLabel(dateStr) {

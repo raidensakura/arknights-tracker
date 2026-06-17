@@ -135,7 +135,9 @@
         const ts = parseInt(localStorage.getItem("ark_last_sync") || "0");
         if (ts > 0) {
             try {
-                lastSyncDate = new Intl.DateTimeFormat($currentUiLocale, {
+                let loc = $currentUiLocale;
+                if (loc === "my") loc = "ms-MY";
+                lastSyncDate = new Intl.DateTimeFormat(loc, {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit',
