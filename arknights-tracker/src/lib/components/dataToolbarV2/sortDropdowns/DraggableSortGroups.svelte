@@ -128,11 +128,11 @@
         if (newGroup === groupTouchHovered) return;
 
         if (groupTouchHovered) {
-            onGroupEnter(groupTouchHovered);
+            onGroupLeave(groupTouchHovered);
         }
 
         if (newGroup) {
-            onGroupLeave(newGroup);
+            onGroupEnter(newGroup);
         }
 
         groupTouchHovered = newGroup;
