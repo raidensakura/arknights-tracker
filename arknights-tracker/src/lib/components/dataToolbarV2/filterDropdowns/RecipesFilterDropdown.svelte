@@ -1,7 +1,9 @@
 <script>
     import { FactoryEvent } from "$lib/classes/events/FactoryEvent.js";
     import DropdownTemplate from "$lib/components/dataToolbarV2/DropdownTemplate.svelte";
-    import Icon from "$lib/components/Icon.svelte";
+    import SelectableParamList from "$lib/components/dataToolbarV2/filterDropdowns/SelectableParamList.svelte";
+    import RarityParamBox from "$lib/components/dataToolbarV2/paramBoxes/RarityParamBox.svelte";
+    import TextParamBox from "$lib/components/dataToolbarV2/paramBoxes/TextParamBox.svelte";
     import { t } from "$lib/i18n";
 
     export let filters = {};
@@ -28,45 +30,10 @@
         forceFiltersUpdate();
     }
 
-    function toggleFilter(filterName, groupName) {
-        if (!selectedFilters[groupName]) {
-            selectedFilters[groupName] = new Set();
-        }
-
-        let selectedFiltersSet = selectedFilters[groupName];
-
-        if (selectedFiltersSet.has(filterName)) {
-            selectedFiltersSet.delete(filterName);
-        } else {
-            selectedFiltersSet.add(filterName);
-        }
-
-        forceFiltersUpdate();
-    }
-
     function forceFiltersUpdate() {
         selectedFilters = selectedFilters;
     }
 
-    $: isGroupManualMode = (groupName) => {
-        return selectedFilters[groupName] && selectedFilters[groupName].size > 0;
-    };
-
-    $: isFilterSelected = (filterName, groupName) => {
-        return selectedFilters[groupName]?.has(filterName) ?? false;
-    };
-
-    $: getFilterClass = (filterName, groupName) => {
-        if (!isGroupManualMode(groupName)) {
-            return "bg-gray-300 border-gray-400 text-black dark:text-[#E0E0E0] dark:bg-[#424242] dark:border-[#444444] hover:bg-gray-200 hover:dark:bg-[#4a4a4a]";
-        }
-
-        if (isFilterSelected(filterName, groupName)) {
-            return "bg-[#F9B90C]/20 border-[#F9B90C] text-gray-900 dark:text-[#E0E0E0] dark:bg-[#FFB200]/50 dark:border-[#FFB200]";
-        }
-
-        return "bg-white dark:bg-[#383838] border-gray-200 text-gray-400 opacity-60 dark:border-[#444444] dark:text-[#787878] hover:opacity-100 hover:bg-gray-50 hover:dark:bg-[#424242]";
-    };
 </script>
 
 <DropdownTemplate
@@ -83,29 +50,11 @@
             {$t("sort.rarity")}
         </button>
 
-        <div class="flex flex-wrap gap-2">
-
-            {#each filters.rarity as rarity}
-
-                <button
-                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(rarity, 'rarity')}"
-                    on:click={() => {toggleFilter(rarity, "rarity")}}
-                >
-
-                    <span class="font-bold pointer-events-none">
-                        {rarity}
-                    </span>
-
-                    <Icon
-                        name="star"
-                        class="w-3 h-3 text-current pointer-events-none"
-                    />
-
-                </button>
-
-            {/each}
-
-        </div>
+        <SelectableParamList
+            paramList={filters.rarity}
+            paramBox={RarityParamBox}
+            bind:selectedParamSet={selectedFilters.rarity}
+        />
 
     </div>
 
@@ -118,24 +67,12 @@
             {$t("sort.eventsTitle")}
         </button>
 
-        <div class="flex flex-wrap gap-2">
-
-            {#each filters.events as filterName}
-
-                <button
-                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(filterName, 'events')}"
-                    on:click={() => {toggleFilter(filterName, "events")}}
-                >
-
-                    <span class="text-xs capitalize font-bold pointer-events-none">
-                        {$t(FactoryEvent.getEvent(filterName)?.title ?? "sort.events.nonEvent")}
-                    </span>
-
-                </button>
-
-            {/each}
-
-        </div>
+        <SelectableParamList
+            paramList={filters.events}
+            paramBox={TextParamBox}
+            getLocaleFunc={(param) => $t(FactoryEvent.getEvent(param)?.title ?? "sort.events.nonEvent")}
+            bind:selectedParamSet={selectedFilters.events}
+        />
 
     </div>
 
@@ -148,24 +85,12 @@
             {$t("sort.itemGroup")}
         </button>
 
-        <div class="flex flex-wrap gap-2">
-
-            {#each filters.itemGroups as filterName}
-
-                <button
-                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(filterName, 'itemGroups')}"
-                    on:click={() => {toggleFilter(filterName, "itemGroups")}}
-                >
-
-                    <span class="text-xs capitalize font-bold pointer-events-none">
-                        {$t(`sort.itemGroups.${filterName}`)}
-                    </span>
-
-                </button>
-
-            {/each}
-
-        </div>
+        <SelectableParamList
+            paramList={filters.itemGroups}
+            paramBox={TextParamBox}
+            getLocaleFunc={(param) => $t(`sort.itemGroups.${param}`)}
+            bind:selectedParamSet={selectedFilters.itemGroups}
+        />
 
     </div>
 
@@ -178,24 +103,12 @@
             {$t("sort.itemTypesTitle")}
         </button>
 
-        <div class="flex flex-wrap gap-2">
-
-            {#each filters.itemTypes as filterName}
-
-                <button
-                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(filterName, 'itemTypes')}"
-                    on:click={() => {toggleFilter(filterName, "itemTypes")}}
-                >
-
-                    <span class="text-xs capitalize font-bold pointer-events-none">
-                        {$t(`sort.itemTypes.${filterName}`)}
-                    </span>
-
-                </button>
-
-            {/each}
-
-        </div>
+        <SelectableParamList
+            paramList={filters.itemTypes}
+            paramBox={TextParamBox}
+            getLocaleFunc={(param) => $t(`sort.itemTypes.${param}`)}
+            bind:selectedParamSet={selectedFilters.itemTypes}
+        />
 
     </div>
 
@@ -208,24 +121,12 @@
             {$t("sort.itemMaterialsTitle")}
         </button>
 
-        <div class="flex flex-wrap gap-2">
-
-            {#each filters.itemMaterials as filterName}
-
-                <button
-                    class="h-[32px] px-3 rounded flex items-center gap-1 border transition-all cursor-pointer {getFilterClass(filterName, 'itemMaterials')}"
-                    on:click={() => {toggleFilter(filterName, "itemMaterials")}}
-                >
-
-                    <span class="text-xs capitalize font-bold pointer-events-none">
-                        {$t(`sort.itemMaterials.${filterName}`)}
-                    </span>
-
-                </button>
-
-            {/each}
-
-        </div>
+        <SelectableParamList
+            paramList={filters.itemMaterials}
+            paramBox={TextParamBox}
+            getLocaleFunc={(param) => $t(`sort.itemMaterials.${param}`)}
+            bind:selectedParamSet={selectedFilters.itemMaterials}
+        />
 
     </div>
 
