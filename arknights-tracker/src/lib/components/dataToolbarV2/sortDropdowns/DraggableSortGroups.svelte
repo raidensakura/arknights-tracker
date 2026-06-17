@@ -15,6 +15,7 @@
     function toggleGroupOpen(group) {
         if (openedGroup === group) {
             openedGroup = null;
+            return;
         }
 
         openedGroup = group;
