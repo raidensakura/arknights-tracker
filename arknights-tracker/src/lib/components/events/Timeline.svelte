@@ -859,8 +859,8 @@
                                                 {event.realEndTime.getDate()}
                                                 {$t(`months_gen.${event.realEndTime.toLocaleString("en-US", { month: "long" }).toLowerCase()}`)}
                                             {:else}
-                                                {event.realStartTime.toLocaleDateString($currentUiLocale || 'en-US', { day: '2-digit', month: '2-digit' })} - 
-                                                {event.realEndTime.toLocaleDateString($currentUiLocale || 'en-US', { day: '2-digit', month: '2-digit' })}
+                                                {event.realStartTime.toLocaleDateString($currentUiLocale === 'my' ? 'ms-MY' : ($currentUiLocale || 'en-US'), { day: '2-digit', month: '2-digit' })} - 
+                                                {event.realEndTime.toLocaleDateString($currentUiLocale === 'my' ? 'ms-MY' : ($currentUiLocale || 'en-US'), { day: '2-digit', month: '2-digit' })}
                                             {/if}
                                         </span>
                                     </div>

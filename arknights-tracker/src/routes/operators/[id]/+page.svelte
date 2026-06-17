@@ -27,7 +27,8 @@
         const [day, month] = raw.split("-");
         const date = new Date(2000, parseInt(month) - 1, parseInt(day));
         const langMap = { zhcn: "zh-CN", zhtw: "zh-TW" };
-        const safeLang = langMap[lang?.toLowerCase()] || lang || "en";
+        let safeLang = langMap[lang?.toLowerCase()] || lang || "en";
+        if (safeLang === "my") safeLang = "ms-MY";
         try {
             return new Intl.DateTimeFormat(safeLang, {
                 month: "long",

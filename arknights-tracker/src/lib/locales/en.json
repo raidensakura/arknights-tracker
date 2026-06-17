@@ -707,8 +707,8 @@
     "drops": "Drops",
     "properties": "Properties",
     "abilities": "Abilities",
-    "vulnerable": "Vulnerable",
-    "enemiesResHint": "Displays the coefficient of damage taken by the enemy according to the formula: Damage × Resistance (%). For example: 100% — no damage reduction, 50% — damage taken by the enemy is halved."
+    "vulnerable": "Resistance Multiplier",
+    "enemiesResHint": "Displays the taken damage multiplier according to the formula: Damage × Resistance Multiplier (%). For example: 100% — no damage reduction, 50% — damage taken by the enemy is halved. Resistance: 100% - n% = m%, where n% is the resistance multiplier and m% is the resistance."
   },
   "bioValues": {
     "Unknown": "Unknown"

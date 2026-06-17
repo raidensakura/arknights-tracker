@@ -615,7 +615,9 @@
 
     function formatDateShort(time, locale) {
         if (!time) return "";
-        return new Date(time).toLocaleString(locale || "ru", {
+        let loc = locale || "ru";
+        if (loc === "my") loc = "ms-MY";
+        return new Date(time).toLocaleString(loc, {
             day: "2-digit",
             month: "2-digit",
             year: "2-digit",
@@ -626,7 +628,9 @@
 
     function formatDateFull(time, locale) {
         if (!time) return "";
-        return new Date(time).toLocaleString(locale || "ru", {
+        let loc = locale || "ru";
+        if (loc === "my") loc = "ms-MY";
+        return new Date(time).toLocaleString(loc, {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",

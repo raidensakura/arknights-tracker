@@ -447,8 +447,8 @@
     "drops": "Zdobycze",
     "properties": "Właściwości",
     "abilities": "Zdolności",
-    "vulnerable": "Wrażliwość",
-    "enemiesResHint": "Wyświetla współczynnik obrażeń otrzymywanych przez wroga według wzoru: Obrażenia × Odporność (%). Na przykład: 100% — brak redukcji obrażeń, 50% — obrażenia otrzymywane przez wroga są zmniejszone o połowę."
+    "vulnerable": "Mnożnik odporności",
+    "enemiesResHint": "Wyświetla mnożnik otrzymywanych obrażeń według wzoru: Obrażenia × Mnożnik odporności (%). Na przykład: 100% — brak redukcji obrażeń, 50% — obrażenia otrzymywane przez wroga są zmniejszone o połowę. Odporność: 100% - n% = m%, gdzie n% to mnożnik odporności, a m% to odporność."
   },
   "bioValues": {
     "Unknown": "Nieznane"

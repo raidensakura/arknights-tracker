@@ -81,6 +81,44 @@
     let copiedImageId = null;
     let selectedImageVariant = null;
     let isDraggingRank = false;
+    let activeDraggingSkill = null;
+    let draggingContainerRect = null;
+
+    function startDraggingRank(e, skillKey) {
+        if (e.button === 0 || e.button === 2) {
+            isDraggingRank = true;
+            activeDraggingSkill = skillKey;
+            const container = e.currentTarget;
+            draggingContainerRect = container.getBoundingClientRect();
+            if (browser) document.body.classList.add('dragging-rank');
+            updateRankFromX(e.clientX, skillKey);
+        }
+    }
+
+    function updateRankFromX(clientX, skillKey) {
+        if (!draggingContainerRect) return;
+        const rect = draggingContainerRect;
+        const relativeX = clientX - rect.left;
+        const percentage = Math.min(1, Math.max(0, relativeX / rect.width));
+        const rank = Math.min(9, Math.max(1, Math.ceil(percentage * 9)));
+        manualSkillRanks = {
+            ...manualSkillRanks,
+            [skillKey]: rank
+        };
+    }
+
+    function handleWindowMouseMove(e) {
+        if (isDraggingRank && activeDraggingSkill) {
+            updateRankFromX(e.clientX, activeDraggingSkill);
+        }
+    }
+
+    function stopDraggingRank() {
+        isDraggingRank = false;
+        activeDraggingSkill = null;
+        draggingContainerRect = null;
+        if (browser) document.body.classList.remove('dragging-rank');
+    }
 
     $: loadWeaponData(id, $currentLocale);
 
@@ -507,7 +545,8 @@
         if (!e.target.closest(".pot-dropdown-container"))
             isPotDropdownOpen = false;
     }}
-    on:mouseup={() => (isDraggingRank = false)}
+    on:mouseup={stopDraggingRank}
+    on:mousemove={handleWindowMouseMove}
     on:keydown={handleKeydown}
     on:keyup={handleKeyup}
 />
@@ -898,8 +937,11 @@
                                 <div
                                     class="flex items-center gap-3 w-full sm:w-auto pl-5 sm:pl-0 mt-1 sm:mt-0"
                                 >
+                                    <!-- svelte-ignore a11y_no_static_element_interactions -->
                                     <div
-                                        class="hidden sm:flex gap-[4px] bg-gray-100 dark:bg-[#2b2b2b] px-3 py-1.5 rounded-full border border-gray-200 dark:border-[#444]"
+                                        class="hidden sm:flex gap-[4px] bg-gray-100 dark:bg-[#2b2b2b] px-3 py-1.5 rounded-full border border-gray-200 dark:border-[#444] select-none"
+                                        on:mousedown={(e) => startDraggingRank(e, skillKey)}
+                                        on:contextmenu|preventDefault
                                     >
                                         {#each Array(9) as _, i}
                                             <button
@@ -912,21 +954,6 @@
                                                     : i < state.upper
                                                       ? 'bg-gray-300 border-gray-300 dark:bg-[#555] dark:border-[#555]'
                                                       : 'bg-transparent border-gray-400 dark:border-[#666] hover:bg-gray-200 dark:hover:bg-[#444]'}"
-                                                on:mousedown={() => {
-                                                    isDraggingRank = true;
-                                                    manualSkillRanks = {
-                                                        ...manualSkillRanks,
-                                                        [skillKey]: i + 1,
-                                                    };
-                                                }}
-                                                on:mouseenter={() => {
-                                                    if (isDraggingRank) {
-                                                        manualSkillRanks = {
-                                                            ...manualSkillRanks,
-                                                            [skillKey]: i + 1,
-                                                        };
-                                                    }
-                                                }}
                                                 on:click={() =>
                                                     (manualSkillRanks = {
                                                         ...manualSkillRanks,
@@ -1356,6 +1383,11 @@
 {/if}
 
 <style>
+    :global(body.dragging-rank), :global(body.dragging-rank *) {
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+    }
     .card-gradient {
         background: linear-gradient(
             to right,

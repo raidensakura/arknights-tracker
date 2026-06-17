@@ -26,12 +26,14 @@ export const uiLanguages = [
   { code: 'pl', label: 'Polski' },                // Польский
   { code: 'kk', label: 'Қазақ тілі' },            // Казахский
   { code: 'ka', label: 'ქართული' },             // Грузинский
-  { code: 'ar', label: 'العربية' }               // Арабский
+  { code: 'ar', label: 'العربية' },              // Арабский
+  { code: 'fi', label: 'Suomi' },                 // Финский
+  { code: 'my', label: 'Bahasa Malaysia' },       // Малайский
 ];
 
 export const isSupportedUi = (code) => [
   'ru', 'en', 'ja', 'de', 'id', 'it', 'fr', 'ko', 'vi', 'es', 'th', 'pt', 'zh-CN', 'zh-TW',
-  'uk', 'pl', 'kk', 'ka', 'ar'
+  'uk', 'pl', 'kk', 'ka', 'ar', 'fi', 'my'
 ].includes(code);
 
 const getInitialLocale = () => {

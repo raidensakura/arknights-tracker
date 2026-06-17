@@ -147,7 +147,9 @@
             const [year, month, day] = onlyDate.split("-").map(Number);
             const dateObj = new Date(Date.UTC(year, month - 1, day));
             if (isNaN(dateObj.getTime())) return onlyDate;
-            return new Intl.DateTimeFormat(loc || "ru", {
+            let targetLoc = loc || "ru";
+            if (targetLoc === "my") targetLoc = "ms-MY";
+            return new Intl.DateTimeFormat(targetLoc, {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
