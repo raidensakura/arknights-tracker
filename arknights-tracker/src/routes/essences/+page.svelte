@@ -1,24 +1,31 @@
 <script>
-    import { t } from "$lib/i18n";
-    import { fade, scale } from "svelte/transition";
-    import { weapons } from "$lib/data/weapons.js";
-    import { essences } from "$lib/data/items/essences.js";
-    import { pullData } from "$lib/stores/pulls";
-    import { locations } from "$lib/data/locations.js";
-    import { manualPotentials } from "$lib/stores/potentials";
-    import { accountStore } from "$lib/stores/accounts";
-    import { weaponFilters, weaponSearch, weaponManual } from '$lib/stores/filterStore';
-
+    import BottomSheet from "$lib/components/BottomSheet.svelte";
+    import Button from "$lib/components/Button.svelte";
     import WeaponCard from "$lib/components/cards/WeaponCard.svelte";
-    import DataToolbar from "$lib/components/dataToolbar/DataToolbar.svelte";
+    import DataToolbar from "$lib/components/dataToolbarV2/DataToolbar.svelte";
+    import WeaponFilterDropdown from "$lib/components/dataToolbarV2/filterDropdowns/WeaponFilterDropdown.svelte";
+    import SortSelectorDropdown from "$lib/components/dataToolbarV2/sortDropdowns/SortSelectorDropdown.svelte";
     import Icon from "$lib/components/Icon.svelte";
     import Image from "$lib/components/Image.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
-    import Button from "$lib/components/Button.svelte";
-    import BottomSheet from "$lib/components/BottomSheet.svelte";
+    import { essences } from "$lib/data/items/essences.js";
+    import { locations } from "$lib/data/locations.js";
+    import { weapons } from "$lib/data/weapons.js";
+    import { t } from "$lib/i18n";
+    import { accountStore } from "$lib/stores/accounts";
+    import {
+        essenceWeaponFilters,
+        essenceWeaponOwnedOnly,
+        essenceWeaponSearch,
+        getWeaponFilters, getWeaponSortOptions
+    } from "$lib/stores/filterStore";
+    import { manualPotentials } from "$lib/stores/potentials";
+    import { pullData } from "$lib/stores/pulls";
+    import { fade, scale } from "svelte/transition";
 
-    $: filters = $weaponFilters;
-    $: searchQuery = $weaponSearch;
+    $: selectedFilters = $essenceWeaponFilters;
+    $: searchQuery = $essenceWeaponSearch;
+    $: showOwnedOnly = $essenceWeaponOwnedOnly;
 
     const allWeapons = Object.values(weapons || {}).filter((wp) => wp && wp.id);
 
@@ -91,14 +98,6 @@
         "smash",
     ];
 
-    let filters = {
-        rarity: [6, 5, 4, 3],
-        type: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
-        attr1: [...attr1Skills],
-        attr2: [...attr2Skills],
-        attr3: [...attr3Skills],
-    };
-
     const { selectedId } = accountStore;
 
     $: filteredWeapons = allWeapons
@@ -140,33 +139,14 @@
                 idName.includes(query);
             if (!matchesSearch) return false;
 
-            const matchesRarity =
-                filters.rarity.length === 0 ||
-                filters.rarity.includes(wp.rarity);
+            const matchesRarity = filterCheck(selectedFilters.rarity, wp.rarity);
             const wpType = wp.type || wp.weapon;
-            const matchesType =
-                filters.type.length === 0 ||
-                (wpType &&
-                    filters.type.some(
-                        (w) => w.toLowerCase() === wpType.toLowerCase(),
-                    ));
-            const passesAttr1 =
-                filters.attr1.length === attr1Skills.length ||
-                (wp.skills && wp.skills.some((s) => filters.attr1.includes(s)));
-            const passesAttr2 =
-                filters.attr2.length === attr2Skills.length ||
-                (wp.skills && wp.skills.some((s) => filters.attr2.includes(s)));
-            const passesAttr3 =
-                filters.attr3.length === attr3Skills.length ||
-                (wp.skills && wp.skills.some((s) => filters.attr3.includes(s)));
+            const matchesType = filterCheckLowerCase(selectedFilters.type, wpType);
+            const passesAttr1 = wp.skills?.some((skill) => filterCheck(selectedFilters.attr1, skill));
+            const passesAttr2 = wp.skills?.some((skill) => filterCheck(selectedFilters.attr2, skill));
+            const passesAttr3 = wp.skills?.some((skill) => filterCheck(selectedFilters.attr3, skill));
 
-            return (
-                matchesRarity &&
-                matchesType &&
-                passesAttr1 &&
-                passesAttr2 &&
-                passesAttr3
-            );
+            return matchesRarity && matchesType && passesAttr1 && passesAttr2 && passesAttr3;
         })
         .sort((a, b) => {
             let valA = sortField === "type" ? a.type || a.weapon : a[sortField];
@@ -192,6 +172,34 @@
             }
             return compareResult;
         });
+
+    function filterCheck(filterParamSet, value) {
+        if (!filterParamSet || filterParamSet.size === 0) {
+            return true;
+        }
+
+        return filterParamSet.has(value);
+    }
+
+    function filterCheckLowerCase(filterParamSet, value) {
+        if (!filterParamSet || filterParamSet.size === 0) {
+            return true;
+        }
+
+        const valueLowerCase = value.toLowerCase();
+
+        for (let param of filterParamSet) {
+            if (param.toLowerCase() === valueLowerCase) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    let isFilterActive = false;
+    $: isFilterActive = Object.values(selectedFilters)
+        .some((set) => set.size > 0);
 
     let displayLimit = 40;
     $: if (
@@ -892,15 +900,33 @@
 
         {#if activeTab === "optimizer"}
             <div>
+
                 <DataToolbar
-                    bind:sortField
-                    bind:sortDirection
-                    bind:filters={$weaponFilters} 
-                    bind:searchQuery={$weaponSearch} 
-                    bind:manualMode={$weaponManual}
-                    bind:showOwnedOnly
-                    mode="weapons"
-                />
+                    showSortDropdownButton={true}
+                    showSortDirectionButton={true}
+                    showFilterDropdownButton={true}
+                    showSearchInput={true}
+                    isFilterActive={isFilterActive}
+                    onFilterReset={() => $essenceWeaponFilters = {}}
+                    bind:searchString={$essenceWeaponSearch}
+                    bind:sortDirection={sortDirection}
+                >
+
+                    <SortSelectorDropdown
+                        slot="sortDropdown"
+                        optionList={getWeaponSortOptions()}
+                        bind:selectedOption={sortField}
+                    />
+
+                    <WeaponFilterDropdown
+                        slot="filterDropdown"
+                        filters={getWeaponFilters()}
+                        bind:selectedFilters={$essenceWeaponFilters}
+                        bind:showOwnedOnly={$essenceWeaponOwnedOnly}
+                    />
+
+                </DataToolbar>
+
             </div>
 
             <div

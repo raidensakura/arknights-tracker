@@ -248,6 +248,10 @@ export const weaponManual = writable({ ...initialManualMode });
 export const weaponSearch = writable("");
 export const weaponOwnedOnly = writable(false);
 
+export const essenceWeaponFilters = writable({});
+export const essenceWeaponSearch = writable("");
+export const essenceWeaponOwnedOnly = writable(false);
+
 export const operatorFilters = writable({ ...initialOperatorFilters });
 export const operatorManual = writable({ ...initialManualMode });
 export const operatorSearch = writable("");
