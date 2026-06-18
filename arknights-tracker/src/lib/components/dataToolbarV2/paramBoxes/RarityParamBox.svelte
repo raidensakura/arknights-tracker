@@ -3,12 +3,14 @@
     import Icon from "$lib/components/Icon.svelte";
 
     export let styleMode = "default";
+
+    export let paramId;
 </script>
 
 <ParamBoxTemplate styleMode={styleMode}>
 
     <span class="font-bold pointer-events-none">
-        <slot />
+        {paramId}
     </span>
 
     <Icon

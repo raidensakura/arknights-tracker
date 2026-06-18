@@ -55,11 +55,8 @@
                 this={paramBox}
                 styleMode={getBoxStyleMode(param)}
                 paramId={param}
-            >
-
-                {getLocaleFunc(param)}
-
-            </svelte:component>
+                getLocaleFunc={getLocaleFunc}
+            />
 
         </button>
 

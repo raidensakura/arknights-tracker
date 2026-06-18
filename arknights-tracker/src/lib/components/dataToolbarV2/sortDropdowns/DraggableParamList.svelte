@@ -134,11 +134,8 @@
                 this={paramBox}
                 styleMode={isParamDragged(param) ? "dragged" : "default"}
                 paramId={param}
-            >
-
-                {getLocaleFunc(param)}
-
-            </svelte:component>
+                getLocaleFunc={getLocaleFunc}
+            />
 
         </div>
 

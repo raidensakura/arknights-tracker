@@ -1,9 +1,9 @@
 <script>
     import { FactoryEvent } from "$lib/classes/events/FactoryEvent.js";
     import DropdownTemplate from "$lib/components/dataToolbarV2/DropdownTemplate.svelte";
-    import AlphabeticSortSelector from "$lib/components/dataToolbarV2/sortDropdowns/AlphabeticSortSelector.svelte";
     import RarityParamBox from "$lib/components/dataToolbarV2/paramBoxes/RarityParamBox.svelte";
-    import TextParamBoxTemplate from "$lib/components/dataToolbarV2/paramBoxes/TextParamBoxTemplate.svelte";
+    import TextParamBox from "$lib/components/dataToolbarV2/paramBoxes/TextParamBox.svelte";
+    import AlphabeticSortSelector from "$lib/components/dataToolbarV2/sortDropdowns/AlphabeticSortSelector.svelte";
     import DraggableParamList from "$lib/components/dataToolbarV2/sortDropdowns/DraggableParamList.svelte";
     import DraggableSortGroups from "$lib/components/dataToolbarV2/sortDropdowns/DraggableSortGroups.svelte";
     import { t } from "$lib/i18n";
@@ -87,7 +87,7 @@
         {:else}
 
             <DraggableParamList
-                paramBox={TextParamBoxTemplate}
+                paramBox={TextParamBox}
                 getLocaleFunc={(param) => getFilterNameLocale(openedSortField, param)}
                 bind:paramList={sortParams.sortFieldParams[openedSortField]}
             />
