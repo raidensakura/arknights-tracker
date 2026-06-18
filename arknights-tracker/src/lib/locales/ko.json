@@ -171,7 +171,6 @@
     "note": "참고",
     "faq_security_desc1": "타사 사이트와 인증 토큰을 공유하고 스크립트를 실행하는 것은 항상 위험을 수반합니다.",
     "faq_security_desc2": "Goyfield.moe는 토큰 및 링크와 같은 개인 정보를 절대 저장하지 않습니다. 귀하의 토큰은 뽑기 기록을 가져오기 위해서만 처리되며 절대 저장되지 않습니다. 스크립트에 대해 우려되는 점이 있다면 직접 검사하실 수 있습니다. 사이트의 백엔드 서버로 토큰을 보내는 것이 걱정되신다면, 이 프로젝트는 오픈 소스이므로 GitHub의 지침에 따라 사이트를 로컬로 배포할 수 있습니다.",
-    "faq_security_warning": "<strong>Endfieldrecords</strong> 사이트를 이용하신 경우, 즉시 게임 내 비밀번호를 변경하고 <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit 가이드</a>에 따라 컴퓨터를 점검하시기 바랍니다.",
     "description": "가챠 기록이 담긴 JSON 파일을 업로드하세요.",
     "format": "(현재는 원신 API 응답 형식만 지원합니다).",
     "button": "JSON 파일 선택",
@@ -575,6 +574,7 @@
     "properties": "특성 설명",
     "abilities": "능력",
     "vulnerable": "저항력 배율",
+    "resistance": "저항력",
     "enemiesResHint": "다음 공식에 따라 받는 데미지 배율을 표시합니다: 데미지 × 저항력 배율 (%). 예: 100% — 데미지 감소 없음, 50% — 적이 받는 데미지 절반으로 감소. 저항력: 100% - n% = m% (n%는 저항력 배율, m%는 저항력)."
   },
   "bioValues": {
@@ -2004,5 +2004,22 @@
     "item_minepoint_copper_ore": "적동 광석 광산 지점",
     "item_minepoint_originium_ore": "오리지늄 광물 광산 지점",
     "item_minepoint_quartz_sand": "자수정 광석 광산 지점"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "무기 육성 재료 효율",
+    "operatorMaterialEfficiency": "오퍼레이터 육성 재료 효율",
+    "operatorClueCollectingEfficiency": "오퍼레이터 단서 수집 효율",
+    "fungiGrowthEfficiency": "버섯 육성 효율",
+    "vitrosGrowthEfficiency": "결정화 식물 육성 효율",
+    "mineralGrowthEfficiency": "광물 육성 효율",
+    "moodRegen": "컨디션 회복",
+    "clueEfficiencyBoost": "단서 수집 확률 증가",
+    "moodDropHour": "컨디션 소모/시간"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "핵심 제어 중추",
+    "receptionRoom": "응접실",
+    "manufacturingCabin": "제조실",
+    "growthChamber": "재배실"
   }
 }

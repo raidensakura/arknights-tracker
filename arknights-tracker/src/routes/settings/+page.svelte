@@ -787,12 +787,12 @@
             <p>{$t("settings.feedback.text")}</p>
         </div>
 
-        <div class="w-48 flex gap-3">
+        <div class="flex flex-wrap gap-3">
             <a
                 href="https://t.me/ivawa73"
                 target="_blank"
                 rel="noreferrer"
-                class="no-underline"
+                class="no-underline w-48"
             >
                 <Button variant="black2">
                     <div slot="icon">
@@ -805,7 +805,7 @@
                 href="https://discord.gg/nqfuaRbWWn"
                 target="_blank"
                 rel="noreferrer"
-                class="no-underline"
+                class="no-underline w-48"
             >
                 <Button variant="black2">
                     <div slot="icon">
@@ -823,43 +823,16 @@
         >
             {$t("settings.donate.title")}
         </h2>
-        <div class="w-48 flex gap-3">
+        <div class="flex flex-wrap gap-3">
             <a
                 href="https://boosty.to/ivawa/donate"
                 target="_blank"
                 rel="noreferrer"
-                class="no-underline"
+                class="no-underline w-48"
             >
                 <Button variant="black2">
                     <div slot="icon">
-                        <svg
-                            width="23"
-                            height="28"
-                            viewBox="0 0 23 28"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M0.723377 16.2279L5.42796 0H12.658L11.2005 5.0308C11.186 5.05955 11.1716 5.08829 11.1572 5.11704L7.31845 18.3984H10.8974C9.39655 22.1211 8.22762 25.039 7.39061 27.1519C0.781102 27.0801 -1.0661 22.3655 0.550202 16.7885M7.41947 27.1663L16.1359 14.6756H12.4415L15.6597 6.6694C21.1724 7.24435 23.7701 11.5708 22.2404 16.8029C20.6096 22.423 14.0001 27.1663 7.56378 27.1663C7.50606 27.1663 7.46277 27.1663 7.41947 27.1663Z"
-                                fill="url(#paint0_linear_1573_82538)"
-                            />
-                            <defs>
-                                <linearGradient
-                                    id="paint0_linear_1573_82538"
-                                    x1="15.2668"
-                                    y1="3.52846"
-                                    x2="6.02824"
-                                    y2="35.1606"
-                                    gradientUnits="userSpaceOnUse"
-                                >
-                                    <stop stop-color="#EF7829" />
-                                    <stop offset="0.0518954" stop-color="#F07529" />
-                                    <stop offset="0.3551" stop-color="#F0672B" />
-                                    <stop offset="0.6673" stop-color="#F15E2C" />
-                                    <stop offset="1" stop-color="#F15A2C" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                        <Icon name="boosty" class="w-7 h-7" />
                     </div>
                     Boosty
                 </Button>
@@ -868,7 +841,7 @@
                 href="https://t.me/tribute/app?startapp=dFlw"
                 target="_blank"
                 rel="noreferrer"
-                class="no-underline"
+                class="no-underline w-48"
             >
                 <Button variant="black2">
                     <div slot="icon">
@@ -881,7 +854,7 @@
                 href="https://patreon.com/ivawa?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink"
                 target="_blank"
                 rel="noreferrer"
-                class="no-underline block"
+                class="no-underline w-48"
             >
                 <Button
                     variant="black2"

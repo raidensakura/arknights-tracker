@@ -156,7 +156,6 @@
     "note": "Huomaa",
     "faq_security_desc1": "Valtuutustunnusten jakaminen kolmansien osapuolien sivustoille ja skriptien suorittaminen sisältää aina riskejä.",
     "faq_security_desc2": "Goyfield.moe ei koskaan tallenna henkilökohtaisia tietojasi, kuten tunnuksia ja linkkejä. Tunnuksesi käsitellään vain vetojen hakemista varten, eikä sitä koskaan tallenneta. Jos sinulla on huolenaiheita skripteistä, voit tarkastaa ne itse. Jos olet huolissasi tunnuksesi lähettämisestä sivuston palvelimelle, voit ottaa sivuston käyttöön paikallisesti GitHubin ohjeiden mukaisesti, koska tämä on avoimen lähdekoodin projekti.",
-    "faq_security_warning": "Jos olet käyttänyt <strong>Endfieldrecords</strong>-sivustoa, vaihda pelin salasanasi välittömästi ja seuraa <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Redditin ohjetta</a> tietokoneesi tarkistamiseksi.",
     "description": "Lataa JSON-tiedosto, joka sisältää gacha-historiasi.",
     "format": "(Tällä hetkellä tuetaan vain Genshin-tyyppistä API-vastausmuotoa).",
     "button": "Valitse JSON-tiedosto",
@@ -448,6 +447,7 @@
     "properties": "Ominaisuudet",
     "abilities": "Kyvyt",
     "vulnerable": "Vastustuskerroin",
+    "resistance": "Vastus",
     "enemiesResHint": "Näyttää saadun vahingon kertoimen kaavan mukaisesti: Vahinko × Vastustuskerroin (%). Esimerkiksi: 100 % — ei vahingonvähennystä, 50 % — vihollisen saama vahinko puolitetaan. Vastus: 100 % - n % = m %, jossa n % on vastustuskerroin ja m % on vastus."
   },
   "bioValues": {

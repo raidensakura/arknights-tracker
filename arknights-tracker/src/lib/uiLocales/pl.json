@@ -156,7 +156,6 @@
     "note": "Uwaga",
     "faq_security_desc1": "Udostępnianie tokenów autoryzacyjnych stronom trzecim i uruchamianie skryptów zawsze niesie ze sobą ryzyko.",
     "faq_security_desc2": "Goyfield.moe nigdy nie zapisuje Twoich danych osobowych, takich jak tokeny i linki. Twój token jest przetwarzany tylko w celu pobrania losowań i nigdy nie jest zapisywany. Jeśli masz obawy dotyczące skryptów, możesz je sprawdzić osobiście. Jeśli martwisz się wysłaniem tokenu na serwer backendowy, możesz wdrożyć stronę lokalnie, postępując zgodnie z instrukcjami na GitHubie, ponieważ jest to projekt open source.",
-    "faq_security_warning": "Jeśli korzystałeś ze strony <strong>Endfieldrecords</strong>, natychmiast zmień hasło w grze i postępuj zgodnie z <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">poradnikiem na Reddit</a>, aby sprawdzić swój komputer.",
     "description": "Prześlij plik JSON z historią gacha.",
     "format": "(Obecnie obsługiwany jest tylko format odpowiedzi API podobny do Genshin).",
     "button": "Wybierz plik JSON",
@@ -448,6 +447,7 @@
     "properties": "Właściwości",
     "abilities": "Zdolności",
     "vulnerable": "Mnożnik odporności",
+    "resistance": "Odporność",
     "enemiesResHint": "Wyświetla mnożnik otrzymywanych obrażeń według wzoru: Obrażenia × Mnożnik odporności (%). Na przykład: 100% — brak redukcji obrażeń, 50% — obrażenia otrzymywane przez wroga są zmniejszone o połowę. Odporność: 100% - n% = m%, gdzie n% to mnożnik odporności, a m% to odporność."
   },
   "bioValues": {

@@ -10,6 +10,7 @@
     import Icon from "$lib/components/Icon.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Image from "$lib/components/Image.svelte";
+    import PotentialIcon from "$lib/components/operators/PotentialIcon.svelte";
 
     export let operator = {};
     export let variant = "default"; // "small" | "default"
@@ -85,13 +86,6 @@
         !isAccountEmpty &&
         !$disableDarkening;
 
-    const potPaths = [
-        "M35.3769 14.521L43.8763 14.4792L10.06 39.0583L2.11523 38.4865L35.3769 14.521Z",
-        "M20.1176 23.9788L22.9078 15.9502L34.827 56.0203L31.6429 63.3215L20.1176 23.9788Z",
-        "M24.2399 42.7944L17.3306 37.8443L59.1357 37.7639L65.2359 42.8858L24.2399 42.7944Z",
-        "M44.879 41.6553L38.1667 46.8695L49.9912 6.77135L56.6378 2.38173L44.879 41.6553Z",
-        "M49.8633 25.9639L52.5508 34.0273L18.6602 9.55078L16.7285 1.82324L49.8633 25.9639Z",
-    ];
 
     function getRarityColor(rarity) {
         if (rarity === 6) return "#F4700C";
@@ -204,7 +198,7 @@
                     >
                         <Icon
                             name={operator.class}
-                            class="w-full h-full text-white"
+                            class="w-full h-full text-white rounded-md"
                         />
                     </Tooltip>
                 </div>
@@ -217,7 +211,7 @@
                         >
                             <Icon
                                 name={operator.element}
-                                class="w-full h-full text-white"
+                                class="w-full h-full text-white rounded-md"
                             />
                         </Tooltip>
                     </div>
@@ -281,30 +275,11 @@
                         class="absolute top-1 right-1.5 z-20 pointer-events-auto drop-shadow-md blur-[0.2px] shadow-black"
                     >
                         <Tooltip text={`P${currentPot}`} class="">
-                            <svg
-                                width={variant === "small" ? "18" : "34"}
-                                height={variant === "small" ? "18" : "34"}
-                                viewBox="0 0 68 66"
-                                fill="none"
-                                class="transition-all cursor-pointer duration-300 {isMaxPot
-                                    ? 'drop-shadow-[0_0_8px_rgba(254,222,40,0.8)]'
-                                    : 'drop-shadow-sm'}"
-                            >
-                                {#each potPaths as d, i}
-                                    {@const isActive = i < constCount}
-                                    <path
-                                        {d}
-                                        fill={isActive ? "#FEDE28" : "black"}
-                                        stroke={isMaxPot
-                                            ? "white"
-                                            : isActive
-                                              ? "#E5D32B"
-                                              : "white"}
-                                        stroke-width="1.5"
-                                        class="transition-colors duration-300"
-                                    />
-                                {/each}
-                            </svg>
+                            <PotentialIcon
+                                pot={currentPot}
+                                size={variant === "small" ? 18 : 34}
+                                className="cursor-pointer"
+                            />
                         </Tooltip>
                     </div>
                 {/if}

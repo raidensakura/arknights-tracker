@@ -171,7 +171,6 @@
     "note": "Note",
     "faq_security_desc1": "Le partage de jetons d'autorisation avec des sites tiers et l'exécution de scripts comportent toujours des risques.",
     "faq_security_desc2": "Goyfield.moe n'enregistre jamais vos informations personnelles, telles que les jetons et les liens. Votre jeton est uniquement traité pour récupérer les tirages et n'est jamais sauvegardé. Si vous avez des inquiétudes concernant les scripts, vous pouvez les inspecter personnellement. Si l'envoi de votre jeton au serveur backend du site vous inquiète, vous pouvez déployer le site localement en suivant les instructions sur GitHub, car il s'agit d'un projet open-source.",
-    "faq_security_warning": "Si vous avez utilisé le site <strong>Endfieldrecords</strong>, changez immédiatement votre mot de passe en jeu et suivez le <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">guide Reddit</a> pour vérifier votre ordinateur.",
     "description": "Téléchargez un fichier JSON avec votre historique de gacha.",
     "format": "(Actuellement, seul le format de réponse API type Genshin est supporté).",
     "button": "Choisir le fichier JSON",
@@ -575,7 +574,9 @@
     "properties": "Propriétés",
     "abilities": "Capacités",
     "vulnerable": "Multiplicateur de résistance",
-    "enemiesResHint": "Affiche le multiplicateur de dégâts reçus selon la formule : Dégâts × Multiplicateur de résistance (%). Par exemple : 100 % — aucune réduction de dégâts, 50 % — les dégâts reçus par l'ennemi sont réduits de moitié. Résistance : 100 % - n % = m %, où n % est le multiplicateur de résistance et m % est la résistance."  },
+    "resistance": "Résistance",
+    "enemiesResHint": "Affiche le multiplicateur de dégâts reçus selon la formule : Dégâts × Multiplicateur de résistance (%). Par exemple : 100 % — aucune réduction de dégâts, 50 % — les dégâts reçus par l'ennemi sont réduits de moitié. Résistance : 100 % - n % = m %, où n % est le multiplicateur de résistance et m % est la résistance."
+  },
   "bioValues": {
     "Unknown": "Inconnu"
   },
@@ -2003,5 +2004,22 @@
     "item_minepoint_copper_ore": "Zone d'extraction de cuprium",
     "item_minepoint_originium_ore": "Zone d'extraction d'originium",
     "item_minepoint_quartz_sand": "Zone d'extraction d'améthyste"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Efficacité des matériaux d'arme",
+    "operatorMaterialEfficiency": "Efficacité des matériaux d'opérateur",
+    "operatorClueCollectingEfficiency": "Efficacité de la collecte d'indices par l'opérateur",
+    "fungiGrowthEfficiency": "Efficacité de culture fongique",
+    "vitrosGrowthEfficiency": "Efficacité de culture vitro",
+    "mineralGrowthEfficiency": "Efficacité de culture minérale",
+    "moodRegen": "Amélioration d'humeur",
+    "clueEfficiencyBoost": "Bonus d'efficacité de récupération d'indices",
+    "moodDropHour": "Baisse d'humeur par heure"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Nexus de contrôle",
+    "receptionRoom": "Salle de réception",
+    "manufacturingCabin": "Cabine de fabrication",
+    "growthChamber": "Chambre de culture"
   }
 }

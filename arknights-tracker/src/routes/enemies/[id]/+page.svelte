@@ -395,9 +395,11 @@
                                             <span class="text-[16px] font-black {getResColorClass(res.val)} leading-none">
                                                 {resLetter}
                                             </span>
-                                            <span class="text-[16px] font-bold {getResColorClass(res.val)} leading-none">
-                                                {resPercent}%
-                                            </span>
+                                            <Tooltip text={`${$t('stats.resistance')}: 100% - ${resPercent}% = ${100 - resPercent}%`}>
+                                                <span class="text-[16px] font-bold {getResColorClass(res.val)} leading-none">
+                                                    {resPercent}%
+                                                </span>
+                                            </Tooltip>
                                         </div>
                                     </div>
                                 </div>

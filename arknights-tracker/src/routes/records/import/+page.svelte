@@ -12,7 +12,7 @@
 
     import Button from "$lib/components/Button.svelte";
     import Checkbox from "$lib/components/Checkbox.svelte";
-    import PowershellBlock from "$lib/components/PowershellBlock.svelte";
+    import CodeBlock from "$lib/components/CodeBlock.svelte";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Icon from "$lib/components/Icon.svelte";
     import ConfirmationModal from "$lib/components/modals/ConfirmationModal.svelte";
@@ -513,7 +513,7 @@
                                 "FAQ: Account Security"}
                         </h3>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <h4
                                 class="font-bold text-[#21272C] dark:text-[#FDFDFD] mb-1 text-sm"
                             >
@@ -528,7 +528,7 @@
                             </p>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <h4
                                 class="font-bold text-[#21272C] dark:text-[#FDFDFD] mb-1 text-sm"
                             >
@@ -544,7 +544,7 @@
                         </div>
 
                         <div
-                            class="mb-5 text-sm text-gray-500 dark:text-[#999] bg-gray-50 dark:bg-[#2C2C2C] border-l-2 border-[#FACC15] p-3 rounded-r-lg"
+                            class="mb-1 text-sm text-gray-500 dark:text-[#999] bg-gray-50 dark:bg-[#2C2C2C] border-l-2 border-[#FACC15] p-3 rounded-r-lg"
                         >
                             <span
                                 class="font-bold text-gray-700 dark:text-[#E0E0E0]"
@@ -552,29 +552,6 @@
                             >
                             {@html $t("import.faq_security_desc3") ||
                                 "Running the PowerShell scripts does not require running PowerShell as administrator."}
-                        </div>
-
-                        <div
-                            class="bg-red-50 dark:bg-red-500/10 rounded-lg p-3 border border-red-100 dark:border-red-500/20"
-                        >
-                            <p
-                                class="text-xs font-bold text-red-600 dark:text-red-400 flex items-start gap-2 m-0"
-                            >
-                                <span
-                                    class="text-base leading-none text-red-600 dark:text-red-400 mt-0.5"
-                                >
-                                    <Icon name="warning" class="w-4 h-4" />
-                                </span>
-                                <span class="leading-relaxed">
-                                    {@html $t(
-                                        "import.faq_security_warning",
-                                    ).replace(
-                                        "{link}",
-                                        "https://www.reddit.com/r/Endfield/comments/1rjx5v6/endfieldrecords_dot_com_pull_tracker_malware/",
-                                    ) ||
-                                        `If you used the <strong>Endfieldrecords</strong> site, change your in-game password immediately and follow the <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit guide</a> to check your computer.`}
-                                </span>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -675,7 +652,7 @@
                             {$t("import.step2_post")}
                         </div>
                         <div class="max-w-4xl">
-                            <PowershellBlock
+                            <CodeBlock
                                 script={{
                                     pc1: powerShellScript,
                                     pc2: powerShellScript2,
@@ -837,7 +814,7 @@
                             {$t("import.pc_web_step2")}
                         </div>
                         <div class="max-w-4xl">
-                            <PowershellBlock
+                            <CodeBlock
                                 script={browserBookmarklet}
                                 language="JAVA SCRIPT"
                             />

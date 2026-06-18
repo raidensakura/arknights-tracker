@@ -171,7 +171,6 @@
     "note": "Nota",
     "faq_security_desc1": "La condivisione di token di autorizzazione con siti di terze parti e l'esecuzione di script comportano sempre dei rischi.",
     "faq_security_desc2": "Goyfield.moe non salva mai le tue informazioni personali, come token e link. Il tuo token viene elaborato solo per recuperare i pull e non viene mai salvato. Se hai dubbi sugli script, puoi ispezionarli personalmente. Se sei preoccupato di inviare il tuo token al server backend del sito, puoi distribuire il sito localmente seguendo le istruzioni su GitHub, poiché si tratta di un progetto open source.",
-    "faq_security_warning": "Se hai utilizzato il sito <strong>Endfieldrecords</strong>, cambia immediatamente la tua password di gioco e segui la <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">guida su Reddit</a> per controllare il tuo computer.",
     "description": "Carica un file JSON con la tua cronologia gacha.",
     "format": "(Attualmente è supportato solo il formato di risposta API simile a Genshin).",
     "button": "Scegli file JSON",
@@ -575,6 +574,7 @@
     "properties": "Properti",
     "abilities": "Abilità",
     "vulnerable": "Moltiplicatore di resistenza",
+    "resistance": "Resistenza",
     "enemiesResHint": "Mostra il moltiplicatore del danno ricevuto in base alla formula: Danno × Moltiplicatore di resistenza (%). Ad esempio: 100% — nessuna riduzione del danno, 50% — il danno ricevuto dal nemico è dimezzato. Resistenza: 100% - n% = m%, dove n% è il moltiplicatore di resistenza e m% è la resistenza."
   },
   "bioValues": {
@@ -2004,5 +2004,22 @@
     "item_minepoint_copper_ore": "Punto di estrazione: cuprium",
     "item_minepoint_originium_ore": "Punto di estrazione: Originium",
     "item_minepoint_quartz_sand": "Punto di estrazione: ametista"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Efficienza dei materiali per armi",
+    "operatorMaterialEfficiency": "Efficienza dei materiali operatore",
+    "operatorClueCollectingEfficiency": "Efficienza della raccolta indizi operatore",
+    "fungiGrowthEfficiency": "Efficienza di coltivazione - Funghi",
+    "vitrosGrowthEfficiency": "Efficienza di coltivazione - Piante in vitro",
+    "mineralGrowthEfficiency": "Efficienza di coltivazione - Minerali",
+    "moodRegen": "Rigenerazione umore",
+    "clueEfficiencyBoost": "Potenziamento efficienza indizi",
+    "moodDropHour": "Calo orario dell'umore"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Nexus di controllo",
+    "receptionRoom": "Sala di ricevimento",
+    "manufacturingCabin": "Cabina di produzione",
+    "growthChamber": "Camera di coltivazione"
   }
 }

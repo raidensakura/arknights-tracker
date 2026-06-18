@@ -171,7 +171,6 @@
     "note": "注記",
     "faq_security_desc1": "サードパーティのサイトと認証トークンを共有したり、スクリプトを実行したりすることには常にリスクが伴います。",
     "faq_security_desc2": "Goyfield.moeがトークンやリンクなどの個人情報を保存することは決してありません。トークンはガチャ履歴の取得のみに処理され、保存されることはありません。スクリプトについて懸念がある場合は、ご自身で確認することができます。サイトのバックエンドサーバーへトークンを送信することに不安がある場合は、このプロジェクトはオープンソースであるため、GitHubの指示に従ってサイトをローカルに展開することも可能です。",
-    "faq_security_warning": "<strong>Endfieldrecords</strong>のサイトを使用したことがある場合は、すぐにゲーム内のパスワードを変更し、<a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Redditのガイド</a>に従ってコンピュータを確認してください。",
     "description": "ガチャ履歴を含むJSONファイルをアップロードしてください。",
     "format": "（現在は原神のようなAPIレスポンス形式のみサポートしています）。",
     "button": "JSONファイルを選択",
@@ -575,6 +574,7 @@
     "properties": "特性説明",
     "abilities": "スキル",
     "vulnerable": "耐性倍率",
+    "resistance": "耐性",
     "enemiesResHint": "以下の式に従って受けるダメージの倍率を表示します：ダメージ × 耐性倍率 (%)。例：100% — ダメージ減少なし、50% — 敵が受けるダメージが半減。耐性：100% - n% = m%（n% は耐性倍率、m% は耐性）。"
   },
   "bioValues": {
@@ -2004,5 +2004,22 @@
     "item_minepoint_copper_ore": "赤銅鉱物スポット",
     "item_minepoint_originium_ore": "源石鉱物スポット",
     "item_minepoint_quartz_sand": "紫晶鉱物スポット"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "武器強化素材効率",
+    "operatorMaterialEfficiency": "人材育成素材効率",
+    "operatorClueCollectingEfficiency": "手がかり捜索速度",
+    "fungiGrowthEfficiency": "菌類培養効率",
+    "vitrosGrowthEfficiency": "晶植培養効率",
+    "mineralGrowthEfficiency": "鉱物培養効率",
+    "moodRegen": "体力回復",
+    "clueEfficiencyBoost": "手がかり捜索確率UP",
+    "moodDropHour": "体力消費/時"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "指揮中枢",
+    "receptionRoom": "応接室",
+    "manufacturingCabin": "製造室",
+    "growthChamber": "培養室"
   }
 }

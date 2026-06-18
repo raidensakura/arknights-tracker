@@ -41,15 +41,15 @@ if (process.env.DATABASE_URL) {
 
         if (tempPrisma.user && tempPrisma.userBannerStat && tempPrisma.importError && tempPrisma.globalBannerStats) {
             prisma = tempPrisma;
-            console.log("Database connection initialized and all models found.");
+            console.log("[Init] Database connection initialized and all models found.");
         } else {
-            console.log("Local mode: Prisma models are outdated or missing. Skipping DB completely.");
+            console.log("[Init] Local mode: Prisma models are outdated or missing. Skipping DB completely.");
         }
     } catch (e) {
-        console.warn("Prisma Client failed to initialize:", e.message);
+        console.warn("[Init] Prisma Client failed to initialize:", e.message);
     }
 } else {
-    console.log("Running in Local Mode (No DATABASE_URL). Stats will not be saved.");
+    console.log("[Init] Running in Local Mode (No DATABASE_URL). Ratings & Stats will not be saved.");
 }
 
 const PORT = 3001;
@@ -90,7 +90,7 @@ const POOL_TYPES = [
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function fetchGameData(token, lang, serverId, onProgress, lastPullTimes) {
-    console.log(`\n--- Starting PARALLEL Scan on SERVER ID: ${serverId} ---`);
+    console.log(`\n[Scanning] --- Starting PARALLEL Scan on SERVER ID: ${serverId} ---`);
     let isTokenInvalid = false;
 
     const fetchPool = async (poolType) => {
@@ -227,7 +227,7 @@ async function fetchGameData(token, lang, serverId, onProgress, lastPullTimes) {
 
             } catch (err) {
                 if (err.isTokenError) throw err;
-                console.error(`Error scanning ${poolLabel}: ${err.message}`);
+                console.error(`[Scanning] Error scanning ${poolLabel}: ${err.message}`);
                 hasMore = false;
             }
         }
@@ -243,7 +243,7 @@ async function fetchGameData(token, lang, serverId, onProgress, lastPullTimes) {
             isTokenInvalid: isTokenInvalid && allPulls.length === 0
         };
     } catch (e) {
-        console.error("Parallel fetch failed", e);
+        console.error("[Scanning] Error: Parallel fetch failed", e);
         return { pulls: [], isTokenInvalid: false };
     }
 }
@@ -293,7 +293,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
         serverCandidates.add('3');
         serverCandidates.add('2');
 
-        console.log(`\n--- New Import Request (Streaming) ---`);
+        console.log(`\n[Scanning] --- New Import Request ---`);
 
         let allPulls = [];
         let tokenWasInvalidAtLeastOnce = false;
@@ -303,11 +303,11 @@ app.post('/api/import', importLimiter, async (req, res) => {
         };
 
         for (const serverId of serverCandidates) {
-            console.log(`Checking Server ID: ${serverId}...`);
+            console.log(`[Scanning] Checking Server ID: ${serverId}...`);
             const result = await fetchGameData(token, lang, serverId, progressCallback, lastPullTimes || {});
 
             if (result.pulls.length > 0) {
-                console.log(`✅ Data found on Server ID: ${serverId}`);
+                console.log(`[Scanning] Data found on Server ID: ${serverId}`);
                 allPulls = result.pulls;
                 usedServerId = serverId;
                 break;
@@ -348,7 +348,7 @@ app.post('/api/import', importLimiter, async (req, res) => {
         res.end();
 
     } catch (error) {
-        console.error("Critical Server Error:", error);
+        console.error("[Error] Critical Server Error:", error);
         if (prisma && prisma.user) {
             await logImportError(rawUrl, error, usedServerId);
         }
@@ -365,12 +365,12 @@ app.post('/api/sync-history', async (req, res) => {
     }
 
     try {
-        console.log(`\n[SYNC] 📥 Frontend sent history (${pulls.length} pulls) for UID: ${uid}`);
+        console.log(`\n[Sync] Frontend sent history (${pulls.length} pulls) for UID: ${uid}`);
         await updateAggregatedStats(uid, pulls, serverId, true);
-        console.log(`[SYNC] ✅ History for ${uid} succesfully synced with backend.`);
+        console.log(`[Sync] History for ${uid} succesfully synced with backend.`);
         res.json({ type: 'complete', message: "Sync successful" });
     } catch (error) {
-        console.error("[SYNC] ❌ Critical Sync Error:", error);
+        console.error("[Sync] Critical Sync Error:", error);
         res.status(500).json({ type: 'error', message: error.message || "Internal Server Error" });
     }
 });
@@ -426,7 +426,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
         const oldUserStat = await prisma.userBannerStat.findUnique({ where: { uid_bannerId: { uid, bannerId } } });
         const d_users = oldUserStat ? 0 : 1;
         const maxTimeInBatch = enrichedPulls[enrichedPulls.length - 1].time;
-        console.log(`   -> Specific Banner [${bannerId}]: Processing ${enrichedPulls.length} pulls...`);
+        console.log(`   [Scanning] Banner [${bannerId}]: Processing ${enrichedPulls.length} pulls...`);
 
         if (overwrite) {
             enrichedPulls.forEach(p => trulyNewPullIds.add(String(p.seqId || p.time)));
@@ -455,10 +455,10 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
             const lastTime = Number(oldUserStat?.lastProcessedPullTime || 0);
             const newGlobalPulls = oldUserStat ? enrichedPulls.filter(p => p.time > lastTime) : enrichedPulls;
             if (newGlobalPulls.length > 0) {
-                console.log(`      + Adding ${newGlobalPulls.length} NEW pulls to Global Graphs!`);
+                console.log(`   [Scanning] Adding ${newGlobalPulls.length} new pulls to global stats!`);
                 await processGlobalGraphsOnly(bannerId, newGlobalPulls);
             } else {
-                console.log(`      = 0 new pulls for graphs (lastTime protection active)`);
+                console.log(`   [Scanning] No new pulls for global stats (lastTime protection active)`);
             }
 
             await prisma.userBannerStat.upsert({
@@ -510,7 +510,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
         }
     }
 
-    console.log(`--- Updating Generic Categories for Rankings (${uid}) ---`);
+    console.log(`   [Ranking] Updating Generic Categories for Rankings (${uid}) ---`);
 
     const pullsByGeneric = { 'special': [], 'standard': [], 'weap-standard': [], 'weap-special': [], 'new-player': [], 'joint': [] };
     allPulls.forEach(p => {
@@ -553,7 +553,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
                     lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen)
                 }
             });
-            console.log(`   -> Ranked Category [${genId}]: Overwritten +${stats.totalPulls} pulls`);
+            console.log(`   [Ranking] Ranked Category [${genId}]: Overwritten +${stats.totalPulls} pulls`);
         } else {
             const newGenPullsRaw = pulls.filter(p => trulyNewPullIds.has(String(p.seqId || p.time)));
             if (newGenPullsRaw.length === 0) continue;
@@ -578,7 +578,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
                     lastUpdate: new Date(), lastProcessedPullTime: BigInt(maxTimeGen)
                 }
             });
-            console.log(`   -> Ranked Category [${genId}]: Incremented +${stats.totalPulls} pulls`);
+            console.log(`   [Ranking] Category [${genId}]: Incremented +${stats.totalPulls} pulls`);
         }
     }
 
@@ -600,7 +600,7 @@ async function updateAggregatedStats(uid, allPulls, serverId, overwrite = false)
                 }
             });
         }
-        console.log(`   -> RANKING [ALL]: ${overwrite ? 'Overwritten' : 'Incremented'} by ${overallStats.totalPulls}`);
+        console.log(`   [Ranking] ${overwrite ? 'Overwritten' : 'Incremented'} by ${overallStats.totalPulls}`);
     }
 
     console.log(`[Stats] Sync Complete for ${uid}`);
@@ -912,9 +912,9 @@ async function logImportError(url, errorObj, serverId = null) {
                 serverId: serverId ? String(serverId) : null
             }
         });
-        console.log("📝 Import error logged to DB");
+        console.log("[Error] Import error logged to DB");
     } catch (e) {
-        console.error("Failed to log import error:", e);
+        console.error("[Error] Failed to log import error:", e);
     }
 }
 
@@ -1037,5 +1037,5 @@ app.get('/api/global/stats', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Backend running on ${PORT}`);
+    console.log(`[Backend] Running on ${PORT}`);
 });

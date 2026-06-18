@@ -18,6 +18,7 @@
     import SkillCard from "$lib/components/operators/SkillCard.svelte";
     import Image from "$lib/components/Image.svelte";
     import TalentCard from "$lib/components/operators/TalentCard.svelte";
+    import PotentialIcon from "$lib/components/operators/PotentialIcon.svelte";
     import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
     import NotFound from "$lib/components/NotFound.svelte";
 
@@ -549,7 +550,12 @@
             : null;
     function switchTab(tabId) {
         activeTab = tabId;
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        const target = document.getElementById("tab-content");
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     }
 </script>
 
@@ -847,7 +853,8 @@
         </div>
 
         <div
-            class="relative z-10 w-full flex-1 2xl:max-w-[1300px] 2xl:ml-auto grid items-start min-w-0"
+            id="tab-content"
+            class="relative z-10 w-full flex-1 2xl:max-w-[1300px] 2xl:ml-auto grid items-start min-w-0 scroll-mt-5"
         >
             {#key activeTab}
                 <div
@@ -858,9 +865,10 @@
                         : ''}"
                 >
                     {#if activeTab === "about"}
-                        <div
-                            class="max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-5"
-                        >
+                        <div class="flex flex-wrap gap-5 items-start">
+                            <div
+                                class="w-full sm:flex-1 min-w-0 sm:min-w-[350px] max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 dark:border-[#444444] p-6 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-5"
+                            >
                             <div class="flex flex-col gap-2">
                                 <div class="flex items-baseline gap-1">
                                     <span
@@ -1010,17 +1018,17 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                            </div>
 
-                        <div
-                            class="max-w-[550px] mt-4 bg-white/90 backdrop-blur-md p-6 dark:bg-[#383838]/90 dark:border-[#444444] rounded-2xl shadow-xl border border-white/50 flex flex-col gap-4"
-                        >
+                            <div
+                                class="w-full sm:flex-1 min-w-0 sm:min-w-[350px] max-w-[550px] bg-white/90 backdrop-blur-md p-6 dark:bg-[#383838]/90 dark:border-[#444444] rounded-2xl shadow-xl border border-white/50 flex flex-col gap-4"
+                            >
                             <div
                                 class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-3 dark:border-[#444444] gap-1"
                             >
                                 <div class="flex items-center gap-2">
                                     <span
-                                        class="font-bold text-[#21272C] text-lg dark:text-[#FDFDFD]"
+                                        class="font-bold text-[#21272C] text-lg dark:text-[#FDFDFD] mr-2"
                                     >
                                         {$t("stats.materials") || "Materials"}
                                     </span>
@@ -1073,6 +1081,7 @@
                                     </div>
                                 {/if}
                             </div>
+                            </div>
                         </div>
                     {:else if activeTab === "skills"}
                         <div class="flex flex-col gap-5 animate-fadeIn w-full">
@@ -1083,7 +1092,7 @@
                             </h2>
 
                             <div
-                                class="flex flex-wrap items-start gap-5 justify-start 2xl:justify-end"
+                                class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start justify-items-start 2xl:justify-items-end"
                             >
                                 {#each skillKeys as key}
                                     {#if skillsValuesData[key]}
@@ -1116,11 +1125,11 @@
                             {#if skillsLocale?.talent1 || charMaterials?.talent1 || skillsLocale?.talent2 || charMaterials?.talent2}
                                 <section>
                                     <div
-                                        class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start justify-items-start 2xl:justify-items-end"
                                     >
                                         {#if skillsLocale?.talent1 || charMaterials?.talent1}
                                             <div
-                                                class="w-full md:w-[calc(50%-10px)]"
+                                                class="w-full max-w-[550px]"
                                             >
                                                 <TalentCard
                                                     charId={id}
@@ -1136,7 +1145,7 @@
 
                                         {#if skillsLocale?.talent2 || charMaterials?.talent2}
                                             <div
-                                                class="w-full md:w-[calc(50%-10px)]"
+                                                class="w-full max-w-[550px]"
                                             >
                                                 <TalentCard
                                                     charId={id}
@@ -1180,11 +1189,11 @@
                                 {#if (fac1 && hasBase1) || (fac2 && hasBase2)}
                                     <section>
                                         <div
-                                            class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
+                                            class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start justify-items-start 2xl:justify-items-end"
                                         >
                                             {#if fac1 && hasBase1}
                                                 <div
-                                                    class="w-full md:w-[calc(50%-10px)]"
+                                                    class="w-full max-w-[550px]"
                                                 >
                                                     <TalentCard
                                                         charId={id}
@@ -1211,7 +1220,7 @@
 
                                             {#if fac2 && hasBase2}
                                                 <div
-                                                    class="w-full md:w-[calc(50%-10px)]"
+                                                    class="w-full max-w-[550px]"
                                                 >
                                                     <TalentCard
                                                         charId={id}
@@ -1242,10 +1251,10 @@
                                 {#if skillsLocale?.indicator || charMaterials?.indicator}
                                     <section>
                                         <div
-                                            class="flex flex-wrap gap-5 justify-start 2xl:justify-end"
+                                            class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start justify-items-start 2xl:justify-items-end"
                                         >
                                             <div
-                                                class="w-full md:w-[calc(50%-10px)]"
+                                                class="w-full max-w-[550px]"
                                             >
                                                 <TalentCard
                                                     charId={id}
@@ -1312,14 +1321,12 @@
                                         <div
                                             class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 p-5 rounded-2xl dark:border-[#444444] shadow-xl border border-white/50 flex gap-4 items-start transition-transform"
                                         >
-                                            <div
-                                                class="bg-[#F3CE00] text-white font-black text-xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm border border-white/20 mt-1"
-                                            >
-                                                {potKey.replace(
-                                                    "potential",
-                                                    "",
-                                                )}
-                                            </div>
+                                            <PotentialIcon
+                                                pot={parseInt(potKey.replace("potential", ""))}
+                                                size={48}
+                                                showNumber={true}
+                                                className="mt-1"
+                                            />
 
                                             <div
                                                 class="flex flex-col gap-1 w-full"
@@ -1362,7 +1369,7 @@
 
                             {#if charLocale?.arts}
                                 <div
-                                    class="grid grid-cols-1 md:grid-cols-2 gap-8"
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-start justify-items-start 2xl:justify-items-end"
                                 >
                                     {#each Object.entries(charLocale.arts) as [artKey, artData]}
                                         {@const realKey =
@@ -1371,12 +1378,12 @@
                                                 : artKey}
 
                                         <div
-                                            class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
+                                            class="w-full max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
                                         >
                                             <div
                                                 role="button"
                                                 tabindex="0"
-                                                class="relative w-full aspect-[4/3] bg-gradient-to-br from-[#3A3A3A] to-[#1A1A1A] flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
+                                                class="relative w-full aspect-[16/9] bg-gradient-to-br from-[#3A3A3A] to-[#1A1A1A] flex flex-col items-center justify-center overflow-hidden cursor-zoom-in outline-none focus:ring-4 focus:ring-gray-300"
                                                 on:click={() =>
                                                     (selectedArtId = `${id}_${realKey}`)}
                                                 on:keydown={(e) =>
@@ -1522,7 +1529,7 @@
                                         </div>
                                     {/each}
                                     <div
-                                        class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
+                                        class="w-full max-w-[550px] bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 group flex flex-col shadow-xl rounded-2xl overflow-hidden border border-white/50 transition-all dark:border-[#444444]"
                                     >
                                         <div
                                             role="button"

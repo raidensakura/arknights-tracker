@@ -187,7 +187,6 @@
     "note": "注意",
     "faq_security_desc1": "与第三方网站共享授权令牌和执行脚本始终存在风险。",
     "faq_security_desc2": "Goyfield.moe 从不保存您的个人信息（如 Token 和链接）。您的 Token 仅用于获取寻访记录，绝不会被保存。如果您对脚本有任何顾虑，可以亲自检查它们。如果您担心将 Token 发送到网站的后端服务器，您可以按照 GitHub 上的说明在本地部署该网站，因为这是一个开源项目。",
-    "faq_security_warning": "如果您使用过<strong>Endfieldrecords</strong>网站，请立即更改游戏内密码，并按照<a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit指南</a>检查您的计算机。",
     "description": "上传包含您抽卡记录的 JSON 文件。",
     "format": "（目前仅支持类似原神 API 响应格式）。",
     "button": "选择 JSON 文件",
@@ -633,6 +632,7 @@
     "properties": "特性说明",
     "abilities": "能力",
     "vulnerable": "抗性倍率",
+    "resistance": "抗性",
     "enemiesResHint": "根据公式显示受到的伤害倍率：伤害 × 抗性倍率（%）。例如：100% — 伤害不减少，50% — 敌人受到的伤害减半。抗性：100% - n% = m%，其中 n% 为抗性倍率，m% 为抗性。"
   },
   "bioValues": {
@@ -2064,5 +2064,22 @@
     "item_minepoint_copper_ore": "赤铜矿矿点",
     "item_minepoint_originium_ore": "源矿矿点",
     "item_minepoint_quartz_sand": "紫晶矿矿点"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "武器培养素材效能",
+    "operatorMaterialEfficiency": "干员培养素材效能",
+    "operatorClueCollectingEfficiency": "干员线索收集效能",
+    "fungiGrowthEfficiency": "菌类培养效能",
+    "vitrosGrowthEfficiency": "晶植培养效能",
+    "mineralGrowthEfficiency": "矿物培养效能",
+    "moodRegen": "心情恢复",
+    "clueEfficiencyBoost": "线索收集概率提升",
+    "moodDropHour": "心情消耗/小时"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "总控中枢",
+    "receptionRoom": "会客室",
+    "manufacturingCabin": "制造舱",
+    "growthChamber": "培养舱"
   }
 }

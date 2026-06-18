@@ -187,7 +187,6 @@
     "note": "Lưu ý",
     "faq_security_desc1": "Việc chia sẻ token xác thực với các trang web của bên thứ ba và thực thi tập lệnh luôn tiềm ẩn rủi ro.",
     "faq_security_desc2": "Goyfield.moe không bao giờ lưu thông tin cá nhân của bạn, chẳng hạn như token và liên kết. Token của bạn chỉ được xử lý để lấy lịch sử gacha và không bao giờ được lưu lại. Nếu bạn có bất kỳ lo ngại nào về các tập lệnh, bạn có thể tự mình kiểm tra chúng. Nếu bạn lo lắng về việc gửi token của mình đến máy chủ backend của trang web, bạn có thể triển khai trang web cục bộ theo hướng dẫn trên GitHub, vì đây là một dự án mã nguồn mở.",
-    "faq_security_warning": "Nếu bạn đã sử dụng trang web <strong>Endfieldrecords</strong>, hãy đổi mật khẩu trong game ngay lập tức và làm theo <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">hướng dẫn trên Reddit</a> để kiểm tra máy tính của bạn.",
     "description": "Tải lên tệp JSON chứa lịch sử gacha của bạn.",
     "format": "(Hiện tại chỉ hỗ trợ định dạng phản hồi API kiểu Genshin).",
     "button": "Chọn tệp JSON",
@@ -633,6 +632,7 @@
     "properties": "Tài sản",
     "abilities": "Năng lực",
     "vulnerable": "Hệ số Kháng",
+    "resistance": "Kháng",
     "enemiesResHint": "Hiển thị hệ số sát thương nhận vào theo công thức: Sát thương × Hệ số Kháng (%). Ví dụ: 100% — không giảm sát thương, 50% — sát thương kẻ thù nhận vào giảm một nửa. Kháng: 100% - n% = m%, trong đó n% là hệ số kháng và m% là mức kháng."
   },
   "bioValues": {
@@ -2064,5 +2064,22 @@
     "item_minepoint_copper_ore": "Điểm Khai Thác Đồng",
     "item_minepoint_originium_ore": "Điểm Khai Thác Originium",
     "item_minepoint_quartz_sand": "Điểm Khai Thác Thạch Anh Tím"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Hiệu Suất Vật Liệu Vũ Khí",
+    "operatorMaterialEfficiency": "Hiệu Suất Vật Liệu Của Cán Viên",
+    "operatorClueCollectingEfficiency": "Hiệu Suất Thu Thập Manh Mối Cán Viên",
+    "fungiGrowthEfficiency": "Hiệu Quả Tăng Trưởng Của Nấm",
+    "vitrosGrowthEfficiency": "Hiệu Quả Tăng Trưởng Của Vi Sinh",
+    "mineralGrowthEfficiency": "Hiệu Quả Tăng Trưởng Của Quặng",
+    "moodRegen": "Hồi Phục Tâm Trạng",
+    "clueEfficiencyBoost": "Tăng Cường Hiệu Quả Manh Mối",
+    "moodDropHour": "Giảm Tâm Trạng / Giờ"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Trung Tâm Kiểm Soát",
+    "receptionRoom": "Phòng Tiếp Khách",
+    "manufacturingCabin": "Khoang Sản Xuất",
+    "growthChamber": "Buồng Phát Triển"
   }
 }

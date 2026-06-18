@@ -187,7 +187,6 @@
     "note": "Note",
     "faq_security_desc1": "Sharing authorization tokens with third-party sites and executing scripts always carries risks.",
     "faq_security_desc2": "Goyfield.moe never saves your personal information, such as tokens and links. Your token is only processed to retrieve pulls and is never saved. If you have any concerns about the scripts, you can inspect them personally. If you are concerned about sending your token to the site's backend server, you can deploy the site locally following the instructions on GitHub, as this is an open-source project.",
-    "faq_security_warning": "If you used the <strong>Endfieldrecords</strong> site, change your in-game password immediately and follow the <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit guide</a> to check your computer.",
     "description": "Upload a JSON file with your gacha history.",
     "format": "(Currently only Genshin-like API response format is supported).",
     "button": "Choose JSON file",
@@ -708,6 +707,7 @@
     "properties": "Properties",
     "abilities": "Abilities",
     "vulnerable": "Resistance Multiplier",
+    "resistance": "Resistance",
     "enemiesResHint": "Displays the taken damage multiplier according to the formula: Damage × Resistance Multiplier (%). For example: 100% — no damage reduction, 50% — damage taken by the enemy is halved. Resistance: 100% - n% = m%, where n% is the resistance multiplier and m% is the resistance."
   },
   "bioValues": {
@@ -2139,5 +2139,22 @@
     "item_minepoint_copper_ore": "Cuprium Mining Spot",
     "item_minepoint_originium_ore": "Originium Mining Spot",
     "item_minepoint_quartz_sand": "Amethyst Mining Spot"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Weapon Material Efficiency",
+    "operatorMaterialEfficiency": "Operator Material Efficiency",
+    "operatorClueCollectingEfficiency": "Operator Clue Collecting Efficiency",
+    "fungiGrowthEfficiency": "Fungi Growth Efficiency",
+    "vitrosGrowthEfficiency": "Vitros Growth Efficiency",
+    "mineralGrowthEfficiency": "Mineral Growth Efficiency",
+    "moodRegen": "Mood Regen",
+    "clueEfficiencyBoost": "Clue Efficiency Boost",
+    "moodDropHour": "Mood Drop"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Control Nexus",
+    "receptionRoom": "Reception Room",
+    "manufacturingCabin": "Manufacturing Cabin",
+    "growthChamber": "Growth Chamber"
   }
 }

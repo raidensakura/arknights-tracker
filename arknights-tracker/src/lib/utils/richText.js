@@ -1,6 +1,51 @@
 import { get } from "svelte/store";
 import { t, isI18nReady } from "$lib/i18n.js";
 
+const VALID_TEXT_ICONS = new Set([
+    "ba_airborne",
+    "ba_burning",
+    "ba_burningonchar",
+    "ba_combo",
+    "ba_conduct",
+    "ba_conductonchar",
+    "ba_corrupt",
+    "ba_corruptonchar",
+    "ba_cross",
+    "ba_crush",
+    "ba_crystbreak",
+    "ba_crystburst",
+    "ba_crystenhance",
+    "ba_crystinflict",
+    "ba_crystvul",
+    "ba_enhance",
+    "ba_fireburst",
+    "ba_fireenhance",
+    "ba_fireinflict",
+    "ba_firevul",
+    "ba_fracture",
+    "ba_frozen",
+    "ba_frozenonchar",
+    "ba_guard",
+    "ba_knockdown",
+    "ba_naturalburst",
+    "ba_naturalenhance",
+    "ba_naturalinflict",
+    "ba_naturalvul",
+    "ba_noguard",
+    "ba_physicalenhance",
+    "ba_physicalvul",
+    "ba_pulseburst",
+    "ba_pulseenhance",
+    "ba_pulseinflict",
+    "ba_pulsevul",
+    "ba_slow",
+    "ba_speedup",
+    "ba_spellenhance",
+    "ba_spellvul",
+    "ba_vulnerable",
+    "ba_weak"
+]);
+
 export function parseRichText(text) {
     if (!text) return "";
     const styles = {
@@ -44,10 +89,11 @@ export function parseRichText(text) {
                 " underline decoration-dashed decoration-current underline-offset-4";
         }
         
-        const showIconPlaceholder = tag !== "ba.info" && tag !== "profile.key";
+        const tagKey = tag.replace(/\./g, '_');
+        const showIconPlaceholder = tag !== "ba.info" && tag !== "profile.key" && VALID_TEXT_ICONS.has(tagKey);
         let iconPlaceholder = '';
         if (showIconPlaceholder) {
-            const imgName = `icon_term_${tag.replace(/\./g, '_')}.png`;
+            const imgName = `icon_term_${tagKey}.png`;
             const imgSrc = `/images/textIcons/${imgName}`;
             iconPlaceholder = `<img src="${imgSrc}" class="w-5 h-5 inline-block align-text-bottom shrink-0 transition-transform duration-200 hover:scale-110" style="display: none;" onload="this.style.display='inline-block'" />`;
         }

@@ -171,7 +171,6 @@
     "note": "Hinweis",
     "faq_security_desc1": "Die Weitergabe von Autorisierungs-Token an Drittanbieter-Websites und die Ausführung von Skripten bergen immer Risiken.",
     "faq_security_desc2": "Goyfield.moe speichert niemals Ihre persönlichen Daten wie Token und Links. Ihr Token wird nur verarbeitet, um Ziehungen abzurufen, und wird niemals gespeichert. Wenn Sie Bedenken bezüglich der Skripte haben, können Sie diese persönlich überprüfen. Wenn Sie Bedenken haben, Ihr Token an den Backend-Server der Website zu senden, können Sie die Website gemäß den Anweisungen auf GitHub lokal bereitstellen, da es sich um ein Open-Source-Projekt handelt.",
-    "faq_security_warning": "Wenn Sie die Website <strong>Endfieldrecords</strong> genutzt haben, ändern Sie sofort Ihr In-Game-Passwort und folgen Sie der <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">Reddit-Anleitung</a>, um Ihren Computer zu überprüfen.",
     "description": "Lade eine JSON-Datei mit deinem Gacha-Verlauf hoch.",
     "format": "(Derzeit wird nur das Genshin-ähnliche API-Antwortformat unterstützt).",
     "button": "JSON-Datei auswählen",
@@ -575,6 +574,7 @@
     "properties": "Eigenschaften",
     "abilities": "Capacidades",
     "vulnerable": "Widerstandsmultiplikator",
+    "resistance": "Widerstand",
     "enemiesResHint": "Zeigt den Multiplikator des erlittenen Schadens nach der Formel: Schaden × Widerstandsmultiplikator (%). Zum Beispiel: 100% — keine Schadensverringerung, 50% — der erlittene Schaden wird halbiert. Widerstand: 100% - n% = m%, wobei n% der Widerstandsmultiplikator und m% der Widerstand ist."
   },
   "bioValues": {
@@ -2003,5 +2003,22 @@
     "item_minepoint_copper_ore": "Cuprium-Erz-Abbaustelle",
     "item_minepoint_originium_ore": "Originium-Erz-Abbaustelle",
     "item_minepoint_quartz_sand": "Amethyst-Erz-Abbaustelle"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Waffenmaterialeffizienz",
+    "operatorMaterialEfficiency": "Operator-Materialeffizienz",
+    "operatorClueCollectingEfficiency": "Operator-Hinweissammeleffizienz",
+    "fungiGrowthEfficiency": "Pilze-Wachstumseffizienz",
+    "vitrosGrowthEfficiency": "In-vitro-Wachstumseffizienz",
+    "mineralGrowthEfficiency": "Mineralien-Wachstumseffizienz",
+    "moodRegen": "Stimmungszunahme",
+    "clueEfficiencyBoost": "Hinweis-Effizienzboost",
+    "moodDropHour": "Stimmungsverlust/Stunde (alle Operatoren)"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Kontrollnexus",
+    "receptionRoom": "Empfang",
+    "manufacturingCabin": "Herstellungskabine",
+    "growthChamber": "Wachstums-kammer"
   }
 }

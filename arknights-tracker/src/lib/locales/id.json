@@ -171,7 +171,6 @@
     "note": "Catatan",
     "faq_security_desc1": "Berbagi token otorisasi dengan situs pihak ketiga dan mengeksekusi skrip selalu membawa risiko.",
     "faq_security_desc2": "Goyfield.moe tidak pernah menyimpan informasi pribadi Anda, seperti token dan tautan. Token Anda hanya diproses untuk mengambil tarikan dan tidak pernah disimpan. Jika Anda memiliki kekhawatiran tentang skrip, Anda dapat memeriksanya secara langsung. Jika Anda khawatir mengirimkan token Anda ke server backend situs, Anda dapat menjalankan situs secara lokal mengikuti instruksi di GitHub, karena ini adalah proyek sumber terbuka.",
-    "faq_security_warning": "Jika Anda pernah menggunakan situs <strong>Endfieldrecords</strong>, segera ganti kata sandi dalam game Anda dan ikuti <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">panduan Reddit</a> untuk memeriksa komputer Anda.",
     "description": "Unggah file JSON dengan riwayat gacha Anda.",
     "format": "(Saat ini hanya format respons API seperti Genshin yang didukung).",
     "button": "Pilih file JSON",
@@ -575,6 +574,7 @@
     "properties": "Properti",
     "abilities": "Kemampuan",
     "vulnerable": "Pengganda Resistansi",
+    "resistance": "Resistansi",
     "enemiesResHint": "Menampilkan pengganda kerusakan yang diterima menurut rumus: Kerusakan × Pengganda Resistansi (%). Contoh: 100% — tidak ada pengurangan kerusakan, 50% — kerusakan yang diterima musuh berkurang separuhnya. Resistansi: 100% - n% = m%, di mana n% adalah pengganda resistansi dan m% adalah resistansi."
   },
   "bioValues": {
@@ -2004,5 +2004,22 @@
     "item_minepoint_copper_ore": "Titik Tambang Cuprium",
     "item_minepoint_originium_ore": "Titik Tambang Originium",
     "item_minepoint_quartz_sand": "Titik Tambang Ametis"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Efisiensi Material Senjata",
+    "operatorMaterialEfficiency": "Efisiensi Material Operator",
+    "operatorClueCollectingEfficiency": "Efisiensi Pengumpulan Petunjuk Operator",
+    "fungiGrowthEfficiency": "Efisiensi Pertumbuhan Fungi",
+    "vitrosGrowthEfficiency": "Efisiensi Pertumbuhan Vitro",
+    "mineralGrowthEfficiency": "Efisiensi Pertumbuhan Mineral",
+    "moodRegen": "Regen Suasana Hati",
+    "clueEfficiencyBoost": "Boost Efisiensi Petunjuk",
+    "moodDropHour": "Penurunan Suasana Hati/Jam"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Nexus Kontrol",
+    "receptionRoom": "Ruang Resepsionis",
+    "manufacturingCabin": "Kabin Manufaktur",
+    "growthChamber": "Ruang Pertumbuhan"
   }
 }

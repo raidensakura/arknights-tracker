@@ -686,16 +686,28 @@
                                                   ? 'bg-[#F9B90C]/5 border-[#F9B90C]/30 hover:bg-[#F9B90C]/15 hover:border-[#F9B90C]/50 dark:bg-[#F9B90C]/10 dark:border-[#F9B90C]/30 dark:hover:bg-[#F9B90C]/20 dark:hover:border-[#F9B90C]/50'
                                                   : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 dark:bg-[#333]/30 dark:border-[#444] dark:hover:bg-[#333]/60 dark:hover:border-[#666]'}"
                                         >
-                                            <WeaponCard
-                                                weapon={match}
-                                                variant="small"
-                                                className="w-[42px] h-[42px]"
-                                                isEquipment={true}
-                                                hidePot={true}
-                                                hideName={true}
-                                                hideRarity={true}
-                                                disableHover={true}
-                                            />
+                                            <div class="relative w-[42px] h-[42px] shrink-0">
+                                                <WeaponCard
+                                                    weapon={match}
+                                                    variant="small"
+                                                    className="w-full h-full"
+                                                    isEquipment={true}
+                                                    hidePot={true}
+                                                    hideName={true}
+                                                    hideRarity={true}
+                                                    disableHover={true}
+                                                />
+                                                {#if match.id === id}
+                                                    <span
+                                                        class="absolute bottom-0 left-0 right-0 py-[1.5px] bg-[#26BAFB]/60 dark:bg-[#26BAFB]/45 text-white text-[8px] font-bold uppercase leading-none text-center pointer-events-none rounded-b-[6px] shadow-sm z-30"
+                                                    >
+                                                        {tOrFallback(
+                                                            "common.same",
+                                                            "Same",
+                                                        )}
+                                                    </span>
+                                                {/if}
+                                            </div>
 
                                             <div class="flex flex-col flex-1 min-w-0 pr-2">
                                                 
@@ -740,17 +752,6 @@
                                                                 {tOrFallback(
                                                                     "stats.standardMatch",
                                                                     "Standard Match",
-                                                                )}
-                                                            </span>
-                                                        {/if}
-
-                                                        {#if match.id === id}
-                                                            <span
-                                                                class="px-1.5 py-[2px] rounded bg-[#26BAFB]/10 border border-[#26BAFB]/20 text-[#26BAFB] text-[9px] font-bold uppercase leading-none shadow-sm"
-                                                            >
-                                                                {tOrFallback(
-                                                                    "common.same",
-                                                                    "Same",
                                                                 )}
                                                             </span>
                                                         {/if}

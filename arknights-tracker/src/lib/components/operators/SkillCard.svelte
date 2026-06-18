@@ -177,6 +177,30 @@
 
     let isTableCopied = false;
 
+    function getLocalizedLabel(key) {
+        if (!skillData) return null;
+        const subData = skillData[skillKey];
+        if (subData) {
+            if (subData[key]) return subData[key];
+            const lowerKey = key.toLowerCase();
+            const foundKey = Object.keys(subData).find((k) => k.toLowerCase() === lowerKey);
+            if (foundKey) return subData[foundKey];
+        }
+        if (skillData[key]) return skillData[key];
+        const lowerKey = key.toLowerCase();
+        const foundKey = Object.keys(skillData).find((k) => k.toLowerCase() === lowerKey);
+        if (foundKey) return skillData[foundKey];
+        return null;
+    }
+
+    function getLabel(key) {
+        const localized = getLocalizedLabel(key);
+        if (localized) return localized;
+        const translated = $t(`stats.${key}`);
+        if (translated && translated !== `stats.${key}`) return translated;
+        return key.replace(/([A-Z])/g, " $1").trim();
+    }
+
     async function copySkillTable() {
         const headers = [
             $t("stats.level") || "Level",
@@ -185,19 +209,7 @@
         let textData = headers.join("\t") + "\n";
 
         for (const key of multiplierKeys) {
-            let rowLabel = key.replace(/([A-Z])/g, " $1").trim();
-
-            const translated = $t(`stats.${key}`);
-            if (translated && translated !== `stats.${key}`) {
-                rowLabel = translated;
-            }
-
-            if (skillData[skillKey] && skillData[skillKey][key]) {
-                rowLabel = skillData[skillKey][key];
-            } else if (skillData[key]) {
-                rowLabel = skillData[key];
-            }
-
+            const rowLabel = getLabel(key);
             const row = [rowLabel];
             for (let i = 1; i <= 12; i++) {
                 row.push(getValue(key, i));
@@ -221,7 +233,7 @@
 
 <div
     class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 p-6 rounded-2xl shadow-sm border dark:border-[#444444] border-gray-100 flex flex-col gap-4 transition-all duration-300
-    {isTableMode ? 'w-full' : 'w-full md:w-[calc(50%-10px)]'}"
+    {isTableMode ? 'w-full' : 'w-full max-w-[550px]'}"
 >
     <div class="flex items-start gap-4">
         <div
@@ -397,20 +409,13 @@
         {#if !isTableMode}
             <div class="flex flex-col gap-2">
                 {#each multiplierKeys as key}
-                    {@const translatedKey = $t(`stats.${key}`)}
                     <div
                         class="flex justify-between items-center text-sm border-b border-gray-100 dark:border-[#444444]/70 pb-1 last:border-0"
                     >
                         <span
                             class="font-bold text-gray-600 dark:text-[#E4E4E4]"
                         >
-                            {(skillData[skillKey] &&
-                                skillData[skillKey][key]) ||
-                                skillData[key] ||
-                                (translatedKey !== `stats.${key}`
-                                    ? translatedKey
-                                    : null) ||
-                                key.replace(/([A-Z])/g, " $1").trim()}
+                            {getLabel(key)}
                         </span>
                         <span
                             class="font-nums font-bold text-[#21272C] dark:text-[#E4E4E4]"
@@ -449,22 +454,13 @@
                         </thead>
                         <tbody class="text-gray-700">
                             {#each multiplierKeys as key}
-                                {@const translatedKey = $t(`stats.${key}`)}
                                 <tr
                                     class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
                                 >
                                     <td
                                         class="static md:sticky md:left-0 md:z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 md:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)] max-w-[200px] break-words whitespace-normal"
                                     >
-                                        {(skillData[skillKey] &&
-                                            skillData[skillKey][key]) ||
-                                            skillData[key] ||
-                                            (translatedKey !== `stats.${key}`
-                                                ? translatedKey
-                                                : null) ||
-                                            key
-                                                .replace(/([A-Z])/g, " $1")
-                                                .trim()}
+                                        {getLabel(key)}
                                     </td>
                                     {#each Array(12) as _, i}
                                         {@const lvl = i + 1}

@@ -156,7 +156,6 @@
     "note": "Nota",
     "faq_security_desc1": "Berkongsi token kebenaran dengan tapak pihak ketiga dan melaksanakan skrip sentiasa membawa risiko.",
     "faq_security_desc2": "Goyfield.moe tidak pernah menyimpan maklumat peribadi anda, seperti token dan pautan. Token anda hanya diproses untuk mengambil tarikan dan tidak pernah disimpan. Jika anda mempunyai sebarang kebimbangan tentang skrip, anda boleh memeriksanya sendiri. Jika anda bimbang tentang menghantar token anda ke pelayan tapak, anda boleh menggunakan tapak ini secara tempatan mengikut arahan di GitHub, memandangkan ini adalah projek sumber terbuka.",
-    "faq_security_warning": "Jika anda menggunakan laman web <strong>Endfieldrecords</strong>, tukar kata laluan dalam permainan anda serta-merta dan ikuti <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">panduan Reddit</a> untuk memeriksa komputer anda.",
     "description": "Muat naik fail JSON dengan sejarah gacha anda.",
     "format": "(Pada masa ini hanya format respons API seakan Genshin yang disokong).",
     "button": "Pilih fail JSON",
@@ -448,6 +447,7 @@
     "properties": "Sifat",
     "abilities": "Kebolehan",
     "vulnerable": "Pendarab Rintangan",
+    "resistance": "Rintangan",
     "enemiesResHint": "Memaparkan pendarab kerosakan yang diterima mengikut formula: Kerosakan × Pendarab Rintangan (%). Sebagai contoh: 100% — tiada pengurangan kerosakan, 50% — kerosakan yang diterima oleh musuh dikurangkan separuh. Rintangan: 100% - n% = m%, di mana n% ialah pendarab rintangan dan m% ialah rintangan."
   },
   "bioValues": {

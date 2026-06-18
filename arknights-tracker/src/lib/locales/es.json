@@ -168,7 +168,6 @@
     "note": "Nota",
     "faq_security_desc1": "Compartir tokens de autorización con sitios de terceros y ejecutar scripts de siempre conlleva riesgos.",
     "faq_security_desc2": "Goyfield.moe nunca guarda tu información personal, como tokens y enlaces. Tu token solo se procesa para recuperar tiradas y nunca se guarda. Si tienes alguna inquietud sobre los scripts, puedes inspeccionarlos personalmente. Si te preocupa enviar tu token al servidor backend del sitio, puedes implementar el sitio localmente siguiendo las instrucciones en GitHub, ya que este es un proyecto de código abierto.",
-    "faq_security_warning": "Si ha utilizado el sitio <strong>Endfieldrecords</strong>, cambie su contraseña del juego inmediatamente y siga la <a href=\"{link}\" target=\"_blank\" class=\"underline hover:text-red-500\">guía de Reddit</a> para revisar su computadora.",
     "description": "Sube un archivo JSON con tu historial de gacha.",
     "format": "(Actualmente solo se soporta el formato de respuesta API tipo Genshin).",
     "button": "Elegir archivo JSON",
@@ -574,7 +573,9 @@
     "properties": "Propiedades",
     "abilities": "Habilidades",
     "vulnerable": "Multiplicador de resistencia",
-    "enemiesResHint": "Muestra el multiplicador de daño recibido según la fórmula: Daño × Multiplicador de resistencia (%). Por ejemplo: 100% — sin reducción de daño, 50% — el daño recibido por el enemigo se reduce a la mitad. Resistencia: 100% - n% = m%, donde n% es el multiplicador de resistencia y m% es la resistencia."  },
+    "resistance": "Resistencia",
+    "enemiesResHint": "Muestra el multiplicador de daño recibido según la fórmula: Daño × Multiplicador de resistencia (%). Por ejemplo: 100% — sin reducción de daño, 50% — el daño recibido por el enemigo se reduce a la mitad. Resistencia: 100% - n% = m%, donde n% es el multiplicador de resistencia y m% es la resistencia."
+  },
   "bioValues": {
     "Unknown": "Desconocido"
   },
@@ -2002,5 +2003,22 @@
     "item_minepoint_copper_ore": "Punto de minería de Cuprio",
     "item_minepoint_originium_ore": "Punto de minería de originio",
     "item_minepoint_quartz_sand": "Punto de minería de amatista"
+  },
+  "baseSkillsFilters": {
+    "weaponMaterialEfficiency": "Eficiencia del material del arma",
+    "operatorMaterialEfficiency": "Eficiencia del material del operador",
+    "operatorClueCollectingEfficiency": "Eficiencia de recolección de pistas del operador",
+    "fungiGrowthEfficiency": "Eficiencia de crecimiento fúngico",
+    "vitrosGrowthEfficiency": "Eficiencia de crecimiento de vitros",
+    "mineralGrowthEfficiency": "Eficiencia de crecimiento mineral",
+    "moodRegen": "Regeneración de estado de ánimo",
+    "clueEfficiencyBoost": "Aumento de eficiencia de pista",
+    "moodDropHour": "Pérdida de estado de ánimo por hora"
+  },
+  "baseSkillsPositions": {
+    "controlNexus": "Nexus de control",
+    "receptionRoom": "Sala de recepción",
+    "manufacturingCabin": "Cabina de manufactura",
+    "growthChamber": "Cámara de crecimiento"
   }
 }
