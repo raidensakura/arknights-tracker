@@ -6,7 +6,7 @@
     export let styleMode;
 
     export let paramId;
-    export let getLocaleFunc = (paramId) => $t(`equipmentTypes.${paramId}`);
+    export let getLocaleFunc = (paramId) => $t(`equipSkills.${paramId}`);
 
     $: statIconId = paramId.toLowerCase() === "maxhp"
         ? "hp"
