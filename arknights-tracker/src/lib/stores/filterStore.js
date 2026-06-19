@@ -65,7 +65,14 @@ export function getOperatorFilters() {
         class: ["guard", "vanguard", "caster", "defender", "supporter", "striker"],
         element: ["cryo", "physical", "nature", "heat", "electric"],
         weapon: ["sword", "polearm", "artsUnit", "greatSword", "handcannon"],
-        skillMaterial: null
+        skillMaterialType: ["any", "basic_combo", "battle_ultimate", "ascension"],
+        skillMaterial: [
+            "d96SteelSample4",
+            "metadiastimaPhotoemissionTube",
+            "tachyonScreeningLattice",
+            "quadrantFittingFluid",
+            "triphasicNanoflake"
+        ]
     };
 }
 
@@ -244,7 +251,6 @@ export const equipmentSearch = writable("");
 export const equipmentGroupMode = createPersistentStore('equipmentGroupMode', true);
 
 export const weaponFilters = writable({});
-export const weaponManual = writable({ ...initialManualMode });
 export const weaponSearch = writable("");
 export const weaponOwnedOnly = writable(false);
 
@@ -252,7 +258,7 @@ export const essenceWeaponFilters = writable({});
 export const essenceWeaponSearch = writable("");
 export const essenceWeaponOwnedOnly = writable(false);
 
-export const operatorFilters = writable({ ...initialOperatorFilters });
+export const operatorFilters = writable({});
 export const operatorManual = writable({ ...initialManualMode });
 export const operatorSearch = writable("");
 export const operatorOwnedOnly = writable(false);
