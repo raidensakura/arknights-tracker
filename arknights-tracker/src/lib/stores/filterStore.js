@@ -123,14 +123,39 @@ export function getWeaponFilters() {
 export function getEquipmentFilters() {
     return {
         rarity: [5, 4, 3, 2, 1],
-        partType: [0, 1, 2],
+        partType: ["body", "hand", "edc"],
         pack: [],
-        stats: {
-            any: [],
-            1: [],
-            2: [],
-            3: []
-        }
+        stats: [
+            [
+                "Def",
+                "Str",
+                "Agi",
+                "Wisd",
+                "Will",
+                "Atk",
+                "CriticalRate",
+                "UltimateSpGainScalar",
+                "OriginiumArts",
+                "Sub",
+                "Main"
+            ], [
+                "NormalSkillEfficiency",
+                "ComboSkillEfficiency",
+                "UltimateSkillEfficiency",
+                "SpellDamageIncrease",
+                "AllSkillDamageIncrease"
+            ], [
+                "PhysicalDamageIncrease",
+                "AttrDamageToBrokenUnitIncrease",
+                "NormalAttackDamageIncrease",
+                "CrystAndPulseDamageIncrease",
+                "FireAndNaturalDamageIncrease"
+            ], [
+                "MaxHp",
+                "AllDamageTakenScalar",
+                "HealOutputIncrease"
+            ]
+        ]
     };
 }
 
@@ -245,8 +270,7 @@ export function getDefaultItemSortParams() {
     };
 }
 
-export const equipmentFilters = writable({ ...initialEquipmentFilters });
-export const equipmentManual = writable({ ...initialManualMode });
+export const equipmentFilters = writable({});
 export const equipmentSearch = writable("");
 export const equipmentGroupMode = createPersistentStore('equipmentGroupMode', true);
 
@@ -259,7 +283,6 @@ export const essenceWeaponSearch = writable("");
 export const essenceWeaponOwnedOnly = writable(false);
 
 export const operatorFilters = writable({});
-export const operatorManual = writable({ ...initialManualMode });
 export const operatorSearch = writable("");
 export const operatorOwnedOnly = writable(false);
 
