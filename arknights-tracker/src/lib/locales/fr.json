@@ -820,7 +820,11 @@
   "settings": {
     "title": "Paramètres",
     "other": "Autre",
+    "toggleCtrlForZoom": "Maintenez Ctrl pour zoomer",
     "disableDarkening": "Désactiver l'assombrissement des cartes d'armes et d'opérateurs",
+    "preferredSkillMode": "Mode d'affichage préféré pour les compétences de combat",
+    "preferredSkillModeList": "Liste",
+    "preferredSkillModeTable": "Tableau",
     "account": {
       "title": "Choisir Compte",
       "add": "Ajouter",

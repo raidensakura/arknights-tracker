@@ -821,6 +821,10 @@
     "title": "Einstellungen",
     "other": "Sonstiges",
     "disableDarkening": "Abdunkelung der Waffen- und Operator-Karten deaktivieren",
+    "preferredSkillMode": "Bevorzugter Anzeigemodus für Kampffähigkeiten",
+    "toggleCtrlForZoom": "Halte Ctrl gedrückt, um zu zoomen",
+    "preferredSkillModeList": "Liste",
+    "preferredSkillModeTable": "Tabelle",
     "account": {
       "title": "Konto auswählen",
       "add": "Hinzufügen",

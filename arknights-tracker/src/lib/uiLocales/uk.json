@@ -494,6 +494,9 @@
     "other": "Інше",
     "disableDarkening": "Вимкнути затемнення карток зброї та оперативників",
     "toggleCtrlForZoom": "Утримуйте Ctrl для масштабування",
+    "preferredSkillMode": "Бажаний режим відображення бойових навичок",
+    "preferredSkillModeList": "Список",
+    "preferredSkillModeTable": "Таблиця",
     "account": {
       "title": "Виберіть акаунт",
       "add": "Додати",

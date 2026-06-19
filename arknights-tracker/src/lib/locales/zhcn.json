@@ -881,6 +881,9 @@
     "other": "其他",
     "disableDarkening": "禁用武器和干员卡牌变暗",
     "toggleCtrlForZoom": "按住 Ctrl 进行缩放",
+    "preferredSkillMode": "战斗技能的首选显示模式",
+    "preferredSkillModeList": "列表",
+    "preferredSkillModeTable": "表格",
     "account": {
       "title": "选择账号",
       "add": "添加",

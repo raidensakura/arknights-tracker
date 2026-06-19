@@ -821,6 +821,10 @@
     "title": "การตั้งค่า",
     "other": "อื่นๆ",
     "disableDarkening": "ปิดใช้งานการทำให้การ์ดอาวุธและโอเปอเรเตอร์มืดลง",
+    "preferredSkillMode": "โหมดการแสดงผลที่ต้องการสำหรับทักษะการต่อสู้",
+    "toggleCtrlForZoom": "กด Ctrl ค้างไว้เพื่อซูม",
+    "preferredSkillModeList": "รายการ",
+    "preferredSkillModeTable": "ตาราง",
     "account": {
       "title": "เลือกบัญชี",
       "add": "เพิ่ม",

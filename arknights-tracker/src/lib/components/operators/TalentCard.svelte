@@ -1,9 +1,9 @@
 <script>
     import { t } from "$lib/i18n.js";
+    import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
     
     import ItemCard from "$lib/components/cards/ItemCard.svelte";
     import Image from "$lib/components/Image.svelte";
-    import { parseRichText, hyperlinkAction } from "$lib/utils/richText.js";
 
     export let charId = "";
     export let type = "talent";
@@ -75,7 +75,7 @@
 
         return text.replace(/\{([^}]+)\}/g, (match, content) => {
             let [expr, format] = content.split(":");
-            let mathStr = expr;
+            let mathStr = expr.replace(/\b(\d+),(\d+)\b/g, (m, f) => Object.keys(bb)[f] || m);
 
             for (const key in bb) {
                 const regex = new RegExp(`\\b${key}\\b`, "g");

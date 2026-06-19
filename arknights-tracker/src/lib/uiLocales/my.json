@@ -494,6 +494,9 @@
     "other": "Lain-lain",
     "disableDarkening": "Lumpuhkan penggelapan kad senjata dan operator",
     "toggleCtrlForZoom": "Tahan Ctrl untuk zum",
+    "preferredSkillMode": "Mod paparan pilihan untuk kemahiran tempur",
+    "preferredSkillModeList": "Senarai",
+    "preferredSkillModeTable": "Jadual",
     "account": {
       "title": "Pilih Akaun",
       "add": "Tambah",

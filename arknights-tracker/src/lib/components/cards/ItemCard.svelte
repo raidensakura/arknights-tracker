@@ -1,12 +1,11 @@
 <script>
     import { t } from "$lib/i18n.js";
+    import { craftableItemsList } from "$lib/data/crafts/craftableItemsList.js";
+    import { goto } from "$app/navigation";
 
     import Image from "$lib/components/Image.svelte";
-
-    import { craftableItemsList } from "$lib/data/crafts/craftableItemsList.js";
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Icon from "$lib/components/Icon.svelte";
-    import { goto } from "$app/navigation";
 
     export let item = {};
     export let amount = 0;

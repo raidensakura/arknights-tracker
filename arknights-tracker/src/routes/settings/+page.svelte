@@ -10,7 +10,7 @@
     import { currentUid } from "$lib/stores/auth";
     import { fade } from "svelte/transition";
     import { onDestroy } from "svelte";
-    import { disableDarkening } from "$lib/stores/settings";
+    import { disableDarkening, preferredSkillMode } from "$lib/stores/settings";
     import { addNotification } from "$lib/stores/notifications";
     import { currentLocale, currentUiLocale } from "$lib/stores/locale";
     import { ctrlForZoom } from "$lib/stores/dragPlateSettings.js";
@@ -87,6 +87,11 @@
         { value: "2", label: "Asia" },
     ];
 
+    $: skillModeOptions = [
+        { value: "list", label: $t("settings.preferredSkillModeList") || "List" },
+        { value: "table", label: $t("settings.preferredSkillModeTable") || "Table" }
+    ];
+
     let showServerTime = false;
     let isInitialized = false;
 
@@ -120,6 +125,10 @@
         if (typeof window !== "undefined") {
             localStorage.setItem("ark_server_id", newServerId);
         }
+    }
+
+    function handleSkillModeChange(e) {
+        preferredSkillMode.set(e.detail);
     }
 
     function handleSync() {
@@ -949,6 +958,20 @@
                     {$t("settings.toggleCtrlForZoom")}
                 </span>
 
+        </div>
+
+        <div class="mt-4 flex flex-col items-start gap-2">
+            <span class="text-sm font-bold dark:text-[#E0E0E0] text-gray-800">
+                {$t("settings.preferredSkillMode") || "Preferred display mode for combat skills"}
+            </span>
+            <div class="w-80">
+                <Select
+                    options={skillModeOptions}
+                    value={$preferredSkillMode}
+                    on:change={handleSkillModeChange}
+                    variant="black"
+                />
+            </div>
         </div>
     </section>
 </div>

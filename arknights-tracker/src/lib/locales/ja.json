@@ -821,6 +821,10 @@
     "title": "設定",
     "other": "その他",
     "disableDarkening": "武器とオペレーターカードの暗転を無効にする",
+    "preferredSkillMode": "戦闘スキルの優先表示モード",
+    "toggleCtrlForZoom": "Ctrlキーを押したままズーム",
+    "preferredSkillModeList": "リスト",
+    "preferredSkillModeTable": "テーブル",
     "account": {
       "title": "アカウント選択",
       "add": "追加",

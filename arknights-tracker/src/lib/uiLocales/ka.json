@@ -494,6 +494,9 @@
     "other": "სხვა",
     "disableDarkening": "იარაღისა და ოპერატორის ბარათების ჩაბნელების გამორთვა",
     "toggleCtrlForZoom": "დააჭირეთ Ctrl-ს მასშტაბირებისთვის",
+    "preferredSkillMode": "საბრძოლო უნარების ჩვენების სასურველი რეჟიმი",
+    "preferredSkillModeList": "სია",
+    "preferredSkillModeTable": "ცხრილი",
     "account": {
       "title": "აირჩიეთ ანგარიში",
       "add": "დამატება",

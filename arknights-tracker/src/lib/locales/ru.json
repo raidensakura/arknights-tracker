@@ -958,6 +958,9 @@
     "other": "Прочее",
     "disableDarkening": "Отключить затемнение карточек оружия и оперативников",
     "toggleCtrlForZoom": "Удерживать Ctrl для приближения",
+    "preferredSkillMode": "Предпочитаемый режим отображения боевых навыков",
+    "preferredSkillModeList": "Список",
+    "preferredSkillModeTable": "Таблица",
     "account": {
       "title": "Выберите аккаунт",
       "save": "Сохранить",

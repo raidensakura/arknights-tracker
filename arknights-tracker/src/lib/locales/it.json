@@ -821,6 +821,10 @@
     "title": "Impostazioni",
     "other": "Altro",
     "disableDarkening": "Disattiva oscuramento delle carte armi e operatori",
+    "preferredSkillMode": "Modalità di visualizzazione preferita per le abilità di combattimento",
+    "toggleCtrlForZoom": "Tieni premuto Ctrl per zoomare",
+    "preferredSkillModeList": "Elenco",
+    "preferredSkillModeTable": "Tabella",
     "account": {
       "title": "Seleziona Account",
       "add": "Aggiungi",

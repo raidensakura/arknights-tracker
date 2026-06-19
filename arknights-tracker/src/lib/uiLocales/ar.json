@@ -494,6 +494,9 @@
     "other": "أخرى",
     "disableDarkening": "تعطيل تعتيم بطاقات الأسلحة والعملاء",
     "toggleCtrlForZoom": "اضغط مع الاستمرار على Ctrl للتكبير",
+    "preferredSkillMode": "وضع العرض المفضل لمهارات القتال",
+    "preferredSkillModeList": "قائمة",
+    "preferredSkillModeTable": "جدول",
     "account": {
       "title": "اختر الحساب",
       "add": "إضافة",

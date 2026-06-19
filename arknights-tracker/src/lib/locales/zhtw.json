@@ -881,6 +881,9 @@
     "other": "其他",
     "disableDarkening": "停用武器和幹員卡牌變暗",
     "toggleCtrlForZoom": "按住 Ctrl 進行縮放",
+    "preferredSkillMode": "戰鬥技能的首選顯示模式",
+    "preferredSkillModeList": "列表",
+    "preferredSkillModeTable": "表格",
     "account": {
       "title": "選擇帳號",
       "add": "新增",

@@ -494,6 +494,9 @@
     "other": "Inne",
     "disableDarkening": "Wyłącz przyciemnianie kart broni i operatorów",
     "toggleCtrlForZoom": "Przytrzymaj Ctrl, aby powiększyć",
+    "preferredSkillMode": "Preferowany tryb wyświetlania umiejętności bojowych",
+    "preferredSkillModeList": "Lista",
+    "preferredSkillModeTable": "Tabela",
     "account": {
       "title": "Wybierz Konto",
       "add": "Dodaj",

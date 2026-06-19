@@ -441,7 +441,7 @@
         if (!text || !bb) return text;
         return text.replace(/\{([^}]+)\}/g, (match, content) => {
             let [expr, format] = content.split(":");
-            let mathStr = expr;
+            let mathStr = expr.replace(/\b(\d+),(\d+)\b/g, (m, f) => Object.keys(bb)[f] || m);
             for (const key in bb) {
                 const regex = new RegExp(`\\b${key}\\b`, "g");
                 mathStr = mathStr.replace(regex, `(${bb[key]})`);

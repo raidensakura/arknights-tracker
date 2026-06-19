@@ -1,5 +1,7 @@
 <script>
     import { t } from "$lib/i18n.js";
+    import { onMount } from "svelte";
+    import { preferredSkillMode } from "$lib/stores/settings.js";
     
     import Icon from "$lib/components/Icon.svelte";
     import ItemCard from "$lib/components/cards/ItemCard.svelte";
@@ -41,6 +43,10 @@
 
     let level = 12;
     let isTableMode = false;
+
+    onMount(() => {
+        isTableMode = $preferredSkillMode === "table";
+    });
 
     let isDragging = false;
     let sliderContainer;
@@ -233,7 +239,7 @@
 
 <div
     class="bg-white/90 backdrop-blur-md dark:bg-[#383838]/90 p-6 rounded-2xl shadow-sm border dark:border-[#444444] border-gray-100 flex flex-col gap-4 transition-all duration-300
-    {isTableMode ? 'w-full' : 'w-full max-w-[550px]'}"
+    {isTableMode ? 'w-full md:max-w-full is-table-mode' : 'w-full md:w-[calc(50%-10px)] md:max-w-[550px]'}"
 >
     <div class="flex items-start gap-4">
         <div
@@ -434,14 +440,14 @@
                         <thead class="bg-[#21272C] text-white">
                             <tr>
                                 <th
-                                    class="static md:sticky md:left-0 md:z-20 bg-[#21272C] px-4 py-3 dark:bg-[#343434] text-left font-bold border-r border-gray-600 min-w-[150px] dark:border-[#11111]"
+                                    class="static md:sticky md:left-0 md:z-20 bg-[#21272C] pl-4 pr-2 py-1.5 dark:bg-[#343434] text-left font-bold border-r hover:bg-white/10 border-gray-600 min-w-[150px] dark:border-[#11111]"
                                 >
                                     {$t("stats.level") || "Level"}
                                 </th>
                                 {#each Array(12) as _, i}
                                     {@const lvl = i + 1}
                                     <th
-                                        class="px-3 py-3 font-nums text-center dark:bg-[#343434] font-bold border-r border-gray-600/50 last:border-0 cursor-pointer hover:bg-white/10 transition-colors {level ===
+                                        class="px-2.5 py-2.5 font-nums text-center dark:bg-[#343434] font-bold border-r border-gray-600/50 last:border-0 cursor-pointer hover:bg-white/10 transition-colors {level ===
                                         lvl
                                             ? 'bg-[#FACC15] dark:bg-[#FACC15] text-[#21272C]'
                                             : ''}"
@@ -458,14 +464,14 @@
                                     class="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
                                 >
                                     <td
-                                        class="static md:sticky md:left-0 md:z-10 bg-white px-4 py-2 font-bold text-gray-600 border-r border-gray-100 md:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)] max-w-[200px] break-words whitespace-normal"
+                                        class="static md:sticky md:left-0 md:z-10 bg-white pl-4 pr-2 py-1.5 font-bold text-gray-600 border-r border-gray-100 md:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)] max-w-[200px] break-words whitespace-normal"
                                     >
                                         {getLabel(key)}
                                     </td>
                                     {#each Array(12) as _, i}
                                         {@const lvl = i + 1}
                                         <td
-                                            class="px-2 py-2 text-center font-nums border-r border-gray-100 last:border-0 whitespace-nowrap cursor-pointer {level ===
+                                            class="px-1.5 py-2 text-center font-nums border-r border-gray-100 last:border-0 whitespace-nowrap cursor-pointer {level ===
                                             lvl
                                                 ? 'bg-yellow-50 font-bold text-black'
                                                 : ''}"

@@ -819,7 +819,11 @@
   "settings": {
     "title": "Ajustes",
     "other": "Otros",
+    "toggleCtrlForZoom": "Mantén presionado Ctrl para hacer zoom",
     "disableDarkening": "Desactivar el oscurecimiento de las tarjetas de armas y operadores",
+    "preferredSkillMode": "Modo de visualización preferido para habilidades de combate",
+    "preferredSkillModeList": "Lista",
+    "preferredSkillModeTable": "Tabla",
     "account": {
       "title": "Seleccionar Cuenta",
       "add": "Añadir",

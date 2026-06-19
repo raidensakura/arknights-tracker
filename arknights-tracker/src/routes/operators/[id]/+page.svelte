@@ -515,7 +515,7 @@
 
         return text.replace(/\{([^}]+)\}/g, (match, content) => {
             let [expr, format] = content.split(":");
-            let mathStr = expr;
+            let mathStr = expr.replace(/\b(\d+),(\d+)\b/g, (m, f) => Object.keys(bb)[f] || m);
 
             for (const key in bb) {
                 const regex = new RegExp(`\\b${key}\\b`, "gi");
@@ -1092,7 +1092,7 @@
                             </h2>
 
                             <div
-                                class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start justify-items-start 2xl:justify-items-end"
+                                class="flex flex-wrap items-start gap-5 w-full justify-start 2xl:justify-end"
                             >
                                 {#each skillKeys as key}
                                     {#if skillsValuesData[key]}

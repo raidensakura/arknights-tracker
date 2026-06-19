@@ -494,6 +494,9 @@
     "other": "Muut",
     "disableDarkening": "Poista aseen ja operaattorin korttien tummennus käytöstä",
     "toggleCtrlForZoom": "Pidä Ctrl painettuna lähentääksesi",
+    "preferredSkillMode": "Ensisijainen näyttötila taistelutaidoille",
+    "preferredSkillModeList": "Luettelo",
+    "preferredSkillModeTable": "Taulukko",
     "account": {
       "title": "Valitse tili",
       "add": "Lisää",

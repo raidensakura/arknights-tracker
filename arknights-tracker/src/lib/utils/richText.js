@@ -283,14 +283,12 @@ export function hyperlinkAction(node) {
 
     let unsubscribeReady = null;
 
-    // Subscribe to isI18nReady - only init when translations are fully loaded
     unsubscribeReady = isI18nReady.subscribe((ready) => {
         if (ready) {
             queueInit();
         }
     });
 
-    // Also subscribe to t for when translations update after already being ready
     unsubscribeT = t.subscribe(() => {
         if (get(isI18nReady)) {
             queueInit();

@@ -821,6 +821,10 @@
     "title": "Pengaturan",
     "other": "Lainnya",
     "disableDarkening": "Nonaktifkan penggelapan kartu senjata dan operator",
+    "preferredSkillMode": "Mode tampilan pilihan untuk keterampilan tempur",
+    "toggleCtrlForZoom": "Tahan Ctrl untuk memperbesar",
+    "preferredSkillModeList": "Daftar",
+    "preferredSkillModeTable": "Tabel",
     "account": {
       "title": "Pilih Akun",
       "add": "Tambah",

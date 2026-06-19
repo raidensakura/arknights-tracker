@@ -881,6 +881,9 @@
     "other": "Khác",
     "disableDarkening": "Tắt làm tối thẻ vũ khí và toán tử",
     "toggleCtrlForZoom": "Nhấn giữ Ctrl để thu phóng",
+    "preferredSkillMode": "Chế độ hiển thị ưa thích cho kỹ năng chiến đấu",
+    "preferredSkillModeList": "Danh sách",
+    "preferredSkillModeTable": "Bảng",
     "account": {
       "title": "Chọn Tài khoản",
       "add": "Thêm",

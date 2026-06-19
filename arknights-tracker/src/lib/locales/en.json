@@ -956,6 +956,9 @@
     "other": "Other",
     "disableDarkening": "Disable weapon and operator card darkening",
     "toggleCtrlForZoom": "Hold Ctrl to zoom",
+    "preferredSkillMode": "Preferred display mode for combat skills",
+    "preferredSkillModeList": "List",
+    "preferredSkillModeTable": "Table",
     "account": {
       "title": "Select Account",
       "add": "Add",

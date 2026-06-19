@@ -494,6 +494,9 @@
     "other": "Басқа",
     "disableDarkening": "Қару және оператор карталарының қараңғылануын өшіру",
     "toggleCtrlForZoom": "Масштабтау үшін Ctrl пернесін басып тұрыңыз",
+    "preferredSkillMode": "Жауынгерлік дағдыларды көрсетудің қалаулы режимі",
+    "preferredSkillModeList": "Тізім",
+    "preferredSkillModeTable": "Кесте",
     "account": {
       "title": "Аккаунтты таңдаңыз",
       "add": "Қосу",
