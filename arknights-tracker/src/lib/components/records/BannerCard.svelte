@@ -692,8 +692,13 @@
           <div class="relative inline-flex">
             
             <Tooltip text={$t(icon.translationKey) || icon.name}>
+              <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
               <div
-                class="relative w-12 h-12 transition-transform cursor-pointer hover:scale-110
+                on:click={() => goto(icon.isWeapon ? `/weapons/${icon.id}` : `/operators/${icon.id}`)}
+                on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && goto(icon.isWeapon ? `/weapons/${icon.id}` : `/operators/${icon.id}`)}
+                role="button"
+                tabindex="0"
+                class="relative w-12 h-12 transition-transform cursor-pointer hover:scale-110 outline-none
         {icon.isWeapon
                   ? ''
                   : 'rounded-full border-2 border-[#ff6600] bg-gradient-to-t from-[#591C00] to-[#CA774C] shadow-sm'}"
