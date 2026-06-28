@@ -60,7 +60,7 @@
     role="button"
     tabindex="0"
     class="
-      w-full min-h-11 py-1.5 px-4 flex items-center justify-between border rounded-xl transition text-left text-sm focus:outline-none gap-2 flex-wrap cursor-pointer select-none
+      w-full min-h-11 py-1.5 px-3 flex items-center justify-between border rounded-xl transition text-left text-sm focus:outline-none gap-2 flex-wrap cursor-pointer select-none
       {variant === 'black'
         ? 'bg-[#363636] border-[#454545] text-white hover:bg-[#404040]'
         : 'bg-white dark:bg-[#383838] border-gray-200 dark:border-[#444] text-[#21272C] dark:text-[#E0E0E0] hover:border-gray-300 dark:hover:border-[#555]'}
@@ -72,13 +72,13 @@
       <div class="flex flex-wrap gap-1.5 max-w-[90%]">
         {#each (maxVisibleTags ? selectedOptions.slice(0, maxVisibleTags) : selectedOptions) as opt}
           <span
-            class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded-lg border
+            class="inline-flex items-center gap-1.5 text-[11px] font-bold pl-1.5 pr-1 py-1 rounded-md border
             {variant === 'black'
               ? 'bg-[#505050] border-[#666] text-white'
               : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 border-amber-200/50 dark:border-amber-900/30'}"
           >
             {#if opt.iconId}
-              <div class="w-5 h-3 rounded-sm overflow-hidden flex-shrink-0 border border-black/10 dark:border-white/10">
+              <div class="w-9 h-5 rounded-sm overflow-hidden flex-shrink-0 border border-black/10 dark:border-white/10">
                 <Image
                   id={opt.iconId}
                   variant="banner-mini"
@@ -91,10 +91,10 @@
             <span>{opt.label}</span>
             <button
               type="button"
-              class="hover:opacity-75 p-0.5 rounded-full transition-opacity flex items-center justify-center"
+              class="hover:opacity-75 transition-opacity flex items-center justify-center"
               on:click={(e) => removeOption(e, opt.value)}
             >
-              <Icon name="close" class="w-2.5 h-2.5" />
+              <Icon name="close" class="w-4 h-4" />
             </button>
           </span>
         {/each}
