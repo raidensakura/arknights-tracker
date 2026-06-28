@@ -748,8 +748,8 @@
         <div
             class="flex mt-3 xl:mt-11 flex-col gap-6 w-full order-1 xl:order-2 min-w-0"
         >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5">
+            <div class="flex flex-wrap gap-6 items-stretch">
+                <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5 flex-1 min-w-[315px]">
                     <div class="space-y-2.5">
                         <div class="flex justify-between items-center">
                             <span class="text-gray-600 dark:text-[#E0E0E0]"
@@ -851,7 +851,7 @@
                 </div>
 
                 <div
-                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5"
+                    class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-5 flex-1 min-w-[315px]"
                 >
                     <h4
                         class="font-bold text-sm mb-3 text-[#21272C] dark:text-[#FDFDFD]"
@@ -934,7 +934,7 @@
                                 {/if}
                             </div>
                         {/each}
-                    </div>
+                </div>
                 </div>
             </div>
 

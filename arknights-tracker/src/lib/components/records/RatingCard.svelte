@@ -28,7 +28,8 @@
         .sort((a, b) => a.order - b.order)
   ];
 
-  let activeTab = "total";
+  export let activeTab = "total";
+  export let showTabs = true;
   $: localStore = $pullData[activeTab] || { pulls: [], stats: {} };
   $: localStats = localStore.stats || {};
   $: localTotal = localStore.pulls?.length || 0;
@@ -104,8 +105,8 @@
 </script>
 
 <div class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl p-6 shadow-sm border border-gray-100 h-full min-w-0">
-  <div class="flex justify-between items-center mb-4 relative z-20">
-    <h3 class="text-xl font-bold dark:text-[#FDFDFD] font-sdk text-[#21272C]">
+  <div class="flex justify-between items-center {showTabs ? 'mb-4' : 'mb-2'} relative z-20">
+    <h3 class={showTabs ? "text-xl font-bold dark:text-[#FDFDFD] font-sdk text-[#21272C]" : "text-sm font-bold text-gray-800 text-start mb-2 dark:text-[#FDFDFD]"}>
       {$t("page.rating.ratingTitle")}
     </h3>
 
@@ -266,7 +267,7 @@
       </div>
     </div>
 
-    <div class="flex justify-between items-center dark:border-[#444444] border-b border-gray-100 pb-4 h-[72px]">
+    <div class="flex justify-between items-center {showTabs ? 'border-b border-gray-100 dark:border-[#444444] pb-4' : ''} h-[72px]">
       <div class="flex flex-col justify-center">
         <div class="font-medium text-[#21272C] dark:text-[#FDFDFD] flex items-center gap-1">
           {$t("page.rating.lucky5")} 5 <Icon name="star" class="w-4 h-4" />
@@ -298,19 +299,21 @@
       </div>
     </div>
 
-    <div class="flex flex-wrap gap-2 mt-2">
-      {#each ratingTabs as tab}
-        <Button
-          variant="roundSmall"
-          color={activeTab === tab.id ? "black" : "gray"}
-          className={
-            (activeTab === tab.id ? "shadow-md " : "opacity-70 hover:opacity-100 ")
-          }
-          onClick={() => (activeTab = tab.id)}
-        >
-          {$t(tab.i18nKey) || tab.id}
-        </Button>
-      {/each}
-    </div>
+    {#if showTabs}
+      <div class="flex flex-wrap gap-2 mt-2">
+        {#each ratingTabs as tab}
+          <Button
+            variant="roundSmall"
+            color={activeTab === tab.id ? "black" : "gray"}
+            className={
+              (activeTab === tab.id ? "shadow-md " : "opacity-70 hover:opacity-100 ")
+            }
+            onClick={() => (activeTab = tab.id)}
+          >
+            {$t(tab.i18nKey) || tab.id}
+          </Button>
+        {/each}
+      </div>
+    {/if}
   </div>
 </div>

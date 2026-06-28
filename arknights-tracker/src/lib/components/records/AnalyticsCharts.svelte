@@ -6,11 +6,13 @@
   import Icon from "$lib/components/Icon.svelte";
   import Tooltip from "$lib/components/Tooltip.svelte";
   import BannerModal from "$lib/components/modals/BannerModal.svelte";
+  import RatingCard from "$lib/components/records/RatingCard.svelte";
 
   export let rawPulls = [];
   export let bannerType = "";
 
   $: isWeapon = bannerType.toLowerCase().includes("weap") || bannerType.toLowerCase().includes("wepon");
+  $: isGroup = ["special", "standard", "weap-special", "weap-standard", "joint", "new-player"].includes(bannerType);
   $: showHistoryGraph = 
       (bannerType !== "standard" && 
       bannerType !== "new-player" && 
@@ -250,9 +252,10 @@
 
   <!-- Bar Chart -->
   {#if showHistoryGraph}
-    <div
-      class="xl:col-span-2 bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col min-w-0 h-[450px] relative z-0"
-    >
+    <div class="xl:col-span-2 flex flex-col gap-6">
+      <div
+        class="bg-white dark:bg-[#383838] dark:border-[#444444] rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col min-w-0 h-[450px] relative z-0"
+      >
       <h3 class="font-bold text-sm text-start text-gray-800 dark:text-[#FDFDFD] mb-2 px-2 flex-shrink-0">
         {$t("page.bannerTypes.bannerHistoryGraph")}
       </h3>
@@ -437,6 +440,16 @@
           <Icon name="noData" class="w-4 h-4" />
           <p class="text-sm">{$t("emptyState.noData")}</p>
         </div>
+      {/if}
+      </div>
+      {#if isGroup}
+        <RatingCard activeTab={bannerType} showTabs={false} />
+      {/if}
+    </div>
+  {:else}
+    <div class="xl:col-span-2">
+      {#if isGroup}
+        <RatingCard activeTab={bannerType} showTabs={false} />
       {/if}
     </div>
   {/if}
