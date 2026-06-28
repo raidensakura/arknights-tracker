@@ -20,6 +20,7 @@
     import BannerModal from "$lib/components/modals/BannerModal.svelte";
     import AnalyticsCharts from "$lib/components/records/AnalyticsCharts.svelte";
     import Image from "$lib/components/Image.svelte";
+    import MultiSelect from "$lib/components/MultiSelect.svelte";
 
     $: bannerType = $page.params.type;
     let selectedBanner = null;
@@ -587,9 +588,86 @@
         if (selectedRarities.length === 0) selectedRarities = [6, 5, 4];
     }
 
-    $: filteredTableData = (tableData || []).filter((row) =>
-        selectedRarities.includes(row.rarity),
-    );
+    let selectedBanners = [];
+    $: {
+        if (bannerType) {
+            selectedBanners = [];
+        }
+    }
+
+    function formatBannerDate(dateStr, locale) {
+        if (!dateStr) return "";
+        const parsed = new Date(dateStr.replace(" ", "T"));
+        if (isNaN(parsed.getTime())) return "";
+        let loc = locale || "en";
+        if (loc === "my") loc = "ms-MY";
+        try {
+            return new Intl.DateTimeFormat(loc, {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit"
+            }).format(parsed);
+        } catch (e) {
+            const y = String(parsed.getFullYear()).slice(-2);
+            const m = String(parsed.getMonth() + 1).padStart(2, '0');
+            const d = String(parsed.getDate()).padStart(2, '0');
+            return `${d}.${m}.${y}`;
+        }
+    }
+
+    $: bannerOptions = (() => {
+        const seenBanners = new Set();
+        let hasOther = false;
+        rawPulls.forEach(p => {
+            const b = getBannerForPull(p, bannerType);
+            if (b) seenBanners.add(b.id);
+            else hasOther = true;
+        });
+
+        const list = banners.filter(b => {
+            if (isAllWeaponCategory) {
+                return getWeaponCategory(b.id) === bannerType;
+            }
+            return b.type === bannerType;
+        });
+
+        const opts = list
+            .filter(b => seenBanners.has(b.id))
+            .sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime())
+            .map(b => {
+                const label = $t(`banners.${b.id}`) !== `banners.${b.id}` ? $t(`banners.${b.id}`) : b.name;
+                const startFormatted = formatBannerDate(b.startTime, $currentUiLocale);
+                const endFormatted = b.endTime ? formatBannerDate(b.endTime, $currentUiLocale) : ($t("permanent") || "Permanent");
+                const subLabel = startFormatted && endFormatted ? `${startFormatted} - ${endFormatted}` : "";
+                return {
+                    value: b.id,
+                    label,
+                    subLabel,
+                    iconId: b.miniIcon ? b.miniIcon.replace(/\.[^/.]+$/, "") : b.id
+                };
+            });
+
+        if (hasOther) {
+            opts.push({
+                value: "other",
+                label: $t("systemNames.other") || "Other",
+                subLabel: "",
+                iconId: null
+            });
+        }
+        return opts;
+    })();
+
+    $: filteredTableData = (tableData || []).filter((row) => {
+        const matchesRarity = selectedRarities.includes(row.rarity);
+        if (!matchesRarity) return false;
+
+        if (selectedBanners.length === 0) return true;
+
+        const currentBanner = getBannerForPull(row, bannerType);
+        const bid = currentBanner ? currentBanner.id : "other";
+        return selectedBanners.includes(bid);
+    });
 
     $: showBatches = selectedRarities.length === 3;
 
@@ -865,25 +943,39 @@
             </div>
         </div>
         <div class="flex flex-col gap-3 order-2 xl:order-1 min-w-0">
-            <div class="flex gap-2">
-                {#each [6, 5, 4] as rarity}
-                    {@const isSelected = selectedRarities.includes(rarity)}
-                    {@const color = getRarityColor(rarity)}
-                    <button
-                        on:click={() => toggleRarity(rarity)}
-                        class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-all border shadow-sm select-none"
-                        style="
-                            background-color: {isSelected
-                            ? color + '20'
-                            : 'rgba(156, 163, 175, 0.1)'};
-                            color: {isSelected ? color : '#9CA3AF'};
-                            border-color: {isSelected ? color : 'transparent'};
-                        "
-                    >
-                        <span>{rarity}</span>
-                        <Icon name="star" class="w-3.5 h-3.5" />
-                    </button>
-                {/each}
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
+                <div class="flex gap-2">
+                    {#each [6, 5, 4] as rarity}
+                        {@const isSelected = selectedRarities.includes(rarity)}
+                        {@const color = getRarityColor(rarity)}
+                        <button
+                            on:click={() => toggleRarity(rarity)}
+                            class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-all border shadow-sm select-none"
+                            style="
+                                background-color: {isSelected
+                                ? color + '20'
+                                : 'rgba(156, 163, 175, 0.1)'};
+                                color: {isSelected ? color : '#9CA3AF'};
+                                border-color: {isSelected ? color : 'transparent'};
+                            "
+                        >
+                            <span>{rarity}</span>
+                            <Icon name="star" class="w-3.5 h-3.5" />
+                        </button>
+                    {/each}
+                </div>
+
+                {#if bannerOptions.length > 1}
+                    <div class="w-full sm:w-72">
+                        <MultiSelect
+                            options={bannerOptions}
+                            bind:value={selectedBanners}
+                            placeholder={$t("systemNames.banners") || "Banners"}
+                            maxVisibleTags={1}
+                            resetLabel={$t("sort.reset")}
+                        />
+                    </div>
+                {/if}
             </div>
             <div
                 class="w-full bg-white rounded-xl dark:border-[#444444] dark:bg-[#383838] shadow-sm border border-gray-100 overflow-hidden order-2 xl:order-1"

@@ -5,6 +5,7 @@
 
   import Icon from "$lib/components/Icon.svelte";
   import Tooltip from "$lib/components/Tooltip.svelte";
+  import BannerModal from "$lib/components/modals/BannerModal.svelte";
 
   export let rawPulls = [];
   export let bannerType = "";
@@ -102,6 +103,35 @@
 
   function handleBarLeave() {
     hoveredBarIdx = null;
+  }
+
+  function getBannerImage(id) {
+    const b = banners.find((x) => x.id === id);
+    if (b && b.miniIcon) {
+      return `/images/banners/miniIcon/${b.miniIcon}`;
+    }
+    if (id.includes("constant")) {
+      const num = id.replace(/[^0-9]/g, "");
+      const cleanNum = parseInt(num, 10);
+      return `/images/banners/miniIcon/weaponbox_constant_${cleanNum}.png`;
+    }
+    if (b) {
+      return `/images/banners/miniIcon/${b.id}.png`;
+    }
+    return null;
+  }
+
+  let selectedBanner = null;
+
+  function handleBarClick(id) {
+    const banner = banners.find((b) => b.id === id);
+    if (banner) {
+      selectedBanner = banner;
+    }
+  }
+
+  function hasBanner(id) {
+    return banners.some((b) => b.id === id);
   }
 </script>
 
@@ -272,36 +302,49 @@
                   <div
                     class="relative h-full flex flex-col justify-end w-6 group z-10"
                   >
+                    <!-- svelte-ignore a11y-no-static-element-interactions -->
                     <div
-                      class="w-full transition-all duration-200 rounded-t-sm overflow-hidden {hoveredBarIdx !== null && hoveredBarIdx !== idx ? 'opacity-40' : ''} {hoveredBarIdx === idx ? 'brightness-115 shadow-md' : ''}"
+                      class="w-full transition-all duration-200 rounded-t-sm overflow-hidden {hoveredBarIdx !== null && hoveredBarIdx !== idx ? 'opacity-40' : ''} {hoveredBarIdx === idx ? 'brightness-115 shadow-md' : ''} {hasBanner(item.id) ? 'cursor-pointer' : 'cursor-default'}"
                       style="height: {(item.total / maxBarValue) *
                         100}%; z-index: {hoveredBarIdx === idx ? 50 : 10};"
+                      on:click={() => handleBarClick(item.id)}
+                      on:keydown={(e) => e.key === 'Enter' && handleBarClick(item.id)}
                     >
                       <Tooltip
-                        class="w-full h-full flex flex-col-reverse"
+                        class="w-full h-full flex flex-col-reverse {hasBanner(item.id) ? 'cursor-pointer' : 'cursor-default'}"
                         on:mouseenter={() => handleBarHover(idx)}
                         on:mouseleave={handleBarLeave}
                         on:focus={() => handleBarHover(idx)}
                         on:blur={handleBarLeave}
                       >
                         <div
-                          class="w-full transition-all hover:brightness-110"
+                          class="w-full transition-all hover:brightness-110 {hasBanner(item.id) ? 'cursor-pointer' : 'cursor-default'}"
                           style="background-color: #9B83BE; flex: {item.c4} 1 0%;"
                         ></div>
                         <div
-                          class="w-full transition-all hover:brightness-110"
+                          class="w-full transition-all hover:brightness-110 {hasBanner(item.id) ? 'cursor-pointer' : 'cursor-default'}"
                           style="background-color: #E3BC55; flex: {item.c5} 1 0%;"
                         ></div>
                         <div
-                          class="w-full transition-all hover:brightness-110"
+                          class="w-full transition-all hover:brightness-110 {hasBanner(item.id) ? 'cursor-pointer' : 'cursor-default'}"
                           style="background-color: #D0926E; flex: {item.c6} 1 0%;"
                         ></div>
 
                         <div slot="content" class="min-w-[160px] py-1 text-xs text-start">
-                          <div
-                            class="font-bold mb-2 border-b border-white/15 pb-1 text-white text-center truncate max-w-[170px]"
-                          >
-                            {$t(`banners.${item.id}`) || item.name}
+                          <div class="flex flex-col items-center gap-1 mb-2 border-b border-white/15 pb-2">
+                            {#if getBannerImage(item.id) || item.id.includes("generic")}
+                              <div class="w-20 h-11 rounded overflow-hidden border border-white/10 shadow-sm flex-shrink-0 bg-gray-900">
+                                <img
+                                  src={getBannerImage(item.id) || "/images/banners/unknown.jpg"}
+                                  alt={item.name}
+                                  class="w-full h-full object-cover"
+                                  on:error={(e) => (e.target.style.display = "none")}
+                                />
+                              </div>
+                            {/if}
+                            <div class="font-bold text-white text-center text-[11px] leading-tight truncate max-w-[170px]" title={$t(`banners.${item.id}`) || item.name}>
+                              {$t(`banners.${item.id}`) || item.name}
+                            </div>
                           </div>
 
                           <div class="space-y-1 font-nums text-white">
@@ -398,5 +441,11 @@
     </div>
   {/if}
 </div>
+
+<BannerModal
+  banner={selectedBanner}
+  pageContext={bannerType}
+  on:close={() => (selectedBanner = null)}
+/>
 
 
